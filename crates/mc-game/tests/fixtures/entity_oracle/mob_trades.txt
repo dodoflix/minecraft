@@ -1,0 +1,450 @@
+OFFERS V1 count=2
+OFFER V1 0 buyA=minecraft:emerald*4 buyB=- sell=minecraft:iron_boots*1 uses=0 max=12 xp=1 mult=0.2 demand=0 special=0
+OFFER V1 1 buyA=minecraft:emerald*5 buyB=- sell=minecraft:iron_helmet*1 uses=0 max=12 xp=1 mult=0.2 demand=0 special=0
+OFFERS V2 count=2
+OFFER V2 0 buyA=minecraft:emerald*4 buyB=- sell=minecraft:iron_boots*1 uses=0 max=12 xp=1 mult=0.2 demand=0 special=0
+OFFER V2 1 buyA=minecraft:coal*15 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFERS V3 count=2
+OFFER V3 0 buyA=minecraft:emerald*3 buyB=- sell=minecraft:chainmail_leggings*1 uses=0 max=12 xp=5 mult=0.2 demand=0 special=0
+OFFER V3 1 buyA=minecraft:emerald*36 buyB=- sell=minecraft:bell*1 uses=0 max=12 xp=5 mult=0.2 demand=0 special=0
+OFFERS V4 count=2
+OFFER V4 0 buyA=minecraft:iron_ingot*4 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFER V4 1 buyA=minecraft:emerald*1 buyB=- sell=minecraft:chainmail_boots*1 uses=0 max=12 xp=5 mult=0.2 demand=0 special=0
+OFFERS V5 count=2
+OFFER V5 0 buyA=minecraft:lava_bucket*1 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=20 mult=0.05 demand=0 special=0
+OFFER V5 1 buyA=minecraft:emerald*4 buyB=- sell=minecraft:chainmail_chestplate*1 uses=0 max=12 xp=10 mult=0.2 demand=0 special=0
+OFFERS V6 count=2
+OFFER V6 0 buyA=minecraft:diamond*1 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=20 mult=0.05 demand=0 special=0
+OFFER V6 1 buyA=minecraft:emerald*5 buyB=- sell=minecraft:shield*1 uses=0 max=12 xp=10 mult=0.2 demand=0 special=0
+OFFERS V7 count=2
+OFFER V7 0 buyA=minecraft:emerald*27 buyB=- sell=minecraft:diamond_boots*1{minecraft:enchantments:{minecraft:unbreaking:3}} uses=0 max=3 xp=15 mult=0.2 demand=0 special=0
+OFFER V7 1 buyA=minecraft:emerald*33 buyB=- sell=minecraft:diamond_leggings*1{minecraft:enchantments:{minecraft:protection:2}} uses=0 max=3 xp=15 mult=0.2 demand=0 special=0
+OFFERS V8 count=2
+OFFER V8 0 buyA=minecraft:emerald*19 buyB=- sell=minecraft:diamond_boots*1{minecraft:enchantments:{minecraft:feather_falling:2}} uses=0 max=3 xp=15 mult=0.2 demand=0 special=0
+OFFER V8 1 buyA=minecraft:emerald*31 buyB=- sell=minecraft:diamond_leggings*1{minecraft:enchantments:{minecraft:unbreaking:3}} uses=0 max=3 xp=15 mult=0.2 demand=0 special=0
+OFFERS V9 count=2
+OFFER V9 0 buyA=minecraft:emerald*24 buyB=- sell=minecraft:diamond_chestplate*1{minecraft:enchantments:{minecraft:protection:1}} uses=0 max=3 xp=30 mult=0.2 demand=0 special=0
+OFFER V9 1 buyA=minecraft:emerald*21 buyB=- sell=minecraft:diamond_helmet*1{minecraft:enchantments:{minecraft:protection:2,minecraft:unbreaking:2}} uses=0 max=3 xp=30 mult=0.2 demand=0 special=0
+OFFERS V10 count=2
+OFFER V10 0 buyA=minecraft:emerald*13 buyB=- sell=minecraft:diamond_helmet*1{minecraft:enchantments:{minecraft:projectile_protection:1}} uses=0 max=3 xp=30 mult=0.2 demand=0 special=0
+OFFER V10 1 buyA=minecraft:emerald*23 buyB=- sell=minecraft:diamond_chestplate*1{minecraft:enchantments:{minecraft:blast_protection:1}} uses=0 max=3 xp=30 mult=0.2 demand=0 special=0
+OFFERS V11 count=2
+OFFER V11 0 buyA=minecraft:porkchop*7 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFER V11 1 buyA=minecraft:chicken*14 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFERS V12 count=2
+OFFER V12 0 buyA=minecraft:emerald*1 buyB=- sell=minecraft:rabbit_stew*1 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER V12 1 buyA=minecraft:porkchop*7 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFERS V13 count=2
+OFFER V13 0 buyA=minecraft:emerald*1 buyB=- sell=minecraft:cooked_chicken*8 uses=0 max=16 xp=5 mult=0.05 demand=0 special=0
+OFFER V13 1 buyA=minecraft:emerald*1 buyB=- sell=minecraft:cooked_porkchop*5 uses=0 max=16 xp=5 mult=0.05 demand=0 special=0
+OFFERS V14 count=2
+OFFER V14 0 buyA=minecraft:coal*15 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFER V14 1 buyA=minecraft:emerald*1 buyB=- sell=minecraft:cooked_chicken*8 uses=0 max=16 xp=5 mult=0.05 demand=0 special=0
+OFFERS V15 count=2
+OFFER V15 0 buyA=minecraft:mutton*7 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=20 mult=0.05 demand=0 special=0
+OFFER V15 1 buyA=minecraft:beef*10 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=20 mult=0.05 demand=0 special=0
+OFFERS V16 count=2
+OFFER V16 0 buyA=minecraft:beef*10 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=20 mult=0.05 demand=0 special=0
+OFFER V16 1 buyA=minecraft:mutton*7 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=20 mult=0.05 demand=0 special=0
+OFFERS V17 count=1
+OFFER V17 0 buyA=minecraft:dried_kelp_block*10 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V18 count=1
+OFFER V18 0 buyA=minecraft:dried_kelp_block*10 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V19 count=1
+OFFER V19 0 buyA=minecraft:sweet_berries*10 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V20 count=1
+OFFER V20 0 buyA=minecraft:sweet_berries*10 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V21 count=2
+OFFER V21 0 buyA=minecraft:emerald*7 buyB=- sell=minecraft:map*1 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER V21 1 buyA=minecraft:paper*24 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=2 mult=0.05 demand=0 special=0
+OFFERS V22 count=2
+OFFER V22 0 buyA=minecraft:emerald*7 buyB=- sell=minecraft:map*1 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER V22 1 buyA=minecraft:paper*24 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=2 mult=0.05 demand=0 special=0
+OFFERS V23 count=1
+OFFER V23 0 buyA=minecraft:glass_pane*11 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFERS V24 count=1
+OFFER V24 0 buyA=minecraft:glass_pane*11 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFERS V25 count=1
+OFFER V25 0 buyA=minecraft:compass*1 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=20 mult=0.05 demand=0 special=0
+OFFERS V26 count=1
+OFFER V26 0 buyA=minecraft:compass*1 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=20 mult=0.05 demand=0 special=0
+OFFERS V27 count=2
+OFFER V27 0 buyA=minecraft:emerald*7 buyB=- sell=minecraft:item_frame*1 uses=0 max=12 xp=15 mult=0.05 demand=0 special=0
+OFFER V27 1 buyA=minecraft:emerald*2 buyB=- sell=minecraft:lime_banner*1 uses=0 max=12 xp=15 mult=0.05 demand=0 special=0
+OFFERS V28 count=2
+OFFER V28 0 buyA=minecraft:emerald*7 buyB=- sell=minecraft:item_frame*1 uses=0 max=12 xp=15 mult=0.05 demand=0 special=0
+OFFER V28 1 buyA=minecraft:emerald*2 buyB=- sell=minecraft:brown_banner*1 uses=0 max=12 xp=15 mult=0.05 demand=0 special=0
+OFFERS V29 count=1
+OFFER V29 0 buyA=minecraft:emerald*8 buyB=- sell=minecraft:globe_banner_pattern*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V30 count=1
+OFFER V30 0 buyA=minecraft:emerald*8 buyB=- sell=minecraft:globe_banner_pattern*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V31 count=2
+OFFER V31 0 buyA=minecraft:rotten_flesh*32 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFER V31 1 buyA=minecraft:emerald*1 buyB=- sell=minecraft:redstone*2 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFERS V32 count=2
+OFFER V32 0 buyA=minecraft:rotten_flesh*32 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFER V32 1 buyA=minecraft:emerald*1 buyB=- sell=minecraft:redstone*2 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFERS V33 count=2
+OFFER V33 0 buyA=minecraft:emerald*1 buyB=- sell=minecraft:lapis_lazuli*1 uses=0 max=12 xp=5 mult=0.05 demand=0 special=0
+OFFER V33 1 buyA=minecraft:gold_ingot*3 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFERS V34 count=2
+OFFER V34 0 buyA=minecraft:gold_ingot*3 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFER V34 1 buyA=minecraft:emerald*1 buyB=- sell=minecraft:lapis_lazuli*1 uses=0 max=12 xp=5 mult=0.05 demand=0 special=0
+OFFERS V35 count=2
+OFFER V35 0 buyA=minecraft:emerald*4 buyB=- sell=minecraft:glowstone*1 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFER V35 1 buyA=minecraft:rabbit_foot*2 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=20 mult=0.05 demand=0 special=0
+OFFERS V36 count=2
+OFFER V36 0 buyA=minecraft:rabbit_foot*2 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=20 mult=0.05 demand=0 special=0
+OFFER V36 1 buyA=minecraft:emerald*4 buyB=- sell=minecraft:glowstone*1 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFERS V37 count=2
+OFFER V37 0 buyA=minecraft:emerald*5 buyB=- sell=minecraft:ender_pearl*1 uses=0 max=12 xp=15 mult=0.05 demand=0 special=0
+OFFER V37 1 buyA=minecraft:turtle_scute*4 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V38 count=2
+OFFER V38 0 buyA=minecraft:emerald*5 buyB=- sell=minecraft:ender_pearl*1 uses=0 max=12 xp=15 mult=0.05 demand=0 special=0
+OFFER V38 1 buyA=minecraft:glass_bottle*9 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V39 count=2
+OFFER V39 0 buyA=minecraft:nether_wart*22 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFER V39 1 buyA=minecraft:emerald*3 buyB=- sell=minecraft:experience_bottle*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V40 count=2
+OFFER V40 0 buyA=minecraft:emerald*3 buyB=- sell=minecraft:experience_bottle*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFER V40 1 buyA=minecraft:nether_wart*22 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V41 count=2
+OFFER V41 0 buyA=minecraft:emerald*1 buyB=- sell=minecraft:bread*6 uses=0 max=16 xp=1 mult=0.05 demand=0 special=0
+OFFER V41 1 buyA=minecraft:wheat*20 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFERS V42 count=2
+OFFER V42 0 buyA=minecraft:carrot*22 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFER V42 1 buyA=minecraft:wheat*20 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFERS V43 count=2
+OFFER V43 0 buyA=minecraft:emerald*1 buyB=- sell=minecraft:pumpkin_pie*4 uses=0 max=12 xp=5 mult=0.05 demand=0 special=0
+OFFER V43 1 buyA=minecraft:pumpkin*6 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFERS V44 count=2
+OFFER V44 0 buyA=minecraft:emerald*1 buyB=- sell=minecraft:pumpkin_pie*4 uses=0 max=12 xp=5 mult=0.05 demand=0 special=0
+OFFER V44 1 buyA=minecraft:pumpkin*6 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFERS V45 count=2
+OFFER V45 0 buyA=minecraft:emerald*3 buyB=- sell=minecraft:cookie*18 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFER V45 1 buyA=minecraft:melon*4 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=20 mult=0.05 demand=0 special=0
+OFFERS V46 count=2
+OFFER V46 0 buyA=minecraft:melon*4 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=20 mult=0.05 demand=0 special=0
+OFFER V46 1 buyA=minecraft:emerald*3 buyB=- sell=minecraft:cookie*18 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFERS V47 count=2
+OFFER V47 0 buyA=minecraft:emerald*3 buyB=- sell=minecraft:cake*1 uses=0 max=12 xp=15 mult=0.05 demand=0 special=0
+OFFER V47 1 buyA=minecraft:emerald*1 buyB=- sell=minecraft:suspicious_stew*1{minecraft:suspicious_stew_effects:[{duration:140,id:"minecraft:weakness"}]} uses=0 max=12 xp=15 mult=0.05 demand=0 special=0
+OFFERS V48 count=2
+OFFER V48 0 buyA=minecraft:emerald*3 buyB=- sell=minecraft:cake*1 uses=0 max=12 xp=15 mult=0.05 demand=0 special=0
+OFFER V48 1 buyA=minecraft:emerald*1 buyB=- sell=minecraft:suspicious_stew*1{minecraft:suspicious_stew_effects:[{duration:100,id:"minecraft:night_vision"}]} uses=0 max=12 xp=15 mult=0.05 demand=0 special=0
+OFFERS V49 count=2
+OFFER V49 0 buyA=minecraft:emerald*3 buyB=- sell=minecraft:golden_carrot*3 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFER V49 1 buyA=minecraft:emerald*4 buyB=- sell=minecraft:glistering_melon_slice*3 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V50 count=2
+OFFER V50 0 buyA=minecraft:emerald*3 buyB=- sell=minecraft:golden_carrot*3 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFER V50 1 buyA=minecraft:emerald*4 buyB=- sell=minecraft:glistering_melon_slice*3 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V51 count=2
+OFFER V51 0 buyA=minecraft:string*20 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFER V51 1 buyA=minecraft:emerald*3 buyB=- sell=minecraft:cod_bucket*1 uses=0 max=16 xp=1 mult=0.05 demand=0 special=0
+OFFERS V52 count=2
+OFFER V52 0 buyA=minecraft:emerald*3 buyB=- sell=minecraft:cod_bucket*1 uses=0 max=16 xp=1 mult=0.05 demand=0 special=0
+OFFER V52 1 buyA=minecraft:cod*6 buyB=minecraft:emerald*1 sell=minecraft:cooked_cod*6 uses=0 max=16 xp=1 mult=0.05 demand=0 special=0
+OFFERS V53 count=2
+OFFER V53 0 buyA=minecraft:emerald*2 buyB=- sell=minecraft:campfire*1 uses=0 max=12 xp=5 mult=0.05 demand=0 special=0
+OFFER V53 1 buyA=minecraft:cod*15 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=10 mult=0.05 demand=0 special=0
+OFFERS V54 count=2
+OFFER V54 0 buyA=minecraft:salmon*6 buyB=minecraft:emerald*1 sell=minecraft:cooked_salmon*6 uses=0 max=16 xp=5 mult=0.05 demand=0 special=0
+OFFER V54 1 buyA=minecraft:emerald*2 buyB=- sell=minecraft:campfire*1 uses=0 max=12 xp=5 mult=0.05 demand=0 special=0
+OFFERS V55 count=2
+OFFER V55 0 buyA=minecraft:emerald*10 buyB=- sell=minecraft:fishing_rod*1{minecraft:enchantments:{minecraft:unbreaking:1}} uses=0 max=3 xp=10 mult=0.2 demand=0 special=0
+OFFER V55 1 buyA=minecraft:salmon*13 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=20 mult=0.05 demand=0 special=0
+OFFERS V56 count=2
+OFFER V56 0 buyA=minecraft:salmon*13 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=20 mult=0.05 demand=0 special=0
+OFFER V56 1 buyA=minecraft:emerald*14 buyB=- sell=minecraft:fishing_rod*1{minecraft:enchantments:{minecraft:unbreaking:1}} uses=0 max=3 xp=10 mult=0.2 demand=0 special=0
+OFFERS V57 count=1
+OFFER V57 0 buyA=minecraft:tropical_fish*6 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V58 count=1
+OFFER V58 0 buyA=minecraft:tropical_fish*6 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V59 count=2
+OFFER V59 0 buyA=minecraft:pufferfish*4 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFER V59 1 buyA=minecraft:acacia_boat*1 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V60 count=2
+OFFER V60 0 buyA=minecraft:spruce_boat*1 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFER V60 1 buyA=minecraft:pufferfish*4 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V61 count=2
+OFFER V61 0 buyA=minecraft:emerald*1 buyB=- sell=minecraft:arrow*16 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER V61 1 buyA=minecraft:gravel*10 buyB=minecraft:emerald*1 sell=minecraft:flint*10 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFERS V62 count=2
+OFFER V62 0 buyA=minecraft:emerald*1 buyB=- sell=minecraft:arrow*16 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER V62 1 buyA=minecraft:gravel*10 buyB=minecraft:emerald*1 sell=minecraft:flint*10 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFERS V63 count=2
+OFFER V63 0 buyA=minecraft:emerald*2 buyB=- sell=minecraft:bow*1 uses=0 max=12 xp=5 mult=0.05 demand=0 special=0
+OFFER V63 1 buyA=minecraft:flint*26 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFERS V64 count=2
+OFFER V64 0 buyA=minecraft:emerald*2 buyB=- sell=minecraft:bow*1 uses=0 max=12 xp=5 mult=0.05 demand=0 special=0
+OFFER V64 1 buyA=minecraft:flint*26 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFERS V65 count=2
+OFFER V65 0 buyA=minecraft:emerald*3 buyB=- sell=minecraft:crossbow*1 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFER V65 1 buyA=minecraft:string*14 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=20 mult=0.05 demand=0 special=0
+OFFERS V66 count=2
+OFFER V66 0 buyA=minecraft:string*14 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=20 mult=0.05 demand=0 special=0
+OFFER V66 1 buyA=minecraft:emerald*3 buyB=- sell=minecraft:crossbow*1 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFERS V67 count=2
+OFFER V67 0 buyA=minecraft:emerald*11 buyB=- sell=minecraft:bow*1{minecraft:enchantments:{minecraft:power:2}} uses=0 max=3 xp=15 mult=0.05 demand=0 special=0
+OFFER V67 1 buyA=minecraft:feather*24 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=30 mult=0.05 demand=0 special=0
+OFFERS V68 count=2
+OFFER V68 0 buyA=minecraft:emerald*17 buyB=- sell=minecraft:bow*1{minecraft:enchantments:{minecraft:power:2,minecraft:punch:1}} uses=0 max=3 xp=15 mult=0.05 demand=0 special=0
+OFFER V68 1 buyA=minecraft:feather*24 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=30 mult=0.05 demand=0 special=0
+OFFERS V69 count=2
+OFFER V69 0 buyA=minecraft:emerald*2 buyB=minecraft:arrow*5 sell=minecraft:tipped_arrow*5{minecraft:potion_contents:{potion:"minecraft:healing"}} uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFER V69 1 buyA=minecraft:emerald*11 buyB=- sell=minecraft:crossbow*1{minecraft:enchantments:{minecraft:piercing:1}} uses=0 max=3 xp=15 mult=0.05 demand=0 special=0
+OFFERS V70 count=2
+OFFER V70 0 buyA=minecraft:emerald*2 buyB=minecraft:arrow*5 sell=minecraft:tipped_arrow*5{minecraft:potion_contents:{potion:"minecraft:strong_leaping"}} uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFER V70 1 buyA=minecraft:emerald*14 buyB=- sell=minecraft:crossbow*1{minecraft:enchantments:{minecraft:piercing:2}} uses=0 max=3 xp=15 mult=0.05 demand=0 special=0
+OFFERS V71 count=2
+OFFER V71 0 buyA=minecraft:emerald*7 buyB=- sell=minecraft:leather_chestplate*1{minecraft:dyed_color:14706541} uses=0 max=12 xp=1 mult=0.2 demand=0 special=0
+OFFER V71 1 buyA=minecraft:leather*6 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFERS V72 count=2
+OFFER V72 0 buyA=minecraft:leather*6 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFER V72 1 buyA=minecraft:emerald*3 buyB=- sell=minecraft:leather_leggings*1{minecraft:dyed_color:6437766} uses=0 max=12 xp=1 mult=0.2 demand=0 special=0
+OFFERS V73 count=2
+OFFER V73 0 buyA=minecraft:flint*26 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFER V73 1 buyA=minecraft:emerald*5 buyB=- sell=minecraft:leather_helmet*1{minecraft:dyed_color:5995391} uses=0 max=12 xp=5 mult=0.2 demand=0 special=0
+OFFERS V74 count=2
+OFFER V74 0 buyA=minecraft:emerald*5 buyB=- sell=minecraft:leather_helmet*1{minecraft:dyed_color:8688288} uses=0 max=12 xp=5 mult=0.2 demand=0 special=0
+OFFER V74 1 buyA=minecraft:emerald*4 buyB=- sell=minecraft:leather_boots*1{minecraft:dyed_color:10192822} uses=0 max=12 xp=5 mult=0.2 demand=0 special=0
+OFFERS V75 count=2
+OFFER V75 0 buyA=minecraft:rabbit_hide*9 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=20 mult=0.05 demand=0 special=0
+OFFER V75 1 buyA=minecraft:emerald*7 buyB=- sell=minecraft:leather_chestplate*1{minecraft:dyed_color:15375006} uses=0 max=12 xp=1 mult=0.2 demand=0 special=0
+OFFERS V76 count=2
+OFFER V76 0 buyA=minecraft:rabbit_hide*9 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=20 mult=0.05 demand=0 special=0
+OFFER V76 1 buyA=minecraft:emerald*7 buyB=- sell=minecraft:leather_chestplate*1{minecraft:dyed_color:3837017} uses=0 max=12 xp=1 mult=0.2 demand=0 special=0
+OFFERS V77 count=2
+OFFER V77 0 buyA=minecraft:emerald*6 buyB=- sell=minecraft:leather_horse_armor*1{minecraft:dyed_color:3044727} uses=0 max=12 xp=15 mult=0.2 demand=0 special=0
+OFFER V77 1 buyA=minecraft:turtle_scute*4 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V78 count=2
+OFFER V78 0 buyA=minecraft:emerald*6 buyB=- sell=minecraft:leather_horse_armor*1{minecraft:dyed_color:12284721} uses=0 max=12 xp=15 mult=0.2 demand=0 special=0
+OFFER V78 1 buyA=minecraft:turtle_scute*4 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V79 count=2
+OFFER V79 0 buyA=minecraft:emerald*5 buyB=- sell=minecraft:leather_helmet*1{minecraft:dyed_color:8039086} uses=0 max=12 xp=5 mult=0.2 demand=0 special=0
+OFFER V79 1 buyA=minecraft:emerald*6 buyB=- sell=minecraft:saddle*1 uses=0 max=12 xp=30 mult=0.2 demand=0 special=0
+OFFERS V80 count=2
+OFFER V80 0 buyA=minecraft:emerald*6 buyB=- sell=minecraft:saddle*1 uses=0 max=12 xp=30 mult=0.2 demand=0 special=0
+OFFER V80 1 buyA=minecraft:emerald*5 buyB=- sell=minecraft:leather_helmet*1{minecraft:dyed_color:8951909} uses=0 max=12 xp=5 mult=0.2 demand=0 special=0
+OFFERS V81 count=2
+OFFER V81 0 buyA=minecraft:emerald*9 buyB=- sell=minecraft:bookshelf*1 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER V81 1 buyA=minecraft:emerald*32 buyB=minecraft:book*1 sell=minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:power:3}} uses=0 max=12 xp=1 mult=0.2 demand=0 special=0
+OFFERS V82 count=2
+OFFER V82 0 buyA=minecraft:emerald*35 buyB=minecraft:book*1 sell=minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:respiration:3}} uses=0 max=12 xp=1 mult=0.2 demand=0 special=0
+OFFER V82 1 buyA=minecraft:paper*24 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFERS V83 count=2
+OFFER V83 0 buyA=minecraft:book*4 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFER V83 1 buyA=minecraft:emerald*7 buyB=minecraft:book*1 sell=minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:loyalty:1}} uses=0 max=12 xp=5 mult=0.2 demand=0 special=0
+OFFERS V84 count=2
+OFFER V84 0 buyA=minecraft:emerald*1 buyB=- sell=minecraft:lantern*1 uses=0 max=12 xp=5 mult=0.05 demand=0 special=0
+OFFER V84 1 buyA=minecraft:emerald*21 buyB=minecraft:book*1 sell=minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:feather_falling:3}} uses=0 max=12 xp=5 mult=0.2 demand=0 special=0
+OFFERS V85 count=2
+OFFER V85 0 buyA=minecraft:emerald*1 buyB=- sell=minecraft:glass*4 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFER V85 1 buyA=minecraft:ink_sac*5 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=20 mult=0.05 demand=0 special=0
+OFFERS V86 count=2
+OFFER V86 0 buyA=minecraft:emerald*1 buyB=- sell=minecraft:glass*4 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFER V86 1 buyA=minecraft:emerald*18 buyB=minecraft:book*1 sell=minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:bane_of_arthropods:3}} uses=0 max=12 xp=10 mult=0.2 demand=0 special=0
+OFFERS V87 count=2
+OFFER V87 0 buyA=minecraft:emerald*30 buyB=minecraft:book*1 sell=minecraft:enchanted_book*1{minecraft:stored_enchantments:{minecraft:binding_curse:1}} uses=0 max=12 xp=15 mult=0.2 demand=0 special=0
+OFFER V87 1 buyA=minecraft:emerald*4 buyB=- sell=minecraft:compass*1 uses=0 max=12 xp=15 mult=0.05 demand=0 special=0
+OFFERS V88 count=2
+OFFER V88 0 buyA=minecraft:emerald*5 buyB=- sell=minecraft:clock*1 uses=0 max=12 xp=15 mult=0.05 demand=0 special=0
+OFFER V88 1 buyA=minecraft:writable_book*1 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V89 count=2
+OFFER V89 0 buyA=minecraft:emerald*3 buyB=- sell=minecraft:yellow_candle*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFER V89 1 buyA=minecraft:emerald*3 buyB=- sell=minecraft:red_candle*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V90 count=2
+OFFER V90 0 buyA=minecraft:emerald*3 buyB=- sell=minecraft:yellow_candle*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFER V90 1 buyA=minecraft:emerald*3 buyB=- sell=minecraft:red_candle*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V91 count=2
+OFFER V91 0 buyA=minecraft:emerald*1 buyB=- sell=minecraft:brick*10 uses=0 max=16 xp=1 mult=0.05 demand=0 special=0
+OFFER V91 1 buyA=minecraft:clay_ball*10 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFERS V92 count=2
+OFFER V92 0 buyA=minecraft:clay_ball*10 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFER V92 1 buyA=minecraft:emerald*1 buyB=- sell=minecraft:brick*10 uses=0 max=16 xp=1 mult=0.05 demand=0 special=0
+OFFERS V93 count=2
+OFFER V93 0 buyA=minecraft:stone*20 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=10 mult=0.05 demand=0 special=0
+OFFER V93 1 buyA=minecraft:emerald*1 buyB=- sell=minecraft:chiseled_stone_bricks*4 uses=0 max=16 xp=5 mult=0.05 demand=0 special=0
+OFFERS V94 count=2
+OFFER V94 0 buyA=minecraft:emerald*1 buyB=- sell=minecraft:chiseled_stone_bricks*4 uses=0 max=16 xp=5 mult=0.05 demand=0 special=0
+OFFER V94 1 buyA=minecraft:stone*20 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=10 mult=0.05 demand=0 special=0
+OFFERS V95 count=2
+OFFER V95 0 buyA=minecraft:andesite*16 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=20 mult=0.05 demand=0 special=0
+OFFER V95 1 buyA=minecraft:emerald*1 buyB=- sell=minecraft:polished_diorite*4 uses=0 max=16 xp=10 mult=0.05 demand=0 special=0
+OFFERS V96 count=2
+OFFER V96 0 buyA=minecraft:diorite*16 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=20 mult=0.05 demand=0 special=0
+OFFER V96 1 buyA=minecraft:andesite*16 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=20 mult=0.05 demand=0 special=0
+OFFERS V97 count=2
+OFFER V97 0 buyA=minecraft:emerald*1 buyB=- sell=minecraft:cyan_terracotta*1 uses=0 max=12 xp=15 mult=0.05 demand=0 special=0
+OFFER V97 1 buyA=minecraft:emerald*1 buyB=- sell=minecraft:red_glazed_terracotta*1 uses=0 max=12 xp=15 mult=0.05 demand=0 special=0
+OFFERS V98 count=2
+OFFER V98 0 buyA=minecraft:emerald*1 buyB=- sell=minecraft:yellow_glazed_terracotta*1 uses=0 max=12 xp=15 mult=0.05 demand=0 special=0
+OFFER V98 1 buyA=minecraft:quartz*12 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V99 count=2
+OFFER V99 0 buyA=minecraft:emerald*1 buyB=- sell=minecraft:quartz_block*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFER V99 1 buyA=minecraft:emerald*1 buyB=- sell=minecraft:quartz_pillar*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V100 count=2
+OFFER V100 0 buyA=minecraft:emerald*1 buyB=- sell=minecraft:quartz_pillar*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFER V100 1 buyA=minecraft:emerald*1 buyB=- sell=minecraft:quartz_block*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V101 count=2
+OFFER V101 0 buyA=minecraft:gray_wool*18 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFER V101 1 buyA=minecraft:black_wool*18 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFERS V102 count=2
+OFFER V102 0 buyA=minecraft:white_wool*18 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFER V102 1 buyA=minecraft:black_wool*18 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFERS V103 count=2
+OFFER V103 0 buyA=minecraft:emerald*1 buyB=- sell=minecraft:brown_wool*1 uses=0 max=16 xp=5 mult=0.05 demand=0 special=0
+OFFER V103 1 buyA=minecraft:emerald*1 buyB=- sell=minecraft:orange_carpet*4 uses=0 max=16 xp=5 mult=0.05 demand=0 special=0
+OFFERS V104 count=2
+OFFER V104 0 buyA=minecraft:gray_dye*12 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=10 mult=0.05 demand=0 special=0
+OFFER V104 1 buyA=minecraft:emerald*1 buyB=- sell=minecraft:purple_wool*1 uses=0 max=16 xp=5 mult=0.05 demand=0 special=0
+OFFERS V105 count=2
+OFFER V105 0 buyA=minecraft:emerald*3 buyB=- sell=minecraft:lime_bed*1 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFER V105 1 buyA=minecraft:emerald*3 buyB=- sell=minecraft:red_bed*1 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFERS V106 count=2
+OFFER V106 0 buyA=minecraft:emerald*3 buyB=- sell=minecraft:orange_bed*1 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFER V106 1 buyA=minecraft:emerald*3 buyB=- sell=minecraft:lime_bed*1 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFERS V107 count=2
+OFFER V107 0 buyA=minecraft:emerald*3 buyB=- sell=minecraft:light_gray_banner*1 uses=0 max=12 xp=15 mult=0.05 demand=0 special=0
+OFFER V107 1 buyA=minecraft:emerald*3 buyB=- sell=minecraft:gray_banner*1 uses=0 max=12 xp=15 mult=0.05 demand=0 special=0
+OFFERS V108 count=2
+OFFER V108 0 buyA=minecraft:emerald*3 buyB=- sell=minecraft:black_banner*1 uses=0 max=12 xp=15 mult=0.05 demand=0 special=0
+OFFER V108 1 buyA=minecraft:emerald*3 buyB=- sell=minecraft:green_banner*1 uses=0 max=12 xp=15 mult=0.05 demand=0 special=0
+OFFERS V109 count=1
+OFFER V109 0 buyA=minecraft:emerald*2 buyB=- sell=minecraft:painting*3 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V110 count=1
+OFFER V110 0 buyA=minecraft:emerald*2 buyB=- sell=minecraft:painting*3 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V111 count=2
+OFFER V111 0 buyA=minecraft:emerald*1 buyB=- sell=minecraft:stone_axe*1 uses=0 max=12 xp=1 mult=0.2 demand=0 special=0
+OFFER V111 1 buyA=minecraft:emerald*1 buyB=- sell=minecraft:stone_shovel*1 uses=0 max=12 xp=1 mult=0.2 demand=0 special=0
+OFFERS V112 count=2
+OFFER V112 0 buyA=minecraft:emerald*1 buyB=- sell=minecraft:stone_shovel*1 uses=0 max=12 xp=1 mult=0.2 demand=0 special=0
+OFFER V112 1 buyA=minecraft:emerald*1 buyB=- sell=minecraft:stone_hoe*1 uses=0 max=12 xp=1 mult=0.2 demand=0 special=0
+OFFERS V113 count=2
+OFFER V113 0 buyA=minecraft:emerald*36 buyB=- sell=minecraft:bell*1 uses=0 max=12 xp=5 mult=0.2 demand=0 special=0
+OFFER V113 1 buyA=minecraft:iron_ingot*4 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFERS V114 count=2
+OFFER V114 0 buyA=minecraft:emerald*36 buyB=- sell=minecraft:bell*1 uses=0 max=12 xp=5 mult=0.2 demand=0 special=0
+OFFER V114 1 buyA=minecraft:iron_ingot*4 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFERS V115 count=2
+OFFER V115 0 buyA=minecraft:emerald*11 buyB=- sell=minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:2}} uses=0 max=3 xp=10 mult=0.2 demand=0 special=0
+OFFER V115 1 buyA=minecraft:emerald*10 buyB=- sell=minecraft:iron_shovel*1{minecraft:enchantments:{minecraft:unbreaking:2}} uses=0 max=3 xp=10 mult=0.2 demand=0 special=0
+OFFERS V116 count=2
+OFFER V116 0 buyA=minecraft:emerald*11 buyB=- sell=minecraft:iron_pickaxe*1{minecraft:enchantments:{minecraft:unbreaking:2}} uses=0 max=3 xp=10 mult=0.2 demand=0 special=0
+OFFER V116 1 buyA=minecraft:emerald*19 buyB=- sell=minecraft:iron_shovel*1{minecraft:enchantments:{minecraft:efficiency:2,minecraft:fortune:1}} uses=0 max=3 xp=10 mult=0.2 demand=0 special=0
+OFFERS V117 count=2
+OFFER V117 0 buyA=minecraft:emerald*31 buyB=- sell=minecraft:diamond_axe*1{minecraft:enchantments:{minecraft:efficiency:3,minecraft:fortune:1,minecraft:unbreaking:3}} uses=0 max=3 xp=15 mult=0.2 demand=0 special=0
+OFFER V117 1 buyA=minecraft:emerald*11 buyB=- sell=minecraft:diamond_shovel*1{minecraft:enchantments:{minecraft:efficiency:1}} uses=0 max=3 xp=15 mult=0.2 demand=0 special=0
+OFFERS V118 count=2
+OFFER V118 0 buyA=minecraft:diamond*1 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFER V118 1 buyA=minecraft:emerald*27 buyB=- sell=minecraft:diamond_axe*1{minecraft:enchantments:{minecraft:fortune:1,minecraft:unbreaking:2}} uses=0 max=3 xp=15 mult=0.2 demand=0 special=0
+OFFERS V119 count=1
+OFFER V119 0 buyA=minecraft:emerald*18 buyB=- sell=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}} uses=0 max=3 xp=30 mult=0.2 demand=0 special=0
+OFFERS V120 count=1
+OFFER V120 0 buyA=minecraft:emerald*18 buyB=- sell=minecraft:diamond_pickaxe*1{minecraft:enchantments:{minecraft:efficiency:1}} uses=0 max=3 xp=30 mult=0.2 demand=0 special=0
+OFFERS V121 count=2
+OFFER V121 0 buyA=minecraft:coal*15 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFER V121 1 buyA=minecraft:emerald*15 buyB=- sell=minecraft:iron_sword*1{minecraft:enchantments:{minecraft:bane_of_arthropods:2,minecraft:unbreaking:2}} uses=0 max=12 xp=1 mult=0.2 demand=0 special=0
+OFFERS V122 count=2
+OFFER V122 0 buyA=minecraft:emerald*8 buyB=- sell=minecraft:iron_sword*1{minecraft:enchantments:{minecraft:sharpness:1}} uses=0 max=12 xp=1 mult=0.2 demand=0 special=0
+OFFER V122 1 buyA=minecraft:coal*15 buyB=- sell=minecraft:emerald*1 uses=0 max=16 xp=2 mult=0.05 demand=0 special=0
+OFFERS V123 count=2
+OFFER V123 0 buyA=minecraft:emerald*36 buyB=- sell=minecraft:bell*1 uses=0 max=12 xp=5 mult=0.2 demand=0 special=0
+OFFER V123 1 buyA=minecraft:iron_ingot*4 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFERS V124 count=2
+OFFER V124 0 buyA=minecraft:emerald*36 buyB=- sell=minecraft:bell*1 uses=0 max=12 xp=5 mult=0.2 demand=0 special=0
+OFFER V124 1 buyA=minecraft:iron_ingot*4 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=10 mult=0.05 demand=0 special=0
+OFFERS V125 count=1
+OFFER V125 0 buyA=minecraft:flint*24 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=20 mult=0.05 demand=0 special=0
+OFFERS V126 count=1
+OFFER V126 0 buyA=minecraft:flint*24 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=20 mult=0.05 demand=0 special=0
+OFFERS V127 count=2
+OFFER V127 0 buyA=minecraft:diamond*1 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFER V127 1 buyA=minecraft:emerald*29 buyB=- sell=minecraft:diamond_axe*1{minecraft:enchantments:{minecraft:efficiency:2,minecraft:unbreaking:2}} uses=0 max=3 xp=15 mult=0.2 demand=0 special=0
+OFFERS V128 count=2
+OFFER V128 0 buyA=minecraft:emerald*30 buyB=- sell=minecraft:diamond_axe*1{minecraft:enchantments:{minecraft:unbreaking:3}} uses=0 max=3 xp=15 mult=0.2 demand=0 special=0
+OFFER V128 1 buyA=minecraft:diamond*1 buyB=- sell=minecraft:emerald*1 uses=0 max=12 xp=30 mult=0.05 demand=0 special=0
+OFFERS V129 count=1
+OFFER V129 0 buyA=minecraft:emerald*20 buyB=- sell=minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:knockback:1,minecraft:sharpness:2,minecraft:unbreaking:2}} uses=0 max=3 xp=30 mult=0.2 demand=0 special=0
+OFFERS V130 count=1
+OFFER V130 0 buyA=minecraft:emerald*18 buyB=- sell=minecraft:diamond_sword*1{minecraft:enchantments:{minecraft:sharpness:2}} uses=0 max=3 xp=30 mult=0.2 demand=0 special=0
+OFFERS W1 count=9
+OFFER W1 0 buyA=minecraft:milk_bucket*1 buyB=- sell=minecraft:emerald*2 uses=0 max=2 xp=1 mult=0.05 demand=0 special=0
+OFFER W1 1 buyA=minecraft:baked_potato*4 buyB=- sell=minecraft:emerald*1 uses=0 max=2 xp=1 mult=0.05 demand=0 special=0
+OFFER W1 2 buyA=minecraft:emerald*1 buyB=- sell=minecraft:spruce_log*8 uses=0 max=4 xp=1 mult=0.05 demand=0 special=0
+OFFER W1 3 buyA=minecraft:emerald*1 buyB=- sell=minecraft:packed_ice*1 uses=0 max=6 xp=1 mult=0.05 demand=0 special=0
+OFFER W1 4 buyA=minecraft:emerald*3 buyB=- sell=minecraft:tube_coral_block*1 uses=0 max=8 xp=1 mult=0.05 demand=0 special=0
+OFFER W1 5 buyA=minecraft:emerald*1 buyB=- sell=minecraft:small_dripleaf*2 uses=0 max=5 xp=1 mult=0.05 demand=0 special=0
+OFFER W1 6 buyA=minecraft:emerald*2 buyB=- sell=minecraft:glowstone*1 uses=0 max=5 xp=1 mult=0.05 demand=0 special=0
+OFFER W1 7 buyA=minecraft:emerald*1 buyB=- sell=minecraft:purple_dye*3 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER W1 8 buyA=minecraft:emerald*1 buyB=- sell=minecraft:magenta_dye*3 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFERS W2 count=9
+OFFER W2 0 buyA=minecraft:hay_block*1 buyB=- sell=minecraft:emerald*1 uses=0 max=2 xp=1 mult=0.05 demand=0 special=0
+OFFER W2 1 buyA=minecraft:milk_bucket*1 buyB=- sell=minecraft:emerald*2 uses=0 max=2 xp=1 mult=0.05 demand=0 special=0
+OFFER W2 2 buyA=minecraft:emerald*1 buyB=- sell=minecraft:gunpowder*4 uses=0 max=2 xp=1 mult=0.05 demand=0 special=0
+OFFER W2 3 buyA=minecraft:emerald*1 buyB=- sell=minecraft:acacia_log*8 uses=0 max=4 xp=1 mult=0.05 demand=0 special=0
+OFFER W2 4 buyA=minecraft:emerald*2 buyB=- sell=minecraft:golden_dandelion*1 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER W2 5 buyA=minecraft:emerald*1 buyB=- sell=minecraft:pink_dye*3 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER W2 6 buyA=minecraft:emerald*3 buyB=- sell=minecraft:firefly_bush*1 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER W2 7 buyA=minecraft:emerald*1 buyB=- sell=minecraft:brown_mushroom*3 uses=0 max=4 xp=1 mult=0.05 demand=0 special=0
+OFFER W2 8 buyA=minecraft:emerald*1 buyB=- sell=minecraft:name_tag*1 uses=0 max=5 xp=1 mult=0.05 demand=0 special=0
+OFFERS W3 count=9
+OFFER W3 0 buyA=minecraft:hay_block*1 buyB=- sell=minecraft:emerald*1 uses=0 max=2 xp=1 mult=0.05 demand=0 special=0
+OFFER W3 1 buyA=minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:water"}} buyB=- sell=minecraft:emerald*1 uses=0 max=2 xp=1 mult=0.05 demand=0 special=0
+OFFER W3 2 buyA=minecraft:emerald*1 buyB=- sell=minecraft:jungle_log*8 uses=0 max=4 xp=1 mult=0.05 demand=0 special=0
+OFFER W3 3 buyA=minecraft:emerald*3 buyB=- sell=minecraft:podzol*3 uses=0 max=6 xp=1 mult=0.05 demand=0 special=0
+OFFER W3 4 buyA=minecraft:emerald*1 buyB=- sell=minecraft:brown_mushroom*3 uses=0 max=4 xp=1 mult=0.05 demand=0 special=0
+OFFER W3 5 buyA=minecraft:emerald*1 buyB=- sell=minecraft:pink_dye*3 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER W3 6 buyA=minecraft:emerald*1 buyB=- sell=minecraft:magenta_dye*3 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER W3 7 buyA=minecraft:emerald*1 buyB=- sell=minecraft:open_eyeblossom*1 uses=0 max=7 xp=1 mult=0.05 demand=0 special=0
+OFFER W3 8 buyA=minecraft:emerald*1 buyB=- sell=minecraft:purple_dye*3 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFERS W4 count=9
+OFFER W4 0 buyA=minecraft:water_bucket*1 buyB=- sell=minecraft:emerald*2 uses=0 max=2 xp=1 mult=0.05 demand=0 special=0
+OFFER W4 1 buyA=minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:water"}} buyB=- sell=minecraft:emerald*1 uses=0 max=2 xp=1 mult=0.05 demand=0 special=0
+OFFER W4 2 buyA=minecraft:emerald*1 buyB=- sell=minecraft:poplar_log*8 uses=0 max=4 xp=1 mult=0.05 demand=0 special=0
+OFFER W4 3 buyA=minecraft:emerald*1 buyB=- sell=minecraft:gunpowder*4 uses=0 max=2 xp=1 mult=0.05 demand=0 special=0
+OFFER W4 4 buyA=minecraft:emerald*1 buyB=- sell=minecraft:black_dye*3 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER W4 5 buyA=minecraft:emerald*1 buyB=- sell=minecraft:rooted_dirt*2 uses=0 max=5 xp=1 mult=0.05 demand=0 special=0
+OFFER W4 6 buyA=minecraft:emerald*1 buyB=- sell=minecraft:sulfur_spike*2 uses=0 max=5 xp=1 mult=0.05 demand=0 special=0
+OFFER W4 7 buyA=minecraft:emerald*1 buyB=- sell=minecraft:brown_dye*3 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER W4 8 buyA=minecraft:emerald*1 buyB=- sell=minecraft:red_sand*4 uses=0 max=6 xp=1 mult=0.05 demand=0 special=0
+OFFERS W5 count=9
+OFFER W5 0 buyA=minecraft:fermented_spider_eye*1 buyB=- sell=minecraft:emerald*3 uses=0 max=2 xp=1 mult=0.05 demand=0 special=0
+OFFER W5 1 buyA=minecraft:water_bucket*1 buyB=- sell=minecraft:emerald*2 uses=0 max=2 xp=1 mult=0.05 demand=0 special=0
+OFFER W5 2 buyA=minecraft:emerald*1 buyB=- sell=minecraft:jungle_log*8 uses=0 max=4 xp=1 mult=0.05 demand=0 special=0
+OFFER W5 3 buyA=minecraft:emerald*1 buyB=- sell=minecraft:pale_oak_log*8 uses=0 max=4 xp=1 mult=0.05 demand=0 special=0
+OFFER W5 4 buyA=minecraft:emerald*1 buyB=- sell=minecraft:red_sand*4 uses=0 max=6 xp=1 mult=0.05 demand=0 special=0
+OFFER W5 5 buyA=minecraft:emerald*1 buyB=- sell=minecraft:white_tulip*1 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER W5 6 buyA=minecraft:emerald*2 buyB=- sell=minecraft:glowstone*1 uses=0 max=5 xp=1 mult=0.05 demand=0 special=0
+OFFER W5 7 buyA=minecraft:emerald*1 buyB=- sell=minecraft:light_gray_dye*3 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER W5 8 buyA=minecraft:emerald*2 buyB=- sell=minecraft:sea_pickle*1 uses=0 max=5 xp=1 mult=0.05 demand=0 special=0
+OFFERS W6 count=9
+OFFER W6 0 buyA=minecraft:baked_potato*4 buyB=- sell=minecraft:emerald*1 uses=0 max=2 xp=1 mult=0.05 demand=0 special=0
+OFFER W6 1 buyA=minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:water"}} buyB=- sell=minecraft:emerald*1 uses=0 max=2 xp=1 mult=0.05 demand=0 special=0
+OFFER W6 2 buyA=minecraft:emerald*1 buyB=- sell=minecraft:poplar_log*8 uses=0 max=4 xp=1 mult=0.05 demand=0 special=0
+OFFER W6 3 buyA=minecraft:emerald*1 buyB=- sell=minecraft:spruce_log*8 uses=0 max=4 xp=1 mult=0.05 demand=0 special=0
+OFFER W6 4 buyA=minecraft:emerald*1 buyB=- sell=minecraft:orange_tulip*1 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER W6 5 buyA=minecraft:emerald*1 buyB=- sell=minecraft:yellow_dye*3 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER W6 6 buyA=minecraft:emerald*1 buyB=- sell=minecraft:moss_block*2 uses=0 max=5 xp=1 mult=0.05 demand=0 special=0
+OFFER W6 7 buyA=minecraft:emerald*1 buyB=- sell=minecraft:tall_dry_grass*1 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER W6 8 buyA=minecraft:emerald*1 buyB=- sell=minecraft:sugar_cane*1 uses=0 max=8 xp=1 mult=0.05 demand=0 special=0
+OFFERS W7 count=9
+OFFER W7 0 buyA=minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:water"}} buyB=- sell=minecraft:emerald*1 uses=0 max=2 xp=1 mult=0.05 demand=0 special=0
+OFFER W7 1 buyA=minecraft:water_bucket*1 buyB=- sell=minecraft:emerald*2 uses=0 max=2 xp=1 mult=0.05 demand=0 special=0
+OFFER W7 2 buyA=minecraft:emerald*1 buyB=- sell=minecraft:mangrove_log*8 uses=0 max=4 xp=1 mult=0.05 demand=0 special=0
+OFFER W7 3 buyA=minecraft:emerald*1 buyB=- sell=minecraft:dark_oak_log*8 uses=0 max=4 xp=1 mult=0.05 demand=0 special=0
+OFFER W7 4 buyA=minecraft:emerald*1 buyB=- sell=minecraft:brown_mushroom*3 uses=0 max=4 xp=1 mult=0.05 demand=0 special=0
+OFFER W7 5 buyA=minecraft:emerald*1 buyB=- sell=minecraft:blue_dye*3 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER W7 6 buyA=minecraft:emerald*1 buyB=- sell=minecraft:pale_hanging_moss*3 uses=0 max=4 xp=1 mult=0.05 demand=0 special=0
+OFFER W7 7 buyA=minecraft:emerald*1 buyB=- sell=minecraft:tall_dry_grass*1 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER W7 8 buyA=minecraft:emerald*4 buyB=- sell=minecraft:slime_ball*1 uses=0 max=5 xp=1 mult=0.05 demand=0 special=0
+OFFERS W8 count=9
+OFFER W8 0 buyA=minecraft:water_bucket*1 buyB=- sell=minecraft:emerald*2 uses=0 max=2 xp=1 mult=0.05 demand=0 special=0
+OFFER W8 1 buyA=minecraft:hay_block*1 buyB=- sell=minecraft:emerald*1 uses=0 max=2 xp=1 mult=0.05 demand=0 special=0
+OFFER W8 2 buyA=minecraft:emerald*1 buyB=- sell=minecraft:dark_oak_log*8 uses=0 max=4 xp=1 mult=0.05 demand=0 special=0
+OFFER W8 3 buyA=minecraft:emerald*6 buyB=- sell=minecraft:blue_ice*1 uses=0 max=6 xp=1 mult=0.05 demand=0 special=0
+OFFER W8 4 buyA=minecraft:emerald*1 buyB=- sell=minecraft:small_dripleaf*2 uses=0 max=5 xp=1 mult=0.05 demand=0 special=0
+OFFER W8 5 buyA=minecraft:emerald*1 buyB=- sell=minecraft:cyan_dye*3 uses=0 max=12 xp=1 mult=0.05 demand=0 special=0
+OFFER W8 6 buyA=minecraft:emerald*5 buyB=- sell=minecraft:jungle_sapling*1 uses=0 max=8 xp=1 mult=0.05 demand=0 special=0
+OFFER W8 7 buyA=minecraft:emerald*5 buyB=- sell=minecraft:spruce_sapling*1 uses=0 max=8 xp=1 mult=0.05 demand=0 special=0
+OFFER W8 8 buyA=minecraft:emerald*4 buyB=- sell=minecraft:slime_ball*1 uses=0 max=5 xp=1 mult=0.05 demand=0 special=0

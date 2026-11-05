@@ -1,0 +1,100 @@
+C The difficulty has been set to Peaceful
+C Clock minecraft:overworld is already set to 0 tick(s)
+DIFFICULTY 0 -60 0 base=peaceful effective=0.0 special=0.0 hard=0 inhabited=2
+DIFFICULTY 200 -60 200 base=peaceful effective=0.0 special=0.0 hard=0 inhabited=0
+C Set minecraft:overworld to 6000 tick(s)
+DIFFICULTY 0 -60 0 base=peaceful effective=0.0 special=0.0 hard=0 inhabited=4
+DIFFICULTY 200 -60 200 base=peaceful effective=0.0 special=0.0 hard=0 inhabited=0
+C Set minecraft:overworld to 13000 tick(s)
+DIFFICULTY 0 -60 0 base=peaceful effective=0.0 special=0.0 hard=0 inhabited=6
+DIFFICULTY 200 -60 200 base=peaceful effective=0.0 special=0.0 hard=0 inhabited=0
+C Set minecraft:overworld to 18000 tick(s)
+DIFFICULTY 0 -60 0 base=peaceful effective=0.0 special=0.0 hard=0 inhabited=8
+DIFFICULTY 200 -60 200 base=peaceful effective=0.0 special=0.0 hard=0 inhabited=0
+C Set minecraft:overworld to 24000 tick(s)
+DIFFICULTY 0 -60 0 base=peaceful effective=0.0 special=0.0 hard=0 inhabited=10
+DIFFICULTY 200 -60 200 base=peaceful effective=0.0 special=0.0 hard=0 inhabited=0
+C Set minecraft:overworld to 210000 tick(s)
+DIFFICULTY 0 -60 0 base=peaceful effective=0.0 special=0.0 hard=0 inhabited=12
+DIFFICULTY 200 -60 200 base=peaceful effective=0.0 special=0.0 hard=0 inhabited=0
+C Set minecraft:overworld to 498000 tick(s)
+DIFFICULTY 0 -60 0 base=peaceful effective=0.0 special=0.0 hard=0 inhabited=14
+DIFFICULTY 200 -60 200 base=peaceful effective=0.0 special=0.0 hard=0 inhabited=0
+C Set minecraft:overworld to 1920000 tick(s)
+DIFFICULTY 0 -60 0 base=peaceful effective=0.0 special=0.0 hard=0 inhabited=16
+DIFFICULTY 200 -60 200 base=peaceful effective=0.0 special=0.0 hard=0 inhabited=0
+C The difficulty has been set to Easy
+C Set minecraft:overworld to 0 tick(s)
+DIFFICULTY 0 -60 0 base=easy effective=0.75000185 special=0.0 hard=0 inhabited=18
+DIFFICULTY 200 -60 200 base=easy effective=0.75 special=0.0 hard=0 inhabited=0
+C Set minecraft:overworld to 6000 tick(s)
+DIFFICULTY 0 -60 0 base=easy effective=0.7500021 special=0.0 hard=0 inhabited=20
+DIFFICULTY 200 -60 200 base=easy effective=0.75 special=0.0 hard=0 inhabited=0
+C Set minecraft:overworld to 13000 tick(s)
+DIFFICULTY 0 -60 0 base=easy effective=0.75000226 special=0.0 hard=0 inhabited=22
+DIFFICULTY 200 -60 200 base=easy effective=0.75 special=0.0 hard=0 inhabited=0
+C Set minecraft:overworld to 18000 tick(s)
+DIFFICULTY 0 -60 0 base=easy effective=0.7500025 special=0.0 hard=0 inhabited=24
+DIFFICULTY 200 -60 200 base=easy effective=0.75 special=0.0 hard=0 inhabited=0
+C Set minecraft:overworld to 24000 tick(s)
+DIFFICULTY 0 -60 0 base=easy effective=0.7500027 special=0.0 hard=0 inhabited=26
+DIFFICULTY 200 -60 200 base=easy effective=0.75 special=0.0 hard=0 inhabited=0
+C Set minecraft:overworld to 210000 tick(s)
+DIFFICULTY 0 -60 0 base=easy effective=0.7859404 special=0.0 hard=0 inhabited=28
+DIFFICULTY 200 -60 200 base=easy effective=0.7739583 special=0.0 hard=0 inhabited=0
+C Set minecraft:overworld to 498000 tick(s)
+DIFFICULTY 0 -60 0 base=easy effective=0.82396144 special=0.0 hard=0 inhabited=30
+DIFFICULTY 200 -60 200 base=easy effective=0.82395834 special=0.0 hard=0 inhabited=0
+C Set minecraft:overworld to 1920000 tick(s)
+DIFFICULTY 0 -60 0 base=easy effective=1.1250033 special=0.0 hard=0 inhabited=32
+DIFFICULTY 200 -60 200 base=easy effective=1.0 special=0.0 hard=0 inhabited=0
+C The difficulty has been set to Normal
+C Set minecraft:overworld to 0 tick(s)
+DIFFICULTY 0 -60 0 base=normal effective=1.5000142 special=0.0 hard=0 inhabited=34
+DIFFICULTY 200 -60 200 base=normal effective=1.5 special=0.0 hard=0 inhabited=0
+C Set minecraft:overworld to 6000 tick(s)
+DIFFICULTY 0 -60 0 base=normal effective=1.500015 special=0.0 hard=0 inhabited=36
+DIFFICULTY 200 -60 200 base=normal effective=1.5 special=0.0 hard=0 inhabited=0
+C Set minecraft:overworld to 13000 tick(s)
+DIFFICULTY 0 -60 0 base=normal effective=1.5000159 special=0.0 hard=0 inhabited=38
+DIFFICULTY 200 -60 200 base=normal effective=1.5 special=0.0 hard=0 inhabited=0
+C Set minecraft:overworld to 18000 tick(s)
+DIFFICULTY 0 -60 0 base=normal effective=1.5000167 special=0.0 hard=0 inhabited=40
+DIFFICULTY 200 -60 200 base=normal effective=1.5 special=0.0 hard=0 inhabited=0
+C Set minecraft:overworld to 24000 tick(s)
+DIFFICULTY 0 -60 0 base=normal effective=1.5000175 special=0.0 hard=0 inhabited=42
+DIFFICULTY 200 -60 200 base=normal effective=1.5 special=0.0 hard=0 inhabited=0
+C Set minecraft:overworld to 210000 tick(s)
+DIFFICULTY 0 -60 0 base=normal effective=1.5958517 special=0.0 hard=0 inhabited=44
+DIFFICULTY 200 -60 200 base=normal effective=1.5479167 special=0.0 hard=0 inhabited=0
+C Set minecraft:overworld to 498000 tick(s)
+DIFFICULTY 0 -60 0 base=normal effective=1.6479359 special=0.0 hard=0 inhabited=46
+DIFFICULTY 200 -60 200 base=normal effective=1.6479167 special=0.0 hard=0 inhabited=0
+C Set minecraft:overworld to 1920000 tick(s)
+DIFFICULTY 0 -60 0 base=normal effective=2.50002 special=0.25001 hard=0 inhabited=48
+DIFFICULTY 200 -60 200 base=normal effective=2.0 special=0.0 hard=0 inhabited=0
+C The difficulty has been set to Hard
+C Set minecraft:overworld to 0 tick(s)
+DIFFICULTY 0 -60 0 base=hard effective=2.2500417 special=0.12502086 hard=0 inhabited=50
+DIFFICULTY 200 -60 200 base=hard effective=2.25 special=0.125 hard=0 inhabited=0
+C Set minecraft:overworld to 6000 tick(s)
+DIFFICULTY 0 -60 0 base=hard effective=2.2500434 special=0.1250217 hard=0 inhabited=52
+DIFFICULTY 200 -60 200 base=hard effective=2.25 special=0.125 hard=0 inhabited=0
+C Set minecraft:overworld to 13000 tick(s)
+DIFFICULTY 0 -60 0 base=hard effective=2.250045 special=0.12502253 hard=0 inhabited=54
+DIFFICULTY 200 -60 200 base=hard effective=2.25 special=0.125 hard=0 inhabited=0
+C Set minecraft:overworld to 18000 tick(s)
+DIFFICULTY 0 -60 0 base=hard effective=2.2500467 special=0.12502337 hard=0 inhabited=56
+DIFFICULTY 200 -60 200 base=hard effective=2.25 special=0.125 hard=0 inhabited=0
+C Set minecraft:overworld to 24000 tick(s)
+DIFFICULTY 0 -60 0 base=hard effective=2.2500482 special=0.12502408 hard=0 inhabited=58
+DIFFICULTY 200 -60 200 base=hard effective=2.25 special=0.125 hard=0 inhabited=0
+C Set minecraft:overworld to 210000 tick(s)
+DIFFICULTY 0 -60 0 base=hard effective=2.3938 special=0.19690001 hard=0 inhabited=60
+DIFFICULTY 200 -60 200 base=hard effective=2.321875 special=0.16093755 hard=0 inhabited=0
+C Set minecraft:overworld to 498000 tick(s)
+DIFFICULTY 0 -60 0 base=hard effective=2.4719267 special=0.23596334 hard=0 inhabited=62
+DIFFICULTY 200 -60 200 base=hard effective=2.471875 special=0.23593748 hard=0 inhabited=0
+C Set minecraft:overworld to 1920000 tick(s)
+DIFFICULTY 0 -60 0 base=hard effective=3.7500534 special=0.8750267 hard=1 inhabited=64
+DIFFICULTY 200 -60 200 base=hard effective=3.0 special=0.5 hard=1 inhabited=0

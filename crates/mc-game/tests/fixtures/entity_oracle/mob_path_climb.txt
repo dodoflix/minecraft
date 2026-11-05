@@ -1,0 +1,27 @@
+PATHQ S 9.5,-49.0,2.5 found=true
+PATH S next=0 count=3 reached=0 target=9,-49,2 dist=16.0
+PN S 0 pos=2,-60,2 type=WALKABLE malus=0.0 walked=0.0
+PN S 1 pos=3,-60,2 type=WALKABLE malus=0.0 walked=1.0
+PN S 2 pos=4,-60,2 type=WALKABLE malus=0.0 walked=2.0
+PATHQ S 8.5,-60.0,2.5 found=true
+PATH S next=0 count=3 reached=0 target=8,-60,2 dist=4.0
+PN S 0 pos=2,-60,2 type=WALKABLE malus=0.0 walked=0.0
+PN S 1 pos=3,-60,2 type=WALKABLE malus=0.0 walked=1.0
+PN S 2 pos=4,-60,2 type=WALKABLE malus=0.0 walked=2.0
+PATHQ C 9.5,-49.0,2.5 found=true
+PATH C next=0 count=9 reached=0 target=9,-49,2 dist=14.0
+PN C 0 pos=2,-60,8 type=WALKABLE malus=0.0 walked=0.0
+PN C 1 pos=3,-60,7 type=WALKABLE malus=0.0 walked=1.4142135
+PN C 2 pos=4,-60,7 type=WALKABLE malus=0.0 walked=3.828427
+PN C 3 pos=5,-60,7 type=WALKABLE malus=0.0 walked=6.2426405
+PN C 4 pos=6,-60,7 type=WALKABLE malus=0.0 walked=8.656854
+PN C 5 pos=7,-60,7 type=WALKABLE malus=0.0 walked=11.071067
+PN C 6 pos=7,-60,6 type=WALKABLE malus=0.0 walked=12.071067
+PN C 7 pos=7,-60,5 type=WALKABLE malus=0.0 walked=14.48528
+PN C 8 pos=8,-60,4 type=WALKABLE malus=0.0 walked=17.899494
+NAV S 9.5,-49.0,2.5 moved=true
+PATH S next=0 count=3 reached=0 target=9,-49,2 dist=16.0
+PN S 0 pos=2,-60,2 type=WALKABLE malus=0.0 walked=0.0
+PN S 1 pos=3,-60,2 type=WALKABLE malus=0.0 walked=1.0
+PN S 2 pos=4,-60,2 type=WALKABLE malus=0.0 walked=2.0
+E S minecraft:spider pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=moving stuck=0 navspeed=1.0 ntarget=9,-49,2 path=0/3/0/9,-49,2 nodes=2,-60,2:WALKABLE:0.0;3,-60,2:WALKABLE:0.0;4,-60,2:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.16518206448731;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896

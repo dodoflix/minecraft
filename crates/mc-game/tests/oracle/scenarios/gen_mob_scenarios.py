@@ -86,26 +86,27 @@ def local_difficulty():
     emit("mob_local_difficulty", out)
 
 
-def spawnpass(name, header, passes, ticks_before=3):
+def spawnpass(name, header, passes, ticks_before=3, extra=''):
     out = header + ["tick %d" % ticks_before]
     for i, (seed, cx, cz) in enumerate(passes):
-        out.append(f"spawnpass {seed} chunk={cx},{cz}")
+        out.append(f"spawnpass {seed} chunk={cx},{cz}{extra}")
         out.append("tick 1")
     out.append("dump spawn_state")
     emit(name, out)
 
 
 def spawnpasses():
-    base = ["level flat", "difficulty normal", "gamerule spawn_mobs true",
+    # the server's own spawning stays off (spawn_mobs false, the oracle default): the `spawnpass` command runs the passes explicitly
+    base = ["level flat", "difficulty normal",
             # the player far away from the chunks that spawn (spawn needs distance >= 24 and < 128 to the nearest player)
             "spawn_player Steve survival 60.5 -60 60.5 0 0"]
     passes = [(s * 7 + 1, (s % 5) - 2, (s // 5) - 2) for s in range(25)]
-    spawnpass("mob_spawnpass_plains_night", base + ["time 18000", "gamerule spawn_monsters true"], passes)
-    spawnpass("mob_spawnpass_plains_day", base + ["time 6000"], passes, 3)
+    spawnpass("mob_spawnpass_plains_night", base + ["time 18000"], passes)
+    spawnpass("mob_spawnpass_plains_day", base + ["time 6000"], passes, 3, " persistent=true")
     biomes = []
     for i, b in enumerate(["desert", "swamp", "jungle", "snowy_plains", "mushroom_fields", "dark_forest", "savanna", "cherry_grove"]):
         biomes += [f"biome {-30 + i * 8} -64 -48 {-23 + i * 8} 320 -33 minecraft:{b}"]
-    out = base + ["time 18000", "gamerule spawn_monsters true"] + biomes + ["tick 3"]
+    out = base + ["time 18000"] + biomes + ["tick 3"]
     for i in range(8):
         out.append(f"spawnpass {100 + i * 13} chunk={(-30 + i * 8) // 16},-3 cats=monster,creature")
         out.append("tick 1")

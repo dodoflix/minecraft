@@ -14,5 +14,9 @@ tick 5
 effect Steve minecraft:raid_omen 2 600
 raid_start Steve 0 -60 0
 dump raids
-tick 40
+tick 150
 dump raids
+tick 170
+dump raids
+tick 100
+dump raids mobs

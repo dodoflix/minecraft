@@ -49,6 +49,7 @@ use mc_game::world::entity::factory::{self, EntitySpawnRequest};
 use mc_game::world::entity::item::ItemEntity;
 use mc_game::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, SCENARIO_FINALIZE_SPAWN, ScenarioDumpCtx};
 use mc_game::world::entity::{Entity, EntityId, ServerPlayer};
+use mc_game::world::container::Container as _;
 use mc_game::world::item::ItemStack;
 use mc_game::world::level::LevelAccessor;
 use mc_nbt::{CompoundTag, Tag};
@@ -719,7 +720,7 @@ impl Harness {
                 let p = e.as_any_mut().downcast_mut::<ServerPlayer>().unwrap_or_else(|| panic!("`{line}`: not a player"));
                 match what.as_str() {
                     "food" => p.player.food_data.set_food_level(v as i32),
-                    "saturation" => p.player.food_data.set_saturation_level(v as f32),
+                    "saturation" => p.player.food_data.saturation_level = v as f32,
                     "exhaustion" => p.player.food_data.exhaustion_level = v as f32,
                     _ => p.player.experience_level = v as i32,
                 }
@@ -729,13 +730,19 @@ impl Harness {
     }
 
     fn hurt(&mut self, a: &[String]) {
-        let mut by = None;
+        let (mut by, mut direct, mut at) = (None, None, None);
         for t in &a[4..] {
             match t.split_once('=') {
                 Some(("by", r)) => by = Some(self.entity_ref(r)),
-                _ => self.fail(&format!("hurt option {t} is not replayed (only by=REF)")),
+                Some(("direct", r)) => direct = Some(self.entity_ref(r)),
+                Some(("at", r)) => {
+                    let c: Vec<f64> = r.split(',').map(|v| self.num(v)).collect();
+                    at = Some(mc_core::phys::Vec3::new(c[0], c[1], c[2]));
+                }
+                _ => self.fail(&format!("hurt option {t} is not replayed (by= direct= at=)")),
             }
         }
+        let direct = direct.or(by);
         let key = Identifier::parse(&if a[2].contains(':') { a[2].clone() } else { format!("minecraft:{}", a[2]) }).unwrap();
         let data = self
             .level
@@ -744,9 +751,13 @@ impl Harness {
             .unwrap_or_else(|| self.fail("unknown damage type"))
             .clone();
         let amount = self.num(&a[3]) as f32;
-        let uuid_of = |h: &Harness, id: EntityId| h.level.get_entity(id).map(|e| e.uuid());
-        let _ = uuid_of;
-        let source = DamageSource::new(key, std::sync::Arc::new(data), by, by, None);
+        let source = DamageSource::new(
+            key,
+            std::sync::Arc::new(data),
+            direct.and_then(|i| self.level.get_entity(i)),
+            by.and_then(|i| self.level.get_entity(i)),
+            at,
+        );
         let r = self.with_entity(&a[1], |level, e| e.hurt_server(level, &source, amount));
         self.out.push(format!("HURT {} {} {} -> {r}", a[1], a[2], a[3]));
     }

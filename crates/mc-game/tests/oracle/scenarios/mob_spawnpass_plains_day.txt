@@ -1,57 +1,56 @@
 level flat
 difficulty normal
-gamerule spawn_mobs true
 spawn_player Steve survival 60.5 -60 60.5 0 0
 time 6000
 tick 3
-spawnpass 1 chunk=-2,-2
+spawnpass 1 chunk=-2,-2 persistent=true
 tick 1
-spawnpass 8 chunk=-1,-2
+spawnpass 8 chunk=-1,-2 persistent=true
 tick 1
-spawnpass 15 chunk=0,-2
+spawnpass 15 chunk=0,-2 persistent=true
 tick 1
-spawnpass 22 chunk=1,-2
+spawnpass 22 chunk=1,-2 persistent=true
 tick 1
-spawnpass 29 chunk=2,-2
+spawnpass 29 chunk=2,-2 persistent=true
 tick 1
-spawnpass 36 chunk=-2,-1
+spawnpass 36 chunk=-2,-1 persistent=true
 tick 1
-spawnpass 43 chunk=-1,-1
+spawnpass 43 chunk=-1,-1 persistent=true
 tick 1
-spawnpass 50 chunk=0,-1
+spawnpass 50 chunk=0,-1 persistent=true
 tick 1
-spawnpass 57 chunk=1,-1
+spawnpass 57 chunk=1,-1 persistent=true
 tick 1
-spawnpass 64 chunk=2,-1
+spawnpass 64 chunk=2,-1 persistent=true
 tick 1
-spawnpass 71 chunk=-2,0
+spawnpass 71 chunk=-2,0 persistent=true
 tick 1
-spawnpass 78 chunk=-1,0
+spawnpass 78 chunk=-1,0 persistent=true
 tick 1
-spawnpass 85 chunk=0,0
+spawnpass 85 chunk=0,0 persistent=true
 tick 1
-spawnpass 92 chunk=1,0
+spawnpass 92 chunk=1,0 persistent=true
 tick 1
-spawnpass 99 chunk=2,0
+spawnpass 99 chunk=2,0 persistent=true
 tick 1
-spawnpass 106 chunk=-2,1
+spawnpass 106 chunk=-2,1 persistent=true
 tick 1
-spawnpass 113 chunk=-1,1
+spawnpass 113 chunk=-1,1 persistent=true
 tick 1
-spawnpass 120 chunk=0,1
+spawnpass 120 chunk=0,1 persistent=true
 tick 1
-spawnpass 127 chunk=1,1
+spawnpass 127 chunk=1,1 persistent=true
 tick 1
-spawnpass 134 chunk=2,1
+spawnpass 134 chunk=2,1 persistent=true
 tick 1
-spawnpass 141 chunk=-2,2
+spawnpass 141 chunk=-2,2 persistent=true
 tick 1
-spawnpass 148 chunk=-1,2
+spawnpass 148 chunk=-1,2 persistent=true
 tick 1
-spawnpass 155 chunk=0,2
+spawnpass 155 chunk=0,2 persistent=true
 tick 1
-spawnpass 162 chunk=1,2
+spawnpass 162 chunk=1,2 persistent=true
 tick 1
-spawnpass 169 chunk=2,2
+spawnpass 169 chunk=2,2 persistent=true
 tick 1
 dump spawn_state

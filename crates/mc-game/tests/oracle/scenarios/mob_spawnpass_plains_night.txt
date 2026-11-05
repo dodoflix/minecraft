@@ -1,9 +1,7 @@
 level flat
 difficulty normal
-gamerule spawn_mobs true
 spawn_player Steve survival 60.5 -60 60.5 0 0
 time 18000
-gamerule spawn_monsters true
 tick 3
 spawnpass 1 chunk=-2,-2
 tick 1

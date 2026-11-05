@@ -1,0 +1,231 @@
+# lane 0 open
+# lane 1 wall
+# lane 2 fence
+# lane 3 fence_cow
+# lane 4 step1
+# lane 5 cliff2
+# lane 6 river
+# lane 7 river_cow
+# lane 8 lava
+# lane 9 door_zombie
+# lane 10 door_villager
+# lane 11 hazards
+# lane 12 pit
+# lane 13 enclosed
+# lane 0 open
+PATHQ M0 10.5,-60.0,0.5 found=true
+PATH M0 next=0 count=10 reached=1 target=10,-60,0 dist=1.0
+PN M0 0 pos=0,-60,0 type=WALKABLE malus=0.0 walked=0.0
+PN M0 1 pos=1,-60,0 type=WALKABLE malus=0.0 walked=1.0
+PN M0 2 pos=2,-60,0 type=WALKABLE malus=0.0 walked=2.0
+PN M0 3 pos=3,-60,0 type=WALKABLE malus=0.0 walked=3.0
+PN M0 4 pos=4,-60,0 type=WALKABLE malus=0.0 walked=4.0
+PN M0 5 pos=5,-60,0 type=WALKABLE malus=0.0 walked=5.0
+PN M0 6 pos=6,-60,0 type=WALKABLE malus=0.0 walked=6.0
+PN M0 7 pos=7,-60,0 type=WALKABLE malus=0.0 walked=7.0
+PN M0 8 pos=8,-60,0 type=WALKABLE malus=0.0 walked=8.0
+PN M0 9 pos=9,-60,0 type=WALKABLE malus=0.0 walked=9.0
+# lane 1 wall
+PATHQ M1 10.5,-60.0,10.5 found=true
+PATH M1 next=0 count=12 reached=1 target=10,-60,10 dist=1.0
+PN M1 0 pos=0,-60,10 type=WALKABLE malus=0.0 walked=0.0
+PN M1 1 pos=1,-60,9 type=WALKABLE malus=0.0 walked=8.0
+PN M1 2 pos=2,-60,8 type=WALKABLE malus=0.0 walked=9.414213
+PN M1 3 pos=3,-60,7 type=WALKABLE malus=0.0 walked=10.828426
+PN M1 4 pos=4,-60,6 type=WALKABLE malus=0.0 walked=12.24264
+PN M1 5 pos=4,-60,5 type=WALKABLE malus=0.0 walked=14.656853
+PN M1 6 pos=5,-60,5 type=WALKABLE malus=0.0 walked=15.656853
+PN M1 7 pos=6,-60,5 type=WALKABLE malus=0.0 walked=16.656853
+PN M1 8 pos=7,-60,6 type=WALKABLE malus=0.0 walked=18.071066
+PN M1 9 pos=8,-60,7 type=WALKABLE malus=0.0 walked=19.48528
+PN M1 10 pos=9,-60,8 type=WALKABLE malus=0.0 walked=20.899492
+PN M1 11 pos=10,-60,9 type=WALKABLE malus=0.0 walked=22.313705
+# lane 2 fence
+PATHQ M2 10.5,-60.0,20.5 found=true
+PATH M2 next=0 count=12 reached=1 target=10,-60,20 dist=1.0
+PN M2 0 pos=0,-60,20 type=WALKABLE malus=0.0 walked=0.0
+PN M2 1 pos=1,-60,19 type=WALKABLE malus=0.0 walked=8.0
+PN M2 2 pos=2,-60,18 type=WALKABLE malus=0.0 walked=9.414213
+PN M2 3 pos=3,-60,17 type=WALKABLE malus=0.0 walked=10.828426
+PN M2 4 pos=4,-60,16 type=WALKABLE malus=0.0 walked=12.24264
+PN M2 5 pos=4,-60,15 type=WALKABLE malus=0.0 walked=14.656853
+PN M2 6 pos=5,-60,15 type=WALKABLE malus=0.0 walked=15.656853
+PN M2 7 pos=6,-60,15 type=WALKABLE malus=0.0 walked=16.656853
+PN M2 8 pos=7,-60,16 type=WALKABLE malus=0.0 walked=18.071066
+PN M2 9 pos=8,-60,17 type=WALKABLE malus=0.0 walked=19.48528
+PN M2 10 pos=9,-60,18 type=WALKABLE malus=0.0 walked=20.899492
+PN M2 11 pos=10,-60,19 type=WALKABLE malus=0.0 walked=22.313705
+# lane 3 fence_cow
+PATHQ M3 10.5,-60.0,30.5 found=true
+PATH M3 next=0 count=5 reached=0 target=10,-60,30 dist=6.0
+PN M3 0 pos=0,-60,30 type=WALKABLE malus=0.0 walked=0.0
+PN M3 1 pos=1,-60,30 type=WALKABLE malus=0.0 walked=1.0
+PN M3 2 pos=2,-60,30 type=WALKABLE malus=0.0 walked=2.0
+PN M3 3 pos=3,-60,30 type=WALKABLE malus=0.0 walked=3.0
+PN M3 4 pos=4,-60,30 type=WALKABLE malus=0.0 walked=4.0
+# lane 4 step1
+PATHQ M4 10.5,-59.0,40.5 found=true
+PATH M4 next=0 count=10 reached=1 target=10,-59,40 dist=1.0
+PN M4 0 pos=0,-60,40 type=WALKABLE malus=0.0 walked=0.0
+PN M4 1 pos=1,-60,40 type=WALKABLE malus=0.0 walked=1.0
+PN M4 2 pos=2,-60,40 type=WALKABLE malus=0.0 walked=2.0
+PN M4 3 pos=3,-59,40 type=WALKABLE malus=0.0 walked=3.4142137
+PN M4 4 pos=4,-59,40 type=WALKABLE malus=0.0 walked=4.4142137
+PN M4 5 pos=5,-59,40 type=WALKABLE malus=0.0 walked=5.4142137
+PN M4 6 pos=6,-59,40 type=WALKABLE malus=0.0 walked=6.4142137
+PN M4 7 pos=7,-59,40 type=WALKABLE malus=0.0 walked=7.4142137
+PN M4 8 pos=8,-59,40 type=WALKABLE malus=0.0 walked=8.414213
+PN M4 9 pos=9,-59,40 type=WALKABLE malus=0.0 walked=9.414213
+# lane 5 cliff2
+PATHQ M5 10.5,-58.0,50.5 found=true
+PATH M5 next=0 count=23 reached=0 target=10,-58,50 dist=6.0
+PN M5 0 pos=0,-60,50 type=WALKABLE malus=0.0 walked=0.0
+PN M5 1 pos=1,-60,49 type=WALKABLE malus=0.0 walked=4.0
+PN M5 2 pos=2,-60,48 type=WALKABLE malus=0.0 walked=5.4142137
+PN M5 3 pos=2,-60,47 type=WALKABLE malus=0.0 walked=7.8284273
+PN M5 4 pos=2,-60,46 type=WALKABLE malus=0.0 walked=10.2426405
+PN M5 5 pos=2,-60,45 type=WALKABLE malus=0.0 walked=12.656854
+PN M5 6 pos=3,-60,45 type=WALKABLE malus=0.0 walked=13.656854
+PN M5 7 pos=4,-60,45 type=WALKABLE malus=0.0 walked=14.656854
+PN M5 8 pos=5,-60,45 type=WALKABLE malus=0.0 walked=15.656854
+PN M5 9 pos=6,-60,45 type=WALKABLE malus=0.0 walked=16.656853
+PN M5 10 pos=7,-60,45 type=WALKABLE malus=0.0 walked=17.656853
+PN M5 11 pos=8,-60,45 type=WALKABLE malus=0.0 walked=18.656853
+PN M5 12 pos=9,-60,45 type=WALKABLE malus=0.0 walked=19.656853
+PN M5 13 pos=10,-60,45 type=WALKABLE malus=0.0 walked=20.656853
+PN M5 14 pos=11,-60,45 type=WALKABLE malus=0.0 walked=21.656853
+PN M5 15 pos=12,-60,45 type=WALKABLE malus=0.0 walked=22.656853
+PN M5 16 pos=13,-60,45 type=WALKABLE malus=0.0 walked=23.656853
+PN M5 17 pos=14,-60,45 type=WALKABLE malus=0.0 walked=26.803118
+PN M5 18 pos=14,-60,46 type=WALKABLE malus=0.0 walked=27.803118
+PN M5 19 pos=14,-60,47 type=WALKABLE malus=0.0 walked=28.803118
+PN M5 20 pos=14,-60,48 type=WALKABLE malus=0.0 walked=29.803118
+PN M5 21 pos=14,-60,49 type=WALKABLE malus=0.0 walked=30.803118
+PN M5 22 pos=14,-60,50 type=WALKABLE malus=0.0 walked=31.803118
+# lane 6 river
+PATHQ M6 10.5,-60.0,60.5 found=true
+PATH M6 next=0 count=10 reached=1 target=10,-60,60 dist=1.0
+PN M6 0 pos=0,-60,60 type=WALKABLE malus=0.0 walked=0.0
+PN M6 1 pos=1,-60,60 type=WALKABLE malus=0.0 walked=1.0
+PN M6 2 pos=2,-60,60 type=WALKABLE malus=0.0 walked=2.0
+PN M6 3 pos=3,-60,60 type=WATER_BORDER malus=8.0 walked=4.4142137
+PN M6 4 pos=4,-61,60 type=WATER malus=8.0 walked=7.1462646
+PN M6 5 pos=5,-61,60 type=WATER malus=8.0 walked=9.560478
+PN M6 6 pos=6,-61,60 type=WATER malus=8.0 walked=11.974691
+PN M6 7 pos=7,-60,60 type=WATER_BORDER malus=8.0 walked=13.388905
+PN M6 8 pos=8,-60,60 type=WALKABLE malus=0.0 walked=14.388905
+PN M6 9 pos=9,-60,60 type=WALKABLE malus=0.0 walked=15.388905
+# lane 7 river_cow
+PATHQ M7 10.5,-60.0,70.5 found=true
+PATH M7 next=0 count=10 reached=1 target=10,-60,70 dist=1.0
+PN M7 0 pos=0,-60,70 type=WALKABLE malus=0.0 walked=0.0
+PN M7 1 pos=1,-60,70 type=WALKABLE malus=0.0 walked=1.0
+PN M7 2 pos=2,-60,70 type=WALKABLE malus=0.0 walked=2.0
+PN M7 3 pos=3,-60,70 type=WATER_BORDER malus=8.0 walked=4.4142137
+PN M7 4 pos=4,-61,70 type=WATER malus=8.0 walked=7.1462646
+PN M7 5 pos=5,-61,70 type=WATER malus=8.0 walked=9.560478
+PN M7 6 pos=6,-61,70 type=WATER malus=8.0 walked=11.974691
+PN M7 7 pos=7,-60,70 type=WATER_BORDER malus=8.0 walked=13.388905
+PN M7 8 pos=8,-60,70 type=WALKABLE malus=0.0 walked=14.388905
+PN M7 9 pos=9,-60,70 type=WALKABLE malus=0.0 walked=15.388905
+# lane 8 lava
+PATHQ M8 10.5,-60.0,80.5 found=true
+PATH M8 next=0 count=16 reached=1 target=10,-60,80 dist=1.0
+PN M8 0 pos=0,-60,80 type=WALKABLE malus=0.0 walked=0.0
+PN M8 1 pos=1,-60,81 type=WALKABLE malus=0.0 walked=4.0
+PN M8 2 pos=2,-60,82 type=WALKABLE malus=0.0 walked=5.4142137
+PN M8 3 pos=2,-60,83 type=WALKABLE malus=0.0 walked=7.8284273
+PN M8 4 pos=2,-60,84 type=WALKABLE malus=0.0 walked=10.2426405
+PN M8 5 pos=2,-60,85 type=WALKABLE malus=0.0 walked=12.656854
+PN M8 6 pos=3,-60,86 type=WALKABLE malus=0.0 walked=14.071067
+PN M8 7 pos=4,-60,85 type=FIRE_IN_NEIGHBOR malus=8.0 walked=10.414213
+PN M8 8 pos=5,-60,85 type=FIRE_IN_NEIGHBOR malus=8.0 walked=11.414213
+PN M8 9 pos=6,-60,85 type=FIRE_IN_NEIGHBOR malus=8.0 walked=12.414213
+PN M8 10 pos=7,-60,86 type=WALKABLE malus=0.0 walked=13.828426
+PN M8 11 pos=8,-60,85 type=WALKABLE malus=0.0 walked=15.24264
+PN M8 12 pos=9,-60,84 type=WALKABLE malus=0.0 walked=16.656853
+PN M8 13 pos=9,-60,83 type=WALKABLE malus=0.0 walked=17.656853
+PN M8 14 pos=9,-60,82 type=WALKABLE malus=0.0 walked=18.656853
+PN M8 15 pos=10,-60,81 type=WALKABLE malus=0.0 walked=20.071066
+# lane 9 door_zombie
+PATHQ M9 10.5,-60.0,90.5 found=true
+PATH M9 next=0 count=12 reached=1 target=10,-60,90 dist=1.0
+PN M9 0 pos=0,-60,90 type=WALKABLE malus=0.0 walked=0.0
+PN M9 1 pos=1,-60,91 type=WALKABLE malus=0.0 walked=8.0
+PN M9 2 pos=2,-60,92 type=WALKABLE malus=0.0 walked=9.414213
+PN M9 3 pos=3,-60,93 type=WALKABLE malus=0.0 walked=10.828426
+PN M9 4 pos=4,-60,94 type=WALKABLE malus=0.0 walked=12.24264
+PN M9 5 pos=4,-60,95 type=WALKABLE malus=0.0 walked=14.656853
+PN M9 6 pos=5,-60,95 type=WALKABLE malus=0.0 walked=15.656853
+PN M9 7 pos=6,-60,95 type=WALKABLE malus=0.0 walked=16.656853
+PN M9 8 pos=7,-60,94 type=WALKABLE malus=0.0 walked=18.071066
+PN M9 9 pos=8,-60,93 type=WALKABLE malus=0.0 walked=19.48528
+PN M9 10 pos=9,-60,92 type=WALKABLE malus=0.0 walked=20.899492
+PN M9 11 pos=10,-60,91 type=WALKABLE malus=0.0 walked=22.313705
+# lane 10 door_villager
+PATHQ M10 10.5,-60.0,100.5 found=true
+PATH M10 next=0 count=10 reached=1 target=10,-60,100 dist=1.0
+PN M10 0 pos=0,-60,100 type=WALKABLE malus=0.0 walked=0.0
+PN M10 1 pos=1,-60,100 type=WALKABLE malus=0.0 walked=1.0
+PN M10 2 pos=2,-60,100 type=WALKABLE malus=0.0 walked=2.0
+PN M10 3 pos=3,-60,100 type=WALKABLE malus=0.0 walked=3.0
+PN M10 4 pos=4,-60,100 type=WALKABLE malus=0.0 walked=4.0
+PN M10 5 pos=5,-60,100 type=WALKABLE_DOOR malus=0.0 walked=5.0
+PN M10 6 pos=6,-60,100 type=WALKABLE malus=0.0 walked=6.0
+PN M10 7 pos=7,-60,100 type=WALKABLE malus=0.0 walked=7.0
+PN M10 8 pos=8,-60,100 type=WALKABLE malus=0.0 walked=8.0
+PN M10 9 pos=9,-60,100 type=WALKABLE malus=0.0 walked=9.0
+# lane 11 hazards
+PATHQ M11 10.5,-60.0,110.5 found=true
+PATH M11 next=0 count=11 reached=1 target=10,-60,110 dist=1.0
+PN M11 0 pos=0,-60,110 type=WALKABLE malus=0.0 walked=0.0
+PN M11 1 pos=1,-60,110 type=WALKABLE malus=0.0 walked=1.0
+PN M11 2 pos=2,-60,110 type=WALKABLE malus=0.0 walked=2.0
+PN M11 3 pos=3,-60,110 type=WALKABLE malus=0.0 walked=3.0
+PN M11 4 pos=4,-60,110 type=WALKABLE malus=0.0 walked=4.0
+PN M11 5 pos=5,-60,110 type=WALKABLE malus=0.0 walked=5.0
+PN M11 6 pos=6,-60,111 type=WALKABLE malus=0.0 walked=7.0
+PN M11 7 pos=7,-60,112 type=WALKABLE malus=0.0 walked=8.414213
+PN M11 8 pos=8,-60,112 type=WALKABLE malus=0.0 walked=9.414213
+PN M11 9 pos=9,-60,112 type=WALKABLE malus=0.0 walked=10.414213
+PN M11 10 pos=10,-60,111 type=WALKABLE malus=0.0 walked=11.828426
+# lane 12 pit
+PATHQ M12 10.5,-60.0,120.5 found=true
+PATH M12 next=0 count=12 reached=1 target=10,-60,120 dist=1.0
+PN M12 0 pos=0,-60,120 type=WALKABLE malus=0.0 walked=0.0
+PN M12 1 pos=1,-60,119 type=WALKABLE malus=0.0 walked=6.0
+PN M12 2 pos=2,-60,118 type=WALKABLE malus=0.0 walked=7.4142137
+PN M12 3 pos=3,-60,117 type=WALKABLE malus=0.0 walked=8.828427
+PN M12 4 pos=3,-60,116 type=WALKABLE malus=0.0 walked=11.24264
+PN M12 5 pos=4,-60,115 type=WALKABLE malus=0.0 walked=12.656853
+PN M12 6 pos=5,-60,115 type=WALKABLE malus=0.0 walked=13.656853
+PN M12 7 pos=6,-60,115 type=WALKABLE malus=0.0 walked=14.656853
+PN M12 8 pos=7,-60,116 type=WALKABLE malus=0.0 walked=16.071066
+PN M12 9 pos=8,-60,117 type=WALKABLE malus=0.0 walked=17.48528
+PN M12 10 pos=9,-60,118 type=WALKABLE malus=0.0 walked=18.899492
+PN M12 11 pos=10,-60,119 type=WALKABLE malus=0.0 walked=20.313705
+# lane 13 enclosed
+PATHQ M13 10.5,-60.0,127.5 found=true
+PATH M13 next=0 count=9 reached=0 target=10,-60,127 dist=2.0
+PN M13 0 pos=0,-60,130 type=WALKABLE malus=0.0 walked=0.0
+PN M13 1 pos=1,-60,130 type=WALKABLE malus=0.0 walked=1.0
+PN M13 2 pos=2,-60,129 type=WALKABLE malus=0.0 walked=2.4142137
+PN M13 3 pos=3,-60,129 type=WALKABLE malus=0.0 walked=3.4142137
+PN M13 4 pos=4,-60,129 type=WALKABLE malus=0.0 walked=4.4142137
+PN M13 5 pos=5,-60,128 type=WALKABLE malus=0.0 walked=5.8284273
+PN M13 6 pos=6,-60,128 type=WALKABLE malus=0.0 walked=6.8284273
+PN M13 7 pos=7,-60,128 type=WALKABLE malus=0.0 walked=7.8284273
+PN M13 8 pos=8,-60,127 type=WALKABLE malus=0.0 walked=9.828427
+# reach range 3 on the open lane
+PATHQ M0 10.5,-60.0,0.5 found=true
+PATH M0 next=0 count=8 reached=1 target=10,-60,0 dist=3.0
+PN M0 0 pos=0,-60,0 type=WALKABLE malus=0.0 walked=0.0
+PN M0 1 pos=1,-60,0 type=WALKABLE malus=0.0 walked=1.0
+PN M0 2 pos=2,-60,0 type=WALKABLE malus=0.0 walked=2.0
+PN M0 3 pos=3,-60,0 type=WALKABLE malus=0.0 walked=3.0
+PN M0 4 pos=4,-60,0 type=WALKABLE malus=0.0 walked=4.0
+PN M0 5 pos=5,-60,0 type=WALKABLE malus=0.0 walked=5.0
+PN M0 6 pos=6,-60,0 type=WALKABLE malus=0.0 walked=6.0
+PN M0 7 pos=7,-60,0 type=WALKABLE malus=0.0 walked=7.0
+E M0 minecraft:zombie pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=10,-60,0 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:33.17383576606599;minecraft:knockback_resistance:0.02104597835649153;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.004884337765241598
+E M5 minecraft:zombie pos=0.5,-60.0,50.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=10,-58,50 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:31.99864042440901;minecraft:knockback_resistance:0.02680885079357298;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.09727275219350379

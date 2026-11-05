@@ -1,0 +1,80 @@
+PATHQ Bee 14.5,-55.0,0.5 found=true
+PATH Bee next=0 count=12 reached=1 target=14,-55,0 dist=1.0
+PN Bee 0 pos=2,-55,0 type=OPEN malus=0.0 walked=0.0
+PN Bee 1 pos=3,-55,0 type=OPEN malus=0.0 walked=1.0
+PN Bee 2 pos=4,-55,-1 type=OPEN malus=0.0 walked=20.363594
+PN Bee 3 pos=5,-55,-2 type=OPEN malus=0.0 walked=23.19202
+PN Bee 4 pos=6,-55,-3 type=OPEN malus=0.0 walked=28.070333
+PN Bee 5 pos=7,-55,-4 type=OPEN malus=0.0 walked=34.36286
+PN Bee 6 pos=8,-55,-4 type=OPEN malus=0.0 walked=35.36286
+PN Bee 7 pos=9,-55,-4 type=OPEN malus=0.0 walked=36.36286
+PN Bee 8 pos=10,-55,-3 type=OPEN malus=0.0 walked=37.777077
+PN Bee 9 pos=11,-55,-2 type=OPEN malus=0.0 walked=39.19129
+PN Bee 10 pos=12,-55,-1 type=OPEN malus=0.0 walked=40.605507
+PN Bee 11 pos=13,-55,0 type=OPEN malus=0.0 walked=42.019722
+PATHQ Bee 14.5,-48.0,0.5 found=true
+PATH Bee next=0 count=13 reached=0 target=14,-48,0 dist=5.0
+PN Bee 0 pos=2,-55,0 type=OPEN malus=0.0 walked=0.0
+PN Bee 1 pos=3,-55,0 type=OPEN malus=0.0 walked=23.585054
+PN Bee 2 pos=4,-55,-1 type=OPEN malus=0.0 walked=31.195417
+PN Bee 3 pos=5,-55,-2 type=OPEN malus=0.0 walked=32.999268
+PN Bee 4 pos=6,-54,-3 type=OPEN malus=0.0 walked=34.73132
+PN Bee 5 pos=7,-53,-4 type=OPEN malus=0.0 walked=36.46337
+PN Bee 6 pos=8,-53,-4 type=OPEN malus=0.0 walked=37.46337
+PN Bee 7 pos=9,-53,-4 type=OPEN malus=0.0 walked=38.46337
+PN Bee 8 pos=10,-53,-3 type=OPEN malus=0.0 walked=39.877586
+PN Bee 9 pos=11,-53,-2 type=OPEN malus=0.0 walked=41.2918
+PN Bee 10 pos=12,-53,-2 type=OPEN malus=0.0 walked=43.706017
+PN Bee 11 pos=13,-53,-1 type=OPEN malus=0.0 walked=45.706017
+PN Bee 12 pos=14,-53,0 type=OPEN malus=0.0 walked=49.12023
+PATHQ Parrot 14.5,-55.0,0.5 found=true
+PATH Parrot next=0 count=6 reached=0 target=14,-55,0 dist=7.0
+PN Parrot 0 pos=2,-55,3 type=OPEN malus=0.0 walked=0.0
+PN Parrot 1 pos=3,-55,3 type=OPEN malus=0.0 walked=1.0
+PN Parrot 2 pos=4,-55,3 type=OPEN malus=0.0 walked=2.0
+PN Parrot 3 pos=5,-55,2 type=OPEN malus=0.0 walked=13.071067
+PN Parrot 4 pos=6,-55,1 type=OPEN malus=0.0 walked=14.48528
+PN Parrot 5 pos=7,-55,0 type=OPEN malus=0.0 walked=15.899493
+PATHQ Parrot 14.5,-48.0,0.5 found=true
+PATH Parrot next=0 count=11 reached=0 target=14,-48,0 dist=8.0
+PN Parrot 0 pos=2,-55,3 type=OPEN malus=0.0 walked=0.0
+PN Parrot 1 pos=3,-54,3 type=OPEN malus=0.0 walked=1.4142135
+PN Parrot 2 pos=4,-53,3 type=OPEN malus=0.0 walked=5.5604777
+PN Parrot 3 pos=5,-53,3 type=OPEN malus=0.0 walked=6.5604777
+PN Parrot 4 pos=6,-53,3 type=OPEN malus=0.0 walked=7.5604777
+PN Parrot 5 pos=7,-53,4 type=OPEN malus=0.0 walked=9.560478
+PN Parrot 6 pos=8,-53,4 type=OPEN malus=0.0 walked=10.560478
+PN Parrot 7 pos=9,-53,4 type=OPEN malus=0.0 walked=11.560478
+PN Parrot 8 pos=10,-53,3 type=OPEN malus=0.0 walked=12.974691
+PN Parrot 9 pos=11,-53,2 type=OPEN malus=0.0 walked=14.388905
+PN Parrot 10 pos=12,-53,1 type=OPEN malus=0.0 walked=17.803118
+PATHQ Allay 14.5,-55.0,0.5 found=true
+PATH Allay next=0 count=12 reached=1 target=14,-55,0 dist=1.0
+PN Allay 0 pos=2,-55,-4 type=OPEN malus=0.0 walked=0.0
+PN Allay 1 pos=3,-55,-3 type=OPEN malus=0.0 walked=1.4142135
+PN Allay 2 pos=4,-55,-3 type=OPEN malus=0.0 walked=2.4142137
+PN Allay 3 pos=5,-55,-3 type=OPEN malus=0.0 walked=3.4142137
+PN Allay 4 pos=6,-55,-3 type=OPEN malus=0.0 walked=7.242641
+PN Allay 5 pos=7,-55,-4 type=OPEN malus=0.0 walked=16.949383
+PN Allay 6 pos=8,-55,-4 type=OPEN malus=0.0 walked=17.949383
+PN Allay 7 pos=9,-55,-4 type=OPEN malus=0.0 walked=18.949383
+PN Allay 8 pos=10,-55,-3 type=OPEN malus=0.0 walked=20.363596
+PN Allay 9 pos=11,-55,-2 type=OPEN malus=0.0 walked=21.77781
+PN Allay 10 pos=12,-55,-1 type=OPEN malus=0.0 walked=23.192022
+PN Allay 11 pos=13,-55,0 type=OPEN malus=0.0 walked=24.606236
+PATHQ Allay 14.5,-48.0,0.5 found=true
+PATH Allay next=0 count=13 reached=1 target=14,-48,0 dist=1.0
+PN Allay 0 pos=2,-55,-4 type=OPEN malus=0.0 walked=0.0
+PN Allay 1 pos=3,-54,-4 type=OPEN malus=0.0 walked=9.706742
+PN Allay 2 pos=4,-54,-4 type=OPEN malus=0.0 walked=12.120955
+PN Allay 3 pos=5,-54,-4 type=OPEN malus=0.0 walked=13.120955
+PN Allay 4 pos=6,-54,-4 type=OPEN malus=0.0 walked=14.120955
+PN Allay 5 pos=7,-54,-4 type=OPEN malus=0.0 walked=15.120955
+PN Allay 6 pos=8,-53,-5 type=OPEN malus=0.0 walked=18.853006
+PN Allay 7 pos=9,-52,-5 type=OPEN malus=0.0 walked=20.26722
+PN Allay 8 pos=10,-51,-5 type=OPEN malus=0.0 walked=21.681433
+PN Allay 9 pos=11,-50,-4 type=OPEN malus=0.0 walked=23.413483
+PN Allay 10 pos=12,-49,-3 type=OPEN malus=0.0 walked=25.145533
+PN Allay 11 pos=13,-48,-2 type=OPEN malus=0.0 walked=26.877583
+PN Allay 12 pos=14,-48,-1 type=OPEN malus=0.0 walked=28.291796
+E Bee minecraft:bee pos=2.5,-55.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=14,-48,0 path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:15.16518206448731;minecraft:max_health:10.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=-
