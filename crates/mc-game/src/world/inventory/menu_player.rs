@@ -16,7 +16,7 @@ pub enum Prediction {
 }
 
 /// `Equippable.slot()` of `stack` (the `minecraft:equippable` component), if any.
-fn equippable_slot(stack: &ItemStack) -> Option<EquipmentSlot> {
+pub(crate) fn equippable_slot(stack: &ItemStack) -> Option<EquipmentSlot> {
     stack.get(&EQUIPPABLE).map(|e| EquipmentSlot::from_protocol(e.slot))
 }
 

@@ -165,6 +165,14 @@ pub trait BlockEntity: Any {
     fn as_slot_provider(&self) -> Option<&dyn crate::world::item::slot::SlotProvider> {
         None
     }
+    /// `this instanceof Container` (`level.getBlockEntity(pos) instanceof Container`): container block entities override.
+    fn as_container(&self) -> Option<&dyn crate::world::container::Container> {
+        None
+    }
+    /// `this instanceof Container`, mutable.
+    fn as_container_mut(&mut self) -> Option<&mut dyn crate::world::container::Container> {
+        None
+    }
     /// `applyComponentsFromItemStack(stack)`: block entities that read item components (custom name, container
     /// contents, ...) override this; the default ignores them.
     fn apply_components_from_item_stack(&mut self, _stack: &crate::world::item::ItemStack) {}

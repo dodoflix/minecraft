@@ -63,6 +63,10 @@ impl InventoryMenu {
         self.base.locals[CRAFT_LOCAL].as_any().downcast_ref().expect("craft slots")
     }
 
+    pub fn get_craft_slots_mut(&mut self) -> &mut TransientCraftingContainer {
+        self.base.locals[CRAFT_LOCAL].as_any_mut().downcast_mut().expect("craft slots")
+    }
+
     pub fn get_result_slot(&self) -> &Slot {
         &self.base.slots[0]
     }

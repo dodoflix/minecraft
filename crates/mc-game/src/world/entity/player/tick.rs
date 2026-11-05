@@ -33,6 +33,14 @@ impl ServerPlayer {
         PlayerMenus::with_current(&mut ctx, |c| &mut c.player.player.menus, |menu, c| menu.broadcast_changes(c));
     }
 
+    /// `inventoryMenu.slotsChanged(inventory)`.
+    pub fn inventory_menu_slots_changed(&mut self, level: &mut ServerLevel) {
+        let mut ctx = PlayerCtx { player: self, level };
+        let mut menus = std::mem::replace(&mut ctx.player.player.menus, PlayerMenus::new());
+        menus.inventory_menu_mut().slots_changed(&mut ctx, &crate::world::inventory::ContainerKey::PlayerInventory);
+        ctx.player.player.menus = menus;
+    }
+
     /// `isWithinBlockInteractionRange(pos, buffer)`: `BLOCK_INTERACTION_RANGE` attribute + `buffer`.
     pub fn is_within_block_interaction_range(&self, pos: BlockPos, buffer: f64) -> bool {
         let range = self.player.living.get_attribute_value(mc_data::Attribute::BLOCK_INTERACTION_RANGE) + buffer;

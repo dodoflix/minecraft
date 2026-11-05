@@ -17,9 +17,9 @@ use mc_protocol::components::registry::try_def;
 use mc_protocol::components::DataComponentPatch;
 use std::sync::{Arc, LazyLock};
 
-static ERROR_UNKNOWN_ITEM: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| dynamic_translatable("argument.item.id.invalid"));
-static ERROR_UNKNOWN_COMPONENT: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| dynamic_translatable("arguments.item.component.unknown"));
-static ERROR_MALFORMED_COMPONENT: LazyLock<Dynamic2CommandExceptionType<String, String>> = LazyLock::new(|| {
+pub(super) static ERROR_UNKNOWN_ITEM: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| dynamic_translatable("argument.item.id.invalid"));
+pub(super) static ERROR_UNKNOWN_COMPONENT: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| dynamic_translatable("arguments.item.component.unknown"));
+pub(super) static ERROR_MALFORMED_COMPONENT: LazyLock<Dynamic2CommandExceptionType<String, String>> = LazyLock::new(|| {
     Dynamic2CommandExceptionType::new(|t: String, m: String| message(translatable!("arguments.item.component.malformed", t, m)))
 });
 static ERROR_EXPECTED_COMPONENT: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("arguments.item.component.expected"));

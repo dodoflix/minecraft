@@ -40,7 +40,7 @@ pub fn base_entity_components(base: &EntityData) -> DataComponentMap {
 }
 
 /// `getEquipmentSlot(slot)` of `LivingEntity.getSlot`.
-fn equipment_slot_of(slot: i32) -> Option<EquipmentSlot> {
+pub(crate) fn equipment_slot_of(slot: i32) -> Option<EquipmentSlot> {
     [
         (100 + EquipmentSlot::Head.get_index(), EquipmentSlot::Head),
         (100 + EquipmentSlot::Chest.get_index(), EquipmentSlot::Chest),
