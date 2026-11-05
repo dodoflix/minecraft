@@ -15,6 +15,8 @@ mod chunk_generation_pipeline;
 mod chunk_level_golden;
 mod chunk_tickets;
 mod chunk_tracking;
+#[path = "../../../mc-game/tests/golden/command_common/mod.rs"]
+mod command_common;
 #[path = "../../../mc-game/tests/golden/common/mod.rs"]
 mod common;
 #[path = "../../../mc-game/tests/golden/decoration_common/mod.rs"]
@@ -31,7 +33,6 @@ mod food_golden;
 mod gamerule_golden;
 mod gametest_golden;
 mod gen_level_golden;
-mod gen_level_semantics;
 mod java_hash_set;
 mod jsonrpc_management;
 mod level_mutation;
