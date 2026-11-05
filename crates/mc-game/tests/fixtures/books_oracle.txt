@@ -1,0 +1,33 @@
+SETUP 0 {count:1,id:"minecraft:writable_book"}
+EDIT 0 - ["Hello","World\nline two",""]
+ITEM 0 {components:{"minecraft:writable_book_content":{pages:[{raw:"Hello"},{raw:"World\nline two"},{raw:""}]}},count:1,id:"minecraft:writable_book"}
+EDIT 0 - []
+ITEM 0 {count:1,id:"minecraft:writable_book"}
+EDIT 0 - ["§aformatted","ünïcode ☃ 😀"]
+ITEM 0 {components:{"minecraft:writable_book_content":{pages:[{raw:"§aformatted"},{raw:"ünïcode ☃ 😀"}]}},count:1,id:"minecraft:writable_book"}
+EDIT 0 "My Book" ["page one","page two"]
+ITEM 0 {components:{"minecraft:written_book_content":{author:"Booker",pages:[{raw:"page one"},{raw:"page two"}],resolved:1b,title:{raw:"My Book"}}},count:1,id:"minecraft:written_book"}
+EDIT 0 - ["ignored"]
+ITEM 0 {components:{"minecraft:written_book_content":{author:"Booker",pages:[{raw:"page one"},{raw:"page two"}],resolved:1b,title:{raw:"My Book"}}},count:1,id:"minecraft:written_book"}
+EDIT 0 "Other" ["ignored"]
+ITEM 0 {components:{"minecraft:written_book_content":{author:"Booker",pages:[{raw:"page one"},{raw:"page two"}],resolved:1b,title:{raw:"My Book"}}},count:1,id:"minecraft:written_book"}
+SETUP 40 {components:{"minecraft:custom_name":"mine"},count:1,id:"minecraft:writable_book"}
+EDIT 40 "Offhand" ["x"]
+ITEM 40 {components:{"minecraft:custom_name":"mine","minecraft:written_book_content":{author:"Booker",pages:[{raw:"x"}],resolved:1b,title:{raw:"Offhand"}}},count:1,id:"minecraft:written_book"}
+SETUP 1 {count:5,id:"minecraft:stone"}
+EDIT 1 - ["nope"]
+ITEM 1 {count:5,id:"minecraft:stone"}
+EDIT 1 "nope" ["nope"]
+ITEM 1 {count:5,id:"minecraft:stone"}
+SETUP 2 {components:{"minecraft:written_book_content":{author:"Auth",generation:1,pages:[{raw:"p1"},{filtered:"filtered",raw:"raw"}],title:{raw:"T"}}},count:1,id:"minecraft:written_book"}
+USE 2
+ITEM 2 {components:{"minecraft:written_book_content":{author:"Auth",generation:1,pages:[{raw:"p1"},{filtered:"filtered",raw:"raw"}],resolved:1b,title:{raw:"T"}}},count:1,id:"minecraft:written_book"}
+PKT minecraft:container_set_slot
+PKT minecraft:open_book
+SETUP 4 {components:{"minecraft:written_book_content":{author:"Auth",generation:1,pages:[{raw:"done"}],resolved:1b,title:{raw:"T"}}},count:1,id:"minecraft:written_book"}
+USE 4
+ITEM 4 {components:{"minecraft:written_book_content":{author:"Auth",generation:1,pages:[{raw:"done"}],resolved:1b,title:{raw:"T"}}},count:1,id:"minecraft:written_book"}
+PKT minecraft:open_book
+SETUP 5 {count:1,id:"minecraft:writable_book"}
+USE 5
+ITEM 5 {count:1,id:"minecraft:writable_book"}

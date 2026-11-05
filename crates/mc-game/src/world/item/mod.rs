@@ -64,5 +64,5 @@ pub use registry_hook::{set_item_registries, with_item_registries};
 pub use mc_protocol::components::{HashedStack, ItemStack};
 pub use projectile_item::{DispenseConfig, PositionFunction, ProjectileItem, projectile_item};
 pub use stack_ext::*;
-pub use book::{flush_open_item_gui, resolve_for_item, resolve_written_book};
+pub use book::{edit_book, flush_open_item_gui, resolve_for_item, resolve_written_book};
 pub use use_item::*;
