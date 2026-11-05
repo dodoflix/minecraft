@@ -250,3 +250,12 @@ pub fn try_drop_experience(level: &mut crate::server::level::ServerLevel, pos: B
         pop_experience(level, pos, experience);
     }
 }
+
+/// `LevelReader.getMaxLocalRawBrightness(pos)`.
+pub fn get_max_local_raw_brightness(level: &dyn crate::world::level::LevelReader, pos: BlockPos) -> i32 {
+    if pos.x() >= -30000000 && pos.z() >= -30000000 && pos.x() < 30000000 && pos.z() < 30000000 {
+        level.get_raw_brightness(pos, level.get_sky_darken())
+    } else {
+        15
+    }
+}

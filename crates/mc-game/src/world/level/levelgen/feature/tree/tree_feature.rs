@@ -272,6 +272,10 @@ pub fn get_lowest_trunk_or_root_of_tree(context: &Context<'_>) -> Vec<BlockPos> 
 }
 
 impl Feature for TreeFeature {
+    fn tree_trunk_base_height(&self) -> Option<i32> {
+        Some(self.trunk_placer.get_base_height())
+    }
+
     fn place(&self, level: &mut dyn WorldGenLevel, _generator: &GenEnv, random: &mut dyn RandomSource, origin: BlockPos) -> bool {
         let mut roots = TreeSetter::tracking();
         let mut trunks = TreeSetter::tracking();

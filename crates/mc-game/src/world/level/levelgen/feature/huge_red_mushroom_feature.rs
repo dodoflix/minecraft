@@ -100,6 +100,10 @@ impl AbstractHugeMushroomFeature for HugeRedMushroomFeature {
 }
 
 impl Feature for HugeRedMushroomFeature {
+    fn huge_mushroom_foliage_radius(&self) -> Option<i32> {
+        Some(self.foliage_radius)
+    }
+
     fn place(&self, level: &mut dyn WorldGenLevel, _generator: &GenEnv, random: &mut dyn RandomSource, origin: BlockPos) -> bool {
         abstract_huge_mushroom_feature::place(self, level, random, origin)
     }

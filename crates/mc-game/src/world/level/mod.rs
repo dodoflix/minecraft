@@ -1,5 +1,6 @@
 //! `net.minecraft.world.level`.
 pub mod biome_ext;
+pub mod blockscan;
 pub mod block;
 pub mod chunk;
 pub mod collision;

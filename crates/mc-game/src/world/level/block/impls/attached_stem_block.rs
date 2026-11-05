@@ -6,6 +6,7 @@ use super::vegetation_block::{self, MayPlaceOn};
 pub struct AttachedStemBlock {
     fruit: Block,
     stem: Block,
+    seed: mc_data::Item,
     support_blocks: &'static str,
 }
 
@@ -25,6 +26,9 @@ impl BlockBehaviour for AttachedStemBlock {
         }
         vegetation_block::update_shape(state, &*level, pos)
     });
+    fn get_clone_item_stack(&self, _state: BlockState, _level: &crate::server::level::ServerLevel, _pos: BlockPos, _include_data: bool) -> crate::world::item::ItemStack {
+        crate::world::item::ItemStack::new(self.seed)
+    }
     fn rotate(&self, state: BlockState, rotation: Rotation) -> BlockState {
         helpers::rotate_facing(state, props::HORIZONTAL_FACING, rotation)
     }
@@ -34,7 +38,7 @@ impl BlockBehaviour for AttachedStemBlock {
 }
 
 register_block_class!("AttachedStemBlock", |block| Box::new(match block.data().name {
-    "minecraft:attached_pumpkin_stem" => AttachedStemBlock { fruit: Block::PUMPKIN, stem: Block::PUMPKIN_STEM, support_blocks: "supports_pumpkin_stem" },
-    "minecraft:attached_melon_stem" => AttachedStemBlock { fruit: Block::MELON, stem: Block::MELON_STEM, support_blocks: "supports_melon_stem" },
+    "minecraft:attached_pumpkin_stem" => AttachedStemBlock { fruit: Block::PUMPKIN, stem: Block::PUMPKIN_STEM, seed: mc_data::Item::PUMPKIN_SEEDS, support_blocks: "supports_pumpkin_stem" },
+    "minecraft:attached_melon_stem" => AttachedStemBlock { fruit: Block::MELON, stem: Block::MELON_STEM, seed: mc_data::Item::MELON_SEEDS, support_blocks: "supports_melon_stem" },
     name => panic!("unexpected AttachedStemBlock {name}"),
 }));

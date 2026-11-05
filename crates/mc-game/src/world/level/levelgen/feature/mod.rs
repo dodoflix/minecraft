@@ -88,6 +88,16 @@ pub trait Feature: Send + Sync {
     /// `place(level, chunkGenerator, random, origin)`.
     fn place(&self, level: &mut dyn WorldGenLevel, generator: &GenEnv, random: &mut dyn RandomSource, origin: BlockPos) -> bool;
 
+    /// `feature instanceof AbstractHugeMushroomFeature`: its `foliageRadius()` (`MushroomBlock.isValidBonemealTarget`).
+    fn huge_mushroom_foliage_radius(&self) -> Option<i32> {
+        None
+    }
+
+    /// `feature instanceof TreeFeature`: `trunkPlacer().getBaseHeight()` (`TreeGrower.getMinimumHeight`).
+    fn tree_trunk_base_height(&self) -> Option<i32> {
+        None
+    }
+
     /// `getSubFeatures()`.
     fn get_sub_features(&self) -> Vec<Holder<dyn Feature>> {
         Vec::new()

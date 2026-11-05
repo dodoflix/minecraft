@@ -370,6 +370,22 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     fn get_pickup_sound(&self) -> Option<mc_data::SoundEvent> {
         None
     }
+
+    // ==== [Blocks:Crops] BonemealableBlock on a server level, SuspiciousEffectHolder ====
+    /// `BonemealableBlock.isValidBonemealTarget(level, pos, state, source)` for implementors that need the server level
+    /// (`level instanceof ServerLevel`, the feature registry, `level.getRandom()`: saplings, mushrooms, azalea). Callers use
+    /// this entry point; the default delegates to [`BlockBehaviour::is_valid_bonemeal_target`].
+    fn is_valid_bonemeal_target_server(&self, level: &mut ServerLevel, pos: BlockPos, state: BlockState, source: BonemealSource) -> bool {
+        self.is_valid_bonemeal_target(&*level, pos, state, source)
+    }
+    /// `SuspiciousEffectHolder.getSuspiciousEffects()` (`None` when the block is not a holder; flowers).
+    fn get_suspicious_effects(&self) -> Option<mc_protocol::components::SuspiciousStewEffects> {
+        None
+    }
+    /// `FlowerBlock.getBeeInteractionEffect()` (wither rose: wither, eyeblossom: poison; plain flowers `null`).
+    fn get_bee_interaction_effect(&self) -> Option<crate::world::entity::effect::MobEffectInstance> {
+        None
+    }
 }
 
 /// Vanilla's base behavior (every method default).

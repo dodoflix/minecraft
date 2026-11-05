@@ -22,28 +22,68 @@ pub fn update_shape(state: BlockState, level: &dyn LevelReader, pos: BlockPos) -
     if !state.can_survive(level, pos) { air() } else { state }
 }
 
+/// The `canSurvive` / `updateShape` methods of `VegetationBlock` for a subclass that only overrides `mayPlaceOn`
+/// (invoke inside the `impl BlockBehaviour`).
+macro_rules! vegetation_behaviour_methods {
+    () => {
+        fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
+            super::vegetation_block::can_survive(self, level, pos)
+        }
+        fn update_shape(
+            &self,
+            state: BlockState,
+            level: &mut dyn LevelAccessor,
+            pos: BlockPos,
+            _direction_to_neighbour: Direction,
+            _neighbour_pos: BlockPos,
+            _neighbour_state: BlockState,
+        ) -> BlockState {
+            super::vegetation_block::update_shape(state, &*level, pos)
+        }
+    };
+}
+pub(crate) use vegetation_behaviour_methods;
+
 /// `BlockBehaviour` for a `VegetationBlock` subclass that only overrides `mayPlaceOn`.
 macro_rules! vegetation_behaviour {
     ($ty:ty) => {
         impl BlockBehaviour for $ty {
-            fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
-                super::vegetation_block::can_survive(self, level, pos)
-            }
-            fn update_shape(
-                &self,
-                state: BlockState,
-                level: &mut dyn LevelAccessor,
-                pos: BlockPos,
-                _direction_to_neighbour: Direction,
-                _neighbour_pos: BlockPos,
-                _neighbour_state: BlockState,
-            ) -> BlockState {
-                super::vegetation_block::update_shape(state, &*level, pos)
-            }
+            super::vegetation_block::vegetation_behaviour_methods!();
         }
     };
 }
 pub(crate) use vegetation_behaviour;
+
+/// The bonemeal of `BushBlock` / `FireflyBushBlock`: spread to a neighbouring free position that can hold the block
+/// (invoke inside the `impl BlockBehaviour`).
+macro_rules! spreading_bonemeal_methods {
+    () => {
+        fn is_bonemealable(&self) -> bool {
+            true
+        }
+        fn is_valid_bonemeal_target(
+            &self,
+            level: &dyn LevelReader,
+            pos: BlockPos,
+            state: BlockState,
+            _source: crate::world::level::block::bonemeal::BonemealSource,
+        ) -> bool {
+            crate::world::level::block::bonemeal::has_spreadable_neighbour_pos(level, pos, state)
+        }
+        fn perform_bonemeal(
+            &self,
+            level: &mut crate::server::level::ServerLevel,
+            pos: BlockPos,
+            state: BlockState,
+            _source: crate::world::level::block::bonemeal::BonemealSource,
+        ) {
+            if let Some(target) = crate::world::level::block::bonemeal::find_spreadable_neighbour_pos(level, pos, state) {
+                level.set_block_and_update(target, state.block().default_state());
+            }
+        }
+    };
+}
+pub(crate) use spreading_bonemeal_methods;
 
 pub struct VegetationBlock;
 impl MayPlaceOn for VegetationBlock {}
