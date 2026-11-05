@@ -67,8 +67,8 @@ pub fn can_support_center(level: &dyn crate::world::level::BlockGetter, below_po
 }
 
 /// `Block.getStateForPlacement(context)` of `block`.
-pub fn get_state_for_placement(block: mc_data::block::Block, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
-    super::behaviour(block).get_state_for_placement(block, context)
+pub fn get_state_for_placement(block: mc_data::block::Block, level: &mut crate::server::level::ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+    super::behaviour(block).get_state_for_placement(block, level, context)
 }
 
 /// Implementation of `Block.dropResources(state, level, pos, blockEntity, breaker, tool)` supplied by the loot slice
