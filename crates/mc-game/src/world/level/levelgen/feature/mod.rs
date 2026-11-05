@@ -53,6 +53,7 @@ pub mod bamboo_feature;
 pub mod block_column_feature;
 pub mod block_pile_feature;
 pub mod blue_ice_feature;
+pub mod bonus_chest_feature;
 pub mod coral_claw_feature;
 pub mod coral_tree_feature;
 pub mod delta_feature;
