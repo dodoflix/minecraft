@@ -2,7 +2,7 @@
 //!
 //! Everything is compared semantically (palette-independent blocks/biomes, order-insensitive lists where vanilla's order
 //! is not observable) and reported as short human-readable messages. Ignored: `LastUpdate`, `InhabitedTime`, light data
-//! (`sections[].BlockLight/SkyLight`), entity `UUID`s (random in vanilla).
+//! (`sections[].BlockLight/SkyLight`), entity `UUID`s and `EggLayTime` (own-RNG fields, see `NONDETERMINISTIC_ENTITY_FIELDS`).
 
 use std::collections::{BTreeMap, BTreeSet};
 
@@ -439,7 +439,7 @@ fn block_entity_key(t: &Tag) -> String {
     format!("{id} @ ({},{},{})", int_of(t, "x"), int_of(t, "y"), int_of(t, "z"))
 }
 
-/// Entities are keyed by id + position (3 decimals); `UUID` is random in vanilla and ignored.
+/// Entities are keyed by id + position (3 decimals); see `normalize_entity` for the ignored fields.
 pub fn entity_key(t: &Tag) -> String {
     let c = t.as_compound();
     let id = c.map_or("?", |c| c.get_string_or("id", "?"));
@@ -447,10 +447,16 @@ pub fn entity_key(t: &Tag) -> String {
     format!("{id} @ ({})", pos.unwrap_or_default())
 }
 
-pub fn strip_uuid(t: &Tag) -> Tag {
+/// Entity fields drawn from the entity's own unseeded RandomSource / UUID generator, i.e. not reproducible in vanilla
+/// itself: `UUID` (random), chicken `EggLayTime` (`random.nextInt(6000) + 6000` in the constructor).
+pub const NONDETERMINISTIC_ENTITY_FIELDS: [&str; 2] = ["UUID", "EggLayTime"];
+
+pub fn normalize_entity(t: &Tag) -> Tag {
     let mut t = t.clone();
     if let Tag::Compound(c) = &mut t {
-        c.remove("UUID");
+        for k in NONDETERMINISTIC_ENTITY_FIELDS {
+            c.remove(k);
+        }
     }
     t
 }
@@ -535,7 +541,7 @@ pub fn compare_chunk(a: &CompoundTag, b: &CompoundTag, max_listed: usize) -> Chu
         diff_keyed(&mut d, Category::Ticks, a.get_list_or_empty(k), b.get_list_or_empty(k), |t| format!("{k} {}", canon(t)), Tag::clone);
     }
     // entities still embedded in the chunk NBT (proto chunks); full chunks keep them in `entities/` regions
-    diff_keyed(&mut d, Category::Entities, a.get_list_or_empty("entities"), b.get_list_or_empty("entities"), entity_key, strip_uuid);
+    diff_keyed(&mut d, Category::Entities, a.get_list_or_empty("entities"), b.get_list_or_empty("entities"), entity_key, normalize_entity);
     compare_structures(a, b, &mut d);
     let mut out = Vec::new();
     let pp = |c: &CompoundTag| Tag::List(c.get_list_or_empty("PostProcessing").clone());
@@ -563,7 +569,7 @@ pub fn compare_chunk(a: &CompoundTag, b: &CompoundTag, max_listed: usize) -> Chu
 pub fn compare_entity_chunks(a: Option<&CompoundTag>, b: Option<&CompoundTag>, d: &mut ChunkDiff) {
     let empty = ListTag::new();
     let l = |c: Option<&CompoundTag>| c.and_then(|c| c.get_list("Entities")).cloned().unwrap_or_else(|| empty.clone());
-    diff_keyed(d, Category::Entities, &l(a), &l(b), entity_key, strip_uuid);
+    diff_keyed(d, Category::Entities, &l(a), &l(b), entity_key, normalize_entity);
 }
 
 #[cfg(test)]

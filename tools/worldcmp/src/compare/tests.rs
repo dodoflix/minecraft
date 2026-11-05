@@ -318,6 +318,7 @@ fn entities_ignore_uuid_and_match_by_position() {
         c.put("Pos", Tag::List(vec![Tag::Double(x), Tag::Double(64.0), Tag::Double(2.5)].into()));
         c.put_int_array("UUID", vec![uuid, 0, 0, 0]);
         c.put_float("Health", hp);
+        c.put_int("EggLayTime", uuid * 7);
         c
     };
     let wrap = |e: Vec<CompoundTag>| {
