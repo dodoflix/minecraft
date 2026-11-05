@@ -99,3 +99,26 @@ fn decode_advancement(json: &Value, ctx: &RegistryDecodeContext) -> Result<Decod
 
 #[linkme::distributed_slice(DYNAMIC_REGISTRY_DECODERS)]
 static ADVANCEMENT_DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder { registry: keys::ADVANCEMENT, decode: decode_advancement };
+
+impl crate::server::MinecraftServer {
+    /// `getAdvancements()`.
+    pub fn advancements(&self) -> &ServerAdvancementManager {
+        self.resources.managers.listener::<ServerAdvancementManager>().expect("the advancement manager is registered")
+    }
+}
+
+/// `ServerGamePacketListenerImpl.handleSeenAdvancements`.
+struct AdvancementPackets;
+
+impl crate::server::network::game_packets::hooks::PlayHandlers for AdvancementPackets {
+    fn handle_seen_advancements(&self, ctx: &mut crate::server::network::game_packets::PlayCtx, packet: &mc_protocol::packets::play::ServerboundSeenAdvancementsPacket) {
+        if let mc_protocol::packets::play::ServerboundSeenAdvancementsPacket::OpenedTab(id) = packet {
+            if let Some(advancement) = ctx.server.advancements().get(id).cloned() {
+                ctx.player.advancements.set_selected_tab(ctx.player, Some(&advancement));
+            }
+        }
+    }
+}
+
+#[linkme::distributed_slice(crate::server::network::game_packets::hooks::PLAY_HANDLERS)]
+static ADVANCEMENT_PACKETS: &dyn crate::server::network::game_packets::hooks::PlayHandlers = &AdvancementPackets;

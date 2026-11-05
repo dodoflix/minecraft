@@ -69,6 +69,7 @@ pub fn remove(server: &mut MinecraftServer, level: &mut ServerLevel, player: &mu
     }
     player.remove(RemovalReason::UnloadedWithPlayer);
     player.close_menus_on_removal(level);
+    player.advancements.clear_triggers();
     server.player_list.remove_player(&handle);
     server.custom_boss_events().on_player_disconnect(&handle);
     server.player_list.broadcast_player_info_remove(handle.uuid);
@@ -130,13 +131,15 @@ pub fn set_simulation_distance(server: &mut MinecraftServer, simulation_distance
     }
 }
 
-/// `reloadResources()`: the new tags and the recipe sync (the player advancements reload with the advancement
-/// manager, a later wave).
+/// `reloadResources()`: the player advancements, the new tags and the recipe sync.
 pub fn reload_resources(server: &mut MinecraftServer) {
     if let Some(recipes) = server.resources.managers.listener::<crate::world::item::crafting::RecipeManager>() {
         server.shared.set_recipe_manager(recipes.clone());
     }
     use crate::registry::synchronization as sync;
+    if let Some(manager) = server.resources.managers.listener::<crate::advancements::ServerAdvancementManager>() {
+        server.player_list.reload_player_advancements(manager);
+    }
     use mc_protocol::packets::common::TagNetworkPayload;
     let tags = sync::serialize_tags_to_network(&server.registries)
         .into_iter()

@@ -139,6 +139,11 @@ impl JoinHost for ServerJoinHost<'_> {
         self.level.recipe_access()
     }
 
+    fn player_advancements(&mut self, player: &PlayerHandle) -> crate::advancements::SharedAdvancements {
+        let manager = self.server.resources.managers.listener::<crate::advancements::ServerAdvancementManager>().expect("advancement manager is registered");
+        self.server.player_list.get_player_advancements(player, manager)
+    }
+
     fn send_commands(&mut self, player: &PlayerHandle, permissions: LevelBasedPermissionSet) {
         if let Some(send) = SEND_COMMANDS.get() {
             send(self.server, player, permissions);

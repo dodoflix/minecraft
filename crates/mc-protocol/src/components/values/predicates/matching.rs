@@ -227,6 +227,32 @@ fn opt_test<P: Clone + PartialEq + Send + Sync + 'static, T>(
     pred.as_ref().is_none_or(|p| p.test(values, matches))
 }
 
+impl PotionsPredicate {
+    /// `matches(PotionContents)`: the potion is in `potions` and `getAllEffects()` satisfies `effects`.
+    pub fn matches(&self, contents: &crate::components::values::effects::PotionContents) -> bool {
+        let potion_ok = match &self.potions {
+            None => true,
+            Some(set) => contents.potion.is_some_and(|potion| set.contains(potion)),
+        };
+        potion_ok && {
+            let mut all: Vec<MobEffectInstance> = Vec::new();
+            if let Some(potion) = contents.potion {
+                all.extend(potion.data().effects.iter().map(|d| MobEffectInstance {
+                    effect: d.effect,
+                    duration: d.duration,
+                    amplifier: d.amplifier,
+                    ambient: d.ambient,
+                    visible: d.visible,
+                    show_icon: d.show_icon,
+                    hidden_effect: None,
+                }));
+            }
+            all.extend(contents.custom_effects.iter().cloned());
+            opt_test(&self.effects, &all, |e, v| e.test(v))
+        }
+    }
+}
+
 impl DataComponentPredicate {
     /// `matches(DataComponentGetter)`.
     pub fn matches<G: DataComponentGetter>(&self, components: &G) -> bool {
@@ -246,28 +272,7 @@ impl DataComponentPredicate {
             P::StoredEnchantments(p) => {
                 components.get(&STORED_ENCHANTMENTS).is_some_and(|v| p.enchantments.iter().all(|e| e.contained_in(v)))
             }
-            P::PotionContents(p) => components.get(&POTION_CONTENTS).is_some_and(|contents| {
-                let potion_ok = match &p.potions {
-                    None => true,
-                    Some(set) => contents.potion.is_some_and(|potion| set.contains(potion)),
-                };
-                potion_ok && {
-                    let mut all: Vec<MobEffectInstance> = Vec::new();
-                    if let Some(potion) = contents.potion {
-                        all.extend(potion.data().effects.iter().map(|d| MobEffectInstance {
-                            effect: d.effect,
-                            duration: d.duration,
-                            amplifier: d.amplifier,
-                            ambient: d.ambient,
-                            visible: d.visible,
-                            show_icon: d.show_icon,
-                            hidden_effect: None,
-                        }));
-                    }
-                    all.extend(contents.custom_effects.iter().cloned());
-                    opt_test(&p.effects, &all, |e, v| e.test(v))
-                }
-            }),
+            P::PotionContents(p) => components.get(&POTION_CONTENTS).is_some_and(|contents| p.matches(contents)),
             P::CustomData(p) => p.value.matches_components(components),
             P::Container(p) => components.get(&CONTAINER).is_some_and(|c| {
                 let items: Vec<&ItemStackTemplate> = c.non_empty_items().collect();

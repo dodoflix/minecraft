@@ -97,6 +97,8 @@ pub struct ServerPlayer {
     pub entered_nether_position: Option<Vec3>,
     pub entered_lava_on_vehicle_position: Option<Vec3>,
     pub current_explosion_impact_pos: Option<Vec3>,
+    /// `currentExplosionCause`: the entity that caused the explosion that hit this player.
+    pub current_explosion_cause: Option<EntityId>,
     pub last_section_pos: SectionPos,
     pub respawn_config: Option<RespawnConfig>,
     pub text_filtering_enabled: bool,
@@ -182,6 +184,7 @@ impl ServerPlayer {
             entered_nether_position: None,
             entered_lava_on_vehicle_position: None,
             current_explosion_impact_pos: None,
+            current_explosion_cause: None,
             last_section_pos: SectionPos::of(0, 0, 0),
             respawn_config: None,
             text_filtering_enabled: false,

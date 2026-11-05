@@ -7,6 +7,7 @@ use super::menu_ctx::{PlayerCtx, ServerPlayerMenuInit};
 use crate::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
 use mc_core::ident::Identifier;
 use super::ServerPlayer;
+use crate::advancements::triggers::CriteriaTriggers;
 use crate::server::level::ServerLevel;
 use crate::world::entity::{living_entity, movement};
 use crate::world::entity::{Entity, EntityId};
@@ -86,8 +87,8 @@ impl ServerPlayer {
     }
 
     /// `ServerPlayer.tick()`: game mode tick, damage cooldown, menu broadcast + validity, falling/lava tracking, attributes,
-    /// post effects. The camera follow-up belongs to the level slice's spectator camera; the criteria triggers and
-    /// `advancements.flushDirty` are `// SEAM(advancements)`.
+    /// post effects, the `tick`/`levitation` triggers and `advancements.flushDirty`. The camera follow-up belongs to the level
+    /// slice's spectator camera.
     pub fn tick_server_player(&mut self, level: &mut ServerLevel) {
         self.tick_game_mode(level);
         self.warden_spawn_tracker.tick();
@@ -97,35 +98,48 @@ impl ServerPlayer {
         self.broadcast_menu_changes(level);
         self.close_container_if_invalid(level);
         self.tick_camera(level);
-        // SEAM(advancements): CriteriaTriggers.TICK / LEVITATION
-        self.track_start_falling_position();
+        CriteriaTriggers::TICK.trigger(level, self);
+        if let Some(start) = self.levitation_start_pos {
+            let duration = self.base().tick_count - self.levitation_start_time;
+            CriteriaTriggers::LEVITATION.trigger(level, self, start, duration);
+        }
+        self.track_start_falling_position(level);
         self.track_entered_or_exited_lava_on_vehicle(level);
         self.update_player_attributes();
-        // SEAM(advancements): advancements.flushDirty(this, true)
+        let advancements = self.advancements.clone();
+        advancements.flush_dirty(self, true);
         if self.post_effects_dirty {
             crate::server::players::join::send_post_effects(self);
         }
     }
 
     /// `trackStartFallingPosition()`.
-    pub fn track_start_falling_position(&mut self) {
+    pub fn track_start_falling_position(&mut self, level: &mut ServerLevel) {
         if self.base().fall_distance > 0.0 && self.starting_to_fall_position.is_none() {
             let position = self.base().position();
             self.starting_to_fall_position = Some(position);
-            // SEAM(advancements): FALL_AFTER_EXPLOSION when `currentExplosionImpactPos.y <= position.y`
+            if let Some(impact) = self.current_explosion_impact_pos.filter(|p| p.y <= position.y) {
+                let cause = self.current_explosion_cause.and_then(|id| level.get_entity(id));
+                let matches = CriteriaTriggers::FALL_AFTER_EXPLOSION.matches(&*level, &*self, impact, cause);
+                matches.award(level, self);
+            }
             self.current_explosion_impact_pos = None;
+            self.current_explosion_cause = None;
         }
     }
 
     /// `trackEnteredOrExitedLavaOnVehicle()`.
-    pub fn track_entered_or_exited_lava_on_vehicle(&mut self, level: &ServerLevel) {
-        let in_lava = |id| level.get_entity(id).is_some_and(|v| v.is_in_lava());
+    pub fn track_entered_or_exited_lava_on_vehicle(&mut self, level: &mut ServerLevel) {
+        let in_lava = |level: &ServerLevel, id| level.get_entity(id).is_some_and(|v| v.is_in_lava());
         let vehicle = self.base().vehicle;
-        if vehicle.is_some_and(in_lava) && self.entered_lava_on_vehicle_position.is_none() {
-            self.entered_lava_on_vehicle_position = Some(self.base().position());
+        if vehicle.is_some_and(|v| in_lava(level, v)) {
+            match self.entered_lava_on_vehicle_position {
+                None => self.entered_lava_on_vehicle_position = Some(self.base().position()),
+                Some(entered) => CriteriaTriggers::RIDE_ENTITY_IN_LAVA_TRIGGER.trigger(level, self, entered),
+            }
         }
-        // SEAM(advancements): RIDE_ENTITY_IN_LAVA_TRIGGER while already entered
-        if self.entered_lava_on_vehicle_position.is_some() && !vehicle.is_some_and(in_lava) {
+        let vehicle = self.base().vehicle;
+        if self.entered_lava_on_vehicle_position.is_some() && !vehicle.is_some_and(|v| in_lava(level, v)) {
             self.entered_lava_on_vehicle_position = None;
         }
     }
@@ -346,7 +360,9 @@ impl ServerPlayer {
                 total_experience,
             });
         }
-        // SEAM(advancements): `if (tickCount % 20 == 0) CriteriaTriggers.LOCATION.trigger(this)`
+        if self.base().tick_count % 20 == 0 {
+            CriteriaTriggers::LOCATION.trigger(level, self);
+        }
         // the player list's view of this player (tab list, broadcasts by range/dimension)
         self.sync_handle();
     }

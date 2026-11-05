@@ -75,6 +75,8 @@ pub trait JoinHost {
     fn update_entire_scoreboard(&mut self, player: &PlayerHandle);
     /// `server.invalidateStatus()`.
     fn invalidate_status(&mut self);
+    /// `playerList.getPlayerAdvancements(player)`: loads `advancements/<uuid>.json` against the advancement manager.
+    fn player_advancements(&mut self, player: &PlayerHandle) -> crate::advancements::SharedAdvancements;
     /// `ServerPlayer.sendServerStatus(status)` payload (`None` while there is no status yet).
     fn server_data_packet(&self) -> Option<ClientboundServerDataPacket>;
     /// `nameToIdCache.get(id)` / `.add(nameAndId)`.
@@ -276,6 +278,7 @@ pub fn place_new_player(
     player.send(&host.update_recipes_packet());
     send_player_permission_level(host, &handle);
     // `player.getStats().markAllDirty()`: the statistics are loaded (and their file created) with the first access
+    player.advancements = host.player_advancements(&handle);
     player.stats = host.list().get_player_stats(&handle);
     player.stats.lock().mark_all_dirty();
     send_initial_recipe_book(&player, &host.recipe_manager());
@@ -350,6 +353,9 @@ mod tests {
         }
         fn level_keys(&self) -> Vec<DimensionKey> {
             vec![Identifier::parse("minecraft:overworld").unwrap()]
+        }
+        fn player_advancements(&mut self, _player: &PlayerHandle) -> crate::advancements::SharedAdvancements {
+            crate::advancements::SharedAdvancements::detached()
         }
         fn level_join_info(&mut self) -> LevelJoinInfo {
             LevelJoinInfo {

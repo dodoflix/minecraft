@@ -5,7 +5,8 @@
 //! `server.player_list` and `server` at once (ARCHITECTURE: tier 2).
 
 use super::name_and_id::NameAndId;
-use super::player_files::{PlayerAdvancementsFile, locate_stats_file};
+use super::player_files::locate_stats_file;
+use crate::advancements::{PlayerAdvancements, ServerAdvancementManager, SharedAdvancements};
 use crate::stats::{ServerStatsCounter, SharedStats};
 use super::player_handle::PlayerHandle;
 use super::user_lists::{IpBanList, ServerOpList, ServerOpListEntry, UserBanList, UserWhiteList};
@@ -85,7 +86,7 @@ pub struct PlayerList {
     pub ops: ServerOpList,
     pub whitelist: UserWhiteList,
     stats: HashMap<Uuid, SharedStats>,
-    advancements: HashMap<Uuid, PlayerAdvancementsFile>,
+    advancements: HashMap<Uuid, SharedAdvancements>,
     player_io: PlayerDataStorage,
     /// `getWorldPath(PLAYER_STATS_DIR)` / `PLAYER_ADVANCEMENTS_DIR`.
     stats_dir: PathBuf,
@@ -320,9 +321,19 @@ impl PlayerList {
     }
 
     /// `getPlayerAdvancements(player)`.
-    pub fn get_player_advancements(&mut self, handle: &PlayerHandle) -> &mut PlayerAdvancementsFile {
+    pub fn get_player_advancements(&mut self, handle: &PlayerHandle, manager: &ServerAdvancementManager) -> SharedAdvancements {
         let dir = &self.advancements_dir;
-        self.advancements.entry(handle.uuid).or_insert_with(|| PlayerAdvancementsFile::new(dir.join(format!("{}.json", handle.uuid))))
+        self.advancements
+            .entry(handle.uuid)
+            .or_insert_with(|| SharedAdvancements::new(PlayerAdvancements::new(manager, Some(dir.join(format!("{}.json", handle.uuid))))))
+            .clone()
+    }
+
+    /// `reloadResources()`' first loop: every player's advancements are re-read against the reloaded manager.
+    pub fn reload_player_advancements(&self, manager: &ServerAdvancementManager) {
+        for advancements in self.advancements.values() {
+            advancements.reload(manager);
+        }
     }
 
     // ---------------------------------------------------------------------------------------------- tick / ops

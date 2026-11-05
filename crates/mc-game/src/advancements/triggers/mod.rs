@@ -76,6 +76,26 @@ pub mod using_item_trigger;
 pub mod recipe_crafted_trigger;
 pub mod fall_after_explosion_trigger;
 
+/// What the trigger modules need (`use super::prelude::*;`).
+#[allow(unused_imports)]
+pub(crate) mod prelude {
+    pub use super::{
+        CriteriaTriggers, CriterionTriggerInstance, SimpleInstance, Trigger, TriggerInstance, TriggerMatches, entity_params, holder_matches, new_context,
+    };
+    pub use crate::server::level::ServerLevel;
+    pub use crate::world::damagesource::DamageSource;
+    pub use crate::world::entity::Entity;
+    pub use crate::world::entity::player::ServerPlayer;
+    pub use crate::world::item::ItemStack;
+    pub use crate::world::level::storage::loot::LootContext;
+    pub use crate::world::level::storage::loot::predicates::{ConditionHolder, condition_holder_codec};
+    pub use mc_core::phys::Vec3;
+    pub use mc_core::pos::BlockPos;
+    pub use mc_data::block::BlockState;
+    pub use mc_dfu::{BOOL, Codec, DataResult, FLOAT, INT, STRING};
+    pub use mc_protocol::components::{Doubles, Ints, ItemPredicate};
+}
+
 /// Namespace of the trigger constants (`CriteriaTriggers.X`): every trigger module declares its own constants with
 /// [`register_triggers!`]. Usage: `CriteriaTriggers::CONSUME_ITEM.trigger(level, player, &stack)`.
 pub struct CriteriaTriggers;

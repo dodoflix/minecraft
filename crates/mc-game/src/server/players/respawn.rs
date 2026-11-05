@@ -161,6 +161,7 @@ fn restore_from(new: &mut ServerPlayer, mut old: ServerPlayer, restore_all: bool
     new.seen_credits = old.seen_credits;
     new.entered_nether_position = old.entered_nether_position;
     new.current_explosion_impact_pos = old.current_explosion_impact_pos;
+    new.current_explosion_cause = old.current_explosion_cause;
     new.shoulder_entity_left = std::mem::take(&mut old.shoulder_entity_left);
     new.shoulder_entity_right = std::mem::take(&mut old.shoulder_entity_right);
     new.player.last_death_location = old.player.last_death_location.take();
@@ -188,6 +189,7 @@ pub fn create_respawned_player(old: ServerPlayer, level: &mut ServerLevel, trans
     new.connection = old.connection.take();
     new.listener = old.listener.take();
     new.stats = old.stats.clone();
+    new.advancements = old.advancements.clone();
     new.handle = old.handle.clone();
     new.player.set_main_arm(old.player.get_main_arm());
     if !transition.missing_respawn_block {
