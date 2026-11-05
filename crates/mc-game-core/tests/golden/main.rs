@@ -33,6 +33,7 @@ mod food_golden;
 mod gamerule_golden;
 mod gametest_golden;
 mod gen_level_golden;
+mod gen_level_semantics;
 mod java_hash_set;
 mod jsonrpc_management;
 mod level_mutation;

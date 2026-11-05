@@ -49,8 +49,7 @@ fn copy_dir(from: &Path, to: &Path) {
 
 /// `command_common::test_server` with the function pack installed in the world's `datapacks` folder.
 fn server_with_pack() -> (MinecraftServer, std::path::PathBuf, Box<dyn std::any::Any>) {
-    static LOCK: Mutex<()> = Mutex::new(());
-    let guard = LOCK.lock().unwrap_or_else(|e| e.into_inner());
+    let guard = crate::command_common::CWD_LOCK.lock().unwrap_or_else(|e| e.into_inner());
     use mc_game::server::dedicated::options::ServerOptions;
     use mc_game::server::dedicated::properties::DedicatedServerSettings;
     common::init_logger();

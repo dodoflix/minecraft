@@ -753,7 +753,7 @@ args_case!(
 );
 
 args_case!(
-    time_matches_vanilla,
+    time_argument_matches_vanilla,
     "time",
     arguments,
     |_| Arc::new(TimeArgument::time()),

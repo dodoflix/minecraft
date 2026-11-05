@@ -113,13 +113,15 @@ fn write_fixture(dir: &Path, name: &str, captured: &Captured, expect_packets: bo
     std::fs::write(dir.join(format!("{name}.server-log.txt")), captured.log.join("\n") + "\n").unwrap();
 }
 
-/// Records the three worlds. The committed fixtures are rewritten only with `MC_UPDATE_FIXTURES=1`; otherwise the
-/// recording goes to a scratch directory, so a plain `--ignored` run still proves the capture works and leaves the tree alone.
+/// Records the three worlds into the committed fixtures. It is a generator, not a check: it does nothing unless
+/// `MC_UPDATE_FIXTURES=1` is set, so the `--ignored` oracle run never rewrites tracked files.
 #[test]
-#[ignore = "oracle: starts the vanilla server"]
+#[ignore = "oracle: starts the vanilla server (only with MC_UPDATE_FIXTURES=1)"]
 fn regen_oracle_fixtures() {
-    let scratch = tempfile::tempdir().unwrap();
-    let dir = if std::env::var("MC_UPDATE_FIXTURES").is_ok_and(|v| v == "1") { fixture_dir() } else { scratch.path().to_path_buf() };
+    if !std::env::var("MC_UPDATE_FIXTURES").is_ok_and(|v| v == "1") {
+        return;
+    }
+    let dir = fixture_dir();
     let rt = tokio::runtime::Builder::new_multi_thread().enable_all().build().unwrap();
     rt.block_on(async {
         write_fixture(&dir, "default", &run_vanilla(|_| {}, true).await, true);

@@ -1,6 +1,6 @@
 //! Our registry loader against the recorded vanilla server (`tests/fixtures/oracle/`: the raw configuration packets and the
 //! server log of three worlds: default, custom data packs, broken data pack).
-//! Regenerate: `cargo test -p mc-game --test oracle -- --ignored regen_oracle_fixtures --nocapture`.
+//! Regenerate: `MC_UPDATE_FIXTURES=1 cargo test -p mc-game --test oracle -- --ignored regen_oracle_fixtures --nocapture`.
 
 use crate::common;
 

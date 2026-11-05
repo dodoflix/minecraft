@@ -11,7 +11,8 @@ use mc_world::level_storage::{DirectoryValidator, WorldDataConfiguration};
 
 /// Tests that look at captured logs hold this for their whole body.
 pub static SERIAL: Mutex<()> = Mutex::new(());
-static LOGS: Mutex<Vec<String>> = Mutex::new(Vec::new());
+/// Log lines with the thread that logged them: tests of one process log concurrently, each one reads only its own.
+static LOGS: Mutex<Vec<(std::thread::ThreadId, String)>> = Mutex::new(Vec::new());
 static INIT: std::sync::Once = std::sync::Once::new();
 
 struct TestLogger;
@@ -21,12 +22,12 @@ impl log::Log for TestLogger {
         true
     }
     fn log(&self, r: &log::Record) {
-        LOGS.lock().unwrap().push(format!("{}: {}", r.level(), r.args()));
+        LOGS.lock().unwrap().push((std::thread::current().id(), format!("{}: {}", r.level(), r.args())));
     }
     fn flush(&self) {}
 }
 
-/// Install the capturing logger (once per test binary). Tests using it must run serially (`--test-threads=1` or one test).
+/// Install the capturing logger (once per test binary).
 pub fn init_logger() {
     INIT.call_once(|| {
         log::set_logger(&TestLogger).unwrap();
@@ -34,8 +35,13 @@ pub fn init_logger() {
     });
 }
 
+/// The lines logged by the calling thread since its last call.
 pub fn take_logs() -> Vec<String> {
-    std::mem::take(&mut *LOGS.lock().unwrap())
+    let me = std::thread::current().id();
+    let mut all = LOGS.lock().unwrap();
+    let (mine, others): (Vec<_>, Vec<_>) = std::mem::take(&mut *all).into_iter().partition(|(id, _)| *id == me);
+    *all = others;
+    mine.into_iter().map(|(_, line)| line).collect()
 }
 
 pub fn load_world(world: &Path, config: WorldDataConfiguration, init_mode: bool) -> Result<(WorldDataConfiguration, WorldStem<()>), world_loader::WorldLoadError> {

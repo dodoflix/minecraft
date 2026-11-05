@@ -1,4 +1,5 @@
 //! Shared by the command tests.
+#![allow(dead_code, reason = "each test target uses a subset of the shared helpers")]
 
 /// The vanilla command tree: all features enabled like the golden generator (`createValidationContext`), built-in
 /// registries plus empty data-driven ones (the tree only needs registry existence).
@@ -45,14 +46,16 @@ pub fn vanilla_build_context() -> mc_game::commands::CommandBuildContext {
     CommandBuildContext::simple(Arc::new(WithEmptyDynamic), mc_world::level_storage::FeatureFlagSet::ALL)
 }
 
+/// Held by every test whose server lives in the working directory of the process (see [`test_server`]).
+pub static CWD_LOCK: std::sync::Mutex<()> = std::sync::Mutex::new(());
+
 /// A real `MinecraftServer` over a fresh world in a temporary directory (nothing is started: no levels are loaded,
 /// no listener, no console thread).
 ///
 /// The user lists (`ops.json`, ...) live in the working directory like vanilla's: the process switches into the temp
 /// directory, so tests holding a server are serialized (the second value keeps the lock and the directory alive).
 pub fn test_server() -> (mc_game::server::MinecraftServer, Box<dyn std::any::Any>) {
-    static LOCK: std::sync::Mutex<()> = std::sync::Mutex::new(());
-    let guard = LOCK.lock().unwrap_or_else(|e| e.into_inner());
+    let guard = CWD_LOCK.lock().unwrap_or_else(|e| e.into_inner());
     use mc_game::server::dedicated::options::ServerOptions;
     use mc_game::server::dedicated::properties::DedicatedServerSettings;
     let dir = tempfile::tempdir().expect("temp dir");
