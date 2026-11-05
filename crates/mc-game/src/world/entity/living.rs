@@ -84,6 +84,12 @@ pub struct LivingEntityData {
     /// `Brain.Packed` as saved (`{memories: {...}}`); brains are modelled by the AI slice.
     pub brain: CompoundTag,
     // ==== [LivingCore] additions (LivingEntityData field) ====
+    /// `lastClimbablePos` (set by `onClimbable()` of this entity's own movement).
+    pub last_climbable_pos: Option<BlockPos>,
+    /// `discardFriction` (`shouldDiscardFriction()`).
+    pub discard_friction: bool,
+    /// `autoSpinAttackItemStack`.
+    pub auto_spin_attack_item_stack: Option<crate::world::item::ItemStack>,
     // ==== [Damage] additions (LivingEntityData field) ====
     // ==== [Effects] additions (LivingEntityData field) ====
     /// `activeEffects.modCount`: bumped by every structural modification, `tickEffects` detects its own iterator being
@@ -158,6 +164,9 @@ impl LivingEntityData {
             last_hurt_by_mob: None,
             brain: empty_brain(),
             // ==== [LivingCore] additions (LivingEntityData::new initializer) ====
+            last_climbable_pos: None,
+            discard_friction: false,
+            auto_spin_attack_item_stack: None,
             // ==== [Damage] additions (LivingEntityData::new initializer) ====
             // ==== [Effects] additions (LivingEntityData::new initializer) ====
             effects_mod_count: 0,

@@ -668,8 +668,9 @@ pub trait Entity: Any {
     fn is_always_ticking(&self) -> bool {
         false
     }
+    /// `isAlive()` (`LivingEntity`: also needs health above zero).
     fn is_alive(&self) -> bool {
-        !self.is_removed()
+        !self.is_removed() && self.living().is_none_or(|l| l.get_health() > 0.0)
     }
     /// `Entity.shouldBeSaved()` without the passenger part (the section manager adds it).
     fn should_be_saved_ignoring_riding(&self) -> bool {
@@ -736,20 +737,27 @@ pub trait Entity: Any {
     fn get_entity_bounciness(&self) -> f64 {
         0.0
     }
-    /// `getEffectiveGravity()`.
+    /// `getEffectiveGravity()` (`LivingEntity`: `SLOW_FALLING` caps the gravity of a falling entity at 0.01).
     fn get_effective_gravity(&self) -> f64 {
-        self.get_gravity()
+        if self.living().is_some() { super::living_entity::travel::living_effective_gravity(self.as_dyn()) } else { self.get_gravity() }
     }
     /// `getGravity()` (`getDefaultGravity()` unless `noGravity`; living entities read the `GRAVITY` attribute).
     fn get_gravity(&self) -> f64 {
         if self.base().is_no_gravity() { 0.0 } else { self.get_default_gravity() }
     }
+    /// `getDefaultGravity()` (`LivingEntity`: the `GRAVITY` attribute).
     fn get_default_gravity(&self) -> f64 {
-        0.0
+        self.living().map_or(0.0, |l| l.get_attribute_value(mc_data::Attribute::GRAVITY))
     }
-    /// `getAirDrag()`.
+    /// `getAirDrag()` (`LivingEntity`: modified by the `AIR_DRAG_MODIFIER` attribute).
     fn get_air_drag(&self) -> f32 {
-        0.98
+        match self.living() {
+            Some(l) => super::living_entity::travel::compute_modified_friction(
+                if self.omnidirectional_air_mover() { 0.91 } else { 0.98 },
+                l.get_attribute_value(mc_data::Attribute::AIR_DRAG_MODIFIER) as f32,
+            ),
+            None => 0.98,
+        }
     }
     /// Players do not walk off edges while sneaking (`Player.maybeBackOffFromEdge`: `!flying && isStayingOnGroundSurface`).
     fn stays_on_ground_surface_at_edges(&self) -> bool {
@@ -1014,14 +1022,22 @@ pub trait Entity: Any {
 
     // ---- ticking ---------------------------------------------------------------------------------------------
 
-    /// `tick()`.
+    /// `tick()` (`LivingEntity.tick()` for living entities).
     fn tick(&mut self, level: &mut ServerLevel) {
-        self.base_tick(level);
+        if self.living().is_some() {
+            super::living_entity::tick::tick(self.as_dyn_mut(), level);
+        } else {
+            self.base_tick(level);
+        }
     }
 
-    /// `baseTick()`.
+    /// `baseTick()` (`LivingEntity.baseTick()` for living entities).
     fn base_tick(&mut self, level: &mut ServerLevel) {
-        base_tick(self, level);
+        if self.living().is_some() {
+            super::living_entity::base_tick::base_tick(self.as_dyn_mut(), level);
+        } else {
+            base_tick(self, level);
+        }
     }
 
     /// `updateDataBeforeSync()`.
@@ -1149,11 +1165,14 @@ pub trait Entity: Any {
     fn get_controlling_passenger(&self) -> Option<EntityId> {
         None
     }
-    fn is_pushable(&self) -> bool {
-        false
+    /// `isPushable()` (`LivingEntity`: alive, not spectating, not climbing, and in an entity-ticking chunk unless it
+    /// always ticks).
+    fn is_pushable(&self, level: &ServerLevel) -> bool {
+        self.living().is_some() && super::living_entity::push::living_is_pushable(self.as_dyn(), level)
     }
+    /// `isPickable()` (`LivingEntity`: not removed).
     fn is_pickable(&self) -> bool {
-        false
+        self.living().is_some() && !self.is_removed()
     }
     fn can_be_collided_with(&self, _other: Option<&dyn Entity>) -> bool {
         false
@@ -1999,6 +2018,182 @@ pub trait Entity: Any {
     /// when it is the entity being processed) lost this entity as a passenger.
     fn on_vehicle_removed(&mut self, _level: &mut ServerLevel, _old_vehicle: EntityId, _held: Option<&dyn Entity>) {}
     // ==== [LivingCore] additions (Entity trait methods) ====
+    // ---- `LivingEntity` behaviour: defaults are the vanilla methods for every entity whose `living()` is Some;
+    // ---- mobs/players override the hooks vanilla overrides (`travel`, `serverAiStep`, `isImmobile`, ...) -----------
+
+    /// `isEffectiveAi()` (server side: `Player` true, `Mob` `!isNoAi()`).
+    fn is_effective_ai(&self) -> bool {
+        true
+    }
+    /// `isImmobile()` (`LivingEntity`: dead or dying; `Player` adds sleeping).
+    fn is_immobile(&self) -> bool {
+        self.living().is_some_and(|l| l.is_dead_or_dying())
+    }
+    /// `serverAiStep()` (`Mob`: brain, goals, controls).
+    fn server_ai_step(&mut self, _level: &mut ServerLevel) {}
+    /// `aiStep()`.
+    fn ai_step(&mut self, level: &mut ServerLevel) {
+        super::living_entity::ai_step::ai_step(self.as_dyn_mut(), level);
+    }
+    /// `travel(input)`.
+    fn travel(&mut self, level: &mut ServerLevel, input: Vec3) {
+        super::living_entity::travel::travel(self.as_dyn_mut(), level, input);
+    }
+    /// `travelInFluid(input)`.
+    fn travel_in_fluid(&mut self, level: &mut ServerLevel, input: Vec3) {
+        super::living_entity::travel::travel_in_fluid(self.as_dyn_mut(), level, input);
+    }
+    /// `travelInWater(input, baseGravity, isFalling, oldY)`.
+    fn travel_in_water(&mut self, level: &mut ServerLevel, input: Vec3, base_gravity: f64, is_falling: bool, old_y: f64) {
+        super::living_entity::travel::travel_in_water(self.as_dyn_mut(), level, input, base_gravity, is_falling, old_y);
+    }
+    /// `getSpeed()` (`Player`: the `MOVEMENT_SPEED` attribute).
+    fn get_speed(&self) -> f32 {
+        self.living().map_or(0.0, |l| l.speed)
+    }
+    /// `setSpeed(speed)`.
+    fn set_speed(&mut self, speed: f32) {
+        if let Some(l) = self.living_mut() {
+            l.speed = speed;
+        }
+    }
+    /// `getFlyingSpeed()`.
+    fn get_flying_speed(&self, level: &ServerLevel) -> f32 {
+        super::living_entity::travel::get_flying_speed(self.as_dyn(), level)
+    }
+    /// `getWaterSlowDown()`.
+    fn get_water_slow_down(&self) -> f32 {
+        0.8
+    }
+    /// `isAffectedByFluids()`.
+    fn is_affected_by_fluids(&self) -> bool {
+        true
+    }
+    /// `omnidirectionalAirMover()`.
+    fn omnidirectional_air_mover(&self) -> bool {
+        false
+    }
+    /// `jumpInLiquid(fluid)`.
+    fn jump_in_liquid(&mut self, _fluid: super::living_entity::util::FluidKind) {
+        super::living_entity::jump::jump_in_liquid(self.as_dyn_mut());
+    }
+    /// `goDownInWater()`.
+    fn go_down_in_water(&mut self) {
+        super::living_entity::jump::go_down_in_water(self.as_dyn_mut());
+    }
+    /// `getJumpPower()`.
+    fn get_jump_power(&self, level: &ServerLevel) -> f32 {
+        super::living_entity::jump::get_jump_power(self.as_dyn(), level)
+    }
+    /// `jumpFromGround()`.
+    fn jump_from_ground(&mut self, level: &ServerLevel) {
+        super::living_entity::jump::jump_from_ground(self.as_dyn_mut(), level);
+    }
+    /// `onClimbable()` without the `lastClimbablePos` side effect (`ai_step`/`travel` record it themselves).
+    fn on_climbable(&self, level: &ServerLevel) -> bool {
+        super::living_entity::travel::on_climbable(self.as_dyn(), level)
+    }
+    /// `canGlide()`.
+    fn can_glide(&self) -> bool {
+        super::living_entity::fall_flying::can_glide(self.as_dyn())
+    }
+    /// `updateFallFlying()`.
+    fn update_fall_flying(&mut self, level: &mut ServerLevel) {
+        super::living_entity::fall_flying::update_fall_flying(self.as_dyn_mut(), level);
+    }
+    /// `ItemStack.hurtAndBreak(amount, this, slot)` on the item in `slot` (elytra wear); `Player` owners use the player
+    /// item path.
+    fn hurt_and_break_equipment(&mut self, level: &mut ServerLevel, slot: super::equipment::EquipmentSlot, amount: i32) {
+        super::living_entity::fall_flying::hurt_and_break_equipment(self.as_dyn_mut(), level, slot, amount);
+    }
+    /// `pushEntities()`.
+    fn push_entities(&mut self, level: &mut ServerLevel) {
+        super::living_entity::push::push_entities(self.as_dyn_mut(), level);
+    }
+    /// `doPush(entity)` = `entity.push(this)`.
+    fn do_push(&mut self, level: &mut ServerLevel, other: &mut dyn Entity) {
+        super::living_entity::push::do_push(level, self.as_dyn_mut(), other);
+    }
+    /// `tickHeadTurn(yBodyRotT)`.
+    fn tick_head_turn(&mut self, y_body_rot_t: f32) {
+        super::living_entity::tick::tick_head_turn(self.as_dyn_mut(), y_body_rot_t);
+    }
+    /// `getMaxHeadRotationRelativeToBody()`.
+    fn get_max_head_rotation_relative_to_body(&self) -> f32 {
+        50.0
+    }
+    /// `canBreatheUnderwater()` (entity type tag `can_breathe_under_water`).
+    fn can_breathe_underwater(&self) -> bool {
+        mc_data::tags::get::<EntityType>("can_breathe_under_water").is_some_and(|t| t.contains(self.get_type()))
+    }
+    /// `decreaseAirSupply(currentSupply)`.
+    fn decrease_air_supply(&mut self, current_supply: i32) -> i32 {
+        super::living_entity::base_tick::decrease_air_supply(self.as_dyn_mut(), current_supply)
+    }
+    /// `increaseAirSupply(currentSupply)`.
+    fn increase_air_supply(&mut self, current_supply: i32) -> i32 {
+        (current_supply + 4).min(self.get_max_air_supply())
+    }
+    /// `shouldTakeDrowningDamage()`.
+    fn should_take_drowning_damage(&self) -> bool {
+        self.base().get_air_supply() <= -20
+    }
+    /// `isSensitiveToWater()`.
+    fn is_sensitive_to_water(&self) -> bool {
+        false
+    }
+    /// `isSuppressingSlidingDownLadder()`.
+    fn is_suppressing_sliding_down_ladder(&self) -> bool {
+        self.is_shift_key_down()
+    }
+    /// `getBlockSpeedFactor()` modifier: `LivingEntity` lerps towards 1 by the `MOVEMENT_EFFICIENCY` attribute, `Player`
+    /// ignores block speed factors while flying/gliding.
+    fn modify_block_speed_factor(&self, base: f32) -> f32 {
+        match self.living() {
+            Some(l) => mth::lerp_f32(l.get_attribute_value(mc_data::Attribute::MOVEMENT_EFFICIENCY) as f32, base, 1.0),
+            None => base,
+        }
+    }
+    /// `setSprinting(isSprinting)` (`LivingEntity`: also toggles the sprinting speed modifier).
+    fn set_sprinting(&mut self, sprinting: bool) {
+        super::living_entity::set_sprinting(self.as_dyn_mut(), sprinting);
+    }
+    /// `canBeSeenByAnyone()`.
+    fn can_be_seen_by_anyone(&self) -> bool {
+        !self.is_spectator() && self.is_alive()
+    }
+    /// `canBeSeenAsEnemy()`.
+    fn can_be_seen_as_enemy(&self) -> bool {
+        !self.base().permanently_invulnerable && self.can_be_seen_by_anyone()
+    }
+    /// `EntityEquipment.tick(this)` (`Item.inventoryTick` of the equipped stacks); items run on a `ServerPlayer` owner.
+    fn tick_equipment(&mut self, _level: &mut ServerLevel) {}
+    /// `updatingUsingItem()` (`LivingEntity.tick`); the item state machine is `ServerPlayer`'s.
+    fn updating_using_item(&mut self, _level: &mut ServerLevel) {}
+    /// `getRiddenInput(controller, selfInput)`.
+    fn get_ridden_input(&self, _level: &ServerLevel, _controller: EntityId, self_input: Vec3) -> Vec3 {
+        self_input
+    }
+    /// `tickRidden(controller, riddenInput)`.
+    fn tick_ridden(&mut self, _level: &mut ServerLevel, _controller: EntityId, _ridden_input: Vec3) {}
+    /// `getRiddenSpeed(controller)`.
+    fn get_ridden_speed(&self, _level: &ServerLevel, _controller: EntityId) -> f32 {
+        self.get_speed()
+    }
+    /// `getFallSounds()` as `(small, big)`.
+    fn get_fall_sounds(&self) -> (mc_data::SoundEvent, mc_data::SoundEvent) {
+        (mc_data::SoundEvent::GENERIC_SMALL_FALL, mc_data::SoundEvent::GENERIC_BIG_FALL)
+    }
+    /// `canInteractWithLevel()`.
+    fn can_interact_with_level(&self) -> bool {
+        self.is_alive() && !self.is_removed() && !self.is_spectator()
+    }
+    /// `tickDeath()`.
+    fn tick_death(&mut self, level: &mut ServerLevel) {
+        super::living_entity::base_tick::tick_death(self.as_dyn_mut(), level);
+    }
+    /// `doAutoAttackOnTouch(entity)` (riptide spin attack; `Player`).
+    fn do_auto_attack_on_touch(&mut self, _level: &mut ServerLevel, _target: &mut dyn Entity) {}
     // ==== [Damage] additions (Entity trait methods) ====
 
     /// `getWeaponItem()`: `LivingEntity` = main hand; projectiles override with the weapon that fired them.

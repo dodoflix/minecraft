@@ -20,6 +20,7 @@ pub mod inside_block_effects;
 pub mod item;
 pub mod living;
 pub mod living_entity;
+pub mod dismount_helper;
 pub mod movement;
 pub mod object_open_hash_map;
 pub mod plain;
