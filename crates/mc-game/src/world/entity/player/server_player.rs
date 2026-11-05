@@ -353,6 +353,12 @@ impl Entity for ServerPlayer {
     fn tick(&mut self, level: &mut crate::server::level::ServerLevel) {
         self.tick_server_player(level);
     }
+    /// `ServerPlayer.processPortalCooldown()`: frozen until the client confirmed the dimension change.
+    fn process_portal_cooldown(&mut self) {
+        if !self.is_changing_dimension && self.base().portal_cooldown > 0 {
+            self.base_mut().portal_cooldown -= 1;
+        }
+    }
     /// `ServerPlayer.removeVehicle()`: the effects of the old vehicle are removed client side, the passenger list resent.
     fn on_vehicle_removed(&mut self, level: &mut crate::server::level::ServerLevel, old_vehicle: crate::world::entity::EntityId, held: Option<&dyn Entity>) {
         let vehicle = held.or_else(|| level.entity_manager.get_any(old_vehicle));

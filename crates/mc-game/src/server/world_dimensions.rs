@@ -21,6 +21,16 @@ pub fn overworld_key() -> Identifier {
     overworld()
 }
 
+/// `Level.NETHER`.
+pub fn nether_key() -> Identifier {
+    Identifier::with_default_namespace("the_nether").expect("valid id")
+}
+
+/// `Level.END`.
+pub fn end_key() -> Identifier {
+    Identifier::with_default_namespace("the_end").expect("valid id")
+}
+
 fn overworld() -> Identifier {
     Identifier::with_default_namespace("overworld").expect("valid id")
 }

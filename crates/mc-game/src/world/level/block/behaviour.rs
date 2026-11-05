@@ -281,6 +281,10 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     fn spawn_after_break(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _tool: &crate::world::item::ItemStack, _drop_experience: bool) {}
     /// `Block.handlePrecipitation`.
     fn handle_precipitation(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _precipitation: Precipitation) {}
+    /// `block instanceof Portal portal`: the block's static `Portal` (nether/end portals and end gateways).
+    fn as_portal(&self) -> Option<&'static dyn crate::world::entity::portal::Portal> {
+        None
+    }
     /// `Block.isPossibleToRespawnInThis`.
     fn is_possible_to_respawn_in_this(&self, state: BlockState) -> bool {
         !state.is_solid() && !state.liquid()

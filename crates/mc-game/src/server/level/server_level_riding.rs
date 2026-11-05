@@ -75,6 +75,11 @@ impl ServerLevel {
         self.stop_riding_from(rider, None);
     }
 
+    /// `Entity.removeVehicle()` without `LivingEntity.stopRiding`'s dismount relocation (`ServerPlayer.teleport`).
+    pub fn remove_vehicle(&mut self, rider: &mut dyn Entity) {
+        self.remove_vehicle_from(rider, None);
+    }
+
     /// `stopRiding()` where the vehicle may be at hand (taken out of the level) instead of in storage.
     fn stop_riding_from(&mut self, rider: &mut dyn Entity, mut held_vehicle: Option<&mut dyn Entity>) {
         let Some(old_vehicle) = rider.base().vehicle else { return };

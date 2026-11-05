@@ -137,6 +137,9 @@ pub struct MinecraftServer {
     /// `getScoreboard()` (`ServerScoreboard`): loaded from `scoreboard.dat` by `create_levels`, stored by `save_all_chunks`.
     pub scoreboard: crate::server::level::SharedScoreboard,
     pub player_list: PlayerList,
+    /// Players that left their level storage but still have a connection (`ServerPlayer.showEndCredits()` removes the
+    /// player with `CHANGED_DIMENSION` and the poem plays until the respawn request), keyed by uuid.
+    pub detached_players: std::collections::HashMap<uuid::Uuid, Box<crate::world::entity::ServerPlayer>>,
     pub notification_manager: Arc<NotificationManager>,
     pub name_to_id_cache: Arc<CachedUserNameToIdResolver>,
     /// `services().profileResolver()`.
@@ -260,6 +263,7 @@ impl MinecraftServer {
             scoreboard: crate::server::level::SharedScoreboard::default(),
             commands,
             player_list,
+            detached_players: std::collections::HashMap::new(),
             notification_manager: init.notification_manager,
             name_to_id_cache: init.name_to_id_cache,
             profile_resolver: init.profile_resolver,

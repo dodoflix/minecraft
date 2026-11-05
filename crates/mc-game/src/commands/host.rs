@@ -489,8 +489,8 @@ pub fn teleport_entity(
     y_rot: f32,
     x_rot: f32,
 ) -> Option<EntityRef> {
-    use crate::server::players::dimension_change::{TeleportTransition, teleport_entity, teleport_player};
-    let transition = TeleportTransition::new(destination.clone(), position, mc_core::phys::Vec3::ZERO, y_rot, x_rot).with_relatives(relatives);
+    use crate::server::players::dimension_change::{PostTeleportTransition, TeleportTransition, teleport_entity, teleport_player};
+    let transition = TeleportTransition::new(destination.clone(), position, mc_core::phys::Vec3::ZERO, y_rot, x_rot, PostTeleportTransition::DO_NOTHING).with_relatives(relatives);
     let is_player = get_entity(server, victim)?.is_player();
     let head = |entity: &mut dyn Entity| {
         let head = if relatives.contains(mc_protocol::packets::play::Relative::YRot) { entity.get_y_head_rot() + y_rot } else { y_rot };

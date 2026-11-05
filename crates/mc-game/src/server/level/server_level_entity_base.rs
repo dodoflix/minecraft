@@ -24,4 +24,3 @@ impl ServerLevel {
         self.tick_state.pending_portal_teleports.len() != before
     }
 }
-

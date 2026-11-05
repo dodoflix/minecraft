@@ -7,6 +7,8 @@ pub mod name_and_id;
 pub mod name_resolver;
 pub mod dedicated_player_list;
 pub mod dimension_change;
+pub mod end_credits;
+pub mod ender_pearl_ticket;
 pub mod join;
 pub mod mojang_profile_lookup;
 pub mod player_data;
@@ -20,6 +22,7 @@ pub mod respawn;
 pub mod respawn_position;
 pub mod server_join_host;
 pub mod stored_user_list;
+pub mod teleport_transition;
 pub mod user_lists;
 
 pub use ban_list_entry::{BanListEntry, IpBanListEntry, UserBanListEntry};

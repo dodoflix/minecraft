@@ -102,18 +102,6 @@ impl LevelTickEnv for ServerTickEnv<'_> {
     }
 
     fn teleport_through_portal(&mut self, level: &mut ServerLevel, entity: &mut dyn Entity) {
-        use crate::server::players::dimension_change::teleport_same_dimension;
-        let Some(process) = entity.base().portal_process.clone() else { return };
-        let Some(transition) = process.get_portal_destination(self.server, level, entity) else { return };
-        if transition.level == self.dimension {
-            if !transition.as_passenger {
-                level.stop_riding(entity);
-            }
-            teleport_same_dimension(level, entity, &transition);
-        } else {
-            // cross-dimension hand-over of an entity that is out of its level while the level ticks is not wired:
-            // `dimension_change::teleport_entity/teleport_player` need the entity in storage (see STATUS gaps)
-            log::warn!("portal transition to {} of entity {} is not executed during the level tick", transition.level, entity.id());
-        }
+        crate::server::players::dimension_change::teleport_through_portal(self.server, level, entity);
     }
 }

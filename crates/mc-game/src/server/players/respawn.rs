@@ -4,6 +4,7 @@
 
 use super::join::{create_common_spawn_info, send_active_player_effects, send_level_info, send_post_effects};
 use super::server_join_host::{ServerJoinHost, level_join_info};
+use super::teleport_transition::{PostTeleportTransition, TeleportTransition};
 use crate::server::MinecraftServer;
 use crate::server::level::ServerLevel;
 use crate::server::level::player_spawn_finder::{FindSpawn, PlayerSpawnFinder, Step, fixup_spawn_height};
@@ -22,17 +23,8 @@ use mc_protocol::packets::play::{
     ClientboundSetExperiencePacket, ClientboundSoundPacket, SoundEventHolder, SoundSource,
 };
 
-/// `TeleportTransition` as `findRespawnPositionAndUseSpawnBlock` returns it.
-struct RespawnTransition {
-    level: DimensionKey,
-    position: Vec3,
-    y_rot: f32,
-    x_rot: f32,
-    missing_respawn_block: bool,
-}
-
 /// `PlayerSpawnFinder.findSpawn` + `managedBlock`: the chunks are loaded synchronously.
-fn adjust_spawn_location(server: &mut MinecraftServer, level: &mut ServerLevel, suggestion: BlockPos) -> Vec3 {
+pub(crate) fn adjust_spawn_location(server: &mut MinecraftServer, level: &mut ServerLevel, suggestion: BlockPos) -> Vec3 {
     let adventure = server.world_data.lock().settings.game_type == mc_world::level_storage::GameType::Adventure;
     let radius = server.game_rules_ref().get(GameRules::RESPAWN_RADIUS);
     let border = mc_core::math::mth::floor_f64(level.get_world_border().get_distance_to_border(f64::from(suggestion.x()), f64::from(suggestion.z())));
@@ -80,36 +72,42 @@ fn find_respawn_and_use_spawn_block(level: &mut ServerLevel, config: &RespawnCon
     })
 }
 
-/// `ServerPlayer.findRespawnPositionAndUseSpawnBlock(consume, DO_NOTHING)`; `level` is the player's current level.
-fn find_respawn_transition(server: &mut MinecraftServer, level: &mut ServerLevel, config: Option<&RespawnConfig>, consume: bool) -> RespawnTransition {
+/// `ServerPlayer.findRespawnPositionAndUseSpawnBlock(consume, post)`; `level` is the player's current level (taken out of
+/// `server`), `config` the player's `getRespawnConfig()`.
+pub fn find_respawn_position_and_use_spawn_block(
+    server: &mut MinecraftServer,
+    level: &mut ServerLevel,
+    config: Option<&RespawnConfig>,
+    consume: bool,
+    post: PostTeleportTransition,
+) -> TeleportTransition {
     let respawn_dimension = RespawnConfig::dimension_or_default(config);
     let found = match config {
         Some(config) => {
-            let found = if respawn_dimension == level.dimension {
+            if respawn_dimension == level.dimension {
                 Some(find_respawn_and_use_spawn_block(level, config, consume))
             } else {
                 server.level_mut(&respawn_dimension).map(|l| find_respawn_and_use_spawn_block(l, config, consume))
-            };
-            found
+            }
         }
         None => None,
     };
     match found {
-        Some(Some(angle)) => RespawnTransition { level: respawn_dimension, position: angle.position, y_rot: angle.yaw, x_rot: angle.pitch, missing_respawn_block: false },
-        other => {
-            // `TeleportTransition.createDefault` / `missingRespawnBlock`: the world spawn of the respawn dimension
-            let missing = matches!(other, Some(None));
-            let dimension = server.find_respawn_dimension();
-            let respawn = server.get_respawn_data();
-            let position = if dimension == level.dimension {
-                adjust_spawn_location(server, level, respawn.pos)
-            } else {
-                match server.with_level(&dimension, |server, other| adjust_spawn_location(server, other, respawn.pos)) {
-                    Some(position) => position,
-                    None => Vec3::new(f64::from(respawn.pos.x()) + 0.5, f64::from(respawn.pos.y()), f64::from(respawn.pos.z()) + 0.5),
-                }
-            };
-            RespawnTransition { level: dimension, position, y_rot: respawn.yaw, x_rot: respawn.pitch, missing_respawn_block: missing }
+        Some(Some(angle)) => TeleportTransition::new(respawn_dimension, angle.position, Vec3::ZERO, angle.yaw, angle.pitch, post),
+        Some(None) => TeleportTransition::missing_respawn_block(server, level, post),
+        None => TeleportTransition::create_default(server, level, post),
+    }
+}
+
+/// `TeleportTransition.findAdjustedSharedSpawnPos(newLevel, player)`: `level` is the player's current level (out of
+/// `server`), `dimension` the destination.
+pub(crate) fn find_adjusted_shared_spawn_pos(server: &mut MinecraftServer, level: &mut ServerLevel, dimension: &DimensionKey, pos: BlockPos) -> Vec3 {
+    if *dimension == level.dimension {
+        adjust_spawn_location(server, level, pos)
+    } else {
+        match server.with_level(dimension, |server, other| adjust_spawn_location(server, other, pos)) {
+            Some(position) => position,
+            None => Vec3::new(f64::from(pos.x()) + 0.5, f64::from(pos.y()), f64::from(pos.z()) + 0.5),
         }
     }
 }
@@ -137,6 +135,7 @@ fn restore_from(new: &mut ServerPlayer, mut old: ServerPlayer, restore_all: bool
         new.player.food_data = std::mem::replace(&mut old.player.food_data, FoodData::default());
         new.player.living.attributes.assign_permanent_modifiers(&old.player.living.attributes);
         effects = old.player.living.active_effects.values().map(|e| e.copy()).collect();
+        new.base_mut().portal_process = old.base().portal_process.clone();
         transfer_inventory(new, &mut old);
     } else {
         let max = new.player.living.get_max_health();
@@ -174,21 +173,31 @@ pub fn respawn(
 ) -> Option<EntityId> {
     // 1. take the old player's state out of its level and remove it (`removePlayerImmediately`)
     let keep_inventory = server.game_rules_ref().get(GameRules::KEEP_INVENTORY);
-    let (mut old, transition) = server
-        .with_level(old_dimension, |server, level| {
-            let profile = level.get_entity(id).and_then(|e| e.as_any().downcast_ref::<ServerPlayer>()).map(|p| p.player.game_profile.clone())?;
-            let config = level.get_entity(id).and_then(|e| e.as_any().downcast_ref::<ServerPlayer>()).and_then(|p| p.respawn_config.clone());
-            let transition = find_respawn_transition(server, level, config.as_ref(), !keep_all_player_data);
-            let old = level.with_player(id, |level, player| {
-                let mut dummy = ServerPlayer::new(id, player.dimension.clone(), profile, Default::default());
-                dummy.remove(reason);
-                let mut old = std::mem::replace(player, dummy);
-                old.close_menus_on_removal(level);
-                old
-            })?;
-            Some((old, transition))
-        })
-        .flatten()?;
+    let detached = server.detached_players.iter().find(|(_, p)| p.base_id() == id).map(|(uuid, _)| *uuid).and_then(|uuid| server.detached_players.remove(&uuid));
+    let (mut old, transition) = if let Some(old) = detached {
+        // `showEndCredits` already removed the player from its level (`removePlayerImmediately` again is a no-op)
+        let config = old.respawn_config.clone();
+        let transition = server.with_level(old_dimension, |server, level| {
+            find_respawn_position_and_use_spawn_block(server, level, config.as_ref(), !keep_all_player_data, PostTeleportTransition::DO_NOTHING)
+        })?;
+        (*old, transition)
+    } else {
+        server
+            .with_level(old_dimension, |server, level| {
+                let profile = level.get_entity(id).and_then(|e| e.as_any().downcast_ref::<ServerPlayer>()).map(|p| p.player.game_profile.clone())?;
+                let config = level.get_entity(id).and_then(|e| e.as_any().downcast_ref::<ServerPlayer>()).and_then(|p| p.respawn_config.clone());
+                let transition = find_respawn_position_and_use_spawn_block(server, level, config.as_ref(), !keep_all_player_data, PostTeleportTransition::DO_NOTHING);
+                let old = level.with_player(id, |level, player| {
+                    let mut dummy = ServerPlayer::new(id, player.dimension.clone(), profile, Default::default());
+                    dummy.remove(reason);
+                    let mut old = std::mem::replace(player, dummy);
+                    old.close_menus_on_removal(level);
+                    old
+                })?;
+                Some((old, transition))
+            })
+            .flatten()?
+    };
     let handle = old.handle.clone()?;
     server.player_list.remove_from_players(&handle);
 

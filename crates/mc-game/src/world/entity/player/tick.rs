@@ -285,6 +285,13 @@ impl ServerPlayer {
                 self.award_stat_once(level, Stats::TIME_SINCE_REST);
             }
         }
+        self.do_tick_tail(level);
+    }
+
+    /// The part of `ServerPlayer.doTick()` after `super.tick()`: health/food/experience packets, scoreboard criteria
+    /// and the handle sync. Idempotent: a portal hand-over runs it again after the player arrived (vanilla's tail runs
+    /// after the teleport that happens inside `super.tick()`).
+    pub fn do_tick_tail(&mut self, level: &mut ServerLevel) {
         let health = self.player.living.get_health();
         let food = self.player.food_data.food_level;
         let saturation = self.player.food_data.saturation_level;

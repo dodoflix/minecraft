@@ -104,6 +104,12 @@ pub struct ServerLevel {
     // ==== [SpawnFramework] additions (ServerLevel field) ====
     /// Natural spawning state: spawn state of the tick, custom spawners, dimension attribute base (see `world::level::spawner`).
     pub spawning: crate::world::level::spawner::LevelSpawnData,
+    /// The level's generation environment (`getChunkSource().getGenerator()`, registries, template manager); `None` for
+    /// levels without a generator ([`ServerLevel::detached`]).
+    pub gen_env: Option<Arc<crate::world::level::levelgen::GenEnv>>,
+    /// Server clock inputs of `getCurrentDifficultyAt` while a command places worldgen content
+    /// (see [`server_level_worldgen::with_worldgen_level`](super::server_level_worldgen::with_worldgen_level)).
+    pub worldgen_clock: Option<super::server_level_worldgen::WorldGenClock>,
 }
 
 /// A change to an entity that needs the level (kill credit, stats) and runs once the entity is back in storage.
@@ -170,6 +176,8 @@ impl ServerLevel {
             path_type_cache: Default::default(),
             // ==== [SpawnFramework] additions (ServerLevel::new initializer) ====
             spawning,
+            gen_env: None,
+            worldgen_clock: None,
         }
     }
 

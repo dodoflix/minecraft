@@ -1846,11 +1846,19 @@ pub trait Entity: Any {
     fn can_use_portal(&self, ignore_passenger: bool) -> bool {
         (ignore_passenger || !self.base().is_passenger()) && self.is_alive()
     }
-    /// `canTeleport(from, to)` for a player passenger that has not seen the credits (`END` -> `OVERWORLD`): given as
-    /// whether the entity or any passenger is such a player.
-    fn has_player_passenger_without_credits(&self, _level: &ServerLevel) -> bool {
-        false
+    /// `canTeleport(from, to)`: no player passenger that has not seen the credits may leave the End for the overworld.
+    fn can_teleport(&self, level: &ServerLevel, from: &mc_core::ident::Identifier, to: &mc_core::ident::Identifier) -> bool {
+        if *from == crate::server::world_dimensions::end_key() && *to == crate::server::world_dimensions::overworld_key() {
+            for &pid in &self.base().passengers {
+                if level.entity_manager.get_any(pid).and_then(|p| p.as_any().downcast_ref::<super::ServerPlayer>()).is_some_and(|p| !p.seen_credits) {
+                    return false;
+                }
+            }
+        }
+        true
     }
+    /// `Leashable.removeLeash()` of `removeAfterChangingDimensions` (the mob slice overrides it for leashable mobs).
+    fn remove_leash(&mut self, _level: &mut ServerLevel) {}
     /// `setAsInsidePortal(portal, pos)`.
     fn set_as_inside_portal(&mut self, level: &ServerLevel, portal: &'static dyn super::portal::Portal, pos: BlockPos) {
         if self.is_on_portal_cooldown() {

@@ -157,6 +157,8 @@ pub struct LevelTickState {
     pub thunder_level: f32,
     /// Entities whose `PortalProcessor` decided to teleport this tick (see `world::entity::portal`).
     pub pending_portal_teleports: Vec<crate::world::entity::EntityId>,
+    /// Players that `ServerPlayer.showEndCredits()` removed (`CHANGED_DIMENSION`): detached at the end of their step.
+    pub pending_player_detach: Vec<crate::world::entity::EntityId>,
     /// Block entities currently taken out of their chunk by `ServerLevel::with_block_entity` (innermost last).
     pub taken_block_entities: Vec<TakenBlockEntity>,
     /// `RedstoneTorchBlock.RECENT_TOGGLES` of this level: `(pos, game time)` in insertion order.
@@ -200,6 +202,7 @@ impl LevelTickState {
             o_thunder_level: 0.0,
             thunder_level: 0.0,
             pending_portal_teleports: Vec::new(),
+            pending_player_detach: Vec::new(),
             taken_block_entities: Vec::new(),
             recent_redstone_torch_toggles: Vec::new(),
         }

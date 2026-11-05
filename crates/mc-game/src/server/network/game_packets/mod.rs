@@ -31,6 +31,7 @@ use super::game_listener::ServerGamePacketListenerImpl;
 use super::InboundPacket;
 use crate::server::MinecraftServer;
 use crate::server::level::ServerLevel;
+use crate::server::players::end_credits::finish_player_step;
 use crate::world::entity::ServerPlayer;
 use mc_protocol::packet::Packet;
 use mc_protocol::packets::play::ServerboundPlayPacket;
@@ -107,6 +108,14 @@ pub fn with_player<R>(server: &mut MinecraftServer, uuid: Uuid, f: impl FnOnce(&
         let handle = server.player_list.get_player(&uuid)?;
         (handle.id, handle.dimension())
     };
+    if let Some(mut player) = server.detached_players.remove(&uuid) {
+        // removed from the level by `showEndCredits` but still connected: the context's level is the one it left
+        let result = server.with_level(&dimension, |server, level| f(&mut PlayCtx { server, level, player: &mut player }));
+        if result.is_none() || !player.disconnected {
+            server.detached_players.insert(uuid, player);
+        }
+        return result;
+    }
     server
         .with_level(&dimension, |server, level| level.with_player(entity_id, |level, player| f(&mut PlayCtx { server, level, player })))
         .flatten()
@@ -123,6 +132,7 @@ pub fn process_queued_packets(server: &mut MinecraftServer) {
         }) else {
             continue;
         };
+        finish_player_step(server, uuid);
         for task in deferred {
             task(server);
         }
@@ -153,6 +163,8 @@ pub fn tick_connection(server: &mut MinecraftServer, uuid: Uuid) {
     });
     if found.is_none() {
         log::warn!("play tick: player {uuid} not found (handle/level/entity lookup failed)");
+    } else {
+        finish_player_step(server, uuid);
     }
 }
 
