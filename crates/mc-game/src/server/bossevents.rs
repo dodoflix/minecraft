@@ -2,7 +2,9 @@
 //! `CustomBossEvent` state + `Packed` codec. Player tracking packets (`ServerBossEvent.addPlayer`, `onPlayerConnect`)
 //! belong to the player-list layer; this keeps the saved player UUID set and the bar state.
 
-use std::collections::{BTreeSet, HashMap};
+use std::collections::BTreeSet;
+
+use indexmap::IndexMap;
 
 use mc_core::ident::Identifier;
 use mc_core::math::mth::{clamp_f32, create_insecure_uuid};
@@ -17,6 +19,7 @@ use mc_protocol::packets::play as wire;
 use crate::server::players::player_handle::PlayerHandle;
 
 use crate::util::codec::{self, DataResult, DecodeResult};
+use crate::util::java_hash_order::JavaHashCapacity;
 use crate::world::level::saveddata::{SavedData, SavedDataType};
 
 /// `BossEvent.BossBarColor`.
@@ -164,6 +167,8 @@ pub struct CustomBossEvent {
     dirty: bool,
     /// `ServerBossEvent.players` (online players that see the bar).
     online: Vec<PlayerHandle>,
+    /// Table capacity of vanilla's `HashSet<ServerPlayer>` (iteration order = hash order, see [`Self::online_players`]).
+    online_capacity: JavaHashCapacity,
 }
 
 fn wire_color(c: BossBarColor) -> wire::BossBarColor {
@@ -201,6 +206,7 @@ impl CustomBossEvent {
             progress: 0.0,
             dirty: false,
             online: Vec::new(),
+            online_capacity: JavaHashCapacity::default(),
         };
         e.set_progress(0.0);
         e
@@ -261,9 +267,10 @@ impl CustomBossEvent {
     pub fn players(&self) -> &BTreeSet<Uuid> {
         &self.state.players
     }
-    /// `ServerBossEvent.getPlayers()`: the online players the bar is shown to.
-    pub fn online_players(&self) -> &[PlayerHandle] {
-        &self.online
+    /// `ServerBossEvent.getPlayers()`: the online players the bar is shown to, in the iteration order of vanilla's
+    /// `HashSet<ServerPlayer>` (`Entity.hashCode()` is the entity id).
+    pub fn online_players(&self) -> Vec<PlayerHandle> {
+        self.online_capacity.iteration_order(self.online.iter().cloned(), |p| p.id)
     }
 
     fn properties(&self) -> wire::BossEventProperties {
@@ -392,6 +399,7 @@ impl CustomBossEvent {
     pub fn add_player(&mut self, player: &PlayerHandle) {
         if !self.online.iter().any(|p| p.same_player(player)) {
             self.online.push(player.clone());
+            self.online_capacity.grow_to_fit(self.online.len());
             if self.state.visible {
                 player.connection.send(&self.create_add_packet());
             }
@@ -471,7 +479,9 @@ impl CustomBossEvent {
 #[derive(Debug, Default)]
 pub struct CustomBossEvents {
     dirty: bool,
-    events: HashMap<Identifier, CustomBossEvent>,
+    /// Insertion-ordered; vanilla uses a `HashMap` (iteration order = [`JavaHashCapacity::iteration_order`] by id hash).
+    events: IndexMap<Identifier, CustomBossEvent>,
+    capacity: JavaHashCapacity,
 }
 
 impl SavedData for CustomBossEvents {
@@ -511,31 +521,42 @@ impl CustomBossEvents {
     }
 
     pub fn create(&mut self, random: &mut dyn RandomSource, id: Identifier, name: Component) -> &mut CustomBossEvent {
-        let event = CustomBossEvent::new(create_insecure_uuid(random), id.clone(), name);
+        self.create_with_uuid(create_insecure_uuid(random), id, name)
+    }
+
+    /// `create` with the bar's UUID already drawn from the level random (`createInsecureUUID`).
+    pub fn create_with_uuid(&mut self, uuid: Uuid, id: Identifier, name: Component) -> &mut CustomBossEvent {
+        let event = CustomBossEvent::new(uuid, id.clone(), name);
         self.events.insert(id.clone(), event);
+        self.capacity.grow_to_fit(self.events.len());
         self.set_dirty();
         self.events.get_mut(&id).expect("just inserted")
     }
 
     pub fn remove(&mut self, id: &Identifier) {
-        if self.events.remove(id).is_some() {
+        if self.events.shift_remove(id).is_some() {
             self.set_dirty();
         }
     }
 
-    pub fn get_ids(&self) -> impl Iterator<Item = &Identifier> {
-        self.events.keys()
+    /// `getIds()` in `HashMap` iteration order.
+    pub fn get_ids(&self) -> Vec<&Identifier> {
+        self.capacity.iteration_order(self.events.keys(), |id| id.java_hash_code())
     }
 
-    pub fn get_events(&self) -> impl Iterator<Item = &CustomBossEvent> {
-        self.events.values()
+    /// `getEvents()` in `HashMap` iteration order.
+    pub fn get_events(&self) -> Vec<&CustomBossEvent> {
+        self.capacity.iteration_order(self.events.iter(), |(id, _)| id.java_hash_code()).into_iter().map(|(_, e)| e).collect()
     }
 
     fn decode(tag: &Tag) -> DecodeResult<CustomBossEvents> {
         let entries = codec::unbounded_map(tag, Identifier::read, PackedBossEvent::decode);
-        codec::map_decoded(entries, |entries| CustomBossEvents {
-            dirty: false,
-            events: entries.into_iter().map(|(id, packed)| (id.clone(), CustomBossEvent::load(Uuid::new_v4(), id, packed))).collect(),
+        codec::map_decoded(entries, |entries| {
+            let events: IndexMap<Identifier, CustomBossEvent> =
+                entries.into_iter().map(|(id, packed)| (id.clone(), CustomBossEvent::load(Uuid::new_v4(), id, packed))).collect();
+            let mut capacity = JavaHashCapacity::default();
+            capacity.grow_to_fit(events.len());
+            CustomBossEvents { dirty: false, events, capacity }
         })
     }
 

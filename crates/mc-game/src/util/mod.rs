@@ -3,6 +3,7 @@
 pub mod codec;
 pub mod game_modes;
 pub mod java_format;
+pub mod java_hash_order;
 pub mod long_open_hash_set;
 pub mod tick_throttler;
 pub mod time_util;
