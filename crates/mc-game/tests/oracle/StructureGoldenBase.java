@@ -69,6 +69,22 @@ public class StructureGoldenBase {
         return out;
     }
 
+    /**
+     * What {@code WorldGenRegion.getLevel()} returns for pieces that create entities ({@code EntityType.create(level, ..)}): a
+     * ServerLevel allocated without running its constructor, with just the registry access and feature flags the entities read.
+     */
+    static class StubLevel extends net.minecraft.server.level.ServerLevel {
+        StubLevel() { super(null, null, null, null, null, null, false, 0L, null, false); }
+        @Override public net.minecraft.world.flag.FeatureFlagSet enabledFeatures() { return net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS; }
+        @Override public net.minecraft.core.RegistryAccess registryAccess() { return FeatureOracleBase.ACCESS; }
+    }
+
+    static StubLevel stubLevel() throws Exception {
+        java.lang.reflect.Field uf = sun.misc.Unsafe.class.getDeclaredField("theUnsafe");
+        uf.setAccessible(true);
+        return (StubLevel) ((sun.misc.Unsafe) uf.get(null)).allocateInstance(StubLevel.class);
+    }
+
     static StructurePieceSerializationContext pieceContext() {
         return new StructurePieceSerializationContext(null, FeatureOracleBase.ACCESS, null);
     }
@@ -109,6 +125,7 @@ public class StructureGoldenBase {
         int px = ChunkPos.getX(packedChunk), pz = ChunkPos.getZ(packedChunk);
         ChunkPos chunkPos = new ChunkPos(px, pz);
         FeatureOracleBase.Region region = FeatureOracleBase.newRegion(seed, px, pz, ChunkStatus.FEATURES, 1);
+        FeatureOracleBase.setField(region, "level", stubLevel());
         FeatureOracleBase.Snapshot before = FeatureOracleBase.snapshot(region);
         WorldgenRandom random = new WorldgenRandom(new LegacyRandomSource(0L));
         long decorationSeed = random.setDecorationSeed(seed, chunkPos.getMinBlockX(), chunkPos.getMinBlockZ());
