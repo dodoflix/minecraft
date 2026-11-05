@@ -15,6 +15,7 @@ gamerule advance_weather false
 !ignore multiplayer.player.left
 # timing dependent in vanilla too (the bot's own movement packets after a teleport)
 !ignore standing on air
+!ignore Can.t keep up
 
 # ---- say / me / msg / tell / w / tellraw
 say hello world

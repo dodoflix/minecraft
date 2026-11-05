@@ -281,7 +281,7 @@ pub fn place_new_player(
     send_initial_recipe_book(&player, &host.recipe_manager());
     host.update_entire_scoreboard(&handle);
     host.invalidate_status();
-    let display_name = mc_text::Component::literal(profile.name.clone());
+    let display_name = player.get_display_name();
     let renamed = (!profile.name.eq_ignore_ascii_case(&old_name)).then_some(old_name.as_str());
     host.list().broadcast_system_message(&join_message(display_name, renamed), false);
     let position = player.player.living.entity.position();
