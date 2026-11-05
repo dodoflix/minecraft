@@ -52,6 +52,7 @@ fn empty_registries() -> Arc<GenRegistries> {
         features: TypedRegistry::new(FEATURE_REGISTRY, IndexMap::new()),
         placed_features: TypedRegistry::new(PLACED_FEATURE_REGISTRY, IndexMap::new()),
         block_state_providers: TypedRegistry::new(BLOCK_STATE_PROVIDER_REGISTRY, IndexMap::new()),
+        block_transformers: TypedRegistry::new(mc_game::world::item::block_transformer::BLOCK_TRANSFORMER_REGISTRY, IndexMap::new()),
     })
 }
 
