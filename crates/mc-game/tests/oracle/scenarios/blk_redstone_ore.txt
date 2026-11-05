@@ -1,0 +1,16 @@
+level flat
+preload 2
+watch blocks:2,-60,1,8,-59,4 ticks
+level_seed 99
+# redstone ore: lit state random-ticks off
+block 3 -60 2 minecraft:redstone_ore[lit=true]
+block 5 -60 2 minecraft:deepslate_redstone_ore[lit=true]
+block 7 -60 2 minecraft:redstone_ore[lit=false]
+rand_value 12345
+random_tick 3 -60 2
+random_tick 5 -60 2
+random_tick 7 -60 2
+tick 2
+block 4 -60 2 minecraft:redstone_block
+block 4 -60 3 minecraft:redstone_wire
+tick 2

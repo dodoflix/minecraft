@@ -1,0 +1,40 @@
+level flat
+preload 2
+watch blocks:-1,-60,-1,14,-58,5 ticks
+# dust line, power on/off, extension, crossing
+block 1 -60 1 minecraft:redstone_wire
+block 2 -60 1 minecraft:redstone_wire
+block 3 -60 1 minecraft:redstone_wire
+block 4 -60 1 minecraft:redstone_wire
+block 5 -60 1 minecraft:redstone_wire
+block 6 -60 1 minecraft:redstone_wire
+block 7 -60 1 minecraft:redstone_wire
+block 8 -60 1 minecraft:redstone_wire
+block 9 -60 1 minecraft:redstone_wire
+block 10 -60 1 minecraft:redstone_wire
+tick 2
+block 0 -60 1 minecraft:redstone_block
+tick 4
+block 0 -60 1 minecraft:air
+tick 20
+block 11 -60 1 minecraft:redstone_block
+tick 3
+block 11 -60 1 minecraft:air
+tick 20
+# second line meeting in the middle: junction and parallel lines
+block 5 -60 2 minecraft:redstone_wire
+block 5 -60 3 minecraft:redstone_wire
+block 5 -60 4 minecraft:redstone_wire
+block 5 -60 5 minecraft:redstone_wire
+tick 2
+block 5 -60 6 minecraft:redstone_block
+tick 3
+block 5 -60 6 minecraft:air
+tick 20
+block 0 -60 1 minecraft:redstone_block
+block 5 -60 6 minecraft:redstone_block
+tick 3
+block 0 -60 1 minecraft:air
+tick 20
+block 5 -60 6 minecraft:air
+tick 20

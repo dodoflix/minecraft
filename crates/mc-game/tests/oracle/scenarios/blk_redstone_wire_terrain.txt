@@ -1,0 +1,49 @@
+level flat
+preload 2
+watch blocks:-1,-60,-1,14,-58,5 ticks
+# steps, slabs, glass, solid above
+block 2 -60 1 minecraft:cobblestone
+block 3 -60 1 minecraft:cobblestone
+block 4 -60 1 minecraft:cobblestone
+block 1 -60 1 minecraft:redstone_wire
+block 2 -59 1 minecraft:redstone_wire
+block 3 -59 1 minecraft:redstone_wire
+block 4 -59 1 minecraft:redstone_wire
+block 5 -60 1 minecraft:redstone_wire
+block 6 -60 1 minecraft:redstone_wire
+tick 1
+block 0 -60 1 minecraft:redstone_block
+tick 4
+block 0 -60 1 minecraft:air
+tick 20
+# solid block above blocks the climb, glass does not
+block 1 -60 3 minecraft:redstone_wire
+block 2 -60 3 minecraft:cobblestone
+block 2 -59 3 minecraft:redstone_wire
+block 1 -59 3 minecraft:cobblestone
+block 8 -60 3 minecraft:redstone_wire
+block 9 -60 3 minecraft:cobblestone
+block 9 -59 3 minecraft:redstone_wire
+block 8 -59 3 minecraft:glass
+tick 1
+block 0 -60 3 minecraft:redstone_block
+block 7 -60 3 minecraft:redstone_block
+tick 4
+block 0 -60 3 minecraft:air
+block 7 -60 3 minecraft:air
+tick 20
+# top slab supports dust, bottom slab does not (dust breaks)
+block 11 -60 1 minecraft:stone_slab[type=top,waterlogged=false]
+block 11 -59 1 minecraft:redstone_wire
+tick 3
+block 12 -60 1 minecraft:stone_slab[type=bottom,waterlogged=false]
+block 12 -59 1 minecraft:redstone_wire
+tick 3
+# dust sits on a powered conductor / powers through it
+block 12 -60 4 minecraft:redstone_block
+block 12 -59 4 minecraft:cobblestone
+block 11 -59 4 minecraft:redstone_wire
+block 13 -59 4 minecraft:redstone_wire
+tick 4
+block 12 -60 4 minecraft:air
+tick 20

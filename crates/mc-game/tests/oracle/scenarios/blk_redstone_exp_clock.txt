@@ -1,0 +1,11 @@
+level flat
+preload 2
+features redstone_experiments
+watch blocks:-1,-60,-1,2,-58,1 ticks
+level_seed 5
+# torch burnout clock: wall torch on B, C powered strongly by the torch, dust on B powered via C
+block 0 -60 0 minecraft:stone
+block 1 -59 0 minecraft:stone
+block 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=true]
+block 0 -59 0 minecraft:redstone_wire
+tick 120

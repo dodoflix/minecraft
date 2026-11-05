@@ -1,0 +1,22 @@
+level flat
+preload 2
+watch blocks:2,-60,0,12,-58,4 ticks
+# standing torch inverter on top of a block with an adjacent powered dust; torch on the side of the dust line
+block 4 -60 2 minecraft:stone
+block 4 -59 2 minecraft:redstone_torch[lit=true]
+block 5 -59 2 minecraft:stone
+block 6 -59 2 minecraft:redstone_wire
+tick 6
+block 3 -60 2 minecraft:redstone_block
+tick 4
+block 3 -60 2 minecraft:air
+tick 6
+# remove and re-place torches
+block 4 -59 2 minecraft:air
+tick 3
+block 4 -59 2 minecraft:redstone_torch[lit=true]
+tick 5
+# unsupported torches break
+block 9 -59 2 minecraft:redstone_torch[lit=true]
+block 11 -60 2 minecraft:redstone_wall_torch[facing=east,lit=true]
+tick 4

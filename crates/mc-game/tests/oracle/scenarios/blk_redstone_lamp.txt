@@ -1,0 +1,25 @@
+level flat
+preload 2
+watch blocks:0,-60,0,12,-59,4 ticks
+# lamps next to power, delayed turn-off
+block 3 -60 2 minecraft:redstone_lamp[lit=false]
+block 5 -60 2 minecraft:redstone_lamp[lit=true]
+block 7 -60 2 minecraft:redstone_lamp[lit=false]
+block 2 -60 2 minecraft:redstone_block
+tick 6
+block 2 -60 2 minecraft:air
+tick 8
+block 4 -60 2 minecraft:redstone_block
+tick 2
+block 4 -60 2 minecraft:air
+block 6 -60 2 minecraft:redstone_block
+tick 2
+block 6 -60 2 minecraft:air
+tick 10
+# lamp fed by dust
+block 8 -60 2 minecraft:redstone_wire
+block 9 -60 2 minecraft:redstone_wire
+block 10 -60 2 minecraft:redstone_block
+tick 6
+block 10 -60 2 minecraft:air
+tick 10
