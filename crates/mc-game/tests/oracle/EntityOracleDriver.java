@@ -207,7 +207,10 @@ public final class EntityOracleDriver {
 
    ItemStack stack(String spec, int count) throws Exception {
       ItemInput in = new ItemParser(v.server.registryAccess()).parse(new StringReader(spec));
-      return in.createItemStack(count);
+      // like /data merge: counts above the item's max stack size are allowed (oversized stacks exist in vanilla worlds)
+      ItemStack st = in.createItemStack(1);
+      st.setCount(count);
+      return st;
    }
 
    BlockState state(String spec) throws Exception {
