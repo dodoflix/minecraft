@@ -34,7 +34,7 @@ impl ServerPlayer {
             walking_speed: a.get_walking_speed(),
         };
         self.send(&packet);
-        // EcEffects follow-up: `updateInvisibilityStatus()` (spectators are invisible)
+        self.update_invisibility_status();
     }
 
     /// `ServerPlayerGameMode.isInRangeOfGround()`.
@@ -92,7 +92,7 @@ impl ServerPlayer {
             }
         }
         self.on_update_abilities();
-        self.player.living.effects_dirty = true; // `updateEffectVisibility()`
+        self.update_effect_visibility();
         true
     }
 }
