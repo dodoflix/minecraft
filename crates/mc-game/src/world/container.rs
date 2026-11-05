@@ -4,10 +4,12 @@
 //! `get_item` returns `&ItemStack` and [`Container::get_item_mut`] the in-place `&mut` (no `setItem` side effects,
 //! exactly like mutating the Java object). Out-of-range reads return an empty stack like vanilla.
 
+use crate::server::level::ServerLevel;
 use crate::world::entity::EntityId;
 use crate::world::inventory::MenuPlayer;
 use crate::world::item::ItemStack;
 use crate::world::item::{ItemStackExt, load_item_stack};
+use mc_core::direction::Direction;
 use mc_data::Item;
 use mc_nbt::{CompoundTag, ListTag, Tag};
 use std::any::Any;
@@ -83,6 +85,166 @@ pub trait Container: Any {
     fn has_any_matching(&self, predicate: &dyn Fn(&ItemStack) -> bool) -> bool {
         (0..self.get_container_size()).any(|i| predicate(self.get_item(i)))
     }
+    /// `this instanceof WorldlyContainer`.
+    fn as_worldly(&self) -> Option<&dyn WorldlyContainer> {
+        None
+    }
+}
+
+/// `WorldlyContainer`: a container with per-face slot access (furnaces, brewing stands, shulker boxes, composters...).
+/// `can_place_item_through_face` gets the level because vanilla's implementations read `this.level` (brewing recipes).
+pub trait WorldlyContainer: Container {
+    /// `getSlotsForFace(direction)`.
+    fn get_slots_for_face(&self, direction: Direction) -> &'static [usize];
+    /// `canPlaceItemThroughFace(slot, stack, direction)`.
+    fn can_place_item_through_face(&self, level: &ServerLevel, slot: usize, stack: &ItemStack, direction: Option<Direction>) -> bool;
+    /// `canTakeItemThroughFace(slot, stack, direction)`.
+    fn can_take_item_through_face(&self, slot: usize, stack: &ItemStack, direction: Direction) -> bool;
+}
+
+/// A block entity (that is a `Container`) that was taken out of its chunk, usable as an owned `Container`.
+pub struct BlockEntityContainer(pub Box<dyn crate::world::block_entity::BlockEntity>);
+
+impl BlockEntityContainer {
+    fn inner(&self) -> &dyn Container {
+        self.0.as_container().expect("BlockEntityContainer wraps a container block entity")
+    }
+    fn inner_mut(&mut self) -> &mut dyn Container {
+        self.0.as_container_mut().expect("BlockEntityContainer wraps a container block entity")
+    }
+}
+
+impl Container for BlockEntityContainer {
+    fn as_any(&self) -> &dyn Any {
+        self.inner().as_any()
+    }
+    fn as_any_mut(&mut self) -> &mut dyn Any {
+        self.inner_mut().as_any_mut()
+    }
+    fn get_container_size(&self) -> usize {
+        self.inner().get_container_size()
+    }
+    fn is_empty(&self) -> bool {
+        self.inner().is_empty()
+    }
+    fn get_item(&self, slot: usize) -> &ItemStack {
+        self.inner().get_item(slot)
+    }
+    fn get_item_mut(&mut self, slot: usize) -> Option<&mut ItemStack> {
+        self.inner_mut().get_item_mut(slot)
+    }
+    fn remove_item(&mut self, slot: usize, count: i32) -> ItemStack {
+        self.inner_mut().remove_item(slot, count)
+    }
+    fn remove_item_no_update(&mut self, slot: usize) -> ItemStack {
+        self.inner_mut().remove_item_no_update(slot)
+    }
+    fn set_item(&mut self, slot: usize, stack: ItemStack) {
+        self.inner_mut().set_item(slot, stack);
+    }
+    fn clear_content(&mut self) {
+        self.inner_mut().clear_content();
+    }
+    fn set_changed(&mut self) {
+        self.inner_mut().set_changed();
+    }
+    fn still_valid(&self, player: &dyn MenuPlayer) -> bool {
+        self.inner().still_valid(player)
+    }
+    fn get_max_stack_size(&self) -> i32 {
+        self.inner().get_max_stack_size()
+    }
+    fn can_place_item(&self, slot: usize, stack: &ItemStack) -> bool {
+        self.inner().can_place_item(slot, stack)
+    }
+    fn as_worldly(&self) -> Option<&dyn WorldlyContainer> {
+        self.inner().as_worldly()
+    }
+}
+
+/// `CompoundContainer(container1, container2)` (double chests): the second container's slots follow the first's. Not
+/// worldly; `canTakeItem` keeps the interface default (`true`) exactly like vanilla.
+pub struct CompoundContainer<A: Container, B: Container> {
+    pub container1: A,
+    pub container2: B,
+}
+
+impl<A: Container, B: Container> CompoundContainer<A, B> {
+    pub fn new(container1: A, container2: B) -> Self {
+        Self { container1, container2 }
+    }
+}
+
+impl<A: Container, B: Container> Container for CompoundContainer<A, B> {
+    fn as_any(&self) -> &dyn Any {
+        self
+    }
+    fn as_any_mut(&mut self) -> &mut dyn Any {
+        self
+    }
+    fn get_container_size(&self) -> usize {
+        self.container1.get_container_size() + self.container2.get_container_size()
+    }
+    fn is_empty(&self) -> bool {
+        self.container1.is_empty() && self.container2.is_empty()
+    }
+    fn get_item(&self, slot: usize) -> &ItemStack {
+        let n = self.container1.get_container_size();
+        if slot >= n { self.container2.get_item(slot - n) } else { self.container1.get_item(slot) }
+    }
+    fn get_item_mut(&mut self, slot: usize) -> Option<&mut ItemStack> {
+        let n = self.container1.get_container_size();
+        if slot >= n { self.container2.get_item_mut(slot - n) } else { self.container1.get_item_mut(slot) }
+    }
+    fn remove_item(&mut self, slot: usize, count: i32) -> ItemStack {
+        let n = self.container1.get_container_size();
+        if slot >= n { self.container2.remove_item(slot - n, count) } else { self.container1.remove_item(slot, count) }
+    }
+    fn remove_item_no_update(&mut self, slot: usize) -> ItemStack {
+        let n = self.container1.get_container_size();
+        if slot >= n { self.container2.remove_item_no_update(slot - n) } else { self.container1.remove_item_no_update(slot) }
+    }
+    fn set_item(&mut self, slot: usize, stack: ItemStack) {
+        let n = self.container1.get_container_size();
+        if slot >= n { self.container2.set_item(slot - n, stack) } else { self.container1.set_item(slot, stack) }
+    }
+    fn clear_content(&mut self) {
+        self.container1.clear_content();
+        self.container2.clear_content();
+    }
+    fn set_changed(&mut self) {
+        self.container1.set_changed();
+        self.container2.set_changed();
+    }
+    fn still_valid(&self, player: &dyn MenuPlayer) -> bool {
+        self.container1.still_valid(player) && self.container2.still_valid(player)
+    }
+    fn get_max_stack_size(&self) -> i32 {
+        self.container1.get_max_stack_size()
+    }
+    fn can_place_item(&self, slot: usize, stack: &ItemStack) -> bool {
+        let n = self.container1.get_container_size();
+        if slot >= n { self.container2.can_place_item(slot - n, stack) } else { self.container1.can_place_item(slot, stack) }
+    }
+}
+
+/// `AbstractContainerMenu.getRedstoneSignalFromContainer(container)`.
+pub fn get_redstone_signal_from_container(container: Option<&dyn Container>) -> i32 {
+    let Some(container) = container else { return 0 };
+    let mut total_percent = 0.0f32;
+    for i in 0..container.get_container_size() {
+        let stack = container.get_item(i);
+        if !stack.is_empty() {
+            total_percent += stack.count() as f32 / container.get_max_stack_size_for(stack) as f32;
+        }
+    }
+    total_percent /= container.get_container_size() as f32;
+    mc_core::math::mth::lerp_discrete(total_percent, 0, 15)
+}
+
+/// `AbstractContainerMenu.getRedstoneSignalFromBlockEntity(blockEntity)`.
+pub fn get_redstone_signal_from_block_entity(block_entity: Option<&dyn crate::world::block_entity::BlockEntity>) -> i32 {
+    get_redstone_signal_from_container(block_entity.and_then(|be| be.as_container()))
 }
 
 /// `ContainerHelper`.

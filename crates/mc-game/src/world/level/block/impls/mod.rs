@@ -102,6 +102,7 @@ pub mod detector_rail_block;
 pub mod diode_block;
 pub mod dispenser_block;
 pub mod door_block;
+pub mod dropper_block;
 pub mod double_plant_block;
 pub mod dragon_egg_block;
 pub mod dried_ghast_block;

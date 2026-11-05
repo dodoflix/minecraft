@@ -22,13 +22,18 @@ macro_rules! block_entity_base {
 }
 
 pub mod base_container;
+pub mod changed_log;
 mod calibrated_sculk_sensor_block_entity;
 mod comparator_block_entity;
 pub mod command_block_entity;
 pub mod jigsaw_block_entity;
 mod creaking_heart_block_entity;
 mod daylight_detector_block_entity;
+mod dispenser_block_entity;
+mod dropper_block_entity;
+pub mod hopper_block_entity;
 mod potent_sulfur_block_entity;
+pub mod randomizable_container;
 mod sculk_catalyst_block_entity;
 mod sculk_sensor_block_entity;
 mod sculk_shrieker_block_entity;
@@ -41,6 +46,8 @@ pub use creaking_heart_block_entity::CreakingHeartBlockEntity;
 pub use daylight_detector_block_entity::DaylightDetectorBlockEntity;
 pub use command_block_entity::CommandBlockEntity;
 pub use jigsaw_block_entity::JigsawBlockEntity;
+pub use dispenser_block_entity::DispenserBlockEntity;
+pub use hopper_block_entity::{HopperBlockEntity, Hopper};
 pub use potent_sulfur_block_entity::PotentSulfurBlockEntity;
 pub use sculk_catalyst_block_entity::SculkCatalystBlockEntity;
 pub use sculk_sensor_block_entity::SculkSensorBlockEntity;
@@ -202,6 +209,13 @@ pub trait BlockEntity: Any {
     fn get_note_block_sound(&self) -> Option<mc_core::ident::Identifier> {
         None
     }
+
+    // ==== [Blocks:Dispensers] RandomizableContainer hooks ====
+    /// `RandomizableContainer.unpackLootTable(player)` (no-op for block entities without a loot table); the block entity is
+    /// out of its chunk while this runs. See `randomizable_container`.
+    fn unpack_loot_table(&mut self, _level: &crate::server::level::ServerLevel, _player: Option<&dyn crate::world::entity::Entity>) {}
+    /// `RandomizableContainer.setLootTable(table, seed)` (no-op for other block entities).
+    fn set_loot_table(&mut self, _table: mc_core::ident::Identifier, _seed: i64) {}
 
     /// The `Container` view of this block entity (vanilla `this instanceof Container`); menus reach block-entity
     /// containers through `ContainerKey::BlockEntity(pos)`.

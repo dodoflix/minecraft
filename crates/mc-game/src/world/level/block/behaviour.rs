@@ -386,6 +386,19 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     fn get_bee_interaction_effect(&self) -> Option<crate::world::entity::effect::MobEffectInstance> {
         None
     }
+    // ==== [Blocks:Dispensers] WorldlyContainerHolder ====
+    /// `this instanceof WorldlyContainerHolder` (composter): hoppers use [`BlockBehaviour::get_worldly_container`].
+    fn is_worldly_container_holder(&self) -> bool {
+        false
+    }
+    /// `WorldlyContainerHolder.getContainer(state, level, pos)`: a transient container over the block; its effects on the
+    /// world (vanilla does them inside `setItem`/`removeItem`/`setChanged`, which have the level there) are applied by
+    /// [`BlockBehaviour::finish_worldly_container`] after the transfer that used it.
+    fn get_worldly_container(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos) -> Option<Box<dyn crate::world::container::Container>> {
+        None
+    }
+    /// Applies what the container returned by `get_worldly_container` deferred (composter fill / output emptying).
+    fn finish_worldly_container(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _container: Box<dyn crate::world::container::Container>) {}
 }
 
 /// Vanilla's base behavior (every method default).
