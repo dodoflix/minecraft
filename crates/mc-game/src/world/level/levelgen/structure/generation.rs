@@ -1,7 +1,7 @@
 //! The structure parts of `ChunkGenerator`: `createStructures` (+ `tryGenerateStructure`, `Structure.generate`),
 //! `createReferences`, the decoration step entry (`place_structure`), `getMobsAt`'s spawn override lookup.
 
-use super::manager::{StructureDataSource, StructureManager};
+use super::manager::{LevelSource, StructureDataSource, StructureManager};
 use super::piece::StructurePieceSerializationContext;
 use super::structure::{GenerationContext, Structure, StructureSpawnOverride, BoundingBoxType, SpawnerData};
 use super::structure_start::{StartHandle, StructureStart};
@@ -13,7 +13,6 @@ use mc_core::bounding_box::BoundingBox;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_core::random::{LegacyRandomSource, RandomSource, WorldgenRandom};
 use mc_data::enums::MobCategory;
-use mc_nbt::Tag;
 use mc_world::chunk::{ProtoChunk, StructureData};
 use mc_worldgen::provider::WeightedList;
 use mc_worldgen::structure_placement::{ChunkGeneratorStructureState, StructureSelectionEntry};
@@ -150,12 +149,11 @@ pub fn create_references(env: &GenEnv, region: &mut WorldGenRegion) {
             let source_chunk_pos = ChunkPos::new(source_x, source_z);
             let source_chunk_key = source_chunk_pos.pack();
             let Some(data) = region.structure_data(source_chunk_pos) else { continue };
-            for (key, raw) in &data.starts {
+            for key in data.starts.keys() {
                 let Some(id) = mc_core::ident::Identifier::try_parse(key) else { continue };
                 let Some(structure) = env.structures.get(&id) else { continue };
                 let Some(start) = manager.get_start_for_structure(source_chunk_pos, data, structure) else { continue };
                 let mut start = start.lock();
-                let _ = raw;
                 if start.is_valid() && start.get_bounding_box().intersects_xz(target_block_x, target_block_z, target_block_x + 15, target_block_z + 15) {
                     to_add.push((key.clone(), source_chunk_key));
                 }
@@ -179,7 +177,7 @@ pub fn place_structure(
     center: ChunkPos,
 ) {
     let manager = StructureManager::new(env);
-    let starts = manager.starts_for_structure(&*level, center.x, center.z, structure);
+    let starts = manager.starts_for_structure(&LevelSource(&*level), center.x, center.z, structure);
     for start in starts {
         start.lock().place_in_chunk(level, &manager, env, random, writable_area, center);
     }
@@ -210,6 +208,3 @@ pub fn get_structure_spawn_override(env: &GenEnv, source: &dyn StructureDataSour
     }
     None
 }
-
-#[allow(dead_code)]
-fn _assert_tag_used(_: Tag) {}

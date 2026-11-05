@@ -2,7 +2,7 @@
 //! piece embeds [`ScatteredFeaturePieceData`] (its `base()` is `data.base`) and calls the helpers from `post_process`.
 
 use super::piece::{PieceBase, StructurePieceSerializationContext, StructurePieceType, make_bounding_box};
-use crate::world::level::{BlockGetter as _, LevelReader};
+use crate::world::level::LevelReader;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;

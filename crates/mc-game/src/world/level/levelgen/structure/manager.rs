@@ -21,9 +21,12 @@ pub trait StructureDataSource {
     fn structure_data(&self, pos: ChunkPos) -> Option<&StructureData>;
 }
 
-impl StructureDataSource for dyn WorldGenLevel + '_ {
+/// A `WorldGenLevel` as a structure data source.
+pub struct LevelSource<'a>(pub &'a dyn WorldGenLevel);
+
+impl StructureDataSource for LevelSource<'_> {
     fn structure_data(&self, pos: ChunkPos) -> Option<&StructureData> {
-        WorldGenLevel::structure_data(self, pos)
+        self.0.structure_data(pos)
     }
 }
 
