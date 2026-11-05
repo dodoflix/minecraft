@@ -349,14 +349,7 @@ impl World {
             }
             "recipe" => {
                 let p = self.entity_mut(&a[1]).as_any_mut().downcast_mut::<ServerPlayer>().unwrap();
-                let mut book = match p.recipe_book.take() {
-                    Some(Tag::Compound(c)) => c,
-                    _ => CompoundTag::new(),
-                };
-                let mut recipes = book.get_list("recipes").cloned().unwrap_or_default();
-                recipes.push(Tag::String(id(&a[2]).to_string()));
-                book.put("recipes", recipes);
-                p.recipe_book = Some(Tag::Compound(book));
+                p.recipe_book.add(id(&a[2]));
             }
             _ => return false,
         }
