@@ -80,7 +80,7 @@ fn describe_item(name: &str, e: &ItemEntity) -> String {
     let d = b.delta_movement();
     let item = e.get_item();
     format!(
-        "E {name} minecraft:item pos={} delta={} rot={:?},{:?} og={} fall={:?} fire={} air={} alive={} pose=standing item={}*{} age={}",
+        "E {name} minecraft:item pos={} delta={} rot={:?},{:?} og={} fall={:?} fire={} air={} alive={} pose=standing item={}*{} age={} pickup={} health={} owner={} thrower={}",
         vec3(p.x, p.y, p.z),
         vec3(d.x, d.y, d.z),
         b.y_rot(),
@@ -92,7 +92,11 @@ fn describe_item(name: &str, e: &ItemEntity) -> String {
         i32::from(e.is_alive()),
         item.item().name(),
         item.count(),
-        e.age
+        e.age,
+        e.pickup_delay,
+        e.health,
+        e.target.map_or("-".to_string(), |u| u.to_string()),
+        e.thrower.map_or("-".to_string(), |u| u.to_string())
     )
 }
 
@@ -183,4 +187,44 @@ fn item_merge_rules_match_vanilla() {
             "merge {a}*{ca} <- {b}*{cb}"
         );
     }
+}
+
+#[test]
+fn item_merge_pickup_delay_and_despawn_match_vanilla() {
+    let mut level = flat_level();
+    // (name, item, count, pos, age, pickup delay)
+    let specs: [(&str, Item, i32, (f64, f64, f64), i32, i32); 9] = [
+        ("m1", Item::DIAMOND, 20, (5.5, -60.0, 2.5), 0, 0),
+        ("m2", Item::DIAMOND, 30, (5.7, -60.0, 2.5), 0, 0),
+        ("m3", Item::DIAMOND, 5, (5.9, -60.0, 2.5), 0, 0),
+        ("n1", Item::STONE, 64, (8.5, -60.0, 2.5), 0, 0),
+        ("n2", Item::STONE, 3, (8.6, -60.0, 2.5), 0, 0),
+        ("e1", Item::EMERALD, 10, (2.5, -60.0, 2.5), 0, 0),
+        ("e2", Item::EMERALD, 10, (2.6, -60.0, 2.5), 100, 20),
+        ("d1", Item::DIRT, 1, (12.5, -60.0, 3.5), 5990, 0),
+        ("u1", Item::DIRT, 1, (12.5, -60.0, -3.5), -32768, 3),
+    ];
+    let mut names = Vec::new();
+    let mut ids = Vec::new();
+    for (name, item, count, pos, age, pickup) in specs {
+        let id = spawn_item(&mut level, ItemStack::with_count(item, count), pos, (0.0, 0.0, 0.0), 0.0);
+        level.with_entity(id, |_, e| {
+            let e = e.as_any_mut().downcast_mut::<ItemEntity>().unwrap();
+            e.age = age;
+            e.pickup_delay = pickup;
+        });
+        names.push(name);
+        ids.push(id);
+    }
+    let mut actual = Vec::new();
+    for t in 1..=45 {
+        tick_entities(&mut level, &ids);
+        actual.push(format!("T {t}"));
+        for (name, &id) in names.iter().zip(&ids) {
+            if let Some(e) = level.get_entity(id).and_then(|e| e.as_any().downcast_ref::<ItemEntity>()) {
+                actual.push(describe_item(name, e));
+            }
+        }
+    }
+    Fixture::load("item_merge").assert_matches(&actual, &Options::default());
 }
