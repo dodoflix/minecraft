@@ -948,6 +948,8 @@ pub fn boat_spec(ty: EntityType) -> Option<(Item, BoatKind, bool)> {
         EntityType::PALE_OAK_CHEST_BOAT => (Item::PALE_OAK_CHEST_BOAT, Boat, true),
         EntityType::MANGROVE_BOAT => (Item::MANGROVE_BOAT, Boat, false),
         EntityType::MANGROVE_CHEST_BOAT => (Item::MANGROVE_CHEST_BOAT, Boat, true),
+        EntityType::POPLAR_BOAT => (Item::POPLAR_BOAT, Boat, false),
+        EntityType::POPLAR_CHEST_BOAT => (Item::POPLAR_CHEST_BOAT, Boat, true),
         EntityType::BAMBOO_RAFT => (Item::BAMBOO_RAFT, Raft, false),
         EntityType::BAMBOO_CHEST_RAFT => (Item::BAMBOO_CHEST_RAFT, Raft, true),
         _ => return None,
@@ -985,6 +987,8 @@ register_boat!(
     PALE_OAK_CHEST_BOAT_FACTORY = PALE_OAK_CHEST_BOAT,
     MANGROVE_BOAT_FACTORY = MANGROVE_BOAT,
     MANGROVE_CHEST_BOAT_FACTORY = MANGROVE_CHEST_BOAT,
+    POPLAR_BOAT_FACTORY = POPLAR_BOAT,
+    POPLAR_CHEST_BOAT_FACTORY = POPLAR_CHEST_BOAT,
     BAMBOO_RAFT_FACTORY = BAMBOO_RAFT,
     BAMBOO_CHEST_RAFT_FACTORY = BAMBOO_CHEST_RAFT,
 );
