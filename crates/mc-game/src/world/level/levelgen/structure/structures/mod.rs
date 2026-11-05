@@ -22,3 +22,5 @@ pub mod nether_fortress_pieces;
 pub mod nether_fortress_structure;
 pub mod mineshaft_pieces;
 pub mod mineshaft_structure;
+pub mod stronghold_pieces;
+pub mod stronghold_structure;
