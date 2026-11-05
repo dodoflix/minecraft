@@ -1,6 +1,6 @@
 level flat
 preload 2
-watch blocks:2,-60,0,12,-58,4 ticks
+watch blocks:2,-60,0,12,-58,4 ticks events
 # standing torch inverter on top of a block with an adjacent powered dust; torch on the side of the dust line
 block 4 -60 2 minecraft:stone
 block 4 -59 2 minecraft:redstone_torch[lit=true]

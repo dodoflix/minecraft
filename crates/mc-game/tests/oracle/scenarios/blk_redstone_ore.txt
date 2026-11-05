@@ -1,6 +1,6 @@
 level flat
 preload 2
-watch blocks:2,-60,1,8,-59,4 ticks
+watch blocks:2,-60,1,8,-59,4 ticks events
 level_seed 99
 # redstone ore: lit state random-ticks off
 block 3 -60 2 minecraft:redstone_ore[lit=true]

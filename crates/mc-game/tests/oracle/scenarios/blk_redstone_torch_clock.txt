@@ -1,6 +1,6 @@
 level flat
 preload 2
-watch blocks:-1,-60,-1,2,-58,1 ticks
+watch blocks:-1,-60,-1,2,-58,1 ticks events
 # torch burnout clock: wall torch on B, C powered strongly by the torch, dust on B powered via C
 block 0 -60 0 minecraft:stone
 block 1 -59 0 minecraft:stone

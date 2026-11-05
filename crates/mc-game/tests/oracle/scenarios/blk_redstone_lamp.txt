@@ -1,6 +1,6 @@
 level flat
 preload 2
-watch blocks:0,-60,0,12,-59,4 ticks
+watch blocks:0,-60,0,12,-59,4 ticks events
 # lamps next to power, delayed turn-off
 block 3 -60 2 minecraft:redstone_lamp[lit=false]
 block 5 -60 2 minecraft:redstone_lamp[lit=true]

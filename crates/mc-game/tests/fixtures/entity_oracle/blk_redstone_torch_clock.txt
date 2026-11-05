@@ -1,0 +1,1132 @@
+T 1
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=15,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=true]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=1 prio=0
+T 2
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=2 prio=0
+T 3
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=1 prio=0
+T 4
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=15,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=true]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=2 prio=0
+T 5
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=15,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=true]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=1 prio=0
+T 6
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=2 prio=0
+T 7
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=1 prio=0
+T 8
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=15,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=true]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=2 prio=0
+T 9
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=15,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=true]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=1 prio=0
+T 10
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=2 prio=0
+T 11
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=1 prio=0
+T 12
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=15,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=true]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=2 prio=0
+T 13
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=15,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=true]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=1 prio=0
+T 14
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=2 prio=0
+T 15
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=1 prio=0
+T 16
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=15,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=true]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=2 prio=0
+T 17
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=15,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=true]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=1 prio=0
+T 18
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=2 prio=0
+T 19
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=1 prio=0
+T 20
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=15,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=true]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=2 prio=0
+T 21
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=15,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=true]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=1 prio=0
+T 22
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=2 prio=0
+T 23
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=1 prio=0
+T 24
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=15,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=true]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=2 prio=0
+T 25
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=15,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=true]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=1 prio=0
+T 26
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=2 prio=0
+T 27
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=1 prio=0
+T 28
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=15,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=true]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=2 prio=0
+T 29
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=15,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=true]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=1 prio=0
+T 30
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=2 prio=0
+EV level_event r=64.0 ex=0 type=1502 pos=1,-60,0 data=0 global=0
+T 31
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+TICK block 1 -60 0 minecraft:redstone_wall_torch delay=1 prio=0
+T 32
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 33
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 34
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 35
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 36
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 37
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 38
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 39
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 40
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 41
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 42
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 43
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 44
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 45
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 46
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 47
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 48
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 49
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 50
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 51
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 52
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 53
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 54
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 55
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 56
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 57
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 58
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 59
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 60
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 61
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 62
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 63
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 64
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 65
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 66
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 67
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 68
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 69
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 70
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 71
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 72
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 73
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 74
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 75
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 76
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 77
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 78
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 79
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 80
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 81
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 82
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 83
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 84
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 85
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 86
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 87
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 88
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 89
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 90
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 91
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 92
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 93
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 94
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 95
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 96
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 97
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 98
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 99
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 100
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 101
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 102
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 103
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 104
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 105
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 106
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 107
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 108
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 109
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 110
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 111
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 112
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 113
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 114
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 115
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 116
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 117
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 118
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 119
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 120
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 121
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 122
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 123
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 124
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 125
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 126
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 127
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 128
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 129
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 130
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 131
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 132
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 133
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 134
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 135
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 136
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 137
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 138
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 139
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 140
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 141
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 142
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 143
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 144
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 145
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 146
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 147
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 148
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 149
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 150
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 151
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 152
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 153
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 154
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 155
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 156
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 157
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 158
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 159
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 160
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 161
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 162
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 163
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 164
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 165
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 166
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 167
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 168
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 169
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 170
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 171
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 172
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 173
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 174
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 175
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 176
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 177
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 178
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 179
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 180
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 181
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 182
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 183
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 184
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 185
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 186
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 187
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 188
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 189
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 190
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 191
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 192
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 193
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 194
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 195
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 196
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 197
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 198
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 199
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 200
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 201
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 202
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 203
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 204
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 205
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 206
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 207
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 208
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 209
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 210
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 211
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 212
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 213
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 214
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 215
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 216
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 217
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 218
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 219
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone
+T 220
+B 0 -60 0 minecraft:stone
+B 0 -59 0 minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+B 1 -60 0 minecraft:redstone_wall_torch[facing=east,lit=false]
+B 1 -59 0 minecraft:stone

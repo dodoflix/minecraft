@@ -1,6 +1,6 @@
 level flat
 preload 2
-watch blocks:-1,-60,-1,14,-58,5 ticks
+watch blocks:-1,-60,-1,14,-58,5 ticks events
 # steps, slabs, glass, solid above
 block 2 -60 1 minecraft:cobblestone
 block 3 -60 1 minecraft:cobblestone

@@ -1,6 +1,6 @@
 level flat
 preload 2
-watch blocks:-1,-60,-1,14,-58,5 ticks
+watch blocks:-1,-60,-1,14,-58,5 ticks events
 # dust line, power on/off, extension, crossing
 block 1 -60 1 minecraft:redstone_wire
 block 2 -60 1 minecraft:redstone_wire

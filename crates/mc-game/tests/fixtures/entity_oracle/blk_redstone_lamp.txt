@@ -1,0 +1,239 @@
+T 1
+B 2 -60 2 minecraft:redstone_block
+B 3 -60 2 minecraft:redstone_lamp[lit=true]
+B 5 -60 2 minecraft:redstone_lamp[lit=true]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+T 2
+B 2 -60 2 minecraft:redstone_block
+B 3 -60 2 minecraft:redstone_lamp[lit=true]
+B 5 -60 2 minecraft:redstone_lamp[lit=true]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+T 3
+B 2 -60 2 minecraft:redstone_block
+B 3 -60 2 minecraft:redstone_lamp[lit=true]
+B 5 -60 2 minecraft:redstone_lamp[lit=true]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+T 4
+B 2 -60 2 minecraft:redstone_block
+B 3 -60 2 minecraft:redstone_lamp[lit=true]
+B 5 -60 2 minecraft:redstone_lamp[lit=true]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+T 5
+B 2 -60 2 minecraft:redstone_block
+B 3 -60 2 minecraft:redstone_lamp[lit=true]
+B 5 -60 2 minecraft:redstone_lamp[lit=true]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+T 6
+B 2 -60 2 minecraft:redstone_block
+B 3 -60 2 minecraft:redstone_lamp[lit=true]
+B 5 -60 2 minecraft:redstone_lamp[lit=true]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+T 7
+B 3 -60 2 minecraft:redstone_lamp[lit=true]
+B 5 -60 2 minecraft:redstone_lamp[lit=true]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+TICK block 3 -60 2 minecraft:redstone_lamp delay=3 prio=0
+T 8
+B 3 -60 2 minecraft:redstone_lamp[lit=true]
+B 5 -60 2 minecraft:redstone_lamp[lit=true]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+TICK block 3 -60 2 minecraft:redstone_lamp delay=2 prio=0
+T 9
+B 3 -60 2 minecraft:redstone_lamp[lit=true]
+B 5 -60 2 minecraft:redstone_lamp[lit=true]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+TICK block 3 -60 2 minecraft:redstone_lamp delay=1 prio=0
+T 10
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=true]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+T 11
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=true]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+T 12
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=true]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+T 13
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=true]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+T 14
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=true]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+T 15
+B 3 -60 2 minecraft:redstone_lamp[lit=true]
+B 4 -60 2 minecraft:redstone_block
+B 5 -60 2 minecraft:redstone_lamp[lit=true]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+T 16
+B 3 -60 2 minecraft:redstone_lamp[lit=true]
+B 4 -60 2 minecraft:redstone_block
+B 5 -60 2 minecraft:redstone_lamp[lit=true]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+T 17
+B 3 -60 2 minecraft:redstone_lamp[lit=true]
+B 5 -60 2 minecraft:redstone_lamp[lit=true]
+B 6 -60 2 minecraft:redstone_block
+B 7 -60 2 minecraft:redstone_lamp[lit=true]
+TICK block 3 -60 2 minecraft:redstone_lamp delay=3 prio=0
+TICK block 5 -60 2 minecraft:redstone_lamp delay=3 prio=0
+T 18
+B 3 -60 2 minecraft:redstone_lamp[lit=true]
+B 5 -60 2 minecraft:redstone_lamp[lit=true]
+B 6 -60 2 minecraft:redstone_block
+B 7 -60 2 minecraft:redstone_lamp[lit=true]
+TICK block 3 -60 2 minecraft:redstone_lamp delay=2 prio=0
+TICK block 5 -60 2 minecraft:redstone_lamp delay=2 prio=0
+T 19
+B 3 -60 2 minecraft:redstone_lamp[lit=true]
+B 5 -60 2 minecraft:redstone_lamp[lit=true]
+B 7 -60 2 minecraft:redstone_lamp[lit=true]
+TICK block 3 -60 2 minecraft:redstone_lamp delay=1 prio=0
+TICK block 5 -60 2 minecraft:redstone_lamp delay=1 prio=0
+TICK block 7 -60 2 minecraft:redstone_lamp delay=3 prio=0
+T 20
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=false]
+B 7 -60 2 minecraft:redstone_lamp[lit=true]
+TICK block 7 -60 2 minecraft:redstone_lamp delay=2 prio=0
+T 21
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=false]
+B 7 -60 2 minecraft:redstone_lamp[lit=true]
+TICK block 7 -60 2 minecraft:redstone_lamp delay=1 prio=0
+T 22
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=false]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+T 23
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=false]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+T 24
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=false]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+T 25
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=false]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+T 26
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=false]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+T 27
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=false]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+T 28
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=false]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+T 29
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=false]
+B 7 -60 2 minecraft:redstone_lamp[lit=true]
+B 8 -60 2 minecraft:redstone_wire[east=side,north=none,power=14,south=none,west=side]
+B 9 -60 2 minecraft:redstone_wire[east=side,north=none,power=15,south=none,west=side]
+B 10 -60 2 minecraft:redstone_block
+T 30
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=false]
+B 7 -60 2 minecraft:redstone_lamp[lit=true]
+B 8 -60 2 minecraft:redstone_wire[east=side,north=none,power=14,south=none,west=side]
+B 9 -60 2 minecraft:redstone_wire[east=side,north=none,power=15,south=none,west=side]
+B 10 -60 2 minecraft:redstone_block
+T 31
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=false]
+B 7 -60 2 minecraft:redstone_lamp[lit=true]
+B 8 -60 2 minecraft:redstone_wire[east=side,north=none,power=14,south=none,west=side]
+B 9 -60 2 minecraft:redstone_wire[east=side,north=none,power=15,south=none,west=side]
+B 10 -60 2 minecraft:redstone_block
+T 32
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=false]
+B 7 -60 2 minecraft:redstone_lamp[lit=true]
+B 8 -60 2 minecraft:redstone_wire[east=side,north=none,power=14,south=none,west=side]
+B 9 -60 2 minecraft:redstone_wire[east=side,north=none,power=15,south=none,west=side]
+B 10 -60 2 minecraft:redstone_block
+T 33
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=false]
+B 7 -60 2 minecraft:redstone_lamp[lit=true]
+B 8 -60 2 minecraft:redstone_wire[east=side,north=none,power=14,south=none,west=side]
+B 9 -60 2 minecraft:redstone_wire[east=side,north=none,power=15,south=none,west=side]
+B 10 -60 2 minecraft:redstone_block
+T 34
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=false]
+B 7 -60 2 minecraft:redstone_lamp[lit=true]
+B 8 -60 2 minecraft:redstone_wire[east=side,north=none,power=14,south=none,west=side]
+B 9 -60 2 minecraft:redstone_wire[east=side,north=none,power=15,south=none,west=side]
+B 10 -60 2 minecraft:redstone_block
+T 35
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=false]
+B 7 -60 2 minecraft:redstone_lamp[lit=true]
+B 8 -60 2 minecraft:redstone_wire[east=side,north=none,power=0,south=none,west=side]
+B 9 -60 2 minecraft:redstone_wire[east=side,north=none,power=0,south=none,west=side]
+TICK block 7 -60 2 minecraft:redstone_lamp delay=3 prio=0
+T 36
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=false]
+B 7 -60 2 minecraft:redstone_lamp[lit=true]
+B 8 -60 2 minecraft:redstone_wire[east=side,north=none,power=0,south=none,west=side]
+B 9 -60 2 minecraft:redstone_wire[east=side,north=none,power=0,south=none,west=side]
+TICK block 7 -60 2 minecraft:redstone_lamp delay=2 prio=0
+T 37
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=false]
+B 7 -60 2 minecraft:redstone_lamp[lit=true]
+B 8 -60 2 minecraft:redstone_wire[east=side,north=none,power=0,south=none,west=side]
+B 9 -60 2 minecraft:redstone_wire[east=side,north=none,power=0,south=none,west=side]
+TICK block 7 -60 2 minecraft:redstone_lamp delay=1 prio=0
+T 38
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=false]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+B 8 -60 2 minecraft:redstone_wire[east=side,north=none,power=0,south=none,west=side]
+B 9 -60 2 minecraft:redstone_wire[east=side,north=none,power=0,south=none,west=side]
+T 39
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=false]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+B 8 -60 2 minecraft:redstone_wire[east=side,north=none,power=0,south=none,west=side]
+B 9 -60 2 minecraft:redstone_wire[east=side,north=none,power=0,south=none,west=side]
+T 40
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=false]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+B 8 -60 2 minecraft:redstone_wire[east=side,north=none,power=0,south=none,west=side]
+B 9 -60 2 minecraft:redstone_wire[east=side,north=none,power=0,south=none,west=side]
+T 41
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=false]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+B 8 -60 2 minecraft:redstone_wire[east=side,north=none,power=0,south=none,west=side]
+B 9 -60 2 minecraft:redstone_wire[east=side,north=none,power=0,south=none,west=side]
+T 42
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=false]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+B 8 -60 2 minecraft:redstone_wire[east=side,north=none,power=0,south=none,west=side]
+B 9 -60 2 minecraft:redstone_wire[east=side,north=none,power=0,south=none,west=side]
+T 43
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=false]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+B 8 -60 2 minecraft:redstone_wire[east=side,north=none,power=0,south=none,west=side]
+B 9 -60 2 minecraft:redstone_wire[east=side,north=none,power=0,south=none,west=side]
+T 44
+B 3 -60 2 minecraft:redstone_lamp[lit=false]
+B 5 -60 2 minecraft:redstone_lamp[lit=false]
+B 7 -60 2 minecraft:redstone_lamp[lit=false]
+B 8 -60 2 minecraft:redstone_wire[east=side,north=none,power=0,south=none,west=side]
+B 9 -60 2 minecraft:redstone_wire[east=side,north=none,power=0,south=none,west=side]
