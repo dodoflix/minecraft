@@ -315,7 +315,7 @@ impl<T: RegistryId> RegistrySet<T> {
     }
 }
 
-pub(crate) fn hashed_tag_codec() -> Codec<Identifier> {
+pub fn hashed_tag_codec() -> Codec<Identifier> {
     mc_dfu::STRING.comap_flat_map(
         |s| match s.strip_prefix('#') {
             None => DataResult::error(move || format!("Not a tag id: {s}")),

@@ -18,6 +18,7 @@ mod component_ext;
 mod consumable;
 pub mod entity_items;
 mod context;
+pub mod crafting;
 mod cooldowns;
 pub mod enchantment;
 pub mod enchantment_helper;

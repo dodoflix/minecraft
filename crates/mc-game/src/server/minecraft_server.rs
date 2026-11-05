@@ -230,6 +230,9 @@ impl MinecraftServer {
             *init.dedicated.settings.get_properties().view_distance.get(),
             *init.dedicated.settings.get_properties().simulation_distance.get(),
         );
+        if let Some(recipes) = init.resources.managers.listener::<crate::world::item::crafting::RecipeManager>() {
+            shared.set_recipe_manager(recipes.clone());
+        }
         let mut server = Self {
             tick_hooks: ServerTickHooks::default(),
             shared,

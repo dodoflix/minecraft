@@ -133,6 +133,9 @@ pub fn set_simulation_distance(server: &mut MinecraftServer, simulation_distance
 /// `reloadResources()`: the new tags and the recipe sync (the player advancements reload with the advancement
 /// manager, a later wave).
 pub fn reload_resources(server: &mut MinecraftServer) {
+    if let Some(recipes) = server.resources.managers.listener::<crate::world::item::crafting::RecipeManager>() {
+        server.shared.set_recipe_manager(recipes.clone());
+    }
     use crate::registry::synchronization as sync;
     use mc_protocol::packets::common::TagNetworkPayload;
     let tags = sync::serialize_tags_to_network(&server.registries)

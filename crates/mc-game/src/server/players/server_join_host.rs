@@ -132,8 +132,7 @@ impl JoinHost for ServerJoinHost<'_> {
     }
 
     fn update_recipes_packet(&self) -> ClientboundUpdateRecipesPacket {
-        // The recipe manager is a later wave: the synchronized property sets and stonecutter recipes are empty.
-        ClientboundUpdateRecipesPacket { item_sets: Vec::new(), stonecutter_recipes: Default::default() }
+        crate::world::item::crafting::update_recipes_packet(&self.level.recipe_access())
     }
 
     fn send_commands(&mut self, player: &PlayerHandle, permissions: LevelBasedPermissionSet) {

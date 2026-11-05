@@ -48,6 +48,8 @@ pub struct ReloadListenerRegistration {
 
 /// Position of vanilla's `ServerFunctionLibrary` (the only listener of `ReloadableServerResources.listeners()` in 26.3).
 pub const ORDER_FUNCTION_LIBRARY: i32 = 0;
+/// Position of the `RecipeManager` (`ReloadableServerResources.recipes`, finalized after the registries are loaded).
+pub const ORDER_RECIPE_MANAGER: i32 = 10;
 
 #[linkme::distributed_slice]
 pub static RELOAD_LISTENERS: [ReloadListenerRegistration];

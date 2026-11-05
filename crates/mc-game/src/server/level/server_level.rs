@@ -207,6 +207,11 @@ impl ServerLevel {
         &self.path_type_cache
     }
 
+    /// `recipeAccess()`: the server's `RecipeManager`.
+    pub fn recipe_access(&self) -> crate::world::item::crafting::RecipeManager {
+        self.shared.recipe_manager()
+    }
+
     pub fn chunk_source(&self) -> &ServerChunkCache {
         &self.chunk_source
     }

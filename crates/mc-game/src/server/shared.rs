@@ -71,6 +71,8 @@ pub struct ServerShared {
     info: RwLock<ServerInfoSnapshot>,
     /// `BlockableEventLoop.delayedCrash`: a crash reported by another thread, thrown by the next `pollTask`.
     delayed_crash: Mutex<Option<CrashReport>>,
+    /// `MinecraftServer.getRecipeManager()`: swapped by `/reload` (see `MinecraftServer::publish_recipe_manager`).
+    recipe_manager: RwLock<crate::world::item::crafting::RecipeManager>,
 }
 
 impl ServerShared {
@@ -91,8 +93,18 @@ impl ServerShared {
             status: RwLock::new(None),
             info: RwLock::new(ServerInfoSnapshot::default()),
             delayed_crash: Mutex::new(None),
+            recipe_manager: RwLock::new(crate::world::item::crafting::RecipeManager::empty()),
         });
         (shared, rx)
+    }
+
+    /// `getRecipeManager()` (a cheap handle).
+    pub fn recipe_manager(&self) -> crate::world::item::crafting::RecipeManager {
+        self.recipe_manager.read().clone()
+    }
+
+    pub fn set_recipe_manager(&self, manager: crate::world::item::crafting::RecipeManager) {
+        *self.recipe_manager.write() = manager;
     }
 
     /// Register the calling thread as the game thread (`serverThread`): `execute` unparks it, `is_game_thread`
