@@ -1,0 +1,242 @@
+# Mace smash attack: fall-based bonus damage (fall distance <= 1.5 none, 3, 8, 12 blocks), density/breach, mace_smash source, smash sounds, area knockback of bystanders, fall damage immunity afterwards, fall distance reset.
+level flat
+difficulty normal
+spawn M0 minecraft:husk 0.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M0 101
+attribute M0 minecraft:max_health 1000
+set M0 health 1000
+spawn M0n0 minecraft:husk 2.0 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M0n0 102
+attribute M0n0 minecraft:max_health 1000
+set M0n0 health 1000
+spawn M0n1 minecraft:cow -1.5 -60 1.5 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M0n1 103
+attribute M0n1 minecraft:max_health 1000
+set M0n1 health 1000
+spawn M1 minecraft:husk 8.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M1 104
+attribute M1 minecraft:max_health 1000
+set M1 health 1000
+spawn M1n0 minecraft:husk 10.0 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M1n0 105
+attribute M1n0 minecraft:max_health 1000
+set M1n0 health 1000
+spawn M1n1 minecraft:cow 6.5 -60 1.5 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M1n1 106
+attribute M1n1 minecraft:max_health 1000
+set M1n1 health 1000
+spawn M2 minecraft:husk 16.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M2 107
+attribute M2 minecraft:max_health 1000
+set M2 health 1000
+spawn M2n0 minecraft:husk 18.0 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M2n0 108
+attribute M2n0 minecraft:max_health 1000
+set M2n0 health 1000
+spawn M2n1 minecraft:cow 14.5 -60 1.5 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M2n1 109
+attribute M2n1 minecraft:max_health 1000
+set M2n1 health 1000
+spawn M3 minecraft:husk 24.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M3 110
+attribute M3 minecraft:max_health 1000
+set M3 health 1000
+spawn M3n0 minecraft:husk 26.0 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M3n0 111
+attribute M3n0 minecraft:max_health 1000
+set M3n0 health 1000
+spawn M3n1 minecraft:cow 22.5 -60 1.5 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M3n1 112
+attribute M3n1 minecraft:max_health 1000
+set M3n1 health 1000
+spawn M4 minecraft:husk 32.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M4 113
+attribute M4 minecraft:max_health 1000
+set M4 health 1000
+spawn M4n0 minecraft:husk 34.0 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M4n0 114
+attribute M4n0 minecraft:max_health 1000
+set M4n0 health 1000
+spawn M4n1 minecraft:cow 30.5 -60 1.5 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M4n1 115
+attribute M4n1 minecraft:max_health 1000
+set M4n1 health 1000
+spawn M5 minecraft:husk 40.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M5 116
+attribute M5 minecraft:max_health 1000
+set M5 health 1000
+spawn M5n0 minecraft:husk 42.0 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M5n0 117
+attribute M5n0 minecraft:max_health 1000
+set M5n0 health 1000
+spawn M5n1 minecraft:cow 38.5 -60 1.5 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M5n1 118
+attribute M5n1 minecraft:max_health 1000
+set M5n1 health 1000
+spawn M6 minecraft:husk 48.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M6 119
+attribute M6 minecraft:max_health 1000
+set M6 health 1000
+spawn M6n0 minecraft:husk 50.0 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M6n0 120
+attribute M6n0 minecraft:max_health 1000
+set M6n0 health 1000
+spawn M6n1 minecraft:cow 46.5 -60 1.5 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M6n1 121
+attribute M6n1 minecraft:max_health 1000
+set M6n1 health 1000
+spawn M7 minecraft:husk 56.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M7 122
+attribute M7 minecraft:max_health 1000
+set M7 health 1000
+spawn M7n0 minecraft:husk 58.0 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M7n0 123
+attribute M7n0 minecraft:max_health 1000
+set M7n0 health 1000
+spawn M7n1 minecraft:cow 54.5 -60 1.5 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M7n1 124
+attribute M7n1 minecraft:max_health 1000
+set M7n1 health 1000
+spawn_player M8 survival 64.5 -60 2.0 180 0
+entity_seed M8 125
+spawn M8n0 minecraft:husk 66.0 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M8n0 126
+attribute M8n0 minecraft:max_health 1000
+set M8n0 health 1000
+spawn M8n1 minecraft:cow 62.5 -60 1.5 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M8n1 127
+attribute M8n1 minecraft:max_health 1000
+set M8n1 health 1000
+spawn_player M9 survival 72.5 -60 2.0 180 0
+entity_seed M9 128
+spawn M9n0 minecraft:husk 74.0 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M9n0 129
+attribute M9n0 minecraft:max_health 1000
+set M9n0 health 1000
+spawn M9n1 minecraft:cow 70.5 -60 1.5 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M9n1 130
+attribute M9n1 minecraft:max_health 1000
+set M9n1 health 1000
+spawn_player A survival 0.5 -60 0.5 0 0
+entity_seed A 131
+tick 2
+snap A 0.5 -60 0.5 0 0
+give A mainhand minecraft:mace
+tick 40
+move_packet A 0.5 -59.5 0.5 false
+client_tick_end A
+set A fall_distance 0.5
+attack A M0
+dump player:A entity:M0 entity:M0n0 entity:M0n1 inventory:A
+tick 1
+move_packet A 0.5 -60 0.5 true
+client_tick_end A
+dump player:A
+snap A 8.5 -60 0.5 0 0
+give A mainhand minecraft:mace
+tick 40
+move_packet A 8.5 -59.5 0.5 false
+client_tick_end A
+set A fall_distance 1.6
+attack A M1
+dump player:A entity:M1 entity:M1n0 entity:M1n1 inventory:A
+tick 1
+move_packet A 8.5 -60 0.5 true
+client_tick_end A
+dump player:A
+snap A 16.5 -60 0.5 0 0
+give A mainhand minecraft:mace
+tick 40
+move_packet A 16.5 -59.5 0.5 false
+client_tick_end A
+set A fall_distance 3.0
+attack A M2
+dump player:A entity:M2 entity:M2n0 entity:M2n1 inventory:A
+tick 1
+move_packet A 16.5 -60 0.5 true
+client_tick_end A
+dump player:A
+snap A 24.5 -60 0.5 0 0
+give A mainhand minecraft:mace
+tick 40
+move_packet A 24.5 -59.5 0.5 false
+client_tick_end A
+set A fall_distance 5.5
+attack A M3
+dump player:A entity:M3 entity:M3n0 entity:M3n1 inventory:A
+tick 1
+move_packet A 24.5 -60 0.5 true
+client_tick_end A
+dump player:A
+snap A 32.5 -60 0.5 0 0
+give A mainhand minecraft:mace
+tick 40
+move_packet A 32.5 -59.5 0.5 false
+client_tick_end A
+set A fall_distance 9.0
+attack A M4
+dump player:A entity:M4 entity:M4n0 entity:M4n1 inventory:A
+tick 1
+move_packet A 32.5 -60 0.5 true
+client_tick_end A
+dump player:A
+snap A 40.5 -60 0.5 0 0
+give A mainhand minecraft:mace
+tick 40
+move_packet A 40.5 -59.5 0.5 false
+client_tick_end A
+set A fall_distance 20.0
+attack A M5
+dump player:A entity:M5 entity:M5n0 entity:M5n1 inventory:A
+tick 1
+move_packet A 40.5 -60 0.5 true
+client_tick_end A
+dump player:A
+snap A 48.5 -60 0.5 0 0
+give A mainhand minecraft:mace[enchantments={"minecraft:density":3}]
+tick 40
+move_packet A 48.5 -59.5 0.5 false
+client_tick_end A
+set A fall_distance 5.5
+attack A M6
+dump player:A entity:M6 entity:M6n0 entity:M6n1 inventory:A
+tick 1
+move_packet A 48.5 -60 0.5 true
+client_tick_end A
+dump player:A
+snap A 56.5 -60 0.5 0 0
+give A mainhand minecraft:mace[enchantments={"minecraft:breach":3}]
+tick 40
+move_packet A 56.5 -59.5 0.5 false
+client_tick_end A
+set A fall_distance 5.5
+attack A M7
+dump player:A entity:M7 entity:M7n0 entity:M7n1 inventory:A
+tick 1
+move_packet A 56.5 -60 0.5 true
+client_tick_end A
+dump player:A
+snap A 64.5 -60 0.5 0 0
+give A mainhand minecraft:mace
+tick 40
+move_packet A 64.5 -59.5 0.5 false
+client_tick_end A
+set A fall_distance 5.5
+attack A M8
+dump player:A player:M8 entity:M8n0 entity:M8n1 inventory:A
+tick 1
+move_packet A 64.5 -60 0.5 true
+client_tick_end A
+dump player:A
+snap A 72.5 -60 0.5 0 0
+give A mainhand minecraft:mace
+tick 40
+move_packet A 72.5 -59.5 0.5 false
+client_tick_end A
+set A fall_distance 9.0
+attack A M9
+dump player:A player:M9 entity:M9n0 entity:M9n1 inventory:A
+tick 1
+move_packet A 72.5 -60 0.5 true
+client_tick_end A
+dump player:A

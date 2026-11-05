@@ -1,0 +1,417 @@
+# Armored / resistant / absorbing player victims (full hit with an iron sword, diamond axe): armor + toughness, protection, resistance, absorption, armor durability, hurt/knockback state.
+level flat
+difficulty normal
+level_seed 5
+spawn_player P0 survival 0.5 -60 2.0 180 0
+entity_seed P0 101
+spawn_player P1 survival 4.5 -60 2.0 180 0
+entity_seed P1 102
+effect P1 minecraft:resistance 1 400
+spawn_player P2 survival 8.5 -60 2.0 180 0
+entity_seed P2 103
+effect P2 minecraft:resistance 4 400
+spawn_player P3 survival 12.5 -60 2.0 180 0
+entity_seed P3 104
+effect P3 minecraft:absorption 1 400
+spawn_player P4 survival 16.5 -60 2.0 180 0
+entity_seed P4 105
+effect P4 minecraft:weakness 1 400
+spawn_player P5 survival 20.5 -60 2.0 180 0
+entity_seed P5 106
+give P5 head minecraft:leather_helmet
+give P5 chest minecraft:leather_chestplate
+give P5 legs minecraft:leather_leggings
+give P5 feet minecraft:leather_boots
+spawn_player P6 survival 24.5 -60 2.0 180 0
+entity_seed P6 107
+give P6 head minecraft:iron_helmet
+give P6 chest minecraft:iron_chestplate
+give P6 legs minecraft:iron_leggings
+give P6 feet minecraft:iron_boots
+spawn_player P7 survival 28.5 -60 2.0 180 0
+entity_seed P7 108
+give P7 head minecraft:iron_helmet
+give P7 chest minecraft:iron_chestplate
+give P7 legs minecraft:iron_leggings
+give P7 feet minecraft:iron_boots
+effect P7 minecraft:resistance 1 400
+spawn_player P8 survival 32.5 -60 2.0 180 0
+entity_seed P8 109
+give P8 head minecraft:iron_helmet
+give P8 chest minecraft:iron_chestplate
+give P8 legs minecraft:iron_leggings
+give P8 feet minecraft:iron_boots
+effect P8 minecraft:resistance 4 400
+spawn_player P9 survival 36.5 -60 2.0 180 0
+entity_seed P9 110
+give P9 head minecraft:iron_helmet
+give P9 chest minecraft:iron_chestplate
+give P9 legs minecraft:iron_leggings
+give P9 feet minecraft:iron_boots
+effect P9 minecraft:absorption 1 400
+spawn_player P10 survival 40.5 -60 2.0 180 0
+entity_seed P10 111
+give P10 head minecraft:iron_helmet
+give P10 chest minecraft:iron_chestplate
+give P10 legs minecraft:iron_leggings
+give P10 feet minecraft:iron_boots
+effect P10 minecraft:weakness 1 400
+spawn_player P11 survival 44.5 -60 2.0 180 0
+entity_seed P11 112
+give P11 head minecraft:diamond_helmet
+give P11 chest minecraft:diamond_chestplate
+give P11 legs minecraft:diamond_leggings
+give P11 feet minecraft:diamond_boots
+spawn_player P12 survival 48.5 -60 2.0 180 0
+entity_seed P12 113
+give P12 head minecraft:netherite_helmet
+give P12 chest minecraft:netherite_chestplate
+give P12 legs minecraft:netherite_leggings
+give P12 feet minecraft:netherite_boots
+spawn_player P13 survival 52.5 -60 2.0 180 0
+entity_seed P13 114
+give P13 head minecraft:iron_helmet[enchantments={"minecraft:protection":4}]
+give P13 chest minecraft:iron_chestplate[enchantments={"minecraft:protection":4}]
+give P13 legs minecraft:iron_leggings[enchantments={"minecraft:protection":4}]
+give P13 feet minecraft:iron_boots[enchantments={"minecraft:protection":4}]
+spawn_player P14 survival 56.5 -60 2.0 180 0
+entity_seed P14 115
+give P14 head minecraft:iron_helmet[enchantments={"minecraft:thorns":3}]
+give P14 chest minecraft:iron_chestplate[enchantments={"minecraft:thorns":3}]
+give P14 legs minecraft:iron_leggings[enchantments={"minecraft:thorns":3}]
+give P14 feet minecraft:iron_boots[enchantments={"minecraft:thorns":3}]
+spawn_player P15 survival 60.5 -60 2.0 180 0
+entity_seed P15 116
+give P15 head minecraft:iron_helmet[enchantments={"minecraft:thorns":3}]
+give P15 chest minecraft:iron_chestplate[enchantments={"minecraft:thorns":3}]
+give P15 legs minecraft:iron_leggings[enchantments={"minecraft:thorns":3}]
+give P15 feet minecraft:iron_boots[enchantments={"minecraft:thorns":3}]
+effect P15 minecraft:resistance 1 400
+spawn_player P16 survival 64.5 -60 2.0 180 0
+entity_seed P16 117
+give P16 head minecraft:iron_helmet[enchantments={"minecraft:thorns":3}]
+give P16 chest minecraft:iron_chestplate[enchantments={"minecraft:thorns":3}]
+give P16 legs minecraft:iron_leggings[enchantments={"minecraft:thorns":3}]
+give P16 feet minecraft:iron_boots[enchantments={"minecraft:thorns":3}]
+effect P16 minecraft:resistance 4 400
+spawn_player P17 survival 68.5 -60 2.0 180 0
+entity_seed P17 118
+give P17 head minecraft:iron_helmet[enchantments={"minecraft:thorns":3}]
+give P17 chest minecraft:iron_chestplate[enchantments={"minecraft:thorns":3}]
+give P17 legs minecraft:iron_leggings[enchantments={"minecraft:thorns":3}]
+give P17 feet minecraft:iron_boots[enchantments={"minecraft:thorns":3}]
+effect P17 minecraft:absorption 1 400
+spawn_player P18 survival 72.5 -60 2.0 180 0
+entity_seed P18 119
+give P18 head minecraft:iron_helmet[enchantments={"minecraft:thorns":3}]
+give P18 chest minecraft:iron_chestplate[enchantments={"minecraft:thorns":3}]
+give P18 legs minecraft:iron_leggings[enchantments={"minecraft:thorns":3}]
+give P18 feet minecraft:iron_boots[enchantments={"minecraft:thorns":3}]
+effect P18 minecraft:weakness 1 400
+spawn_player A survival 0.5 -60 0.5 0 0
+entity_seed A 120
+tick 2
+snap A 0.5 -60 0.5 0 0
+give A mainhand minecraft:iron_sword
+tick 40
+attack A P0
+dump player:A player:P0 inventory:P0
+set A health 20
+set P0 health 20
+tick 12
+snap A 4.5 -60 0.5 0 0
+give A mainhand minecraft:iron_sword
+tick 40
+attack A P1
+dump player:A player:P1 inventory:P1
+set A health 20
+set P1 health 20
+tick 12
+snap A 8.5 -60 0.5 0 0
+give A mainhand minecraft:iron_sword
+tick 40
+attack A P2
+dump player:A player:P2 inventory:P2
+set A health 20
+set P2 health 20
+tick 12
+snap A 12.5 -60 0.5 0 0
+give A mainhand minecraft:iron_sword
+tick 40
+attack A P3
+dump player:A player:P3 inventory:P3
+set A health 20
+set P3 health 20
+tick 12
+snap A 16.5 -60 0.5 0 0
+give A mainhand minecraft:iron_sword
+tick 40
+attack A P4
+dump player:A player:P4 inventory:P4
+set A health 20
+set P4 health 20
+tick 12
+snap A 20.5 -60 0.5 0 0
+give A mainhand minecraft:iron_sword
+tick 40
+attack A P5
+dump player:A player:P5 inventory:P5
+set A health 20
+set P5 health 20
+tick 12
+snap A 24.5 -60 0.5 0 0
+give A mainhand minecraft:iron_sword
+tick 40
+attack A P6
+dump player:A player:P6 inventory:P6
+set A health 20
+set P6 health 20
+tick 12
+snap A 28.5 -60 0.5 0 0
+give A mainhand minecraft:iron_sword
+tick 40
+attack A P7
+dump player:A player:P7 inventory:P7
+set A health 20
+set P7 health 20
+tick 12
+snap A 32.5 -60 0.5 0 0
+give A mainhand minecraft:iron_sword
+tick 40
+attack A P8
+dump player:A player:P8 inventory:P8
+set A health 20
+set P8 health 20
+tick 12
+snap A 36.5 -60 0.5 0 0
+give A mainhand minecraft:iron_sword
+tick 40
+attack A P9
+dump player:A player:P9 inventory:P9
+set A health 20
+set P9 health 20
+tick 12
+snap A 40.5 -60 0.5 0 0
+give A mainhand minecraft:iron_sword
+tick 40
+attack A P10
+dump player:A player:P10 inventory:P10
+set A health 20
+set P10 health 20
+tick 12
+snap A 44.5 -60 0.5 0 0
+give A mainhand minecraft:iron_sword
+tick 40
+attack A P11
+dump player:A player:P11 inventory:P11
+set A health 20
+set P11 health 20
+tick 12
+snap A 48.5 -60 0.5 0 0
+give A mainhand minecraft:iron_sword
+tick 40
+attack A P12
+dump player:A player:P12 inventory:P12
+set A health 20
+set P12 health 20
+tick 12
+snap A 52.5 -60 0.5 0 0
+give A mainhand minecraft:iron_sword
+tick 40
+attack A P13
+dump player:A player:P13 inventory:P13
+set A health 20
+set P13 health 20
+tick 12
+snap A 56.5 -60 0.5 0 0
+give A mainhand minecraft:iron_sword
+tick 40
+attack A P14
+dump player:A player:P14 inventory:P14
+set A health 20
+set P14 health 20
+tick 12
+snap A 60.5 -60 0.5 0 0
+give A mainhand minecraft:iron_sword
+tick 40
+attack A P15
+dump player:A player:P15 inventory:P15
+set A health 20
+set P15 health 20
+tick 12
+snap A 64.5 -60 0.5 0 0
+give A mainhand minecraft:iron_sword
+tick 40
+attack A P16
+dump player:A player:P16 inventory:P16
+set A health 20
+set P16 health 20
+tick 12
+snap A 68.5 -60 0.5 0 0
+give A mainhand minecraft:iron_sword
+tick 40
+attack A P17
+dump player:A player:P17 inventory:P17
+set A health 20
+set P17 health 20
+tick 12
+snap A 72.5 -60 0.5 0 0
+give A mainhand minecraft:iron_sword
+tick 40
+attack A P18
+dump player:A player:P18 inventory:P18
+set A health 20
+set P18 health 20
+tick 12
+snap A 0.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_axe
+tick 40
+attack A P0
+dump player:A player:P0 inventory:P0
+set A health 20
+set P0 health 20
+tick 12
+snap A 4.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_axe
+tick 40
+attack A P1
+dump player:A player:P1 inventory:P1
+set A health 20
+set P1 health 20
+tick 12
+snap A 8.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_axe
+tick 40
+attack A P2
+dump player:A player:P2 inventory:P2
+set A health 20
+set P2 health 20
+tick 12
+snap A 12.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_axe
+tick 40
+attack A P3
+dump player:A player:P3 inventory:P3
+set A health 20
+set P3 health 20
+tick 12
+snap A 16.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_axe
+tick 40
+attack A P4
+dump player:A player:P4 inventory:P4
+set A health 20
+set P4 health 20
+tick 12
+snap A 20.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_axe
+tick 40
+attack A P5
+dump player:A player:P5 inventory:P5
+set A health 20
+set P5 health 20
+tick 12
+snap A 24.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_axe
+tick 40
+attack A P6
+dump player:A player:P6 inventory:P6
+set A health 20
+set P6 health 20
+tick 12
+snap A 28.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_axe
+tick 40
+attack A P7
+dump player:A player:P7 inventory:P7
+set A health 20
+set P7 health 20
+tick 12
+snap A 32.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_axe
+tick 40
+attack A P8
+dump player:A player:P8 inventory:P8
+set A health 20
+set P8 health 20
+tick 12
+snap A 36.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_axe
+tick 40
+attack A P9
+dump player:A player:P9 inventory:P9
+set A health 20
+set P9 health 20
+tick 12
+snap A 40.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_axe
+tick 40
+attack A P10
+dump player:A player:P10 inventory:P10
+set A health 20
+set P10 health 20
+tick 12
+snap A 44.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_axe
+tick 40
+attack A P11
+dump player:A player:P11 inventory:P11
+set A health 20
+set P11 health 20
+tick 12
+snap A 48.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_axe
+tick 40
+attack A P12
+dump player:A player:P12 inventory:P12
+set A health 20
+set P12 health 20
+tick 12
+snap A 52.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_axe
+tick 40
+attack A P13
+dump player:A player:P13 inventory:P13
+set A health 20
+set P13 health 20
+tick 12
+snap A 56.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_axe
+tick 40
+attack A P14
+dump player:A player:P14 inventory:P14
+set A health 20
+set P14 health 20
+tick 12
+snap A 60.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_axe
+tick 40
+attack A P15
+dump player:A player:P15 inventory:P15
+set A health 20
+set P15 health 20
+tick 12
+snap A 64.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_axe
+tick 40
+attack A P16
+dump player:A player:P16 inventory:P16
+set A health 20
+set P16 health 20
+tick 12
+snap A 68.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_axe
+tick 40
+attack A P17
+dump player:A player:P17 inventory:P17
+set A health 20
+set P17 health 20
+tick 12
+snap A 72.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_axe
+tick 40
+attack A P18
+dump player:A player:P18 inventory:P18
+set A health 20
+set P18 health 20
+tick 12

@@ -91,7 +91,9 @@ impl ItemSystems for ItemPlayerSystems {
     }
 
     fn swing_and_reset_attack_strength(&self, ctx: &mut PlayCtx, hand: InteractionHand, animation: SwingAnimationRef, send_to_swinging_entity: bool) {
-        ctx.player.swing(ctx.level, hand, decode_swing(animation), send_to_swinging_entity);
+        if ctx.player.swing(ctx.level, hand, decode_swing(animation), send_to_swinging_entity) {
+            ctx.player.reset_attack_strength_ticker();
+        }
     }
 
     fn use_item_on(&self, ctx: &mut PlayCtx, hand: InteractionHand, hit: &ServerboundBlockHitResult) -> InteractionResult {

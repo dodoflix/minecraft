@@ -1,0 +1,194 @@
+# Melee attack damage by held item: attack damage/speed attributes, full-strength hit on a husk (armor 2), durability, exhaustion, knockback, spears (piercing weapons are not attackable by punch).
+level flat
+difficulty normal
+spawn H0 minecraft:husk 0.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H0 101
+attribute H0 minecraft:max_health 1000
+set H0 health 1000
+spawn H1 minecraft:husk 3.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H1 102
+attribute H1 minecraft:max_health 1000
+set H1 health 1000
+spawn H2 minecraft:husk 6.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H2 103
+attribute H2 minecraft:max_health 1000
+set H2 health 1000
+spawn H3 minecraft:husk 9.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H3 104
+attribute H3 minecraft:max_health 1000
+set H3 health 1000
+spawn H4 minecraft:husk 12.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H4 105
+attribute H4 minecraft:max_health 1000
+set H4 health 1000
+spawn H5 minecraft:husk 15.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H5 106
+attribute H5 minecraft:max_health 1000
+set H5 health 1000
+spawn H6 minecraft:husk 18.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H6 107
+attribute H6 minecraft:max_health 1000
+set H6 health 1000
+spawn H7 minecraft:husk 21.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H7 108
+attribute H7 minecraft:max_health 1000
+set H7 health 1000
+spawn H8 minecraft:husk 24.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H8 109
+attribute H8 minecraft:max_health 1000
+set H8 health 1000
+spawn H9 minecraft:husk 27.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H9 110
+attribute H9 minecraft:max_health 1000
+set H9 health 1000
+spawn H10 minecraft:husk 30.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H10 111
+attribute H10 minecraft:max_health 1000
+set H10 health 1000
+spawn H11 minecraft:husk 33.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H11 112
+attribute H11 minecraft:max_health 1000
+set H11 health 1000
+spawn H12 minecraft:husk 36.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H12 113
+attribute H12 minecraft:max_health 1000
+set H12 health 1000
+spawn H13 minecraft:husk 39.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H13 114
+attribute H13 minecraft:max_health 1000
+set H13 health 1000
+spawn H14 minecraft:husk 42.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H14 115
+attribute H14 minecraft:max_health 1000
+set H14 health 1000
+spawn H15 minecraft:husk 45.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H15 116
+attribute H15 minecraft:max_health 1000
+set H15 health 1000
+spawn H16 minecraft:husk 48.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H16 117
+attribute H16 minecraft:max_health 1000
+set H16 health 1000
+spawn H17 minecraft:husk 51.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H17 118
+attribute H17 minecraft:max_health 1000
+set H17 health 1000
+spawn H18 minecraft:husk 54.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H18 119
+attribute H18 minecraft:max_health 1000
+set H18 health 1000
+spawn H19 minecraft:husk 57.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H19 120
+attribute H19 minecraft:max_health 1000
+set H19 health 1000
+spawn H20 minecraft:husk 0.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H20 121
+attribute H20 minecraft:max_health 1000
+set H20 health 1000
+spawn_player A survival 0.5 -60 0.5 0 0
+entity_seed A 122
+tick 2
+snap A 0.5 -60 0.5 0 0
+tick 40
+attack A H0
+dump player:A entity:H0 inventory:A
+snap A 3.5 -60 0.5 0 0
+give A mainhand minecraft:stick
+tick 40
+attack A H1
+dump player:A entity:H1 inventory:A
+snap A 6.5 -60 0.5 0 0
+give A mainhand minecraft:wooden_sword
+tick 40
+attack A H2
+dump player:A entity:H2 inventory:A
+snap A 9.5 -60 0.5 0 0
+give A mainhand minecraft:stone_sword
+tick 40
+attack A H3
+dump player:A entity:H3 inventory:A
+snap A 12.5 -60 0.5 0 0
+give A mainhand minecraft:iron_sword
+tick 40
+attack A H4
+dump player:A entity:H4 inventory:A
+snap A 15.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword
+tick 40
+attack A H5
+dump player:A entity:H5 inventory:A
+snap A 18.5 -60 0.5 0 0
+give A mainhand minecraft:netherite_sword
+tick 40
+attack A H6
+dump player:A entity:H6 inventory:A
+snap A 21.5 -60 0.5 0 0
+give A mainhand minecraft:golden_sword
+tick 40
+attack A H7
+dump player:A entity:H7 inventory:A
+snap A 24.5 -60 0.5 0 0
+give A mainhand minecraft:wooden_axe
+tick 40
+attack A H8
+dump player:A entity:H8 inventory:A
+snap A 27.5 -60 0.5 0 0
+give A mainhand minecraft:iron_axe
+tick 40
+attack A H9
+dump player:A entity:H9 inventory:A
+snap A 30.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_axe
+tick 40
+attack A H10
+dump player:A entity:H10 inventory:A
+snap A 33.5 -60 0.5 0 0
+give A mainhand minecraft:netherite_axe
+tick 40
+attack A H11
+dump player:A entity:H11 inventory:A
+snap A 36.5 -60 0.5 0 0
+give A mainhand minecraft:wooden_pickaxe
+tick 40
+attack A H12
+dump player:A entity:H12 inventory:A
+snap A 39.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_pickaxe
+tick 40
+attack A H13
+dump player:A entity:H13 inventory:A
+snap A 42.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_shovel
+tick 40
+attack A H14
+dump player:A entity:H14 inventory:A
+snap A 45.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_hoe
+tick 40
+attack A H15
+dump player:A entity:H15 inventory:A
+snap A 48.5 -60 0.5 0 0
+give A mainhand minecraft:trident
+tick 40
+attack A H16
+dump player:A entity:H16 inventory:A
+snap A 51.5 -60 0.5 0 0
+give A mainhand minecraft:bow
+tick 40
+attack A H17
+dump player:A entity:H17 inventory:A
+snap A 54.5 -60 0.5 0 0
+give A mainhand minecraft:cobblestone
+tick 40
+attack A H18
+dump player:A entity:H18 inventory:A
+snap A 57.5 -60 0.5 0 0
+give A mainhand minecraft:iron_spear
+tick 40
+attack A H19
+dump player:A entity:H19 inventory:A
+snap A 0.5 -60 10.5 0 0
+give A mainhand minecraft:netherite_spear
+tick 40
+attack A H20
+dump player:A entity:H20 inventory:A

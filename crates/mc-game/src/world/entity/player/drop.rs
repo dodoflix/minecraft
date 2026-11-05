@@ -73,7 +73,7 @@ impl ServerPlayer {
             self.stop_using_item(level);
         }
         self.drop(level, removed, true, Prediction::Predicted);
-        self.player.living.attack_strength_ticker = 0;
+        self.reset_attack_strength_ticker();
     }
 
     /// Items queued by code that had no level at hand (`pending_drops`): spawn them now.

@@ -1,0 +1,140 @@
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1/dmg=1
+E H0 minecraft:husk pos=0.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=998.66406 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_sword*1/dmg=1
+P A minecraft:player pos=3.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1/dmg=2
+E H1 minecraft:husk pos=3.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=998.594 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_sword*1/dmg=2
+P A minecraft:player pos=6.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.3 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1/dmg=3
+E H2 minecraft:husk pos=6.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=998.4532 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_sword*1/dmg=3
+P A minecraft:player pos=9.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.4 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1/dmg=4
+E H3 minecraft:husk pos=9.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=998.2404 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_sword*1/dmg=4
+P A minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.5 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1/dmg=5
+E H4 minecraft:husk pos=12.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=997.9539 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_sword*1/dmg=5
+P A minecraft:player pos=15.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1/dmg=6
+E H5 minecraft:husk pos=15.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=997.5911 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_sword*1/dmg=6
+P A minecraft:player pos=18.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.70000005 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1/dmg=7
+E H6 minecraft:husk pos=18.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=997.14905 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_sword*1/dmg=7
+P A minecraft:player pos=21.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.8000001 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1/dmg=8
+E H7 minecraft:husk pos=21.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=996.0744 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_sword*1/dmg=8
+P A minecraft:player pos=24.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.9000001 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1/dmg=9
+E H8 minecraft:husk pos=24.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.73425 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_sword*1/dmg=9
+P A minecraft:player pos=27.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.0000001 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1/dmg=10
+E H9 minecraft:husk pos=27.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=993.9584 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_sword*1/dmg=10
+P A minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.1000001 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1/dmg=11
+E H10 minecraft:husk pos=30.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=993.112 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_sword*1/dmg=11
+P A minecraft:player pos=33.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.2000002 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1/dmg=12
+E H11 minecraft:husk pos=33.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=993.112 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_sword*1/dmg=12
+P A minecraft:player pos=36.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.3000002 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1/dmg=13
+E H12 minecraft:husk pos=36.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=993.112 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_sword*1/dmg=13
+P A minecraft:player pos=39.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.4000002 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1/dmg=14
+E H13 minecraft:husk pos=39.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=993.112 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_sword*1/dmg=14
+P A minecraft:player pos=42.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.5000002 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1/dmg=15
+E H14 minecraft:husk pos=42.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=993.112 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_sword*1/dmg=15
+P A minecraft:player pos=45.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.6000003 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1/dmg=16
+E H15 minecraft:husk pos=45.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=993.112 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_sword*1/dmg=16
+P A minecraft:player pos=48.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.7000003 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1/dmg=17
+E H16 minecraft:husk pos=48.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=993.112 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_sword*1/dmg=17
+P A minecraft:player pos=51.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.8000003 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=2
+E H17 minecraft:husk pos=51.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=998.2747 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_axe*1/dmg=2
+P A minecraft:player pos=54.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.9000003 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=4
+E H18 minecraft:husk pos=54.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=998.239 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_axe*1/dmg=4
+P A minecraft:player pos=57.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=2.0000002 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=6
+E H19 minecraft:husk pos=57.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=998.16736 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_axe*1/dmg=6
+P A minecraft:player pos=0.5,-60.0,10.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=2.1000001 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=8
+E H20 minecraft:husk pos=0.5,-60.0,12.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=998.0595 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_axe*1/dmg=8
+P A minecraft:player pos=3.5,-60.0,10.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=2.2 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=10
+E H21 minecraft:husk pos=3.5,-60.0,12.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=997.915 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_axe*1/dmg=10
+P A minecraft:player pos=6.5,-60.0,10.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=2.3 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=12
+E H22 minecraft:husk pos=6.5,-60.0,12.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=997.73315 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_axe*1/dmg=12
+P A minecraft:player pos=9.5,-60.0,10.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=2.3999999 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=14
+E H23 minecraft:husk pos=9.5,-60.0,12.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=997.51324 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_axe*1/dmg=14
+P A minecraft:player pos=12.5,-60.0,10.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=2.4999998 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=16
+E H24 minecraft:husk pos=12.5,-60.0,12.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=996.95526 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_axe*1/dmg=16
+P A minecraft:player pos=15.5,-60.0,10.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=2.5999997 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=18
+E H25 minecraft:husk pos=15.5,-60.0,12.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=996.27606 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_axe*1/dmg=18
+P A minecraft:player pos=18.5,-60.0,10.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=2.6999996 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=20
+E H26 minecraft:husk pos=18.5,-60.0,12.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=995.8864 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_axe*1/dmg=20
+P A minecraft:player pos=21.5,-60.0,10.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=2.7999995 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=22
+E H27 minecraft:husk pos=21.5,-60.0,12.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=995.4613 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_axe*1/dmg=22
+P A minecraft:player pos=24.5,-60.0,10.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=2.8999994 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=24
+E H28 minecraft:husk pos=24.5,-60.0,12.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=995.0008 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_axe*1/dmg=24
+P A minecraft:player pos=27.5,-60.0,10.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=2.9999993 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=26
+E H29 minecraft:husk pos=27.5,-60.0,12.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=994.5048 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_axe*1/dmg=26
+P A minecraft:player pos=30.5,-60.0,10.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=3.0999992 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=28
+E H30 minecraft:husk pos=30.5,-60.0,12.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=993.40674 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_axe*1/dmg=28
+P A minecraft:player pos=33.5,-60.0,10.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=3.199999 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=30
+E H31 minecraft:husk pos=33.5,-60.0,12.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=991.49384 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_axe*1/dmg=30
+P A minecraft:player pos=36.5,-60.0,10.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=3.299999 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=32
+E H32 minecraft:husk pos=36.5,-60.0,12.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=991.144 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_axe*1/dmg=32
+P A minecraft:player pos=39.5,-60.0,10.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=3.399999 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=34
+E H33 minecraft:husk pos=39.5,-60.0,12.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=991.144 abs=0.0 hurt=10/20 death=0 fx=-
+I A 0 minecraft:diamond_axe*1/dmg=34
+P A minecraft:player pos=42.5,-60.0,10.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=3.4999988 xp=0/0/0.0 sel=0 main=empty
+E H34 minecraft:husk pos=42.5,-60.0,12.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=999.8078 abs=0.0 hurt=10/20 death=0 fx=-
+P A minecraft:player pos=45.5,-60.0,10.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=3.5999987 xp=0/0/0.0 sel=0 main=empty
+E H35 minecraft:husk pos=45.5,-60.0,12.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=999.7483 abs=0.0 hurt=10/20 death=0 fx=-
+P A minecraft:player pos=48.5,-60.0,10.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=3.6999986 xp=0/0/0.0 sel=0 main=empty
+E H36 minecraft:husk pos=48.5,-60.0,12.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=999.6288 abs=0.0 hurt=10/20 death=0 fx=-
+P A minecraft:player pos=51.5,-60.0,10.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=3.7999985 xp=0/0/0.0 sel=0 main=empty
+E H37 minecraft:husk pos=51.5,-60.0,12.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=999.44836 abs=0.0 hurt=10/20 death=0 fx=-
+P A minecraft:player pos=54.5,-60.0,10.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=3.8999984 xp=0/0/0.0 sel=0 main=empty
+E H38 minecraft:husk pos=54.5,-60.0,12.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=999.20544 abs=0.0 hurt=10/20 death=0 fx=-
+P A minecraft:player pos=57.5,-60.0,10.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=3.9999983 xp=0/0/0.0 sel=0 main=empty
+E H39 minecraft:husk pos=57.5,-60.0,12.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=999.06 abs=0.0 hurt=10/20 death=0 fx=-
+P A minecraft:player pos=0.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=4.0999985 xp=0/0/0.0 sel=0 main=empty
+E H40 minecraft:husk pos=0.5,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=999.06 abs=0.0 hurt=10/20 death=0 fx=-
+P A minecraft:player pos=3.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=4.0 exh=0.19999847 xp=0/0/0.0 sel=0 main=empty
+E H41 minecraft:husk pos=3.5,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=999.06 abs=0.0 hurt=10/20 death=0 fx=-
+P A minecraft:player pos=6.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=4.0 exh=0.29999846 xp=0/0/0.0 sel=0 main=empty
+E H42 minecraft:husk pos=6.5,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=999.06 abs=0.0 hurt=10/20 death=0 fx=-
+P A minecraft:player pos=9.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=4.0 exh=0.39999846 xp=0/0/0.0 sel=0 main=empty
+E H43 minecraft:husk pos=9.5,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=999.06 abs=0.0 hurt=10/20 death=0 fx=-
+P A minecraft:player pos=12.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=4.0 exh=0.49999845 xp=0/0/0.0 sel=0 main=empty
+E H44 minecraft:husk pos=12.5,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=999.06 abs=0.0 hurt=10/20 death=0 fx=-
+P A minecraft:player pos=15.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=4.0 exh=0.5999985 xp=0/0/0.0 sel=0 main=empty
+E H45 minecraft:husk pos=15.5,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=999.06 abs=0.0 hurt=10/20 death=0 fx=-
+P A minecraft:player pos=18.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=4.0 exh=0.6999985 xp=0/0/0.0 sel=0 main=empty
+E H46 minecraft:husk pos=18.5,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=999.06 abs=0.0 hurt=10/20 death=0 fx=-
+P A minecraft:player pos=21.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=4.0 exh=0.7999985 xp=0/0/0.0 sel=0 main=empty
+E H47 minecraft:husk pos=21.5,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=999.06 abs=0.0 hurt=10/20 death=0 fx=-
+P A minecraft:player pos=24.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=4.0 exh=0.89999855 xp=0/0/0.0 sel=0 main=empty
+E H48 minecraft:husk pos=24.5,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=999.06 abs=0.0 hurt=10/20 death=0 fx=-
+P A minecraft:player pos=27.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=4.0 exh=0.99999857 xp=0/0/0.0 sel=0 main=empty
+E H49 minecraft:husk pos=27.5,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=999.06 abs=0.0 hurt=10/20 death=0 fx=-
+P A minecraft:player pos=30.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0999986 xp=0/0/0.0 sel=0 main=empty
+E H50 minecraft:husk pos=30.5,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=999.06 abs=0.0 hurt=10/20 death=0 fx=-
+P A minecraft:player pos=33.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.1999986 xp=0/0/0.0 sel=1 main=minecraft:diamond_sword*1/dmg=1
+E S1 minecraft:husk pos=33.5,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=993.112 abs=0.0 hurt=10/20 death=0 fx=-
+P A minecraft:player pos=36.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.2999986 xp=0/0/0.0 sel=2 main=minecraft:diamond_axe*1/dmg=2
+E S2 minecraft:husk pos=36.5,-60.0,22.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=998.2747 abs=0.0 hurt=10/20 death=0 fx=-

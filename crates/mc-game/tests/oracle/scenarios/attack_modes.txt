@@ -1,0 +1,102 @@
+# Game modes and reach: creative attacker (reach 5, invulnerable victims), spectator attacker (no attack), survival reach 3 (+3 buffer on the packet check), creative/spectator/adventure victims, attacking at the edge of reach.
+level flat
+difficulty normal
+spawn_player A0 survival 0.5 -60 0.5 0 0
+spawn_player V0 survival 0.5 -60 2.0 180 0
+give A0 mainhand minecraft:diamond_sword
+entity_seed A0 101
+entity_seed V0 102
+spawn_player A1 creative 6.5 -60 0.5 0 0
+spawn_player V1 survival 6.5 -60 2.0 180 0
+give A1 mainhand minecraft:diamond_sword
+entity_seed A1 103
+entity_seed V1 104
+spawn_player A2 spectator 12.5 -60 0.5 0 0
+spawn_player V2 survival 12.5 -60 2.0 180 0
+give A2 mainhand minecraft:diamond_sword
+entity_seed A2 105
+entity_seed V2 106
+spawn_player A3 adventure 18.5 -60 0.5 0 0
+spawn_player V3 survival 18.5 -60 2.0 180 0
+give A3 mainhand minecraft:diamond_sword
+entity_seed A3 107
+entity_seed V3 108
+spawn_player A4 survival 24.5 -60 0.5 0 0
+spawn_player V4 creative 24.5 -60 2.0 180 0
+give A4 mainhand minecraft:diamond_sword
+entity_seed A4 109
+entity_seed V4 110
+spawn_player A5 survival 30.5 -60 0.5 0 0
+spawn_player V5 spectator 30.5 -60 2.0 180 0
+give A5 mainhand minecraft:diamond_sword
+entity_seed A5 111
+entity_seed V5 112
+spawn_player A6 survival 36.5 -60 0.5 0 0
+spawn_player V6 survival 36.5 -60 3.4 180 0
+give A6 mainhand minecraft:diamond_sword
+entity_seed A6 113
+entity_seed V6 114
+spawn_player A7 survival 42.5 -60 0.5 0 0
+spawn_player V7 survival 42.5 -60 3.7 180 0
+give A7 mainhand minecraft:diamond_sword
+entity_seed A7 115
+entity_seed V7 116
+spawn_player A8 survival 48.5 -60 0.5 0 0
+spawn_player V8 survival 48.5 -60 5.5 180 0
+give A8 mainhand minecraft:diamond_sword
+entity_seed A8 117
+entity_seed V8 118
+spawn_player A9 survival 54.5 -60 0.5 0 0
+spawn_player V9 survival 54.5 -60 7.0 180 0
+give A9 mainhand minecraft:diamond_sword
+entity_seed A9 119
+entity_seed V9 120
+spawn_player A10 creative 60.5 -60 0.5 0 0
+spawn_player V10 survival 60.5 -60 5.4 180 0
+give A10 mainhand minecraft:diamond_sword
+entity_seed A10 121
+entity_seed V10 122
+spawn_player A11 creative 66.5 -60 0.5 0 0
+spawn_player V11 survival 66.5 -60 8.4 180 0
+give A11 mainhand minecraft:diamond_sword
+entity_seed A11 123
+entity_seed V11 124
+spawn_player A12 creative 72.5 -60 0.5 0 0
+spawn_player V12 survival 72.5 -60 8.7 180 0
+give A12 mainhand minecraft:diamond_sword
+entity_seed A12 125
+entity_seed V12 126
+spawn_player A13 creative 78.5 -60 0.5 0 0
+spawn_player V13 creative 78.5 -60 2.0 180 0
+give A13 mainhand minecraft:diamond_sword
+entity_seed A13 127
+entity_seed V13 128
+tick 40
+attack A0 V0
+dump player:A0 player:V0 inventory:A0
+attack A1 V1
+dump player:A1 player:V1 inventory:A1
+attack A2 V2
+dump player:A2 player:V2 inventory:A2
+attack A3 V3
+dump player:A3 player:V3 inventory:A3
+attack A4 V4
+dump player:A4 player:V4 inventory:A4
+attack A5 V5
+dump player:A5 player:V5 inventory:A5
+attack A6 V6
+dump player:A6 player:V6 inventory:A6
+attack A7 V7
+dump player:A7 player:V7 inventory:A7
+attack A8 V8
+dump player:A8 player:V8 inventory:A8
+attack A9 V9
+dump player:A9 player:V9 inventory:A9
+attack A10 V10
+dump player:A10 player:V10 inventory:A10
+attack A11 V11
+dump player:A11 player:V11 inventory:A11
+attack A12 V12
+dump player:A12 player:V12 inventory:A12
+attack A13 V13
+dump player:A13 player:V13 inventory:A13

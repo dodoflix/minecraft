@@ -131,6 +131,8 @@ import net.minecraft.util.RandomSource;
  * use PLAYER [main|off]       ServerboundUseItemPacket              release PLAYER   RELEASE_USE_ITEM
  * use_on PLAYER X Y Z FACE [main|off] [cx cy cz]  ServerboundUseItemOnPacket (FACE: down up north south west east)
  * attack PLAYER REF           ServerboundAttackPacket               swing PLAYER   ServerboundPunchPacket (main hand)
+ * client_tick_end PLAYER    ServerboundClientTickEndPacket (re-arms the one position packet per tick; zeroes the known movement without one)
+ * mob_attack MOB REF        Mob.doHurtTarget(level, REF); prints "MOBATTACK mob ref -> result"
  * drop PLAYER [all]           DROP_ITEM / DROP_ALL_ITEMS            respawn PLAYER   ServerboundClientCommandPacket
  * pcommand PLAYER ACTION [data]   ServerboundPlayerCommandPacket (START_SPRINTING STOP_SPRINTING START_FALL_FLYING STOP_SLEEPING ...)
  * hurt REF DAMAGETYPE AMOUNT [by=REF] [direct=REF] [at=X,Y,Z]    entity.hurtServer(level, source, amount); prints "HURT result"
@@ -557,6 +559,16 @@ public final class EntityOracleDriver {
          case "attack" -> {
             world();
             player(a.get(1)).connection.handleAttack(new ServerboundAttackPacket(ref(a.get(2)).getId()));
+         }
+         case "client_tick_end" -> {
+            world();
+            player(a.get(1)).connection.handleClientTickEnd(new ServerboundClientTickEndPacket());
+         }
+         case "mob_attack" -> {
+            world();
+            // Mob.doHurtTarget(level, target) (the melee attack of a mob; no AI, no attack animation)
+            boolean r = ((net.minecraft.world.entity.Mob)ref(a.get(1))).doHurtTarget(v.level, ref(a.get(2)));
+            out.println("MOBATTACK " + a.get(1) + " " + a.get(2) + " -> " + r);
          }
          case "swing" -> {
             world();

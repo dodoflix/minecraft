@@ -1,7 +1,7 @@
 //! Level-wide effect broadcasts of `ServerLevel` (sounds, level events, block events, block destruction progress): the
 //! packets go to the players of this level within range (`PlayerList.broadcast`, which iterates the level's players here).
 
-use super::ServerLevel;
+use super::{ServerLevel, TrackerPlayer};
 use crate::server::network::ConnectionSender;
 use crate::world::entity::EntityId;
 use crate::world::entity::player::ServerPlayer;
@@ -64,10 +64,18 @@ impl ServerLevel {
             if Some(id) == except {
                 continue;
             }
-            let Some(entity) = self.get_entity(id) else { continue };
-            let Some(player) = entity.as_any().downcast_ref::<ServerPlayer>() else { continue };
-            let Some(connection): Option<&ConnectionSender> = player.connection.as_ref() else { continue };
-            let position = entity.position();
+            // a player that is running (taken out of the level: its own attack/use code) still hears its own sounds
+            let (connection, position): (&ConnectionSender, _) = match self.get_entity(id) {
+                Some(entity) => {
+                    let Some(player) = entity.as_any().downcast_ref::<ServerPlayer>() else { continue };
+                    let Some(connection) = player.connection.as_ref() else { continue };
+                    (connection, entity.position())
+                }
+                None => match self.taken_out_players.get(&id) {
+                    Some(TrackerPlayer { connection: Some(connection), position, .. }) => (connection, *position),
+                    _ => continue,
+                },
+            };
             let (dx, dy, dz) = (x - position.x, y - position.y, z - position.z);
             if dx * dx + dy * dy + dz * dz < range * range {
                 connection.send_payload(payload.get_or_insert_with(|| encode_packet(packet)).clone());

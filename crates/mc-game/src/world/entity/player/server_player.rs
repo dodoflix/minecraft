@@ -105,6 +105,8 @@ pub struct ServerPlayer {
     pub warden_spawn_tracker: WardenSpawnTracker,
     pub raid_omen_position: Option<BlockPos>,
     pub last_known_client_movement: Vec3,
+    /// `Player.lastItemInMainHand` (a hotbar/item change resets the attack strength ticker).
+    pub last_item_in_main_hand: crate::world::item::ItemStack,
     pub last_client_input: Input,
     pub ender_pearls: Vec<CompoundTag>,
     pub post_effects_dirty: bool,
@@ -186,6 +188,7 @@ impl ServerPlayer {
             warden_spawn_tracker: WardenSpawnTracker::default(),
             raid_omen_position: None,
             last_known_client_movement: Vec3::ZERO,
+            last_item_in_main_hand: crate::world::item::ItemStack::empty(),
             last_client_input: Input::default(),
             ender_pearls: Vec::new(),
             post_effects_dirty: true,
@@ -653,6 +656,46 @@ impl Entity for ServerPlayer {
         fully_blocked: bool,
     ) {
         super::damage::block_using_item(self, level, attacker, source, damage, fully_blocked);
+    }
+    // ==== [Attack] overrides ====
+    fn get_weapon_item(&self) -> Option<crate::world::item::ItemStack> {
+        // `Player.getWeaponItem()`: the riptide item while spinning
+        match &self.player.living.auto_spin_attack_item_stack {
+            Some(stack) if self.player.living.get_living_entity_flag(4) => Some(stack.clone()),
+            _ => Some(self.get_item_by_slot(crate::world::entity::equipment::EquipmentSlot::MainHand)),
+        }
+    }
+    fn on_attack(&mut self) {
+        // `Player.onAttack()`: `resetOnlyAttackStrengthTicker()`
+        self.player.living.attack_strength_ticker = 0;
+    }
+    fn cause_extra_knockback(
+        &mut self,
+        target: &mut dyn Entity,
+        knockback: f32,
+        old_movement: Vec3,
+        source: &crate::world::damagesource::DamageSource,
+        damage: f32,
+        comes_from_effect: bool,
+    ) {
+        super::attack::cause_extra_knockback(self, target, knockback, old_movement, source, damage, comes_from_effect);
+    }
+    fn do_auto_attack_on_touch(&mut self, level: &mut crate::server::level::ServerLevel, target: &mut dyn Entity) {
+        self.attack_entity(level, target);
+    }
+    fn get_known_movement(&self, level: &crate::server::level::ServerLevel) -> Vec3 {
+        let vehicle = self.base().vehicle.and_then(|id| level.entity_manager.get_any(id));
+        match vehicle {
+            Some(v) if v.get_controlling_passenger() != Some(self.base_id()) => v.get_known_movement(level),
+            _ => self.last_known_client_movement,
+        }
+    }
+    fn get_known_speed(&self, level: &crate::server::level::ServerLevel) -> Vec3 {
+        let vehicle = self.base().vehicle.and_then(|id| level.entity_manager.get_any(id));
+        match vehicle {
+            Some(v) if v.get_controlling_passenger() != Some(self.base_id()) => v.get_known_speed(level),
+            _ => self.last_known_client_movement,
+        }
     }
     fn cause_fall_damage(&mut self, level: &mut crate::server::level::ServerLevel, fall_distance: f64, damage_modifier: f32, source: &crate::world::damagesource::DamageSource) -> bool {
         super::damage::cause_fall_damage(self, level, fall_distance, damage_modifier, source)

@@ -34,6 +34,7 @@ mod item_utils;
 mod jukebox;
 mod registry_hook;
 mod misc_items;
+pub mod mace;
 mod simple_items;
 pub mod slot;
 mod player_systems;

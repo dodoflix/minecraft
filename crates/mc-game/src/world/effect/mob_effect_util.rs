@@ -52,7 +52,7 @@ pub fn should_effects_refill_air_supply(mob: &dyn Entity) -> bool {
 }
 
 /// `Entity.isAlliedTo(other)` for the base team logic (`getTeam().isAlliedTo(other.getTeam())`).
-fn is_allied_to(level: &ServerLevel, source: &dyn Entity, other: &dyn Entity) -> bool {
+pub fn is_allied_to(level: &ServerLevel, source: &dyn Entity, other: &dyn Entity) -> bool {
     if source.id() == other.id() {
         return true;
     }

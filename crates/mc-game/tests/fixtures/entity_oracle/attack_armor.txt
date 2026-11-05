@@ -1,0 +1,200 @@
+EFFECT P1 minecraft:resistance added=true
+EFFECT P2 minecraft:resistance added=true
+EFFECT P3 minecraft:absorption added=true
+EFFECT P4 minecraft:weakness added=true
+EFFECT P7 minecraft:resistance added=true
+EFFECT P8 minecraft:resistance added=true
+EFFECT P9 minecraft:absorption added=true
+EFFECT P10 minecraft:weakness added=true
+EFFECT P15 minecraft:resistance added=true
+EFFECT P16 minecraft:resistance added=true
+EFFECT P17 minecraft:absorption added=true
+EFFECT P18 minecraft:weakness added=true
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:iron_sword*1/dmg=1
+P P0 minecraft:player pos=0.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P A minecraft:player pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=minecraft:iron_sword*1/dmg=1
+P P1 minecraft:player pos=4.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.4 abs=0.0 hurt=10/20 death=0 fx=minecraft:resistance/1/306 gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P A minecraft:player pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.3 xp=0/0/0.0 sel=0 main=minecraft:iron_sword*1/dmg=1
+P P2 minecraft:player pos=8.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=10/20 death=0 fx=minecraft:resistance/4/254 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P A minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.4 xp=0/0/0.0 sel=0 main=minecraft:iron_sword*1/dmg=1
+P P3 minecraft:player pos=12.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=2.0 hurt=10/20 death=0 fx=minecraft:absorption/1/202 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P A minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.5 xp=0/0/0.0 sel=0 main=minecraft:iron_sword*1/dmg=1
+P P4 minecraft:player pos=16.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=10/20 death=0 fx=minecraft:weakness/1/150 gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P A minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=minecraft:iron_sword*1/dmg=1
+P P5 minecraft:player pos=20.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.96 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+I P5 36 minecraft:leather_boots*1/dmg=1
+I P5 37 minecraft:leather_leggings*1/dmg=1
+I P5 38 minecraft:leather_chestplate*1/dmg=1
+I P5 39 minecraft:leather_helmet*1/dmg=1
+P A minecraft:player pos=24.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.70000005 xp=0/0/0.0 sel=0 main=minecraft:iron_sword*1/dmg=1
+P P6 minecraft:player pos=24.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.880001 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+I P6 36 minecraft:iron_boots*1/dmg=1
+I P6 37 minecraft:iron_leggings*1/dmg=1
+I P6 38 minecraft:iron_chestplate*1/dmg=1
+I P6 39 minecraft:iron_helmet*1/dmg=1
+P A minecraft:player pos=28.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.8000001 xp=0/0/0.0 sel=0 main=minecraft:iron_sword*1/dmg=1
+P P7 minecraft:player pos=28.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.880001 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+I P7 36 minecraft:iron_boots*1/dmg=1
+I P7 37 minecraft:iron_leggings*1/dmg=1
+I P7 38 minecraft:iron_chestplate*1/dmg=1
+I P7 39 minecraft:iron_helmet*1/dmg=1
+P A minecraft:player pos=32.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.9000001 xp=0/0/0.0 sel=0 main=minecraft:iron_sword*1/dmg=1
+P P8 minecraft:player pos=32.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.880001 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+I P8 36 minecraft:iron_boots*1/dmg=1
+I P8 37 minecraft:iron_leggings*1/dmg=1
+I P8 38 minecraft:iron_chestplate*1/dmg=1
+I P8 39 minecraft:iron_helmet*1/dmg=1
+P A minecraft:player pos=36.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.0000001 xp=0/0/0.0 sel=0 main=minecraft:iron_sword*1/dmg=1
+P P9 minecraft:player pos=36.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.880001 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+I P9 36 minecraft:iron_boots*1/dmg=1
+I P9 37 minecraft:iron_leggings*1/dmg=1
+I P9 38 minecraft:iron_chestplate*1/dmg=1
+I P9 39 minecraft:iron_helmet*1/dmg=1
+P A minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.1000001 xp=0/0/0.0 sel=0 main=minecraft:iron_sword*1/dmg=1
+P P10 minecraft:player pos=40.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.880001 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+I P10 36 minecraft:iron_boots*1/dmg=1
+I P10 37 minecraft:iron_leggings*1/dmg=1
+I P10 38 minecraft:iron_chestplate*1/dmg=1
+I P10 39 minecraft:iron_helmet*1/dmg=1
+P A minecraft:player pos=44.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.2000002 xp=0/0/0.0 sel=0 main=minecraft:iron_sword*1/dmg=1
+P P11 minecraft:player pos=44.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.44 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+I P11 36 minecraft:diamond_boots*1/dmg=1
+I P11 37 minecraft:diamond_leggings*1/dmg=1
+I P11 38 minecraft:diamond_chestplate*1/dmg=1
+I P11 39 minecraft:diamond_helmet*1/dmg=1
+P A minecraft:player pos=48.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.3000002 xp=0/0/0.0 sel=0 main=minecraft:iron_sword*1/dmg=1
+P P12 minecraft:player pos=48.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.512 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=7/100/0.42857128 sel=0 main=empty
+I P12 36 minecraft:netherite_boots*1/dmg=1
+I P12 37 minecraft:netherite_leggings*1/dmg=1
+I P12 38 minecraft:netherite_chestplate*1/dmg=1
+I P12 39 minecraft:netherite_helmet*1/dmg=1
+P A minecraft:player pos=52.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.4000002 xp=0/0/0.0 sel=0 main=minecraft:iron_sword*1/dmg=1
+P P13 minecraft:player pos=52.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.8768 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+I P13 36 minecraft:iron_boots*1/dmg=1
+I P13 37 minecraft:iron_leggings*1/dmg=1
+I P13 38 minecraft:iron_chestplate*1/dmg=1
+I P13 39 minecraft:iron_helmet*1/dmg=1
+P A minecraft:player pos=56.5,-60.0,0.5 delta=0.0,0.36080000519752503,-0.4000000059604645 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.107662 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.6000003 xp=0/0/0.0 sel=0 main=minecraft:iron_sword*1/dmg=1
+P P14 minecraft:player pos=56.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.880001 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+I P14 36 minecraft:iron_boots*1/dmg=3
+I P14 37 minecraft:iron_leggings*1/dmg=1
+I P14 38 minecraft:iron_chestplate*1/dmg=3
+I P14 39 minecraft:iron_helmet*1/dmg=3
+P A minecraft:player pos=60.5,-60.0,0.5 delta=0.0,0.36080000519752503,-0.4000000059604645 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.705638 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=1.9000003 xp=0/0/0.0 sel=0 main=minecraft:iron_sword*1/dmg=1
+P P15 minecraft:player pos=60.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.880001 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+I P15 36 minecraft:iron_boots*1/dmg=3
+I P15 37 minecraft:iron_leggings*1/dmg=3
+I P15 38 minecraft:iron_chestplate*1/dmg=3
+I P15 39 minecraft:iron_helmet*1/dmg=1
+P A minecraft:player pos=64.5,-60.0,0.5 delta=0.0,0.36080000519752503,-0.4000000059604645 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.797031 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=2.2 xp=0/0/0.0 sel=0 main=minecraft:iron_sword*1/dmg=1
+P P16 minecraft:player pos=64.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.880001 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+I P16 36 minecraft:iron_boots*1/dmg=3
+I P16 37 minecraft:iron_leggings*1/dmg=1
+I P16 38 minecraft:iron_chestplate*1/dmg=1
+I P16 39 minecraft:iron_helmet*1/dmg=3
+P A minecraft:player pos=68.5,-60.0,0.5 delta=0.0,0.36080000519752503,-0.4000000059604645 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.793701 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=2.4999998 xp=0/0/0.0 sel=0 main=minecraft:iron_sword*1/dmg=1
+P P17 minecraft:player pos=68.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.880001 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+I P17 36 minecraft:iron_boots*1/dmg=1
+I P17 37 minecraft:iron_leggings*1/dmg=3
+I P17 38 minecraft:iron_chestplate*1/dmg=3
+I P17 39 minecraft:iron_helmet*1/dmg=3
+P A minecraft:player pos=72.5,-60.0,0.5 delta=0.0,0.36080000519752503,-0.4000000059604645 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.202965 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=2.6999996 xp=0/0/0.0 sel=0 main=minecraft:iron_sword*1/dmg=1
+P P18 minecraft:player pos=72.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.880001 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+I P18 36 minecraft:iron_boots*1/dmg=3
+I P18 37 minecraft:iron_leggings*1/dmg=1
+I P18 38 minecraft:iron_chestplate*1/dmg=3
+I P18 39 minecraft:iron_helmet*1/dmg=1
+P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=2.7999995 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=2
+P P0 minecraft:player pos=0.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=11.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+P A minecraft:player pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=2.8999994 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=2
+P P1 minecraft:player pos=4.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=11.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+P A minecraft:player pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=2.9999993 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=2
+P P2 minecraft:player pos=8.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=11.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P A minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=3.0999992 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=2
+P P3 minecraft:player pos=12.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=11.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P A minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=3.199999 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=2
+P P4 minecraft:player pos=16.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=11.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+P A minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=3.299999 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=2
+P P5 minecraft:player pos=20.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=11.900001 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+I P5 36 minecraft:leather_boots*1/dmg=3
+I P5 37 minecraft:leather_leggings*1/dmg=3
+I P5 38 minecraft:leather_chestplate*1/dmg=3
+I P5 39 minecraft:leather_helmet*1/dmg=3
+P A minecraft:player pos=24.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=3.399999 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=2
+P P6 minecraft:player pos=24.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.78 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+I P6 36 minecraft:iron_boots*1/dmg=3
+I P6 37 minecraft:iron_leggings*1/dmg=3
+I P6 38 minecraft:iron_chestplate*1/dmg=3
+I P6 39 minecraft:iron_helmet*1/dmg=3
+P A minecraft:player pos=28.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=3.4999988 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=2
+P P7 minecraft:player pos=28.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.78 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+I P7 36 minecraft:iron_boots*1/dmg=3
+I P7 37 minecraft:iron_leggings*1/dmg=3
+I P7 38 minecraft:iron_chestplate*1/dmg=3
+I P7 39 minecraft:iron_helmet*1/dmg=3
+P A minecraft:player pos=32.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=3.5999987 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=2
+P P8 minecraft:player pos=32.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.78 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+I P8 36 minecraft:iron_boots*1/dmg=3
+I P8 37 minecraft:iron_leggings*1/dmg=3
+I P8 38 minecraft:iron_chestplate*1/dmg=3
+I P8 39 minecraft:iron_helmet*1/dmg=3
+P A minecraft:player pos=36.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=3.6999986 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=2
+P P9 minecraft:player pos=36.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.78 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+I P9 36 minecraft:iron_boots*1/dmg=3
+I P9 37 minecraft:iron_leggings*1/dmg=3
+I P9 38 minecraft:iron_chestplate*1/dmg=3
+I P9 39 minecraft:iron_helmet*1/dmg=3
+P A minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=3.7999985 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=2
+P P10 minecraft:player pos=40.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.78 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+I P10 36 minecraft:iron_boots*1/dmg=3
+I P10 37 minecraft:iron_leggings*1/dmg=3
+I P10 38 minecraft:iron_chestplate*1/dmg=3
+I P10 39 minecraft:iron_helmet*1/dmg=3
+P A minecraft:player pos=44.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=3.8999984 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=2
+P P11 minecraft:player pos=44.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.39 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+I P11 36 minecraft:diamond_boots*1/dmg=3
+I P11 37 minecraft:diamond_leggings*1/dmg=3
+I P11 38 minecraft:diamond_chestplate*1/dmg=3
+I P11 39 minecraft:diamond_helmet*1/dmg=3
+P A minecraft:player pos=48.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=3.9999983 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=2
+P P12 minecraft:player pos=48.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.552 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=7/100/0.42857128 sel=0 main=empty
+I P12 36 minecraft:netherite_boots*1/dmg=3
+I P12 37 minecraft:netherite_leggings*1/dmg=3
+I P12 38 minecraft:netherite_chestplate*1/dmg=3
+I P12 39 minecraft:netherite_helmet*1/dmg=3
+P A minecraft:player pos=52.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=4.0999985 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=2
+P P13 minecraft:player pos=52.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.1208 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+I P13 36 minecraft:iron_boots*1/dmg=3
+I P13 37 minecraft:iron_leggings*1/dmg=3
+I P13 38 minecraft:iron_chestplate*1/dmg=3
+I P13 39 minecraft:iron_helmet*1/dmg=3
+P A minecraft:player pos=56.5,-60.0,0.5 delta=0.0,0.36080000519752503,-0.4000000059604645 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.542908 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=4.0 exh=0.39999846 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=2
+P P14 minecraft:player pos=56.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.78 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+I P14 36 minecraft:iron_boots*1/dmg=7
+I P14 37 minecraft:iron_leggings*1/dmg=5
+I P14 38 minecraft:iron_chestplate*1/dmg=7
+I P14 39 minecraft:iron_helmet*1/dmg=7
+P A minecraft:player pos=60.5,-60.0,0.5 delta=0.0,0.36080000519752503,-0.4000000059604645 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.7018 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=4.0 exh=0.6999985 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=2
+P P15 minecraft:player pos=60.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.78 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+I P15 36 minecraft:iron_boots*1/dmg=5
+I P15 37 minecraft:iron_leggings*1/dmg=7
+I P15 38 minecraft:iron_chestplate*1/dmg=7
+I P15 39 minecraft:iron_helmet*1/dmg=5
+P A minecraft:player pos=64.5,-60.0,0.5 delta=0.0,0.36080000519752503,-0.4000000059604645 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.529858 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0999986 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=2
+P P16 minecraft:player pos=64.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.78 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+I P16 36 minecraft:iron_boots*1/dmg=7
+I P16 37 minecraft:iron_leggings*1/dmg=5
+I P16 38 minecraft:iron_chestplate*1/dmg=3
+I P16 39 minecraft:iron_helmet*1/dmg=7
+P A minecraft:player pos=68.5,-60.0,0.5 delta=0.0,0.36080000519752503,-0.4000000059604645 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.509298 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.3999987 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=2
+P P17 minecraft:player pos=68.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.78 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+I P17 36 minecraft:iron_boots*1/dmg=5
+I P17 37 minecraft:iron_leggings*1/dmg=7
+I P17 38 minecraft:iron_chestplate*1/dmg=5
+I P17 39 minecraft:iron_helmet*1/dmg=5
+P A minecraft:player pos=72.5,-60.0,0.5 delta=0.0,0.36080000519752503,-0.4000000059604645 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.804634 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.6999987 xp=0/0/0.0 sel=0 main=minecraft:diamond_axe*1/dmg=2
+P P18 minecraft:player pos=72.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.78 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+I P18 36 minecraft:iron_boots*1/dmg=5
+I P18 37 minecraft:iron_leggings*1/dmg=5
+I P18 38 minecraft:iron_chestplate*1/dmg=7
+I P18 39 minecraft:iron_helmet*1/dmg=3

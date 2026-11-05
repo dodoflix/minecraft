@@ -1,0 +1,442 @@
+# Critical hits (falling, airborne, not sprinting/blind/in water), sprint knockback hits, weak/strong sounds, sweep attacks (sword, on ground, full strength, slow, no crit/sprint) with sweeping edge and bystanders.
+level flat
+difficulty normal
+spawn_player A survival 0.5 -60 0.5 0 0
+entity_seed A 101
+tick 2
+spawn C1 minecraft:husk 0.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C1 102
+attribute C1 minecraft:max_health 1000
+set C1 health 1000
+snap A 0.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword
+tick 40
+move_packet A 0.5 -59.5 0.5 false
+client_tick_end A
+set A fall_distance 2
+attack A C1
+dump player:A entity:C1  inventory:A
+move_packet A 0.5 -60 0.5 true
+client_tick_end A
+spawn C2 minecraft:husk 8.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C2 103
+attribute C2 minecraft:max_health 1000
+set C2 health 1000
+snap A 8.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_axe
+tick 40
+move_packet A 8.5 -59.5 0.5 false
+client_tick_end A
+set A fall_distance 2
+attack A C2
+dump player:A entity:C2  inventory:A
+move_packet A 8.5 -60 0.5 true
+client_tick_end A
+spawn C3 minecraft:husk 16.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C3 104
+attribute C3 minecraft:max_health 1000
+set C3 health 1000
+snap A 16.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword
+tick 40
+move_packet A 16.5 -59.5 0.5 false
+client_tick_end A
+set A fall_distance 2
+pcommand A START_SPRINTING
+attack A C3
+dump player:A entity:C3  inventory:A
+pcommand A STOP_SPRINTING
+move_packet A 16.5 -60 0.5 true
+client_tick_end A
+spawn C4 minecraft:husk 24.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C4 105
+attribute C4 minecraft:max_health 1000
+set C4 health 1000
+snap A 24.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword
+tick 40
+move_packet A 24.5 -59.5 0.5 false
+client_tick_end A
+set A fall_distance 2
+effect A minecraft:blindness 0 400
+attack A C4
+dump player:A entity:C4  inventory:A
+move_packet A 24.5 -60 0.5 true
+client_tick_end A
+cmd effect clear A minecraft:blindness
+spawn C5 minecraft:husk 32.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C5 106
+attribute C5 minecraft:max_health 1000
+set C5 health 1000
+snap A 32.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword
+tick 40
+block 32 -60 0 minecraft:water[level=0]
+block 32 -59 0 minecraft:water[level=0]
+tick 2
+move_packet A 32.5 -59.5 0.5 false
+client_tick_end A
+set A fall_distance 2
+attack A C5
+dump player:A entity:C5  inventory:A
+move_packet A 32.5 -60 0.5 true
+client_tick_end A
+block 32 -60 0 minecraft:air
+block 32 -59 0 minecraft:air
+spawn C6 minecraft:husk 40.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C6 107
+attribute C6 minecraft:max_health 1000
+set C6 health 1000
+snap A 40.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword
+tick 40
+set A fall_distance 2
+attack A C6
+dump player:A entity:C6  inventory:A
+spawn C7 minecraft:husk 48.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C7 108
+attribute C7 minecraft:max_health 1000
+set C7 health 1000
+snap A 48.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword
+tick 40
+move_packet A 48.5 -59.5 0.5 false
+client_tick_end A
+set A fall_distance 2
+set A fall_distance 0
+attack A C7
+dump player:A entity:C7  inventory:A
+move_packet A 48.5 -60 0.5 true
+client_tick_end A
+spawn K1 minecraft:husk 56.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed K1 109
+attribute K1 minecraft:max_health 1000
+set K1 health 1000
+snap A 56.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword
+tick 40
+pcommand A START_SPRINTING
+attack A K1
+dump player:A entity:K1  inventory:A
+pcommand A STOP_SPRINTING
+spawn K2 minecraft:husk 64.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed K2 110
+attribute K2 minecraft:max_health 1000
+set K2 health 1000
+snap A 64.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_axe
+tick 40
+pcommand A START_SPRINTING
+attack A K2
+dump player:A entity:K2  inventory:A
+pcommand A STOP_SPRINTING
+spawn K3 minecraft:husk 72.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed K3 111
+attribute K3 minecraft:max_health 1000
+set K3 health 1000
+snap A 72.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword
+tick 40
+swing A
+tick 3
+pcommand A START_SPRINTING
+attack A K3
+dump player:A entity:K3  inventory:A
+pcommand A STOP_SPRINTING
+spawn K4 minecraft:husk 80.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed K4 112
+attribute K4 minecraft:max_health 1000
+set K4 health 1000
+snap A 80.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword
+tick 40
+swing A
+tick 6
+attack A K4
+dump player:A entity:K4  inventory:A
+spawn W1 minecraft:husk 88.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W1 113
+attribute W1 minecraft:max_health 1000
+set W1 health 1000
+spawn W1n0 minecraft:husk 89.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W1n0 114
+attribute W1n0 minecraft:max_health 1000
+set W1n0 health 1000
+spawn W1n1 minecraft:husk 87.3 -60 2.3 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W1n1 115
+attribute W1n1 minecraft:max_health 1000
+set W1n1 health 1000
+spawn W1n2 minecraft:spider 88.5 -60 3.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W1n2 116
+attribute W1n2 minecraft:max_health 1000
+set W1n2 health 1000
+spawn W1n3 minecraft:husk 91.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W1n3 117
+attribute W1n3 minecraft:max_health 1000
+set W1n3 health 1000
+snap A 88.5 -60 0.5 0 0
+give A mainhand minecraft:iron_sword
+tick 40
+attack A W1
+dump player:A entity:W1 entity:W1n0 entity:W1n1 entity:W1n2 entity:W1n3 inventory:A
+spawn W2 minecraft:husk 0.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W2 118
+attribute W2 minecraft:max_health 1000
+set W2 health 1000
+spawn W2n0 minecraft:husk 1.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W2n0 119
+attribute W2n0 minecraft:max_health 1000
+set W2n0 health 1000
+spawn W2n1 minecraft:husk -0.7 -60 12.3 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W2n1 120
+attribute W2n1 minecraft:max_health 1000
+set W2n1 health 1000
+spawn W2n2 minecraft:spider 0.5 -60 13.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W2n2 121
+attribute W2n2 minecraft:max_health 1000
+set W2n2 health 1000
+spawn W2n3 minecraft:husk 3.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W2n3 122
+attribute W2n3 minecraft:max_health 1000
+set W2n3 health 1000
+snap A 0.5 -60 10.5 0 0
+give A mainhand minecraft:iron_sword[enchantments={"minecraft:sweeping_edge":1}]
+tick 40
+attack A W2
+dump player:A entity:W2 entity:W2n0 entity:W2n1 entity:W2n2 entity:W2n3 inventory:A
+spawn W3 minecraft:husk 8.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W3 123
+attribute W3 minecraft:max_health 1000
+set W3 health 1000
+spawn W3n0 minecraft:husk 9.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W3n0 124
+attribute W3n0 minecraft:max_health 1000
+set W3n0 health 1000
+spawn W3n1 minecraft:husk 7.3 -60 12.3 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W3n1 125
+attribute W3n1 minecraft:max_health 1000
+set W3n1 health 1000
+spawn W3n2 minecraft:spider 8.5 -60 13.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W3n2 126
+attribute W3n2 minecraft:max_health 1000
+set W3n2 health 1000
+spawn W3n3 minecraft:husk 11.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W3n3 127
+attribute W3n3 minecraft:max_health 1000
+set W3n3 health 1000
+snap A 8.5 -60 10.5 0 0
+give A mainhand minecraft:iron_sword[enchantments={"minecraft:sweeping_edge":3}]
+tick 40
+attack A W3
+dump player:A entity:W3 entity:W3n0 entity:W3n1 entity:W3n2 entity:W3n3 inventory:A
+spawn W4 minecraft:husk 16.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W4 128
+attribute W4 minecraft:max_health 1000
+set W4 health 1000
+spawn W4n0 minecraft:husk 17.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W4n0 129
+attribute W4n0 minecraft:max_health 1000
+set W4n0 health 1000
+give W4n0 head minecraft:iron_helmet
+give W4n0 chest minecraft:iron_chestplate
+spawn W4n1 minecraft:husk 15.3 -60 12.3 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W4n1 130
+attribute W4n1 minecraft:max_health 1000
+set W4n1 health 1000
+snap A 16.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:sweeping_edge":3,"minecraft:sharpness":5}]
+tick 40
+attack A W4
+dump player:A entity:W4 entity:W4n0 entity:W4n1 inventory:A
+spawn W5 minecraft:husk 24.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W5 131
+attribute W5 minecraft:max_health 1000
+set W5 health 1000
+spawn W5n0 minecraft:husk 25.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W5n0 132
+attribute W5n0 minecraft:max_health 1000
+set W5n0 health 1000
+spawn W5n1 minecraft:husk 23.3 -60 12.3 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W5n1 133
+attribute W5n1 minecraft:max_health 1000
+set W5n1 health 1000
+spawn W5n2 minecraft:spider 24.5 -60 13.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W5n2 134
+attribute W5n2 minecraft:max_health 1000
+set W5n2 health 1000
+spawn W5n3 minecraft:husk 27.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W5n3 135
+attribute W5n3 minecraft:max_health 1000
+set W5n3 health 1000
+snap A 24.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_axe
+tick 40
+attack A W5
+dump player:A entity:W5 entity:W5n0 entity:W5n1 entity:W5n2 entity:W5n3 inventory:A
+spawn W6 minecraft:husk 32.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W6 136
+attribute W6 minecraft:max_health 1000
+set W6 health 1000
+spawn W6n0 minecraft:husk 33.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W6n0 137
+attribute W6n0 minecraft:max_health 1000
+set W6n0 health 1000
+spawn W6n1 minecraft:husk 31.3 -60 12.3 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W6n1 138
+attribute W6n1 minecraft:max_health 1000
+set W6n1 health 1000
+spawn W6n2 minecraft:spider 32.5 -60 13.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W6n2 139
+attribute W6n2 minecraft:max_health 1000
+set W6n2 health 1000
+spawn W6n3 minecraft:husk 35.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W6n3 140
+attribute W6n3 minecraft:max_health 1000
+set W6n3 health 1000
+snap A 32.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_sword
+tick 40
+move_packet A 32.6 -60 10.5 true
+client_tick_end A
+attack A W6
+dump player:A entity:W6 entity:W6n0 entity:W6n1 entity:W6n2 entity:W6n3 inventory:A
+move_packet A 32.5 -60 10.5 true
+client_tick_end A
+spawn W7 minecraft:husk 40.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W7 141
+attribute W7 minecraft:max_health 1000
+set W7 health 1000
+spawn W7n0 minecraft:husk 41.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W7n0 142
+attribute W7n0 minecraft:max_health 1000
+set W7n0 health 1000
+spawn W7n1 minecraft:husk 39.3 -60 12.3 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W7n1 143
+attribute W7n1 minecraft:max_health 1000
+set W7n1 health 1000
+spawn W7n2 minecraft:spider 40.5 -60 13.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W7n2 144
+attribute W7n2 minecraft:max_health 1000
+set W7n2 health 1000
+spawn W7n3 minecraft:husk 43.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W7n3 145
+attribute W7n3 minecraft:max_health 1000
+set W7n3 health 1000
+snap A 40.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_sword
+tick 40
+move_packet A 40.9 -60 10.5 true
+client_tick_end A
+attack A W7
+dump player:A entity:W7 entity:W7n0 entity:W7n1 entity:W7n2 entity:W7n3 inventory:A
+move_packet A 40.5 -60 10.5 true
+client_tick_end A
+spawn W8 minecraft:husk 48.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W8 146
+attribute W8 minecraft:max_health 1000
+set W8 health 1000
+spawn W8n0 minecraft:husk 49.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W8n0 147
+attribute W8n0 minecraft:max_health 1000
+set W8n0 health 1000
+spawn W8n1 minecraft:husk 47.3 -60 12.3 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W8n1 148
+attribute W8n1 minecraft:max_health 1000
+set W8n1 health 1000
+spawn W8n2 minecraft:spider 48.5 -60 13.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W8n2 149
+attribute W8n2 minecraft:max_health 1000
+set W8n2 health 1000
+spawn W8n3 minecraft:husk 51.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W8n3 150
+attribute W8n3 minecraft:max_health 1000
+set W8n3 health 1000
+snap A 48.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_sword
+tick 40
+pcommand A START_SPRINTING
+attack A W8
+dump player:A entity:W8 entity:W8n0 entity:W8n1 entity:W8n2 entity:W8n3 inventory:A
+pcommand A STOP_SPRINTING
+spawn W9 minecraft:husk 56.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W9 151
+attribute W9 minecraft:max_health 1000
+set W9 health 1000
+spawn W9n0 minecraft:husk 57.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W9n0 152
+attribute W9n0 minecraft:max_health 1000
+set W9n0 health 1000
+spawn W9n1 minecraft:husk 55.3 -60 12.3 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W9n1 153
+attribute W9n1 minecraft:max_health 1000
+set W9n1 health 1000
+spawn W9n2 minecraft:spider 56.5 -60 13.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W9n2 154
+attribute W9n2 minecraft:max_health 1000
+set W9n2 health 1000
+spawn W9n3 minecraft:husk 59.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W9n3 155
+attribute W9n3 minecraft:max_health 1000
+set W9n3 health 1000
+snap A 56.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_sword
+tick 40
+swing A
+tick 5
+attack A W9
+dump player:A entity:W9 entity:W9n0 entity:W9n1 entity:W9n2 entity:W9n3 inventory:A
+spawn W10 minecraft:husk 64.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W10 156
+attribute W10 minecraft:max_health 1000
+set W10 health 1000
+spawn W10n0 minecraft:husk 65.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W10n0 157
+attribute W10n0 minecraft:max_health 1000
+set W10n0 health 1000
+spawn W10n1 minecraft:husk 63.3 -60 12.3 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W10n1 158
+attribute W10n1 minecraft:max_health 1000
+set W10n1 health 1000
+spawn W10n2 minecraft:spider 64.5 -60 13.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W10n2 159
+attribute W10n2 minecraft:max_health 1000
+set W10n2 health 1000
+spawn W10n3 minecraft:husk 67.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W10n3 160
+attribute W10n3 minecraft:max_health 1000
+set W10n3 health 1000
+snap A 64.5 -60 10.5 0 0
+give A mainhand minecraft:stick
+tick 40
+attack A W10
+dump player:A entity:W10 entity:W10n0 entity:W10n1 entity:W10n2 entity:W10n3 inventory:A
+spawn W11 minecraft:husk 72.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W11 161
+attribute W11 minecraft:max_health 1000
+set W11 health 1000
+spawn W11n0 minecraft:husk 73.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W11n0 162
+attribute W11n0 minecraft:max_health 1000
+set W11n0 health 1000
+spawn W11n1 minecraft:husk 71.3 -60 12.3 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W11n1 163
+attribute W11n1 minecraft:max_health 1000
+set W11n1 health 1000
+spawn W11n2 minecraft:spider 72.5 -60 13.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W11n2 164
+attribute W11n2 minecraft:max_health 1000
+set W11n2 health 1000
+spawn W11n3 minecraft:husk 75.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed W11n3 165
+attribute W11n3 minecraft:max_health 1000
+set W11n3 health 1000
+snap A 72.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_sword
+tick 40
+move_packet A 72.5 -59.5 10.5 false
+client_tick_end A
+set A fall_distance 2
+attack A W11
+dump player:A entity:W11 entity:W11n0 entity:W11n1 entity:W11n2 entity:W11n3 inventory:A
+move_packet A 72.5 -60 10.5 true
+client_tick_end A

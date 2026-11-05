@@ -100,6 +100,33 @@ impl PlayerSystems for ServerPlayerSystems {
     fn check_movement_statistics(&self, ctx: &mut PlayCtx, dx: f64, dy: f64, dz: f64) {
         ctx.player.check_movement_statistics(ctx.level, dx, dy, dz);
     }
+
+    /// `Player.cannotAttackWithItem(mainHandItem, tolerance)`.
+    fn cannot_attack_with_main_hand(&self, ctx: &mut PlayCtx, tolerance_ticks: i32) -> bool {
+        let main_hand = ctx.player.get_item_in_hand(crate::world::item::InteractionHand::MainHand);
+        ctx.player.cannot_attack_with_item(&main_hand, tolerance_ticks)
+    }
+
+    /// `Player.resetAttackStrengthTicker()`.
+    fn reset_attack_strength_ticker(&self, ctx: &mut PlayCtx) {
+        ctx.player.reset_attack_strength_ticker();
+    }
+
+    /// `Player.isWithinAttackRange(mainHandItem, bounds, buffer)`.
+    fn is_within_attack_range(&self, ctx: &mut PlayCtx, target: &mc_core::phys::AABB, buffer: f64) -> bool {
+        let main_hand = ctx.player.get_item_in_hand(crate::world::item::InteractionHand::MainHand);
+        ctx.player.is_within_attack_range(&main_hand, target, buffer)
+    }
+
+    /// `mainHandItem.has(DataComponents.PIERCING_WEAPON)`.
+    fn main_hand_has_piercing_weapon(&self, ctx: &mut PlayCtx) -> bool {
+        ctx.player.main_hand_has_piercing_weapon()
+    }
+
+    /// `Player.attack(target)`.
+    fn attack(&self, ctx: &mut PlayCtx, target: crate::world::entity::EntityId) {
+        ctx.player.attack(ctx.level, target);
+    }
 }
 
 #[distributed_slice(PLAYER_SYSTEMS)]

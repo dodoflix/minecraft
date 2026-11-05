@@ -448,6 +448,19 @@ pub fn deflect_base(
     power: Vec3,
 ) -> bool {
     let deflector = deflecting_entity.and_then(|id| level.get_entity(id)).map(|e| Deflector { look_angle: e.get_look_angle(), known_speed: e.get_known_speed(level) });
+    deflect_by(projectile, level, deflection, deflector, new_owner, by_attack, power)
+}
+
+/// `deflect(...)` for a deflecting entity that is out of the level (the attacking player): its view and speed are passed in.
+pub fn deflect_by(
+    projectile: &mut dyn Projectile,
+    level: &mut ServerLevel,
+    deflection: ProjectileDeflection,
+    deflector: Option<Deflector>,
+    new_owner: Option<Uuid>,
+    by_attack: bool,
+    power: Vec3,
+) -> bool {
     deflection.deflect(projectile, deflector.as_ref(), power);
     projectile.set_owner_uuid(new_owner);
     projectile.on_deflection(level, by_attack);

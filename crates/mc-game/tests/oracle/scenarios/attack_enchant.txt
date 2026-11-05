@@ -1,0 +1,424 @@
+# Weapon enchantments on a husk (undead), a spider (arthropod) and a cow: sharpness, smite, bane of arthropods, fire aspect, knockback, unbreaking; plus attribute attack_damage/attack_knockback.
+level flat
+difficulty normal
+level_seed 77
+spawn V0 minecraft:husk 0.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V0 101
+attribute V0 minecraft:max_health 1000
+set V0 health 1000
+spawn V1 minecraft:spider 3.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V1 102
+attribute V1 minecraft:max_health 1000
+set V1 health 1000
+spawn V2 minecraft:cow 6.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V2 103
+attribute V2 minecraft:max_health 1000
+set V2 health 1000
+spawn V3 minecraft:husk 9.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V3 104
+attribute V3 minecraft:max_health 1000
+set V3 health 1000
+spawn V4 minecraft:spider 12.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V4 105
+attribute V4 minecraft:max_health 1000
+set V4 health 1000
+spawn V5 minecraft:cow 15.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V5 106
+attribute V5 minecraft:max_health 1000
+set V5 health 1000
+spawn V6 minecraft:husk 18.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V6 107
+attribute V6 minecraft:max_health 1000
+set V6 health 1000
+spawn V7 minecraft:spider 21.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V7 108
+attribute V7 minecraft:max_health 1000
+set V7 health 1000
+spawn V8 minecraft:cow 24.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V8 109
+attribute V8 minecraft:max_health 1000
+set V8 health 1000
+spawn V9 minecraft:husk 27.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V9 110
+attribute V9 minecraft:max_health 1000
+set V9 health 1000
+spawn V10 minecraft:spider 30.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V10 111
+attribute V10 minecraft:max_health 1000
+set V10 health 1000
+spawn V11 minecraft:cow 33.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V11 112
+attribute V11 minecraft:max_health 1000
+set V11 health 1000
+spawn V12 minecraft:husk 36.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V12 113
+attribute V12 minecraft:max_health 1000
+set V12 health 1000
+spawn V13 minecraft:spider 39.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V13 114
+attribute V13 minecraft:max_health 1000
+set V13 health 1000
+spawn V14 minecraft:cow 42.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V14 115
+attribute V14 minecraft:max_health 1000
+set V14 health 1000
+spawn V15 minecraft:husk 45.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V15 116
+attribute V15 minecraft:max_health 1000
+set V15 health 1000
+spawn V16 minecraft:spider 48.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V16 117
+attribute V16 minecraft:max_health 1000
+set V16 health 1000
+spawn V17 minecraft:cow 51.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V17 118
+attribute V17 minecraft:max_health 1000
+set V17 health 1000
+spawn V18 minecraft:husk 54.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V18 119
+attribute V18 minecraft:max_health 1000
+set V18 health 1000
+spawn V19 minecraft:spider 57.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V19 120
+attribute V19 minecraft:max_health 1000
+set V19 health 1000
+spawn V20 minecraft:cow 0.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V20 121
+attribute V20 minecraft:max_health 1000
+set V20 health 1000
+spawn V21 minecraft:husk 3.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V21 122
+attribute V21 minecraft:max_health 1000
+set V21 health 1000
+spawn V22 minecraft:spider 6.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V22 123
+attribute V22 minecraft:max_health 1000
+set V22 health 1000
+spawn V23 minecraft:cow 9.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V23 124
+attribute V23 minecraft:max_health 1000
+set V23 health 1000
+spawn V24 minecraft:husk 12.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V24 125
+attribute V24 minecraft:max_health 1000
+set V24 health 1000
+spawn V25 minecraft:spider 15.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V25 126
+attribute V25 minecraft:max_health 1000
+set V25 health 1000
+spawn V26 minecraft:cow 18.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V26 127
+attribute V26 minecraft:max_health 1000
+set V26 health 1000
+spawn V27 minecraft:husk 21.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V27 128
+attribute V27 minecraft:max_health 1000
+set V27 health 1000
+spawn V28 minecraft:spider 24.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V28 129
+attribute V28 minecraft:max_health 1000
+set V28 health 1000
+spawn V29 minecraft:cow 27.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V29 130
+attribute V29 minecraft:max_health 1000
+set V29 health 1000
+spawn V30 minecraft:husk 30.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V30 131
+attribute V30 minecraft:max_health 1000
+set V30 health 1000
+spawn V31 minecraft:spider 33.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V31 132
+attribute V31 minecraft:max_health 1000
+set V31 health 1000
+spawn V32 minecraft:cow 36.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V32 133
+attribute V32 minecraft:max_health 1000
+set V32 health 1000
+spawn V33 minecraft:husk 39.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V33 134
+attribute V33 minecraft:max_health 1000
+set V33 health 1000
+spawn V34 minecraft:spider 42.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V34 135
+attribute V34 minecraft:max_health 1000
+set V34 health 1000
+spawn V35 minecraft:cow 45.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V35 136
+attribute V35 minecraft:max_health 1000
+set V35 health 1000
+spawn V36 minecraft:husk 48.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V36 137
+attribute V36 minecraft:max_health 1000
+set V36 health 1000
+spawn V37 minecraft:spider 51.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V37 138
+attribute V37 minecraft:max_health 1000
+set V37 health 1000
+spawn V38 minecraft:cow 54.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V38 139
+attribute V38 minecraft:max_health 1000
+set V38 health 1000
+spawn V39 minecraft:husk 57.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V39 140
+attribute V39 minecraft:max_health 1000
+set V39 health 1000
+spawn V40 minecraft:spider 0.5 -60 22.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V40 141
+attribute V40 minecraft:max_health 1000
+set V40 health 1000
+spawn V41 minecraft:cow 3.5 -60 22.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V41 142
+attribute V41 minecraft:max_health 1000
+set V41 health 1000
+spawn_player A survival 0.5 -60 0.5 0 0
+entity_seed A 143
+tick 2
+snap A 0.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:sharpness":1}]
+tick 40
+attack A V0
+dump player:A entity:V0 inventory:A
+snap A 3.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:sharpness":1}]
+tick 40
+attack A V1
+dump player:A entity:V1 inventory:A
+snap A 6.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:sharpness":1}]
+tick 40
+attack A V2
+dump player:A entity:V2 inventory:A
+snap A 9.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:sharpness":3}]
+tick 40
+attack A V3
+dump player:A entity:V3 inventory:A
+snap A 12.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:sharpness":3}]
+tick 40
+attack A V4
+dump player:A entity:V4 inventory:A
+snap A 15.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:sharpness":3}]
+tick 40
+attack A V5
+dump player:A entity:V5 inventory:A
+snap A 18.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:sharpness":5}]
+tick 40
+attack A V6
+dump player:A entity:V6 inventory:A
+snap A 21.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:sharpness":5}]
+tick 40
+attack A V7
+dump player:A entity:V7 inventory:A
+snap A 24.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:sharpness":5}]
+tick 40
+attack A V8
+dump player:A entity:V8 inventory:A
+snap A 27.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:smite":3}]
+tick 40
+attack A V9
+dump player:A entity:V9 inventory:A
+snap A 30.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:smite":3}]
+tick 40
+attack A V10
+dump player:A entity:V10 inventory:A
+snap A 33.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:smite":3}]
+tick 40
+attack A V11
+dump player:A entity:V11 inventory:A
+snap A 36.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:smite":5}]
+tick 40
+attack A V12
+dump player:A entity:V12 inventory:A
+snap A 39.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:smite":5}]
+tick 40
+attack A V13
+dump player:A entity:V13 inventory:A
+snap A 42.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:smite":5}]
+tick 40
+attack A V14
+dump player:A entity:V14 inventory:A
+snap A 45.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:bane_of_arthropods":3}]
+tick 40
+attack A V15
+dump player:A entity:V15 inventory:A
+snap A 48.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:bane_of_arthropods":3}]
+tick 40
+attack A V16
+dump player:A entity:V16 inventory:A
+snap A 51.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:bane_of_arthropods":3}]
+tick 40
+attack A V17
+dump player:A entity:V17 inventory:A
+snap A 54.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:bane_of_arthropods":5}]
+tick 40
+attack A V18
+dump player:A entity:V18 inventory:A
+snap A 57.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:bane_of_arthropods":5}]
+tick 40
+attack A V19
+dump player:A entity:V19 inventory:A
+snap A 0.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:bane_of_arthropods":5}]
+tick 40
+attack A V20
+dump player:A entity:V20 inventory:A
+snap A 3.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:fire_aspect":1}]
+tick 40
+attack A V21
+dump player:A entity:V21 inventory:A
+snap A 6.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:fire_aspect":1}]
+tick 40
+attack A V22
+dump player:A entity:V22 inventory:A
+snap A 9.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:fire_aspect":1}]
+tick 40
+attack A V23
+dump player:A entity:V23 inventory:A
+snap A 12.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:fire_aspect":2}]
+tick 40
+attack A V24
+dump player:A entity:V24 inventory:A
+snap A 15.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:fire_aspect":2}]
+tick 40
+attack A V25
+dump player:A entity:V25 inventory:A
+snap A 18.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:fire_aspect":2}]
+tick 40
+attack A V26
+dump player:A entity:V26 inventory:A
+snap A 21.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:knockback":1}]
+tick 40
+attack A V27
+dump player:A entity:V27 inventory:A
+snap A 24.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:knockback":1}]
+tick 40
+attack A V28
+dump player:A entity:V28 inventory:A
+snap A 27.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:knockback":1}]
+tick 40
+attack A V29
+dump player:A entity:V29 inventory:A
+snap A 30.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:knockback":2}]
+tick 40
+attack A V30
+dump player:A entity:V30 inventory:A
+snap A 33.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:knockback":2}]
+tick 40
+attack A V31
+dump player:A entity:V31 inventory:A
+snap A 36.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:knockback":2}]
+tick 40
+attack A V32
+dump player:A entity:V32 inventory:A
+snap A 39.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:unbreaking":3}]
+tick 40
+attack A V33
+dump player:A entity:V33 inventory:A
+snap A 42.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:unbreaking":3}]
+tick 40
+attack A V34
+dump player:A entity:V34 inventory:A
+snap A 45.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:unbreaking":3}]
+tick 40
+attack A V35
+dump player:A entity:V35 inventory:A
+snap A 48.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:impaling":3}]
+tick 40
+attack A V36
+dump player:A entity:V36 inventory:A
+snap A 51.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:impaling":3}]
+tick 40
+attack A V37
+dump player:A entity:V37 inventory:A
+snap A 54.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:impaling":3}]
+tick 40
+attack A V38
+dump player:A entity:V38 inventory:A
+snap A 57.5 -60 10.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:density":4}]
+tick 40
+attack A V39
+dump player:A entity:V39 inventory:A
+snap A 0.5 -60 20.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:density":4}]
+tick 40
+attack A V40
+dump player:A entity:V40 inventory:A
+snap A 3.5 -60 20.5 0 0
+give A mainhand minecraft:diamond_sword[enchantments={"minecraft:density":4}]
+tick 40
+attack A V41
+dump player:A entity:V41 inventory:A
+spawn B0 minecraft:husk 6.5 -60 22.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed B0 144
+attribute B0 minecraft:max_health 1000
+set B0 health 1000
+attribute A minecraft:attack_damage 1
+attribute A minecraft:attack_knockback 0
+attribute A minecraft:attack_speed 4
+attribute A minecraft:attack_damage 10
+snap A 6.5 -60 20.5 0 0
+give A mainhand minecraft:iron_sword
+tick 40
+attack A B0
+dump player:A entity:B0 inventory:A
+spawn B1 minecraft:husk 9.5 -60 22.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed B1 145
+attribute B1 minecraft:max_health 1000
+set B1 health 1000
+attribute A minecraft:attack_damage 1
+attribute A minecraft:attack_knockback 0
+attribute A minecraft:attack_speed 4
+attribute A minecraft:attack_knockback 2
+snap A 9.5 -60 20.5 0 0
+give A mainhand minecraft:iron_sword
+tick 40
+attack A B1
+dump player:A entity:B1 inventory:A
+spawn B2 minecraft:husk 12.5 -60 22.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed B2 146
+attribute B2 minecraft:max_health 1000
+set B2 health 1000
+attribute A minecraft:attack_damage 1
+attribute A minecraft:attack_knockback 0
+attribute A minecraft:attack_speed 4
+attribute A minecraft:attack_speed 4
+snap A 12.5 -60 20.5 0 0
+give A mainhand minecraft:iron_sword
+tick 40
+attack A B2
+dump player:A entity:B2 inventory:A

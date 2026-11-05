@@ -1,5 +1,6 @@
 //! `net.minecraft.world.entity.player.*` + `ServerPlayer`: `Avatar`/`Player` data and save/load.
 pub mod abilities;
+pub mod attack;
 pub mod experience;
 pub mod food;
 pub mod game_mode;

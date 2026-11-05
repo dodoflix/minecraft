@@ -1,0 +1,105 @@
+# Blocking player victims: a shield in front blocks the hit (no damage, shield durability, knockback of the attacker side), behind it does not; an axe disables the shield; thorns.
+level flat
+difficulty normal
+spawn_player V0 survival 0.5 -60 2.0 180 0
+give V0 offhand minecraft:shield
+entity_seed V0 101
+spawn_player V1 survival 5.5 -60 2.0 0 0
+give V1 offhand minecraft:shield
+entity_seed V1 102
+spawn_player V2 survival 10.5 -60 2.0 180 0
+give V2 offhand minecraft:shield
+entity_seed V2 103
+spawn_player V3 survival 15.5 -60 2.0 180 0
+give V3 offhand minecraft:shield
+entity_seed V3 104
+spawn_player V4 survival 20.5 -60 2.0 0 0
+give V4 offhand minecraft:shield
+entity_seed V4 105
+spawn_player V5 survival 25.5 -60 2.0 180 0
+give V5 offhand minecraft:shield
+entity_seed V5 106
+spawn_player V6 survival 30.5 -60 2.0 180 0
+give V6 offhand minecraft:shield
+entity_seed V6 107
+spawn_player V7 survival 35.5 -60 2.0 0 0
+give V7 offhand minecraft:shield
+entity_seed V7 108
+spawn_player V8 survival 40.5 -60 2.0 180 0
+give V8 offhand minecraft:shield
+entity_seed V8 109
+spawn_player A survival 0.5 -60 0.5 0 0
+entity_seed A 110
+tick 2
+snap A 0.5 -60 0.5 0 0
+give A mainhand minecraft:iron_sword
+use V0 off
+tick 40
+attack A V0
+dump player:A player:V0 inventory:V0 packets:V0
+tick 2
+dump player:V0 packets:V0
+snap A 5.5 -60 0.5 0 0
+give A mainhand minecraft:iron_sword
+use V1 off
+tick 40
+attack A V1
+dump player:A player:V1 inventory:V1 packets:V1
+tick 2
+dump player:V1 packets:V1
+snap A 10.5 -60 0.5 0 0
+give A mainhand minecraft:iron_sword
+use V2 off
+tick 1
+attack A V2
+dump player:A player:V2 inventory:V2 packets:V2
+tick 2
+dump player:V2 packets:V2
+snap A 15.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_axe
+use V3 off
+tick 40
+attack A V3
+dump player:A player:V3 inventory:V3 packets:V3
+tick 2
+dump player:V3 packets:V3
+snap A 20.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_axe
+use V4 off
+tick 40
+attack A V4
+dump player:A player:V4 inventory:V4 packets:V4
+tick 2
+dump player:V4 packets:V4
+snap A 25.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_axe
+use V5 off
+tick 1
+attack A V5
+dump player:A player:V5 inventory:V5 packets:V5
+tick 2
+dump player:V5 packets:V5
+snap A 30.5 -60 0.5 0 0
+give A mainhand minecraft:netherite_axe
+use V6 off
+tick 40
+attack A V6
+dump player:A player:V6 inventory:V6 packets:V6
+tick 2
+dump player:V6 packets:V6
+snap A 35.5 -60 0.5 0 0
+give A mainhand minecraft:netherite_axe
+use V7 off
+tick 40
+attack A V7
+dump player:A player:V7 inventory:V7 packets:V7
+tick 2
+dump player:V7 packets:V7
+snap A 40.5 -60 0.5 0 0
+give A mainhand minecraft:netherite_axe
+use V8 off
+tick 1
+attack A V8
+dump player:A player:V8 inventory:V8 packets:V8
+tick 2
+dump player:V8 packets:V8

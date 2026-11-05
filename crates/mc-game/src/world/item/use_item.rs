@@ -184,14 +184,14 @@ pub fn mine_block(stack: &mut ItemStack, level: &mut ServerLevel, state: BlockSt
 }
 
 /// `ItemStack.hurtEnemy(mob, attacker)`: whether the stack is a weapon.
-pub fn hurt_enemy(stack: &mut ItemStack, mob: &mut dyn Entity, attacker: &mut dyn Entity) -> bool {
-    behaviour(stack.item()).hurt_enemy(stack, mob, attacker);
+pub fn hurt_enemy(level: &mut ServerLevel, stack: &mut ItemStack, mob: &mut dyn Entity, attacker: &mut dyn Entity) -> bool {
+    behaviour(stack.item()).hurt_enemy(level, stack, mob, attacker);
     stack.has(mc_data::DataComponentType::WEAPON)
 }
 
 /// `ItemStack.postHurtEnemy(mob, attacker)`.
 pub fn post_hurt_enemy(stack: &mut ItemStack, level: &mut ServerLevel, mob: &mut dyn Entity, attacker: &mut ServerPlayer) {
-    behaviour(stack.item()).post_hurt_enemy(stack, mob, attacker);
+    behaviour(stack.item()).post_hurt_enemy(level, stack, mob, attacker);
     if let Some(weapon) = stack.get(&WEAPON) {
         let amount = weapon.item_damage_per_attack;
         hurt_and_break(stack, amount, level, attacker, EquipmentSlot::MainHand);

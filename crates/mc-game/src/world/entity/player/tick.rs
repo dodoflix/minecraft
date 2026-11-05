@@ -159,6 +159,13 @@ impl ServerPlayer {
         }
         self.player.living.attack_strength_ticker += 1;
         self.player.living.item_swap_ticker += 1;
+        let main_hand = self.get_item_by_slot(crate::world::entity::equipment::EquipmentSlot::MainHand);
+        if !crate::world::item::ItemStack::matches(&self.last_item_in_main_hand, &main_hand) {
+            if !crate::world::item::ItemStack::is_same_item(&self.last_item_in_main_hand, &main_hand) {
+                self.reset_attack_strength_ticker();
+            }
+            self.last_item_in_main_hand = main_hand.copy();
+        }
         if !self.is_eye_in_fluid(crate::world::entity::fluid_interaction::TAG_WATER) && self.is_equipped(mc_data::Item::TURTLE_HELMET) {
             // `turtleHelmetTick()`
             let effect = crate::world::entity::effect::MobEffectInstance::new(mc_data::MobEffect::WATER_BREATHING, 200, 0, false, false, true, None);

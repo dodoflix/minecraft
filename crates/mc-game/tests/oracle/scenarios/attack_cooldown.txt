@@ -1,0 +1,491 @@
+# Attack strength scale: swing (ticker reset) then wait k ticks, then hit. Sword (speed 1.6), axe (speed 1.0), hand; hotbar swap of a different item resets the ticker.
+level flat
+difficulty normal
+spawn H0 minecraft:husk 0.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H0 101
+attribute H0 minecraft:max_health 1000
+set H0 health 1000
+spawn H1 minecraft:husk 3.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H1 102
+attribute H1 minecraft:max_health 1000
+set H1 health 1000
+spawn H2 minecraft:husk 6.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H2 103
+attribute H2 minecraft:max_health 1000
+set H2 health 1000
+spawn H3 minecraft:husk 9.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H3 104
+attribute H3 minecraft:max_health 1000
+set H3 health 1000
+spawn H4 minecraft:husk 12.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H4 105
+attribute H4 minecraft:max_health 1000
+set H4 health 1000
+spawn H5 minecraft:husk 15.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H5 106
+attribute H5 minecraft:max_health 1000
+set H5 health 1000
+spawn H6 minecraft:husk 18.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H6 107
+attribute H6 minecraft:max_health 1000
+set H6 health 1000
+spawn H7 minecraft:husk 21.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H7 108
+attribute H7 minecraft:max_health 1000
+set H7 health 1000
+spawn H8 minecraft:husk 24.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H8 109
+attribute H8 minecraft:max_health 1000
+set H8 health 1000
+spawn H9 minecraft:husk 27.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H9 110
+attribute H9 minecraft:max_health 1000
+set H9 health 1000
+spawn H10 minecraft:husk 30.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H10 111
+attribute H10 minecraft:max_health 1000
+set H10 health 1000
+spawn H11 minecraft:husk 33.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H11 112
+attribute H11 minecraft:max_health 1000
+set H11 health 1000
+spawn H12 minecraft:husk 36.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H12 113
+attribute H12 minecraft:max_health 1000
+set H12 health 1000
+spawn H13 minecraft:husk 39.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H13 114
+attribute H13 minecraft:max_health 1000
+set H13 health 1000
+spawn H14 minecraft:husk 42.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H14 115
+attribute H14 minecraft:max_health 1000
+set H14 health 1000
+spawn H15 minecraft:husk 45.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H15 116
+attribute H15 minecraft:max_health 1000
+set H15 health 1000
+spawn H16 minecraft:husk 48.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H16 117
+attribute H16 minecraft:max_health 1000
+set H16 health 1000
+spawn H17 minecraft:husk 51.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H17 118
+attribute H17 minecraft:max_health 1000
+set H17 health 1000
+spawn H18 minecraft:husk 54.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H18 119
+attribute H18 minecraft:max_health 1000
+set H18 health 1000
+spawn H19 minecraft:husk 57.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H19 120
+attribute H19 minecraft:max_health 1000
+set H19 health 1000
+spawn H20 minecraft:husk 0.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H20 121
+attribute H20 minecraft:max_health 1000
+set H20 health 1000
+spawn H21 minecraft:husk 3.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H21 122
+attribute H21 minecraft:max_health 1000
+set H21 health 1000
+spawn H22 minecraft:husk 6.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H22 123
+attribute H22 minecraft:max_health 1000
+set H22 health 1000
+spawn H23 minecraft:husk 9.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H23 124
+attribute H23 minecraft:max_health 1000
+set H23 health 1000
+spawn H24 minecraft:husk 12.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H24 125
+attribute H24 minecraft:max_health 1000
+set H24 health 1000
+spawn H25 minecraft:husk 15.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H25 126
+attribute H25 minecraft:max_health 1000
+set H25 health 1000
+spawn H26 minecraft:husk 18.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H26 127
+attribute H26 minecraft:max_health 1000
+set H26 health 1000
+spawn H27 minecraft:husk 21.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H27 128
+attribute H27 minecraft:max_health 1000
+set H27 health 1000
+spawn H28 minecraft:husk 24.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H28 129
+attribute H28 minecraft:max_health 1000
+set H28 health 1000
+spawn H29 minecraft:husk 27.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H29 130
+attribute H29 minecraft:max_health 1000
+set H29 health 1000
+spawn H30 minecraft:husk 30.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H30 131
+attribute H30 minecraft:max_health 1000
+set H30 health 1000
+spawn H31 minecraft:husk 33.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H31 132
+attribute H31 minecraft:max_health 1000
+set H31 health 1000
+spawn H32 minecraft:husk 36.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H32 133
+attribute H32 minecraft:max_health 1000
+set H32 health 1000
+spawn H33 minecraft:husk 39.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H33 134
+attribute H33 minecraft:max_health 1000
+set H33 health 1000
+spawn H34 minecraft:husk 42.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H34 135
+attribute H34 minecraft:max_health 1000
+set H34 health 1000
+spawn H35 minecraft:husk 45.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H35 136
+attribute H35 minecraft:max_health 1000
+set H35 health 1000
+spawn H36 minecraft:husk 48.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H36 137
+attribute H36 minecraft:max_health 1000
+set H36 health 1000
+spawn H37 minecraft:husk 51.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H37 138
+attribute H37 minecraft:max_health 1000
+set H37 health 1000
+spawn H38 minecraft:husk 54.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H38 139
+attribute H38 minecraft:max_health 1000
+set H38 health 1000
+spawn H39 minecraft:husk 57.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H39 140
+attribute H39 minecraft:max_health 1000
+set H39 health 1000
+spawn H40 minecraft:husk 0.5 -60 22.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H40 141
+attribute H40 minecraft:max_health 1000
+set H40 health 1000
+spawn H41 minecraft:husk 3.5 -60 22.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H41 142
+attribute H41 minecraft:max_health 1000
+set H41 health 1000
+spawn H42 minecraft:husk 6.5 -60 22.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H42 143
+attribute H42 minecraft:max_health 1000
+set H42 health 1000
+spawn H43 minecraft:husk 9.5 -60 22.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H43 144
+attribute H43 minecraft:max_health 1000
+set H43 health 1000
+spawn H44 minecraft:husk 12.5 -60 22.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H44 145
+attribute H44 minecraft:max_health 1000
+set H44 health 1000
+spawn H45 minecraft:husk 15.5 -60 22.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H45 146
+attribute H45 minecraft:max_health 1000
+set H45 health 1000
+spawn H46 minecraft:husk 18.5 -60 22.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H46 147
+attribute H46 minecraft:max_health 1000
+set H46 health 1000
+spawn H47 minecraft:husk 21.5 -60 22.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H47 148
+attribute H47 minecraft:max_health 1000
+set H47 health 1000
+spawn H48 minecraft:husk 24.5 -60 22.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H48 149
+attribute H48 minecraft:max_health 1000
+set H48 health 1000
+spawn H49 minecraft:husk 27.5 -60 22.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H49 150
+attribute H49 minecraft:max_health 1000
+set H49 health 1000
+spawn H50 minecraft:husk 30.5 -60 22.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H50 151
+attribute H50 minecraft:max_health 1000
+set H50 health 1000
+spawn_player A survival 0.5 -60 0.5 0 0
+entity_seed A 152
+snap A 0.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_sword
+tick 60
+swing A
+attack A H0
+dump player:A entity:H0 inventory:A
+snap A 3.5 -60 0.5 0 0
+swing A
+tick 1
+attack A H1
+dump player:A entity:H1 inventory:A
+snap A 6.5 -60 0.5 0 0
+swing A
+tick 2
+attack A H2
+dump player:A entity:H2 inventory:A
+snap A 9.5 -60 0.5 0 0
+swing A
+tick 3
+attack A H3
+dump player:A entity:H3 inventory:A
+snap A 12.5 -60 0.5 0 0
+swing A
+tick 4
+attack A H4
+dump player:A entity:H4 inventory:A
+snap A 15.5 -60 0.5 0 0
+swing A
+tick 5
+attack A H5
+dump player:A entity:H5 inventory:A
+snap A 18.5 -60 0.5 0 0
+swing A
+tick 6
+attack A H6
+dump player:A entity:H6 inventory:A
+snap A 21.5 -60 0.5 0 0
+swing A
+tick 8
+attack A H7
+dump player:A entity:H7 inventory:A
+snap A 24.5 -60 0.5 0 0
+swing A
+tick 10
+attack A H8
+dump player:A entity:H8 inventory:A
+snap A 27.5 -60 0.5 0 0
+swing A
+tick 11
+attack A H9
+dump player:A entity:H9 inventory:A
+snap A 30.5 -60 0.5 0 0
+swing A
+tick 12
+attack A H10
+dump player:A entity:H10 inventory:A
+snap A 33.5 -60 0.5 0 0
+swing A
+tick 13
+attack A H11
+dump player:A entity:H11 inventory:A
+snap A 36.5 -60 0.5 0 0
+swing A
+tick 14
+attack A H12
+dump player:A entity:H12 inventory:A
+snap A 39.5 -60 0.5 0 0
+swing A
+tick 16
+attack A H13
+dump player:A entity:H13 inventory:A
+snap A 42.5 -60 0.5 0 0
+swing A
+tick 19
+attack A H14
+dump player:A entity:H14 inventory:A
+snap A 45.5 -60 0.5 0 0
+swing A
+tick 20
+attack A H15
+dump player:A entity:H15 inventory:A
+snap A 48.5 -60 0.5 0 0
+swing A
+tick 25
+attack A H16
+dump player:A entity:H16 inventory:A
+snap A 51.5 -60 0.5 0 0
+give A mainhand minecraft:diamond_axe
+tick 60
+swing A
+attack A H17
+dump player:A entity:H17 inventory:A
+snap A 54.5 -60 0.5 0 0
+swing A
+tick 1
+attack A H18
+dump player:A entity:H18 inventory:A
+snap A 57.5 -60 0.5 0 0
+swing A
+tick 2
+attack A H19
+dump player:A entity:H19 inventory:A
+snap A 0.5 -60 10.5 0 0
+swing A
+tick 3
+attack A H20
+dump player:A entity:H20 inventory:A
+snap A 3.5 -60 10.5 0 0
+swing A
+tick 4
+attack A H21
+dump player:A entity:H21 inventory:A
+snap A 6.5 -60 10.5 0 0
+swing A
+tick 5
+attack A H22
+dump player:A entity:H22 inventory:A
+snap A 9.5 -60 10.5 0 0
+swing A
+tick 6
+attack A H23
+dump player:A entity:H23 inventory:A
+snap A 12.5 -60 10.5 0 0
+swing A
+tick 8
+attack A H24
+dump player:A entity:H24 inventory:A
+snap A 15.5 -60 10.5 0 0
+swing A
+tick 10
+attack A H25
+dump player:A entity:H25 inventory:A
+snap A 18.5 -60 10.5 0 0
+swing A
+tick 11
+attack A H26
+dump player:A entity:H26 inventory:A
+snap A 21.5 -60 10.5 0 0
+swing A
+tick 12
+attack A H27
+dump player:A entity:H27 inventory:A
+snap A 24.5 -60 10.5 0 0
+swing A
+tick 13
+attack A H28
+dump player:A entity:H28 inventory:A
+snap A 27.5 -60 10.5 0 0
+swing A
+tick 14
+attack A H29
+dump player:A entity:H29 inventory:A
+snap A 30.5 -60 10.5 0 0
+swing A
+tick 16
+attack A H30
+dump player:A entity:H30 inventory:A
+snap A 33.5 -60 10.5 0 0
+swing A
+tick 19
+attack A H31
+dump player:A entity:H31 inventory:A
+snap A 36.5 -60 10.5 0 0
+swing A
+tick 20
+attack A H32
+dump player:A entity:H32 inventory:A
+snap A 39.5 -60 10.5 0 0
+swing A
+tick 25
+attack A H33
+dump player:A entity:H33 inventory:A
+snap A 42.5 -60 10.5 0 0
+give A mainhand minecraft:air
+tick 60
+swing A
+attack A H34
+dump player:A entity:H34 inventory:A
+snap A 45.5 -60 10.5 0 0
+swing A
+tick 1
+attack A H35
+dump player:A entity:H35 inventory:A
+snap A 48.5 -60 10.5 0 0
+swing A
+tick 2
+attack A H36
+dump player:A entity:H36 inventory:A
+snap A 51.5 -60 10.5 0 0
+swing A
+tick 3
+attack A H37
+dump player:A entity:H37 inventory:A
+snap A 54.5 -60 10.5 0 0
+swing A
+tick 4
+attack A H38
+dump player:A entity:H38 inventory:A
+snap A 57.5 -60 10.5 0 0
+swing A
+tick 5
+attack A H39
+dump player:A entity:H39 inventory:A
+snap A 0.5 -60 20.5 0 0
+swing A
+tick 6
+attack A H40
+dump player:A entity:H40 inventory:A
+snap A 3.5 -60 20.5 0 0
+swing A
+tick 8
+attack A H41
+dump player:A entity:H41 inventory:A
+snap A 6.5 -60 20.5 0 0
+swing A
+tick 10
+attack A H42
+dump player:A entity:H42 inventory:A
+snap A 9.5 -60 20.5 0 0
+swing A
+tick 11
+attack A H43
+dump player:A entity:H43 inventory:A
+snap A 12.5 -60 20.5 0 0
+swing A
+tick 12
+attack A H44
+dump player:A entity:H44 inventory:A
+snap A 15.5 -60 20.5 0 0
+swing A
+tick 13
+attack A H45
+dump player:A entity:H45 inventory:A
+snap A 18.5 -60 20.5 0 0
+swing A
+tick 14
+attack A H46
+dump player:A entity:H46 inventory:A
+snap A 21.5 -60 20.5 0 0
+swing A
+tick 16
+attack A H47
+dump player:A entity:H47 inventory:A
+snap A 24.5 -60 20.5 0 0
+swing A
+tick 19
+attack A H48
+dump player:A entity:H48 inventory:A
+snap A 27.5 -60 20.5 0 0
+swing A
+tick 20
+attack A H49
+dump player:A entity:H49 inventory:A
+snap A 30.5 -60 20.5 0 0
+swing A
+tick 25
+attack A H50
+dump player:A entity:H50 inventory:A
+spawn S1 minecraft:husk 33.5 -60 22.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed S1 153
+attribute S1 minecraft:max_health 1000
+set S1 health 1000
+snap A 33.5 -60 20.5 0 0
+give A hotbar0 minecraft:diamond_sword
+give A hotbar1 minecraft:diamond_sword
+give A hotbar2 minecraft:diamond_axe
+select A 0
+tick 40
+select A 1
+tick 1
+attack A S1
+dump player:A entity:S1
+spawn S2 minecraft:husk 36.5 -60 22.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed S2 154
+attribute S2 minecraft:max_health 1000
+set S2 health 1000
+snap A 36.5 -60 20.5 0 0
+tick 40
+select A 2
+tick 1
+attack A S2
+dump player:A entity:S2

@@ -75,11 +75,11 @@ pub trait ItemBehaviour: Send + Sync + 'static {
         true
     }
 
-    /// `Item.hurtEnemy(stack, mob, attacker)`.
-    fn hurt_enemy(&self, _stack: &mut ItemStack, _mob: &mut dyn Entity, _attacker: &mut dyn Entity) {}
+    /// `Item.hurtEnemy(stack, mob, attacker)` (`attacker.level()` is `level`; both entities are out of the level).
+    fn hurt_enemy(&self, _level: &mut ServerLevel, _stack: &mut ItemStack, _mob: &mut dyn Entity, _attacker: &mut dyn Entity) {}
 
     /// `Item.postHurtEnemy(stack, mob, attacker)`.
-    fn post_hurt_enemy(&self, _stack: &mut ItemStack, _mob: &mut dyn Entity, _attacker: &mut dyn Entity) {}
+    fn post_hurt_enemy(&self, _level: &mut ServerLevel, _stack: &mut ItemStack, _mob: &mut dyn Entity, _attacker: &mut dyn Entity) {}
 
     /// `Item.interactLivingEntity(stack, player, target, hand)`.
     fn interact_living_entity(&self, _stack: &mut ItemStack, _player: &mut ServerPlayer, _target: &mut dyn Entity, _hand: InteractionHand) -> InteractionResult {
@@ -168,9 +168,24 @@ pub trait ItemBehaviour: Send + Sync + 'static {
         true
     }
 
-    /// `getAttackDamageBonus(victim, damage, damageSource)`.
-    fn get_attack_damage_bonus(&self, _damage: f32) -> f32 {
+    /// `getAttackDamageBonus(victim, damage, damageSource)` (`MaceItem`: smash damage); `attacker` is the (out of level)
+    /// entity wielding `stack`, `source.getDirectEntity()` when it is the attacker itself.
+    #[allow(clippy::too_many_arguments)]
+    fn get_attack_damage_bonus_for(
+        &self,
+        _level: &mut ServerLevel,
+        _stack: &ItemStack,
+        _victim: &mut dyn Entity,
+        _damage: f32,
+        _source: &crate::world::damagesource::DamageSource,
+        _attacker: &mut dyn Entity,
+    ) -> f32 {
         0.0
+    }
+
+    /// `getItemDamageSource(attacker)` (`MaceItem`: `mace_smash` while smashing); `None` = `attacker.createDamageSource()`.
+    fn get_item_damage_source(&self, _level: &ServerLevel, _attacker: &dyn Entity) -> Option<crate::world::damagesource::DamageSource> {
+        None
     }
 
     // ==== [Blocks:Signs] SignApplicator ====

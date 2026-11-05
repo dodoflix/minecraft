@@ -1,0 +1,257 @@
+# Mob.doHurtTarget (mob melee): ATTACK_DAMAGE attribute, held weapon enchantments, knockback attribute/enchant, armor of the target; targets players and husks.
+level flat
+difficulty normal
+level_seed 9
+spawn M0 minecraft:husk 0.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M0 101
+spawn_player T0 survival 0.5 -60 2.0 180 0
+entity_seed T0 102
+spawn M1 minecraft:husk 5.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M1 103
+spawn_player T1 survival 5.5 -60 2.0 180 0
+entity_seed T1 104
+give T1 head minecraft:iron_helmet
+give T1 chest minecraft:diamond_chestplate
+give T1 legs minecraft:iron_leggings
+give T1 feet minecraft:iron_boots
+spawn M2 minecraft:husk 10.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M2 105
+spawn T2 minecraft:husk 10.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed T2 106
+attribute T2 minecraft:max_health 1000
+set T2 health 1000
+spawn M3 minecraft:husk 15.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M3 107
+spawn_player T3 survival 15.5 -60 2.0 180 0
+entity_seed T3 108
+give T3 offhand minecraft:shield
+use T3 off
+spawn M4 minecraft:husk 20.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M4 109
+give M4 mainhand minecraft:iron_sword
+spawn_player T4 survival 20.5 -60 2.0 180 0
+entity_seed T4 110
+spawn M5 minecraft:husk 25.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M5 111
+give M5 mainhand minecraft:iron_sword
+spawn_player T5 survival 25.5 -60 2.0 180 0
+entity_seed T5 112
+give T5 head minecraft:iron_helmet
+give T5 chest minecraft:diamond_chestplate
+give T5 legs minecraft:iron_leggings
+give T5 feet minecraft:iron_boots
+spawn M6 minecraft:husk 30.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M6 113
+give M6 mainhand minecraft:iron_sword
+spawn T6 minecraft:husk 30.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed T6 114
+attribute T6 minecraft:max_health 1000
+set T6 health 1000
+spawn M7 minecraft:husk 35.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M7 115
+give M7 mainhand minecraft:iron_sword
+spawn_player T7 survival 35.5 -60 2.0 180 0
+entity_seed T7 116
+give T7 offhand minecraft:shield
+use T7 off
+spawn M8 minecraft:husk 40.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M8 117
+give M8 mainhand minecraft:diamond_sword[enchantments={"minecraft:sharpness":5}]
+spawn_player T8 survival 40.5 -60 2.0 180 0
+entity_seed T8 118
+spawn M9 minecraft:husk 45.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M9 119
+give M9 mainhand minecraft:diamond_sword[enchantments={"minecraft:sharpness":5}]
+spawn_player T9 survival 45.5 -60 2.0 180 0
+entity_seed T9 120
+give T9 head minecraft:iron_helmet
+give T9 chest minecraft:diamond_chestplate
+give T9 legs minecraft:iron_leggings
+give T9 feet minecraft:iron_boots
+spawn M10 minecraft:husk 50.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M10 121
+give M10 mainhand minecraft:diamond_sword[enchantments={"minecraft:sharpness":5}]
+spawn T10 minecraft:husk 50.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed T10 122
+attribute T10 minecraft:max_health 1000
+set T10 health 1000
+spawn M11 minecraft:husk 55.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M11 123
+give M11 mainhand minecraft:diamond_sword[enchantments={"minecraft:sharpness":5}]
+spawn_player T11 survival 55.5 -60 2.0 180 0
+entity_seed T11 124
+give T11 offhand minecraft:shield
+use T11 off
+spawn M12 minecraft:husk 60.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M12 125
+give M12 mainhand minecraft:diamond_sword[enchantments={"minecraft:knockback":2,"minecraft:fire_aspect":1}]
+spawn_player T12 survival 60.5 -60 2.0 180 0
+entity_seed T12 126
+spawn M13 minecraft:husk 65.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M13 127
+give M13 mainhand minecraft:diamond_sword[enchantments={"minecraft:knockback":2,"minecraft:fire_aspect":1}]
+spawn_player T13 survival 65.5 -60 2.0 180 0
+entity_seed T13 128
+give T13 head minecraft:iron_helmet
+give T13 chest minecraft:diamond_chestplate
+give T13 legs minecraft:iron_leggings
+give T13 feet minecraft:iron_boots
+spawn M14 minecraft:husk 70.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M14 129
+give M14 mainhand minecraft:diamond_sword[enchantments={"minecraft:knockback":2,"minecraft:fire_aspect":1}]
+spawn T14 minecraft:husk 70.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed T14 130
+attribute T14 minecraft:max_health 1000
+set T14 health 1000
+spawn M15 minecraft:husk 75.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M15 131
+give M15 mainhand minecraft:diamond_sword[enchantments={"minecraft:knockback":2,"minecraft:fire_aspect":1}]
+spawn_player T15 survival 75.5 -60 2.0 180 0
+entity_seed T15 132
+give T15 offhand minecraft:shield
+use T15 off
+spawn M16 minecraft:husk 80.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M16 133
+give M16 mainhand minecraft:diamond_axe
+spawn_player T16 survival 80.5 -60 2.0 180 0
+entity_seed T16 134
+spawn M17 minecraft:husk 85.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M17 135
+give M17 mainhand minecraft:diamond_axe
+spawn_player T17 survival 85.5 -60 2.0 180 0
+entity_seed T17 136
+give T17 head minecraft:iron_helmet
+give T17 chest minecraft:diamond_chestplate
+give T17 legs minecraft:iron_leggings
+give T17 feet minecraft:iron_boots
+spawn M18 minecraft:husk 90.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M18 137
+give M18 mainhand minecraft:diamond_axe
+spawn T18 minecraft:husk 90.5 -60 2.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed T18 138
+attribute T18 minecraft:max_health 1000
+set T18 health 1000
+spawn M19 minecraft:husk 95.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M19 139
+give M19 mainhand minecraft:diamond_axe
+spawn_player T19 survival 95.5 -60 2.0 180 0
+entity_seed T19 140
+give T19 offhand minecraft:shield
+use T19 off
+spawn M20 minecraft:husk 0.5 -60 10.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M20 141
+give M20 mainhand minecraft:diamond_sword
+attribute M20 minecraft:attack_damage 7.0
+spawn_player T20 survival 0.5 -60 12.0 180 0
+entity_seed T20 142
+spawn M21 minecraft:husk 5.5 -60 10.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M21 143
+give M21 mainhand minecraft:diamond_sword
+attribute M21 minecraft:attack_damage 7.0
+spawn_player T21 survival 5.5 -60 12.0 180 0
+entity_seed T21 144
+give T21 head minecraft:iron_helmet
+give T21 chest minecraft:diamond_chestplate
+give T21 legs minecraft:iron_leggings
+give T21 feet minecraft:iron_boots
+spawn M22 minecraft:husk 10.5 -60 10.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M22 145
+give M22 mainhand minecraft:diamond_sword
+attribute M22 minecraft:attack_damage 7.0
+spawn T22 minecraft:husk 10.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed T22 146
+attribute T22 minecraft:max_health 1000
+set T22 health 1000
+spawn M23 minecraft:husk 15.5 -60 10.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M23 147
+give M23 mainhand minecraft:diamond_sword
+attribute M23 minecraft:attack_damage 7.0
+spawn_player T23 survival 15.5 -60 12.0 180 0
+entity_seed T23 148
+give T23 offhand minecraft:shield
+use T23 off
+spawn M24 minecraft:husk 20.5 -60 10.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M24 149
+attribute M24 minecraft:attack_knockback 1.5
+spawn_player T24 survival 20.5 -60 12.0 180 0
+entity_seed T24 150
+spawn M25 minecraft:husk 25.5 -60 10.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M25 151
+attribute M25 minecraft:attack_knockback 1.5
+spawn_player T25 survival 25.5 -60 12.0 180 0
+entity_seed T25 152
+give T25 head minecraft:iron_helmet
+give T25 chest minecraft:diamond_chestplate
+give T25 legs minecraft:iron_leggings
+give T25 feet minecraft:iron_boots
+spawn M26 minecraft:husk 30.5 -60 10.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M26 153
+attribute M26 minecraft:attack_knockback 1.5
+spawn T26 minecraft:husk 30.5 -60 12.0 180 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed T26 154
+attribute T26 minecraft:max_health 1000
+set T26 health 1000
+spawn M27 minecraft:husk 35.5 -60 10.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed M27 155
+attribute M27 minecraft:attack_knockback 1.5
+spawn_player T27 survival 35.5 -60 12.0 180 0
+entity_seed T27 156
+give T27 offhand minecraft:shield
+use T27 off
+tick 40
+mob_attack M0 T0
+dump entity:M0 player:T0 inventory:T0
+mob_attack M1 T1
+dump entity:M1 player:T1 inventory:T1
+mob_attack M2 T2
+dump entity:M2 entity:T2
+mob_attack M3 T3
+dump entity:M3 player:T3 inventory:T3
+mob_attack M4 T4
+dump entity:M4 player:T4 inventory:T4
+mob_attack M5 T5
+dump entity:M5 player:T5 inventory:T5
+mob_attack M6 T6
+dump entity:M6 entity:T6
+mob_attack M7 T7
+dump entity:M7 player:T7 inventory:T7
+mob_attack M8 T8
+dump entity:M8 player:T8 inventory:T8
+mob_attack M9 T9
+dump entity:M9 player:T9 inventory:T9
+mob_attack M10 T10
+dump entity:M10 entity:T10
+mob_attack M11 T11
+dump entity:M11 player:T11 inventory:T11
+mob_attack M12 T12
+dump entity:M12 player:T12 inventory:T12
+mob_attack M13 T13
+dump entity:M13 player:T13 inventory:T13
+mob_attack M14 T14
+dump entity:M14 entity:T14
+mob_attack M15 T15
+dump entity:M15 player:T15 inventory:T15
+mob_attack M16 T16
+dump entity:M16 player:T16 inventory:T16
+mob_attack M17 T17
+dump entity:M17 player:T17 inventory:T17
+mob_attack M18 T18
+dump entity:M18 entity:T18
+mob_attack M19 T19
+dump entity:M19 player:T19 inventory:T19
+mob_attack M20 T20
+dump entity:M20 player:T20 inventory:T20
+mob_attack M21 T21
+dump entity:M21 player:T21 inventory:T21
+mob_attack M22 T22
+dump entity:M22 entity:T22
+mob_attack M23 T23
+dump entity:M23 player:T23 inventory:T23
+mob_attack M24 T24
+dump entity:M24 player:T24 inventory:T24
+mob_attack M25 T25
+dump entity:M25 player:T25 inventory:T25
+mob_attack M26 T26
+dump entity:M26 entity:T26
+mob_attack M27 T27
+dump entity:M27 player:T27 inventory:T27
