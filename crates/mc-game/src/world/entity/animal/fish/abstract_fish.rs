@@ -17,6 +17,7 @@ use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_data::{Attribute, SoundEvent};
 use mc_nbt::CompoundTag;
+use std::sync::Arc;
 
 define_accessor!(pub FROM_BUCKET: Boolean = AbstractFish);
 
@@ -61,8 +62,8 @@ pub fn init_controls(mob: &mut MobData, navigation: StandardPathNavigation) {
 
 /// `registerGoals()` of `AbstractFish` (`super.registerGoals()` of `WaterAnimal`/`PathfinderMob` adds nothing).
 pub fn register_goals(e: &mut dyn Entity) {
-    let selector = std::sync::Arc::new(|target: &dyn Entity| !target.is_spectator());
-    let avoid = AvoidEntityGoal::new_with_selector(e, |ty| ty == mc_data::EntityType::PLAYER, 8.0, 1.6, 1.4, selector);
+    // `EntitySelector.NO_SPECTATORS`
+    let avoid = AvoidEntityGoal::with_predicate_on_avoid_entity(Arc::new(|target| target.is_player()), 8.0, 1.6, 1.4, Arc::new(|target| !target.is_spectator()));
     let goals = &mut e.mob_mut().expect("mob").goal_selector;
     goals.add_goal(0, Box::new(PanicGoal::new(1.25)));
     goals.add_goal(2, Box::new(avoid));

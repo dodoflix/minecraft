@@ -93,7 +93,7 @@ impl Dolphin {
         let breath = BreathAirGoal::new();
         let find_liquid = TryFindLiquidGoal::new("dolphin_tries_to_find");
         let look_at = LookAtPlayerGoal::new_player(self, 6.0);
-        let avoid_guardian = AvoidEntityGoal::new(self, |ty| ty == EntityType::GUARDIAN, 8.0, 1.0, 1.0);
+        let avoid_guardian = AvoidEntityGoal::new(std::sync::Arc::new(|e| e.get_type() == EntityType::GUARDIAN), 8.0, 1.0, 1.0);
         let goals = &mut self.mob.goal_selector;
         goals.add_goal(0, Box::new(breath));
         goals.add_goal(0, Box::new(find_liquid));
