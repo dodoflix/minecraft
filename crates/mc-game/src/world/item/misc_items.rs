@@ -73,3 +73,17 @@ impl ItemBehaviour for ShieldItem {
 }
 
 register_item_class!("ShieldItem", |item| Box::new(ShieldItem { description_id: item.data().description_id }));
+
+/// `AirItem.getName`: the `item_name` of the item's own default components (an empty stack has none).
+struct AirItem;
+
+impl ItemBehaviour for AirItem {
+    fn get_name(&self, _stack: &ItemStack) -> Component {
+        {
+            use mc_protocol::components::map::DataComponentGetter as _;
+            mc_protocol::components::item_stack::item_prototype(mc_data::Item::AIR).get(&mc_protocol::components::ITEM_NAME).cloned().unwrap_or_else(|| Component::literal(""))
+        }
+    }
+}
+
+register_item_class!("AirItem", |_| Box::new(AirItem));

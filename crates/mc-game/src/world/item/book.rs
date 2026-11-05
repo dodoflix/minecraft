@@ -121,9 +121,9 @@ fn filterable_from_outgoing(text: &FilteredText, text_filtering_enabled: bool) -
 }
 
 /// `updateBookContents(contents, slot)`.
-fn update_book_contents(ctx: &mut PlayCtx, contents: &[FilteredText], slot: usize) {
-    let enabled = ctx.player.text_filtering_enabled;
-    let Some(carried) = ctx.player.player.inventory.get_item_mut(slot) else { return };
+fn update_book_contents(player: &mut ServerPlayer, contents: &[FilteredText], slot: usize) {
+    let enabled = player.text_filtering_enabled;
+    let Some(carried) = player.player.inventory.get_item_mut(slot) else { return };
     if carried.has(DataComponentType::WRITABLE_BOOK_CONTENT) {
         let pages = contents.iter().map(|c| filterable_from_outgoing(c, enabled)).collect();
         carried.set(WRITABLE_BOOK_CONTENT, WritableBookContent { pages });
@@ -131,9 +131,9 @@ fn update_book_contents(ctx: &mut PlayCtx, contents: &[FilteredText], slot: usiz
 }
 
 /// `signBook(title, contents, slot)`.
-fn sign_book(ctx: &mut PlayCtx, title: &FilteredText, contents: &[FilteredText], slot: usize) {
-    let enabled = ctx.player.text_filtering_enabled;
-    let carried = ctx.player.player.inventory.get_item(slot);
+fn sign_book(player: &mut ServerPlayer, title: &FilteredText, contents: &[FilteredText], slot: usize) {
+    let enabled = player.text_filtering_enabled;
+    let carried = player.player.inventory.get_item(slot);
     if !carried.has(DataComponentType::WRITABLE_BOOK_CONTENT) {
         return;
     }
@@ -146,12 +146,23 @@ fn sign_book(ctx: &mut PlayCtx, title: &FilteredText, contents: &[FilteredText],
             Filterable { raw: Component::literal(f.raw), filtered: f.filtered.map(Component::literal) }
         })
         .collect();
-    let author = ctx.player.get_plain_text_name();
+    let author = player.get_plain_text_name();
     written_book.set(
         WRITTEN_BOOK_CONTENT,
         WrittenBookContent { title: filterable_from_outgoing(title, enabled), author, generation: 0, pages, resolved: true },
     );
-    ctx.player.player.inventory.set_item(slot, written_book);
+    player.player.inventory.set_item(slot, written_book);
+}
+
+/// `handleEditBook` after the hotbar/offhand slot check and the text filter (`filtered` = the filter's answer per
+/// string: the title first when the packet has one, then the pages).
+pub fn edit_book(player: &mut ServerPlayer, packet: &ServerboundEditBookPacket, filter: impl Fn(&str) -> FilteredText) {
+    let slot = packet.slot as usize;
+    let pages = packet.pages.iter().map(|p| filter(p)).collect::<Vec<_>>();
+    match &packet.title {
+        Some(title) => sign_book(player, &filter(title), &pages, slot),
+        None => update_book_contents(player, &pages, slot),
+    }
 }
 
 struct BookHandlers;
@@ -159,12 +170,7 @@ struct BookHandlers;
 impl PlayHandlers for BookHandlers {
     /// `handleEditBook`: the dedicated server's `TextFilter` passes everything through (see `text_filter.rs`).
     fn handle_edit_book(&self, ctx: &mut PlayCtx, packet: &ServerboundEditBookPacket) {
-        let slot = packet.slot as usize;
-        let pages = packet.pages.iter().map(|p| FilteredText::pass_through(p.as_str())).collect::<Vec<_>>();
-        match &packet.title {
-            Some(title) => sign_book(ctx, &FilteredText::pass_through(title.as_str()), &pages, slot),
-            None => update_book_contents(ctx, &pages, slot),
-        }
+        edit_book(ctx.player, packet, FilteredText::pass_through);
     }
 }
 
@@ -216,5 +222,45 @@ mod tests {
         assert_eq!(filterable_from_outgoing(&text, true), Filterable::pass_through(String::new()));
         assert_eq!(filterable_from_outgoing(&text, false), Filterable { raw: "secret".into(), filtered: Some(String::new()) });
         assert_eq!(filterable_from_outgoing(&FilteredText::pass_through("ok"), false), Filterable::pass_through("ok".into()));
+    }
+
+    fn player() -> ServerPlayer {
+        let profile = mc_protocol::codec::GameProfile { id: Default::default(), name: "Steve".into(), properties: Vec::new() };
+        ServerPlayer::new(1, mc_core::ident::Identifier::parse("minecraft:overworld").unwrap(), profile, Default::default())
+    }
+
+    #[test]
+    fn edit_book_updates_pages_in_place_and_ignores_other_stacks() {
+        let mut p = player();
+        p.player.inventory.set_item(2, ItemStack::new(Item::WRITABLE_BOOK));
+        p.player.inventory.set_item(3, ItemStack::new(Item::STONE));
+        let packet = ServerboundEditBookPacket { slot: 2, pages: vec!["a".into(), "b".into()], title: None };
+        edit_book(&mut p, &packet, FilteredText::pass_through);
+        let content = p.player.inventory.get_item(2).get(&WRITABLE_BOOK_CONTENT).unwrap().clone();
+        assert_eq!(content.pages, vec![Filterable::pass_through("a".to_owned()), Filterable::pass_through("b".to_owned())]);
+        // a slot without a writable book is left alone
+        edit_book(&mut p, &ServerboundEditBookPacket { slot: 3, ..packet }, FilteredText::pass_through);
+        assert_eq!(p.player.inventory.get_item(3), &ItemStack::new(Item::STONE));
+    }
+
+    #[test]
+    fn signing_replaces_the_book_keeping_count_and_other_components() {
+        let mut p = player();
+        let mut book = ItemStack::with_count(Item::WRITABLE_BOOK, 1);
+        book.set(mc_protocol::components::CUSTOM_NAME, Component::literal("mine"));
+        p.player.inventory.set_item(40, book);
+        let packet = ServerboundEditBookPacket { slot: 40, pages: vec!["page one".into()], title: Some("Title".into()) };
+        edit_book(&mut p, &packet, FilteredText::pass_through);
+        let signed = p.player.inventory.get_item(40);
+        assert_eq!(signed.item(), Item::WRITTEN_BOOK);
+        assert!(!signed.has(DataComponentType::WRITABLE_BOOK_CONTENT));
+        assert_eq!(signed.get(&mc_protocol::components::CUSTOM_NAME).unwrap().get_string(), "mine");
+        let content = signed.get(&WRITTEN_BOOK_CONTENT).unwrap();
+        assert_eq!(content.title, Filterable::pass_through("Title".to_owned()));
+        assert_eq!(content.author, "Steve");
+        assert_eq!(content.generation, 0);
+        assert!(content.resolved);
+        assert_eq!(content.pages.len(), 1);
+        assert_eq!(content.pages[0].raw.get_string(), "page one");
     }
 }
