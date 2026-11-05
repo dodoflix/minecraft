@@ -35,11 +35,6 @@ fn touches_liquid(level: &dyn BlockGetter, pos: BlockPos) -> bool {
     touches
 }
 
-/// `ConcretePowderBlock.shouldSolidify`.
-fn should_solidify(level: &dyn BlockGetter, pos: BlockPos, replaced_block: BlockState) -> bool {
-    can_solidify(replaced_block) || touches_liquid(level, pos)
-}
-
 impl BlockBehaviour for ConcretePowderBlock {
     fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
         let pos = context.get_clicked_pos();
