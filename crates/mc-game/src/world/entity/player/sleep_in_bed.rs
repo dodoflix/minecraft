@@ -99,7 +99,7 @@ impl ServerPlayer {
             self.set_respawn_position(Some(RespawnConfig { respawn_data: data, forced: false }), true);
         }
         if !can_sleep {
-            return Err(BedSleepingProblem { message: rule.error_message.clone() });
+            return Err(BedSleepingProblem { message: rule.error_message() });
         }
         if !self.is_creative() {
             let bed_center = Vec3::at_bottom_center_of(&pos);

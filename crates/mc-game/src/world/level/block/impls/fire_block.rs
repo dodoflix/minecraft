@@ -145,7 +145,7 @@ impl BlockBehaviour for FireBlock {
                 return;
             }
         }
-        let increased_burnout = level.environment_bool_at("gameplay/increased_fire_burnout", pos);
+        let increased_burnout = level.attribute_bool(crate::world::attribute::attributes::INCREASED_FIRE_BURNOUT, pos);
         let extra = if increased_burnout { -50 } else { 0 };
         check_burn_out(level, pos.east(), 300 + extra, age);
         check_burn_out(level, pos.west(), 300 + extra, age);

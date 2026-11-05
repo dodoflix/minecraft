@@ -245,6 +245,7 @@ impl MinecraftServer {
         level.tick_state.biomes = Some(factory.biomes.clone());
         level.tick_state.biome_zoom_seed = BiomeManager::obfuscate_seed(seed);
         level.tick_state.has_fixed_time = dimension_type.has_fixed_time;
+        level.tick_state.infiniburn = dimension_type.infiniburn.clone();
         level.tick_state.ambient_light = dimension_type.ambient_light;
         level.tick_state.attributes = self.build_attribute_system(&dimension_type, &factory.biomes);
         level

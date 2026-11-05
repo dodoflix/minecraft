@@ -5,6 +5,7 @@ use crate::server::level::ServerLevel;
 use crate::server::level::level_explode::Explode;
 use crate::stats::Stat;
 use crate::world::attribute::BedRule;
+use std::sync::Arc;
 use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::item::{BlockPlaceContext, InteractionResult, ItemStack};
 use crate::world::level::explosion::ExplosionInteraction;
@@ -27,8 +28,8 @@ fn is_straw_bed(state: BlockState) -> bool {
 }
 
 /// `AbstractBedBlock.getBedRule(level, pos)`.
-pub fn get_bed_rule(level: &ServerLevel, state: BlockState, _pos: BlockPos) -> BedRule {
-    level.bed_rule(is_straw_bed(state))
+pub fn get_bed_rule(level: &ServerLevel, state: BlockState, pos: BlockPos) -> Arc<BedRule> {
+    level.bed_rule_at(is_straw_bed(state), pos)
 }
 
 /// `AbstractBedBlock.getSleptInBedStatType()`.
@@ -149,7 +150,7 @@ impl BlockBehaviour for AbstractBedBlock {
         };
         let bed_rule = get_bed_rule(level, state, pos);
         if bed_rule.destroy_on_use {
-            if let Some(message) = bed_rule.error_message.clone() {
+            if let Some(message) = bed_rule.error_message() {
                 player.send_overlay_message(message);
             }
             destroy_on_use(state, level, pos, player)

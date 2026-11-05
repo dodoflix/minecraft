@@ -128,6 +128,8 @@ pub struct LevelTickState {
     pub can_have_weather: bool,
     /// `dimensionType().hasFixedTime()`.
     pub has_fixed_time: bool,
+    /// `dimensionType().infiniburn()` (set by the level factory; defaults to the overworld's).
+    pub infiniburn: crate::registry::typed::HolderSetRef,
     /// `dimensionType().ambientLight()`.
     pub ambient_light: f32,
     /// `tickTime` constructor flag (only the overworld advances the game time).
@@ -177,6 +179,7 @@ impl LevelTickState {
             poi_hook: None,
             can_have_weather: false,
             has_fixed_time: false,
+            infiniburn: crate::registry::typed::HolderSetRef::Tag(mc_core::ident::Identifier::with_default_namespace("infiniburn_overworld").expect("valid tag")),
             ambient_light: 0.0,
             tick_time: false,
             sleep_status: super::sleep_status::SleepStatus::default(),
