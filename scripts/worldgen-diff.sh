@@ -236,7 +236,7 @@ run_side() {   # run_side LABEL KIND
     fi
   else
     if [[ -z "$BIN" ]]; then   # always: stays current (incremental)
-      (cd "$ROOT" && CARGO_TARGET_DIR=target/worldgen-diff cargo build -q -p mc-game --example worldgen_area -j"$(nproc)" 2>"$d/cargo.log") || { tail -30 "$d/cargo.log" >&2; die "cannot build worldgen_area"; }
+      (cd "$ROOT" && CARGO_TARGET_DIR=target/worldgen-diff flock /tmp/mc-build.lock nice -n 10 env CARGO_BUILD_JOBS=6 cargo build -q -p mc-game --example worldgen_area 2>"$d/cargo.log") || { tail -30 "$d/cargo.log" >&2; die "cannot build worldgen_area"; }
       BIN="$ROOT/target/worldgen-diff/debug/examples/worldgen_area"
     fi
     BIN="$(realpath "$BIN")"; [[ -x "$BIN" ]] || die "worldgen_area binary not found: $BIN"
@@ -260,7 +260,7 @@ run_side "$SIDE_A" A
 run_side "$SIDE_B" B
 [[ "$COMPARE" == 1 ]] || { log "generated; skipped compare"; exit 0; }
 
-[[ -n "${WORLDCMP:-}" ]] || (cd "$ROOT" && CARGO_TARGET_DIR=target/worldcmp cargo build -q -p worldcmp) || die "cannot build worldcmp"   # always: stays current
+[[ -n "${WORLDCMP:-}" ]] || (cd "$ROOT" && CARGO_TARGET_DIR=target/worldcmp flock /tmp/mc-build.lock nice -n 10 env CARGO_BUILD_JOBS=6 cargo build -q -p worldcmp) || die "cannot build worldcmp"   # always: stays current
 WORLDCMP="${WORLDCMP:-$ROOT/target/worldcmp/debug/worldcmp}"
 set +e
 # shellcheck disable=SC2086
