@@ -70,6 +70,15 @@ pub trait ServerLevelAccessor: LevelAccessor + crate::world::entity::variant::Sp
     /// `environmentAttributes().getValue(CREATURE_WORLD_GEN_SPAWN_PROBABILITY, pos)`.
     fn creature_world_gen_spawn_probability_at(&self, pos: BlockPos) -> f32;
     // ==== [MobSpine] additions (ServerLevelAccessor methods) ====
+    // ==== [Cubes] additions (ServerLevelAccessor methods) ====
+    /// `environmentAttributes().getValue(SURFACE_SLIME_SPAWN_CHANCE, pos)`.
+    fn surface_slime_spawn_chance_at(&self, pos: BlockPos) -> f32 {
+        self.as_server_level().map_or(0.0, |level| level.attribute_float(crate::world::attribute::attributes::SURFACE_SLIME_SPAWN_CHANCE, pos))
+    }
+    /// `level instanceof WorldGenLevel worldGenLevel` -> `worldGenLevel.getSeed()`.
+    fn world_gen_seed(&self) -> Option<i64> {
+        self.as_server_level().map(crate::world::level::levelgen::WorldGenLevel::get_seed)
+    }
 }
 
 /// `IntProvider.sample(random)` of a data-loaded provider (`dimensionType().monsterSpawnLightTest()`): the modelled

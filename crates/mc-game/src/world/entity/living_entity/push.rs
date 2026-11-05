@@ -61,6 +61,6 @@ pub fn push_entities(entity: &mut dyn Entity, level: &mut ServerLevel) {
 }
 
 /// `LivingEntity.doPush(entity)` = `entity.push(this)`.
-pub fn do_push(level: &ServerLevel, this: &mut dyn Entity, other: &mut dyn Entity) {
+pub fn do_push(level: &mut ServerLevel, this: &mut dyn Entity, other: &mut dyn Entity) {
     other.push_entity(level, this);
 }

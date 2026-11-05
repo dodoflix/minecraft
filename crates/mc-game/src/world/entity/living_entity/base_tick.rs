@@ -33,6 +33,7 @@ pub fn tick_death(entity: &mut dyn Entity, level: &mut ServerLevel) {
     if l(entity).death_time >= 20 && !entity.is_removed() {
         util::broadcast_entity_event(level, entity.id(), 60);
         super::effects::trigger_on_death_mob_effects(entity, level, RemovalReason::Killed);
+        entity.before_remove(level, RemovalReason::Killed);
         entity.remove(RemovalReason::Killed);
     }
 }

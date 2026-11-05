@@ -977,6 +977,10 @@ pub trait Entity: Any {
         if accessor_id == DATA_POSE.id() {
             self.refresh_dimensions();
         }
+        // `AgeableMob.onSyncedDataUpdated`: `DATA_BABY_ID` -> `refreshDimensions()` (ids are per class, so only ageable mobs)
+        if accessor_id == super::mob::DATA_BABY_ID.id() && self.mob().is_some_and(|m| m.ageable.is_some()) {
+            self.refresh_dimensions();
+        }
     }
 
     // ---- dimensions ----------------------------------------------------------------------------------------
@@ -2034,36 +2038,8 @@ pub trait Entity: Any {
         self.teleport_to(level, x, y, z);
     }
     /// `push(entity)`: separates two overlapping entities (`other` is the entity this one collides with).
-    fn push_entity(&mut self, level: &ServerLevel, other: &mut dyn Entity) {
-        // `LivingEntity.push`: sleeping entities do not take part
-        if self.living().is_some_and(|l| l.is_sleeping()) || self.is_passenger_of_same_vehicle(level, other.as_dyn()) {
-            return;
-        }
-        if other.base().no_physics || self.base().no_physics {
-            return;
-        }
-        let mut xa = other.base().x() - self.base().x();
-        let mut za = other.base().z() - self.base().z();
-        let mut dd = mth::abs_max_f64(xa, za);
-        if dd >= f64::from(0.01f32) {
-            dd = dd.sqrt();
-            xa /= dd;
-            za /= dd;
-            let mut pow = 1.0 / dd;
-            if pow > 1.0 {
-                pow = 1.0;
-            }
-            xa *= pow;
-            za *= pow;
-            xa *= f64::from(0.05f32);
-            za *= f64::from(0.05f32);
-            if !self.base().is_vehicle() && self.is_pushable(level) {
-                self.push_xyz(-xa, 0.0, -za);
-            }
-            if !other.base().is_vehicle() && other.is_pushable(level) {
-                other.push_xyz(xa, 0.0, za);
-            }
-        }
+    fn push_entity(&mut self, level: &mut ServerLevel, other: &mut dyn Entity) {
+        push_entity_base(self, level, other);
     }
     /// `push(impulse)`.
     fn push_vec(&mut self, impulse: Vec3) {
@@ -2763,6 +2739,17 @@ pub trait Entity: Any {
     fn cube_mob_size(&self) -> Option<i32> {
         None
     }
+    // ==== [Cubes] additions (Entity trait methods) ====
+    /// `this instanceof AbstractCubeMob`: the cube-mob view of a slime / magma cube / sulfur cube.
+    fn as_cube_mob(&self) -> Option<&dyn super::monster::cubemob::CubeMob> {
+        None
+    }
+    fn as_cube_mob_mut(&mut self) -> Option<&mut dyn super::monster::cubemob::CubeMob> {
+        None
+    }
+    /// The part of an overridden `remove(reason)` that runs before `super.remove(reason)` (`AbstractCubeMob` splits on death);
+    /// called for `Killed` / `Discarded` removals by the code that removes an entity with the level at hand.
+    fn before_remove(&mut self, _level: &mut ServerLevel, _reason: RemovalReason) {}
     /// `(Raider.hasRaid(), Raider.isCaptain())`; `None` when the entity is not a `Raider`. SEAM(Raider).
     fn raider_state(&self) -> Option<(bool, bool)> {
         None
@@ -3305,6 +3292,40 @@ pub trait Entity: Any {
     /// `getBrain().setMemory(MemoryModuleType.HEARD_BELL_TIME, gameTime)` (`BellBlockEntity.updateEntities`): entities whose
     /// brain registers the memory (villagers, ...) override this; the memory write is a no-op for brains without it.
     fn set_heard_bell_time(&mut self, _game_time: i64) {}
+}
+
+/// `Entity.push(entity)` / `LivingEntity.push(entity)`: separates two overlapping entities (`other` is the entity `this`
+/// collides with); the `super.push(entity)` of overriding classes.
+pub fn push_entity_base<E: Entity + ?Sized>(this: &mut E, level: &ServerLevel, other: &mut dyn Entity) {
+    // `LivingEntity.push`: sleeping entities do not take part
+    if this.living().is_some_and(|l| l.is_sleeping()) || this.is_passenger_of_same_vehicle(level, other.as_dyn()) {
+        return;
+    }
+    if other.base().no_physics || this.base().no_physics {
+        return;
+    }
+    let mut xa = other.base().x() - this.base().x();
+    let mut za = other.base().z() - this.base().z();
+    let mut dd = mth::abs_max_f64(xa, za);
+    if dd >= f64::from(0.01f32) {
+        dd = dd.sqrt();
+        xa /= dd;
+        za /= dd;
+        let mut pow = 1.0 / dd;
+        if pow > 1.0 {
+            pow = 1.0;
+        }
+        xa *= pow;
+        za *= pow;
+        xa *= f64::from(0.05f32);
+        za *= f64::from(0.05f32);
+        if !this.base().is_vehicle() && this.is_pushable(level) {
+            this.push_xyz(-xa, 0.0, -za);
+        }
+        if !other.base().is_vehicle() && other.is_pushable(level) {
+            other.push_xyz(xa, 0.0, za);
+        }
+    }
 }
 
 /// `Entity.saveAsPassenger(output)`: `None` when the entity isn't saved (removal reason / non-serializable type).

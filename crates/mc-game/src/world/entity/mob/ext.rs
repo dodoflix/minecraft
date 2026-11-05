@@ -8,6 +8,7 @@ use crate::world::entity::{Entity, EntityId};
 use crate::world::level::collision::{BlockGetterExt, ClipBlock, ClipContext, ClipFluid};
 use crate::world::level::storage::loot::{LootContextParamSets, LootParams, loading};
 use mc_core::ident::Identifier;
+use mc_core::math::mth;
 use mc_core::phys::{AABB, Vec3};
 use mc_data::EntityType;
 use mc_protocol::components::common::RegistrySet;
@@ -223,4 +224,81 @@ pub fn spawn_offspring_from_spawn_egg(level: &mut ServerLevel, player: &mut crat
 /// `EntitySelector.NO_CREATIVE_OR_SPECTATOR`.
 pub fn no_creative_or_spectator(e: &dyn Entity) -> bool {
     !(e.is_player() && (e.is_spectator() || is_creative_player(e)))
+}
+
+// ==== [Cubes] additions ====
+
+/// `Mob.lookAt(entity, yMax, xMax)`: turns the mob's own rotation toward `entity` (not through the look control).
+pub fn mob_look_at(mob: &mut dyn Entity, entity: &dyn Entity, y_max: f32, x_max: f32) {
+    let xd = entity.base().x() - mob.base().x();
+    let zd = entity.base().z() - mob.base().z();
+    let yd = if entity.living().is_some() {
+        entity.base().get_eye_y() - mob.base().get_eye_y()
+    } else {
+        let bb = entity.base().bounding_box();
+        (bb.min_y + bb.max_y) / 2.0 - mob.base().get_eye_y()
+    };
+    let sd = (xd * xd + zd * zd).sqrt();
+    let y_rot_d = (mth::atan2(zd, xd) * f64::from(180.0f32) / f64::from(std::f32::consts::PI)) as f32 - 90.0;
+    let x_rot_d = (-(mth::atan2(yd, sd) * f64::from(180.0f32) / f64::from(std::f32::consts::PI))) as f32;
+    let x_rot = mob_rotlerp(mob.base().x_rot(), x_rot_d, x_max);
+    mob.set_x_rot(x_rot);
+    let y_rot = mob_rotlerp(mob.base().y_rot(), y_rot_d, y_max);
+    mob.set_y_rot(y_rot);
+}
+
+/// `Mob.rotlerp(a, b, max)`.
+fn mob_rotlerp(a: f32, b: f32, max: f32) -> f32 {
+    let mut diff = mth::wrap_degrees_f32(b - a);
+    if diff > max {
+        diff = max;
+    }
+    if diff < -max {
+        diff = -max;
+    }
+    a + diff
+}
+
+/// `Mob.DEFAULT_ATTACK_REACH`.
+fn default_attack_reach() -> f64 {
+    f64::from(2.04f32).sqrt() - f64::from(0.6f32)
+}
+
+/// `Mob.getAttackBoundingBox(horizontalExpansion)`.
+pub fn get_attack_bounding_box(level: &ServerLevel, mob: &dyn Entity, horizontal_expansion: f64) -> AABB {
+    let own = mob.base().bounding_box();
+    let aabb = match mob.base().vehicle.and_then(|v| level.get_entity(v)) {
+        Some(vehicle) => {
+            let mount = vehicle.base().bounding_box();
+            AABB::new(own.min_x.min(mount.min_x), own.min_y, own.min_z.min(mount.min_z), own.max_x.max(mount.max_x), own.max_y, own.max_z.max(mount.max_z))
+        }
+        None => own,
+    };
+    aabb.inflate(horizontal_expansion, 0.0, horizontal_expansion)
+}
+
+/// `Mob.isWithinMeleeAttackRange(target)`.
+pub fn is_within_melee_attack_range(level: &ServerLevel, mob: &dyn Entity, target: &dyn Entity) -> bool {
+    let attack_range = mob.living().and_then(|l| l.use_item.get(&mc_protocol::components::ATTACK_RANGE).cloned());
+    let (max_range, min_range) = match attack_range {
+        None => (default_attack_reach(), 0.0),
+        Some(range) => (f64::from(range.max_reach * range.mob_factor), f64::from(range.min_reach * range.mob_factor)),
+    };
+    let hitbox = target.base().bounding_box();
+    get_attack_bounding_box(level, mob, max_range).intersects_aabb(&hitbox) && (min_range <= 0.0 || !get_attack_bounding_box(level, mob, min_range).intersects_aabb(&hitbox))
+}
+
+/// `LivingEntity.getDimensions(pose)` (final): `getDefaultDimensions(pose).scale(getScale())`, fixed dimensions while sleeping.
+pub fn living_dimensions(e: &dyn Entity, pose: mc_data::enums::Pose, default_dimensions: crate::world::entity::EntityDimensions) -> crate::world::entity::EntityDimensions {
+    if pose == mc_data::enums::Pose::Sleeping {
+        return crate::world::entity::EntityDimensions::fixed(0.2, 0.2).with_eye_height(0.2);
+    }
+    let scale = e.living().map_or(1.0, |l| l.get_attribute_value(mc_data::Attribute::SCALE) as f32);
+    default_dimensions.scale(scale)
+}
+
+/// `LivingEntity.getScale()` (`SCALE` attribute) times `getAgeScale()`.
+pub fn get_scale_times_age_scale(e: &dyn Entity) -> f32 {
+    let scale = e.living().map_or(1.0, |l| l.get_attribute_value(mc_data::Attribute::SCALE) as f32);
+    scale * if e.is_baby() { 0.5 } else { 1.0 }
 }

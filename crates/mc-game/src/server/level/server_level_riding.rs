@@ -204,6 +204,9 @@ impl ServerLevel {
     pub fn remove_entity(&mut self, id: EntityId, reason: crate::world::entity::RemovalReason) {
         self.with_entity(id, |level, e| {
             if e.base().removal_reason().is_none() {
+                if reason.should_destroy() {
+                    e.before_remove(level, reason);
+                }
                 e.base_mut().set_removal_reason(reason);
             }
             if reason.should_destroy() {
