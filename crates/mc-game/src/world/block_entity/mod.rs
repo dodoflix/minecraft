@@ -21,6 +21,7 @@ macro_rules! block_entity_base {
     };
 }
 
+pub mod base_container;
 mod calibrated_sculk_sensor_block_entity;
 mod creaking_heart_block_entity;
 mod potent_sulfur_block_entity;
