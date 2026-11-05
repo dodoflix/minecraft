@@ -3,9 +3,8 @@
 use super::rabbit::Rabbit;
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
-use crate::world::entity::ai::goal::avoid_entity::EntityTest;
 use crate::world::entity::ai::goal::move_to_block::{self, MoveToBlock, MoveToBlockData};
-use crate::world::entity::ai::goal::{AvoidEntityGoal, Flag, Goal, GoalFlags, PanicGoal};
+use crate::world::entity::ai::goal::{AvoidEntityGoal, EntityTest, Flag, Goal, GoalFlags, PanicGoal};
 use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::block::BlockStateExt as _;
 use crate::world::level::block::helpers::is_instance_of;

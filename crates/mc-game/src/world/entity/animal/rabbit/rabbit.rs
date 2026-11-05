@@ -2,14 +2,14 @@
 
 use super::rabbit_goals::{RabbitAvoidEntityGoal, RabbitPanicGoal, RaidGardenGoal};
 use crate::define_accessor;
-use crate::impl_spawn_group_data;
 use crate::registry::RegistryAccess;
 use crate::registry::keys;
 use crate::server::level::ServerLevel;
 use crate::world::damagesource::DamageSource;
 use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::control::{JumpControl, JumpControlBase, MoveControl, MoveControlBase, Operation, jump_control, move_control};
-use crate::world::entity::ai::goal::{BreedGoal, ClimbOnTopOfPowderSnowGoal, FloatGoal, HurtByTargetGoal, LookAtPlayerGoal, MeleeAttackGoal, NearestAttackableTargetGoal, TemptGoal, WaterAvoidingRandomStrollGoal};
+use crate::world::entity::ai::control::{JumpControl, JumpControlBase, MoveControl, MoveControlBase, Operation, move_control};
+use crate::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType};
+use crate::world::entity::ai::goal::{BreedGoal, ClimbOnTopOfPowderSnowGoal, FloatGoal, LookAtPlayerGoal, MeleeAttackGoal, TemptGoal, WaterAvoidingRandomStrollGoal};
 use crate::world::entity::ai::navigation::StandardPathNavigation;
 use crate::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
 use crate::world::entity::dimensions::EntityDimensions;
@@ -221,7 +221,7 @@ impl Rabbit {
         let float = FloatGoal::new(self);
         let breed = BreedGoal::new(self, BREED_SPEED_MOD);
         let look_at = LookAtPlayerGoal::new_player(self, 10.0);
-        let climb = ClimbOnTopOfPowderSnowGoal::new(self);
+        let climb = ClimbOnTopOfPowderSnowGoal::new();
         let goals = &mut self.mob.goal_selector;
         goals.add_goal(1, Box::new(float));
         goals.add_goal(1, Box::new(climb));
@@ -248,9 +248,9 @@ impl Rabbit {
                 armor.set_base_value(8.0);
             }
             self.mob.goal_selector.add_goal(4, Box::new(MeleeAttackGoal::new(ATTACK_SPEED_MOD, true)));
-            self.mob.target_selector.add_goal(1, Box::new(HurtByTargetGoal::new().set_alert_others()));
-            self.mob.target_selector.add_goal(2, Box::new(NearestAttackableTargetGoal::new(Arc::new(|e: &dyn Entity| e.is_player()), true)));
-            self.mob.target_selector.add_goal(2, Box::new(NearestAttackableTargetGoal::new(Arc::new(|e: &dyn Entity| e.get_type() == EntityType::WOLF), true)));
+            self.mob.target_selector.add_goal(1, Box::new(HurtByTargetGoal::new(Vec::new()).set_alert_others(Vec::new())));
+            self.mob.target_selector.add_goal(2, Box::new(NearestAttackableTargetGoal::new(TargetType::Player, true)));
+            self.mob.target_selector.add_goal(2, Box::new(NearestAttackableTargetGoal::new(TargetType::of_type(EntityType::WOLF), true)));
             if let Some(attack) = self.mob.living.attributes.get_instance(Attribute::ATTACK_DAMAGE) {
                 attack.add_or_update_transient_modifier(AttributeModifier { id: EVIL_ATTACK_POWER_MODIFIER.clone(), amount: 5.0, operation: AttributeModifierOperation::AddValue });
             }
@@ -417,7 +417,7 @@ impl Entity for Rabbit {
             if self.get_variant() == RabbitVariant::Evil && self.jump_delay_ticks == 0 {
                 if let Some(target) = self.get_target().and_then(|id| level.get_entity(id)) {
                     let (tx, ty, tz) = (target.base().x(), target.base().y(), target.base().z());
-                    if self.base().distance_to_sqr(target) < 16.0 {
+                    if self.base().distance_to_sqr_vec(target.position()) < 16.0 {
                         let speed = mob::move_control_speed_modifier(self);
                         self.face_point(tx, tz);
                         mob::set_wanted_position(self, tx, ty, tz, speed);
@@ -433,7 +433,6 @@ impl Entity for Rabbit {
                         (c.get_wanted_x(), c.get_wanted_y(), c.get_wanted_z())
                     };
                     let mut pos = Vec3::new(wx, wy, wz);
-                    let _ = wy;
                     if let Some(Some(path)) = navigation::with_navigation_ref(self, level, |n| n.get_path()) {
                         if !path.is_done() {
                             pos = path.get_next_entity_pos(self.base().get_bb_width());
@@ -554,8 +553,3 @@ impl Entity for Rabbit {
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static RABBIT: EntityRegistration = EntityRegistration { entity_type: EntityType::RABBIT, create: |ty, id, registries| Box::new(Rabbit::new(ty, id, registries)) };
-
-#[allow(dead_code)]
-fn _unused() {
-    let _ = jump_control::base_tick;
-}

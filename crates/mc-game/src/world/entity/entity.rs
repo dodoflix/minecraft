@@ -2810,6 +2810,8 @@ pub trait Entity: Any {
     fn boost(&mut self) -> bool {
         false
     }
+    /// `LivingEntity.playAttackSound()` (`Rabbit`, `Dolphin`, `Panda`, `Axolotl` override; EC2Attack's `do_hurt_target` calls it).
+    fn play_attack_sound(&mut self, _level: &mut ServerLevel) {}
     /// `LivingEntity.setJumping(jump)` (`JumpControl.tick`; `Rabbit` plays the jump sound).
     fn set_jumping(&mut self, _level: &mut ServerLevel, jump: bool) {
         if let Some(l) = self.living_mut() {
