@@ -259,6 +259,7 @@ impl MinecraftServer {
             server_id: None,
             effective_respawn_data: None,
         };
+        server.saved_data.compute_if_absent(&server.saved_types.random_sequences);
         server.weather_data();
         server.saved_data.compute_if_absent(&server.saved_types.custom_boss_events);
         server.init_clock_manager();

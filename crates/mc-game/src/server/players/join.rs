@@ -213,7 +213,7 @@ pub struct ListenerParams {
 pub fn loggable_address(remote: Option<&std::net::SocketAddr>, log_ips: bool) -> String {
     match remote {
         None => "local".to_owned(),
-        Some(addr) if log_ips => format!("/{addr}"),
+        Some(addr) if log_ips => crate::server::network::connection::java_socket_address_string(addr),
         Some(_) => "IP hidden".to_owned(),
     }
 }
@@ -260,7 +260,7 @@ pub fn place_new_player(
         java_double(pos.z)
     );
 
-    let ip_address = params.remote_address.map_or_else(|| "<unknown>".to_owned(), |a| a.ip().to_string());
+    let ip_address = params.remote_address.map_or_else(|| "<unknown>".to_owned(), |a| a.ip().to_canonical().to_string());
     let handle = PlayerHandle::new(id, profile.clone(), sender.clone(), ip_address, player.dimension.clone());
     player.connection = Some(sender.clone());
     player.listener = Some(ServerGamePacketListenerImpl::new(

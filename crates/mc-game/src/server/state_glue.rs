@@ -109,6 +109,9 @@ impl MinecraftServer {
     pub(super) fn load_scoreboard(&mut self) {
         let data = self.saved_data.compute_if_absent(&self.saved_types.scoreboard).get_data().clone();
         self.scoreboard.load(&data);
+        // `this.stopwatches = computeIfAbsent(Stopwatches.TYPE)`; the overworld's `WanderingTraderSpawner` loads its data
+        self.saved_data.compute_if_absent(&self.saved_types.stopwatches);
+        self.saved_data.compute_if_absent(&self.saved_types.wandering_trader);
     }
 
     /// `scoreboard.storeToSaveDataIfDirty(...)` (first step of `saveAllChunks`).

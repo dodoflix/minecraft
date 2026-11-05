@@ -20,6 +20,9 @@ pub struct SavedDataTypes {
     pub clocks: SavedDataType<ServerClockManager>,
     pub scoreboard: SavedDataType<crate::world::scores::ScoreboardSaveData>,
     pub custom_boss_events: SavedDataType<super::bossevents::CustomBossEvents>,
+    pub random_sequences: SavedDataType<crate::world::level::saveddata::random_sequences::RandomSequences>,
+    pub stopwatches: SavedDataType<crate::world::level::saveddata::stopwatches::Stopwatches>,
+    pub wandering_trader: SavedDataType<crate::world::level::saveddata::wandering_trader_data::WanderingTraderData>,
 }
 
 impl SavedDataTypes {
@@ -29,6 +32,9 @@ impl SavedDataTypes {
             clocks: ServerClockManager::type_(),
             scoreboard: crate::world::scores::ScoreboardSaveData::type_(),
             custom_boss_events: super::bossevents::CustomBossEvents::type_(),
+            random_sequences: crate::world::level::saveddata::random_sequences::RandomSequences::type_(),
+            stopwatches: crate::world::level::saveddata::stopwatches::Stopwatches::type_(),
+            wandering_trader: crate::world::level::saveddata::wandering_trader_data::WanderingTraderData::type_(),
         }
     }
 }

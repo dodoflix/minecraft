@@ -352,7 +352,7 @@ impl IpBanList {
     /// The `isBanned(SocketAddress)` key for a connected peer (Java's `InetSocketAddress.toString()` is `/ip:port`;
     /// for IPv6 the part before the first `:` is empty, exactly like vanilla).
     pub fn get_ip_from_socket_addr(address: &SocketAddr) -> String {
-        Self::get_ip_from_address(&format!("/{address}"))
+        Self::get_ip_from_address(&crate::server::network::connection::java_socket_address_string(address))
     }
 
     pub fn is_banned(&self, ip: &str) -> bool {

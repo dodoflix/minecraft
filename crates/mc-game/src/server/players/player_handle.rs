@@ -202,8 +202,8 @@ impl PlayerHandle {
 
     /// `ServerGamePacketListenerImpl.disconnect(reason)` for a connection in the play state.
     pub fn disconnect(&self, reason: &Component) {
-        self.connection.send(&mc_protocol::packets::play::ClientboundDisconnectPacket { reason: reason.clone() });
-        self.connection.close();
+        // the first reason wins and becomes the `lost connection: <reason>` text
+        self.connection.disconnect(reason.clone());
     }
 }
 
