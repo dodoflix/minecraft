@@ -1,0 +1,19 @@
+# Arrows hitting players: damage (plain, crit RNG, piercing through two targets), creative immunity, tipped-arrow effect,
+# arrow count / knockback side effects, pickup flag of arrows without owner.
+level flat
+difficulty normal
+spawn_player Steve survival 10.5 -60 0.5
+spawn_player Alex survival 13.5 -60 0.5
+spawn_player Bob survival 10.5 -60 6.5
+spawn_player Cara creative 10.5 -60 12.5
+spawn_player Dan survival 10.5 -60 18.5
+spawn pierce minecraft:arrow 4.5 -59.2 0.5 0 0 {PierceLevel:1b}
+velocity pierce 2.5 0 0
+spawn crit minecraft:arrow 4.5 -59.2 6.5 0 0 {crit:1b}
+velocity crit 3.0 0 0
+spawn creative minecraft:arrow 4.5 -59.2 12.5 0 0
+velocity creative 2.5 0 0
+spawn tipped minecraft:arrow 4.5 -59.2 18.5 0 0 {item:{id:"minecraft:tipped_arrow",count:1,components:{"minecraft:potion_contents":{potion:"minecraft:poison"}}}}
+velocity tipped 2.0 0 0
+watch all_players entities
+tick 12

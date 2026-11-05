@@ -182,3 +182,9 @@ fn compare_scenario(name: &str) {
 fn arrow_flight_matches_vanilla() {
     compare_scenario("arrow_flight");
 }
+
+/// Arrows hitting players, run through the generic scenario harness (`tests/common/entity_scenario.rs`).
+#[test]
+fn arrow_hits_match_vanilla() {
+    common::entity_scenario::run_scenario_test_with("arrow_hit", &Options { ignore_fields: vec!["og", "fire", "pos", "delta"], ..Default::default() });
+}

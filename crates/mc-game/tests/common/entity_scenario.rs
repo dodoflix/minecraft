@@ -930,6 +930,18 @@ impl Harness {
             s.push_str(&format!(" value={}", o.get_value()));
         } else if let Some(t) = e.as_any().downcast_ref::<mc_game::world::entity::item::primed_tnt::PrimedTnt>() {
             s.push_str(&format!(" fuse={}", t.get_fuse()));
+        } else if let Some(a) = abstract_arrow(e) {
+            let d = a.arrow_data();
+            s.push_str(&format!(
+                " ground={} crit={} pierce={} pickup={} shake={} life={} dmg={}",
+                u8::from(a.is_in_ground()),
+                u8::from(a.is_crit_arrow()),
+                a.pierce_level(),
+                d.pickup.ordinal(),
+                d.shake_time,
+                d.life,
+                jf64(d.base_damage)
+            ));
         }
         let ctx = ScenarioDumpCtx { names: &self.names, uuids: &self.uuids };
         if let Some(ie) = e.as_any().downcast_ref::<ItemEntity>() {
@@ -948,6 +960,16 @@ impl Harness {
         }
         s
     }
+}
+
+/// `instanceof AbstractArrow`.
+fn abstract_arrow(e: &dyn Entity) -> Option<&dyn mc_game::world::entity::projectile::arrow::AbstractArrow> {
+    use mc_game::world::entity::projectile::arrow::{Arrow, SpectralArrow, ThrownTrident};
+    let any = e.as_any();
+    any.downcast_ref::<Arrow>()
+        .map(|a| a as &dyn mc_game::world::entity::projectile::arrow::AbstractArrow)
+        .or_else(|| any.downcast_ref::<SpectralArrow>().map(|a| a as _))
+        .or_else(|| any.downcast_ref::<ThrownTrident>().map(|a| a as _))
 }
 
 /// Is the entity a `Mob`? Defined by the generic mob dump registration (`order 10`, see `scenario_dump`).
