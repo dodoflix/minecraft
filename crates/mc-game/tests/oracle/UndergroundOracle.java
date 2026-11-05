@@ -32,10 +32,10 @@ import net.minecraft.world.ticks.WorldGenTickAccess;
 
 /**
  * Oracle of crates/mc-game/tests/feat_underground_golden.rs: the vanilla geode, speleothem, speleothem_cluster,
- * large_dripstone, monster_room, spike, end_spike, end_gateway, end_island, end_podium and end_platform features run on the
+ * large_dripstone, monster_room, spike, end_spike, end_gateway, end_island, end_podium, end_platform, fossil and template features run on the
  * real vanilla WorldGenRegion over the synthetic terrain of FeatureOracleBase (data-pack entries plus hand written
  * variants), after random terrain preparation (caverns, solid blocks, snow), followed by FeatureOracleBase.dump.
- * Usage (repo root): scripts/vanilla-java.sh crates/mc-game/tests/oracle/UndergroundOracle.java crates/mc-game/tests/fixtures/feat_underground.txt
+ * Usage (repo root): scripts/vanilla-java.sh crates/mc-game/tests/oracle/UndergroundOracle.java crates/mc-game/tests/fixtures/feat_underground.txt && gzip -9 -f crates/mc-game/tests/fixtures/feat_underground.txt
  *
  * Output lines: {@code CASE id kind json}; {@code BAD id json} + {@code = ERR} (the codec must reject); then per case a few
  * {@code SCENARIO id n seed cx cz}, {@code > op} / {@code = result} lines, {@code D <dump line>} lines and {@code END}.
@@ -43,7 +43,7 @@ import net.minecraft.world.ticks.WorldGenTickAccess;
  */
 public class UndergroundOracle {
     static final Set<String> TYPES = Set.of("geode", "speleothem", "speleothem_cluster", "large_dripstone", "monster_room", "spike", "end_spike",
-        "end_gateway", "end_island", "end_podium", "end_platform");
+        "end_gateway", "end_island", "end_podium", "end_platform", "fossil", "template");
 
     record Case(String id, String kind, JsonObject json) {}
 
@@ -56,12 +56,29 @@ public class UndergroundOracle {
         @Override public int getNextEntityId() { return 0; }
         @Override public RegistryAccess registryAccess() { return FeatureOracleBase.ACCESS; }
         @Override public FeatureFlagSet enabledFeatures() { return FeatureFlags.DEFAULT_FLAGS; }
+        @Override public net.minecraft.server.MinecraftServer getServer() { return STUB_SERVER; }
+    }
+
+    /** A server without constructor run whose only state is the structure template manager over the vanilla data pack (fossil, template). */
+    static net.minecraft.server.MinecraftServer STUB_SERVER;
+
+    static void initStubServer() throws Exception {
+        var resources = new net.minecraft.server.packs.resources.MultiPackResourceManager(net.minecraft.server.packs.PackType.SERVER_DATA,
+            List.of(net.minecraft.server.packs.repository.ServerPacksSource.createVanillaPackSource().fullResources()));
+        var storage = net.minecraft.world.level.storage.LevelStorageSource.createDefault(Files.createTempDirectory("mc-oracle-level")).createAccess("oracle");
+        var manager = new net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager(resources, storage,
+            net.minecraft.util.datafix.DataFixers.getDataFixer(), net.minecraft.core.registries.BuiltInRegistries.BLOCK);
+        STUB_SERVER = (net.minecraft.server.MinecraftServer) unsafe().allocateInstance(net.minecraft.server.dedicated.DedicatedServer.class);
+        Field f = net.minecraft.server.MinecraftServer.class.getDeclaredField("structureTemplateManager");
+        f.setAccessible(true);
+        f.set(STUB_SERVER, manager);
     }
 
     public static class UgRegion extends FeatureOracleBase.Region {
         FakeLevel fake;
 
         @Override public ServerLevel getLevel() { return fake; }
+        @Override public RegistryAccess registryAccess() { return FeatureOracleBase.ACCESS; }
     }
 
     static sun.misc.Unsafe unsafe() throws Exception {
@@ -72,6 +89,7 @@ public class UndergroundOracle {
 
     static UgRegion newRegion(long seed, int cx, int cz) throws Exception {
         FeatureOracleBase.setup();
+        if (STUB_SERVER == null) initStubServer();
         sun.misc.Unsafe unsafe = unsafe();
         UgRegion region = (UgRegion) unsafe.allocateInstance(UgRegion.class);
         region.fake = (FakeLevel) unsafe.allocateInstance(FakeLevel.class);
@@ -97,6 +115,10 @@ public class UndergroundOracle {
         FeatureOracleBase.setField(region, "centerChunkX", cx);
         FeatureOracleBase.setField(region, "centerChunkZ", cz);
         FeatureOracleBase.setField(region, "writeRadius", step.blockStateWriteRadius());
+        // the static environment attribute layers (dimension + biomes) of the overworld: LiquidBlock.updateShape (templates) reads fast_lava
+        FeatureOracleBase.setField(region, "dimensionType", FeatureOracleBase.ACCESS.lookupOrThrow(Registries.DIMENSION_TYPE)
+            .getOrThrow(net.minecraft.world.level.dimension.BuiltinDimensionTypes.OVERWORLD).value());
+        FeatureOracleBase.setField(region, "environmentAttributes", net.minecraft.world.attribute.EnvironmentAttributeSystem.builder().addStaticLayers(region).build());
         return region;
     }
 
@@ -127,6 +149,10 @@ public class UndergroundOracle {
             "{\"type\":\"minecraft:end_spike\",\"spikes\":[{\"centerX\":3,\"centerZ\":-5,\"radius\":4,\"height\":70,\"guarded\":true},{\"centerX\":-2,\"centerZ\":9,\"radius\":2,\"height\":95},{}],\"crystal_invulnerable\":true,\"crystal_beam_target\":[0,128,0]}",
             "{\"type\":\"minecraft:end_gateway\",\"exact\":false,\"exit\":[10,60,-20]}",
             "{\"type\":\"minecraft:end_podium\"}",
+            "{\"type\":\"minecraft:template\",\"templates\":[{\"data\":{\"id\":\"minecraft:fossil/skull_1\",\"rotations\":[\"clockwise_90\",\"counterclockwise_90\"]},\"weight\":3},{\"data\":{\"id\":\"minecraft:desert_well/well\"},\"weight\":1}],\"processors\":\"minecraft:fossil_rot\"}",
+            "{\"type\":\"minecraft:template\",\"templates\":[{\"data\":{\"id\":\"minecraft:fossil/spine_2_coal\",\"rotations\":[\"180\"]},\"weight\":1}]}",
+            "{\"type\":\"minecraft:fossil\",\"fossil_processors\":\"minecraft:fossil_rot\",\"overlay_processors\":\"minecraft:fossil_diamonds\",\"fossil_structures\":[\"minecraft:fossil/skull_2\"],\"overlay_structures\":[\"minecraft:fossil/skull_2_coal\"],\"max_empty_corners_allowed\":7}",
+            "{\"type\":\"minecraft:fossil\",\"fossil_processors\":{\"processors\":[]},\"overlay_processors\":{\"processors\":[]},\"fossil_structures\":[\"minecraft:fossil/spine_1\",\"minecraft:fossil/spine_3\"],\"overlay_structures\":[\"minecraft:fossil/spine_1_coal\",\"minecraft:fossil/spine_3_coal\"],\"max_empty_corners_allowed\":0}",
             "{\"type\":\"minecraft:spike\",\"state\":{\"id\":\"minecraft:packed_ice\"},\"can_place_on\":{\"type\":\"minecraft:matching_blocks\",\"blocks\":[\"minecraft:snow_block\",\"minecraft:grass_block\"]},\"can_replace\":{\"type\":\"minecraft:matching_blocks\",\"blocks\":[\"minecraft:water\",\"minecraft:grass_block\",\"minecraft:dirt\"]}}",
         };
     }
@@ -138,6 +164,10 @@ public class UndergroundOracle {
         String cluster = spel + ",\"floor_to_ceiling_search_range\":12,\"height\":3,\"radius\":3,\"max_stalagmite_stalactite_height_diff\":1,\"height_deviation\":3,\"speleothem_block_layer_thickness\":2,\"density\":0.5,\"wetness\":0.5,\"chance_of_speleothem_at_max_distance_from_center\":0.1,\"max_distance_from_edge_affecting_chance_of_speleothem\":3,\"max_distance_from_center_affecting_height_bias\":8";
         String large = "\"replaceable_blocks\":\"minecraft:stone\",\"column_radius\":3,\"height_scale\":1.0,\"max_column_radius_to_cave_height_ratio\":0.5,\"stalactite_bluntness\":1.0,\"stalagmite_bluntness\":1.0,\"wind_speed\":1.0,\"min_radius_for_wind\":2,\"min_bluntness_for_wind\":1.0";
         return new String[] {
+            "{\"type\":\"minecraft:fossil\",\"fossil_processors\":\"minecraft:fossil_rot\",\"overlay_processors\":\"minecraft:fossil_rot\",\"fossil_structures\":[\"minecraft:fossil/skull_2\"],\"overlay_structures\":[],\"max_empty_corners_allowed\":4}",
+            "{\"type\":\"minecraft:fossil\",\"fossil_processors\":\"minecraft:fossil_rot\",\"overlay_processors\":\"minecraft:fossil_rot\",\"fossil_structures\":[],\"overlay_structures\":[],\"max_empty_corners_allowed\":4}",
+            "{\"type\":\"minecraft:fossil\",\"fossil_processors\":\"minecraft:fossil_rot\",\"overlay_processors\":\"minecraft:fossil_rot\",\"fossil_structures\":[\"minecraft:fossil/skull_2\"],\"overlay_structures\":[\"minecraft:fossil/skull_2_coal\"],\"max_empty_corners_allowed\":8}",
+            "{\"type\":\"minecraft:template\",\"templates\":[{\"data\":{\"id\":\"minecraft:fossil/skull_1\",\"rotations\":[\"sideways\"]},\"weight\":1}]}",
             "{\"type\":\"minecraft:geode\"," + geode.replace("\"layers\":{}", "\"layers\":{\"filling\":0.0}") + "}",
             "{\"type\":\"minecraft:geode\"," + geode.replace("\"layers\":{}", "\"layers\":{\"outer_layer\":50.5}") + "}",
             "{\"type\":\"minecraft:geode\"," + geode.replace("\"crack\":{}", "\"crack\":{\"base_crack_size\":5.1}") + "}",

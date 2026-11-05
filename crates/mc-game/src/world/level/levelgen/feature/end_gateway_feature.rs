@@ -3,7 +3,7 @@
 use super::{FEATURE_TYPES, Feature, set_block};
 use crate::world::level::levelgen::GenEnv;
 use crate::world::level::levelgen::WorldGenLevel;
-use crate::world::level::levelgen::block_entity_data::end_gateway_tag;
+use crate::world::level::levelgen::block_entity_data::{end_gateway_tag, get_block_entity_nbt};
 use crate::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_block_pos, parse_bool};
 use crate::world::level::levelgen::registries::DecodeCtx;
 use mc_core::pos::BlockPos;
@@ -31,7 +31,12 @@ impl Feature for EndGatewayFeature {
             let end = (pos.y() - origin.y()).abs() == 2;
             if same_x && same_y && same_z {
                 set_block(level, pos, Block::END_GATEWAY.default_state());
-                level.set_block_entity_nbt(end_gateway_tag(pos, self.exit.map(|target_pos| (target_pos, self.exact))));
+                // `level.getBlockEntity(pos)` materializes the DUMMY entry; without an exit it is never fetched and stays DUMMY
+                if let Some(target_pos) = self.exit {
+                    if get_block_entity_nbt(level, pos).is_some_and(|tag| tag.get_string("id") == Some("minecraft:end_gateway")) {
+                        level.set_block_entity_nbt(end_gateway_tag(pos, Some((target_pos, self.exact))));
+                    }
+                }
             } else if same_y {
                 set_block(level, pos, Block::AIR.default_state());
             } else if end && same_x && same_z {
