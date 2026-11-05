@@ -707,7 +707,7 @@ impl Entity for Fox {
         }
     }
 
-    fn get_ambient_sound_in(&mut self, level: &ServerLevel) -> Option<SoundEvent> {
+    fn get_ambient_sound_in(&mut self, level: &mut ServerLevel) -> Option<SoundEvent> {
         if self.is_sleeping() {
             Some(SoundEvent::ENTITY_FOX_SLEEP)
         } else {
