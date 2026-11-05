@@ -105,7 +105,10 @@ crate can use it as a dev-dependency.
   only `golden`. Current targets: `golden` in `mc-brigadier`, `mc-core`, `mc-data`, `mc-datafix`, `mc-dfu`,
   `mc-game`, `mc-game-core`, `mc-light`, `mc-nbt`, `mc-protocol`, `mc-text`, `mc-world`, `mc-worldgen`; `oracle` in
   `mc-game`, `mc-game-core`, `mc-light`, `mc-protocol`, `mc-server`, `mc-world`. Run one module with
-  `cargo test -p mc-game --test golden args::`.
+  `cargo test -p mc-game --test golden -- args::`.
+- A third target, `tests/it/main.rs`, holds the T0/T1 tests that need a process of their own because they change
+  process-wide state that the other tests of the crate would see: the captured global log, the working directory,
+  the injected language. It exists in `mc-game`, `mc-game-core` and `mc-text`; a crate adds it only for that reason.
 - Shared helpers go in `mod common;` (or `args_common`, `net_common`, ...) at the target root, with
   `#![allow(dead_code, reason = "...")]` stating why (not every module uses every helper). A helper two targets of one
   crate both need is split so each keeps only what it uses; the few exceptions load one helper file with `#[path]`.
@@ -195,7 +198,7 @@ running. Review until they exist.
 `tests/known-failures.txt` is a temporary baseline of tests that fail on `main` today. One line per test:
 
 ```
-<package> <test binary path> <test name>      e.g. mc-game tests/golden/main.rs attack_golden::damage_matches_vanilla
+<package> <test binary path> <test name>      e.g. mc-game tests/golden/main.rs attack_golden::game_modes_and_reach
 ```
 
 Rules: a change may only delete lines, never add them; a new failure is fixed, not listed. Flaky tests are not
