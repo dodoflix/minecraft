@@ -2828,6 +2828,14 @@ pub trait Entity: Any {
     fn move_control_speed_modifier(&self) -> f64 {
         super::mob::move_control_speed_modifier(self.as_dyn())
     }
+    // ==== [GoalsA] additions (Entity trait methods) ====
+    /// `this instanceof AbstractHorse` (the surface the generic horse goals use; implemented by `AbstractHorse` mobs).
+    fn as_abstract_horse(&self) -> Option<&dyn crate::world::entity::ai::goal::AbstractHorseAccess> {
+        None
+    }
+    fn as_abstract_horse_mut(&mut self) -> Option<&mut dyn crate::world::entity::ai::goal::AbstractHorseAccess> {
+        None
+    }
     // ==== [MobSpine] additions (Entity trait methods) ====
     // `Mob` and its generic subclasses. Every default is the vanilla behavior and dispatches on `mob()` (the `MobData`
     // of mob types); concrete mobs override what their Java class overrides and call the `world::entity::mob` function

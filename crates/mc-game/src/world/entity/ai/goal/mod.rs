@@ -5,6 +5,19 @@
 //! the mob's `MobData` while it runs, so goals may freely use `mob.mob_mut()` for everything except the two goal
 //! selectors themselves. A goal that needs the concrete mob type does `mob.as_any().downcast_ref::<Chicken>()`.
 
+mod abstract_horse_access;
+mod avoid_entity;
+mod breath_air;
+mod climb_on_top_of_powder_snow;
+mod flee_sun;
+mod jump_goal;
+mod move_towards_restriction;
+mod random_stand;
+mod random_swimming;
+mod restrict_sun;
+mod run_around_like_crazy;
+mod try_find_liquid;
+pub mod move_to_block;
 mod breed;
 mod float;
 mod follow_parent;
@@ -16,6 +29,19 @@ mod selector;
 mod tempt;
 mod water_avoiding_random_stroll;
 
+pub use abstract_horse_access::AbstractHorseAccess;
+pub use avoid_entity::{AvoidEntityGoal, EntityTest};
+pub use breath_air::BreathAirGoal;
+pub use climb_on_top_of_powder_snow::ClimbOnTopOfPowderSnowGoal;
+pub use flee_sun::FleeSunGoal;
+pub use jump_goal::JUMP_GOAL_FLAGS;
+pub use move_to_block::{MoveToBlock, MoveToBlockData};
+pub use move_towards_restriction::MoveTowardsRestrictionGoal;
+pub use random_stand::RandomStandGoal;
+pub use random_swimming::{RandomSwimmingGoal, get_random_swimmable_pos};
+pub use restrict_sun::RestrictSunGoal;
+pub use run_around_like_crazy::RunAroundLikeCrazyGoal;
+pub use try_find_liquid::TryFindLiquidGoal;
 pub use breed::BreedGoal;
 pub use float::FloatGoal;
 pub use follow_parent::FollowParentGoal;
@@ -53,8 +79,14 @@ pub struct GoalFlags(u8);
 impl GoalFlags {
     pub const NONE: GoalFlags = GoalFlags(0);
 
-    pub fn of(flags: &[Flag]) -> Self {
-        GoalFlags(flags.iter().fold(0, |acc, f| acc | (1 << *f as u8)))
+    pub const fn of(flags: &[Flag]) -> Self {
+        let mut bits = 0;
+        let mut i = 0;
+        while i < flags.len() {
+            bits |= 1 << flags[i] as u8;
+            i += 1;
+        }
+        GoalFlags(bits)
     }
 
     pub fn contains(self, flag: Flag) -> bool {

@@ -212,3 +212,10 @@ pub fn trigger_player_sheared_equipment(_level: &mut ServerLevel, _player: Entit
 pub fn spawn_offspring_from_spawn_egg(_level: &mut ServerLevel, _player: &mut crate::world::entity::ServerPlayer, _mob: &mut dyn Entity, _stack: &crate::world::item::ItemStack) -> Option<Option<EntityId>> {
     None
 }
+
+// ==== [GoalsA] additions ====
+
+/// `EntitySelector.NO_CREATIVE_OR_SPECTATOR`.
+pub fn no_creative_or_spectator(e: &dyn Entity) -> bool {
+    !(e.is_player() && (e.is_spectator() || is_creative_player(e)))
+}

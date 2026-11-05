@@ -14,7 +14,9 @@ pub fn controlled_vehicle(mob: &dyn Entity, level: &ServerLevel) -> Option<Entit
     (v.get_controlling_passenger() == Some(mob.id())).then_some(vehicle)
 }
 
-fn with_own_navigation<R>(mob: &mut dyn Entity, level: &mut ServerLevel, f: impl FnOnce(&mut dyn PathNavigation, &mut dyn Entity, &mut ServerLevel) -> R) -> Option<R> {
+/// The mob's OWN navigation taken out (no controlled-vehicle redirect): goals that cache `mob.getNavigation()` in their
+/// constructor (`AvoidEntityGoal.pathNav`, `PathfinderMob.getNavigation()` stored as a field).
+pub fn with_own_navigation<R>(mob: &mut dyn Entity, level: &mut ServerLevel, f: impl FnOnce(&mut dyn PathNavigation, &mut dyn Entity, &mut ServerLevel) -> R) -> Option<R> {
     let mut nav = mob.mob_mut()?.navigation.take()?;
     let result = f(&mut *nav, mob, level);
     if let Some(m) = mob.mob_mut() {
@@ -131,4 +133,9 @@ pub fn with_own_navigation_stop(mob: &mut dyn Entity) {
     if let Some(n) = mob.mob_mut().and_then(|m| m.navigation.as_deref_mut()) {
         n.stop();
     }
+}
+
+/// `isDone()` of the mob's OWN navigation (see [`with_own_navigation`]).
+pub fn own_is_done(mob: &dyn Entity) -> bool {
+    mob.mob().and_then(|m| m.navigation.as_deref()).is_none_or(|n| n.is_done())
 }
