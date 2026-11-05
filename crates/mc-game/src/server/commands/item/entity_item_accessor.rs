@@ -5,7 +5,7 @@ use crate::commands::arguments::selector::EntityRef;
 use crate::commands::arguments::EntityArgument;
 use crate::commands::{CommandSourceStack, argument, host};
 use crate::server::commands::arg_provider::ArgProvider;
-use crate::server::commands::command_response_tracker::CommandResponseTracker;
+use crate::server::commands::command_response_tracker::{CommandResponseTracker, ElementType};
 use crate::server::commands::item_commands::{ERROR_TARGET_NO_CHANGES, ERROR_TARGET_NO_CHANGES_KNOWN_ITEM};
 use crate::translatable;
 use crate::world::entity::Entity;
@@ -89,7 +89,8 @@ impl ItemAccessor for EntityItemAccessor {
             Some(item) => tracker.send_feedback(
                 source,
                 true,
-                Some(ERROR_TARGET_NO_CHANGES_KNOWN_ITEM.create(item.get_display_name())),
+                ElementType::NonZero,
+                Some(|| ERROR_TARGET_NO_CHANGES_KNOWN_ITEM.create(item.get_display_name())),
                 |entity, slot_count| {
                     translatable!("commands.item.entity.replace.success.single.known_item", slot_count, display_name(source, entity), item.get_display_name())
                 },
@@ -98,7 +99,8 @@ impl ItemAccessor for EntityItemAccessor {
             None => tracker.send_feedback(
                 source,
                 true,
-                Some(ERROR_TARGET_NO_CHANGES.create()),
+                ElementType::NonZero,
+                Some(|| ERROR_TARGET_NO_CHANGES.create()),
                 |entity, slot_count| translatable!("commands.item.entity.replace.success.single", slot_count, display_name(source, entity)),
                 |entity_count, _| translatable!("commands.item.entity.replace.success.multiple", entity_count),
             ),
@@ -109,7 +111,8 @@ impl ItemAccessor for EntityItemAccessor {
         tracker.send_feedback(
             source,
             true,
-            Some(ERROR_TARGET_NO_CHANGES.create()),
+            ElementType::NonZero,
+            Some(|| ERROR_TARGET_NO_CHANGES.create()),
             |entity, slot_count| translatable!("commands.item.entity.modify.success.single", slot_count, display_name(source, entity)),
             |entity_count, _| translatable!("commands.item.entity.modify.success.multiple", entity_count),
         )

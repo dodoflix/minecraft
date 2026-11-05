@@ -62,13 +62,13 @@ fn clear_inventory(
     predicate: &dyn Fn(&ItemStack) -> bool,
     max_count: i32,
 ) -> Result<i32, CommandSyntaxException> {
-    let mut tracker = CommandResponseTracker::<EntityRef>::new();
+    let mut tracker = CommandResponseTracker::<EntityRef>::create();
     let counting_only = max_count == 0;
     for player in players {
         let count = source.with_server(|server| {
             server.level_mut(&player.dimension).map_or(0, |level| clear_or_count_matching_items(level, player.id, predicate, counting_only, max_count))
         });
-        tracker.track_value(player.clone(), count);
+        tracker.track(player, count);
     }
     if tracker.total_value() == 0 {
         return Err(tracker.dispatch(
@@ -81,7 +81,8 @@ fn clear_inventory(
     tracker.send_feedback(
         source,
         true,
-        None,
+        ElementType::NonZero,
+        None::<fn() -> CommandSyntaxException>,
         |player, total| Component::translatable(format!("{key}.single"), vec![total.into(), display_name(source, player).into()]),
         |player_count, total| Component::translatable(format!("{key}.multiple"), vec![total.into(), player_count.into()]),
     )

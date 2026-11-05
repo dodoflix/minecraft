@@ -1,6 +1,6 @@
 //! `LootCommand`: `/loot <target> <source>`: roll loot (fishing, a loot table, an entity's kill drops, a mined block) and
 //! replace container/entity slots, insert into a container, give to players or spawn the items.
-use super::command_response_tracker::CommandResponseTracker;
+use super::command_response_tracker::{CommandResponseTracker, ElementType};
 use super::item::item_accessor::resolve_resource_or_id;
 use super::item::slots::{EntitySlots, apply_entity_writes, container_at, entity_in, give_to_inventory, apply_container_writes};
 use super::item_commands::{ERROR_TARGET_INAPPLICABLE_SLOT, ERROR_TARGET_NOT_A_CONTAINER};
@@ -216,7 +216,7 @@ fn block_distribute(source: &CommandSourceStack, pos: BlockPos, drops: &[ItemSta
             for drop in drops {
                 if distribute_to_container(container, drop.copy()) {
                     container.set_changed();
-                    used.track(drop.clone());
+                    used.track(drop, 1);
                 }
             }
         });
@@ -284,7 +284,7 @@ fn block_replace(
                 // vanilla indexes past the container end (an `IndexOutOfBoundsException` fails the command); slots beyond it are skipped
                 if slot < max_slot && container.can_place_item(slot as usize, &to_add) {
                     writes.push((slot as usize, to_add.clone()));
-                    used.track(to_add);
+                    used.track(&to_add, 1);
                 }
             }
         }
@@ -299,7 +299,7 @@ fn player_give(source: &CommandSourceStack, players: &[EntityRef], drops: &[Item
         for player in players {
             let added = source.with_server(|server| server.level_mut(&player.dimension).is_some_and(|level| give_to_inventory(level, player.id, drop.copy())));
             if added {
-                used.track(drop.clone());
+                used.track(drop, 1);
             }
         }
     }
@@ -317,7 +317,7 @@ fn entity_replace(source: &CommandSourceStack, entities: &[EntityRef], start_slo
                     if let Some(slot) = provider.get_slot(start_slot + i)
                         && slot.set(item.copy())
                     {
-                        used.track(item);
+                        used.track(&item, 1);
                     }
                 }
                 provider.into_writes()
@@ -338,7 +338,7 @@ fn drop_in_world(source: &CommandSourceStack, pos: Vec3, drops: &[ItemStack], us
             let mut entity = ItemEntity::with_stack(level, pos.x, pos.y, pos.z, drop.copy());
             entity.set_default_pick_up_delay();
             level.add_fresh_entity(Box::new(entity));
-            used.track(drop.clone());
+            used.track(drop, 1);
         }
     });
 }
@@ -360,7 +360,8 @@ fn send_with_table(source: &CommandSourceStack, used: &Tracker, key: &Identifier
     used.send_feedback(
         source,
         false,
-        None,
+        ElementType::NonZero,
+        None::<fn() -> CommandSyntaxException>,
         |drop, _| translatable!("commands.drop.success.single_with_table", drop.count(), drop.get_display_name(), Component::literal(key.to_string())),
         |drop_count, _| translatable!("commands.drop.success.multiple_with_table", drop_count, Component::literal(key.to_string())),
     )
@@ -371,7 +372,8 @@ fn send_without_table(source: &CommandSourceStack, used: &Tracker) -> Result<i32
     used.send_feedback(
         source,
         false,
-        None,
+        ElementType::NonZero,
+        None::<fn() -> CommandSyntaxException>,
         |drop, _| translatable!("commands.drop.success.single", drop.count(), drop.get_display_name()),
         |drop_count, _| translatable!("commands.drop.success.multiple", drop_count),
     )
@@ -391,7 +393,7 @@ fn drop_block_loot(c: &CommandContext<CommandSourceStack>, pos: BlockPos, tool: 
         let builder = LootParams::builder(level).origin(Vec3::at_center_of(&pos)).block_entity(block_entity).optional_this_entity(this_entity).tool(&tool);
         Ok((key, state_get_drops(state, builder)))
     })?;
-    let mut used = Tracker::new();
+    let mut used = Tracker::create();
     output(c, &drops, &mut used)?;
     send_with_table(source, &used, &key)
 }
@@ -418,7 +420,7 @@ fn drop_kill_loot(c: &CommandContext<CommandSourceStack>, target: EntityRef, out
         let drops = get_loot_table(&level.registries, &key).get_random_items(&params);
         Ok((key, drops))
     })?;
-    let mut used = Tracker::new();
+    let mut used = Tracker::create();
     output(c, &drops, &mut used)?;
     send_with_table(source, &used, &key)
 }
@@ -461,7 +463,7 @@ fn drop_fishing_loot(
 
 /// The tail of `drop(context, lootTable, lootParams, output)`.
 fn drop_items(c: &CommandContext<CommandSourceStack>, drops: Vec<ItemStack>, output: &DropConsumer) -> Result<i32, CommandSyntaxException> {
-    let mut used = Tracker::new();
+    let mut used = Tracker::create();
     output(c, &drops, &mut used)?;
     send_without_table(c.get_source(), &used)
 }

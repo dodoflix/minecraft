@@ -168,7 +168,7 @@ fn set_items_from(
 ) -> Result<i32, CommandSyntaxException> {
     let selected_count = Rc::new(Cell::new(0));
     let selector = SlotSelector::tracking(SlotSelector::any_slot(), selected_count.clone());
-    let tracker = RefCell::new(CommandResponseTracker::<ItemTarget>::new());
+    let tracker = RefCell::new(CommandResponseTracker::<ItemTarget>::create());
     let value = slot_source_value(source, slot_source)?;
     accessor.set_items(source, &value, &mut |_, targets| {
         targets
@@ -176,7 +176,7 @@ fn set_items_from(
             .map(|(target, slots)| {
                 items.restart();
                 let count = slots.replace_slot_items(&mut items, &selector);
-                tracker.borrow_mut().track_value(target.clone(), count);
+                tracker.borrow_mut().track(target, count);
                 count
             })
             .collect()
@@ -230,7 +230,7 @@ fn modify_items(
     let function = resolve_resource_or_id(source, keys::ITEM_MODIFIER, modifier, function_codec())?;
     let selected_count = Rc::new(Cell::new(0));
     let selector = SlotSelector::tracking(SlotSelector::selecting(|s: &ItemStack| !s.is_empty()), selected_count.clone());
-    let tracker = RefCell::new(CommandResponseTracker::<ItemTarget>::new());
+    let tracker = RefCell::new(CommandResponseTracker::<ItemTarget>::create());
     let value = slot_source_value(source, slot_source)?;
     accessor.set_items(source, &value, &mut |level, targets| {
         with_modifier(level, source, &function, |apply| {
@@ -247,7 +247,7 @@ fn modify_items(
                         },
                         &selector,
                     );
-                    tracker.borrow_mut().track_value(target.clone(), count);
+                    tracker.borrow_mut().track(target, count);
                     count
                 })
                 .collect()

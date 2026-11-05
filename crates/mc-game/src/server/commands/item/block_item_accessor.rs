@@ -4,7 +4,7 @@ use super::slots::{ContainerSlots, apply_container_writes, container_at, slot_pa
 use crate::commands::arguments::coordinates::block_pos_argument::BlockPosArgument;
 use crate::commands::{CommandSourceStack, argument};
 use crate::server::commands::arg_provider::ArgProvider;
-use crate::server::commands::command_response_tracker::CommandResponseTracker;
+use crate::server::commands::command_response_tracker::{CommandResponseTracker, ElementType};
 use crate::server::commands::item_commands::{
     ERROR_SOURCE_NOT_A_CONTAINER, ERROR_TARGET_NOT_A_CONTAINER, ERROR_TARGET_NO_CHANGES, ERROR_TARGET_NO_CHANGES_KNOWN_ITEM,
 };
@@ -84,14 +84,16 @@ impl ItemAccessor for BlockItemAccessor {
             Some(item) => tracker.send_feedback(
                 source,
                 true,
-                Some(ERROR_TARGET_NO_CHANGES_KNOWN_ITEM.create(item.get_display_name())),
+                ElementType::NonZero,
+                Some(|| ERROR_TARGET_NO_CHANGES_KNOWN_ITEM.create(item.get_display_name())),
                 |_, slot_count| translatable!("commands.item.block.replace.success.known_item", slot_count, x, y, z, item.get_display_name()),
                 |_, _| Component::empty(),
             ),
             None => tracker.send_feedback(
                 source,
                 true,
-                Some(ERROR_TARGET_NO_CHANGES.create()),
+                ElementType::NonZero,
+                Some(|| ERROR_TARGET_NO_CHANGES.create()),
                 |_, slot_count| translatable!("commands.item.block.replace.success", slot_count, x, y, z),
                 |_, _| Component::empty(),
             ),
@@ -103,7 +105,8 @@ impl ItemAccessor for BlockItemAccessor {
         tracker.send_feedback(
             source,
             true,
-            Some(ERROR_TARGET_NO_CHANGES.create()),
+            ElementType::NonZero,
+            Some(|| ERROR_TARGET_NO_CHANGES.create()),
             |_, slot_count| translatable!("commands.item.block.modify.success", slot_count, x, y, z),
             |_, _| Component::empty(),
         )
