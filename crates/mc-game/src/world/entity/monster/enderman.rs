@@ -304,7 +304,7 @@ impl Entity for Enderman {
             let drops = {
                 let this: &dyn Entity = &*self;
                 let builder = LootParams::builder(level).origin(this.position()).tool(&fake_tool).optional_this_entity(Some(this));
-                crate::world::level::storage::loot::block_drops::state_get_drops(carrying_block, builder)
+                crate::world::level::storage::loot::block_drops::state_get_drops(carrying_block, this.base().block_position(), builder)
             };
             for stack in drops {
                 crate::world::entity::item::spawn_at_location(level, self, stack, Vec3::ZERO);
