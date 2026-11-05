@@ -3,6 +3,7 @@ pub mod abilities;
 pub mod food_data;
 pub mod handle_sync;
 pub mod drop;
+pub mod effects;
 pub mod inventory;
 pub mod item_use;
 pub mod menu_ctx;

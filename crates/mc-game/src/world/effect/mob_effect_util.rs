@@ -1,12 +1,12 @@
 //! `MobEffectUtil`.
 
 use crate::server::level::ServerLevel;
-use crate::util::game_modes::GameTypeExt as _;
 use crate::world::entity::effect::MobEffectInstance;
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_data::MobEffect;
+use mc_data::enums::GameType;
 use mc_text::Component;
 
 /// `StringUtil.formatTickDuration(ticks, tickrate)`.
@@ -79,7 +79,7 @@ pub fn add_effect_to_players_around(
         .copied()
         .filter(|id| {
             let Some(player) = level.get_entity(*id).and_then(|e| e.as_any().downcast_ref::<ServerPlayer>()) else { return false };
-            player.game_mode.game_mode_for_player.is_survival()
+            matches!(player.game_mode.game_mode_for_player, GameType::Survival | GameType::Adventure) // `GameType.isSurvival`
                 && source.is_none_or(|s| !is_allied_to(level, s, player))
                 && position.distance_to_sqr(player.position()) < radius * radius
                 && player.get_effect(effect).is_none_or(|e| e.amplifier < effect_instance.amplifier || e.ends_within(display_effect_limit - 1))

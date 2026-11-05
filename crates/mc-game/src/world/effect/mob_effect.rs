@@ -223,14 +223,15 @@ impl MobEffectExt for MobEffect {
                 true
             }
             "RegenerationMobEffect" => {
-                if mob.get_health() < mob.get_max_health() {
+                if mob.living().is_some_and(|l| l.get_health() < l.get_max_health()) {
                     mob.heal(level, 1.0);
                 }
                 true
             }
             "HungerMobEffect" => {
-                if let Some(player) = mob.as_any_mut().downcast_mut::<crate::world::entity::ServerPlayer>() {
-                    player.cause_food_exhaustion(0.005 * (amplification + 1) as f32);
+                // `Player.causeFoodExhaustion`
+                if let Some(player) = mob.player_mut().filter(|p| !p.abilities.invulnerable) {
+                    player.food_data.add_exhaustion(0.005 * (amplification + 1) as f32);
                 }
                 true
             }
@@ -300,11 +301,13 @@ impl MobEffectExt for MobEffect {
                 Some(source) => {
                     // the cause is either `mob` itself or another entity; both are only read to build the source
                     let mob_ref: &dyn Entity = &*mob;
-                    let resolve = |c: EffectCause<'_>| match c {
-                        EffectCause::Mob => mob_ref,
-                        EffectCause::Entity(e) => e,
-                    };
-                    level.damage_sources().indirect_magic(resolve(source), owner.map(resolve))
+                    fn resolve<'x>(mob: &'x dyn Entity, c: EffectCause<'x>) -> &'x dyn Entity {
+                        match c {
+                            EffectCause::Mob => mob,
+                            EffectCause::Entity(e) => e,
+                        }
+                    }
+                    level.damage_sources().indirect_magic(resolve(mob_ref, source), owner.map(|o| resolve(mob_ref, o)))
                 }
             };
             mob.hurt_server(level, &damage_source, amount as f32);

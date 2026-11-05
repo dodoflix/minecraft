@@ -234,7 +234,7 @@ pub fn on_effects_removed(entity: &mut dyn Entity, level: &mut ServerLevel, effe
     let Some(living) = entity.living_mut() else { return };
     living.effects_dirty = true;
     for effect in effects {
-        effect.effect.remove_attribute_modifiers(&mut living.attributes);
+        effect.effect.remove_attribute_modifiers(&mut entity.living_mut().expect("living").attributes);
         let packet = ClientboundRemoveMobEffectPacket { entity_id: id, effect: effect.effect };
         for_each_player_passenger(entity, level, |player| player.send(&packet));
     }
