@@ -7,7 +7,8 @@
 #   scripts/entity-oracle.sh MyScenario.java [args]  run your own Java program against the harness classes
 #   scripts/entity-oracle.sh --regen                 regenerate every crates/mc-game/tests/fixtures/entity_oracle/*.txt from its
 #                                                    scenarios/*.txt twin
-# Needs ref/ (setup-ref.sh). The shadow classes RandomSupport/RandomSource (tests/oracle/shadow) are compiled into target/entity-oracle-shadow on demand.
+# Needs ref/ with decompiled sources (setup-ref.sh --decompile). The shadow classes Holder/RandomSource/RandomSupport (vanilla + tests/oracle/shadow.patch,
+# see oracle-shadow.sh) are generated and compiled into target/entity-oracle-shadow on demand.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 T="$ROOT/crates/mc-game/tests"
@@ -22,7 +23,7 @@ fi
 [ $# -ge 1 ] || { sed -n 2,13p "$0" >&2; exit 2; }
 CP="$("$ROOT/scripts/vanilla-cp.sh")"
 SHADOW="$ROOT/target/entity-oracle-shadow"
-SHADOW_SRC="$T/oracle/shadow"
+SHADOW_SRC="$("$ROOT/scripts/oracle-shadow.sh")"
 SERVER_JAR="$(find "$ROOT/ref/bundle/META-INF/versions" -name 'server-*.jar' | head -1)"
 PATCHED="$SHADOW/$(basename "$SERVER_JAR")"
 # The vanilla jar is signed, so a shadow class cannot live in the same package from another classpath entry: build a copy of the

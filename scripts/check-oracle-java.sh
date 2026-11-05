@@ -10,6 +10,6 @@ OUT="$(mktemp -d)"; trap 'rm -rf "$OUT"' EXIT
 if [ $# -eq 0 ]; then set -- "$T/EntityOracleDriver.java" "$T/VanillaLevel.java"; fi
 # the shadow RandomSupport (reseedUniquifier) must shadow the vanilla class: compile it first and put it in front of the classpath
 mkdir -p "$OUT/shadow"
-javac -nowarn -cp "$CP" -d "$OUT/shadow" "$T/shadow/net/minecraft/world/level/levelgen/RandomSupport.java" 2>/dev/null
+javac -nowarn -cp "$CP" -d "$OUT/shadow" "$("$ROOT/scripts/oracle-shadow.sh")/world/level/levelgen/RandomSupport.java" 2>/dev/null
 javac -proc:none -nowarn -Xlint:none -cp "$OUT/shadow:$CP" -sourcepath "$T" -d "$OUT" "$@"
 echo "oracle java sources compile: $*"

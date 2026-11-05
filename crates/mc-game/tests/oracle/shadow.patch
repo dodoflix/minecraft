@@ -1,0 +1,57 @@
+--- a/core/Holder.java
++++ b/core/Holder.java
+@@ -140,6 +140,14 @@
+       private final Holder.Reference.Type type;
+       @Nullable
+       private ResourceKey<T> key;
++
++      // ORACLE SHADOW (tests/oracle/shadow.patch): vanilla uses the identity hash, which makes every HashMap keyed by holders (active mob
++      // effects, attribute maps, ...) iterate in a different order per JVM run. A registry-key based hash makes the order reproducible.
++      @Override
++      public int hashCode() {
++         ResourceKey<T> k = this.key;
++         return k == null ? System.identityHashCode(this) : k.registry().hashCode() * 31 + k.identifier().hashCode();
++      }
+       @Nullable
+       private T value;
+ 
+--- a/util/RandomSource.java
++++ b/util/RandomSource.java
+@@ -25,7 +25,8 @@
+    }
+ 
+    static RandomSource createThreadLocalInstance() {
+-      return new SingleThreadedRandomSource(ThreadLocalRandom.current().nextLong());
++      // ORACLE SHADOW (tests/oracle/shadow.patch): vanilla seeds this from netty's ThreadLocalRandom (clock based); use the reproducible uniquifier
++      return new SingleThreadedRandomSource(net.minecraft.world.level.levelgen.RandomSupport.generateUniqueSeed());
+    }
+ 
+    static RandomSource createThreadLocalInstance(final long seed) {
+--- a/world/level/levelgen/RandomSupport.java
++++ b/world/level/levelgen/RandomSupport.java
+@@ -11,8 +11,15 @@
+    public static final long GOLDEN_RATIO_64 = -7046029254386353131L;
+    public static final long SILVER_RATIO_64 = 7640891576956012809L;
+    private static final HashFunction MD5_128 = Hashing.md5();
+-   private static final AtomicLong SEED_UNIQUIFIER = new AtomicLong(8682522807148012L);
++   // ORACLE SHADOW (tests/oracle/shadow.patch): vanilla mixes System.nanoTime() into every RandomSource.create(); the
++   // entity oracle needs reproducible entity/level randomness, so the uniquifier is a per-thread counter without the clock.
++   // `reseedUniquifier(n)` lets a script restart the sequence of the calling thread.
++   private static final ThreadLocal<AtomicLong> SEED_UNIQUIFIER = ThreadLocal.withInitial(() -> new AtomicLong(8682522807148012L));
+ 
++   public static void reseedUniquifier(final long value) {
++      SEED_UNIQUIFIER.get().set(value);
++   }
++
+    @VisibleForTesting
+    public static long mixStafford13(long z) {
+       z = (z ^ z >>> 30) * -4658895280553007687L;
+@@ -38,7 +45,7 @@
+    }
+ 
+    public static long generateUniqueSeed() {
+-      return SEED_UNIQUIFIER.updateAndGet(current -> current * 1181783497276652981L) ^ System.nanoTime();
++      return SEED_UNIQUIFIER.get().updateAndGet(current -> current * 1181783497276652981L) ^ 0x2545F4914F6CDD1DL;
+    }
+ 
+    public record Seed128bit(long seedLo, long seedHi) {

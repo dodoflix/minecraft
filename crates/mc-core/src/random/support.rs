@@ -60,7 +60,7 @@ thread_local! {
 }
 
 /// Entity-oracle mode for the calling thread: `generate_unique_seed` becomes the reproducible sequence of the vanilla oracle's
-/// `RandomSupport` shadow (`tests/oracle/shadow`: a per-thread counter without `System.nanoTime()`), restarted at `value`.
+/// `RandomSupport` shadow (`tests/oracle/shadow.patch`: a per-thread counter without `System.nanoTime()`), restarted at `value`.
 /// Used by the scenario replay harness to give freshly created entities the same random seeds as the oracle.
 pub fn reseed_uniquifier(value: i64) {
     ORACLE_UNIQUIFIER.with(|c| c.set(Some(value)));

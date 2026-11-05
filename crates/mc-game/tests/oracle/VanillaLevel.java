@@ -75,7 +75,7 @@ import net.minecraft.world.level.storage.PrimaryLevelData;
  *
  * <p>Determinism: fixed world seed; game time/weather frozen by default ({@code advance_time}/{@code advance_weather} false), no
  * natural spawning; every entity created by the vanilla code on the server thread draws its {@code RandomSource.create()} seed
- * from {@link RandomSupport#reseedUniquifier}'s per-thread counter (the ORACLE SHADOW in {@code tests/oracle/shadow}, a copy of
+ * from {@link RandomSupport#reseedUniquifier}'s per-thread counter (the ORACLE SHADOW, {@code tests/oracle/shadow.patch} applied to
  * vanilla's RandomSupport without {@code System.nanoTime()}); the sequence is reset at boot, at the start of every tick and by
  * {@link #reseed}. {@code Level.random} is seeded at boot and by the driver's {@code level_seed};
  * {@code random_tick_speed} defaults to 0 so random ticks (chunk-order dependent) do not consume it. Chunks around
