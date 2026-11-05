@@ -90,7 +90,7 @@ impl ConditionalFunction for SetRandomPotionFunction {
     fn run(&self, mut stack: ItemStack, context: &mut LootContext) -> ItemStack {
         let registries = context.get_resolver();
         let potions: Vec<Potion> = match &self.options {
-            Some(set) => crate::world::level::storage::loot::enchant_api::holder_set_ids(registries, "minecraft:potion", set)
+            Some(set) => crate::world::level::storage::loot::holder::holder_set_ids(registries, "minecraft:potion", set)
                 .iter()
                 .filter_map(|id| mc_data::registry::by_name("minecraft:potion").and_then(|r| r.id_of(&id.to_string())).and_then(Potion::from_id))
                 .collect(),
@@ -208,7 +208,7 @@ pub struct SetInstrumentFunction {
 impl ConditionalFunction for SetInstrumentFunction {
     conditional!("set_instrument");
     fn run(&self, mut stack: ItemStack, context: &mut LootContext) -> ItemStack {
-        let ids = crate::world::level::storage::loot::enchant_api::holder_set_ids(context.get_resolver(), keys::INSTRUMENT, &self.options);
+        let ids = crate::world::level::storage::loot::holder::holder_set_ids(context.get_resolver(), keys::INSTRUMENT, &self.options);
         if !ids.is_empty() {
             let id = ids[context.get_random().next_int_bounded(ids.len() as i32) as usize].clone();
             stack.set(INSTRUMENT, InstrumentComponent { instrument: mc_protocol::components::Holder::Reference(id) });

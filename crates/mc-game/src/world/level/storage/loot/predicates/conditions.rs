@@ -11,7 +11,6 @@ use mc_protocol::components::values::predicates::{BlockPredicate, ItemPredicate}
 use super::{ConditionHolder, ConditionHolderSet, ConditionRef, LootItemCondition, condition_holder_codec, condition_list_codec};
 use crate::registry::keys;
 use crate::world::level::storage::loot::context::{ContextKey, EntityTarget, LootContext};
-use crate::world::level::storage::loot::enchant_api;
 use crate::world::level::storage::loot::holder::{TypeTable, lift, registry_ref_codec};
 use crate::world::level::storage::loot::predicate_api::{DamageSourcePredicate, EntityPredicate, LocationPredicate};
 use crate::world::level::storage::loot::providers::number::{FloatHolder, IntHolder, float_holder_codec, int_holder_codec};
@@ -118,7 +117,7 @@ impl LootItemCondition for LootItemRandomChanceWithEnchantedBonusCondition {
     }
     fn test(&self, context: &mut LootContext) -> bool {
         let level = match context.params().attacking_entity {
-            Some(killer) if killer.living().is_some() => enchant_api::get_enchantment_level(context.get_level(), &self.enchantment, killer),
+            Some(killer) if killer.living().is_some() => crate::world::item::enchantment_helper::get_enchantment_level(context.get_resolver(), &self.enchantment, killer),
             _ => 0,
         };
         let chance = if level > 0 { self.enchanted_chance.calculate(level) } else { self.unenchanted_chance };
@@ -139,7 +138,7 @@ impl LootItemCondition for BonusLevelTableCondition {
         vec![ContextKey::Tool]
     }
     fn test(&self, context: &mut LootContext) -> bool {
-        let level = context.params().tool.as_ref().map_or(0, |t| enchant_api::get_item_enchantment_level(&self.enchantment, t));
+        let level = context.params().tool.as_ref().map_or(0, |t| crate::world::item::enchantment_helper::get_item_enchantment_level(&self.enchantment, t));
         let chance = self.values[(level.max(0) as usize).min(self.values.len() - 1)];
         // `values.get(Math.min(level, size - 1))`: a negative level is impossible for item enchantments
         context.get_random().next_float() < chance
