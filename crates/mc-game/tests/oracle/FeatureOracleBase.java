@@ -226,6 +226,11 @@ public class FeatureOracleBase {
         @Override public int getBrightness(net.minecraft.world.level.LightLayer layer, BlockPos pos) { return 0; }
         @Override public int getRawBrightness(BlockPos pos, int darkening) { return 0; }
         @Override public boolean canSeeSky(BlockPos pos) { return false; }
+        @Override public net.minecraft.server.level.ServerLevel getLevel() { return stubLevel(); }
+        /** The server difficulty is runtime configuration (NORMAL here), the clock and moon brightness are 0. */
+        @Override public net.minecraft.world.DifficultyInstance getCurrentDifficultyAt(BlockPos pos) {
+            return new net.minecraft.world.DifficultyInstance(net.minecraft.world.Difficulty.NORMAL, 0L, 0L, 0.0F);
+        }
 
         /** WorldGenRegion.setBlock without the POI hook (the level is null) and with the chunk-type branch of proto chunks. */
         @Override
@@ -253,6 +258,47 @@ public class FeatureOracleBase {
                 }
                 return true;
             }
+        }
+    }
+
+    static net.minecraft.server.level.ServerLevel STUB_LEVEL;
+
+    /**
+     * A {@code ServerLevel} allocated with Unsafe, just enough for {@code EntityType.create} (entity ids, the server's debug
+     * subscribers, the registry access): what {@code WorldGenRegion.getLevel()} is for structure code that spawns mobs.
+     */
+    static net.minecraft.server.level.ServerLevel stubLevel() {
+        if (STUB_LEVEL != null) return STUB_LEVEL;
+        try {
+            Field uf = sun.misc.Unsafe.class.getDeclaredField("theUnsafe");
+            uf.setAccessible(true);
+            sun.misc.Unsafe unsafe = (sun.misc.Unsafe) uf.get(null);
+            var level = (net.minecraft.server.level.ServerLevel) unsafe.allocateInstance(net.minecraft.server.level.ServerLevel.class);
+            Object chunkMap = unsafe.allocateInstance(net.minecraft.server.level.ChunkMap.class);
+            Field entityMap = net.minecraft.server.level.ChunkMap.class.getDeclaredField("entityMap");
+            entityMap.setAccessible(true);
+            entityMap.set(chunkMap, new it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap<>());
+            Object chunkCache = unsafe.allocateInstance(net.minecraft.server.level.ServerChunkCache.class);
+            Field chunkMapField = net.minecraft.server.level.ServerChunkCache.class.getDeclaredField("chunkMap");
+            chunkMapField.setAccessible(true);
+            chunkMapField.set(chunkCache, chunkMap);
+            Field chunkSource = net.minecraft.server.level.ServerLevel.class.getDeclaredField("chunkSource");
+            chunkSource.setAccessible(true);
+            chunkSource.set(level, chunkCache);
+            Object server = unsafe.allocateInstance(net.minecraft.server.dedicated.DedicatedServer.class);
+            Field debugSubscribers = net.minecraft.server.MinecraftServer.class.getDeclaredField("debugSubscribers");
+            debugSubscribers.setAccessible(true);
+            debugSubscribers.set(server, unsafe.allocateInstance(net.minecraft.util.debug.ServerDebugSubscribers.class));
+            Field serverField = net.minecraft.server.level.ServerLevel.class.getDeclaredField("server");
+            serverField.setAccessible(true);
+            serverField.set(level, server);
+            Field registryAccess = net.minecraft.world.level.Level.class.getDeclaredField("registryAccess");
+            registryAccess.setAccessible(true);
+            registryAccess.set(level, ACCESS);
+            STUB_LEVEL = level;
+            return level;
+        } catch (ReflectiveOperationException e) {
+            throw new RuntimeException(e);
         }
     }
 
