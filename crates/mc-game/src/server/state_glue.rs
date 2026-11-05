@@ -108,7 +108,7 @@ impl MinecraftServer {
     /// `scoreboard.load(savedDataStorage.computeIfAbsent(ScoreboardSaveData.TYPE).getData())`.
     pub(super) fn load_scoreboard(&mut self) {
         let data = self.saved_data.compute_if_absent(&self.saved_types.scoreboard).get_data().clone();
-        self.scoreboard.load(&data);
+        self.scoreboard.write().load(&data);
         // `this.stopwatches = computeIfAbsent(Stopwatches.TYPE)`; the overworld's `WanderingTraderSpawner` loads its data
         self.saved_data.compute_if_absent(&self.saved_types.stopwatches);
         self.saved_data.compute_if_absent(&self.saved_types.wandering_trader);
@@ -118,12 +118,13 @@ impl MinecraftServer {
     pub(super) fn store_scoreboard(&mut self) {
         let ty = self.saved_types.scoreboard.clone();
         let data: &mut ScoreboardSaveData = self.saved_data.compute_if_absent(&ty);
-        self.scoreboard.store_to_save_data_if_dirty(data);
+        self.scoreboard.write().store_to_save_data_if_dirty(data);
     }
 
     /// Sends what the scoreboard queued (`ServerScoreboard`'s `broadcastAll`s) to the players.
     pub fn flush_scoreboard(&mut self) {
-        for output in self.scoreboard.take_outputs() {
+        let outputs = self.scoreboard.write().take_outputs();
+        for output in outputs {
             match output {
                 ScoreboardOutput::Broadcast(packet) => send_scoreboard_packet(&self.player_list, &packet),
                 // `level.getWaypointManager().remakeConnections(player)`: the waypoint managers are not modelled.
@@ -134,15 +135,16 @@ impl MinecraftServer {
 
     /// `PlayerList.updateEntireScoreboard(scoreboard, player)`.
     pub fn update_entire_scoreboard(&self, player: &PlayerHandle) {
-        for team in self.scoreboard.get_player_teams() {
+        let scoreboard = self.scoreboard.read();
+        for team in scoreboard.get_player_teams() {
             send_scoreboard_packet(player, &ScoreboardPacket::SetPlayerTeam(team.create_add_or_modify_packet(true)));
         }
         let mut seen: Vec<&str> = Vec::new();
         for slot in crate::world::scores::DisplaySlot::VALUES {
-            if let Some(objective) = self.scoreboard.get_display_objective(slot)
+            if let Some(objective) = scoreboard.get_display_objective(slot)
                 && !seen.contains(&objective.get_name())
             {
-                for packet in self.scoreboard.get_start_tracking_packets(objective) {
+                for packet in scoreboard.get_start_tracking_packets(objective) {
                     send_scoreboard_packet(player, &packet);
                 }
                 seen.push(objective.get_name());

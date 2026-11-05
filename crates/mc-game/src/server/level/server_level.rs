@@ -71,6 +71,8 @@ pub struct ServerLevel {
     pub players: Vec<EntityId>,
     /// `chunkMap.entityMap`: which players see which entity (see `entity_tracker.rs`).
     pub entity_tracker: super::EntityTracker,
+    /// Handles to the server-global state (scoreboard, player roster), installed by the server (see `level_server_state.rs`).
+    pub server_state: super::LevelServerState,
     /// `registryAccess()`: the server's registries (damage types, enchantments, tags, ...). Empty until the level
     /// factory installs them (`detached` levels stay empty).
     pub registries: crate::registry::RegistryAccess,
@@ -134,6 +136,7 @@ impl ServerLevel {
             entity_manager: PersistentEntitySectionManager::new(None),
             players: Vec::new(),
             entity_tracker: Default::default(),
+            server_state: Default::default(),
             registries: Default::default(),
             spawn_protection_hook: None,
             chunk_source,

@@ -76,6 +76,8 @@ impl Default for PlayerListSettings {
 
 pub struct PlayerList {
     players: Vec<PlayerHandle>,
+    /// The same list shared with the levels (`ServerLevel::send_to_player`/`broadcast_to_all_players`).
+    pub roster: crate::server::level::PlayerRoster,
     players_by_uuid: HashMap<Uuid, PlayerHandle>,
     pub bans: UserBanList,
     pub ip_bans: IpBanList,
@@ -104,6 +106,7 @@ impl PlayerList {
     ) -> Self {
         Self {
             players: Vec::new(),
+            roster: Default::default(),
             players_by_uuid: HashMap::new(),
             whitelist: UserWhiteList::new(WHITELIST_FILE, notifications.clone()),
             ops: ServerOpList::new(OPLIST_FILE, notifications.clone()),
@@ -259,11 +262,13 @@ impl PlayerList {
     /// The list part of `placeNewPlayer`: `players.add` + `playersByUUID.put`.
     pub fn add_player(&mut self, handle: PlayerHandle) {
         self.players_by_uuid.insert(handle.uuid, handle.clone());
+        self.roster.add(handle.clone());
         self.players.push(handle);
     }
 
     /// The list part of `respawn`: `players.remove(serverPlayer)` (by identity).
     pub fn remove_from_players(&mut self, handle: &PlayerHandle) {
+        self.roster.remove(handle);
         self.players.retain(|p| !p.same_player(handle));
     }
 
