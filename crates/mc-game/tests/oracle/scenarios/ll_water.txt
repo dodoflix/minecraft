@@ -1,0 +1,40 @@
+# Swimming: fall into a pool, surface swim, sprint-swim (swimming pose), dive and jump out; water movement efficiency levels and dolphins grace.
+level flat
+fill -6 -61 -6 6 -50 6 minecraft:water
+fill -6 -61 20 6 -50 32 minecraft:water
+fill -6 -61 40 6 -50 52 minecraft:water
+fill -6 -61 60 6 -50 72 minecraft:water
+spawn_player Base survival 0.5 -48 0.5 0 0 sim
+spawn_player Eff1 survival 0.5 -48 26.5 0 0 sim
+spawn_player Eff2 survival 0.5 -48 46.5 0 0 sim
+spawn_player Dolphin survival 0.5 -48 66.5 0 0 sim
+attribute Eff1 minecraft:water_movement_efficiency 0.5
+attribute Eff2 minecraft:water_movement_efficiency 1.0
+effect Dolphin minecraft:dolphins_grace 0 100000
+watch player:Base player:Eff1 player:Eff2 player:Dolphin
+tick 20
+input Base forward
+input Eff1 forward
+input Eff2 forward
+input Dolphin forward
+tick 20
+input Base forward,sprint
+input Eff1 forward,sprint
+input Eff2 forward,sprint
+input Dolphin forward,sprint
+tick 20
+input Base forward,jump
+input Eff1 forward,jump
+input Eff2 forward,jump
+input Dolphin forward,jump
+tick 20
+input Base forward,sneak
+input Eff1 forward,sneak
+input Eff2 forward,sneak
+input Dolphin forward,sneak
+tick 20
+input Base none
+input Eff1 none
+input Eff2 none
+input Dolphin none
+tick 20

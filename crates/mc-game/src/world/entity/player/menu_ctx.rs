@@ -47,7 +47,7 @@ impl MenuPlayer for PlayerCtx<'_> {
         self.player.drop(self.level, stack, thrown_from_hand, prediction);
     }
     fn on_equip_item(&mut self, slot: EquipmentSlot, old: &ItemStack, new: &ItemStack) {
-        self.player.on_equip_item(self.level, slot, old, new);
+        crate::world::entity::Entity::on_equip_item(self.player, self.level, slot, old, new);
     }
     fn is_within_block_interaction_range(&self, pos: BlockPos, buffer: f64) -> bool {
         self.player.is_within_block_interaction_range(pos, buffer)

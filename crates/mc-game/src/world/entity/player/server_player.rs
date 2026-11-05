@@ -373,6 +373,10 @@ impl Entity for ServerPlayer {
         self.set_sprinting(input.sprint && input.forward);
     }
     // ==== [LivingCore] additions (impl Entity for ServerPlayer) ====
+    /// `Player.doesEmitEquipEvent(slot)`.
+    fn does_emit_equip_event(&self, slot: crate::world::entity::equipment::EquipmentSlot) -> bool {
+        slot.get_type() == crate::world::entity::equipment::EquipmentSlotType::HumanoidArmor
+    }
     /// `Player.aiStep()`.
     fn ai_step(&mut self, level: &mut crate::server::level::ServerLevel) {
         self.player_ai_step(level);

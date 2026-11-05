@@ -973,11 +973,29 @@ pub trait Entity: Any {
     fn set_x_rot(&mut self, x_rot: f32) {
         self.base_mut().set_x_rot(x_rot);
     }
+    /// `getYHeadRot()` (`LivingEntity.yHeadRot`).
     fn get_y_head_rot(&self) -> f32 {
-        0.0
+        self.living().map_or(0.0, |l| l.y_head_rot)
     }
-    fn set_y_head_rot(&mut self, _y_head_rot: f32) {}
-    fn set_y_body_rot(&mut self, _y_body_rot: f32) {}
+    /// `setYHeadRot(yHeadRot)`.
+    fn set_y_head_rot(&mut self, y_head_rot: f32) {
+        if let Some(l) = self.living_mut() {
+            l.y_head_rot = y_head_rot;
+        }
+    }
+    /// `setYBodyRot(yBodyRot)`.
+    fn set_y_body_rot(&mut self, y_body_rot: f32) {
+        if let Some(l) = self.living_mut() {
+            l.y_body_rot = y_body_rot;
+        }
+    }
+    /// `lerpHeadTo(yRot, steps)`.
+    fn lerp_head_to(&mut self, y_rot: f32, steps: i32) {
+        if let Some(l) = self.living_mut() {
+            l.lerp_y_head_rot = f64::from(y_rot);
+            l.lerp_head_steps = steps;
+        }
+    }
 
     // ---- snapping ----------------------------------------------------------------------------------------------
 
@@ -2200,6 +2218,30 @@ pub trait Entity: Any {
             l.xxa *= 0.98;
             l.zza *= 0.98;
         }
+    }
+    /// `doesEmitEquipEvent(slot)` (`Player`: armor slots only).
+    fn does_emit_equip_event(&self, _slot: super::equipment::EquipmentSlot) -> bool {
+        true
+    }
+    /// `onEquipItem(slot, oldStack, stack)`.
+    fn on_equip_item(&mut self, level: &mut ServerLevel, slot: super::equipment::EquipmentSlot, old: &crate::world::item::ItemStack, new: &crate::world::item::ItemStack) {
+        super::living_entity::equipment::on_equip_item(self.as_dyn_mut(), level, slot, old, new);
+    }
+    /// `getArmorCoverPercentage()`.
+    fn get_armor_cover_percentage(&self) -> f32 {
+        super::living_entity::equipment::get_armor_cover_percentage(self.as_dyn())
+    }
+    /// `startSleeping(bedPosition)`.
+    fn start_sleeping(&mut self, level: &mut ServerLevel, bed_position: BlockPos) -> bool {
+        super::living_entity::sleeping::start_sleeping(self.as_dyn_mut(), level, bed_position)
+    }
+    /// `stopSleeping()`.
+    fn stop_sleeping(&mut self, level: &mut ServerLevel) {
+        super::living_entity::sleeping::stop_sleeping(self.as_dyn_mut(), level);
+    }
+    /// `getBedOrientation()`.
+    fn get_bed_orientation(&self, level: &ServerLevel) -> Option<mc_core::direction::Direction> {
+        super::living_entity::sleeping::get_bed_orientation(self.as_dyn(), level)
     }
     // ==== [Damage] additions (Entity trait methods) ====
 

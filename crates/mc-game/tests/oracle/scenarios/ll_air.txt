@@ -1,0 +1,23 @@
+# Air supply under water: no respiration, respiration III, water breathing; creative players never drown.
+level flat
+fill -4 -61 -4 4 -40 4 minecraft:water
+fill 16 -61 -4 24 -40 4 minecraft:water
+fill 36 -61 -4 44 -40 4 minecraft:water
+fill 56 -61 -4 64 -40 4 minecraft:water
+spawn_player Plain survival 0.5 -55 0.5 0 0 sim
+spawn_player Resp survival 20.5 -55 0.5 0 0 sim
+spawn_player Breath survival 40.5 -55 0.5 0 0 sim
+spawn_player Creative creative 60.5 -55 0.5 0 0 sim
+entity_seed Plain 12345
+entity_seed Resp 54321
+attribute Resp minecraft:oxygen_bonus 3.0
+effect Breath minecraft:water_breathing 0 100000
+watch player:Plain player:Resp player:Breath player:Creative
+tick 20
+set Plain air 100
+set Resp air 100
+set Breath air 100
+tick 100
+input Plain jump
+input Resp jump
+tick 100

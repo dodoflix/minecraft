@@ -1,0 +1,13 @@
+# Ground movement with a rotated look direction (yaw 37.5) and strafing / sprint-jumping.
+level flat
+spawn_player Alex survival 0.5 -60 0.5 37.5 0 sim
+watch player:Alex
+tick 3
+input Alex forward,left,sprint
+tick 20
+input Alex forward,left,sprint,jump
+tick 30
+input Alex right
+tick 20
+input Alex none
+tick 20

@@ -1,0 +1,20 @@
+# Elytra gliding with different pitches; the glide flag is restored through the entity tag like a start-fall-flying packet.
+level flat
+spawn_player Flat survival 0.5 -10 0.5 0 0 sim
+spawn_player Down survival 20.5 -10 0.5 0 45 sim
+spawn_player Up survival 40.5 -10 0.5 0 -30 sim
+spawn_player Dive survival 60.5 -10 0.5 90 80 sim
+give Flat chest minecraft:elytra
+give Down chest minecraft:elytra
+give Up chest minecraft:elytra
+give Dive chest minecraft:elytra
+velocity Flat 0 0 0.5
+velocity Down 0 0 0.3
+velocity Up 0 0 0.9
+velocity Dive 0.2 0 0
+nbt Flat {FallFlying:1b}
+nbt Down {FallFlying:1b}
+nbt Up {FallFlying:1b}
+nbt Dive {FallFlying:1b}
+watch player:Flat player:Down player:Up player:Dive
+tick 80

@@ -165,32 +165,6 @@ impl ServerPlayer {
         self.on_equip_item(level, slot, &old, &stack);
     }
 
-    /// `LivingEntity.onEquipItem(slot, old, new)` (server side, `Player.doesEmitEquipEvent`: armor slots only).
-    pub fn on_equip_item(&mut self, level: &mut ServerLevel, slot: EquipmentSlot, old: &ItemStack, new: &ItemStack) {
-        if self.is_spectator() {
-            return;
-        }
-        if !ItemStack::is_same_item_same_components(old, new) && !self.base().first_tick {
-            let equippable = new.get(&EQUIPPABLE);
-            if !self.base().is_silent() {
-                if let Some(eq) = equippable {
-                    if slot == EquipmentSlot::from_protocol(eq.slot) {
-                        if let Some(sound) = eq.equip_sound.name().and_then(|n| SoundEvent::by_name(&n.to_string())) {
-                            use mc_core::random::RandomSource;
-                            let seed = self.base_mut().random.next_long();
-                            let p = self.base().position();
-                            level.play_seeded_sound(None, p.x, p.y, p.z, sound, SoundSource::Players, 1.0, 1.0, seed);
-                        }
-                    }
-                }
-            }
-            if slot.get_type() == EquipmentSlotType::HumanoidArmor {
-                let event = if equippable.is_some() { GameEvent::EQUIP } else { GameEvent::UNEQUIP };
-                level.game_event_from_entity(Some(self.base_id()), event, self.base().position());
-            }
-        }
-    }
-
     /// `LivingEntity.onEquippedItemBroken(brokenItem, slot)`: the break event (`entityEventForEquipmentBreak`); the
     /// eager attribute-modifier removal happens with the next equipment change detection.
     pub fn on_equipped_item_broken(&mut self, level: &mut ServerLevel, _broken: &ItemStack, slot: EquipmentSlot) {

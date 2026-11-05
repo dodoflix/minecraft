@@ -1,0 +1,186 @@
+T 1
+P Alex minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=37.5,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 2
+P Alex minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 3
+P Alex minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 4
+P Alex minecraft:player pos=0.5169766448504295,-60.0,0.628886755294524 delta=0.009269249164982148,-0.0784000015258789,0.07037217656472332 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 5
+P Alex minecraft:player pos=0.5432225388658412,-60.0,0.8281456871537713 delta=0.014330259796912083,-0.0784000015258789,0.10879538943201938 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 6
+P Alex minecraft:player pos=0.5745294435131827,-60.0,1.0658278318803147 delta=0.017093571922911794,-0.0784000015258789,0.1297744660943379 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 7
+P Alex minecraft:player pos=0.608599660286524,-60.0,1.3244890532691767 delta=0.01860234051895507,-0.0784000015258789,0.14122904328244307 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 8
+P Alex minecraft:player pos=0.6441786456559085,-60.0,1.5946048518461438 delta=0.019426128268079813,-0.0784000015258789,0.14748324315359024 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 9
+P Alex minecraft:player pos=0.6805814187744178,-60.0,1.870974850294258 delta=0.019875916431345998,-0.0784000015258789,0.15089803667987384 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 10
+P Alex minecraft:player pos=0.7174339800561933,-60.0,2.150759642268656 delta=0.020121500797014604,-0.0784000015258789,0.15276251416178863 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 11
+P Alex minecraft:player pos=0.7545321257036374,-60.0,2.4324089117249685 delta=0.020255589876244467,-0.0784000015258789,0.15378051898515804 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 12
+P Alex minecraft:player pos=0.7917643604303113,-60.0,2.7150761860046506 delta=0.020328802522007812,-0.0784000015258789,0.15433634968327894 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 13
+P Alex minecraft:player pos=0.8290698078027486,-60.0,2.9982992909824535 delta=0.020368776631237692,-0.0784000015258789,0.15463983327970335 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 14
+P Alex minecraft:player pos=0.8664152292844158,-60.0,3.281825879556681 delta=0.02039060249741234,-0.0784000015258789,0.1548055353425978 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 15
+P Alex minecraft:player pos=0.9037824766322576,-60.0,3.5655181701938026 delta=0.02040251942172788,-0.0784000015258789,0.1548960086794469 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 16
+P Alex minecraft:player pos=0.941161640904415,-60.0,3.8493009341677733 delta=0.02040902606315993,-0.0784000015258789,0.15494540712710425 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 17
+P Alex minecraft:player pos=0.9785473118180045,-60.0,4.133133096589401 delta=0.020412578689794476,-0.0784000015258789,0.154972378682658 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 18
+P Alex minecraft:player pos=1.0159365353582284,-60.0,4.416992230566583 delta=0.02041451842416224,-0.0784000015258789,0.15498710515370087 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 19
+P Alex minecraft:player pos=1.0533276986328202,-60.0,4.700866091014808 delta=0.020415577519250057,-0.0784000015258789,0.1549951458078242 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 20
+P Alex minecraft:player pos=1.0907199210024998,-60.0,4.984747992117156 delta=0.020416155785235174,-0.0784000015258789,0.1549995360054855 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 21
+P Alex minecraft:player pos=1.1281127216381646,-60.0,5.268634283417166 delta=0.02041647151849972,-0.0784000015258789,0.15500193305368698 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 22
+P Alex minecraft:player pos=1.1655058380070937,-60.0,5.552522971765376 delta=0.020416643908882186,-0.0784000015258789,0.15500324184215702 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 23
+P Alex minecraft:player pos=1.2028991267664053,-60.0,5.836412968902057 delta=0.020416738034041947,-0.0784000015258789,0.15500395644074466 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 24
+P Alex minecraft:player pos=1.1185503684040812,-59.58000001311302,6.278982128837552 delta=-0.04605442741517178,0.33319999363422365,0.24164278939222494 rot=37.5,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+T 25
+P Alex minecraft:player pos=1.0758912695211595,-59.2468000194788,6.546402265964632 delta=-0.03881978110223797,0.24813599859094576,0.24335233179901486 rot=37.5,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+T 26
+P Alex minecraft:player pos=1.040466816951172,-58.99866402088785,6.815531945498502 delta=-0.03223625276773206,0.16477328182606651,0.2449080154340282 rot=37.5,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+T 27
+P Alex minecraft:player pos=1.01162589271569,-58.833890739061786,7.0862173086673845 delta=-0.026245241810671775,0.08307781780646721,0.24632368758268977 rot=37.5,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+T 28
+P Alex minecraft:player pos=0.9887759794372685,-58.75081292125532,7.358318343984929 delta=-0.020793421682626403,0.0030162615090425808,0.24761194927509927 rot=37.5,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+T 29
+P Alex minecraft:player pos=0.9713778862868924,-58.74779665974627,7.631707640994883 delta=-0.015832265223125443,-0.07544406518948656,0.24878426744897794 rot=37.5,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+T 30
+P Alex minecraft:player pos=0.9589409495960172,-58.82324072493576,7.9062692561787165 delta=-0.011317612714868064,-0.15233518685055708,0.24985107701795278 rot=37.5,0.0 og=0 fall=0.0754440650343895 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+T 31
+P Alex minecraft:player pos=0.9510186654133994,-58.975575911786315,8.181897680931524 delta=-0.007209278813952373,-0.22768848754498797,0.25082187375369813 rot=37.5,0.0 og=0 fall=0.22777924686670303 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+T 32
+P Alex minecraft:player pos=0.9472047151316974,-59.2032643993313,8.458496902420077 delta=-0.0034706948563737504,-0.30153472366278034,0.25170529880868653 rot=37.5,0.0 og=0 fall=0.45546773821115494 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+T 33
+P Alex minecraft:player pos=0.9471293488075738,-59.504799122994086,8.735979548963618 delta=-6.858335692893768E-5,-0.3739040364667221,0.2525092156318947 rot=37.5,0.0 og=0 fall=0.7570024505257607 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+T 34
+P Alex minecraft:player pos=0.9504560939828951,-59.878703159460805,9.014266112330368 delta=0.003027338196789767,-0.4448259643949201,0.2532407799620977 rot=37.5,0.0 og=0 fall=1.1309064999222755 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+T 35
+P Alex minecraft:player pos=0.9568787607119351,-60.0,9.29328424002732 delta=0.005844626891867562,-0.0784000015258789,0.25390650352176847 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+T 36
+P Alex minecraft:player pos=0.8579578912074365,-59.58000001311302,9.834755947043838 delta=-0.054010801022952706,0.33319999363422365,0.29564358637079835 rot=37.5,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.4 xp=0/0/0.0 sel=0 main=empty
+T 37
+P Alex minecraft:player pos=0.8073424187167341,-59.2468000194788,10.156176881149491 delta=-0.04606008129398282,0.24813599859094576,0.2924930584657439 rot=37.5,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.4 xp=0/0/0.0 sel=0 main=empty
+T 38
+P Alex minecraft:player pos=0.7646776659550015,-58.99866402088785,10.47444728735009 delta=-0.0388249261321043,0.16477328182606651,0.2896260779895185 rot=37.5,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.4 xp=0/0/0.0 sel=0 main=empty
+T 39
+P Alex minecraft:player pos=0.7292480683551474,-58.833890739061786,10.789850713074463 delta=-0.03224093474504535,0.08307781780646721,0.2870171256809638 rot=37.5,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.4 xp=0/0/0.0 sel=0 main=empty
+T 40
+P Alex minecraft:player pos=0.7004024621423524,-58.75081292125532,11.102645186490282 delta=-0.02624950241014966,0.0030162615090425808,0.28464297901175656 rot=37.5,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.4 xp=0/0/0.0 sel=0 main=empty
+T 41
+P Alex minecraft:player pos=0.6775482882644529,-58.74779665974627,11.413065513236893 delta=-0.02079729882826302,-0.07544406518948656,0.2824825054805135 rot=37.5,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.4 xp=0/0/0.0 sel=0 main=empty
+T 42
+P Alex minecraft:player pos=0.6601463179684401,-58.82324072493576,11.72132536645226 delta=-0.015835793425756445,-0.15233518685055708,0.28051647451042167 rot=37.5,0.0 og=0 fall=0.0754440650343895 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.4 xp=0/0/0.0 sel=0 main=empty
+T 43
+P Alex minecraft:player pos=0.647705853074934,-58.975575911786315,12.027619188697537 delta=-0.011320823379354805,-0.22768848754498797,0.27872738627607685 rot=37.5,0.0 og=0 fall=0.22777924686670303 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.4 xp=0/0/0.0 sel=0 main=empty
+T 44
+P Alex minecraft:player pos=0.6397803582278294,-59.2032643993313,12.332123922708469 delta=-0.007212200518719511,-0.30153472366278034,0.27709931593590237 rot=37.5,0.0 og=0 fall=0.45546773821115494 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.4 xp=0/0/0.0 sel=0 main=empty
+T 45
+P Alex minecraft:player pos=0.6359634862413601,-59.504799122994086,12.635000586379226 delta=-0.003473353607788471,-0.3739040364667221,0.2756177718836457 rot=37.5,0.0 og=0 fall=0.7570024505257607 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.4 xp=0/0/0.0 sel=0 main=empty
+T 46
+P Alex minecraft:player pos=0.6358854611658219,-59.878703159460805,12.936395705997727 delta=-7.100282078606175E-5,-0.4448259643949201,0.2742695667572371 rot=37.5,0.0 og=0 fall=1.1309064999222755 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.4 xp=0/0/0.0 sel=0 main=empty
+T 47
+P Alex minecraft:player pos=0.6392097868772861,-60.0,13.23644262048982 delta=0.003025136484616331,-0.0784000015258789,0.2730427000568472 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.4 xp=0/0/0.0 sel=0 main=empty
+T 48
+P Alex minecraft:player pos=0.5374694269655362,-59.58000001311302,13.797050524041417 delta=-0.0555502429641221,0.33319999363422365,0.30609195089255636 rot=37.5,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 49
+P Alex minecraft:player pos=0.4853145125336644,-59.2468000194788,14.128919822668829 delta=-0.04746097350082044,0.24813599859094576,0.302001070454563 rot=37.5,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 50
+P Alex minecraft:player pos=0.44124886756509424,-58.99866402088785,14.456698240858247 delta=-0.04009973807706639,0.16477328182606651,0.29827836914870137 rot=37.5,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 51
+P Alex minecraft:player pos=0.4045444580202781,-58.833890739061786,14.780753957741803 delta=-0.03340101364839413,0.08307781780646721,0.2948907108627356 rot=37.5,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 52
+P Alex minecraft:player pos=0.37453877290413423,-58.75081292125532,15.101422016339393 delta=-0.02730517424262133,0.0030162615090425808,0.29180794173366187 rot=37.5,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 53
+P Alex minecraft:player pos=0.35062892719376315,-58.74779665974627,15.41900730580791 delta=-0.021757960223498334,-0.07544406518948656,0.28900262174535596 rot=37.5,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 54
+P Alex minecraft:player pos=0.3130031225049162,-58.82324072493576,15.695835713700701 delta=-0.034239483253626725,-0.15233518685055708,0.251913858442554 rot=37.5,0.0 og=0 fall=0.0754440650343895 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 55
+P Alex minecraft:player pos=0.26289579478594083,-58.975575911786315,15.93557535829069 delta=-0.045597669538384525,-0.22768848754498797,0.21816308286431266 rot=37.5,0.0 og=0 fall=0.22777924686670303 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 56
+P Alex minecraft:player pos=0.2014302807822077,-59.2032643993313,16.14156422730244 delta=-0.05593361935539441,-0.30153472366278034,0.18744987620296374 rot=37.5,0.0 og=0 fall=0.45546773821115494 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 57
+P Alex minecraft:player pos=0.12962881696146467,-59.504799122994086,16.316839889652837 delta=-0.06533933395994448,-0.3739040364667221,0.15950085733565034 rot=37.5,0.0 og=0 fall=0.7570024505257607 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 58
+P Alex minecraft:player pos=0.04842163853617157,-59.878703159460805,16.464166533135923 delta=-0.07389853449675973,-0.4448259643949201,0.13406724943340295 rot=37.5,0.0 og=0 fall=1.1309064999222755 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 59
+P Alex minecraft:player pos=-0.04134474042593678,-60.0,16.586059568716763 delta=-0.08168740720973557,-0.0784000015258789,0.11092266557533491 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 60
+P Alex minecraft:player pos=-0.2023713729180318,-60.0,16.63611116276165 delta=-0.08792055155288697,-0.0784000015258789,0.027328173522747707 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 61
+P Alex minecraft:player pos=-0.36963114975327827,-60.0,16.602568264753952 delta=-0.09132384875954956,-0.0784000015258789,-0.01831442443947259 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 62
+P Alex minecraft:player pos=-0.5402942237951873,-60.0,16.523382768784032 delta=-0.09318204925022221,-0.0784000015258789,-0.043235285821468405 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 63
+P Alex minecraft:player pos=-0.712815498327769,-60.0,16.419276411432115 delta=-0.09419662683597532,-0.0784000015258789,-0.05684207771650275 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 64
+P Alex minecraft:player pos=-0.8863513504461038,-60.0,16.301563262185166 delta=-0.09475058626214036,-0.0784000015258789,-0.06427138695412529 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 65
+P Alex minecraft:player pos=-1.0604411619906036,-60.0,16.176420803700594 delta=-0.09505304814395822,-0.0784000015258789,-0.0683277902690291 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 66
+P Alex minecraft:player pos=-1.2348334354169213,-60.0,16.047221941901118 delta=-0.0952181923506127,-0.0784000015258789,-0.07054258673622102 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 67
+P Alex minecraft:player pos=-1.4093908530498935,-60.0,15.91580828363445 delta=-0.09530836109791938,-0.0784000015258789,-0.07175186574776873 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 68
+P Alex minecraft:player pos=-1.5840384394301723,-60.0,15.783185346356234 delta=-0.09535759323966728,-0.0784000015258789,-0.07241213216476547 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 69
+P Alex minecraft:player pos=-1.758735257952199,-60.0,15.649902142661022 delta=-0.0953844739921839,-0.0784000015258789,-0.07277263767031934 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 70
+P Alex minecraft:player pos=-1.9334589572267424,-60.0,15.516258433460255 delta=-0.09539915088476274,-0.0784000015258789,-0.07296947369921478 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 71
+P Alex minecraft:player pos=-2.1081973333938646,-60.0,15.382417888230593 delta=-0.09540716446904159,-0.0784000015258789,-0.0730769461834749 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 72
+P Alex minecraft:player pos=-2.282943723145266,-60.0,15.24846987051667 delta=-0.09541153988656603,-0.0784000015258789,-0.07313562616669676 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 73
+P Alex minecraft:player pos=-2.4576944883141914,-60.0,15.114463172819526 delta=-0.09541392886481188,-0.0784000015258789,-0.07316766544125736 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 74
+P Alex minecraft:player pos=-2.5531084171790033,-60.0,15.041295507378269 delta=-0.052096011211275876,-0.0784000015258789,-0.03994954997117172 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 75
+P Alex minecraft:player pos=-2.6052044283902793,-60.0,15.001345957407098 delta=-0.02844442542525138,-0.0784000015258789,-0.021812456817833933 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 76
+P Alex minecraft:player pos=-2.6336488538155307,-60.0,14.979533500589264 delta=-0.015530658086113999,-0.0784000015258789,-0.011909602805868988 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 77
+P Alex minecraft:player pos=-2.649179511901645,-60.0,14.967623897783396 delta=-0.00847974029996236,-0.0784000015258789,-0.006502643887303641 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 78
+P Alex minecraft:player pos=-2.6576592522016074,-60.0,14.961121253896092 delta=-0.004629938741558999,-0.0784000015258789,-0.0035504439748611847 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 79
+P Alex minecraft:player pos=-2.6622891909431665,-60.0,14.957570809921231 delta=-0.0025279468465188824,-0.0784000015258789,-0.0019385426354410276 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 80
+P Alex minecraft:player pos=-2.664817137789685,-60.0,14.95563226728579 delta=-0.0013802591385200355,-0.0784000015258789,-0.0010584444018918995 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 81
+P Alex minecraft:player pos=-2.664817137789685,-60.0,14.95563226728579 delta=0.0,-0.0784000015258789,0.0 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 82
+P Alex minecraft:player pos=-2.664817137789685,-60.0,14.95563226728579 delta=0.0,-0.0784000015258789,0.0 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 83
+P Alex minecraft:player pos=-2.664817137789685,-60.0,14.95563226728579 delta=0.0,-0.0784000015258789,0.0 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 84
+P Alex minecraft:player pos=-2.664817137789685,-60.0,14.95563226728579 delta=0.0,-0.0784000015258789,0.0 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 85
+P Alex minecraft:player pos=-2.664817137789685,-60.0,14.95563226728579 delta=0.0,-0.0784000015258789,0.0 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 86
+P Alex minecraft:player pos=-2.664817137789685,-60.0,14.95563226728579 delta=0.0,-0.0784000015258789,0.0 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 87
+P Alex minecraft:player pos=-2.664817137789685,-60.0,14.95563226728579 delta=0.0,-0.0784000015258789,0.0 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 88
+P Alex minecraft:player pos=-2.664817137789685,-60.0,14.95563226728579 delta=0.0,-0.0784000015258789,0.0 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 89
+P Alex minecraft:player pos=-2.664817137789685,-60.0,14.95563226728579 delta=0.0,-0.0784000015258789,0.0 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 90
+P Alex minecraft:player pos=-2.664817137789685,-60.0,14.95563226728579 delta=0.0,-0.0784000015258789,0.0 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 91
+P Alex minecraft:player pos=-2.664817137789685,-60.0,14.95563226728579 delta=0.0,-0.0784000015258789,0.0 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 92
+P Alex minecraft:player pos=-2.664817137789685,-60.0,14.95563226728579 delta=0.0,-0.0784000015258789,0.0 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty
+T 93
+P Alex minecraft:player pos=-2.664817137789685,-60.0,14.95563226728579 delta=0.0,-0.0784000015258789,0.0 rot=37.5,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=empty

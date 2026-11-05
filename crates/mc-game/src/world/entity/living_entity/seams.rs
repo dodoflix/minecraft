@@ -16,8 +16,19 @@ pub enum LivingDamage {
     Freeze,
 }
 
-/// SEAM(EcDamage): `this.hurtServer(level, this.damageSources().<kind>(), amount)`.
-pub fn hurt(_level: &mut ServerLevel, _entity: &mut dyn Entity, _kind: LivingDamage, _amount: f32) {}
+/// `this.hurtServer(level, this.damageSources().<kind>(), amount)`.
+pub fn hurt(level: &mut ServerLevel, entity: &mut dyn Entity, kind: LivingDamage, amount: f32) {
+    let sources = level.damage_sources();
+    let source = match kind {
+        LivingDamage::InWall => sources.in_wall(),
+        LivingDamage::OutOfBorder => sources.out_of_border(),
+        LivingDamage::Drown => sources.drown(),
+        LivingDamage::Cramming => sources.cramming(),
+        LivingDamage::FlyIntoWall => sources.fly_into_wall(),
+        LivingDamage::Freeze => sources.freeze(),
+    };
+    entity.hurt_server(level, &source, amount);
+}
 
 /// SEAM(EcEnchant): `EnchantmentHelper.tickEffects(level, entity)`.
 pub fn enchantment_tick_effects(_level: &mut ServerLevel, _entity: &mut dyn Entity) {}

@@ -1,0 +1,219 @@
+T 1
+P Web minecraft:player pos=0.5,-60.0,-2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-60.0,0.5 delta=0.0,0.11499999999999999,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 2
+P Web minecraft:player pos=0.5,-60.0,-2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-59.885,0.5 delta=0.0,0.2070000013709068,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 3
+P Web minecraft:player pos=0.5,-60.0,-2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-59.67799999862909,0.5 delta=0.0,0.34060000356435777,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 4
+P Web minecraft:player pos=0.5,-60.0,-2.399999998509884 delta=0.0,-0.0784000015258789,0.0546000071555377 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-59.337399995064736,0.5 delta=0.0,0.44748000691175466,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 5
+P Web minecraft:player pos=0.5,-60.0,-2.24539998986423 delta=0.0,-0.0784000015258789,0.08441161452515782 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-58.88991998815298,0.5 delta=0.0,0.4729840108637811,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 6
+P Web minecraft:player pos=0.5,-60.0,-2.0609883738489563 delta=0.0,-0.0784000015258789,0.10068875403960292 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-58.4169359772892,0.5 delta=0.0,0.5533872143294336,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 7
+P Web minecraft:player pos=0.5,-60.0,-1.8602996183192373 delta=0.0,-0.0784000015258789,0.10957607324677543 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-57.863548762959766,0.5 delta=0.0,0.5577097780604365,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 8
+P Web minecraft:player pos=0.5,-60.0,-1.6507235435823457 delta=0.0,-0.0784000015258789,0.11442855009751955 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-57.30583898489933,0.5 delta=0.0,0.6211678290967679,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 9
+P Web minecraft:player pos=0.5,-60.0,-1.4362949919947101 delta=0.0,-0.0784000015258789,0.11707800276576674 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-56.68467115580256,0.5 delta=0.0,0.6719342706823119,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 10
+P Web minecraft:player pos=0.5,-60.0,-1.2192169877388273 delta=0.0,-0.0784000015258789,0.11852460409065624 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-56.01273688512025,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 11
+P Web minecraft:player pos=0.5,-60.0,-1.000692382158055 delta=0.0,-0.0784000015258789,0.11931444850578841 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-55.312736885120245,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 12
+P Web minecraft:player pos=0.5,-60.0,-0.7813779321621503 delta=0.0,-0.0784000015258789,0.119745703606542 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-54.61273688512024,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 13
+P Web minecraft:player pos=0.5,-60.0,-0.5616322270654922 delta=0.0,-0.0784000015258789,0.11998116891890338 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-53.91273688512024,0.5 delta=0.0,0.6750000083446503,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 14
+P Web minecraft:player pos=0.5,-60.0,-0.3416510566564727 delta=0.0,-0.0784000015258789,0.12010973299438572 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-53.237736876775585,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 15
+P Web minecraft:player pos=0.5,-60.0,-0.12154132217197089 delta=0.0,-0.0784000015258789,0.12017992898775254 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-52.53773687677558,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 16
+P Web minecraft:player pos=0.5,-60.0,-0.06649633955250372 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-51.83773687677558,0.5 delta=0.0,0.6750000083446503,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 17
+P Web minecraft:player pos=0.5,-60.0,-0.041496339179974695 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-51.162736868430926,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 18
+P Web minecraft:player pos=0.5,-60.0,-0.016496338807445665 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-50.46273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 19
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 20
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 21
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 22
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 23
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 24
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 25
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 26
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 27
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 28
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 29
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 30
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 31
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 32
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 33
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 34
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 35
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 36
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 37
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 38
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 39
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 40
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 41
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 42
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 43
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 44
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 45
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 46
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 47
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 48
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 49
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 50
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 51
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 52
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 53
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 54
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 55
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 56
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 57
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 58
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 59
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 60
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 61
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 62
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 63
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 64
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 65
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 66
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 67
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 68
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 69
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 70
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 71
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 72
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 73
+P Web minecraft:player pos=0.5,-60.0,0.008503661565083365 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=12.5,-49.76273686843092,0.5 delta=0.0,0.7,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty

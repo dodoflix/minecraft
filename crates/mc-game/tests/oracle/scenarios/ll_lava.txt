@@ -1,0 +1,15 @@
+# Lava: fall in, swim around, jump out; fire resistance keeps the player alive for the whole run.
+level flat
+fill -6 -61 -6 6 -52 6 minecraft:lava
+spawn_player Lava survival 0.5 -50 0.5 0 0 sim
+effect Lava minecraft:fire_resistance 0 100000
+watch player:Lava
+tick 15
+input Lava forward
+tick 20
+input Lava forward,jump
+tick 20
+input Lava jump
+tick 30
+input Lava none
+tick 20
