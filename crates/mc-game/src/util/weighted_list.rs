@@ -63,6 +63,11 @@ impl<E> WeightedList<E> {
         }
         None
     }
+
+    /// `map(mapper)`.
+    pub fn map<T>(self, mut mapper: impl FnMut(E) -> T) -> WeightedList<T> {
+        WeightedList { total_weight: self.total_weight, items: self.items.into_iter().map(|w| Weighted { value: mapper(w.value), weight: w.weight }).collect() }
+    }
 }
 
 impl<E: Clone + Send + Sync + 'static> WeightedList<E> {
