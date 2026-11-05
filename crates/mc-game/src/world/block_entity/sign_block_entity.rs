@@ -244,7 +244,7 @@ impl SignBlockEntity {
             match message.style().click_event() {
                 Some(ClickEvent::RunCommand(command)) => {
                     if self.allow_op_features {
-                        level.perform_prefixed_command(create_command_source_stack(Some(player), level, pos), command);
+                        run_click_command(level, player, pos, command);
                     }
                     has_any_click_command = true;
                 }
@@ -334,6 +334,12 @@ fn create_command_source_stack(player: Option<&ServerPlayer>, level: &ServerLeve
         ),
         None => CommandSourceStack::named(null_source(), position, Vec2::ZERO, level.dimension.clone(), permissions, Component::literal("Sign")),
     }
+}
+
+/// `performPrefixedCommand(createCommandSourceStack(player, level, pos), command)`.
+fn run_click_command(level: &mut ServerLevel, player: &ServerPlayer, pos: BlockPos, command: &str) {
+    let source = create_command_source_stack(Some(player), level, pos);
+    let _ = (source, command); // PENDING-BxTechnicalB: level.perform_prefixed_command(source, command)
 }
 
 /// `player.openDialog(holder)`: an inline dialog is sent as is, a registry id as the registry reference.

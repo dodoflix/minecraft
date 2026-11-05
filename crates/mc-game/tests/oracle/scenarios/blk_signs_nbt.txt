@@ -1,0 +1,35 @@
+# Sign / hanging sign / banner / skull block entities: fresh NBT, merged NBT (/data merge block), update tags.
+level flat
+preload 2
+block 0 -60 0 minecraft:oak_sign[rotation=3]
+block 2 -60 0 minecraft:birch_wall_sign[facing=east]
+block 4 -60 0 minecraft:oak_hanging_sign[rotation=5,attached=true]
+block 6 -60 0 minecraft:cherry_wall_hanging_sign[facing=south]
+dump be:0,-60,0 beu:0,-60,0 be:2,-60,0 be:4,-60,0 beu:4,-60,0 be:6,-60,0
+be_nbt 0 -60 0 {front_text:{messages:["hello",{text:"world",color:"red",bold:1b},"",{text:"x",click_event:{action:"run_command",command:"/say hi"}}],color:"red",has_glowing_text:1b},is_waxed:1b}
+dump be:0,-60,0 beu:0,-60,0 events
+be_nbt 0 -60 0 {back_text:{messages:["a","b","c","d"],filtered_messages:["a","B","c","D"],color:"lime"}}
+dump be:0,-60,0 beu:0,-60,0
+be_nbt 4 -60 0 {allow_op_features:1b,front_text:{messages:["h1","h2","h3","h4"],color:"blue"}}
+dump be:4,-60,0 beu:4,-60,0
+be_nbt 2 -60 0 {front_text:{messages:["1","2","3"],color:"white"}}
+dump be:2,-60,0
+block 8 -60 0 minecraft:red_banner[rotation=12]
+block 10 -60 0 minecraft:blue_wall_banner[facing=north]
+dump be:8,-60,0 beu:8,-60,0 be:10,-60,0
+be_nbt 8 -60 0 {patterns:[{pattern:"minecraft:stripe_top",color:"white"},{pattern:"minecraft:creeper",color:"black"}],CustomName:'{"text":"Flag","italic":false}'}
+dump be:8,-60,0 beu:8,-60,0 events
+be_nbt 10 -60 0 {patterns:[{pattern:"minecraft:globe",color:"cyan"}]}
+dump be:10,-60,0 beu:10,-60,0
+block 12 -60 0 minecraft:skeleton_skull[rotation=7]
+block 14 -60 0 minecraft:player_head[rotation=15]
+block 16 -60 0 minecraft:dragon_wall_head[facing=west]
+block 18 -60 0 minecraft:piglin_head
+block 20 -60 0 minecraft:wither_skeleton_wall_skull[facing=south]
+dump be:12,-60,0 beu:12,-60,0 be:14,-60,0 be:16,-60,0 be:18,-60,0 be:20,-60,0
+be_nbt 14 -60 0 {profile:{name:"Notch"},note_block_sound:"minecraft:entity.pig.ambient",custom_name:'{"text":"Head"}'}
+dump be:14,-60,0 beu:14,-60,0
+be_nbt 14 -60 0 {profile:{id:[I;1,2,3,4],properties:[{name:"textures",value:"abc"}]}}
+dump be:14,-60,0 beu:14,-60,0
+be_nbt 12 -60 0 {profile:"minecraft:pig",note_block_sound:"zzz:bad"}
+dump be:12,-60,0

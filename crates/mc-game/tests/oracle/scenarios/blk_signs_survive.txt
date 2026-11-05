@@ -1,0 +1,46 @@
+# Support loss of signs / hanging signs / banners / skulls (updateShape + canSurvive), skull POWERED follows neighbour signals.
+level flat
+preload 2
+fill -2 -61 -2 22 -61 2 minecraft:stone
+block 0 -60 0 minecraft:oak_sign[rotation=4]
+block 2 -60 0 minecraft:stone
+block 3 -60 0 minecraft:oak_wall_sign[facing=east]
+block 6 -60 0 minecraft:red_banner[rotation=2]
+block 8 -60 0 minecraft:stone
+block 9 -60 0 minecraft:green_wall_banner[facing=east]
+block 12 -59 0 minecraft:stone
+block 12 -60 0 minecraft:oak_hanging_sign[rotation=0,attached=false]
+block 14 -60 0 minecraft:stone
+block 14 -59 0 minecraft:warped_wall_hanging_sign[facing=north]
+block 15 -59 0 minecraft:stone
+block 13 -59 0 minecraft:stone
+block 18 -60 0 minecraft:creeper_head[rotation=1]
+block 20 -60 0 minecraft:zombie_wall_head[facing=north]
+block 19 -60 0 minecraft:stone
+block 5 -60 5 minecraft:oak_sign[rotation=1,waterlogged=true]
+dump blocks:-2,-61,-2,22,-59,6 events
+tick 3
+dump ticks
+# remove supports
+block 0 -61 0 minecraft:air
+block 2 -60 0 minecraft:air
+block 6 -61 0 minecraft:air
+block 8 -60 0 minecraft:air
+block 12 -59 0 minecraft:air
+block 13 -59 0 minecraft:air
+block 15 -59 0 minecraft:air
+dump blocks:-2,-61,-2,22,-59,6 events
+tick 2
+dump blocks:-2,-61,-2,22,-59,6 events ticks
+# powered skulls
+block 18 -59 0 minecraft:redstone_block
+block 21 -60 0 minecraft:redstone_block
+tick 1
+dump blocks:17,-60,-1,22,-59,1 be:18,-60,0 events
+block 18 -59 0 minecraft:air
+tick 1
+dump blocks:17,-60,-1,22,-59,1 events
+# rotate/mirror via wall / standing states
+block 5 -61 5 minecraft:air
+tick 1
+dump blocks:4,-61,4,6,-59,6 ticks events
