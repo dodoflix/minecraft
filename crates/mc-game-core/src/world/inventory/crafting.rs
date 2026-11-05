@@ -1,12 +1,10 @@
-//! `CraftingContainer`/`TransientCraftingContainer`, `ResultContainer`, `ResultSlot`, `CraftingInput` and the recipe
-//! seam. Recipes are not ported yet: [`set_crafting_recipe_source`] is the single hook the recipe manager installs;
-//! without it no recipe ever matches (the result slot stays empty), exactly like a server with zero crafting recipes.
+//! `CraftingContainer`/`TransientCraftingContainer`, `ResultContainer`, `ResultSlot` and `CraftingInput`. No crafting
+//! recipe is ever matched: the result slot stays empty, exactly like a server with zero crafting recipes.
 
 use super::{ContainerKey, MenuPlayer, Prediction, Slot, SlotBehavior, SlotEnv};
 use crate::world::container::{Container, empty_stack, helper};
 use crate::world::item::ItemStack;
 use std::any::Any;
-use std::sync::OnceLock;
 
 /// `CraftingInput` (already trimmed to its bounding box by [`CraftingInput::of_positioned`]).
 #[derive(Clone, Debug, Default)]
@@ -55,25 +53,6 @@ impl CraftingInput {
         let new_items = (0..nh).flat_map(|y| (0..nw).map(move |x| (x, y))).map(|(x, y)| items[x + left + (y + top) * width].clone()).collect();
         PositionedCraftingInput { input: CraftingInput { width: nw, height: nh, items: new_items }, left, top }
     }
-}
-
-/// The recipe manager's side of crafting (installed once recipes exist).
-pub trait CraftingRecipeSource: Send + Sync {
-    /// `slotChangedCraftingGrid`'s recipe lookup + `setRecipeUsed` + `assemble` + enabled-features check: the result
-    /// stack for `input` (empty if no recipe applies).
-    fn craft_result(&self, input: &CraftingInput, player: &mut dyn MenuPlayer) -> ItemStack;
-    /// `ResultSlot.getRemainingItems(input, level)` (`recipe.getRemainingItems(input)`, or the input items when no
-    /// recipe matches).
-    fn remaining_items(&self, input: &CraftingInput, player: &mut dyn MenuPlayer) -> Vec<ItemStack>;
-    /// `RecipeCraftingHolder.awardUsedRecipes(player, craftSlots.getItems())` for the recipe last used.
-    fn award_used_recipes(&self, player: &mut dyn MenuPlayer, items: &[ItemStack]);
-}
-
-static RECIPES: OnceLock<&'static dyn CraftingRecipeSource> = OnceLock::new();
-
-/// Installs the recipe manager hook (first caller wins).
-pub fn set_crafting_recipe_source(source: &'static dyn CraftingRecipeSource) {
-    let _ = RECIPES.set(source);
 }
 
 /// `TransientCraftingContainer` (width x height grid owned by a menu). Every `setItem`/successful `removeItem` owes the
@@ -211,13 +190,9 @@ impl ResultSlot {
         Self { craft_slots, remove_count: std::cell::Cell::new(0) }
     }
 
-    fn check_take_achievements(&self, env: &mut SlotEnv, _carried: &ItemStack) {
+    fn check_take_achievements(&self) {
         // `carried.onCraftedBy(player, removeCount)` (item behaviour `on_crafted`, crafting stats/advancements) and
-        // `awardUsedRecipes` — the latter through the recipe hook.
-        if let Some(r) = RECIPES.get() {
-            let items = env.locals[self.craft_slots].as_any().downcast_ref::<TransientCraftingContainer>().map(|c| c.get_items().to_vec()).unwrap_or_default();
-            r.award_used_recipes(env.player, &items);
-        }
+        // `awardUsedRecipes` are not wired.
         self.remove_count.set(0);
     }
 }
@@ -232,9 +207,9 @@ impl SlotBehavior for ResultSlot {
         }
         slot.base_remove(env, amount)
     }
-    fn on_quick_craft(&self, _slot: &Slot, env: &mut SlotEnv, picked: &ItemStack, count: i32) {
+    fn on_quick_craft(&self, _slot: &Slot, _env: &mut SlotEnv, _picked: &ItemStack, count: i32) {
         self.remove_count.set(self.remove_count.get() + count);
-        self.check_take_achievements(env, picked);
+        self.check_take_achievements();
     }
     fn on_swap_craft(&self, _slot: &Slot, count: i32) {
         self.remove_count.set(self.remove_count.get() + count);
@@ -243,17 +218,14 @@ impl SlotBehavior for ResultSlot {
         // `result.getItem().onCraftedBy(result, player)`: item behaviour hook (no-op for every vanilla item but maps/books).
         slot.base_safe_clone(env)
     }
-    fn on_take(&self, _slot: &Slot, env: &mut SlotEnv, carried: &ItemStack) {
-        self.check_take_achievements(env, carried);
+    fn on_take(&self, _slot: &Slot, env: &mut SlotEnv, _carried: &ItemStack) {
+        self.check_take_achievements();
         let (positioned, craft_width) = {
             let craft = env.locals[self.craft_slots].as_any().downcast_ref::<TransientCraftingContainer>().expect("ResultSlot craft container");
             (craft.as_positioned_craft_input(), craft.get_width())
         };
         let input = &positioned.input;
-        let mut remaining = match RECIPES.get() {
-            Some(r) => r.remaining_items(input, env.player),
-            None => input.items.clone(),
-        };
+        let mut remaining = input.items.clone();
         for y in 0..input.height {
             for x in 0..input.width {
                 let slot = x + positioned.left + (y + positioned.top) * craft_width;
@@ -288,13 +260,4 @@ impl SlotBehavior for ResultSlot {
 /// `AbstractCraftingMenu.addResultSlot`.
 pub fn result_slot(result_local: usize, craft_local: usize, x: i32, y: i32) -> Slot {
     Slot::with_behavior(ContainerKey::Local(result_local), 0, x, y, Box::new(ResultSlot::new(craft_local)))
-}
-
-/// `slotChangedCraftingGrid` (the recipe part): the stack to put into the result slot for the current grid.
-pub fn craft_result_for_grid(grid: &TransientCraftingContainer, player: &mut dyn MenuPlayer) -> ItemStack {
-    let input = grid.as_positioned_craft_input().input;
-    match RECIPES.get() {
-        Some(r) => r.craft_result(&input, player),
-        None => ItemStack::empty(),
-    }
 }

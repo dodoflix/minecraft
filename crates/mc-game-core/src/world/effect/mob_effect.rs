@@ -2,9 +2,8 @@
 //! the effect (`MobEffectData.class`): tick actions, tick intervals, instantaneous application, start/added/removed/
 //! hurt callbacks, particles and attribute modifier templates.
 //!
-//! Gaps (owner = mob classes / raids): `OozingMobEffect`/`InfestedMobEffect` spawn `Slime`/`Silverfish`, which only
-//! happens once those classes register an entity factory; `BadOmenMobEffect`/`RaidOmenMobEffect` need the raid
-//! manager and the POI manager ([`RaidHooks`]).
+//! Gaps: `OozingMobEffect`/`InfestedMobEffect` spawn `Slime`/`Silverfish`, which only happens once those classes
+//! register an entity factory; `BadOmenMobEffect`/`RaidOmenMobEffect` do nothing (no raid manager or POI manager).
 
 use crate::server::level::ServerLevel;
 use crate::world::entity::attributes::{AttributeMap, AttributeModifier, AttributeModifierOperation};
@@ -15,7 +14,6 @@ use mc_data::enums::{AttributeModifierOperation as DataOperation, MobEffectCateg
 use mc_data::{Attribute, MobEffect, ParticleType};
 use mc_protocol::packets::play::{ParticleOptions, SoundSource};
 use super::reactions;
-use std::sync::OnceLock;
 
 /// `AMBIENT_ALPHA = Mth.floor(38.25F)`.
 const AMBIENT_ALPHA: i32 = 38;
@@ -26,23 +24,6 @@ const AMBIENT_ALPHA: i32 = 38;
 pub enum EffectCause<'a> {
     Mob,
     Entity(&'a dyn Entity),
-}
-
-/// The raid / POI side of bad omen and raid omen (`ServerLevel.isVillage`, `getRaidAt`, `Raids.createOrExtendRaid`).
-/// SEAM(raids): installed by the raid manager; without it the effects behave as outside a village.
-pub trait RaidHooks: Send + Sync {
-    /// `level.isVillage(pos)`.
-    fn is_village(&self, level: &ServerLevel, pos: mc_core::pos::BlockPos) -> bool;
-    /// `level.getRaidAt(pos)`: `(raidOmenLevel, maxRaidOmenLevel)` of the raid there.
-    fn raid_omen_levels_at(&self, level: &ServerLevel, pos: mc_core::pos::BlockPos) -> Option<(i32, i32)>;
-    /// `level.getRaids().createOrExtendRaid(player, pos)`.
-    fn create_or_extend_raid(&self, level: &mut ServerLevel, player: &mut dyn Entity, pos: mc_core::pos::BlockPos);
-}
-
-static RAID_HOOKS: OnceLock<&'static dyn RaidHooks> = OnceLock::new();
-
-pub fn set_raid_hooks(hooks: &'static dyn RaidHooks) {
-    let _ = RAID_HOOKS.set(hooks);
 }
 
 fn data_operation(op: DataOperation) -> AttributeModifierOperation {
@@ -242,37 +223,6 @@ impl MobEffectExt for MobEffect {
                 true
             }
             "AbsorptionMobEffect" => mob.get_absorption_amount() > 0.0,
-            "BadOmenMobEffect" => {
-                if mob.is_player() && !mob.is_spectator() && level.difficulty() != mc_world::level_storage::Difficulty::Peaceful {
-                    if let Some(hooks) = RAID_HOOKS.get() {
-                        let pos = mob.block_position();
-                        if hooks.is_village(level, pos) {
-                            let below_max = hooks.raid_omen_levels_at(level, pos).is_none_or(|(omen, max)| omen < max);
-                            if below_max {
-                                mob.add_effect(level, MobEffectInstance::of(MobEffect::RAID_OMEN, 600, amplification), None);
-                                if let Some(player) = mob.as_any_mut().downcast_mut::<crate::world::entity::ServerPlayer>() {
-                                    player.raid_omen_position = Some(pos);
-                                }
-                                return false;
-                            }
-                        }
-                    }
-                }
-                true
-            }
-            "RaidOmenMobEffect" => {
-                if mob.is_player() && !mob.is_spectator() {
-                    let position = mob.as_any().downcast_ref::<crate::world::entity::ServerPlayer>().and_then(|p| p.raid_omen_position);
-                    if let (Some(pos), Some(hooks)) = (position, RAID_HOOKS.get()) {
-                        hooks.create_or_extend_raid(level, mob, pos);
-                        if let Some(player) = mob.as_any_mut().downcast_mut::<crate::world::entity::ServerPlayer>() {
-                            player.raid_omen_position = None;
-                        }
-                        return false;
-                    }
-                }
-                true
-            }
             _ => true,
         }
     }

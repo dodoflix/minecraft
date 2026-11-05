@@ -2,7 +2,7 @@
 
 use super::{
     AbstractContainerMenu, ArmorSlot, ContainerKey, MenuBase, MenuPlayer, OffhandSlot, Prediction, ResultContainer, Slot, TransientCraftingContainer,
-    craft_result_for_grid, result_slot,
+    result_slot,
 };
 use crate::world::entity::equipment::{EquipmentSlot, EquipmentSlotType};
 use crate::world::item::ItemStack;
@@ -72,11 +72,8 @@ impl InventoryMenu {
     }
 
     /// `CraftingMenu.slotChangedCraftingGrid(this, level, owner, craftSlots, resultSlots, null)`.
-    fn slot_changed_crafting_grid(&mut self, player: &mut dyn MenuPlayer) {
-        let result = {
-            let grid = self.base.locals[CRAFT_LOCAL].as_any().downcast_ref::<TransientCraftingContainer>().expect("craft slots");
-            craft_result_for_grid(grid, player)
-        };
+    fn slot_changed_crafting_grid(&mut self) {
+        let result = ItemStack::empty();
         self.base.locals[RESULT_LOCAL].set_item(0, result.clone());
         self.base.set_remote_slot(0, &result);
         self.base.send_slot_change_now(0, result);
@@ -100,7 +97,7 @@ impl AbstractContainerMenu for InventoryMenu {
     fn slots_changed(&mut self, player: &mut dyn MenuPlayer, _container: &ContainerKey) {
         // Vanilla only recomputes when `owner.level() instanceof ServerLevel`, i.e. always on the server.
         if player.is_server_player() {
-            self.slot_changed_crafting_grid(player);
+            self.slot_changed_crafting_grid();
         }
     }
 

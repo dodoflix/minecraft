@@ -6,28 +6,10 @@ use crate::world::entity::Entity;
 use mc_core::phys::AABB;
 use crate::world::level::block::rail_state::RailState;
 use mc_data::EntityType;
-use std::sync::OnceLock;
 
 pub struct DetectorRailBlock;
 
 const PRESSED_CHECK_PERIOD: i32 = 20;
-
-/// What the comparator output of a detector rail reads from the minecart entity classes, which live in the entity
-/// code (`MinecartCommandBlock`, `AbstractMinecartContainer`/`Container`): registered once at startup by it.
-pub struct MinecartRedstoneAccess {
-    /// `MinecartCommandBlock.getCommandBlock().getSuccessCount()`; `None` if the entity is not a command block minecart.
-    pub command_block_success_count: fn(&dyn Entity) -> Option<i32>,
-    /// `AbstractContainerMenu.getRedstoneSignalFromContainer((Container) entity)`; `None` if the entity is not a
-    /// `Container`.
-    pub container_signal: fn(&dyn Entity) -> Option<i32>,
-}
-
-static MINECART_ACCESS: OnceLock<MinecartRedstoneAccess> = OnceLock::new();
-
-/// Registers the minecart entity access (once, at startup).
-pub fn set_minecart_redstone_access(access: MinecartRedstoneAccess) {
-    let _ = MINECART_ACCESS.set(access);
-}
 
 /// `entity instanceof AbstractMinecart`.
 fn is_abstract_minecart(entity: &dyn Entity) -> bool {
@@ -119,23 +101,6 @@ rail_behaviour!(DetectorRailBlock, |_state, _level, _pos, _block| {}, on_place,
     }
     fn get_direct_signal(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos, direction: Direction) -> i32 {
         if state.get(props::POWERED) && direction == Direction::Up { 15 } else { 0 }
-    }
-    fn get_analog_output_signal(&self, state: BlockState, level: &ServerLevel, pos: BlockPos, _direction: Direction) -> i32 {
-        if state.get(props::POWERED) {
-            let access = MINECART_ACCESS.get();
-            if let Some(access) = access {
-                let command_blocks = get_interacting_minecarts(level, pos, |e| (access.command_block_success_count)(e).is_some(), |_| true);
-                if let Some(first) = command_blocks.first().and_then(|id| level.get_entity(*id)) {
-                    return (access.command_block_success_count)(first).unwrap_or(0);
-                }
-                // `EntitySelector.CONTAINER_ENTITY_SELECTOR`: a `Container` that is alive
-                let containers = get_interacting_minecarts(level, pos, is_abstract_minecart, |e| (access.container_signal)(e).is_some() && e.is_alive());
-                if let Some(first) = containers.first().and_then(|id| level.get_entity(*id)) {
-                    return (access.container_signal)(first).unwrap_or(0);
-                }
-            }
-        }
-        0
     }
 );
 

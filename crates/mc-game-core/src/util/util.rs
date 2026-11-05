@@ -4,37 +4,15 @@ use std::sync::OnceLock;
 use std::time::{Instant, SystemTime, UNIX_EPOCH};
 
 use mc_core::ident::Identifier;
-use parking_lot::RwLock;
 use uuid::Uuid;
 
 /// `Util.NIL_UUID`.
 pub const NIL_UUID: Uuid = Uuid::nil();
 
-/// `Util.timeSource` override (`setTimeSource`/`shutdownTimeSource`); `None` = `System.nanoTime`.
-static TIME_SOURCE: RwLock<Option<fn() -> i64>> = RwLock::new(None);
-
-fn system_nano_time() -> i64 {
-    static BASE: OnceLock<Instant> = OnceLock::new();
-    BASE.get_or_init(Instant::now).elapsed().as_nanos() as i64
-}
-
-/// `Util.setTimeSource`.
-pub fn set_time_source(source: fn() -> i64) {
-    *TIME_SOURCE.write() = Some(source);
-}
-
-/// `Util.shutdownTimeSource`: freezes the clock at its current value is not representable with a plain `fn`, so this
-/// restores the system source (callers only use it on shutdown, after which nothing reads time).
-pub fn reset_time_source() {
-    *TIME_SOURCE.write() = None;
-}
-
 /// `Util.getNanos` (`System.nanoTime`: arbitrary origin, monotonic).
 pub fn get_nanos() -> i64 {
-    match *TIME_SOURCE.read() {
-        Some(source) => source(),
-        None => system_nano_time(),
-    }
+    static BASE: OnceLock<Instant> = OnceLock::new();
+    BASE.get_or_init(Instant::now).elapsed().as_nanos() as i64
 }
 
 /// `Util.getMillis`.

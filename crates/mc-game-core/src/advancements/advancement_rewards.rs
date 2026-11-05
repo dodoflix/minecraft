@@ -1,6 +1,6 @@
 //! `net.minecraft.advancements.AdvancementRewards`.
 
-use std::sync::{Arc, OnceLock};
+use std::sync::Arc;
 
 use mc_core::ident::Identifier;
 use mc_dfu::extra::IDENTIFIER;
@@ -19,23 +19,6 @@ use crate::world::level::storage::loot::holder::{HolderSet, holder_set_codec};
 use crate::world::level::storage::loot::parameters::LootContextParamSets;
 use crate::world::level::storage::loot::table::{LootTable, loot_table_direct_codec};
 use crate::world::level::storage::loot::LootParams;
-
-/// What rewards need from subsystems that own their state outside the level (recipes: `ServerRecipeBook`, functions:
-/// `ServerFunctionManager`). Installed once by the owner (`set_reward_hooks`).
-pub trait RewardHooks: Send + Sync {
-    /// `ServerPlayer.awardRecipesByKey(recipes)`.
-    fn award_recipes_by_key(&self, level: &mut ServerLevel, player: &mut ServerPlayer, recipes: &[Identifier]);
-    /// `server.getFunctions().execute(function, player.createCommandSourceStack().withSuppressedOutput()
-    /// .withPermission(GAMEMASTER))`; a function that does not exist is skipped.
-    fn run_function(&self, level: &mut ServerLevel, player: &mut ServerPlayer, function: &Identifier);
-}
-
-static REWARD_HOOKS: OnceLock<&'static dyn RewardHooks> = OnceLock::new();
-
-/// Installs the recipe/function seam (first caller wins).
-pub fn set_reward_hooks(hooks: &'static dyn RewardHooks) {
-    let _ = REWARD_HOOKS.set(hooks);
-}
 
 #[derive(Clone)]
 pub struct AdvancementRewards {
@@ -104,14 +87,6 @@ impl AdvancementRewards {
         }
         if changes {
             player.broadcast_menu_changes(level);
-        }
-        if let Some(hooks) = REWARD_HOOKS.get() {
-            if !self.recipes.is_empty() {
-                hooks.award_recipes_by_key(level, player, &self.recipes);
-            }
-            if let Some(function) = &self.function {
-                hooks.run_function(level, player, function);
-            }
         }
     }
 }

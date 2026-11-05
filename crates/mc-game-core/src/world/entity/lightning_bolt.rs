@@ -17,7 +17,6 @@ use mc_data::{EntityType, GameEvent};
 use mc_world::level_storage::Difficulty;
 use std::any::Any;
 use std::collections::HashSet;
-use std::sync::OnceLock;
 
 const START_LIFE: i32 = 2;
 const DAMAGE_RADIUS: f64 = 3.0;
@@ -279,22 +278,8 @@ impl Entity for LightningBolt {
 #[distributed_slice(ENTITY_FACTORIES)]
 static LIGHTNING_BOLT_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::LIGHTNING_BOLT, create: |ty, id, _registries| Box::new(LightningBolt::new(ty, id)) };
 
-/// Spawns the skeleton horse of a lightning trap at `pos` (`SkeletonHorse.setTrap(true); setAge(0)`): installed by the
-/// mob classes (the horse is not an entity class of this module).
-pub type TrapHorseSpawner = fn(&mut ServerLevel, BlockPos);
-
-static TRAP_HORSE_SPAWNER: OnceLock<TrapHorseSpawner> = OnceLock::new();
-
-/// Registers the skeleton-trap spawner (once, at startup).
-pub fn set_trap_horse_spawner(spawner: TrapHorseSpawner) {
-    let _ = TRAP_HORSE_SPAWNER.set(spawner);
-}
-
 /// The spawn half of `ServerLevel.tickThunder` (`LevelTickState::lightning_spawn`).
 pub fn spawn_from_thunder(level: &mut ServerLevel, pos: BlockPos, is_trap: bool) {
-    if is_trap && let Some(spawn) = TRAP_HORSE_SPAWNER.get() {
-        spawn(level, pos);
-    }
     let mut bolt = LightningBolt::new(EntityType::LIGHTNING_BOLT, level.next_entity_id());
     let at = Vec3::at_bottom_center_of(&pos);
     bolt.snap_to_pos(at.x, at.y, at.z);
