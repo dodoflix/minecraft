@@ -19,7 +19,7 @@ import net.minecraft.world.level.levelgen.feature.Feature;
  * (ore, scattered_ore, disk, block_blob, netherrack_replace_blobs, lake, spring_feature, iceberg, the four selectors,
  * single_block_pillar, stepped_column_cluster) plus a few inline features (JSON in {@link #INLINE}) placed at many origins/seeds
  * over the synthetic terrain of FeatureOracleBase, and the accept/reject outcome of codec edge cases.
- * Usage (repo root): scripts/vanilla-java.sh crates/mc-game/tests/oracle/FeatOresOracle.java crates/mc-game/tests/fixtures/feat_ores.txt
+ * Usage (repo root): scripts/vanilla-java.sh crates/mc-game/tests/oracle/FeatOresOracle.java crates/mc-game/tests/fixtures/feat_ores.txt && gzip -9 -f crates/mc-game/tests/fixtures/feat_ores.txt
  *
  * Output: {@code CODEC <ok|err> <json>} lines, then per scenario {@code S <name> <seed> <rng> <cx> <cz> <x> <y> <z>},
  * {@code R <result>}, {@code F <next long of the feature random>}, {@code D <dump line>}..., {@code END}. Dump lines are the
