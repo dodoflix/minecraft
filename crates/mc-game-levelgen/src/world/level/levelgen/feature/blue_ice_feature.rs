@@ -1,10 +1,10 @@
 //! `BlueIceFeature`.
 
-use super::{FEATURE_TYPES, Feature};
-use crate::world::level::block::BlockStateExt;
-use crate::world::level::levelgen::codec::TypeEntry;
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;

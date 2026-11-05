@@ -4,8 +4,8 @@ use super::FOLIAGE_PLACER_TYPES;
 use super::blob_foliage_placer::decode_blob_parts;
 use super::foliage_placer::{FoliageAttachment, FoliageBase, FoliagePlacer};
 use super::tree_feature::{TreeFeature, TreeSetter};
-use crate::world::level::levelgen::codec::TypeEntry;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::random::RandomSource;
 use std::sync::Arc;
 

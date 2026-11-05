@@ -1,10 +1,10 @@
 //! `OceanRuinStructure`.
 
 use super::ocean_ruin_pieces;
-use crate::world::level::levelgen::codec::*;
-use crate::world::level::levelgen::registries::DecodeCtx;
-use crate::world::level::levelgen::structure::pieces::StructurePiecesBuilder;
-use crate::world::level::levelgen::structure::structure::{GenerationContext, GenerationStub, STRUCTURE_TYPES, Structure, StructureSettings, on_top_of_chunk_center};
+use mc_game_core::world::level::levelgen::codec::*;
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::structure::pieces::StructurePiecesBuilder;
+use mc_game_core::world::level::levelgen::structure::structure::{GenerationContext, GenerationStub, STRUCTURE_TYPES, Structure, StructureSettings, on_top_of_chunk_center};
 use mc_core::pos::BlockPos;
 use mc_core::rotation::Rotation;
 use mc_world::heightmap::HeightmapType;

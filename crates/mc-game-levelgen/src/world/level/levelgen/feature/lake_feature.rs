@@ -1,14 +1,14 @@
 //! `LakeFeature` (deprecated in vanilla, still used by `lake_lava`): a blobby pool in the 16x16x8 box below the origin.
 
-use super::{Feature, mark_above_for_post_processing};
-use crate::world::level::biome_ext::should_freeze_checked;
-use crate::world::level::levelgen::blockpredicates::{self, BlockPredicate};
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::codec::TypeEntry;
-use crate::world::level::levelgen::holder::Holder;
-use crate::world::level::levelgen::stateproviders::BlockStateProvider;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
-use crate::world::level::material::FluidStateExt;
+use mc_game_core::world::level::levelgen::feature::{Feature, mark_above_for_post_processing};
+use mc_game_core::world::level::biome_ext::should_freeze_checked;
+use mc_game_core::world::level::levelgen::blockpredicates::{self, BlockPredicate};
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
+use mc_game_core::world::level::levelgen::holder::Holder;
+use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::material::FluidStateExt;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::{Block, BlockState};
@@ -145,7 +145,7 @@ impl Feature for LakeFeature {
     }
 }
 
-#[linkme::distributed_slice(super::FEATURE_TYPES)]
+#[linkme::distributed_slice(mc_game_core::world::level::levelgen::feature::FEATURE_TYPES)]
 static LAKE: TypeEntry<dyn Feature> = TypeEntry {
     name: "lake",
     decode: |fields, ctx| {

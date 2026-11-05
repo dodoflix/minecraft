@@ -1,7 +1,7 @@
 //! `NopProcessor` (`nop`).
 
-use super::structure_processor::{STRUCTURE_PROCESSOR_TYPES, StructureProcessor};
-use crate::world::level::levelgen::codec::TypeEntry;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_processor::{STRUCTURE_PROCESSOR_TYPES, StructureProcessor};
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
 use std::sync::Arc;
 
 pub struct NopProcessor;

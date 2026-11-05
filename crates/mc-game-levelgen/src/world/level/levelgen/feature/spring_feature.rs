@@ -1,9 +1,9 @@
 //! `SpringFeature`: a single fluid source embedded in rock (lava/water springs).
 
-use super::Feature;
-use crate::world::level::levelgen::codec::{BlockSet, Fields, LoadError, LoadResult, TypeEntry, parse_bool, parse_identifier, parse_int};
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::feature::Feature;
+use mc_game_core::world::level::levelgen::codec::{BlockSet, Fields, LoadError, LoadResult, TypeEntry, parse_bool, parse_identifier, parse_int};
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::fluid::{Fluid, FluidState};
@@ -67,7 +67,7 @@ pub fn parse_fluid_state(value: &Value) -> LoadResult<FluidState> {
     fluid.states().find(|s| s.data().properties == wanted.as_slice()).ok_or_else(|| LoadError::new(format!("No fluid state of {id} with properties {wanted:?}")))
 }
 
-#[linkme::distributed_slice(super::FEATURE_TYPES)]
+#[linkme::distributed_slice(mc_game_core::world::level::levelgen::feature::FEATURE_TYPES)]
 static SPRING_FEATURE: TypeEntry<dyn Feature> = TypeEntry {
     name: "spring_feature",
     decode: |fields, _| {

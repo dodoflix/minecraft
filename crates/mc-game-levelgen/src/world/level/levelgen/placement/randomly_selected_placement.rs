@@ -1,8 +1,8 @@
 //! `RandomlySelectedPlacement`: delegates to one uniformly chosen modifier of the list.
 
-use super::{PLACEMENT_MODIFIER_TYPES, PlacementContext, PlacementModifier, decode_modifier};
-use crate::world::level::levelgen::codec::{Fields, LoadError, LoadResult, TypeEntry, parse_list};
-use crate::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::placement::{PLACEMENT_MODIFIER_TYPES, PlacementContext, PlacementModifier, decode_modifier};
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadError, LoadResult, TypeEntry, parse_list};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use std::sync::Arc;

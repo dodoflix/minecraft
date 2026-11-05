@@ -3,19 +3,19 @@
 //! carpets, indoor walls/doors, rooms) and the data markers of `WoodlandMansionPiece` (chests, evoker/vindicator/allay).
 
 use super::structure_entities;
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::feature::tree::shuffle;
-use crate::world::level::levelgen::structure::manager::StructureManager;
-use crate::world::level::levelgen::structure::piece::{
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::feature::tree::shuffle;
+use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
+use mc_game_core::world::level::levelgen::structure::piece::{
     PieceBase, STRUCTURE_PIECE_TYPES, StructurePiece, StructurePieceSerializationContext, StructurePieceType, create_chest_at,
 };
 use crate::world::level::levelgen::structure::template_structure_piece::{
     TemplateStructurePieceData, mirror_legacy_name, read_mirror, read_rotation, rotation_legacy_name,
 };
 use crate::world::level::levelgen::structure::templatesystem::block_ignore_processor::STRUCTURE_BLOCK;
-use crate::world::level::levelgen::structure::templatesystem::structure_template::get_zero_position_with_transform;
-use crate::world::level::levelgen::structure::templatesystem::{StructurePlaceSettings, StructureTemplateManager};
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::get_zero_position_with_transform;
+use mc_game_core::world::level::levelgen::structure::templatesystem::{StructurePlaceSettings, StructureTemplateManager};
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;

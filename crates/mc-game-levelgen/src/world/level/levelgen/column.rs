@@ -1,6 +1,6 @@
 //! `net.minecraft.world.level.levelgen.Column`: a vertical run of "inside" blocks bounded by a floor and/or ceiling.
 
-use crate::world::level::BlockGetter;
+use mc_game_core::world::level::BlockGetter;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
 

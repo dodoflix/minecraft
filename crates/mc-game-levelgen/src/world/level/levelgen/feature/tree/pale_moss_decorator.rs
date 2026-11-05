@@ -1,9 +1,9 @@
 //! `treedecorators.PaleMossDecorator`.
 
 use super::TREE_DECORATOR_TYPES;
-use super::shuffle;
+use mc_game_core::world::level::levelgen::feature::tree::shuffle;
 use super::tree_decorator::{Context, TreeDecorator};
-use crate::world::level::levelgen::codec::{TypeEntry, parse_float_range};
+use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_float_range};
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
 use mc_data::block::Block;

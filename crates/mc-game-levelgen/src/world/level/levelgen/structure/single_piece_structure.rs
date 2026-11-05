@@ -1,8 +1,8 @@
 //! `SinglePieceStructure`: the shared generation of the structures that are one piece on top of the chunk centre
 //! (desert pyramid, jungle temple, swamp hut). A concrete structure holds one and delegates `find_generation_point`.
 
-use super::piece::StructurePiece;
-use super::structure::{GenerationContext, GenerationStub, StructureSettings, get_lowest_y, on_top_of_chunk_center_without_biome_check};
+use mc_game_core::world::level::levelgen::structure::piece::StructurePiece;
+use mc_game_core::world::level::levelgen::structure::structure::{GenerationContext, GenerationStub, StructureSettings, get_lowest_y, on_top_of_chunk_center_without_biome_check};
 use mc_core::random::WorldgenRandom;
 use mc_world::heightmap::HeightmapType;
 

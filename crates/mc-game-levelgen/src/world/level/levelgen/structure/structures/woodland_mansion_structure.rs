@@ -1,15 +1,15 @@
 //! `WoodlandMansionStructure`.
 
 use super::woodland_mansion_pieces;
-use crate::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::registries::DecodeCtx;
-use crate::world::level::levelgen::structure::manager::StructureManager;
-use crate::world::level::levelgen::structure::pieces::{PiecesContainer, StructurePiecesBuilder};
-use crate::world::level::levelgen::structure::structure::{
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
+use mc_game_core::world::level::levelgen::structure::pieces::{PiecesContainer, StructurePiecesBuilder};
+use mc_game_core::world::level::levelgen::structure::structure::{
     GenerationContext, GenerationStub, STRUCTURE_TYPES, Structure, StructureSettings, get_lowest_y_in_5_by_5_box,
 };
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_core::random::RandomSource;

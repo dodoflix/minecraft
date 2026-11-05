@@ -1,9 +1,9 @@
 //! `EndCityStructure`.
 
 use super::end_city_pieces;
-use crate::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
-use crate::world::level::levelgen::registries::DecodeCtx;
-use crate::world::level::levelgen::structure::structure::{
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::structure::structure::{
     GenerationContext, GenerationStub, STRUCTURE_TYPES, Structure, StructureSettings, get_lowest_y_in_5_by_5_box,
 };
 use mc_core::pos::BlockPos;
@@ -52,7 +52,7 @@ impl Structure for EndCityStructure {
 
 /// `generatePieces(builder, startPos, rotation, context)`.
 fn generate_pieces(
-    builder: &mut crate::world::level::levelgen::structure::pieces::StructurePiecesBuilder,
+    builder: &mut mc_game_core::world::level::levelgen::structure::pieces::StructurePiecesBuilder,
     start_pos: BlockPos,
     rotation: Rotation,
     context: &mut GenerationContext<'_>,

@@ -1,14 +1,14 @@
 //! `ListPoolElement` (`list_pool_element`): several elements placed at the same position; the first one provides the
 //! jigsaw blocks.
 
-use super::structure_pool_element::{ElementCodecCtx, STRUCTURE_POOL_ELEMENT_TYPES, StructurePoolElement, StructurePoolElementType, decode_element, encode_element, parse_projection};
-use super::structure_template_pool::Projection;
-use crate::world::level::levelgen::codec::*;
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::structure::StructureManager;
-use crate::world::level::levelgen::structure::templatesystem::structure_template::JigsawBlockInfo;
-use crate::world::level::levelgen::structure::templatesystem::{LiquidSettings, StructureTemplateManager};
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::structure::pools::structure_pool_element::{ElementCodecCtx, STRUCTURE_POOL_ELEMENT_TYPES, StructurePoolElement, StructurePoolElementType, decode_element, encode_element, parse_projection};
+use mc_game_core::world::level::levelgen::structure::pools::structure_template_pool::Projection;
+use mc_game_core::world::level::levelgen::codec::*;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::structure::StructureManager;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::JigsawBlockInfo;
+use mc_game_core::world::level::levelgen::structure::templatesystem::{LiquidSettings, StructureTemplateManager};
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::pos::{BlockPos, Vec3i};
 use mc_core::random::RandomSource;

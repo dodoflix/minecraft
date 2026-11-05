@@ -1,8 +1,8 @@
 //! `MatchingBlockTagPredicate` (`matching_block_tag`).
 
-use super::BLOCK_PREDICATE_TYPES;
-use super::state_testing_predicate::{StateTestingPredicate, state_testing_codec};
-use crate::world::level::levelgen::codec::{TypeEntry, parse_identifier};
+use mc_game_core::world::level::levelgen::blockpredicates::BLOCK_PREDICATE_TYPES;
+use mc_game_core::world::level::levelgen::blockpredicates::state_testing_predicate::{StateTestingPredicate, state_testing_codec};
+use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_identifier};
 use mc_core::pos::Vec3i;
 use mc_data::block::{Block, BlockState};
 use mc_data::tags::TagSet;
@@ -32,7 +32,7 @@ impl StateTestingPredicate for MatchingBlockTagPredicate {
 }
 
 #[linkme::distributed_slice(BLOCK_PREDICATE_TYPES)]
-static MATCHING_BLOCK_TAG: TypeEntry<dyn super::BlockPredicate> = TypeEntry {
+static MATCHING_BLOCK_TAG: TypeEntry<dyn mc_game_core::world::level::levelgen::blockpredicates::BlockPredicate> = TypeEntry {
     name: "matching_block_tag",
     decode: |fields, _| {
         let offset = state_testing_codec(fields)?;

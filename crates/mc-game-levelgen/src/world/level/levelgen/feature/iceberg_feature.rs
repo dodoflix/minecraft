@@ -1,10 +1,10 @@
 //! `IcebergFeature`: round or elliptic icebergs floating at sea level.
 
-use super::{Feature, set_block};
-use crate::world::level::block::BlockStateExt;
-use crate::world::level::levelgen::codec::{TypeEntry, parse_block_state};
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::feature::{Feature, set_block};
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_block_state};
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -304,6 +304,6 @@ impl IcebergFeature {
     }
 }
 
-#[linkme::distributed_slice(super::FEATURE_TYPES)]
+#[linkme::distributed_slice(mc_game_core::world::level::levelgen::feature::FEATURE_TYPES)]
 static ICEBERG: TypeEntry<dyn Feature> =
     TypeEntry { name: "iceberg", decode: |fields, _| Ok(Arc::new(IcebergFeature { state: fields.required("state", parse_block_state)? })) };

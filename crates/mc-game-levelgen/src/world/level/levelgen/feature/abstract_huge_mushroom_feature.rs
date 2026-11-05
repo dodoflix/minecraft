@@ -1,11 +1,11 @@
 //! `AbstractHugeMushroomFeature`: the interface (with default methods) shared by the huge brown and red mushrooms.
 
-use crate::world::level::block::BlockStateExt;
-use crate::world::level::levelgen::blockpredicates::BlockPredicate;
-use crate::world::level::levelgen::holder::Holder;
-use crate::world::level::levelgen::stateproviders::BlockStateProvider;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
-use crate::world::level::{LevelAccessor};
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::levelgen::blockpredicates::BlockPredicate;
+use mc_game_core::world::level::levelgen::holder::Holder;
+use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::{LevelAccessor};
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;

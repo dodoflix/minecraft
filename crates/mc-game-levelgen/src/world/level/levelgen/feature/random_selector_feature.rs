@@ -1,12 +1,12 @@
 //! `RandomSelectorFeature` (deprecated in vanilla): the first feature whose chance roll succeeds, else the default.
 
-use super::Feature;
+use mc_game_core::world::level::levelgen::feature::Feature;
 use super::weighted_placed_feature::WeightedPlacedFeature;
-use crate::world::level::levelgen::codec::{TypeEntry, parse_list};
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::holder::Holder;
-use crate::world::level::levelgen::placement::PlacedFeature;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_list};
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::holder::Holder;
+use mc_game_core::world::level::levelgen::placement::PlacedFeature;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use std::sync::Arc;
@@ -33,7 +33,7 @@ impl Feature for RandomSelectorFeature {
     }
 }
 
-#[linkme::distributed_slice(super::FEATURE_TYPES)]
+#[linkme::distributed_slice(mc_game_core::world::level::levelgen::feature::FEATURE_TYPES)]
 static RANDOM_SELECTOR: TypeEntry<dyn Feature> = TypeEntry {
     name: "random_selector",
     decode: |fields, ctx| {

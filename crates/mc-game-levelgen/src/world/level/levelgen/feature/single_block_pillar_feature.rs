@@ -1,14 +1,14 @@
 //! `SingleBlockPillarFeature`: a column of one block growing in a vertical direction, optionally capped by another feature.
 
-use super::Feature;
-use crate::world::level::LevelAccessor;
-use crate::world::level::levelgen::blockpredicates::{self, BlockPredicate};
-use crate::world::level::levelgen::codec::{LoadError, TypeEntry, parse_direction, parse_float_range};
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::holder::Holder;
-use crate::world::level::levelgen::placement::PlacedFeature;
-use crate::world::level::levelgen::stateproviders::BlockStateProvider;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::feature::Feature;
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::levelgen::blockpredicates::{self, BlockPredicate};
+use mc_game_core::world::level::levelgen::codec::{LoadError, TypeEntry, parse_direction, parse_float_range};
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::holder::Holder;
+use mc_game_core::world::level::levelgen::placement::PlacedFeature;
+use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -47,7 +47,7 @@ impl Feature for SingleBlockPillarFeature {
     }
 }
 
-#[linkme::distributed_slice(super::FEATURE_TYPES)]
+#[linkme::distributed_slice(mc_game_core::world::level::levelgen::feature::FEATURE_TYPES)]
 static SINGLE_BLOCK_PILLAR: TypeEntry<dyn Feature> = TypeEntry {
     name: "single_block_pillar",
     decode: |fields, ctx| {

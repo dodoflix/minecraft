@@ -1,7 +1,7 @@
 //! `PosRuleTest`: a predicate over the template-relative / world positions of a block (dispatched on `predicate_type`).
 
-use crate::world::level::levelgen::codec::{LoadResult, TypeEntry, decode_dispatch_on};
-use crate::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::codec::{LoadResult, TypeEntry, decode_dispatch_on};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use serde_json::Value;

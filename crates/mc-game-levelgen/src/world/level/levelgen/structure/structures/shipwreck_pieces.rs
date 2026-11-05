@@ -1,17 +1,17 @@
 //! `ShipwreckPieces`: the shipwreck template piece (beached / ocean variants, loot through the data markers).
 
-use crate::world::level::levelgen::block_entity_data::set_block_entity_loot_table;
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::structure::manager::StructureManager;
-use crate::world::level::levelgen::structure::piece::{
+use mc_game_core::world::level::levelgen::block_entity_data::set_block_entity_loot_table;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
+use mc_game_core::world::level::levelgen::structure::piece::{
     PieceBase, STRUCTURE_PIECE_TYPES, StructurePiece, StructurePieceSerializationContext, StructurePieceType,
 };
-use crate::world::level::levelgen::structure::pieces::StructurePiecesBuilder;
+use mc_game_core::world::level::levelgen::structure::pieces::StructurePiecesBuilder;
 use crate::world::level::levelgen::structure::template_structure_piece::{
     TemplateStructurePieceData, read_rotation, rotation_legacy_name,
 };
 use crate::world::level::levelgen::structure::templatesystem::block_ignore_processor::STRUCTURE_AND_AIR;
-use crate::world::level::levelgen::structure::templatesystem::{StructurePlaceSettings, StructureTemplateManager};
+use mc_game_core::world::level::levelgen::structure::templatesystem::{StructurePlaceSettings, StructureTemplateManager};
 use mc_core::bounding_box::BoundingBox;
 use mc_core::ident::Identifier;
 use mc_core::mirror::Mirror;
@@ -181,7 +181,7 @@ impl StructurePiece for ShipwreckPiece {
 
     fn post_process(
         &mut self,
-        level: &mut dyn crate::world::level::levelgen::world_gen_level::WorldGenLevel,
+        level: &mut dyn mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel,
         _structure_manager: &StructureManager,
         _generator: &GenEnv,
         random: &mut dyn RandomSource,

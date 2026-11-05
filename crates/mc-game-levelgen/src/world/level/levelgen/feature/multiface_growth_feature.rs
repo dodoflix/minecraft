@@ -1,14 +1,14 @@
 //! `MultifaceGrowthFeature` (`multiface_growth`): glow lichen / sculk vein patches.
 
-use super::tree::shuffle;
-use super::{FEATURE_TYPES, Feature};
-use crate::world::level::block::BlockStateExt;
-use crate::world::level::block::impls::multiface_block;
-use crate::world::level::block::impls::multiface_spreadeable_block::{get_spreader, is_multiface_spreadeable};
-use crate::world::level::levelgen::codec::{BlockSet, Fields, LoadError, LoadResult, TypeEntry, parse_block, parse_bool, parse_float_range, parse_int_range};
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::registries::DecodeCtx;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::feature::tree::shuffle;
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::block::impls::multiface_block;
+use mc_game_core::world::level::block::impls::multiface_spreadeable_block::{get_spreader, is_multiface_spreadeable};
+use mc_game_core::world::level::levelgen::codec::{BlockSet, Fields, LoadError, LoadResult, TypeEntry, parse_block, parse_bool, parse_float_range, parse_int_range};
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;

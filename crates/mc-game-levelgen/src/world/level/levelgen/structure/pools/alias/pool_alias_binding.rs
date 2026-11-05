@@ -3,7 +3,7 @@
 //! `BuiltInRegistries.POOL_ALIAS_BINDING_TYPE` is a closed registry of three entries, so the bindings are one enum
 //! dispatched on `type` (`PoolAliasBindings.bootstrap`: `random`, `random_group`, `direct`).
 
-use crate::world::level::levelgen::codec::*;
+use mc_game_core::world::level::levelgen::codec::*;
 use mc_core::ident::Identifier;
 use mc_core::random::RandomSource;
 use mc_worldgen::provider::WeightedList;

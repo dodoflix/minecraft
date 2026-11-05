@@ -1,12 +1,12 @@
 //! `JigsawReplacementProcessor` (`jigsaw_replacement`): jigsaw blocks become their `final_state`.
 
-use super::structure_place_settings::StructurePlaceSettings;
-use super::structure_processor::{STRUCTURE_PROCESSOR_TYPES, StructureProcessor};
-use super::structure_template::StructureBlockInfo;
-use crate::commands::arguments::blocks::block_state_parser::BlockStateParser;
-use crate::commands::command_build_context::{HolderLookupProvider, StaticRegistries};
-use crate::world::level::LevelReader;
-use crate::world::level::levelgen::codec::TypeEntry;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_place_settings::StructurePlaceSettings;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_processor::{STRUCTURE_PROCESSOR_TYPES, StructureProcessor};
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::StructureBlockInfo;
+use mc_game_core::commands::arguments::blocks::block_state_parser::BlockStateParser;
+use mc_game_core::commands::command_build_context::{HolderLookupProvider, StaticRegistries};
+use mc_game_core::world::level::LevelReader;
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
 use mc_brigadier::StringReader;
 use mc_core::pos::BlockPos;
 use mc_data::block::Block;

@@ -1,8 +1,8 @@
 //! `RandomBlockProvider` (`random_block`).
 
-use super::{BLOCK_STATE_PROVIDER_TYPES, BlockStateProvider};
-use crate::world::level::levelgen::codec::{BlockSet, TypeEntry};
-use crate::world::level::LevelAccessor;
+use mc_game_core::world::level::levelgen::stateproviders::{BLOCK_STATE_PROVIDER_TYPES, BlockStateProvider};
+use mc_game_core::world::level::levelgen::codec::{BlockSet, TypeEntry};
+use mc_game_core::world::level::LevelAccessor;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::{Block, BlockState};

@@ -1,15 +1,15 @@
 //! `SpeleothemClusterFeature` (`speleothem_cluster`): a cluster of stalactites/stalagmites (dripstone cluster, sulfur spikes).
 
 use super::speleothem_utils as utils;
-use super::{FEATURE_TYPES, Feature};
-use crate::world::level::block::BlockStateExt;
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
+use mc_game_core::world::level::block::BlockStateExt;
 use crate::world::level::levelgen::column::Column;
-use crate::world::level::levelgen::GenEnv;
-use crate::world::level::levelgen::WorldGenLevel;
-use crate::world::level::levelgen::codec::{BlockSet, Fields, LoadResult, TypeEntry, parse_block_state, parse_float_range, parse_int_range};
-use crate::world::level::levelgen::registries::DecodeCtx;
-use crate::world::level::material::FluidStateExt;
-use crate::world::level::{BlockGetter, LevelAccessor};
+use mc_game_core::world::level::levelgen::GenEnv;
+use mc_game_core::world::level::levelgen::WorldGenLevel;
+use mc_game_core::world::level::levelgen::codec::{BlockSet, Fields, LoadResult, TypeEntry, parse_block_state, parse_float_range, parse_int_range};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::material::FluidStateExt;
+use mc_game_core::world::level::{BlockGetter, LevelAccessor};
 use mc_core::direction::{Direction, Plane};
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;

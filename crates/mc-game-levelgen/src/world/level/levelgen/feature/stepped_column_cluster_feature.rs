@@ -1,12 +1,12 @@
 //! `SteppedColumnClusterFeature`: clusters of stepped columns (basalt columns).
 
-use super::{Feature, set_block};
-use crate::world::level::levelgen::blockpredicates::{self, BlockPredicate};
-use crate::world::level::levelgen::codec::{BlockSet, TypeEntry};
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::holder::Holder;
-use crate::world::level::levelgen::stateproviders::BlockStateProvider;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::feature::{Feature, set_block};
+use mc_game_core::world::level::levelgen::blockpredicates::{self, BlockPredicate};
+use mc_game_core::world::level::levelgen::codec::{BlockSet, TypeEntry};
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::holder::Holder;
+use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -119,7 +119,7 @@ impl SteppedColumnClusterFeature {
     }
 }
 
-#[linkme::distributed_slice(super::FEATURE_TYPES)]
+#[linkme::distributed_slice(mc_game_core::world::level::levelgen::feature::FEATURE_TYPES)]
 static STEPPED_COLUMN_CLUSTER: TypeEntry<dyn Feature> = TypeEntry {
     name: "stepped_column_cluster",
     decode: |fields, ctx| {

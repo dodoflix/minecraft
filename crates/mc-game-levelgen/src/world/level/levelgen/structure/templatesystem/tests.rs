@@ -1,10 +1,10 @@
 //! Codec accept/reject behaviour of the rule / processor types and the vanilla `worldgen/processor_list` registry.
 
 use super::rule::blockentity::rule_block_entity_modifier;
-use super::structure_processor::{decode_direct_list, decode_single};
-use super::structure_processor_list::load_processor_lists;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_processor::{decode_direct_list, decode_single};
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_processor_list::load_processor_lists;
 use super::{pos_rule_test, rule_test};
-use crate::world::level::levelgen::registries::{Cells, DecodeCtx};
+use mc_game_core::world::level::levelgen::registries::{Cells, DecodeCtx};
 use mc_core::pos::BlockPos;
 use mc_core::random::{self, RandomSource};
 use mc_data::block::Block;
@@ -220,7 +220,7 @@ fn processor_accepts() {
 
 #[test]
 fn shared_random_scoped_advances_the_callers_stream() {
-    use super::structure_place_settings::SharedRandom;
+    use mc_game_core::world::level::levelgen::structure::templatesystem::structure_place_settings::SharedRandom;
     let mut a = random::create(11);
     let mut b = random::create(11);
     let (x, y) = SharedRandom::scoped(&mut a, |shared| {

@@ -1,13 +1,13 @@
 //! `DesertPyramidPiece`.
 
-use crate::world::level::BlockGetter as _;
-use crate::world::level::LevelAccessor as _;
-use crate::world::level::block::BlockStateExt as _;
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::structure::manager::StructureManager;
-use crate::world::level::levelgen::structure::piece::{PieceBase, StructurePiece, StructurePieceSerializationContext, StructurePieceType, get_random_horizontal_direction};
+use mc_game_core::world::level::BlockGetter as _;
+use mc_game_core::world::level::LevelAccessor as _;
+use mc_game_core::world::level::block::BlockStateExt as _;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
+use mc_game_core::world::level::levelgen::structure::piece::{PieceBase, StructurePiece, StructurePieceSerializationContext, StructurePieceType, get_random_horizontal_direction};
 use crate::world::level::levelgen::structure::scattered_feature_piece::ScatteredFeaturePieceData;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use linkme::distributed_slice;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::{Direction, Plane};
@@ -22,7 +22,7 @@ pub const WIDTH: i32 = 21;
 pub const DEPTH: i32 = 21;
 
 /// `StructurePieceType.DESERT_PYRAMID_PIECE` (`TeDP`).
-#[distributed_slice(super::super::piece::STRUCTURE_PIECE_TYPES)]
+#[distributed_slice(mc_game_core::world::level::levelgen::structure::piece::STRUCTURE_PIECE_TYPES)]
 pub static DESERT_PYRAMID_PIECE: StructurePieceType = StructurePieceType {
     id: "tedp",
     load: |_, tag| Ok(Box::new(DesertPyramidPiece::load(tag)?)),

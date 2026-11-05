@@ -1,8 +1,8 @@
 //! `foliageplacers.FoliagePlacer`: the abstract class as a trait whose provided methods are vanilla's concrete ones.
 
 use super::tree_feature::{self, TreeFeature, TreeSetter, fluid_is_water_source};
-use crate::world::level::levelgen::codec::{Fields, LoadResult};
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult};
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::direction::{AxisDirection, Direction, Plane};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;

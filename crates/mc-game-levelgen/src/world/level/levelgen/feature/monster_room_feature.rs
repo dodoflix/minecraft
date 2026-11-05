@@ -1,13 +1,13 @@
 //! `MonsterRoomFeature` (`monster_room`): dungeons.
 
-use super::{FEATURE_TYPES, Feature, safe_set_block};
-use crate::world::level::block::BlockStateExt;
-use crate::world::level::levelgen::GenEnv;
-use crate::world::level::levelgen::WorldGenLevel;
-use crate::world::level::levelgen::block_entity_data::{get_block_entity_nbt, set_block_entity_loot_table, spawner_tag};
-use crate::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
-use crate::world::level::levelgen::registries::DecodeCtx;
-use crate::world::level::BlockGetter;
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature, safe_set_block};
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::levelgen::GenEnv;
+use mc_game_core::world::level::levelgen::WorldGenLevel;
+use mc_game_core::world::level::levelgen::block_entity_data::{get_block_entity_nbt, set_block_entity_loot_table, spawner_tag};
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::BlockGetter;
 use mc_core::direction::{Direction, Plane};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;

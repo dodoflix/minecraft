@@ -1,10 +1,10 @@
 //! `RuleBasedStateProvider` (`rule_based`).
 
-use super::{BLOCK_STATE_PROVIDER_TYPES, BlockStateProvider};
-use crate::world::level::levelgen::Holder;
-use crate::world::level::levelgen::blockpredicates::{self, BlockPredicate};
-use crate::world::level::levelgen::codec::{Fields, TypeEntry, parse_list};
-use crate::world::level::LevelAccessor;
+use mc_game_core::world::level::levelgen::stateproviders::{BLOCK_STATE_PROVIDER_TYPES, BlockStateProvider};
+use mc_game_core::world::level::levelgen::Holder;
+use mc_game_core::world::level::levelgen::blockpredicates::{self, BlockPredicate};
+use mc_game_core::world::level::levelgen::codec::{Fields, TypeEntry, parse_list};
+use mc_game_core::world::level::LevelAccessor;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::BlockState;

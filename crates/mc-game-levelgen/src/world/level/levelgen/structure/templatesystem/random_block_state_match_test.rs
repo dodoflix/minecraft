@@ -1,8 +1,8 @@
 //! `RandomBlockStateMatchTest` (`random_blockstate_match`).
 
 use super::rule_test::{RULE_TEST_TYPES, RuleTest};
-use crate::world::level::levelgen::codec::*;
-use crate::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::codec::*;
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::BlockState;

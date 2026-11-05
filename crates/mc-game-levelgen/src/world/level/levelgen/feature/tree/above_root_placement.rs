@@ -1,9 +1,9 @@
 //! `rootplacers.AboveRootPlacement`.
 
-use crate::world::level::levelgen::codec::{Fields, LoadResult, parse_float_range};
-use crate::world::level::levelgen::holder::Holder;
-use crate::world::level::levelgen::registries::DecodeCtx;
-use crate::world::level::levelgen::stateproviders::BlockStateProvider;
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, parse_float_range};
+use mc_game_core::world::level::levelgen::holder::Holder;
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
 use serde_json::Value;
 
 pub struct AboveRootPlacement {

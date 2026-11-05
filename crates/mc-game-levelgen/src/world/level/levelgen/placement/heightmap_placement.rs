@@ -1,8 +1,8 @@
 //! `HeightmapPlacement`: the origin moved to the heightmap's surface (dropped at/below the world bottom).
 
-use super::{PLACEMENT_MODIFIER_TYPES, PlacementContext, PlacementModifier};
-use crate::world::level::levelgen::codec::{Fields, LoadResult, LoadError, TypeEntry, parse_str};
-use crate::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::placement::{PLACEMENT_MODIFIER_TYPES, PlacementContext, PlacementModifier};
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, LoadError, TypeEntry, parse_str};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_world::heightmap::HeightmapType;

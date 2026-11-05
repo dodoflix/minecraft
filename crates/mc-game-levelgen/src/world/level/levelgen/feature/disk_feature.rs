@@ -1,12 +1,12 @@
 //! `DiskFeature`: a flat disc of blocks (sand/clay/gravel patches) replacing the blocks its predicate accepts.
 
-use super::{Feature, mark_above_for_post_processing};
-use crate::world::level::levelgen::blockpredicates::{self, BlockPredicate};
-use crate::world::level::levelgen::codec::{TypeEntry, parse_int_range};
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::holder::Holder;
-use crate::world::level::levelgen::stateproviders::BlockStateProvider;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::feature::{Feature, mark_above_for_post_processing};
+use mc_game_core::world::level::levelgen::blockpredicates::{self, BlockPredicate};
+use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_int_range};
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::holder::Holder;
+use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_worldgen::provider::IntProvider;
@@ -62,7 +62,7 @@ impl DiskFeature {
     }
 }
 
-#[linkme::distributed_slice(super::FEATURE_TYPES)]
+#[linkme::distributed_slice(mc_game_core::world::level::levelgen::feature::FEATURE_TYPES)]
 static DISK: TypeEntry<dyn Feature> = TypeEntry {
     name: "disk",
     decode: |fields, ctx| {

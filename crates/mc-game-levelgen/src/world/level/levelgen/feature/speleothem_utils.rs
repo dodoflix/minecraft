@@ -1,9 +1,9 @@
 //! `SpeleothemUtils`: shared helpers of the speleothem (pointed dripstone / sulfur spike) and large dripstone features.
 
-use crate::world::level::block::BlockStateExt;
-use crate::world::level::biome_ext::is_water_at;
-use crate::world::level::levelgen::codec::BlockSet;
-use crate::world::level::{BlockGetter, LevelAccessor};
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::biome_ext::is_water_at;
+use mc_game_core::world::level::levelgen::codec::BlockSet;
+use mc_game_core::world::level::{BlockGetter, LevelAccessor};
 use mc_core::direction::Direction;
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;

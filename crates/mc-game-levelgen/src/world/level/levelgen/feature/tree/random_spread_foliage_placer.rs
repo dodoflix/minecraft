@@ -3,12 +3,12 @@
 use super::FOLIAGE_PLACER_TYPES;
 use super::foliage_placer::{FoliageAttachment, FoliageBase, FoliagePlacer};
 use super::tree_feature::{TreeFeature, TreeSetter};
-use crate::world::level::levelgen::codec::TypeEntry;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::random::RandomSource;
 use std::sync::Arc;
 use super::foliage_placer::try_place_leaf;
-use crate::world::level::levelgen::codec::parse_int_range;
+use mc_game_core::world::level::levelgen::codec::parse_int_range;
 use mc_worldgen::provider::IntProvider;
 
 pub struct RandomSpreadFoliagePlacer {

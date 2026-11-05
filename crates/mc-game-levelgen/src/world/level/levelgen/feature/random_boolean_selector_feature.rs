@@ -1,11 +1,11 @@
 //! `RandomBooleanSelectorFeature`: a coin flip between two placed features.
 
-use super::Feature;
-use crate::world::level::levelgen::codec::TypeEntry;
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::holder::Holder;
-use crate::world::level::levelgen::placement::PlacedFeature;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::feature::Feature;
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::holder::Holder;
+use mc_game_core::world::level::levelgen::placement::PlacedFeature;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use std::sync::Arc;
@@ -28,7 +28,7 @@ impl Feature for RandomBooleanSelectorFeature {
     }
 }
 
-#[linkme::distributed_slice(super::FEATURE_TYPES)]
+#[linkme::distributed_slice(mc_game_core::world::level::levelgen::feature::FEATURE_TYPES)]
 static RANDOM_BOOLEAN_SELECTOR: TypeEntry<dyn Feature> = TypeEntry {
     name: "random_boolean_selector",
     decode: |fields, ctx| {

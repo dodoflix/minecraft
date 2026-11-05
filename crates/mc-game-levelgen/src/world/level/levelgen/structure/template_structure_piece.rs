@@ -3,12 +3,12 @@
 //! (its `base()` is `data.base`), overrides `get_rotation`/`move_by` like vanilla and calls [`TemplateStructurePieceData::post_process`]
 //! with its `handleDataMarker`.
 
-use super::piece::{PieceBase, StructurePieceSerializationContext, StructurePieceType};
-use super::templatesystem::structure_template::StructureTemplate;
-use super::templatesystem::{StructurePlaceSettings, StructureTemplateManager};
-use crate::commands::arguments::blocks::block_state_parser::BlockStateParser;
-use crate::commands::command_build_context::{HolderLookupProvider, StaticRegistries};
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::structure::piece::{PieceBase, StructurePieceSerializationContext, StructurePieceType};
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::StructureTemplate;
+use mc_game_core::world::level::levelgen::structure::templatesystem::{StructurePlaceSettings, StructureTemplateManager};
+use mc_game_core::commands::arguments::blocks::block_state_parser::BlockStateParser;
+use mc_game_core::commands::command_build_context::{HolderLookupProvider, StaticRegistries};
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_brigadier::StringReader;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::Direction;

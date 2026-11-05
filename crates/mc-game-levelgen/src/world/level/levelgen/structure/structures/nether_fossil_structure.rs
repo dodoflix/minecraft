@@ -1,12 +1,12 @@
 //! `NetherFossilStructure`.
 
 use super::nether_fossil_pieces;
-use crate::world::block_entity::BlockEntity;
-use crate::world::level::block::BlockStateExt as _;
-use crate::world::level::levelgen::codec::*;
-use crate::world::level::levelgen::registries::DecodeCtx;
-use crate::world::level::levelgen::structure::structure::{GenerationContext, GenerationStub, STRUCTURE_TYPES, Structure, StructureSettings};
-use crate::world::level::{BlockGetter, LevelHeight};
+use mc_game_core::world::block_entity::BlockEntity;
+use mc_game_core::world::level::block::BlockStateExt as _;
+use mc_game_core::world::level::levelgen::codec::*;
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::structure::structure::{GenerationContext, GenerationStub, STRUCTURE_TYPES, Structure, StructureSettings};
+use mc_game_core::world::level::{BlockGetter, LevelHeight};
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;

@@ -1,7 +1,7 @@
 //! `RuleBlockEntityModifier` (dispatched on `type`).
 
-use crate::world::level::levelgen::codec::{LoadResult, TypeEntry, decode_dispatch};
-use crate::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::codec::{LoadResult, TypeEntry, decode_dispatch};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_core::random::RandomSource;
 use mc_nbt::CompoundTag;
 use serde_json::Value;

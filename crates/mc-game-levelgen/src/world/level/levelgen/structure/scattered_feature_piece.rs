@@ -1,8 +1,8 @@
 //! `ScatteredFeaturePiece`: the state and ground-height helpers shared by the temples, huts and igloo-like pieces. A
 //! piece embeds [`ScatteredFeaturePieceData`] (its `base()` is `data.base`) and calls the helpers from `post_process`.
 
-use super::piece::{PieceBase, StructurePieceSerializationContext, StructurePieceType, make_bounding_box};
-use crate::world::level::LevelReader;
+use mc_game_core::world::level::levelgen::structure::piece::{PieceBase, StructurePieceSerializationContext, StructurePieceType, make_bounding_box};
+use mc_game_core::world::level::LevelReader;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;

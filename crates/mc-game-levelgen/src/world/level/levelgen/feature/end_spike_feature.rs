@@ -1,12 +1,12 @@
 //! `EndSpikeFeature` (`end_spike`): the obsidian pillars of the End with their end crystals.
 
-use super::{FEATURE_TYPES, Feature, set_block};
-use crate::world::level::block::BlockStateExt;
-use crate::world::level::levelgen::GenEnv;
-use crate::world::level::levelgen::WorldGenLevel;
-use crate::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_block_pos, parse_bool, parse_int, parse_list};
-use crate::world::level::levelgen::registries::DecodeCtx;
-use crate::world::level::BlockGetter;
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature, set_block};
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::levelgen::GenEnv;
+use mc_game_core::world::level::levelgen::WorldGenLevel;
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_block_pos, parse_bool, parse_int, parse_list};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::BlockGetter;
 use mc_core::math::mth;
 use mc_core::phys::AABB;
 use mc_core::pos::BlockPos;
@@ -188,7 +188,7 @@ impl EndSpikeFeature {
         level.add_fresh_entity_nbt(end_crystal_tag(x, y, z, yaw, self.crystal_beam_target, self.crystal_invulnerable));
         let crystal_pos = BlockPos::new(mth::floor_f64(x), mth::floor_f64(y), mth::floor_f64(z));
         set_block(level, crystal_pos.below(), Block::BEDROCK.default_state());
-        let fire = crate::world::level::block::impls::base_fire_block::get_state(&*level, crystal_pos);
+        let fire = mc_game_core::world::level::block::impls::base_fire_block::get_state(&*level, crystal_pos);
         set_block(level, crystal_pos, fire);
     }
 }

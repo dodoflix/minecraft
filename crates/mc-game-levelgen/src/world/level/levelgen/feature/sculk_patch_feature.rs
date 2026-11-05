@@ -1,15 +1,15 @@
 //! `SculkPatchFeature` (`sculk_patch`).
 
-use super::{FEATURE_TYPES, Feature};
-use crate::world::level::LevelAccessor;
-use crate::world::level::block::BlockStateExt;
-use crate::world::level::block::sculk_behaviour::sculk_behaviour_of;
-use crate::world::level::block::sculk_spreader::SculkSpreader;
-use crate::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_int_range};
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::registries::DecodeCtx;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
-use crate::world::level::material::FluidStateExt;
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::block::sculk_behaviour::sculk_behaviour_of;
+use mc_game_core::world::level::block::sculk_spreader::SculkSpreader;
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_int_range};
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::material::FluidStateExt;
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;

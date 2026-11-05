@@ -1,7 +1,7 @@
 //! `BlockReplacement`: one `{target: RuleTest, state: BlockState}` entry of ore / replace-block features.
 
-use crate::world::level::levelgen::codec::{Fields, LoadResult, parse_block_state};
-use crate::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, parse_block_state};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use crate::world::level::levelgen::structure::templatesystem::rule_test::{self, RuleTest};
 use mc_data::block::BlockState;
 use serde_json::Value;

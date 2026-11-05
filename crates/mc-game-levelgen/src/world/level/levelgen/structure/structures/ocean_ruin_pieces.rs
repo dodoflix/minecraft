@@ -1,32 +1,32 @@
 //! `OceanRuinPieces`: the warm/cold ocean ruin template pieces, big ruins and clusters.
 
 use super::ocean_ruin_structure::{OceanRuinStructure, OceanRuinType};
-use crate::world::level::block::BlockStateExt as _;
-use crate::world::level::levelgen::block_entity_data::set_block_entity_loot_table;
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::structure::manager::StructureManager;
-use crate::world::level::levelgen::structure::piece::{
+use mc_game_core::world::level::block::BlockStateExt as _;
+use mc_game_core::world::level::levelgen::block_entity_data::set_block_entity_loot_table;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
+use mc_game_core::world::level::levelgen::structure::piece::{
     PieceBase, STRUCTURE_PIECE_TYPES, StructurePiece, StructurePieceSerializationContext, StructurePieceType,
 };
-use crate::world::level::levelgen::structure::pieces::StructurePiecesBuilder;
+use mc_game_core::world::level::levelgen::structure::pieces::StructurePiecesBuilder;
 use crate::world::level::levelgen::structure::template_structure_piece::{
     TemplateStructurePieceData, read_rotation, rotation_legacy_name,
 };
 use crate::world::level::levelgen::structure::templatesystem::always_true_test::AlwaysTrueTest;
 use crate::world::level::levelgen::structure::templatesystem::block_ignore_processor::STRUCTURE_AND_AIR;
 use crate::world::level::levelgen::structure::templatesystem::block_match_test::BlockMatchTest;
-use crate::world::level::levelgen::structure::templatesystem::block_rot_processor::BlockRotProcessor;
+use mc_game_core::world::level::levelgen::structure::templatesystem::block_rot_processor::BlockRotProcessor;
 use crate::world::level::levelgen::structure::templatesystem::capped_processor::CappedProcessor;
 use crate::world::level::levelgen::structure::templatesystem::pos_always_true_test::PosAlwaysTrueTest;
 use crate::world::level::levelgen::structure::templatesystem::processor_rule::ProcessorRule;
 use crate::world::level::levelgen::structure::templatesystem::rule::blockentity::append_loot::AppendLoot;
 use crate::world::level::levelgen::structure::templatesystem::rule_processor::RuleProcessor;
-use crate::world::level::levelgen::structure::templatesystem::structure_processor::StructureProcessor;
-use crate::world::level::levelgen::structure::templatesystem::structure_template::transform;
-use crate::world::level::levelgen::structure::templatesystem::{StructurePlaceSettings, StructureTemplateManager};
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
-use crate::world::level::material::FluidStateExt as _;
-use crate::world::level::{BlockGetter, LevelAccessor as _};
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_processor::StructureProcessor;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::transform;
+use mc_game_core::world::level::levelgen::structure::templatesystem::{StructurePlaceSettings, StructureTemplateManager};
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::material::FluidStateExt as _;
+use mc_game_core::world::level::{BlockGetter, LevelAccessor as _};
 use mc_core::bounding_box::BoundingBox;
 use mc_core::ident::Identifier;
 use mc_core::math::mth;

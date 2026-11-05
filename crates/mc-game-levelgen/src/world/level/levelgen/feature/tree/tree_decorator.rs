@@ -1,8 +1,8 @@
 //! `treedecorators.TreeDecorator` and its `Context`.
 
-use super::java_hash_set::BlockPosHashSet;
+use mc_game_core::world::level::levelgen::feature::tree::java_hash_set::BlockPosHashSet;
 use super::tree_feature::TreeSetter;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::{Block, BlockState};

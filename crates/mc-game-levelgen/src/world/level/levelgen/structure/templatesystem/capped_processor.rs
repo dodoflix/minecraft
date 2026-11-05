@@ -1,10 +1,10 @@
 //! `CappedProcessor` (`capped`): applies its delegate to at most `limit` randomly chosen blocks.
 
-use super::structure_place_settings::StructurePlaceSettings;
-use super::structure_processor::{STRUCTURE_PROCESSOR_TYPES, StructureProcessor, decode_single};
-use super::structure_template::StructureBlockInfo;
-use crate::world::level::levelgen::codec::*;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_place_settings::StructurePlaceSettings;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_processor::{STRUCTURE_PROCESSOR_TYPES, StructureProcessor, decode_single};
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::StructureBlockInfo;
+use mc_game_core::world::level::levelgen::codec::*;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::pos::BlockPos;
 use mc_core::random::{self, RandomSource};
 use mc_worldgen::provider::IntProvider;

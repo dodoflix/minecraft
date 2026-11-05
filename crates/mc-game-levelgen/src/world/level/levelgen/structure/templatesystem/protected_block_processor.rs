@@ -1,10 +1,10 @@
 //! `ProtectedBlockProcessor` (`protected_blocks`).
 
-use super::structure_place_settings::StructurePlaceSettings;
-use super::structure_processor::{STRUCTURE_PROCESSOR_TYPES, StructureProcessor};
-use super::structure_template::StructureBlockInfo;
-use crate::world::level::LevelReader;
-use crate::world::level::levelgen::codec::*;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_place_settings::StructurePlaceSettings;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_processor::{STRUCTURE_PROCESSOR_TYPES, StructureProcessor};
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::StructureBlockInfo;
+use mc_game_core::world::level::LevelReader;
+use mc_game_core::world::level::levelgen::codec::*;
 use mc_core::pos::BlockPos;
 use std::sync::Arc;
 

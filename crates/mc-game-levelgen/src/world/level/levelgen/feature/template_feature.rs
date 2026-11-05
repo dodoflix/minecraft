@@ -1,13 +1,13 @@
 //! `TemplateFeature` (`template`): places a structure template from the data pack (desert well, sulfur spring).
 
-use super::{FEATURE_TYPES, Feature};
-use crate::world::level::levelgen::GenEnv;
-use crate::world::level::levelgen::WorldGenLevel;
-use crate::world::level::levelgen::Holder;
-use crate::world::level::levelgen::codec::{Fields, LoadError, LoadResult, TypeEntry, parse_identifier, parse_list, parse_str};
-use crate::world::level::levelgen::registries::DecodeCtx;
-use crate::world::level::levelgen::structure::templatesystem::structure_place_settings::SharedRandom;
-use crate::world::level::levelgen::structure::templatesystem::{StructurePlaceSettings, StructureProcessorList, StructureTemplate};
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
+use mc_game_core::world::level::levelgen::GenEnv;
+use mc_game_core::world::level::levelgen::WorldGenLevel;
+use mc_game_core::world::level::levelgen::Holder;
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadError, LoadResult, TypeEntry, parse_identifier, parse_list, parse_str};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_place_settings::SharedRandom;
+use mc_game_core::world::level::levelgen::structure::templatesystem::{StructurePlaceSettings, StructureProcessorList, StructureTemplate};
 use mc_core::direction::Axis;
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;

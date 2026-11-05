@@ -1,8 +1,8 @@
 //! `MatchingBiomesPredicate` (`matching_biomes`).
 
-use super::{BLOCK_PREDICATE_TYPES, BlockPredicate};
-use crate::world::level::LevelAccessor;
-use crate::world::level::levelgen::codec::TypeEntry;
+use mc_game_core::world::level::levelgen::blockpredicates::{BLOCK_PREDICATE_TYPES, BlockPredicate};
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
 use mc_core::pos::BlockPos;
 use mc_world::palette::BiomeId;
 use std::sync::Arc;

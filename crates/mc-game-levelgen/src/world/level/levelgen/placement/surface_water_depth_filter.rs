@@ -1,8 +1,8 @@
 //! `SurfaceWaterDepthFilter`: keeps positions whose column has at most `max_water_depth` of water on top.
 
-use super::{PLACEMENT_MODIFIER_TYPES, PlacementContext, PlacementFilter, PlacementModifier, filter_modify};
-use crate::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_int};
-use crate::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::placement::{PLACEMENT_MODIFIER_TYPES, PlacementContext, PlacementFilter, PlacementModifier, filter_modify};
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_int};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_world::heightmap::HeightmapType;

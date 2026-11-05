@@ -2,7 +2,7 @@
 
 use super::FEATURE_SIZE_TYPES;
 use super::feature_size::{FeatureSize, decode_min_clipped_height};
-use crate::world::level::levelgen::codec::{TypeEntry, parse_int_range};
+use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_int_range};
 use std::sync::Arc;
 
 pub struct TwoLayersFeatureSize {

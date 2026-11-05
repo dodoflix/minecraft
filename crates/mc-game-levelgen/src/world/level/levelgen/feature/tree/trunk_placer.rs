@@ -2,9 +2,9 @@
 
 use super::foliage_placer::FoliageAttachment;
 use super::tree_feature::{self, TreeFeature, TreeSetter, block_is_logs};
-use crate::world::level::LevelAccessor;
-use crate::world::level::levelgen::codec::{Fields, LoadResult, parse_int_range};
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, parse_int_range};
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::BlockState;

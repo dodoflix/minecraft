@@ -1,14 +1,14 @@
 //! `net.minecraft.world.level.levelgen.PhantomSpawner`: spawns phantoms above players that did not rest for a long time.
 
-use crate::server::level::ServerLevel;
-use crate::stats::stats::Stats;
-use crate::world::entity::ServerPlayer;
-use crate::world::entity::factory::EntitySpawnRequest;
-use crate::world::level::BlockGetter;
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
-use crate::world::level::spawner::custom_spawner::{CUSTOM_SPAWNERS, CustomSpawner, CustomSpawnerRegistration, order};
-use crate::world::level::spawner::natural_spawner;
-use crate::world::level::LevelReader;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::stats::stats::Stats;
+use mc_game_core::world::entity::ServerPlayer;
+use mc_game_core::world::entity::factory::EntitySpawnRequest;
+use mc_game_core::world::level::BlockGetter;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::level::spawner::custom_spawner::{CUSTOM_SPAWNERS, CustomSpawner, CustomSpawnerRegistration, order};
+use mc_game_core::world::level::spawner::natural_spawner;
+use mc_game_core::world::level::LevelReader;
 use linkme::distributed_slice;
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
@@ -70,7 +70,7 @@ impl CustomSpawner for PhantomSpawner {
             let mut group_data = None;
             let group_size = 1 + random.next_int_bounded(difficulty.get_difficulty().get_id() + 1);
             for _ in 0..group_size {
-                let Some(mut phantom) = crate::world::entity::factory::create(EntityType::PHANTOM, level, EntitySpawnRequest { reason: EntitySpawnReason::Natural, ignore_checks: false }) else { continue };
+                let Some(mut phantom) = mc_game_core::world::entity::factory::create(EntityType::PHANTOM, level, EntitySpawnRequest { reason: EntitySpawnReason::Natural, ignore_checks: false }) else { continue };
                 phantom.snap_to(f64::from(spawn_pos.x()) + 0.5, f64::from(spawn_pos.y()), f64::from(spawn_pos.z()) + 0.5, 0.0, 0.0);
                 group_data = phantom.finalize_spawn(level, difficulty, EntitySpawnReason::Natural, group_data);
                 level.add_fresh_entity_with_passengers(vec![phantom]);

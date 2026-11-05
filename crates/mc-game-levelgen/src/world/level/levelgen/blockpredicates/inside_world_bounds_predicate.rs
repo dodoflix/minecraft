@@ -1,8 +1,8 @@
 //! `InsideWorldBoundsPredicate` (`inside_world_bounds`).
 
-use super::{BLOCK_PREDICATE_TYPES, BlockPredicate};
-use crate::world::level::LevelAccessor;
-use crate::world::level::levelgen::codec::{TypeEntry, parse_vec3i_offset};
+use mc_game_core::world::level::levelgen::blockpredicates::{BLOCK_PREDICATE_TYPES, BlockPredicate};
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_vec3i_offset};
 use mc_core::pos::{BlockPos, Vec3i};
 use std::sync::Arc;
 

@@ -1,12 +1,12 @@
 //! `SpeleothemFeature` (`speleothem`): a single pointed dripstone / sulfur spike with a patch of base blocks behind it.
 
 use super::speleothem_utils as utils;
-use super::{FEATURE_TYPES, Feature};
-use crate::world::level::levelgen::GenEnv;
-use crate::world::level::levelgen::WorldGenLevel;
-use crate::world::level::levelgen::codec::{BlockSet, Fields, LoadResult, TypeEntry, parse_block_state, parse_float_range};
-use crate::world::level::levelgen::registries::DecodeCtx;
-use crate::world::level::{BlockGetter, LevelAccessor};
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
+use mc_game_core::world::level::levelgen::GenEnv;
+use mc_game_core::world::level::levelgen::WorldGenLevel;
+use mc_game_core::world::level::levelgen::codec::{BlockSet, Fields, LoadResult, TypeEntry, parse_block_state, parse_float_range};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::{BlockGetter, LevelAccessor};
 use mc_core::direction::{Direction, Plane};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;

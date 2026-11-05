@@ -1,10 +1,10 @@
 //! `ScatteredOreFeature`: ancient debris style ore, single blocks scattered around the origin.
 
-use super::Feature;
+use mc_game_core::world::level::levelgen::feature::Feature;
 use super::abstract_ore_feature::AbstractOreFeature;
-use crate::world::level::levelgen::codec::TypeEntry;
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::math::java;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -42,6 +42,6 @@ fn random_placement_in_one_axis(random: &mut dyn RandomSource, max_distance_from
     java::round_f32((random.next_float() - random.next_float()) * max_distance_from_origin as f32)
 }
 
-#[linkme::distributed_slice(super::FEATURE_TYPES)]
+#[linkme::distributed_slice(mc_game_core::world::level::levelgen::feature::FEATURE_TYPES)]
 static SCATTERED_ORE: TypeEntry<dyn Feature> =
     TypeEntry { name: "scattered_ore", decode: |fields, ctx| Ok(Arc::new(ScatteredOreFeature(AbstractOreFeature::decode(fields, ctx)?))) };

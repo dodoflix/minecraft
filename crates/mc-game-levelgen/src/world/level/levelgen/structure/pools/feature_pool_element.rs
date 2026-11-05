@@ -1,14 +1,14 @@
 //! `FeaturePoolElement` (`feature_pool_element`): places a placed feature at the jigsaw.
 
-use super::structure_pool_element::{ElementCodecCtx, STRUCTURE_POOL_ELEMENT_TYPES, StructurePoolElement, StructurePoolElementType, decode_placed_feature, parse_projection};
-use super::structure_template_pool::{Projection, empty_pool_id};
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::holder::Holder;
-use crate::world::level::levelgen::placement::PlacedFeature;
-use crate::world::level::levelgen::structure::StructureManager;
-use crate::world::level::levelgen::structure::templatesystem::structure_template::{JigsawBlockInfo, JointType};
-use crate::world::level::levelgen::structure::templatesystem::{LiquidSettings, StructureTemplateManager};
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::structure::pools::structure_pool_element::{ElementCodecCtx, STRUCTURE_POOL_ELEMENT_TYPES, StructurePoolElement, StructurePoolElementType, decode_placed_feature, parse_projection};
+use mc_game_core::world::level::levelgen::structure::pools::structure_template_pool::{Projection, empty_pool_id};
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::holder::Holder;
+use mc_game_core::world::level::levelgen::placement::PlacedFeature;
+use mc_game_core::world::level::levelgen::structure::StructureManager;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::{JigsawBlockInfo, JointType};
+use mc_game_core::world::level::levelgen::structure::templatesystem::{LiquidSettings, StructureTemplateManager};
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::{Direction, FrontAndTop};
 use mc_core::pos::{BlockPos, Vec3i};

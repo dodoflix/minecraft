@@ -1,8 +1,8 @@
 //! `InSquarePlacement`: a random column of the origin's chunk-sized square.
 
-use super::{PLACEMENT_MODIFIER_TYPES, PlacementContext, PlacementModifier};
-use crate::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
-use crate::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::placement::{PLACEMENT_MODIFIER_TYPES, PlacementContext, PlacementModifier};
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use std::sync::Arc;

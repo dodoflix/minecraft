@@ -1,8 +1,8 @@
 //! `BuriedTreasureStructure`.
 
 use super::buried_treasure_pieces::BuriedTreasurePiece;
-use crate::world::level::levelgen::codec::TypeEntry;
-use crate::world::level::levelgen::structure::structure::{GenerationContext, GenerationStub, STRUCTURE_TYPES, Structure, StructureSettings, on_top_of_chunk_center};
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
+use mc_game_core::world::level::levelgen::structure::structure::{GenerationContext, GenerationStub, STRUCTURE_TYPES, Structure, StructureSettings, on_top_of_chunk_center};
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_world::heightmap::HeightmapType;

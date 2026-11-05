@@ -1,23 +1,23 @@
 //! `PlaceCommand`: `/place feature|jigsaw|structure|template`.
-use crate::commands::arguments::coordinates::BlockPosArgument;
-use crate::commands::arguments::resource_arguments::{ERROR_FAILED_TO_PARSE, FeatureArgument, ResourceKey, ResourceKeyArgument, ResourceOrId};
-use crate::server::world_dimensions::nbt_to_json;
-use crate::world::level::levelgen::registries::GenRegistries;
-use crate::world::level::BlockGetter;
-use crate::commands::arguments::{IdentifierArgument, TemplateMirrorArgument, TemplateRotationArgument};
-use crate::commands::message::{message, simple_translatable};
-use crate::commands::shared_suggestion_provider::suggest_resource;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
-use crate::server::level::ServerLevel;
-use crate::server::level::server_level_worldgen::with_worldgen_level;
-use crate::world::level::levelgen::structure::generation::generate_structure;
-use crate::world::level::levelgen::structure::manager::StructureManager;
+use mc_game_core::commands::arguments::coordinates::BlockPosArgument;
+use mc_game_core::commands::arguments::resource_arguments::{ERROR_FAILED_TO_PARSE, FeatureArgument, ResourceKey, ResourceKeyArgument, ResourceOrId};
+use mc_game_core::server::world_dimensions::nbt_to_json;
+use mc_game_core::world::level::levelgen::registries::GenRegistries;
+use mc_game_core::world::level::BlockGetter;
+use mc_game_core::commands::arguments::{IdentifierArgument, TemplateMirrorArgument, TemplateRotationArgument};
+use mc_game_core::commands::message::{message, simple_translatable};
+use mc_game_core::commands::shared_suggestion_provider::suggest_resource;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::server::level::server_level_worldgen::with_worldgen_level;
+use mc_game_core::world::level::levelgen::structure::generation::generate_structure;
+use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
 use crate::world::level::levelgen::structure::pools::jigsaw_placement::generate_jigsaw;
-use crate::world::level::levelgen::structure::templatesystem::block_rot_processor::BlockRotProcessor;
-use crate::world::level::levelgen::structure::templatesystem::structure_place_settings::{SharedRandom, StructurePlaceSettings};
-use crate::world::level::levelgen::{GenEnv, WorldGenLevel};
-use crate::world::level::{LevelAccessor, LevelReader};
-use crate::{register_command, translatable};
+use mc_game_core::world::level::levelgen::structure::templatesystem::block_rot_processor::BlockRotProcessor;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_place_settings::{SharedRandom, StructurePlaceSettings};
+use mc_game_core::world::level::levelgen::{GenEnv, WorldGenLevel};
+use mc_game_core::world::level::{LevelAccessor, LevelReader};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::{FloatArgumentType, IntegerArgumentType, float_arg_range, integer, integer_range};
 use mc_brigadier::{ArgumentBuilder, CommandContext, CommandSyntaxException, DynamicCommandExceptionType, SimpleCommandExceptionType};
 use mc_core::bounding_box::BoundingBox;
@@ -169,7 +169,7 @@ register_command!("PlaceCommand", |ctx| {
 /// `checkLoaded(level, chunkMin, chunkMax)`.
 fn check_loaded(level: &ServerLevel, chunk_min: ChunkPos, chunk_max: ChunkPos) -> Result<(), CommandSyntaxException> {
     if ChunkPos::range_closed_between(&chunk_min, &chunk_max).any(|c| !level.is_loaded(c.get_world_position())) {
-        return Err(crate::commands::arguments::coordinates::block_pos_argument::ERROR_NOT_LOADED.create());
+        return Err(mc_game_core::commands::arguments::coordinates::block_pos_argument::ERROR_NOT_LOADED.create());
     }
     Ok(())
 }
@@ -249,7 +249,7 @@ pub fn place_structure(source: &CommandSourceStack, structure: ResourceKey, pos:
 
 /// `StructureBlockEntity.createRandom(seed)`.
 fn create_random(seed: i64) -> Box<dyn RandomSource> {
-    Box::new(LegacyRandomSource::new(if seed == 0 { crate::util::util::get_millis() } else { seed }))
+    Box::new(LegacyRandomSource::new(if seed == 0 { mc_game_core::util::util::get_millis() } else { seed }))
 }
 
 /// `PlaceCommand.placeTemplate`.

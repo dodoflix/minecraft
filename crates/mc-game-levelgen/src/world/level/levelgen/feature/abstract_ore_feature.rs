@@ -2,8 +2,8 @@
 //! plus the placement test (`canPlaceOre`).
 
 use super::block_replacement::BlockReplacement;
-use crate::world::level::levelgen::codec::{Fields, LoadResult, parse_float_range, parse_int_range, parse_list};
-use crate::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, parse_float_range, parse_int_range, parse_list};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;

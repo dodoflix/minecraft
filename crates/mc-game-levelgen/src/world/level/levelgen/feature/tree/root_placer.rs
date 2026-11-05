@@ -2,12 +2,12 @@
 
 use super::above_root_placement::AboveRootPlacement;
 use super::tree_feature::{self, TreeFeature, TreeSetter, fluid_is_water};
-use crate::world::level::LevelAccessor;
-use crate::world::level::levelgen::codec::{Fields, LoadResult};
-use crate::world::level::levelgen::holder::Holder;
-use crate::world::level::levelgen::registries::DecodeCtx;
-use crate::world::level::levelgen::stateproviders::BlockStateProvider;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult};
+use mc_game_core::world::level::levelgen::holder::Holder;
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::BlockState;

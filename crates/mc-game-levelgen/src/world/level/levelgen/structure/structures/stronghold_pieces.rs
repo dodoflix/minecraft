@@ -6,16 +6,16 @@
 //! the [`StartPiece`]; pieces reach it through the `startPiece` argument of `addChildren`. `pendingChildren` holds the
 //! builder indices of the pieces still to expand.
 
-use crate::world::level::block::BlockStateExt;
-use crate::world::level::levelgen::block_entity_data::spawner_tag;
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::structure::manager::StructureManager;
-use crate::world::level::levelgen::structure::piece::{
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::levelgen::block_entity_data::spawner_tag;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
+use mc_game_core::world::level::levelgen::structure::piece::{
     BlockSelector, PieceBase, STRUCTURE_PIECE_TYPES, StructurePiece, StructurePieceSerializationContext, StructurePieceType, cave_air, get_random_horizontal_direction,
     make_bounding_box,
 };
-use crate::world::level::levelgen::structure::pieces::StructurePiecesBuilder;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::structure::pieces::StructurePiecesBuilder;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::Direction;
 use mc_core::pos::{BlockPos, ChunkPos};

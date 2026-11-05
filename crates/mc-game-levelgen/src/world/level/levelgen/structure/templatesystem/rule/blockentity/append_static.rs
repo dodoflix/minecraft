@@ -1,8 +1,8 @@
 //! `AppendStatic` (`append_static`).
 
 use super::rule_block_entity_modifier::{RULE_BLOCK_ENTITY_MODIFIER_TYPES, RuleBlockEntityModifier};
-use crate::world::level::levelgen::codec::*;
-use crate::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::codec::*;
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_core::random::RandomSource;
 use mc_nbt::CompoundTag;
 use std::sync::Arc;

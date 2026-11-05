@@ -1,8 +1,8 @@
 //! `CombiningPredicate`: the shared `predicates` list codec of `all_of` / `any_of`.
 
-use super::{BlockPredicate, decode};
-use crate::world::level::levelgen::codec::{Fields, LoadResult, parse_list};
-use crate::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::blockpredicates::{BlockPredicate, decode};
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, parse_list};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use std::sync::Arc;
 
 /// `BlockPredicate.CODEC.listOf().fieldOf("predicates")`.

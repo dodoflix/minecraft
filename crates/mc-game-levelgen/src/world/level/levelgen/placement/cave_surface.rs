@@ -1,6 +1,6 @@
 //! `CaveSurface`: which side of a cave a feature grows from.
 
-use crate::world::level::levelgen::codec::{LoadError, LoadResult, parse_str};
+use mc_game_core::world::level::levelgen::codec::{LoadError, LoadResult, parse_str};
 use mc_core::direction::Direction;
 use serde_json::Value;
 

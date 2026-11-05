@@ -1,8 +1,3 @@
-// bridge: remove after branch migration (docs/crate-split.md#removal)
-//! `mc-game-levelgen`: re-exports the lower crate's module tree and adds this crate's modules.
-
-pub use parent::world::level::levelgen::placement::*;
-
 pub mod biome_filter;
 
 pub mod block_predicate_filter;

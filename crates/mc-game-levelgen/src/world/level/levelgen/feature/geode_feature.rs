@@ -1,15 +1,15 @@
 //! `GeodeFeature` (`geode`): amethyst geodes.
 
-use super::{FEATURE_TYPES, Feature, safe_set_block};
-use crate::world::level::block::BlockStateExt;
-use crate::world::level::levelgen::GenEnv;
-use crate::world::level::levelgen::WorldGenLevel;
-use crate::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_bool, parse_double_range, parse_int};
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature, safe_set_block};
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::levelgen::GenEnv;
+use mc_game_core::world::level::levelgen::WorldGenLevel;
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_bool, parse_double_range, parse_int};
 use crate::world::level::levelgen::geode_block_settings::GeodeBlockSettings;
 use crate::world::level::levelgen::geode_crack_settings::GeodeCrackSettings;
 use crate::world::level::levelgen::geode_layer_settings::GeodeLayerSettings;
-use crate::world::level::levelgen::registries::DecodeCtx;
-use crate::world::level::material::FluidStateExt;
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::material::FluidStateExt;
 use mc_core::direction::Direction;
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;

@@ -1,10 +1,10 @@
 //! `ReplaceBlobsFeature` (`netherrack_replace_blobs`): replaces every block of one type within a random manhattan blob.
 
-use super::Feature;
-use crate::world::level::block::BlockStateExt;
-use crate::world::level::levelgen::codec::{TypeEntry, parse_block_state};
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::feature::Feature;
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_block_state};
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::direction::{Axis, Direction};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -37,7 +37,7 @@ impl Feature for ReplaceBlobsFeature {
                 break;
             }
             if level.get_block_state(pos).is_block(target_block) {
-                super::set_block(level, pos, self.replace_state);
+                mc_game_core::world::level::levelgen::feature::set_block(level, pos, self.replace_state);
                 replaced_any = true;
             }
         }
@@ -55,7 +55,7 @@ fn find_target(level: &dyn WorldGenLevel, mut cursor: BlockPos, target: Block) -
     None
 }
 
-#[linkme::distributed_slice(super::FEATURE_TYPES)]
+#[linkme::distributed_slice(mc_game_core::world::level::levelgen::feature::FEATURE_TYPES)]
 static NETHERRACK_REPLACE_BLOBS: TypeEntry<dyn Feature> = TypeEntry {
     name: "netherrack_replace_blobs",
     decode: |fields, _| {

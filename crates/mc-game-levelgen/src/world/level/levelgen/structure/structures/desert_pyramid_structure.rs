@@ -1,17 +1,17 @@
 //! `DesertPyramidStructure`.
 
 use super::desert_pyramid_piece::DesertPyramidPiece;
-use crate::world::level::BlockGetter as _;
-use crate::world::level::LevelAccessor as _;
-use crate::world::level::levelgen::block_entity_data::base_tag;
-use crate::world::level::levelgen::codec::TypeEntry;
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::feature::tree::shuffle;
-use crate::world::level::levelgen::structure::manager::StructureManager;
-use crate::world::level::levelgen::structure::pieces::PiecesContainer;
+use mc_game_core::world::level::BlockGetter as _;
+use mc_game_core::world::level::LevelAccessor as _;
+use mc_game_core::world::level::levelgen::block_entity_data::base_tag;
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::feature::tree::shuffle;
+use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
+use mc_game_core::world::level::levelgen::structure::pieces::PiecesContainer;
 use crate::world::level::levelgen::structure::single_piece_structure::SinglePieceStructure;
-use crate::world::level::levelgen::structure::structure::{GenerationContext, GenerationStub, STRUCTURE_TYPES, Structure, StructureSettings};
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::structure::structure::{GenerationContext, GenerationStub, STRUCTURE_TYPES, Structure, StructureSettings};
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use linkme::distributed_slice;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::pos::{BlockPos, ChunkPos};

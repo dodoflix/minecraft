@@ -1,9 +1,9 @@
 //! `HasSturdyFacePredicate` (`has_sturdy_face`).
 
-use super::{BLOCK_PREDICATE_TYPES, BlockPredicate};
-use crate::world::level::block::BlockStateExt;
-use crate::world::level::levelgen::codec::{TypeEntry, parse_direction, parse_vec3i_offset};
-use crate::world::level::LevelAccessor;
+use mc_game_core::world::level::levelgen::blockpredicates::{BLOCK_PREDICATE_TYPES, BlockPredicate};
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_direction, parse_vec3i_offset};
+use mc_game_core::world::level::LevelAccessor;
 use mc_core::direction::Direction;
 use mc_core::pos::{BlockPos, Vec3i};
 use std::sync::Arc;

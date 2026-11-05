@@ -1,18 +1,18 @@
 //! `IglooPieces`: the igloo top, its ladder shaft and laboratory as template pieces.
 
-use crate::world::level::LevelAccessor as _;
-use crate::world::level::BlockGetter as _;
-use crate::world::level::block::BlockStateExt as _;
-use crate::world::level::levelgen::block_entity_data::set_block_entity_loot_table;
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::structure::manager::StructureManager;
-use crate::world::level::levelgen::structure::piece::{PieceBase, STRUCTURE_PIECE_TYPES, StructurePiece, StructurePieceSerializationContext, StructurePieceType};
-use crate::world::level::levelgen::structure::pieces::StructurePiecesBuilder;
+use mc_game_core::world::level::LevelAccessor as _;
+use mc_game_core::world::level::BlockGetter as _;
+use mc_game_core::world::level::block::BlockStateExt as _;
+use mc_game_core::world::level::levelgen::block_entity_data::set_block_entity_loot_table;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
+use mc_game_core::world::level::levelgen::structure::piece::{PieceBase, STRUCTURE_PIECE_TYPES, StructurePiece, StructurePieceSerializationContext, StructurePieceType};
+use mc_game_core::world::level::levelgen::structure::pieces::StructurePiecesBuilder;
 use crate::world::level::levelgen::structure::template_structure_piece::{TemplateStructurePieceData, read_rotation, rotation_legacy_name};
 use crate::world::level::levelgen::structure::templatesystem::block_ignore_processor::STRUCTURE_BLOCK;
-use crate::world::level::levelgen::structure::templatesystem::structure_template::calculate_relative_position;
-use crate::world::level::levelgen::structure::templatesystem::{LiquidSettings, StructurePlaceSettings, StructureTemplateManager};
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::calculate_relative_position;
+use mc_game_core::world::level::levelgen::structure::templatesystem::{LiquidSettings, StructurePlaceSettings, StructureTemplateManager};
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::ident::Identifier;
 use mc_core::mirror::Mirror;

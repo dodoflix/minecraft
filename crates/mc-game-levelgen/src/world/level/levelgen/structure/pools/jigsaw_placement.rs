@@ -4,16 +4,16 @@
 use super::alias::PoolAliasLookup;
 use super::dimension_padding::DimensionPadding;
 use super::jigsaw_junction::JigsawJunction;
-use super::structure_pool_element::StructurePoolElement;
-use super::structure_template_pool::{Projection, StructureTemplatePool, empty_pool_id};
-use crate::world::level::levelgen::codec::*;
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::holder::Holder;
-use crate::world::level::levelgen::registries::TypedRegistry;
+use mc_game_core::world::level::levelgen::structure::pools::structure_pool_element::StructurePoolElement;
+use mc_game_core::world::level::levelgen::structure::pools::structure_template_pool::{Projection, StructureTemplatePool, empty_pool_id};
+use mc_game_core::world::level::levelgen::codec::*;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::holder::Holder;
+use mc_game_core::world::level::levelgen::registries::TypedRegistry;
 use crate::world::level::levelgen::structure::pool_element_structure_piece::PoolElementStructurePiece;
-use crate::world::level::levelgen::structure::structure::{GenerationContext, GenerationStub};
-use crate::world::level::levelgen::structure::templatesystem::LiquidSettings;
-use crate::world::level::levelgen::structure::templatesystem::structure_template::{JigsawBlockInfo, JointType, jigsaw_front_facing};
+use mc_game_core::world::level::levelgen::structure::structure::{GenerationContext, GenerationStub};
+use mc_game_core::world::level::levelgen::structure::templatesystem::LiquidSettings;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::{JigsawBlockInfo, JointType, jigsaw_front_facing};
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;
@@ -143,7 +143,7 @@ pub fn add_pieces<'a>(
         center_element.get_bounding_box(manager, adjusted_position, center_rotation),
         liquid_settings,
     );
-    let bb = crate::world::level::levelgen::structure::piece::StructurePiece::get_bounding_box(&center_piece);
+    let bb = mc_game_core::world::level::levelgen::structure::piece::StructurePiece::get_bounding_box(&center_piece);
     let center_x = (bb.max_x().wrapping_add(bb.min_x())) / 2;
     let center_z = (bb.max_z().wrapping_add(bb.min_z())) / 2;
     let bottom_y = match project_start_to_heightmap {
@@ -156,8 +156,8 @@ pub fn add_pieces<'a>(
         }
     };
     let old_absolute_ground_y = bb.min_y().wrapping_add(center_piece.get_ground_level_delta());
-    crate::world::level::levelgen::structure::piece::StructurePiece::move_by(&mut center_piece, 0, bottom_y.wrapping_sub(old_absolute_ground_y), 0);
-    let center_bb = crate::world::level::levelgen::structure::piece::StructurePiece::get_bounding_box(&center_piece);
+    mc_game_core::world::level::levelgen::structure::piece::StructurePiece::move_by(&mut center_piece, 0, bottom_y.wrapping_sub(old_absolute_ground_y), 0);
+    let center_bb = mc_game_core::world::level::levelgen::structure::piece::StructurePiece::get_bounding_box(&center_piece);
     if is_start_too_close_to_world_height_limits(height_accessor, &dimension_padding, &center_bb) {
         log::debug!("Center piece {center_element} with bounding box {center_bb:?} does not fit dimension padding {dimension_padding:?}");
         return None;
@@ -199,7 +199,7 @@ fn get_random_named_jigsaw(
     target_jigsaw_id: &Identifier,
     position: BlockPos,
     rotation: Rotation,
-    manager: &crate::world::level::levelgen::structure::templatesystem::StructureTemplateManager,
+    manager: &mc_game_core::world::level::levelgen::structure::templatesystem::StructureTemplateManager,
     random: &mut dyn RandomSource,
 ) -> Option<BlockPos> {
     element.get_shuffled_jigsaw_blocks(manager, position, rotation, random).into_iter().find(|jigsaw| jigsaw.name.as_ref() == Some(target_jigsaw_id)).map(|jigsaw| jigsaw.pos)
@@ -278,7 +278,7 @@ impl Placer<'_> {
         pool_alias_lookup: &PoolAliasLookup,
         liquid_settings: LiquidSettings,
     ) {
-        use crate::world::level::levelgen::structure::piece::StructurePiece;
+        use mc_game_core::world::level::levelgen::structure::piece::StructurePiece;
         let manager = &self.env.structure_template_manager;
         let (source_element, source_box_position, source_rotation, source_bb, source_ground_level_delta) = {
             let piece = &self.pieces[source_piece_index];
@@ -442,7 +442,7 @@ impl Placer<'_> {
 /// `generateJigsaw(level, pool, target, maxDepth, position, keepJigsaws)` (`/place jigsaw`, jigsaw blocks): the pieces of the
 /// pool placed straight into the level. `random` is `level.getRandom()` (the caller owns it while the level is borrowed).
 pub fn generate_jigsaw(
-    level: &mut dyn crate::world::level::levelgen::WorldGenLevel,
+    level: &mut dyn mc_game_core::world::level::levelgen::WorldGenLevel,
     random: &mut dyn RandomSource,
     pool: &Holder<StructureTemplatePool>,
     target: &Identifier,
@@ -450,7 +450,7 @@ pub fn generate_jigsaw(
     position: BlockPos,
     keep_jigsaws: bool,
 ) -> bool {
-    use crate::world::level::levelgen::structure::manager::StructureManager;
+    use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
     let env = level.env().clone();
     let manager = StructureManager::new(&env);
     let valid_biome = |_: mc_world::palette::BiomeId| true;
@@ -473,7 +473,7 @@ pub fn generate_jigsaw(
     let builder = stub.get_pieces_builder(&mut context);
     for piece in &builder.build().pieces {
         if let Some(pool_piece) = piece.downcast_ref::<PoolElementStructurePiece>() {
-            level.ensure_chunks_loaded_around(&crate::world::level::levelgen::structure::piece::StructurePiece::get_bounding_box(pool_piece));
+            level.ensure_chunks_loaded_around(&mc_game_core::world::level::levelgen::structure::piece::StructurePiece::get_bounding_box(pool_piece));
             pool_piece.place(level, &manager, &env, random, &BoundingBox::infinite(), position, keep_jigsaws);
         }
     }

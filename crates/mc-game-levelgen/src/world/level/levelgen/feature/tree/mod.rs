@@ -1,8 +1,3 @@
-// bridge: remove after branch migration (docs/crate-split.md#removal)
-//! `mc-game-levelgen`: re-exports the lower crate's module tree and adds this crate's modules.
-
-pub use parent::world::level::levelgen::feature::tree::*;
-
 pub mod above_root_placement;
 
 pub mod acacia_foliage_placer;
@@ -103,7 +98,7 @@ pub mod two_layers_feature_size;
 
 pub mod upwards_branching_trunk_placer;
 
-use parent::world::level::levelgen::codec::TypeEntry;
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
 
 #[linkme::distributed_slice]
 pub static TRUNK_PLACER_TYPES: [TypeEntry<dyn TrunkPlacer>];

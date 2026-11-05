@@ -2,9 +2,9 @@
 
 use super::noise_based_state_provider::create_noise;
 use super::noise_provider::{NoiseProvider, get_random_state, noise_provider_codec};
-use super::{BLOCK_STATE_PROVIDER_TYPES, BlockStateProvider};
-use crate::world::level::LevelAccessor;
-use crate::world::level::levelgen::codec::{Fields, LoadError, LoadResult, TypeEntry, parse_int, parse_list, parse_positive_float};
+use mc_game_core::world::level::levelgen::stateproviders::{BLOCK_STATE_PROVIDER_TYPES, BlockStateProvider};
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadError, LoadResult, TypeEntry, parse_int, parse_list, parse_positive_float};
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;

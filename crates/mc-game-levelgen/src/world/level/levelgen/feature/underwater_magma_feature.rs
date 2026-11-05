@@ -1,14 +1,14 @@
 //! `UnderwaterMagmaFeature`.
 
-use super::{FEATURE_TYPES, Feature};
-use crate::world::level::block::BlockStateExt;
-use crate::world::level::block::helpers::is_shape_full;
-use crate::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_float_range, parse_int_range};
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::block::helpers::is_shape_full;
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_float_range, parse_int_range};
 use crate::world::level::levelgen::column::Column;
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::registries::DecodeCtx;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
-use crate::world::level::{BlockGetter, LevelAccessor};
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::{BlockGetter, LevelAccessor};
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::{Direction, Plane};
 use mc_core::pos::{BlockPos, Vec3i};

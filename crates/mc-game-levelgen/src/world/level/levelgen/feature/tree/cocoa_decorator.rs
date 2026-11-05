@@ -2,7 +2,7 @@
 
 use super::TREE_DECORATOR_TYPES;
 use super::tree_decorator::{Context, TreeDecorator};
-use crate::world::level::levelgen::codec::{TypeEntry, parse_float_range};
+use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_float_range};
 use mc_core::direction::Plane;
 use mc_data::block::Block;
 use mc_data::props;

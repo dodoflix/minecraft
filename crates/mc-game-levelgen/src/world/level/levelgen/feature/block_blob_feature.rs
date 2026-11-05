@@ -1,10 +1,10 @@
 //! `BlockBlobFeature`: small mossy-rock style blobs dropped onto the first block the predicate accepts.
 
-use super::Feature;
-use crate::world::level::levelgen::blockpredicates::{self, BlockPredicate};
-use crate::world::level::levelgen::codec::{TypeEntry, parse_block_state};
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::feature::Feature;
+use mc_game_core::world::level::levelgen::blockpredicates::{self, BlockPredicate};
+use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_block_state};
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::BlockState;
@@ -40,7 +40,7 @@ impl Feature for BlockBlobFeature {
     }
 }
 
-#[linkme::distributed_slice(super::FEATURE_TYPES)]
+#[linkme::distributed_slice(mc_game_core::world::level::levelgen::feature::FEATURE_TYPES)]
 static BLOCK_BLOB: TypeEntry<dyn Feature> = TypeEntry {
     name: "block_blob",
     decode: |fields, ctx| {

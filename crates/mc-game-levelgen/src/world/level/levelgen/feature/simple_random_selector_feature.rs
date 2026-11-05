@@ -1,11 +1,11 @@
 //! `SimpleRandomSelectorFeature`: one uniformly chosen placed feature.
 
-use super::Feature;
-use crate::world::level::levelgen::codec::TypeEntry;
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::holder::Holder;
-use crate::world::level::levelgen::placement::{PlacedFeature, decode_placed_feature_set};
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::feature::Feature;
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::holder::Holder;
+use mc_game_core::world::level::levelgen::placement::{PlacedFeature, decode_placed_feature_set};
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use std::sync::Arc;
@@ -25,7 +25,7 @@ impl Feature for SimpleRandomSelectorFeature {
     }
 }
 
-#[linkme::distributed_slice(super::FEATURE_TYPES)]
+#[linkme::distributed_slice(mc_game_core::world::level::levelgen::feature::FEATURE_TYPES)]
 static SIMPLE_RANDOM_SELECTOR: TypeEntry<dyn Feature> = TypeEntry {
     name: "simple_random_selector",
     decode: |fields, ctx| Ok(Arc::new(SimpleRandomSelectorFeature { features: fields.required("features", |v| decode_placed_feature_set(v, ctx, true))? })),

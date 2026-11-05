@@ -1,9 +1,9 @@
 //! `CountOnEveryLayerPlacement`: `count` random columns per ground layer, for every layer that has one.
 
-use super::{PLACEMENT_MODIFIER_TYPES, PlacementContext, PlacementModifier};
-use crate::world::level::block::BlockStateExt;
-use crate::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
-use crate::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::placement::{PLACEMENT_MODIFIER_TYPES, PlacementContext, PlacementModifier};
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::{Block, BlockState};

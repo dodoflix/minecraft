@@ -1,22 +1,22 @@
 //! `levelgen.feature.TreeFeature` (type `tree`): the config record, the `place`/`doPlace` pipeline, `updateLeaves` and the
 //! shared helpers (`validTreePos`, `isVine`, ...).
 
-use super::java_hash_set::BlockPosHashSet;
+use mc_game_core::world::level::levelgen::feature::tree::java_hash_set::BlockPosHashSet;
 use super::tree_decorator::{Context, TreeDecorator};
 use super::{FEATURE_SIZE_TYPES, FOLIAGE_PLACER_TYPES, ROOT_PLACER_TYPES, TREE_DECORATOR_TYPES, TRUNK_PLACER_TYPES, block_tag_fn};
 use super::feature_size::FeatureSize;
 use super::foliage_placer::FoliagePlacer;
 use super::root_placer::RootPlacer;
 use super::trunk_placer::TrunkPlacer;
-use crate::world::level::levelgen::codec::{LoadResult, TypeEntry, decode_dispatch, parse_bool, parse_list};
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
-use crate::world::level::levelgen::holder::Holder;
-use crate::world::level::levelgen::registries::DecodeCtx;
-use crate::world::level::levelgen::stateproviders::BlockStateProvider;
-use crate::world::level::levelgen::structure::templatesystem::structure_template::update_shape_at_edge;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
-use crate::world::level::LevelAccessor;
+use mc_game_core::world::level::levelgen::codec::{LoadResult, TypeEntry, decode_dispatch, parse_bool, parse_list};
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
+use mc_game_core::world::level::levelgen::holder::Holder;
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::update_shape_at_edge;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::LevelAccessor;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::Direction;
 use mc_core::phys::shapes::{BitSetDiscreteVoxelShape, DiscreteVoxelShape};
@@ -177,7 +177,7 @@ impl TreeFeature {
         max_tree_height
     }
 
-    pub fn decode(fields: &crate::world::level::levelgen::codec::Fields<'_>, ctx: &DecodeCtx<'_>) -> LoadResult<TreeFeature> {
+    pub fn decode(fields: &mc_game_core::world::level::levelgen::codec::Fields<'_>, ctx: &DecodeCtx<'_>) -> LoadResult<TreeFeature> {
         let trunk_provider = fields.required("trunk_provider", |v| ctx.block_state_provider(v))?;
         let trunk_placer = fields.required("trunk_placer", |v| decode_dispatch(v, ctx, &TRUNK_PLACER_TYPES))?;
         let foliage_provider = fields.required("foliage_provider", |v| ctx.block_state_provider(v))?;

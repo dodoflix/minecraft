@@ -1,6 +1,6 @@
 //! `featuresize.FeatureSize`.
 
-use crate::world::level::levelgen::codec::{Fields, LoadResult, parse_int_range};
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, parse_int_range};
 
 pub trait FeatureSize: Send + Sync {
     /// `getSizeAtHeight(treeHeight, yo)`.

@@ -1,8 +1,8 @@
 //! `RarityFilter`: keeps the position with probability `1 / chance`.
 
-use super::{PLACEMENT_MODIFIER_TYPES, PlacementContext, PlacementFilter, PlacementModifier, filter_modify};
-use crate::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_positive_int};
-use crate::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::placement::{PLACEMENT_MODIFIER_TYPES, PlacementContext, PlacementFilter, PlacementModifier, filter_modify};
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_positive_int};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use std::sync::Arc;

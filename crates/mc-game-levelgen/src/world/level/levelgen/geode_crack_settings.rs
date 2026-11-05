@@ -1,6 +1,6 @@
 //! `GeodeCrackSettings`.
 
-use super::codec::{Fields, LoadResult, parse_double_range, parse_int_range};
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, parse_double_range, parse_int_range};
 use serde_json::Value;
 
 pub struct GeodeCrackSettings {

@@ -6,17 +6,17 @@
 //! children go into a fresh one ([`recursive_children`]).
 
 use super::structure_entities;
-use crate::commands::arguments::coordinates::block_pos_argument::is_in_spawnable_bounds;
-use crate::world::level::levelgen::block_entity_data::set_block_entity_loot_table;
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::structure::manager::StructureManager;
-use crate::world::level::levelgen::structure::piece::{
+use mc_game_core::commands::arguments::coordinates::block_pos_argument::is_in_spawnable_bounds;
+use mc_game_core::world::level::levelgen::block_entity_data::set_block_entity_loot_table;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
+use mc_game_core::world::level::levelgen::structure::piece::{
     PieceBase, STRUCTURE_PIECE_TYPES, StructurePiece, StructurePieceSerializationContext, StructurePieceType, find_collision_piece,
 };
 use crate::world::level::levelgen::structure::template_structure_piece::{TemplateStructurePieceData, read_rotation, rotation_legacy_name};
 use crate::world::level::levelgen::structure::templatesystem::block_ignore_processor::{STRUCTURE_AND_AIR, STRUCTURE_BLOCK};
-use crate::world::level::levelgen::structure::templatesystem::{StructurePlaceSettings, StructureTemplateManager};
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::structure::templatesystem::{StructurePlaceSettings, StructureTemplateManager};
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;

@@ -1,8 +1,8 @@
 //! `ReplaceablePredicate` (`replaceable`).
 
-use super::BLOCK_PREDICATE_TYPES;
-use super::state_testing_predicate::{StateTestingPredicate, state_testing_codec};
-use crate::world::level::levelgen::codec::TypeEntry;
+use mc_game_core::world::level::levelgen::blockpredicates::BLOCK_PREDICATE_TYPES;
+use mc_game_core::world::level::levelgen::blockpredicates::state_testing_predicate::{StateTestingPredicate, state_testing_codec};
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
 use mc_core::pos::Vec3i;
 use mc_data::block::BlockState;
 use std::sync::Arc;
@@ -22,7 +22,7 @@ impl StateTestingPredicate for ReplaceablePredicate {
 }
 
 #[linkme::distributed_slice(BLOCK_PREDICATE_TYPES)]
-static REPLACEABLE: TypeEntry<dyn super::BlockPredicate> = TypeEntry {
+static REPLACEABLE: TypeEntry<dyn mc_game_core::world::level::levelgen::blockpredicates::BlockPredicate> = TypeEntry {
     name: "replaceable",
     decode: |fields, _| Ok(Arc::new(ReplaceablePredicate { offset: state_testing_codec(fields)? })),
 };

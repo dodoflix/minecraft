@@ -1,14 +1,14 @@
 //! `PoolElementStructurePiece` (piece type `jigsaw`): a placed pool element with its position, rotation and the junctions
 //! to its neighbours.
 
-use super::manager::StructureManager;
-use super::piece::{PieceBase, StructurePiece, StructurePieceSerializationContext, StructurePieceType};
+use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
+use mc_game_core::world::level::levelgen::structure::piece::{PieceBase, StructurePiece, StructurePieceSerializationContext, StructurePieceType};
 use super::pools::jigsaw_junction::JigsawJunction;
-use super::pools::structure_pool_element::{StructurePoolElement, decode_element_from_nbt, encode_element};
-use super::pools::structure_template_pool::Projection;
-use super::templatesystem::{LiquidSettings, StructureTemplateManager};
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::structure::pools::structure_pool_element::{StructurePoolElement, decode_element_from_nbt, encode_element};
+use mc_game_core::world::level::levelgen::structure::pools::structure_template_pool::Projection;
+use mc_game_core::world::level::levelgen::structure::templatesystem::{LiquidSettings, StructureTemplateManager};
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_core::random::RandomSource;
@@ -20,7 +20,7 @@ use std::sync::Arc;
 /// `JigsawStructure.DEFAULT_LIQUID_SETTINGS`.
 pub const DEFAULT_LIQUID_SETTINGS: LiquidSettings = LiquidSettings::ApplyWaterlogging;
 
-#[linkme::distributed_slice(super::piece::STRUCTURE_PIECE_TYPES)]
+#[linkme::distributed_slice(mc_game_core::world::level::levelgen::structure::piece::STRUCTURE_PIECE_TYPES)]
 pub static JIGSAW: StructurePieceType = StructurePieceType {
     id: "jigsaw",
     load: |context, tag| PoolElementStructurePiece::load(context, tag).map(|p| Box::new(p) as Box<dyn StructurePiece>),

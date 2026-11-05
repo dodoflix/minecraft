@@ -1,6 +1,6 @@
 //! `JigsawJunction`.
 
-use super::structure_template_pool::Projection;
+use mc_game_core::world::level::levelgen::structure::pools::structure_template_pool::Projection;
 use mc_nbt::CompoundTag;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

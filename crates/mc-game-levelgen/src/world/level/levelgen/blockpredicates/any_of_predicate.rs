@@ -1,9 +1,9 @@
 //! `AnyOfPredicate` (`any_of`).
 
 use super::combining_predicate::predicates_codec;
-use super::{BLOCK_PREDICATE_TYPES, BlockPredicate};
-use crate::world::level::LevelAccessor;
-use crate::world::level::levelgen::codec::TypeEntry;
+use mc_game_core::world::level::levelgen::blockpredicates::{BLOCK_PREDICATE_TYPES, BlockPredicate};
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
 use mc_core::pos::BlockPos;
 use std::sync::Arc;
 

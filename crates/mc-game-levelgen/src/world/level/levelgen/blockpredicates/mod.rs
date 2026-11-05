@@ -1,8 +1,3 @@
-// bridge: remove after branch migration (docs/crate-split.md#removal)
-//! `mc-game-levelgen`: re-exports the lower crate's module tree and adds this crate's modules.
-
-pub use parent::world::level::levelgen::blockpredicates::*;
-
 pub mod all_of_predicate;
 
 pub mod any_of_predicate;
@@ -39,7 +34,8 @@ pub mod volume_match_predicate;
 
 pub mod would_survive_predicate;
 
-use parent::world::level::levelgen::codec::{BlockSet, FluidSet};
+use mc_game_core::world::level::levelgen::blockpredicates::BlockPredicate;
+use mc_game_core::world::level::levelgen::codec::{BlockSet, FluidSet};
 use mc_core::direction::Direction;
 use mc_core::pos::Vec3i;
 use mc_data::block::Block;

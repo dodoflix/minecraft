@@ -1,12 +1,12 @@
 //! `RuinedPortalPiece`: the ruined portal template piece (vertical placement, netherrack/magma spreading, vines and
 //! leaves, the age/lava/blackstone processors).
 
-use crate::world::level::block::BlockStateExt as _;
-use crate::world::level::block::impls::vine_block;
-use crate::world::level::levelgen::codec::BlockSet;
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::structure::manager::StructureManager;
-use crate::world::level::levelgen::structure::piece::{
+use mc_game_core::world::level::block::BlockStateExt as _;
+use mc_game_core::world::level::block::impls::vine_block;
+use mc_game_core::world::level::levelgen::codec::BlockSet;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
+use mc_game_core::world::level::levelgen::structure::piece::{
     PieceBase, STRUCTURE_PIECE_TYPES, StructurePiece, StructurePieceSerializationContext, StructurePieceType, get_random_horizontal_direction,
 };
 use crate::world::level::levelgen::structure::template_structure_piece::{
@@ -24,9 +24,9 @@ use crate::world::level::levelgen::structure::templatesystem::protected_block_pr
 use crate::world::level::levelgen::structure::templatesystem::random_block_match_test::RandomBlockMatchTest;
 use crate::world::level::levelgen::structure::templatesystem::rule::blockentity::passthrough::Passthrough;
 use crate::world::level::levelgen::structure::templatesystem::rule_processor::RuleProcessor;
-use crate::world::level::levelgen::structure::templatesystem::{StructurePlaceSettings, StructureTemplateManager};
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
-use crate::world::level::shapes::is_face_full;
+use mc_game_core::world::level::levelgen::structure::templatesystem::{StructurePlaceSettings, StructureTemplateManager};
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::shapes::is_face_full;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::ident::Identifier;
 use mc_core::mirror::Mirror;

@@ -3,9 +3,9 @@
 use super::TREE_DECORATOR_TYPES;
 use super::tree_decorator::{Context, TreeDecorator};
 use super::tree_feature::get_lowest_trunk_or_root_of_tree;
-use crate::world::level::levelgen::codec::TypeEntry;
-use crate::world::level::levelgen::holder::Holder;
-use crate::world::level::levelgen::stateproviders::BlockStateProvider;
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
+use mc_game_core::world::level::levelgen::holder::Holder;
+use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
 use mc_core::pos::BlockPos;
 use std::sync::Arc;
 

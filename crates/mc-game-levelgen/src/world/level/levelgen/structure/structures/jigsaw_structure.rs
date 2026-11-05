@@ -1,16 +1,16 @@
 //! `JigsawStructure` (type `jigsaw`): villages, pillager outposts, bastions, ancient cities, trail ruins, trial chambers,
 //! abandoned camps — everything built from a template pool by `JigsawPlacement`.
 
-use crate::world::level::levelgen::codec::*;
-use crate::world::level::levelgen::holder::Holder;
-use crate::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::codec::*;
+use mc_game_core::world::level::levelgen::holder::Holder;
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use crate::world::level::levelgen::structure::pool_element_structure_piece::DEFAULT_LIQUID_SETTINGS;
 use crate::world::level::levelgen::structure::pools::alias::{PoolAliasBinding, PoolAliasLookup};
 use crate::world::level::levelgen::structure::pools::dimension_padding::DimensionPadding;
 use crate::world::level::levelgen::structure::pools::jigsaw_placement::{MaxDistance, add_pieces};
-use crate::world::level::levelgen::structure::pools::structure_template_pool::StructureTemplatePool;
-use crate::world::level::levelgen::structure::structure::{GenerationContext, GenerationStub, STRUCTURE_TYPES, Structure, StructureSettings};
-use crate::world::level::levelgen::structure::templatesystem::LiquidSettings;
+use mc_game_core::world::level::levelgen::structure::pools::structure_template_pool::StructureTemplatePool;
+use mc_game_core::world::level::levelgen::structure::structure::{GenerationContext, GenerationStub, STRUCTURE_TYPES, Structure, StructureSettings};
+use mc_game_core::world::level::levelgen::structure::templatesystem::LiquidSettings;
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
 use mc_world::heightmap::HeightmapType;

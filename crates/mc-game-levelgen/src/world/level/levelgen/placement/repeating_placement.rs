@@ -1,6 +1,6 @@
 //! `RepeatingPlacement`: emits the origin `count(random, origin)` times.
 
-use super::PlacementContext;
+use mc_game_core::world::level::levelgen::placement::PlacementContext;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 

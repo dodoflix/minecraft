@@ -1,6 +1,6 @@
 //! `NoiseBasedStateProvider`: the shared `seed` / `noise` / `scale` of the noise providers.
 
-use crate::world::level::levelgen::codec::{Fields, LoadResult, parse_long, parse_positive_float};
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, parse_long, parse_positive_float};
 use mc_core::pos::BlockPos;
 use mc_core::random::{LegacyRandomSource, WorldgenRandom};
 use mc_worldgen::data::parse_noise_parameters;

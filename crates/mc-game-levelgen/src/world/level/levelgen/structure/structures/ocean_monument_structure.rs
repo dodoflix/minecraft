@@ -1,11 +1,11 @@
 //! `OceanMonumentStructure`.
 
 use super::ocean_monument_pieces::MonumentBuilding;
-use crate::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
-use crate::world::level::levelgen::registries::DecodeCtx;
-use crate::world::level::levelgen::structure::piece::get_random_horizontal_direction;
-use crate::world::level::levelgen::structure::pieces::{PiecesContainer, StructurePiecesBuilder};
-use crate::world::level::levelgen::structure::structure::{GenerationContext, GenerationStub, STRUCTURE_TYPES, Structure, StructureSettings, on_top_of_chunk_center};
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::structure::piece::get_random_horizontal_direction;
+use mc_game_core::world::level::levelgen::structure::pieces::{PiecesContainer, StructurePiecesBuilder};
+use mc_game_core::world::level::levelgen::structure::structure::{GenerationContext, GenerationStub, STRUCTURE_TYPES, Structure, StructureSettings, on_top_of_chunk_center};
 use mc_core::pos::ChunkPos;
 use mc_core::random::{LegacyRandomSource, WorldgenRandom, generate_unique_seed};
 use mc_world::heightmap::HeightmapType;

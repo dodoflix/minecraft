@@ -1,9 +1,9 @@
 //! `IglooStructure`.
 
 use super::igloo_pieces;
-use crate::world::level::levelgen::codec::TypeEntry;
-use crate::world::level::levelgen::structure::pieces::StructurePiecesBuilder;
-use crate::world::level::levelgen::structure::structure::{
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
+use mc_game_core::world::level::levelgen::structure::pieces::StructurePiecesBuilder;
+use mc_game_core::world::level::levelgen::structure::structure::{
     GenerationContext, GenerationStub, STRUCTURE_TYPES, Structure, StructureSettings, on_top_of_chunk_center,
 };
 use linkme::distributed_slice;

@@ -2,11 +2,11 @@
 
 use super::TREE_DECORATOR_TYPES;
 use super::attached_to_leaves_decorator::parse_non_empty_directions;
-use super::shuffle;
+use mc_game_core::world::level::levelgen::feature::tree::shuffle;
 use super::tree_decorator::{Context, TreeDecorator};
-use crate::world::level::levelgen::codec::{TypeEntry, parse_float_range};
-use crate::world::level::levelgen::holder::Holder;
-use crate::world::level::levelgen::stateproviders::BlockStateProvider;
+use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_float_range};
+use mc_game_core::world::level::levelgen::holder::Holder;
+use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
 use mc_core::direction::Direction;
 use std::sync::Arc;
 

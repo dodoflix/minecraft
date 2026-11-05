@@ -1,14 +1,14 @@
 //! `FossilFeature` (`fossil`): a fossil template plus its overlay buried 15+ blocks below the surface.
 
-use super::{FEATURE_TYPES, Feature};
-use crate::world::level::block::BlockStateExt;
-use crate::world::level::levelgen::GenEnv;
-use crate::world::level::levelgen::WorldGenLevel;
-use crate::world::level::levelgen::Holder;
-use crate::world::level::levelgen::codec::{Fields, LoadError, LoadResult, TypeEntry, parse_identifier, parse_int_range, parse_list};
-use crate::world::level::levelgen::registries::DecodeCtx;
-use crate::world::level::levelgen::structure::templatesystem::structure_place_settings::SharedRandom;
-use crate::world::level::levelgen::structure::templatesystem::{StructurePlaceSettings, StructureProcessorList};
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::levelgen::GenEnv;
+use mc_game_core::world::level::levelgen::WorldGenLevel;
+use mc_game_core::world::level::levelgen::Holder;
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadError, LoadResult, TypeEntry, parse_identifier, parse_int_range, parse_list};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_place_settings::SharedRandom;
+use mc_game_core::world::level::levelgen::structure::templatesystem::{StructurePlaceSettings, StructureProcessorList};
 use mc_core::bounding_box::BoundingBox;
 use mc_core::ident::Identifier;
 use mc_core::mirror::Mirror;

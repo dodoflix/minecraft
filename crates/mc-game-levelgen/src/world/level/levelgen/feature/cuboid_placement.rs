@@ -1,7 +1,7 @@
 //! `CuboidPlacement` (placement modifier `cuboid`): every position of a random-sized box starting at the origin.
 
-use crate::world::level::levelgen::codec::{TypeEntry, parse_bool};
-use crate::world::level::levelgen::placement::{PLACEMENT_MODIFIER_TYPES, PlacementContext, PlacementModifier};
+use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_bool};
+use mc_game_core::world::level::levelgen::placement::{PLACEMENT_MODIFIER_TYPES, PlacementContext, PlacementModifier};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_worldgen::provider::IntProvider;

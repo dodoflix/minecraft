@@ -1,8 +1,8 @@
 //! `AxisAlignedLinearPosTest` (`axis_aligned_linear_pos`).
 
 use super::pos_rule_test::{POS_RULE_TEST_TYPES, PosRuleTest};
-use crate::world::level::levelgen::codec::*;
-use crate::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::codec::*;
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_core::direction::{Axis, Direction};
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;

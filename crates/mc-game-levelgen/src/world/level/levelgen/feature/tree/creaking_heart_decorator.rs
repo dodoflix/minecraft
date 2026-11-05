@@ -1,10 +1,10 @@
 //! `treedecorators.CreakingHeartDecorator`.
 
 use super::TREE_DECORATOR_TYPES;
-use super::shuffle;
+use mc_game_core::world::level::levelgen::feature::tree::shuffle;
 use super::tree_decorator::{Context, TreeDecorator};
 use super::tree_feature::block_is_logs;
-use crate::world::level::levelgen::codec::{TypeEntry, parse_float_range};
+use mc_game_core::world::level::levelgen::codec::{TypeEntry, parse_float_range};
 use mc_core::direction::Direction;
 use mc_data::block::Block;
 use mc_data::enums::CreakingHeartState;

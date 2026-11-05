@@ -1,9 +1,9 @@
 //! `GeodeBlockSettings`.
 
-use super::Holder;
-use super::codec::{BlockSet, Fields, LoadError, LoadResult, parse_block_state, parse_list};
-use super::registries::DecodeCtx;
-use super::stateproviders::BlockStateProvider;
+use mc_game_core::world::level::levelgen::Holder;
+use mc_game_core::world::level::levelgen::codec::{BlockSet, Fields, LoadError, LoadResult, parse_block_state, parse_list};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
 use mc_data::block::BlockState;
 use serde_json::Value;
 

@@ -1,13 +1,13 @@
 //! `CoralClawFeature`.
 
-use super::{FEATURE_TYPES, Feature};
-use crate::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::holder::Holder;
-use crate::world::level::levelgen::feature::tree::shuffle;
-use crate::world::level::levelgen::placement::PlacedFeature;
-use crate::world::level::levelgen::registries::DecodeCtx;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::holder::Holder;
+use mc_game_core::world::level::levelgen::feature::tree::shuffle;
+use mc_game_core::world::level::levelgen::placement::PlacedFeature;
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::direction::{Direction, Plane};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;

@@ -4,19 +4,17 @@
 //! Vanilla's `Either<Identifier, StructureTemplate>` template: the runtime-template alternative only exists for
 //! game tests / data generation and cannot be serialized, so only the identifier is held.
 
-use super::structure_pool_element::{
-    ElementCodecCtx, ProcessorListRef, STRUCTURE_POOL_ELEMENT_TYPES, StructurePoolElement, StructurePoolElementType, parse_projection,
-};
-use super::structure_template_pool::Projection;
-use crate::world::level::levelgen::codec::*;
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::feature::tree::shuffle;
-use crate::world::level::levelgen::structure::StructureManager;
+use mc_game_core::world::level::levelgen::structure::pools::structure_pool_element::{ElementCodecCtx, ProcessorListRef, STRUCTURE_POOL_ELEMENT_TYPES, StructurePoolElement, StructurePoolElementType, parse_projection};
+use mc_game_core::world::level::levelgen::structure::pools::structure_template_pool::Projection;
+use mc_game_core::world::level::levelgen::codec::*;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::feature::tree::shuffle;
+use mc_game_core::world::level::levelgen::structure::StructureManager;
 use crate::world::level::levelgen::structure::templatesystem::block_ignore_processor::{STRUCTURE_AND_AIR, STRUCTURE_BLOCK};
 use crate::world::level::levelgen::structure::templatesystem::jigsaw_replacement_processor;
-use crate::world::level::levelgen::structure::templatesystem::structure_template::{JigsawBlockInfo, StructureBlockInfo, process_block_infos};
-use crate::world::level::levelgen::structure::templatesystem::{LiquidSettings, StructurePlaceSettings, StructureTemplate, StructureTemplateManager};
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::{JigsawBlockInfo, StructureBlockInfo, process_block_infos};
+use mc_game_core::world::level::levelgen::structure::templatesystem::{LiquidSettings, StructurePlaceSettings, StructureTemplate, StructureTemplateManager};
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::ident::Identifier;
 use mc_core::pos::{BlockPos, Vec3i};

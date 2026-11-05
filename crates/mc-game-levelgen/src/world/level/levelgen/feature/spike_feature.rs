@@ -1,11 +1,11 @@
 //! `SpikeFeature` (`spike`): ice spikes.
 
-use super::{FEATURE_TYPES, Feature, set_block};
-use crate::world::level::levelgen::GenEnv;
-use crate::world::level::levelgen::WorldGenLevel;
-use crate::world::level::levelgen::blockpredicates::{self, BlockPredicate};
-use crate::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_block_state};
-use crate::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature, set_block};
+use mc_game_core::world::level::levelgen::GenEnv;
+use mc_game_core::world::level::levelgen::WorldGenLevel;
+use mc_game_core::world::level::levelgen::blockpredicates::{self, BlockPredicate};
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_block_state};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;

@@ -1,9 +1,9 @@
 //! `NoiseBasedCountPlacement`: `ceil((noise(x / factor, z / factor) + offset) * ratio)` repetitions.
 
 use super::repeating_placement::{RepeatingPlacement, repeating_modify};
-use super::{PLACEMENT_MODIFIER_TYPES, PlacementContext, PlacementModifier};
-use crate::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_f64, parse_int};
-use crate::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::placement::{PLACEMENT_MODIFIER_TYPES, PlacementContext, PlacementModifier};
+use mc_game_core::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_f64, parse_int};
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_worldgen::biome::BIOME_INFO_NOISE;

@@ -1,19 +1,19 @@
 //! `levelgen.feature.FallenTreeFeature` (type `fallen_tree`).
 
-use super::java_hash_set::BlockPosHashSet;
+use mc_game_core::world::level::levelgen::feature::tree::java_hash_set::BlockPosHashSet;
 use super::tree_decorator::{Context, TreeDecorator};
 use super::tree_feature::{TreeSetter, valid_tree_pos};
 use super::trunk_placer::with_axis;
 use super::TREE_DECORATOR_TYPES;
-use crate::world::level::block::BlockStateExt;
-use crate::world::level::levelgen::codec::{LoadResult, TypeEntry, decode_dispatch, parse_list};
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::feature::{FEATURE_TYPES, Feature, mark_above_for_post_processing};
-use crate::world::level::levelgen::holder::Holder;
-use crate::world::level::levelgen::registries::DecodeCtx;
-use crate::world::level::levelgen::stateproviders::BlockStateProvider;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
-use crate::world::level::{BlockGetter, LevelAccessor};
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::levelgen::codec::{LoadResult, TypeEntry, decode_dispatch, parse_list};
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature, mark_above_for_post_processing};
+use mc_game_core::world::level::levelgen::holder::Holder;
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::{BlockGetter, LevelAccessor};
 use mc_core::direction::{Direction, Plane};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -118,7 +118,7 @@ impl FallenTreeFeature {
         }
     }
 
-    pub fn decode(fields: &crate::world::level::levelgen::codec::Fields<'_>, ctx: &DecodeCtx<'_>) -> LoadResult<FallenTreeFeature> {
+    pub fn decode(fields: &mc_game_core::world::level::levelgen::codec::Fields<'_>, ctx: &DecodeCtx<'_>) -> LoadResult<FallenTreeFeature> {
         let decorators = |name: &str| fields.required(name, |v| parse_list(v, |d| decode_dispatch(d, ctx, &TREE_DECORATOR_TYPES)));
         Ok(FallenTreeFeature {
             trunk_provider: fields.required("trunk_provider", |v| ctx.block_state_provider(v))?,

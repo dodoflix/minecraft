@@ -6,14 +6,14 @@
 //! building's child pieces. Only `MonumentBuilding` is ever saved; its children are rebuilt from the building's seed
 //! (`OceanMonumentStructure.regeneratePiecesAfterLoad`), so the child types never load from NBT.
 
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::feature::tree::shuffle;
-use crate::world::level::levelgen::structure::manager::StructureManager;
-use crate::world::level::levelgen::structure::piece::{
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::feature::tree::shuffle;
+use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
+use mc_game_core::world::level::levelgen::structure::piece::{
     PieceBase, StructurePiece, StructurePieceSerializationContext, StructurePieceType, make_bounding_box, STRUCTURE_PIECE_TYPES,
 };
 use crate::world::level::levelgen::structure::structures::structure_entities;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::Direction;
 use mc_core::pos::{BlockPos, ChunkPos};

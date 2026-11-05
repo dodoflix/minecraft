@@ -1,10 +1,10 @@
 //! `OreFeature`: blobs of ore along a random segment, written straight into the chunk sections (`BulkSectionAccess`).
 
-use super::Feature;
+use mc_game_core::world::level::levelgen::feature::Feature;
 use super::abstract_ore_feature::AbstractOreFeature;
-use crate::world::level::levelgen::codec::TypeEntry;
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -147,5 +147,5 @@ impl OreFeature {
     }
 }
 
-#[linkme::distributed_slice(super::FEATURE_TYPES)]
+#[linkme::distributed_slice(mc_game_core::world::level::levelgen::feature::FEATURE_TYPES)]
 static ORE: TypeEntry<dyn Feature> = TypeEntry { name: "ore", decode: |fields, ctx| Ok(Arc::new(OreFeature(AbstractOreFeature::decode(fields, ctx)?))) };

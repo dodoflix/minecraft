@@ -1,6 +1,6 @@
 //! `DimensionPadding`.
 
-use crate::world::level::levelgen::codec::*;
+use mc_game_core::world::level::levelgen::codec::*;
 use serde_json::Value;
 
 #[derive(Clone, Copy, Debug)]

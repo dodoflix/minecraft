@@ -1,12 +1,12 @@
 //! `BuriedTreasurePieces`.
 
-use crate::world::level::BlockGetter as _;
-use crate::world::level::LevelAccessor as _;
-use crate::world::level::LevelReader as _;
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::structure::manager::StructureManager;
-use crate::world::level::levelgen::structure::piece::{PieceBase, STRUCTURE_PIECE_TYPES, StructurePiece, StructurePieceSerializationContext, StructurePieceType};
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::BlockGetter as _;
+use mc_game_core::world::level::LevelAccessor as _;
+use mc_game_core::world::level::LevelReader as _;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
+use mc_game_core::world::level::levelgen::structure::piece::{PieceBase, STRUCTURE_PIECE_TYPES, StructurePiece, StructurePieceSerializationContext, StructurePieceType};
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use linkme::distributed_slice;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::Direction;

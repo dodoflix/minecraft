@@ -1,12 +1,12 @@
 //! `JungleTemplePiece`.
 
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::structure::manager::StructureManager;
-use crate::world::level::levelgen::structure::piece::{
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
+use mc_game_core::world::level::levelgen::structure::piece::{
     BlockSelector, PieceBase, STRUCTURE_PIECE_TYPES, StructurePiece, StructurePieceSerializationContext, StructurePieceType, get_random_horizontal_direction,
 };
 use crate::world::level::levelgen::structure::scattered_feature_piece::ScatteredFeaturePieceData;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use linkme::distributed_slice;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::Direction;

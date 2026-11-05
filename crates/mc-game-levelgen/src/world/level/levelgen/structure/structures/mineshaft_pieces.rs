@@ -8,17 +8,17 @@
 //! the root and is handed down as `self`.
 
 use super::mineshaft_structure::MineshaftType;
-use crate::world::level::block::BlockStateExt;
-use crate::world::level::block::helpers::can_support_center;
-use crate::world::level::levelgen::block_entity_data::spawner_tag;
-use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::structure::manager::StructureManager;
-use crate::world::level::levelgen::structure::piece::{
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::block::helpers::can_support_center;
+use mc_game_core::world::level::levelgen::block_entity_data::spawner_tag;
+use mc_game_core::world::level::levelgen::env::GenEnv;
+use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
+use mc_game_core::world::level::levelgen::structure::piece::{
     PieceBase, StructurePiece, StructurePieceSerializationContext, StructurePieceType, bounding_box_to_ints, cave_air, read_bounding_box,
 };
-use crate::world::level::levelgen::structure::pieces::StructurePiecesBuilder;
-use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
-use crate::world::level::{BlockGetter, LevelReader};
+use mc_game_core::world::level::levelgen::structure::pieces::StructurePiecesBuilder;
+use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
+use mc_game_core::world::level::{BlockGetter, LevelReader};
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::{Axis, Direction};
 use mc_core::ident::Identifier;
@@ -182,7 +182,7 @@ pub struct MineShaftCorridor {
     num_sections: i32,
 }
 
-#[linkme::distributed_slice(super::super::piece::STRUCTURE_PIECE_TYPES)]
+#[linkme::distributed_slice(mc_game_core::world::level::levelgen::structure::piece::STRUCTURE_PIECE_TYPES)]
 pub static MINE_SHAFT_CORRIDOR: StructurePieceType = StructurePieceType { id: "mscorridor", load: |_, tag| Ok(Box::new(MineShaftCorridor::load(tag)?)) };
 
 impl MineShaftCorridor {
@@ -569,7 +569,7 @@ pub struct MineShaftCrossing {
     is_two_floored: bool,
 }
 
-#[linkme::distributed_slice(super::super::piece::STRUCTURE_PIECE_TYPES)]
+#[linkme::distributed_slice(mc_game_core::world::level::levelgen::structure::piece::STRUCTURE_PIECE_TYPES)]
 pub static MINE_SHAFT_CROSSING: StructurePieceType = StructurePieceType { id: "mscrossing", load: |_, tag| Ok(Box::new(MineShaftCrossing::load(tag)?)) };
 
 impl MineShaftCrossing {
@@ -732,7 +732,7 @@ pub struct MineShaftRoom {
     child_entrance_boxes: Vec<BoundingBox>,
 }
 
-#[linkme::distributed_slice(super::super::piece::STRUCTURE_PIECE_TYPES)]
+#[linkme::distributed_slice(mc_game_core::world::level::levelgen::structure::piece::STRUCTURE_PIECE_TYPES)]
 pub static MINE_SHAFT_ROOM: StructurePieceType = StructurePieceType { id: "msroom", load: |_, tag| Ok(Box::new(MineShaftRoom::load(tag)?)) };
 
 impl MineShaftRoom {
@@ -899,7 +899,7 @@ pub struct MineShaftStairs {
     mineshaft_type: MineshaftType,
 }
 
-#[linkme::distributed_slice(super::super::piece::STRUCTURE_PIECE_TYPES)]
+#[linkme::distributed_slice(mc_game_core::world::level::levelgen::structure::piece::STRUCTURE_PIECE_TYPES)]
 pub static MINE_SHAFT_STAIRS: StructurePieceType = StructurePieceType { id: "msstairs", load: |_, tag| Ok(Box::new(MineShaftStairs::load(tag)?)) };
 
 impl MineShaftStairs {

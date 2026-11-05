@@ -1,7 +1,7 @@
 //! `Passthrough` (`passthrough`).
 
 use super::rule_block_entity_modifier::{RULE_BLOCK_ENTITY_MODIFIER_TYPES, RuleBlockEntityModifier};
-use crate::world::level::levelgen::codec::TypeEntry;
+use mc_game_core::world::level::levelgen::codec::TypeEntry;
 use mc_core::random::RandomSource;
 use mc_nbt::CompoundTag;
 use std::sync::Arc;

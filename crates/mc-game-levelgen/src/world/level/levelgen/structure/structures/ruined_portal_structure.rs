@@ -1,9 +1,9 @@
 //! `RuinedPortalStructure`.
 
 use super::ruined_portal_piece::{Properties, RuinedPortalPiece, VerticalPlacement, get_height_map_type};
-use crate::world::level::levelgen::codec::*;
-use crate::world::level::levelgen::registries::DecodeCtx;
-use crate::world::level::levelgen::structure::structure::{GenerationContext, GenerationStub, STRUCTURE_TYPES, Structure, StructureSettings};
+use mc_game_core::world::level::levelgen::codec::*;
+use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use mc_game_core::world::level::levelgen::structure::structure::{GenerationContext, GenerationStub, STRUCTURE_TYPES, Structure, StructureSettings};
 use mc_core::ident::Identifier;
 use mc_core::math::mth;
 use mc_core::mirror::Mirror;
