@@ -491,7 +491,7 @@ mod tests {
         assert_eq!(c.len(), 1);
         let Tag::Compound(c) = conv(&s, json!({"a": 1, "b": true, "c": "x"})).unwrap() else { panic!() };
         assert_eq!(c.len(), 3);
-        assert!(conv(&s, json!({"b": 1})).unwrap_err().starts_with("No key a in MapLike["));
+        assert!(conv(&s, json!({"b": true})).unwrap_err().starts_with("No key a in MapLike["));
     }
 
     #[test]
