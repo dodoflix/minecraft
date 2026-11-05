@@ -1,5 +1,5 @@
 //! Starts the real vanilla server (`ref/server.jar`, via `mc-testkit`) and offers raw-connection helpers.
-#![allow(dead_code, reason = "each test binary uses a subset of the shared helpers")]
+#![allow(dead_code, reason = "each test target uses a subset of the shared helpers")]
 use std::time::Duration;
 
 use mc_protocol::net::Connection;

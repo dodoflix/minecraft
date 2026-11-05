@@ -2,7 +2,7 @@
 //! through configuration, and an online-mode encryption handshake. Needs java, `ref/server.jar` and `MC_ACCEPT_EULA=1`.
 //! Run with `-- --nocapture` to see the packet-id log.
 
-use crate::common::vanilla::*;
+use crate::common::*;
 use mc_protocol::auth::{digest_server_id, encrypt_with_public_key, generate_secret};
 use mc_protocol::packet::ConnectionState;
 use mc_protocol::packets::{configuration::*, handshake::*, login::*, status::*};
@@ -10,6 +10,7 @@ use mc_protocol::PROTOCOL_VERSION;
 use uuid::Uuid;
 
 #[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the vanilla server"]
 async fn status_and_offline_login_to_configuration() {
     let server = start_vanilla(false);
     let port = server.port;
@@ -92,6 +93,7 @@ async fn status_and_offline_login_to_configuration() {
 }
 
 #[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the vanilla server"]
 async fn online_mode_encryption_handshake() {
     let server = start_vanilla(true);
     let port = server.port;

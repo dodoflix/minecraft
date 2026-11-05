@@ -19,6 +19,4 @@ mod play_misc;
 mod play_serverbound;
 mod status_json;
 mod text_payload_golden;
-mod vanilla_play;
-mod vanilla_smoke;
 mod wire_limits_golden;

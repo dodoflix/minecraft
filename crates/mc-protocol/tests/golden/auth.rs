@@ -1,8 +1,6 @@
-//! Golden tests against vanilla (`tests/fixtures/AuthGolden.java`, `AuthDecrypt.java`) and the
-//! `hasJoined` client against a local mock session server.
-
-use std::path::PathBuf;
-use std::process::Command;
+//! Golden tests against vanilla (`tests/fixtures/AuthGolden.java`) and the
+//! `hasJoined` client against a local mock session server. The check that vanilla decrypts our ciphertext is in the
+//! oracle target.
 
 use mc_protocol::auth::*;
 use mc_protocol::codec::{Decode, DecodeError, Encode, Property};
@@ -13,10 +11,6 @@ const GOLDEN: &str = include_str!("../fixtures/auth_golden.txt");
 
 fn hex(s: &str) -> Vec<u8> {
     (0..s.len()).step_by(2).map(|i| u8::from_str_radix(&s[i..i + 2], 16).expect("hex")).collect()
-}
-
-fn to_hex(b: &[u8]) -> String {
-    b.iter().map(|b| format!("{b:02x}")).collect()
 }
 
 fn golden(key: &str) -> Vec<u8> {
@@ -61,30 +55,6 @@ fn wrong_secret_length_and_garbage_fail() {
     assert!(matches!(kp.decrypt_secret_key(&golden("empty_ct")), Err(CryptError::SecretKeyLength(0))));
     assert!(kp.decrypt(&[1, 2, 3]).is_err());
     assert!(kp.decrypt(&[0xff; 129]).is_err());
-}
-
-#[test]
-fn vanilla_decrypts_rust_ciphertext() {
-    let script = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../scripts/vanilla-java.sh");
-    if !script.exists() {
-        eprintln!("skipped: vanilla oracle script missing");
-        return;
-    }
-    let fixture = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/AuthDecrypt.java");
-    let key = golden("public_der");
-    for plain in [&golden("secret")[..], &[7u8; 117], &[]] {
-        let ct = encrypt_with_public_key(&key, plain).unwrap();
-        let out = Command::new(&script)
-            .arg(&fixture)
-            .arg(to_hex(&golden("private_pkcs8")))
-            .arg(to_hex(&ct))
-            .output()
-            .unwrap();
-        assert!(out.status.success(), "{}", String::from_utf8_lossy(&out.stderr));
-        assert_eq!(String::from_utf8(out.stdout).unwrap().trim(), to_hex(plain));
-    }
-    // Too long for PKCS#1 v1.5 with a 1024-bit key, like Java's "Data must not be longer than 117 bytes".
-    assert!(encrypt_with_public_key(&key, &[0; 118]).is_err());
 }
 
 #[test]
