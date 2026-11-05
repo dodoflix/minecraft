@@ -25,14 +25,20 @@ import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSeriali
  * {@code P <piece tag SNBT>} line per piece ({@code StructurePiece.createTag}), then for every placement {@code PLACE cx cz} (centre
  * chunk of a 3x3 FEATURES region over the synthetic terrain; {@code placeInChunk} with the writable area of the centre chunk, the way
  * ChunkGenerator.applyBiomeDecoration does it) and the region dump as {@code D <line>} (the per-chunk {@code B} block lines are
- * folded into one {@code B* cx cz count fnv} digest line unless the environment variable NOFOLD is set), then {@code END}.
+ * folded into one {@code B* cx cz count fnv} digest line unless the environment variable NOFOLD is set; entity UUIDs are masked), then {@code END}.
  */
 public class StructureGoldenBase {
     static final int UNDERGROUND_DECORATION = 6;
     static final boolean NOFOLD = System.getenv("NOFOLD") != null;
 
+    /** Entities get random UUIDs in vanilla: {@code N} lines are compared without them (mirrored in the Rust test). */
+    static String normalize(String line) {
+        return line.startsWith("N ") ? line.replaceAll("UUID:\\[I;[^\\]]*\\]", "UUID:[I;?]") : line;
+    }
+
     /** Folds the B lines of the dump per chunk into one digest line (mirrored in the Rust test). */
     static List<String> fold(List<String> lines) {
+        lines = lines.stream().map(StructureGoldenBase::normalize).toList();
         if (NOFOLD) return lines;
         List<String> out = new ArrayList<>();
         long cx = 0, cz = 0, count = 0;

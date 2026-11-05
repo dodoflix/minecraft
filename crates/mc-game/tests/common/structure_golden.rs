@@ -35,8 +35,21 @@ pub fn structure(name: &str) -> Holder<dyn Structure> {
     Holder::direct(decode_direct(&json, &ctx).unwrap_or_else(|e| panic!("{name}.json: {e:?}")))
 }
 
+/// Mirror of `StructureGoldenBase.normalize`: entity UUIDs are random in vanilla.
+fn normalize(line: String) -> String {
+    let marker = "UUID:[I;";
+    if line.starts_with("N ")
+        && let Some(from) = line.find(marker)
+        && let Some(len) = line[from..].find(']')
+    {
+        return format!("{}{marker}?{}", &line[..from], &line[from + len..]);
+    }
+    line
+}
+
 /// Mirror of `StructureGoldenBase.fold`: the `B` lines of each chunk as one `B* cx cz count fnv` line.
 fn fold(lines: Vec<String>) -> Vec<String> {
+    let lines: Vec<String> = lines.into_iter().map(normalize).collect();
     if std::env::var_os("NOFOLD").is_some() {
         return lines;
     }
