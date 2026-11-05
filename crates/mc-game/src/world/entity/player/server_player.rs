@@ -484,6 +484,10 @@ impl Entity for ServerPlayer {
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:player")
     }
+    /// `Player.isSwimming()`.
+    fn is_swimming(&self) -> bool {
+        !self.player.abilities.flying && !self.is_spectator() && self.player.living.entity.get_shared_flag(crate::world::entity::entity::FLAG_SWIMMING)
+    }
     /// `Player.getScoreboardName()`: the profile name.
     fn get_scoreboard_name(&self) -> String {
         self.player.game_profile.name.clone()
