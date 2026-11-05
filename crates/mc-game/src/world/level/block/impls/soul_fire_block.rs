@@ -26,6 +26,9 @@ impl BlockBehaviour for SoulFireBlock {
     ) {
         super::base_fire_block::entity_inside(effect_applier, 2.0);
     }
+    fn on_place(&self, state: BlockState, level: &mut crate::server::level::ServerLevel, pos: BlockPos, old_state: BlockState, _moved_by_piston: bool) {
+        super::base_fire_block::on_place(state, level, pos, old_state);
+    }
     fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         can_survive_on_block(level.get_block_state(pos.below()))
     }

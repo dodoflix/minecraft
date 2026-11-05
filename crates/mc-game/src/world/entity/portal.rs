@@ -13,6 +13,11 @@ use crate::server::level::ServerLevel;
 use crate::server::players::dimension_change::TeleportTransition;
 use mc_core::pos::BlockPos;
 
+/// `LivingEntity.resetForwardDirectionOfRelativePortalPosition(offsets)`.
+pub fn reset_forward_direction_of_relative_portal_position(offsets: mc_core::phys::Vec3) -> mc_core::phys::Vec3 {
+    mc_core::phys::Vec3::new(offsets.x, offsets.y, 0.0)
+}
+
 /// `Portal.Transition`.
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 pub enum PortalTransition {

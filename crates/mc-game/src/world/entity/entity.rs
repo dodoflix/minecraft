@@ -1876,6 +1876,11 @@ pub trait Entity: Any {
     fn can_use_portal(&self, ignore_passenger: bool) -> bool {
         (ignore_passenger || !self.base().is_passenger()) && self.is_alive()
     }
+    /// `getRelativePortalPosition(axis, portalArea)` (living entities, boats and minecarts reset the forward offset).
+    fn get_relative_portal_position(&self, axis: mc_core::direction::Axis, portal_area: &crate::util::block_util::FoundRectangle) -> Vec3 {
+        let offsets = crate::world::level::portal::portal_shape::PortalShape::get_relative_position(portal_area, axis, self.base().position(), &self.get_dimensions(self.base().get_pose()));
+        if self.living().is_some() { super::portal::reset_forward_direction_of_relative_portal_position(offsets) } else { offsets }
+    }
     /// `canTeleport(from, to)`: no player passenger that has not seen the credits may leave the End for the overworld.
     fn can_teleport(&self, level: &ServerLevel, from: &mc_core::ident::Identifier, to: &mc_core::ident::Identifier) -> bool {
         if *from == crate::server::world_dimensions::end_key() && *to == crate::server::world_dimensions::overworld_key() {

@@ -194,6 +194,11 @@ impl BlockBehaviour for FireBlock {
     ) {
         super::base_fire_block::entity_inside(effect_applier, 1.0);
     }
+    fn on_place(&self, state: BlockState, level: &mut crate::server::level::ServerLevel, pos: BlockPos, old_state: BlockState, _moved_by_piston: bool) {
+        super::base_fire_block::on_place(state, level, pos, old_state);
+        let delay = 30 + level.random().next_int_bounded(10);
+        level.schedule_tick_block(pos, Block::FIRE, delay);
+    }
     fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         let below = pos.below();
         level.get_block_state(below).is_face_sturdy_at(level, below, Direction::Up) || is_valid_fire_location(level, pos)

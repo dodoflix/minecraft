@@ -77,6 +77,8 @@ pub struct ServerLevel {
     pub no_save: bool,
     /// `dimensionType().hasCeiling()` (set by the level factory).
     pub has_ceiling: bool,
+    /// `dimensionType()` (set by the level factory; `detached` levels have none: overworld-like defaults).
+    pub dimension_type: Option<Arc<crate::registry::typed::dimension_type::DimensionType>>,
     pub is_debug: bool,
     sea_level: i32,
     level_height: LevelHeight,
@@ -159,6 +161,7 @@ impl ServerLevel {
             level_data: params.level_data,
             no_save: false,
             has_ceiling: false,
+            dimension_type: None,
             is_debug: params.is_debug,
             sea_level: params.sea_level,
             level_height: params.level_height,
@@ -182,6 +185,11 @@ impl ServerLevel {
     /// A level over a fresh empty temporary directory with a void generator: for tests of code that needs a
     /// `ServerLevel` but no real world.
     pub fn detached(dimension: DimensionKey) -> Self {
+        Self::detached_with_height(dimension, LevelHeight { min_y: -64, height: 384 }, 63)
+    }
+
+    /// [`ServerLevel::detached`] with another height range / sea level (e.g. the nether's `0..256`).
+    pub fn detached_with_height(dimension: DimensionKey, level_height: LevelHeight, sea_level: i32) -> Self {
         static COUNTER: std::sync::atomic::AtomicU32 = std::sync::atomic::AtomicU32::new(0);
         let dir = std::env::temp_dir().join(format!("mc-detached-level-{}-{}", std::process::id(), COUNTER.fetch_add(1, std::sync::atomic::Ordering::Relaxed)));
         let (shared, _rx) = ServerShared::new();
@@ -192,8 +200,8 @@ impl ServerLevel {
             dimension,
             level_id: "detached".to_string(),
             dimension_dir: dir,
-            level_height: LevelHeight { min_y: -64, height: 384 },
-            sea_level: 63,
+            level_height,
+            sea_level,
             has_sky_light: true,
             factory: Arc::new(PalettedContainerFactory::create(biomes).expect("plains registered")),
             generator: Arc::new(VoidGenerator),

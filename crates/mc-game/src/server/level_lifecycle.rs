@@ -242,6 +242,7 @@ impl MinecraftServer {
             rules: self.game_rules_ref().live(),
         };
         level.has_ceiling = dimension_type.has_ceiling;
+        level.dimension_type = Some(dimension_type.clone());
         level.tick_state.tick_time = is_overworld;
         level.tick_state.can_have_weather = dimension_type.has_sky_light && !dimension_type.has_ceiling && dimension.to_string() != "minecraft:the_end";
         level.tick_state.enabled_features = enabled_features;
