@@ -11,7 +11,8 @@ use common::structure_golden::{run_fixture, structure};
 
 #[test]
 fn nether_fortress_matches_vanilla() {
-    let stats = run_fixture("nether_fortress.txt", &structure("fortress"));
+    let fortress = structure("fortress");
+    let stats = run_fixture("nether_fortress.txt", &|_| &fortress);
     assert!(stats.starts >= 40 && stats.pieces > 3000 && stats.placements >= 100 && stats.dump_lines > 5000, "fixture too small");
     for id in ["nebcr", "nebef", "nebs", "neccs", "nece", "necsr", "nectb", "nemt", "nerc", "nesc", "nesclt", "nescrt", "nescsc", "nesr"] {
         assert!(stats.piece_ids.contains_key(&format!("minecraft:{id}")), "fixture lacks piece {id}: {:?}", stats.piece_ids);

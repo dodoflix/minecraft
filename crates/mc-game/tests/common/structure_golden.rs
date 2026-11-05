@@ -111,7 +111,8 @@ fn snbt_string<'a>(line: &'a str, key: &str) -> Option<&'a str> {
 }
 
 /// Runs the whole fixture; panics listing every difference.
-pub fn run_fixture(fixture_name: &str, structure: &Holder<dyn Structure>) -> Stats {
+/// `structure_of(i)` is the structure the oracle generated start number `i` (fixture order) with.
+pub fn run_fixture<'a>(fixture_name: &str, structure_of: &dyn Fn(usize) -> &'a Holder<dyn Structure>) -> Stats {
     let path = std::env::var("FIXTURE").unwrap_or_else(|_| format!("{}/tests/fixtures/{fixture_name}", env!("CARGO_MANIFEST_DIR")));
     let fixture = std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("fixture {path}: {e}"));
     let mut lines = fixture.lines().peekable();
@@ -127,7 +128,7 @@ pub fn run_fixture(fixture_name: &str, structure: &Holder<dyn Structure>) -> Sta
             *stats.piece_ids.entry(snbt_string(line, "id").unwrap_or("?").to_owned()).or_default() += 1;
             want_pieces.push(line.to_owned());
         }
-        let mut start = generate(structure, seed, cx, cz);
+        let mut start = generate(structure_of(stats.starts), seed, cx, cz);
         let env = gen_env(seed);
         let context = StructurePieceSerializationContext { env: &env };
         let got_pieces: Vec<String> = start.piece_container.pieces.iter().map(|p| Tag::Compound(p.create_tag(&context)).to_string()).collect();
