@@ -1,12 +1,12 @@
 //! `OwnerHurtByTargetGoal`: a tamed animal attacks whoever hurt its owner.
 
-use super::target_goal::TargetGoal;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageTypeTags;
-use crate::world::entity::ai::goal::{Flag, Goal, GoalFlags};
-use crate::world::entity::ai::targeting::default_conditions;
-use crate::world::entity::mob::{combat, ext, tamable};
-use crate::world::entity::{Entity, EntityId};
+use mc_game_core::world::entity::ai::goal::target::target_goal::TargetGoal;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageTypeTags;
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
+use mc_game_core::world::entity::ai::targeting::default_conditions;
+use mc_game_core::world::entity::mob::{combat, ext, tamable};
+use mc_game_core::world::entity::{Entity, EntityId};
 
 pub struct OwnerHurtByTargetGoal {
     target_goal: TargetGoal,

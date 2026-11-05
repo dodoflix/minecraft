@@ -1,11 +1,11 @@
 //! `GoToTargetLocation`.
 
-use super::behavior_utils;
-use super::declarative::BehaviorBuilder;
-use super::OneShot;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, LOOK_TARGET, WALK_TARGET};
-use crate::world::entity::ai::memory::MemoryModuleType;
+use mc_game_core::world::entity::ai::behavior::behavior_utils;
+use mc_game_core::world::entity::ai::behavior::declarative::BehaviorBuilder;
+use mc_game_core::world::entity::ai::behavior::OneShot;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, LOOK_TARGET, WALK_TARGET};
+use mc_game_core::world::entity::ai::memory::MemoryModuleType;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 

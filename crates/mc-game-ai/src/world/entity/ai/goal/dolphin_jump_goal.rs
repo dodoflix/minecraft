@@ -1,14 +1,14 @@
 //! `DolphinJumpGoal` (+ the abstract `JumpGoal` flags).
 
 use mc_core::random::RandomSource as _;
-use crate::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
-use crate::world::level::material::FluidStateExt as _;
-use super::{Flag, Goal, GoalFlags, reduced_tick_delay};
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::entity::mob::navigation;
-use crate::world::level::LevelAccessor;
-use crate::world::level::block::state::BlockStateExt;
+use mc_game_core::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
+use mc_game_core::world::level::material::FluidStateExt as _;
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags, reduced_tick_delay};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::mob::navigation;
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::block::state::BlockStateExt;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;

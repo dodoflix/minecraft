@@ -1,15 +1,15 @@
 //! `CrossbowAttack`: a mob holding a crossbow charges, waits and shoots at its attack target.
 
-use super::position_tracker::{EntityTracker, PositionTracker};
-use super::{Behavior, BehaviorBase, behavior_utils};
-use crate::entry_condition;
-use crate::server::level::ServerLevel;
-use crate::world::entity::EntityId;
-use crate::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, LOOK_TARGET};
-use crate::world::entity::entity::Entity;
-use crate::world::entity::living_entity::using_item;
-use crate::world::item::projectile_weapon_item::get_weapon_holding_hand;
-use crate::world::item::crossbow_item;
+use mc_game_core::world::entity::ai::behavior::position_tracker::{EntityTracker, PositionTracker};
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase, behavior_utils};
+use mc_game_core::entry_condition;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::EntityId;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, LOOK_TARGET};
+use mc_game_core::world::entity::entity::Entity;
+use mc_game_core::world::entity::living_entity::using_item;
+use mc_game_core::world::item::projectile_weapon_item::get_weapon_holding_hand;
+use mc_game_core::world::item::crossbow_item;
 use mc_core::random::RandomSource;
 use mc_data::Item;
 
@@ -85,8 +85,8 @@ fn get_attack_target(body: &dyn Entity) -> Option<EntityId> {
 impl Behavior for CrossbowAttack {
     fn check_extra_start_conditions(&mut self, level: &mut ServerLevel, body: &mut dyn Entity) -> bool {
         let Some(attack_target) = get_attack_target(body) else { return false };
-        let holding_crossbow = body.get_item_by_slot(crate::world::entity::equipment::EquipmentSlot::MainHand).item() == Item::CROSSBOW
-            || body.get_item_by_slot(crate::world::entity::equipment::EquipmentSlot::OffHand).item() == Item::CROSSBOW;
+        let holding_crossbow = body.get_item_by_slot(mc_game_core::world::entity::equipment::EquipmentSlot::MainHand).item() == Item::CROSSBOW
+            || body.get_item_by_slot(mc_game_core::world::entity::equipment::EquipmentSlot::OffHand).item() == Item::CROSSBOW;
         holding_crossbow
             && behavior_utils::can_see(level, body, attack_target)
             && behavior_utils::is_within_attack_range(level, body, attack_target, 0)
@@ -109,8 +109,8 @@ impl Behavior for CrossbowAttack {
         if using_item::is_using_item(body) {
             using_item::stop_using_item(body, level);
         }
-        if body.get_item_by_slot(crate::world::entity::equipment::EquipmentSlot::MainHand).item() == Item::CROSSBOW
-            || body.get_item_by_slot(crate::world::entity::equipment::EquipmentSlot::OffHand).item() == Item::CROSSBOW
+        if body.get_item_by_slot(mc_game_core::world::entity::equipment::EquipmentSlot::MainHand).item() == Item::CROSSBOW
+            || body.get_item_by_slot(mc_game_core::world::entity::equipment::EquipmentSlot::OffHand).item() == Item::CROSSBOW
         {
             set_charging_crossbow(body, false);
             // `body.getUseItem().set(CHARGED_PROJECTILES, EMPTY)`: after `stopUsingItem()` the use item is `ItemStack.EMPTY`,

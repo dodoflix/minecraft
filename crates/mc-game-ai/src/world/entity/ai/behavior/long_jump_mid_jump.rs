@@ -1,11 +1,11 @@
 //! `LongJumpMidJump`.
 
-use super::behavior_utils;
-use super::{Behavior, BehaviorBase};
-use crate::entry_condition;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::memory::memory_module_type::{LONG_JUMP_COOLDOWN_TICKS, LONG_JUMP_MID_JUMP, LOOK_TARGET};
-use crate::world::entity::entity::Entity;
+use mc_game_core::world::entity::ai::behavior::behavior_utils;
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
+use mc_game_core::entry_condition;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{LONG_JUMP_COOLDOWN_TICKS, LONG_JUMP_MID_JUMP, LOOK_TARGET};
+use mc_game_core::world::entity::entity::Entity;
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
 use mc_data::SoundEvent;

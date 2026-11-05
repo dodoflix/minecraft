@@ -1,16 +1,16 @@
 //! `PrepareRamNearestTarget`.
 
-use super::behavior_utils;
-use super::position_tracker::{EntityTracker, PositionTracker};
-use super::{Behavior, BehaviorBase};
-use crate::entry_condition;
-use crate::server::level::ServerLevel;
-use crate::world::entity::EntityId;
-use crate::world::entity::ai::memory::memory_module_type::{LOOK_TARGET, NEAREST_VISIBLE_LIVING_ENTITIES, RAM_COOLDOWN_TICKS, RAM_TARGET, WALK_TARGET};
-use crate::world::entity::ai::memory::WalkTarget;
-use crate::world::entity::ai::targeting::TargetingConditions;
-use crate::world::entity::entity::Entity;
-use crate::world::entity::mob::navigation;
+use mc_game_core::world::entity::ai::behavior::behavior_utils;
+use mc_game_core::world::entity::ai::behavior::position_tracker::{EntityTracker, PositionTracker};
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
+use mc_game_core::entry_condition;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::EntityId;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{LOOK_TARGET, NEAREST_VISIBLE_LIVING_ENTITIES, RAM_COOLDOWN_TICKS, RAM_TARGET, WALK_TARGET};
+use mc_game_core::world::entity::ai::memory::WalkTarget;
+use mc_game_core::world::entity::ai::targeting::TargetingConditions;
+use mc_game_core::world::entity::entity::Entity;
+use mc_game_core::world::entity::mob::navigation;
 use mc_core::direction::Direction;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;

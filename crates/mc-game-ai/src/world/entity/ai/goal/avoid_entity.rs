@@ -1,12 +1,12 @@
 //! `AvoidEntityGoal<T extends LivingEntity>`.
 
-use super::{Flag, Goal, GoalFlags};
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::targeting::TargetingConditions;
-use crate::world::entity::ai::util::default_random_pos;
-use crate::world::entity::mob::{ext, navigation};
-use crate::world::entity::{Entity, EntityId};
-use crate::world::level::pathfinder::Path;
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::targeting::TargetingConditions;
+use mc_game_core::world::entity::ai::util::default_random_pos;
+use mc_game_core::world::entity::mob::{ext, navigation};
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::level::pathfinder::Path;
 use std::sync::Arc;
 
 /// `Predicate<? super LivingEntity>` / `Class<T>` test (`instanceof`).
@@ -59,7 +59,7 @@ impl AvoidEntityGoal {
 
     /// The `predicateOnAvoidEntity` lambda captures the mob (`Fox`: `!this.trusts(entity) && !this.isDefending()`): evaluated
     /// after the plain selector with the mob as `source`.
-    pub fn with_source_selector(mut self, selector: crate::world::entity::ai::targeting::SourceTargetSelector) -> Self {
+    pub fn with_source_selector(mut self, selector: mc_game_core::world::entity::ai::targeting::SourceTargetSelector) -> Self {
         self.avoid_entity_targeting = self.avoid_entity_targeting.source_selector(Some(selector));
         self
     }

@@ -1,9 +1,9 @@
 //! `InteractGoal` (`LookAtPlayerGoal` that also holds the `MOVE` flag).
 
-use super::look_at_player::{LookAtPlayerGoal, LookAtType};
-use super::{Flag, Goal, GoalFlags};
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
+use mc_game_core::world::entity::ai::goal::look_at_player::{LookAtPlayerGoal, LookAtType};
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
 
 pub struct InteractGoal {
     pub base: LookAtPlayerGoal,

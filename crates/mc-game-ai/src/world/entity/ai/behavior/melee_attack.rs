@@ -1,12 +1,12 @@
 //! `MeleeAttack`.
 
-use super::position_tracker::{EntityTracker, PositionTracker};
-use super::{BehaviorBuilder, OneShot};
-use crate::world::entity::ai::memory::memory_module_type::{ATTACK_COOLING_DOWN, ATTACK_TARGET, LOOK_TARGET, NEAREST_VISIBLE_LIVING_ENTITIES};
-use crate::world::entity::entity::Entity;
-use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::mob::combat;
-use crate::world::item::InteractionHand;
+use mc_game_core::world::entity::ai::behavior::position_tracker::{EntityTracker, PositionTracker};
+use mc_game_core::world::entity::ai::behavior::{BehaviorBuilder, OneShot};
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_COOLING_DOWN, ATTACK_TARGET, LOOK_TARGET, NEAREST_VISIBLE_LIVING_ENTITIES};
+use mc_game_core::world::entity::entity::Entity;
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::mob::combat;
+use mc_game_core::world::item::InteractionHand;
 
 /// `create(cooldownBetweenAttacks)`.
 pub fn create(cooldown_between_attacks: i32) -> OneShot {

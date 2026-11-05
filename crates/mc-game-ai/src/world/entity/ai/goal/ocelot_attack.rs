@@ -1,10 +1,10 @@
 //! `OcelotAttackGoal` (cats and ocelots stalk, rush and bite their target).
 
-use super::{Flag, Goal, GoalFlags};
-use crate::server::level::ServerLevel;
-use crate::world::entity::mob::{self, combat};
-use crate::world::entity::mob::navigation;
-use crate::world::entity::{Entity, EntityId};
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::mob::{self, combat};
+use mc_game_core::world::entity::mob::navigation;
+use mc_game_core::world::entity::{Entity, EntityId};
 
 pub struct OcelotAttackGoal {
     target: Option<EntityId>,

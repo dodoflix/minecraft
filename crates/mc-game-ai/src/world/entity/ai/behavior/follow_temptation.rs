@@ -1,13 +1,13 @@
 //! `FollowTemptation`.
 
-use super::position_tracker::{EntityTracker, PositionTracker};
-use super::{Behavior, BehaviorBase};
-use crate::entry_condition;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::memory::memory_module_type::{BREED_TARGET, IS_PANICKING, LOOK_TARGET, TEMPTATION_COOLDOWN_TICKS, TEMPTING_PLAYER, WALK_TARGET};
-use crate::world::entity::ai::memory::WalkTarget;
-use crate::world::entity::ai::sensing::distance_to_sqr;
-use crate::world::entity::entity::Entity;
+use mc_game_core::world::entity::ai::behavior::position_tracker::{EntityTracker, PositionTracker};
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
+use mc_game_core::entry_condition;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{BREED_TARGET, IS_PANICKING, LOOK_TARGET, TEMPTATION_COOLDOWN_TICKS, TEMPTING_PLAYER, WALK_TARGET};
+use mc_game_core::world::entity::ai::memory::WalkTarget;
+use mc_game_core::world::entity::ai::sensing::distance_to_sqr;
+use mc_game_core::world::entity::entity::Entity;
 
 pub const TEMPTATION_COOLDOWN: i32 = 100;
 pub const DEFAULT_CLOSE_ENOUGH_DIST: f64 = 2.5;

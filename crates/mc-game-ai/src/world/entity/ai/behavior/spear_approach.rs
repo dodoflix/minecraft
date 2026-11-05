@@ -1,16 +1,16 @@
 //! `SpearApproach`: walk up to the target until the spear charge can start.
 
-use super::position_tracker::{EntityTracker, PositionTracker};
-use super::{Behavior, BehaviorBase};
-use crate::entry_condition;
-use crate::server::level::ServerLevel;
-use crate::world::entity::EntityId;
-use crate::world::entity::ai::memory::SpearStatus;
-use crate::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, LOOK_TARGET, SPEAR_STATUS};
-use crate::world::entity::entity::Entity;
-use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::living_entity::using_item;
-use crate::world::entity::mob::navigation;
+use mc_game_core::world::entity::ai::behavior::position_tracker::{EntityTracker, PositionTracker};
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
+use mc_game_core::entry_condition;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::EntityId;
+use mc_game_core::world::entity::ai::memory::SpearStatus;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, LOOK_TARGET, SPEAR_STATUS};
+use mc_game_core::world::entity::entity::Entity;
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::living_entity::using_item;
+use mc_game_core::world::entity::mob::navigation;
 use mc_protocol::components::KINETIC_WEAPON;
 
 pub struct SpearApproach {

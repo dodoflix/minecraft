@@ -1,12 +1,12 @@
 //! `StayCloseToTarget`.
 
-use super::declarative::BehaviorBuilder;
-use super::position_tracker::PositionTracker;
-use super::OneShot;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::memory::memory_module_type::{LOOK_TARGET, WALK_TARGET};
-use crate::world::entity::ai::memory::WalkTarget;
-use crate::world::entity::entity::Entity;
+use mc_game_core::world::entity::ai::behavior::declarative::BehaviorBuilder;
+use mc_game_core::world::entity::ai::behavior::position_tracker::PositionTracker;
+use mc_game_core::world::entity::ai::behavior::OneShot;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{LOOK_TARGET, WALK_TARGET};
+use mc_game_core::world::entity::ai::memory::WalkTarget;
+use mc_game_core::world::entity::entity::Entity;
 
 /// `create(targetPositionGetter, shouldRunPredicate, closeEnough, tooFar, speedModifier)`.
 pub fn create(

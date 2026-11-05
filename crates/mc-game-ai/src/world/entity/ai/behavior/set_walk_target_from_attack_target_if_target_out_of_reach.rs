@@ -1,12 +1,12 @@
 //! `SetWalkTargetFromAttackTargetIfTargetOutOfReach`.
 
-use super::behavior_utils;
-use super::declarative::BehaviorBuilder;
-use super::position_tracker::{EntityTracker, PositionTracker};
-use super::OneShot;
-use crate::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, LOOK_TARGET, NEAREST_VISIBLE_LIVING_ENTITIES, WALK_TARGET};
-use crate::world::entity::ai::memory::WalkTarget;
-use crate::world::entity::entity::Entity;
+use mc_game_core::world::entity::ai::behavior::behavior_utils;
+use mc_game_core::world::entity::ai::behavior::declarative::BehaviorBuilder;
+use mc_game_core::world::entity::ai::behavior::position_tracker::{EntityTracker, PositionTracker};
+use mc_game_core::world::entity::ai::behavior::OneShot;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, LOOK_TARGET, NEAREST_VISIBLE_LIVING_ENTITIES, WALK_TARGET};
+use mc_game_core::world::entity::ai::memory::WalkTarget;
+use mc_game_core::world::entity::entity::Entity;
 
 /// `PROJECTILE_ATTACK_RANGE_BUFFER`.
 const PROJECTILE_ATTACK_RANGE_BUFFER: i32 = 1;

@@ -1,10 +1,10 @@
 //! `StartCelebratingIfTargetDead`.
 
-use super::declarative::BehaviorBuilder;
-use super::OneShot;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::memory::memory_module_type::{ANGRY_AT, ATTACK_TARGET, CELEBRATE_LOCATION, DANCING};
-use crate::world::entity::entity::Entity;
+use mc_game_core::world::entity::ai::behavior::declarative::BehaviorBuilder;
+use mc_game_core::world::entity::ai::behavior::OneShot;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ANGRY_AT, ATTACK_TARGET, CELEBRATE_LOCATION, DANCING};
+use mc_game_core::world::entity::entity::Entity;
 
 /// `create(celebrateDuration, dancePredicate)`: the predicate gets `(level, body, target)` (vanilla lambdas read the level through the body).
 pub fn create(celebrate_duration: i32, dance_predicate: impl Fn(&ServerLevel, &dyn Entity, &dyn Entity) -> bool + 'static) -> OneShot {

@@ -1,9 +1,9 @@
 //! `NearestAttackableWitchTargetGoal` (extends `NearestAttackableTargetGoal`; `Raider` witches stop targeting while drinking).
 
-use super::NearestAttackableTargetGoal;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::goal::{Goal, GoalFlags};
-use crate::world::entity::Entity;
+use mc_game_core::world::entity::ai::goal::target::NearestAttackableTargetGoal;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags};
+use mc_game_core::world::entity::Entity;
 
 pub struct NearestAttackableWitchTargetGoal {
     pub inner: NearestAttackableTargetGoal,

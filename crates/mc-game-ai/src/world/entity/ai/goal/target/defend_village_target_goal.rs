@@ -1,11 +1,11 @@
 //! `DefendVillageTargetGoal`: an iron golem targets a player a nearby villager hates (reputation <= -100).
 
-use super::target_goal::TargetGoal;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::goal::{Flag, Goal, GoalFlags};
-use crate::world::entity::ai::targeting::TargetingConditions;
-use crate::world::entity::mob::ext;
-use crate::world::entity::{Entity, EntityId};
+use mc_game_core::world::entity::ai::goal::target::target_goal::TargetGoal;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
+use mc_game_core::world::entity::ai::targeting::TargetingConditions;
+use mc_game_core::world::entity::mob::ext;
+use mc_game_core::world::entity::{Entity, EntityId};
 use mc_data::EntityType;
 
 pub struct DefendVillageTargetGoal {

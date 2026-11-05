@@ -1,10 +1,10 @@
 //! `DismountOrSkipMounting`.
 
-use super::BehaviorBuilder;
-use super::OneShot;
-use crate::world::entity::ai::memory::memory_module_type::RIDE_TARGET;
-use crate::world::entity::ai::sensing::closer_than;
-use crate::world::entity::entity::Entity;
+use mc_game_core::world::entity::ai::behavior::BehaviorBuilder;
+use mc_game_core::world::entity::ai::behavior::OneShot;
+use mc_game_core::world::entity::ai::memory::memory_module_type::RIDE_TARGET;
+use mc_game_core::world::entity::ai::sensing::closer_than;
+use mc_game_core::world::entity::entity::Entity;
 
 /// `DismountOrSkipMounting.create(maxWalkDistToRideTarget, dontRideIf)`; `dontRideIf(body, vehicle)`.
 pub fn create(max_walk_dist_to_ride_target: i32, dont_ride_if: impl Fn(&dyn Entity, &dyn Entity) -> bool + 'static) -> OneShot {

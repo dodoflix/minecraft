@@ -1,11 +1,11 @@
 //! `Mount`.
 
-use super::BehaviorBuilder;
-use super::OneShot;
-use super::position_tracker::{EntityTracker, PositionTracker};
-use crate::world::entity::ai::memory::WalkTarget;
-use crate::world::entity::ai::memory::memory_module_type::{LOOK_TARGET, RIDE_TARGET, WALK_TARGET};
-use crate::world::entity::ai::sensing::closer_than;
+use mc_game_core::world::entity::ai::behavior::BehaviorBuilder;
+use mc_game_core::world::entity::ai::behavior::OneShot;
+use mc_game_core::world::entity::ai::behavior::position_tracker::{EntityTracker, PositionTracker};
+use mc_game_core::world::entity::ai::memory::WalkTarget;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{LOOK_TARGET, RIDE_TARGET, WALK_TARGET};
+use mc_game_core::world::entity::ai::sensing::closer_than;
 
 /// `CLOSE_ENOUGH_TO_START_RIDING_DIST`.
 const CLOSE_ENOUGH_TO_START_RIDING_DIST: i32 = 1;

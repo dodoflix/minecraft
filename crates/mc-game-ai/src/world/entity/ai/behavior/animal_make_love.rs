@@ -1,15 +1,15 @@
 //! `AnimalMakeLove`.
 
-use super::behavior_utils;
-use super::{Behavior, BehaviorBase};
-use crate::entry_condition;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::memory::EntityRef;
-use crate::world::entity::ai::memory::memory_module_type::{BREED_TARGET, IS_PANICKING, LOOK_TARGET, NEAREST_VISIBLE_LIVING_ENTITIES, WALK_TARGET};
-use crate::world::entity::ai::sensing::closer_than;
-use crate::world::entity::entity::Entity;
-use crate::world::entity::mob::animal;
-use crate::world::entity::EntityId;
+use mc_game_core::world::entity::ai::behavior::behavior_utils;
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
+use mc_game_core::entry_condition;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::memory::EntityRef;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{BREED_TARGET, IS_PANICKING, LOOK_TARGET, NEAREST_VISIBLE_LIVING_ENTITIES, WALK_TARGET};
+use mc_game_core::world::entity::ai::sensing::closer_than;
+use mc_game_core::world::entity::entity::Entity;
+use mc_game_core::world::entity::mob::animal;
+use mc_game_core::world::entity::EntityId;
 use mc_core::random::RandomSource;
 use mc_data::EntityType;
 

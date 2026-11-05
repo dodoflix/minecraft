@@ -1,16 +1,16 @@
 //! `LongJumpUtil`.
 
-use crate::world::entity::entity::Entity;
-use crate::world::entity::movement::collision_context;
-use crate::world::entity::EntityDimensions;
-use crate::world::level::collision::CollisionGetter;
+use mc_game_core::world::entity::entity::Entity;
+use mc_game_core::world::entity::movement::collision_context;
+use mc_game_core::world::entity::EntityDimensions;
+use mc_game_core::world::level::collision::CollisionGetter;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_data::enums::Pose;
 
 /// `calculateJumpVectorForAngle(body, targetPos, maxJumpVelocity, angle, checkCollision)`.
 pub fn calculate_jump_vector_for_angle(
-    level: &crate::server::level::ServerLevel,
+    level: &mc_game_core::server::level::ServerLevel,
     body: &dyn Entity,
     target_pos: Vec3,
     max_jump_velocity: f32,
@@ -68,7 +68,7 @@ pub fn calculate_jump_vector_for_angle(
     Some(Vec3::new(v0r * cosxz_ang, v0y, v0r * sinxz_ang).scale(f64::from(0.95_f32)))
 }
 
-fn is_clear_transition(level: &crate::server::level::ServerLevel, body: &dyn Entity, entity_dimensions: &EntityDimensions, position1: Vec3, position2: Vec3) -> bool {
+fn is_clear_transition(level: &mc_game_core::server::level::ServerLevel, body: &dyn Entity, entity_dimensions: &EntityDimensions, position1: Vec3, position2: Vec3) -> bool {
     let direction = position2.subtract(position1);
     let min_dimension = f64::from(entity_dimensions.width.min(entity_dimensions.height));
     let checks = mth::ceil_f64(direction.length() / min_dimension);

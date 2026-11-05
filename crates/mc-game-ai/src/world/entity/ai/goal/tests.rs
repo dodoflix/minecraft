@@ -1,9 +1,10 @@
 //! GoalSelector arbitration (priority replacement, flag locks, disabled flags, interruptibility, tick rates).
 
-use super::*;
-use crate::world::entity::Entity;
-use crate::server::level::ServerLevel;
-use crate::world::entity::plain::PlainEntity;
+use super::JUMP_GOAL_FLAGS;
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags, GoalSelector, reduced_tick_delay};
+use mc_game_core::world::entity::Entity;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::plain::PlainEntity;
 use mc_data::EntityType;
 use std::cell::RefCell;
 use std::rc::Rc;

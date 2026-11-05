@@ -1,13 +1,13 @@
 //! `GoAndGiveItemsToTarget`: walk up to a target position and throw items at it.
 
-use super::behavior_utils::set_walk_and_look_target_memories;
-use super::position_tracker::PositionTracker;
-use super::{Behavior, BehaviorBase};
-use crate::entry_condition;
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::entity::ai::memory::MemoryModuleType;
-use crate::world::entity::ai::memory::memory_module_type::{LOOK_TARGET, WALK_TARGET};
+use mc_game_core::world::entity::ai::behavior::behavior_utils::set_walk_and_look_target_memories;
+use mc_game_core::world::entity::ai::behavior::position_tracker::PositionTracker;
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
+use mc_game_core::entry_condition;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::ai::memory::MemoryModuleType;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{LOOK_TARGET, WALK_TARGET};
 use mc_core::phys::Vec3;
 use std::sync::Arc;
 

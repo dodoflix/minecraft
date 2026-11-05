@@ -1,8 +1,8 @@
 //! `LeapAtTargetGoal`.
 
-use super::{Flag, Goal, GoalFlags, reduced_tick_delay};
-use crate::server::level::ServerLevel;
-use crate::world::entity::{Entity, EntityId};
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags, reduced_tick_delay};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::{Entity, EntityId};
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
 

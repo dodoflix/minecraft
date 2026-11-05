@@ -1,8 +1,8 @@
 //! `StopBeingAngryIfTargetDead`.
 
-use super::declarative::BehaviorBuilder;
-use super::OneShot;
-use crate::world::entity::ai::memory::memory_module_type::ANGRY_AT;
+use mc_game_core::world::entity::ai::behavior::declarative::BehaviorBuilder;
+use mc_game_core::world::entity::ai::behavior::OneShot;
+use mc_game_core::world::entity::ai::memory::memory_module_type::ANGRY_AT;
 
 /// `create()`.
 pub fn create() -> OneShot {

@@ -1,11 +1,11 @@
 //! `SetEntityLookTargetSometimes` (deprecated in vanilla, still used by `PiglinAi`/`HoglinAi`-style brains).
 
-use super::declarative::BehaviorBuilder;
-use super::OneShot;
-use super::position_tracker::{EntityTracker, PositionTracker};
-use crate::world::entity::ai::memory::memory_module_type::{LOOK_TARGET, NEAREST_VISIBLE_LIVING_ENTITIES};
-use crate::world::entity::ai::sensing::distance_to_sqr;
-use crate::world::entity::entity::Entity;
+use mc_game_core::world::entity::ai::behavior::declarative::BehaviorBuilder;
+use mc_game_core::world::entity::ai::behavior::OneShot;
+use mc_game_core::world::entity::ai::behavior::position_tracker::{EntityTracker, PositionTracker};
+use mc_game_core::world::entity::ai::memory::memory_module_type::{LOOK_TARGET, NEAREST_VISIBLE_LIVING_ENTITIES};
+use mc_game_core::world::entity::ai::sensing::distance_to_sqr;
+use mc_game_core::world::entity::entity::Entity;
 use mc_core::random::RandomSource;
 use mc_data::EntityType;
 

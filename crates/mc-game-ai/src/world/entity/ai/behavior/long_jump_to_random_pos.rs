@@ -1,16 +1,16 @@
 //! `LongJumpToRandomPos` and its subclass `LongJumpToPreferredBlock` (a configuration of the same behavior here).
 
-use super::behavior_utils;
+use mc_game_core::world::entity::ai::behavior::behavior_utils;
 use super::long_jump_util;
-use super::position_tracker::{BlockPosTracker, PositionTracker};
-use super::{Behavior, BehaviorBase};
-use crate::entry_condition;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::memory::memory_module_type::{LONG_JUMP_COOLDOWN_TICKS, LONG_JUMP_MID_JUMP, LOOK_TARGET};
-use crate::world::entity::entity::Entity;
-use crate::world::entity::mob::navigation;
-use crate::world::level::BlockGetter;
-use crate::world::level::block::state::BlockStateExt;
+use mc_game_core::world::entity::ai::behavior::position_tracker::{BlockPosTracker, PositionTracker};
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
+use mc_game_core::entry_condition;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{LONG_JUMP_COOLDOWN_TICKS, LONG_JUMP_MID_JUMP, LOOK_TARGET};
+use mc_game_core::world::entity::entity::Entity;
+use mc_game_core::world::entity::mob::navigation;
+use mc_game_core::world::level::BlockGetter;
+use mc_game_core::world::level::block::state::BlockStateExt;
 use mc_core::direction::Direction;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
@@ -287,7 +287,7 @@ impl Behavior for LongJumpToRandomPos {
                 body.base_mut().set_y_rot(y_body_rot);
                 body.living_mut().expect("living").discard_friction = true;
                 let org_length = chosen_jump.length();
-                let length_with_jump_boost = org_length + f64::from(crate::world::entity::living_entity::jump::get_jump_boost_power(&*body));
+                let length_with_jump_boost = org_length + f64::from(mc_game_core::world::entity::living_entity::jump::get_jump_boost_power(&*body));
                 body.base_mut().set_delta_movement(chosen_jump.scale(length_with_jump_boost / org_length));
                 body.brain_mut().set_memory(&LONG_JUMP_MID_JUMP, true);
                 behavior_utils::play_sound_from_entity(level, body.id(), (self.get_jump_sound)(&*body), SoundSource::Neutral, 1.0, 1.0);

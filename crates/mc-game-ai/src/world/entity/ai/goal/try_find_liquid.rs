@@ -1,9 +1,9 @@
 //! `TryFindLiquidGoal` (`TryFindWaterGoal` is `new(mob, FluidTags.WATER)`).
 
-use super::{Goal, GoalFlags};
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::level::BlockGetter;
+use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::level::BlockGetter;
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
 use mc_data::fluid::Fluid;
@@ -40,7 +40,7 @@ impl Goal for TryFindLiquidGoal {
         )
         .find(|pos| self.is_fluid(level, *pos));
         if let Some(pos) = found {
-            crate::world::entity::mob::set_wanted_position(mob, f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z()), 1.0);
+            mc_game_core::world::entity::mob::set_wanted_position(mob, f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z()), 1.0);
         }
     }
 

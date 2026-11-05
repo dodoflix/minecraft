@@ -1,11 +1,11 @@
 //! `GolemRandomStrollInVillageGoal` (a `RandomStrollGoal`).
 
-use super::{Goal, GoalFlags, RandomStrollGoal};
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::util::land_random_pos;
-use crate::world::entity::ai::village::poi::Occupancy;
-use crate::world::entity::Entity;
-use crate::world::level::LevelAccessor;
+use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags, RandomStrollGoal};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::util::land_random_pos;
+use mc_game_core::world::entity::ai::village::poi::Occupancy;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::level::LevelAccessor;
 use mc_core::phys::Vec3;
 use mc_core::pos::{BlockPos, SectionPos};
 use mc_core::random::RandomSource;

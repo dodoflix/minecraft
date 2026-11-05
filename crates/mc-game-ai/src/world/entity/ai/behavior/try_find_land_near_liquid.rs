@@ -1,14 +1,14 @@
 //! `TryFindLandNearLiquid`.
 
-use super::declarative::BehaviorBuilder;
-use super::position_tracker::{BlockPosTracker, PositionTracker};
-use super::OneShot;
-use crate::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, LOOK_TARGET, WALK_TARGET};
-use crate::world::entity::ai::memory::WalkTarget;
-use crate::world::entity::movement::collision_context;
-use crate::world::level::BlockGetter;
-use crate::world::level::block::state::BlockStateExt;
-use crate::world::level::material::FluidStateExt;
+use mc_game_core::world::entity::ai::behavior::declarative::BehaviorBuilder;
+use mc_game_core::world::entity::ai::behavior::position_tracker::{BlockPosTracker, PositionTracker};
+use mc_game_core::world::entity::ai::behavior::OneShot;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, LOOK_TARGET, WALK_TARGET};
+use mc_game_core::world::entity::ai::memory::WalkTarget;
+use mc_game_core::world::entity::movement::collision_context;
+use mc_game_core::world::level::BlockGetter;
+use mc_game_core::world::level::block::state::BlockStateExt;
+use mc_game_core::world::level::material::FluidStateExt;
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_data::fluid::Fluid;

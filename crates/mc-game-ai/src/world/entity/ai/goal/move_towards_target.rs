@@ -1,10 +1,10 @@
 //! `MoveTowardsTargetGoal`.
 
-use super::{Flag, Goal, GoalFlags};
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::util::default_random_pos;
-use crate::world::entity::mob::{navigation, tick};
-use crate::world::entity::{Entity, EntityId};
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::util::default_random_pos;
+use mc_game_core::world::entity::mob::{navigation, tick};
+use mc_game_core::world::entity::{Entity, EntityId};
 
 pub struct MoveTowardsTargetGoal {
     target: Option<EntityId>,

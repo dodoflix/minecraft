@@ -1,13 +1,13 @@
 //! `TryLaySpawnOnFluidNearLand`.
 
-use super::behavior_utils;
-use super::declarative::BehaviorBuilder;
-use super::OneShot;
-use crate::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, IS_PREGNANT, WALK_TARGET};
-use crate::world::level::BlockGetter;
-use crate::world::level::block::state::BlockStateExt;
-use crate::world::level::gameevent::GameEventContext;
-use crate::world::level::level_access::LevelAccessor;
+use mc_game_core::world::entity::ai::behavior::behavior_utils;
+use mc_game_core::world::entity::ai::behavior::declarative::BehaviorBuilder;
+use mc_game_core::world::entity::ai::behavior::OneShot;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, IS_PREGNANT, WALK_TARGET};
+use mc_game_core::world::level::BlockGetter;
+use mc_game_core::world::level::block::state::BlockStateExt;
+use mc_game_core::world::level::gameevent::GameEventContext;
+use mc_game_core::world::level::level_access::LevelAccessor;
 use mc_core::direction::Direction;
 use mc_data::block::Block;
 use mc_data::fluid::Fluid;

@@ -1,13 +1,13 @@
 //! `RangedBowAttackGoal` (skeletons and other `Monster & RangedAttackMob` bow users; the mob overrides
 //! `Entity::perform_ranged_attack`).
 
-use super::{Flag, Goal, GoalFlags};
-use crate::server::level::ServerLevel;
-use crate::world::entity::living_entity::using_item;
-use crate::world::entity::mob::{self, combat, navigation, tick};
-use crate::world::entity::Entity;
-use crate::world::item::bow_item;
-use crate::world::item::projectile_weapon_item::get_weapon_holding_hand;
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::living_entity::using_item;
+use mc_game_core::world::entity::mob::{self, combat, navigation, tick};
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::item::bow_item;
+use mc_game_core::world::item::projectile_weapon_item::get_weapon_holding_hand;
 use mc_core::random::RandomSource;
 use mc_data::Item;
 

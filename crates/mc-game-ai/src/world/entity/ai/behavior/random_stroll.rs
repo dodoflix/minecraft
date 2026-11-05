@@ -1,15 +1,15 @@
 //! `RandomStroll`.
 
-use super::behavior_utils;
-use super::declarative::BehaviorBuilder;
-use super::OneShot;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::memory::memory_module_type::WALK_TARGET;
-use crate::world::entity::ai::memory::WalkTarget;
-use crate::world::entity::ai::util::{air_and_water_random_pos, goal_utils, land_random_pos};
-use crate::world::entity::entity::Entity;
-use crate::world::level::BlockGetter;
-use crate::world::level::material::FluidStateExt;
+use mc_game_core::world::entity::ai::behavior::behavior_utils;
+use mc_game_core::world::entity::ai::behavior::declarative::BehaviorBuilder;
+use mc_game_core::world::entity::ai::behavior::OneShot;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::memory::memory_module_type::WALK_TARGET;
+use mc_game_core::world::entity::ai::memory::WalkTarget;
+use mc_game_core::world::entity::ai::util::{air_and_water_random_pos, goal_utils, land_random_pos};
+use mc_game_core::world::entity::entity::Entity;
+use mc_game_core::world::level::BlockGetter;
+use mc_game_core::world::level::material::FluidStateExt;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 

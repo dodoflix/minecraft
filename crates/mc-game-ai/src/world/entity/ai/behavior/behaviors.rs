@@ -1,11 +1,11 @@
 //! Small generic behaviors of `ai/behavior` that every brain-using mob shares.
 
-use super::declarative::BehaviorBuilder;
-use super::{Behavior, BehaviorBase, BehaviorControl, OneShot};
-use crate::entry_condition;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::memory::{MemoryData, MemoryModuleType, MemoryTypeId};
-use crate::world::entity::entity::Entity;
+use mc_game_core::world::entity::ai::behavior::declarative::BehaviorBuilder;
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase, BehaviorControl, OneShot};
+use mc_game_core::entry_condition;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::memory::{MemoryData, MemoryModuleType, MemoryTypeId};
+use mc_game_core::world::entity::entity::Entity;
 use mc_core::random::RandomSource;
 
 /// `CountDownCooldownTicks`: counts an `Integer` memory down to 0 and erases it.
@@ -78,7 +78,7 @@ pub fn copy_memory_with_expiry<U: MemoryData>(
 
 /// `BecomePassiveIfMemoryPresent.create(pacifyingMemory, pacifyDuration)`.
 pub fn become_passive_if_memory_present(pacifying_memory: MemoryTypeId, pacify_duration: i32) -> OneShot {
-    use crate::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, PACIFIED};
+    use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, PACIFIED};
     let mut i = BehaviorBuilder::instance();
     let attack_target = i.registered(&ATTACK_TARGET);
     let pacified = i.absent(&PACIFIED);
@@ -98,7 +98,7 @@ pub fn boxed(behavior: impl BehaviorControl) -> Box<dyn BehaviorControl> {
 /// `UpdateActivityFromSchedule.create()`.
 pub fn update_activity_from_schedule() -> OneShot {
     BehaviorBuilder::point(|level: &mut ServerLevel, body: &mut dyn Entity, _: i64| {
-        crate::world::entity::ai::brain::update_activity_from_schedule(level, body);
+        mc_game_core::world::entity::ai::brain::update_activity_from_schedule(level, body);
         true
     })
 }

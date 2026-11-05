@@ -1,9 +1,9 @@
 //! `ResetUniversalAngerTargetGoal` (`T extends Mob & NeutralMob`).
 
-use super::{Goal, GoalFlags};
-use crate::server::level::ServerLevel;
-use crate::world::entity::mob::{combat, neutral};
-use crate::world::entity::Entity;
+use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::mob::{combat, neutral};
+use mc_game_core::world::entity::Entity;
 use mc_core::phys::AABB;
 use mc_data::{Attribute, EntityType};
 

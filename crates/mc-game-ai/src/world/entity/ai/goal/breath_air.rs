@@ -1,11 +1,11 @@
 //! `BreathAirGoal`.
 
-use super::{Flag, Goal, GoalFlags};
-use crate::server::level::ServerLevel;
-use crate::world::entity::mob::navigation;
-use crate::world::entity::{Entity, MoverType};
-use crate::world::level::BlockGetter;
-use crate::world::level::block::state::BlockStateExt;
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::mob::navigation;
+use mc_game_core::world::entity::{Entity, MoverType};
+use mc_game_core::world::level::BlockGetter;
+use mc_game_core::world::level::block::state::BlockStateExt;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_data::block::{Block, PathComputationType};

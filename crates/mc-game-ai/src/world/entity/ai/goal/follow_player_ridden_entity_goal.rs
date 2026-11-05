@@ -1,10 +1,10 @@
 //! `FollowPlayerRiddenEntityGoal`.
 
-use super::{Goal, GoalFlags};
-use crate::server::level::ServerLevel;
-use crate::world::entity::living_entity::util::l;
-use crate::world::entity::mob::navigation;
-use crate::world::entity::{Entity, EntityId, MoverType};
+use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::living_entity::util::l;
+use mc_game_core::world::entity::mob::navigation;
+use mc_game_core::world::entity::{Entity, EntityId, MoverType};
 use mc_core::phys::Vec3;
 
 /// `FollowPlayerRiddenEntityGoal.FollowEntityGoal`.

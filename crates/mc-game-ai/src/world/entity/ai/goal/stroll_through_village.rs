@@ -1,10 +1,10 @@
 //! `StrollThroughVillageGoal`.
 
-use super::{Flag, Goal, GoalFlags, reduced_tick_delay};
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::util::land_random_pos;
-use crate::world::entity::mob::navigation;
-use crate::world::entity::Entity;
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags, reduced_tick_delay};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::util::land_random_pos;
+use mc_game_core::world::entity::mob::navigation;
+use mc_game_core::world::entity::Entity;
 use mc_core::phys::Vec3;
 use mc_core::pos::{BlockPos, SectionPos};
 use mc_core::random::RandomSource;

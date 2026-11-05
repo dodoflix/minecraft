@@ -1,10 +1,10 @@
 //! `Croak` (the frog's croaking behavior; only needs the pose of its body).
 
-use super::{Behavior, BehaviorBase};
-use crate::entry_condition;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::memory::memory_module_type::WALK_TARGET;
-use crate::world::entity::entity::Entity;
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
+use mc_game_core::entry_condition;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::memory::memory_module_type::WALK_TARGET;
+use mc_game_core::world::entity::entity::Entity;
 use mc_data::enums::Pose;
 
 const CROAK_TICKS: i32 = 60;

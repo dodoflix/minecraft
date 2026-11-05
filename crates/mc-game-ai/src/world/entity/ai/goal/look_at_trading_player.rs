@@ -1,9 +1,9 @@
 //! `LookAtTradingPlayerGoal` (`LookAtPlayerGoal` whose target is the trading player).
 
-use super::look_at_player::LookAtPlayerGoal;
-use super::{Goal, GoalFlags};
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
+use mc_game_core::world::entity::ai::goal::look_at_player::LookAtPlayerGoal;
+use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
 
 pub struct LookAtTradingPlayerGoal {
     pub base: LookAtPlayerGoal,

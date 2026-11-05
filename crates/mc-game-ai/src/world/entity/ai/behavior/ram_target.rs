@@ -1,18 +1,18 @@
 //! `RamTarget` (a `Goat` behavior; the horn dropping of `Goat.dropHorn()` is the `drop_horn` callback).
 
-use super::behavior_utils;
-use super::{Behavior, BehaviorBase};
-use crate::entry_condition;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::memory::memory_module_type::{RAM_COOLDOWN_TICKS, RAM_TARGET, WALK_TARGET};
-use crate::world::entity::ai::memory::WalkTarget;
-use crate::world::entity::ai::targeting::TargetingConditions;
-use crate::world::entity::entity::Entity;
-use crate::world::entity::mob::ext;
-use crate::world::item::enchantment::actors::Actors;
-use crate::world::item::enchantment_helper;
-use crate::world::level::BlockGetter;
-use crate::world::level::block::state::BlockStateExt;
+use mc_game_core::world::entity::ai::behavior::behavior_utils;
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
+use mc_game_core::entry_condition;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{RAM_COOLDOWN_TICKS, RAM_TARGET, WALK_TARGET};
+use mc_game_core::world::entity::ai::memory::WalkTarget;
+use mc_game_core::world::entity::ai::targeting::TargetingConditions;
+use mc_game_core::world::entity::entity::Entity;
+use mc_game_core::world::entity::mob::ext;
+use mc_game_core::world::item::enchantment::actors::Actors;
+use mc_game_core::world::item::enchantment_helper;
+use mc_game_core::world::level::BlockGetter;
+use mc_game_core::world::level::block::state::BlockStateExt;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -117,7 +117,7 @@ impl Behavior for RamTarget {
                 if target.hurt_server(level, &damage_source, damage) {
                     enchantment_helper::do_post_attack_effects(level, &mut Actors::of(body).and(target), ram_target, &damage_source);
                 }
-                let blocked_damage = crate::world::entity::living_entity::blocking::apply_item_blocking(target, level, &source, damage);
+                let blocked_damage = mc_game_core::world::entity::living_entity::blocking::apply_item_blocking(target, level, &source, damage);
                 let blocking_factor = if blocked_damage > 0.0 { 0.5_f32 } else { 1.0_f32 };
                 target.knockback(f64::from(blocking_factor * speed_factor) * knockback_force, ram_direction.x, ram_direction.z, &source, damage, false);
             });

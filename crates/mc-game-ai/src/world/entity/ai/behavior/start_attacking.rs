@@ -1,12 +1,12 @@
 //! `StartAttacking`.
 
-use super::declarative::BehaviorBuilder;
-use super::OneShot;
-use crate::server::level::ServerLevel;
-use crate::world::entity::EntityId;
-use crate::world::entity::ai::memory::EntityRef;
-use crate::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, CANT_REACH_WALK_TARGET_SINCE};
-use crate::world::entity::entity::Entity;
+use mc_game_core::world::entity::ai::behavior::declarative::BehaviorBuilder;
+use mc_game_core::world::entity::ai::behavior::OneShot;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::EntityId;
+use mc_game_core::world::entity::ai::memory::EntityRef;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, CANT_REACH_WALK_TARGET_SINCE};
+use mc_game_core::world::entity::entity::Entity;
 
 /// `create(targetFinderFunction)`.
 pub fn create(target_finder: impl FnMut(&ServerLevel, &dyn Entity) -> Option<EntityId> + 'static) -> OneShot {

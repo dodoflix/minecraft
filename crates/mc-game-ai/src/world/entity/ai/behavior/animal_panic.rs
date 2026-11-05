@@ -1,16 +1,16 @@
 //! `AnimalPanic`.
 
-use super::{Behavior, BehaviorBase};
-use crate::entry_condition;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageTypeTags;
-use crate::world::entity::ai::memory::memory_module_type::{HURT_BY, IS_PANICKING, WALK_TARGET};
-use crate::world::entity::ai::memory::WalkTarget;
-use crate::world::entity::ai::util::{air_and_water_random_pos, land_random_pos};
-use crate::world::entity::entity::Entity;
-use crate::world::entity::mob::navigation;
-use crate::world::level::BlockGetter;
-use crate::world::level::block::state::BlockStateExt;
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
+use mc_game_core::entry_condition;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageTypeTags;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{HURT_BY, IS_PANICKING, WALK_TARGET};
+use mc_game_core::world::entity::ai::memory::WalkTarget;
+use mc_game_core::world::entity::ai::util::{air_and_water_random_pos, land_random_pos};
+use mc_game_core::world::entity::entity::Entity;
+use mc_game_core::world::entity::mob::navigation;
+use mc_game_core::world::level::BlockGetter;
+use mc_game_core::world::level::block::state::BlockStateExt;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;

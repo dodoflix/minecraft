@@ -3,7 +3,7 @@
 //! duration rolls, `RunOne` shuffling, `DoNothing`, `SetWalkTargetFromLookTarget`, activity switching with requirements and
 //! erase-on-stop memories, memory expiry, `stopAll`, the sensors' random initial delay — and the sensor scan pattern.
 
-extern crate mc_game_ai as mc_game;
+extern crate mc_game_core as mc_game;
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
 use mc_core::random::{LegacyRandomSource, RandomSource};

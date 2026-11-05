@@ -1,9 +1,9 @@
 //! `OpenDoorGoal`.
 
-use super::door_interact::DoorInteractData;
-use super::{Goal, GoalFlags};
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
+use mc_game_core::world::entity::ai::goal::door_interact::DoorInteractData;
+use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
 
 pub struct OpenDoorGoal {
     pub base: DoorInteractData,

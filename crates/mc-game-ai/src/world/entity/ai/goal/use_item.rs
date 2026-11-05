@@ -1,12 +1,12 @@
 //! `UseItemGoal<T extends Mob>`.
 
-use super::{Goal, GoalFlags};
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::living_entity::using_item as use_item;
-use crate::world::entity::mob::equipment;
-use crate::world::item::{InteractionHand, ItemStack};
+use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::living_entity::using_item as use_item;
+use mc_game_core::world::entity::mob::equipment;
+use mc_game_core::world::item::{InteractionHand, ItemStack};
 use mc_core::random::RandomSource;
 use mc_data::SoundEvent;
 use std::sync::Arc;

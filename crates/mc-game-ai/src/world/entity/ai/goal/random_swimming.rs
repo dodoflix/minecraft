@@ -1,11 +1,11 @@
 //! `RandomSwimmingGoal` (`RandomStrollGoal` with `BehaviorUtils.getRandomSwimmablePos`).
 
-use super::{Goal, GoalFlags, RandomStrollGoal};
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::util::default_random_pos;
-use crate::world::entity::Entity;
-use crate::world::level::BlockGetter;
-use crate::world::level::block::state::BlockStateExt;
+use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags, RandomStrollGoal};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::util::default_random_pos;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::level::BlockGetter;
+use mc_game_core::world::level::block::state::BlockStateExt;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_data::block::PathComputationType;

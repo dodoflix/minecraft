@@ -1,11 +1,11 @@
 //! `NonTameRandomTargetGoal<T>`: `NearestAttackableTargetGoal` that only runs while the mob is not tame.
 
-use super::{NearestAttackableTargetGoal, TargetType};
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::goal::{Goal, GoalFlags};
-use crate::world::entity::ai::targeting::TargetSelector;
-use crate::world::entity::mob::tamable;
-use crate::world::entity::Entity;
+use mc_game_core::world::entity::ai::goal::target::{NearestAttackableTargetGoal, TargetType};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags};
+use mc_game_core::world::entity::ai::targeting::TargetSelector;
+use mc_game_core::world::entity::mob::tamable;
+use mc_game_core::world::entity::Entity;
 
 pub struct NonTameRandomTargetGoal {
     inner: NearestAttackableTargetGoal,

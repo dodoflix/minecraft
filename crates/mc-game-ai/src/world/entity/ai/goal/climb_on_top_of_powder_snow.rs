@@ -1,11 +1,11 @@
 //! `ClimbOnTopOfPowderSnowGoal`.
 
-use super::{Flag, Goal, GoalFlags};
-use crate::server::level::ServerLevel;
-use crate::world::entity::mob;
-use crate::world::entity::Entity;
-use crate::world::level::BlockGetter;
-use crate::world::level::block::state::BlockStateExt;
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::mob;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::level::BlockGetter;
+use mc_game_core::world::level::block::state::BlockStateExt;
 use mc_data::EntityType;
 use mc_data::block::Block;
 

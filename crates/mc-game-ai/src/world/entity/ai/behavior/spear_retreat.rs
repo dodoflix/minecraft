@@ -1,16 +1,16 @@
 //! `SpearRetreat`: back away from the target after a charge.
 
-use super::position_tracker::{EntityTracker, PositionTracker};
+use mc_game_core::world::entity::ai::behavior::position_tracker::{EntityTracker, PositionTracker};
 use super::spear_approach::{able_to_attack, get_target, root_charge_speed_modifier, target_distance_sqr};
-use super::{Behavior, BehaviorBase};
-use crate::entry_condition;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::memory::SpearStatus;
-use crate::world::entity::ai::memory::memory_module_type::{LOOK_TARGET, SPEAR_FLEEING_POSITION, SPEAR_FLEEING_TIME, SPEAR_STATUS};
-use crate::world::entity::ai::util::land_random_pos;
-use crate::world::entity::entity::Entity;
-use crate::world::entity::living_entity::using_item;
-use crate::world::entity::mob::navigation;
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
+use mc_game_core::entry_condition;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::memory::SpearStatus;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{LOOK_TARGET, SPEAR_FLEEING_POSITION, SPEAR_FLEEING_TIME, SPEAR_STATUS};
+use mc_game_core::world::entity::ai::util::land_random_pos;
+use mc_game_core::world::entity::entity::Entity;
+use mc_game_core::world::entity::living_entity::using_item;
+use mc_game_core::world::entity::mob::navigation;
 
 /// `MIN_COOLDOWN_DISTANCE` / `MAX_COOLDOWN_DISTANCE` / `MAX_FLEEING_TIME`.
 pub const MIN_COOLDOWN_DISTANCE: i32 = 9;

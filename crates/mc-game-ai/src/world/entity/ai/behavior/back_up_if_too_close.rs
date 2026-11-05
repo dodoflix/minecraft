@@ -1,11 +1,11 @@
 //! `BackUpIfTooClose`.
 
-use super::declarative::BehaviorBuilder;
-use super::position_tracker::{EntityTracker, PositionTracker};
-use super::OneShot;
-use crate::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, LOOK_TARGET, NEAREST_VISIBLE_LIVING_ENTITIES, WALK_TARGET};
-use crate::world::entity::ai::sensing::closer_than;
-use crate::world::entity::mob::navigation;
+use mc_game_core::world::entity::ai::behavior::declarative::BehaviorBuilder;
+use mc_game_core::world::entity::ai::behavior::position_tracker::{EntityTracker, PositionTracker};
+use mc_game_core::world::entity::ai::behavior::OneShot;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, LOOK_TARGET, NEAREST_VISIBLE_LIVING_ENTITIES, WALK_TARGET};
+use mc_game_core::world::entity::ai::sensing::closer_than;
+use mc_game_core::world::entity::mob::navigation;
 use mc_core::math::mth;
 
 /// `create(tooCloseDistance, strafeSpeed)`.
