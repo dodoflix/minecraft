@@ -110,7 +110,7 @@ push your branch (`git push -q origin <name>`; branch force-push only after your
 **Machine memory (hard rule):** systemd-oomd killed the whole session twice (RAM+swap >90%) when many mc-game builds ran
 at once. Helper agents are not limited, but every cargo invocation by every agent goes through
 `./scripts/cargo-locked.sh <subcommand> …` (absolute path works from any worktree):
-compilation takes one of `MC_BUILD_SLOTS` (default 2) machine-wide slots at low priority; test execution runs outside
+compilation takes one of `MC_BUILD_SLOTS` (default 4) machine-wide slots at low priority; test execution runs outside
 the slot. Never call `cargo` directly. JVMs are throttled automatically: `~/.local/bin/java` → `scripts/java-slot.sh`
 gives project JVMs (vanilla servers, oracle programs, real client = 2 slots) one of `MC_JVM_SLOTS` (default 3) slots for
 their whole lifetime — so always stop vanilla servers/clients you start, or you block everyone.
