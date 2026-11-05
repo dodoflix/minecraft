@@ -84,6 +84,9 @@ pub struct PlayerData {
     pub last_death_location: Option<GlobalPos>,
     pub post_effects: Vec<Identifier>,
     pub hurt_dir: f32,
+    // ==== [Player] additions (PlayerData field) ====
+    // ==== [LivingCore] additions (PlayerData field) ====
+    // ==== [Damage] additions (PlayerData field) ====
 }
 
 impl PlayerData {
@@ -120,6 +123,9 @@ impl PlayerData {
             last_death_location: None,
             post_effects: Vec::new(),
             hurt_dir: 0.0,
+            // ==== [Player] additions (PlayerData::new initializer) ====
+            // ==== [LivingCore] additions (PlayerData::new initializer) ====
+            // ==== [Damage] additions (PlayerData::new initializer) ====
         }
     }
 

@@ -83,6 +83,10 @@ pub struct LivingEntityData {
     pub last_hurt_by_mob: Option<uuid::Uuid>,
     /// `Brain.Packed` as saved (`{memories: {...}}`); brains are modelled by the AI slice.
     pub brain: CompoundTag,
+    // ==== [LivingCore] additions (LivingEntityData field) ====
+    // ==== [Damage] additions (LivingEntityData field) ====
+    // ==== [Effects] additions (LivingEntityData field) ====
+    // ==== [Player] additions (LivingEntityData field) ====
 }
 
 impl LivingEntityData {
@@ -148,6 +152,10 @@ impl LivingEntityData {
             last_hurt_by_player: None,
             last_hurt_by_mob: None,
             brain: empty_brain(),
+            // ==== [LivingCore] additions (LivingEntityData::new initializer) ====
+            // ==== [Damage] additions (LivingEntityData::new initializer) ====
+            // ==== [Effects] additions (LivingEntityData::new initializer) ====
+            // ==== [Player] additions (LivingEntityData::new initializer) ====
         };
         let max_health = data.get_max_health();
         data.set_health(max_health);

@@ -173,6 +173,10 @@ pub struct EntityData {
     pub moved_since_sync: bool,
     /// Dimensions grew in `refresh_dimensions` and `fudgePositionAfterSizeChange` still has to run (it needs the level).
     pub pending_fudge_from: Option<EntityDimensions>,
+    // ==== [EntityBase] additions (EntityData field) ====
+    // ==== [Damage] additions (EntityData field) ====
+    // ==== [Effects] additions (EntityData field) ====
+    // ==== [Level] additions (EntityData field) ====
 }
 
 impl EntityData {
@@ -263,6 +267,10 @@ impl EntityData {
             custom_data: CompoundTag::new(),
             moved_since_sync: false,
             pending_fudge_from: None,
+            // ==== [EntityBase] additions (EntityData::new initializer) ====
+            // ==== [Damage] additions (EntityData::new initializer) ====
+            // ==== [Effects] additions (EntityData::new initializer) ====
+            // ==== [Level] additions (EntityData::new initializer) ====
         };
         data.set_pos_raw_and_box(0.0, 0.0, 0.0);
         data
@@ -1185,6 +1193,13 @@ pub trait Entity: Any {
     fn save_without_id(&self, out: &mut CompoundTag, lookup: &EntityLookupFn<'_>) {
         save_without_id(self, out, lookup);
     }
+    // ==== [EntityBase] additions (Entity trait methods) ====
+    // ==== [LivingCore] additions (Entity trait methods) ====
+    // ==== [Damage] additions (Entity trait methods) ====
+    // ==== [Effects] additions (Entity trait methods) ====
+    // ==== [Player] additions (Entity trait methods) ====
+    // ==== [Level] additions (Entity trait methods) ====
+    // ==== [Items] additions (Entity trait methods) ====
 }
 
 /// `Entity.saveAsPassenger(output)`: `None` when the entity isn't saved (removal reason / non-serializable type).

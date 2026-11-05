@@ -122,6 +122,10 @@ pub struct ServerPlayer {
     pub dimension: Identifier,
     /// `RootVehicle` tag read from the saved data (`loadAndSpawnParentVehicle` consumes it).
     pub saved_root_vehicle: Option<CompoundTag>,
+    // ==== [Player] additions (ServerPlayer field) ====
+    // ==== [Level] additions (ServerPlayer field) ====
+    // ==== [LivingCore] additions (ServerPlayer field) ====
+    // ==== [Damage] additions (ServerPlayer field) ====
 }
 
 impl ServerPlayer {
@@ -185,6 +189,10 @@ impl ServerPlayer {
             saved_dimension: None,
             dimension,
             saved_root_vehicle: None,
+            // ==== [Player] additions (ServerPlayer::new initializer) ====
+            // ==== [Level] additions (ServerPlayer::new initializer) ====
+            // ==== [LivingCore] additions (ServerPlayer::new initializer) ====
+            // ==== [Damage] additions (ServerPlayer::new initializer) ====
         };
         p.update_options(client_information);
         p
