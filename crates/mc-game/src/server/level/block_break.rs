@@ -23,20 +23,12 @@ pub fn player_will_destroy(level: &mut ServerLevel, pos: BlockPos, state: BlockS
 
 /// `Block.playerDestroy(level, player, pos, state, blockEntity, destroyedWith)`.
 pub fn player_destroy(level: &mut ServerLevel, player: &mut ServerPlayer, pos: BlockPos, state: BlockState, block_entity: Option<&dyn BlockEntity>, destroyed_with: &ItemStack) {
-    // SEAM(EcPlayer): `player.awardStat(Stats.BLOCK_MINED.get(this))` and `causeFoodExhaustion(0.005F)` once `Stats` and
-    // `ServerPlayer::cause_food_exhaustion` land; the exhaustion part is `Player.causeFoodExhaustion`.
+    // SEAM(EcPlayer): `player.awardStat(Stats.BLOCK_MINED.get(this))` and `ServerPlayer::cause_food_exhaustion` once they land
+    // (the exhaustion below is `Player.causeFoodExhaustion`).
     if !player.player.abilities.invulnerable {
         player.player.food_data.add_exhaustion(0.005);
     }
-    drop_resources_with_tool(level, state, pos, block_entity, Some(player.id()), destroyed_with);
-}
-
-/// `Block.dropResources(state, level, pos, blockEntity, breaker, tool)`.
-pub fn drop_resources_with_tool(level: &mut ServerLevel, state: BlockState, pos: BlockPos, _block_entity: Option<&dyn BlockEntity>, breaker: Option<crate::world::entity::EntityId>, _tool: &ItemStack) {
-    // SEAM(EcLoot): `getDrops(state, level, pos, blockEntity, breaker, tool)` (loot table with the tool/enchantments) +
-    // `popResource` + `state.spawnAfterBreak(level, pos, tool, true)`; until `block_drops` lands this goes through the
-    // `set_drop_resources` hook, which only knows state/pos/breaker.
-    crate::world::level::block::helpers::drop_resources(level, state, pos, breaker);
+    crate::world::level::storage::loot::block_drops::drop_resources_with_tool(level, state, pos, block_entity, Some(&*player), destroyed_with);
 }
 
 /// A detached copy of the block entity at `pos` (`ServerPlayerGameMode.destroyBlock` keeps the object alive across
