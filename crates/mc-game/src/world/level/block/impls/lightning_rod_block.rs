@@ -24,6 +24,10 @@ impl LightningRodBlock {
 }
 
 impl BlockBehaviour for LightningRodBlock {
+    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+        let is_water_source = level.get_fluid_state(context.get_clicked_pos()).get_type() == mc_data::fluid::Fluid::WATER;
+        Some(block.default_state().set(props::FACING, context.get_clicked_face()).set(props::WATERLOGGED, is_water_source))
+    }
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
         if state.get(props::WATERLOGGED) {
             helpers::schedule_water_tick(level, pos);

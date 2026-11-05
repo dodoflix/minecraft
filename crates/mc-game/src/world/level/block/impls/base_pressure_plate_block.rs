@@ -48,24 +48,24 @@ impl BasePressurePlateBlock {
     }
 
     /// `getEntityCount(level, TOUCH_AABB.move(pos), entityClass)`: `living_only` selects `LivingEntity.class`.
-    fn get_entity_count(level: &ServerLevel, pos: BlockPos, living_only: bool) -> i32 {
-        let ids = level.get_entities_of_class(
-            &touch_aabb(pos),
-            |e| !living_only || e.living().is_some(),
-            |e| !e.is_spectator() && !e.is_ignoring_block_triggers(),
-        );
-        ids.len() as i32
+    /// `inside` is the entity whose `entityInside` is running: it is out of the level's entity storage meanwhile, so it is
+    /// counted here (vanilla's query finds it in its section).
+    fn get_entity_count(level: &ServerLevel, pos: BlockPos, living_only: bool, inside: Option<&dyn Entity>) -> i32 {
+        let aabb = touch_aabb(pos);
+        let counts = |e: &dyn Entity| (!living_only || e.living().is_some()) && !e.is_spectator() && !e.is_ignoring_block_triggers();
+        let ids = level.get_entities_of_class(&aabb, |e| !living_only || e.living().is_some(), |e| !e.is_spectator() && !e.is_ignoring_block_triggers());
+        ids.len() as i32 + i32::from(inside.is_some_and(|e| counts(e) && e.get_bounding_box().intersects_aabb(&aabb)))
     }
 
     /// `getSignalStrength`.
-    fn get_signal_strength(&self, level: &ServerLevel, pos: BlockPos) -> i32 {
+    fn get_signal_strength(&self, level: &ServerLevel, pos: BlockPos, inside: Option<&dyn Entity>) -> i32 {
         match self.max_weight {
             None => {
                 let living_only = self.ty.pressure_plate_sensitivity == PressurePlateSensitivity::Mobs;
-                if Self::get_entity_count(level, pos, living_only) > 0 { 15 } else { 0 }
+                if Self::get_entity_count(level, pos, living_only, inside) > 0 { 15 } else { 0 }
             }
             Some(max_weight) => {
-                let count = Self::get_entity_count(level, pos, false).min(max_weight);
+                let count = Self::get_entity_count(level, pos, false, inside).min(max_weight);
                 if count > 0 {
                     let percent = count.min(max_weight) as f32 / max_weight as f32;
                     mth::ceil_f32(percent * 15.0)
@@ -77,8 +77,9 @@ impl BasePressurePlateBlock {
     }
 
     /// `checkPressed(sourceEntity, level, pos, state, oldSignal)`.
-    fn check_pressed(&self, source_entity: Option<EntityId>, level: &mut ServerLevel, pos: BlockPos, state: BlockState, old_signal: i32) {
-        let signal = self.get_signal_strength(level, pos);
+    fn check_pressed(&self, inside: Option<&dyn Entity>, level: &mut ServerLevel, pos: BlockPos, state: BlockState, old_signal: i32) {
+        let source_entity: Option<EntityId> = inside.map(|e| e.id());
+        let signal = self.get_signal_strength(level, pos, inside);
         let was_pressed = old_signal > 0;
         let is_pressed = signal > 0;
         if old_signal != signal {
@@ -95,14 +96,6 @@ impl BasePressurePlateBlock {
         }
         if is_pressed {
             level.schedule_tick_block(pos, state.block(), self.get_pressed_time());
-        }
-    }
-
-    /// `entityInside(state, level, pos, entity, ...)`.
-    pub fn entity_inside_checked(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, entity: EntityId) {
-        let signal = self.get_signal_for_state(state);
-        if signal == 0 {
-            self.check_pressed(Some(entity), level, pos, state, signal);
         }
     }
 
@@ -128,6 +121,20 @@ impl BlockBehaviour for BasePressurePlateBlock {
         let signal = self.get_signal_for_state(state);
         if signal > 0 {
             self.check_pressed(None, level, pos, state, signal);
+        }
+    }
+    fn entity_inside(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        entity: &mut dyn Entity,
+        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        _is_precise: bool,
+    ) {
+        let signal = self.get_signal_for_state(state);
+        if signal == 0 {
+            self.check_pressed(Some(&*entity), level, pos, state, signal);
         }
     }
     fn affect_neighbors_after_removal(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, moved_by_piston: bool) {

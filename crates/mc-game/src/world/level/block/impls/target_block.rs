@@ -38,6 +38,14 @@ impl BlockBehaviour for TargetBlock {
             level.set_block_and_update(pos, state.set(props::POWER, 0));
         }
     }
+    fn on_projectile_hit(&self, level: &mut ServerLevel, state: BlockState, hit: &BlockHitResult, projectile: &mut dyn crate::world::entity::projectile::Projectile) {
+        let is_arrow = projectile.tracking_kind() == crate::world::entity::TrackingKind::Arrow;
+        let output_strength = update_redstone_output(level, state, hit, is_arrow);
+        // `if (projectile.getOwner() instanceof ServerPlayer owner) { owner.awardStat(Stats.TARGET_HIT);
+        // CriteriaTriggers.TARGET_BLOCK_HIT.trigger(owner, projectile, hit.getLocation(), outputStrength) }`: wired with the
+        // statistics / CriteriaTriggers API (SEAM: TARGET_BLOCK_HIT)
+        let _ = output_strength;
+    }
     fn own_signal(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos) -> i32 {
         state.get(props::POWER)
     }

@@ -5,6 +5,15 @@ use crate::server::level::ServerLevel;
 
 pub struct TripWireBlock;
 
+/// `TripWireBlock.shouldConnectTo` (`this` is the tripwire, its hook is `Blocks.TRIPWIRE_HOOK`).
+fn should_connect_to(this: Block, block_state: BlockState, direction: Direction) -> bool {
+    if block_state.is_block(Block::TRIPWIRE_HOOK) {
+        block_state.get(props::HORIZONTAL_FACING) == direction.get_opposite()
+    } else {
+        block_state.is_block(this)
+    }
+}
+
 /// `TripWireBlock.updateSource`.
 fn update_source(level: &mut ServerLevel, pos: BlockPos, state: BlockState) {
     for direction in [Direction::South, Direction::West] {
@@ -47,27 +56,8 @@ fn check_pressed_with(level: &mut ServerLevel, pos: BlockPos, any_triggering: bo
 fn check_pressed(level: &mut ServerLevel, pos: BlockPos) {
     let state = level.get_block_state(pos);
     let bounds = state.get_shape(&*level, pos).bounds().move_(f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z()));
-    let ids = level.get_entities(None, &bounds, |e| !e.is_spectator());
-    let triggering = ids.into_iter().any(|id| level.get_entity(id).is_some_and(|e| !e.is_ignoring_block_triggers()));
+    let triggering = !level.get_entities(None, &bounds, |e| !e.is_spectator() && !e.is_ignoring_block_triggers()).is_empty();
     check_pressed_with(level, pos, triggering);
-}
-
-impl TripWireBlock {
-    /// `TripWireBlock.entityInside` for the entity that is inside (`List.of(entity)`).
-    pub fn entity_inside_checked(state: BlockState, level: &mut ServerLevel, pos: BlockPos, entity_ignores_block_triggers: bool) {
-        if !state.get(props::POWERED) && !level.has_scheduled_block_tick(pos, state.block()) {
-            check_pressed_with(level, pos, !entity_ignores_block_triggers);
-        }
-    }
-}
-
-/// `TripWireBlock.shouldConnectTo` (`this` is the tripwire, its hook is `Blocks.TRIPWIRE_HOOK`).
-fn should_connect_to(this: Block, block_state: BlockState, direction: Direction) -> bool {
-    if block_state.is_block(Block::TRIPWIRE_HOOK) {
-        block_state.get(props::HORIZONTAL_FACING) == direction.get_opposite()
-    } else {
-        block_state.is_block(this)
-    }
 }
 
 impl BlockBehaviour for TripWireBlock {
@@ -99,6 +89,28 @@ impl BlockBehaviour for TripWireBlock {
     }
     fn get_entity_inside_collision_shape(&self, state: BlockState, level: &dyn BlockGetter, pos: BlockPos, _entity: &dyn crate::world::entity::Entity) -> mc_core::phys::shapes::VoxelShape {
         state.get_shape(level, pos)
+    }
+    fn entity_inside(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        entity: &mut dyn crate::world::entity::Entity,
+        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        _is_precise: bool,
+    ) {
+        if !state.get(props::POWERED) && !level.has_scheduled_block_tick(pos, state.block()) {
+            check_pressed_with(level, pos, !entity.is_ignoring_block_triggers());
+        }
+    }
+    fn player_will_destroy(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut crate::world::entity::ServerPlayer) -> BlockState {
+        use crate::world::entity::Entity as _;
+        let held = player.get_item_in_hand(crate::world::item::InteractionHand::MainHand);
+        if !held.is_empty() && held.is(mc_data::Item::SHEARS) {
+            level.set_block_flags(pos, state.set(props::DISARMED, true), 260);
+            level.game_event_at_block(mc_data::GameEvent::SHEAR, pos, &crate::world::level::gameevent::GameEventContext::of_entity(Some(player.id())));
+        }
+        crate::server::level::block_break::player_will_destroy(level, pos, state, player)
     }
     fn tick(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         if level.get_block_state(pos).get(props::POWERED) {

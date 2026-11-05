@@ -4,7 +4,7 @@ use super::face_attached_horizontal_directional_block::{self as face_attached, g
 use super::lever_block::update_neighbours;
 use super::prelude::*;
 use crate::server::level::ServerLevel;
-use crate::world::block_set_type::BlockSetType;
+use crate::world::level::block::block_set_type::BlockSetType;
 use crate::world::entity::{Entity as _, EntityId, ServerPlayer};
 use crate::world::item::InteractionResult;
 use crate::world::level::gameevent::GameEventContext;
@@ -39,10 +39,12 @@ impl ButtonBlock {
     }
 
     /// `ButtonBlock.checkPressed(state, level, pos)`.
-    pub fn check_pressed(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
+    /// `inside` is the arrow whose `entityInside` is running (it is out of the entity storage meanwhile).
+    pub fn check_pressed(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, inside: Option<&dyn crate::world::entity::Entity>) {
         let first_arrow = if self.ty.can_button_be_activated_by_arrows {
-            let bounds = state.get_shape(&*level, pos).bounds().move_(pos.x() as f64, pos.y() as f64, pos.z() as f64);
-            level.get_entities_of_class(&bounds, |e| e.is_abstract_arrow(), |_| true).into_iter().next()
+            let bounds = state.get_shape(&*level, pos).bounds().move_(f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z()));
+            let found = level.get_entities_of_class(&bounds, |e| e.tracking_kind() == crate::world::entity::TrackingKind::Arrow, |_| true).into_iter().next();
+            found.or_else(|| inside.filter(|e| e.tracking_kind() == crate::world::entity::TrackingKind::Arrow && e.get_bounding_box().intersects_aabb(&bounds)).map(|e| e.id()))
         } else {
             None
         };
@@ -95,9 +97,35 @@ impl BlockBehaviour for ButtonBlock {
     fn own_signal(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos) -> i32 {
         if state.get(props::POWERED) { 15 } else { 0 }
     }
+    fn entity_inside(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        entity: &mut dyn crate::world::entity::Entity,
+        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        _is_precise: bool,
+    ) {
+        if self.ty.can_button_be_activated_by_arrows && !state.get(props::POWERED) {
+            self.check_pressed(state, level, pos, Some(&*entity));
+        }
+    }
+    fn on_explosion_hit(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        explosion: &dyn crate::world::level::explosion::Explosion,
+        on_hit: &mut dyn FnMut(crate::world::item::ItemStack, BlockPos),
+    ) {
+        if explosion.can_trigger_blocks() && !state.get(props::POWERED) {
+            self.press(state, level, pos, None);
+        }
+        crate::world::level::explosion::default_on_explosion_hit(state, level, pos, explosion, on_hit);
+    }
     fn tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         if state.get(props::POWERED) {
-            self.check_pressed(state, level, pos);
+            self.check_pressed(state, level, pos, None);
         }
     }
 }

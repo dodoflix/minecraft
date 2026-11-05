@@ -29,7 +29,7 @@ impl BlockEntity for DaylightDetectorBlockEntity {
 
     /// `DaylightDetectorBlock.tickEntity`.
     fn server_tick(&mut self, level: &mut ServerLevel) {
-        if level.has_sky_light && crate::world::level::LevelAccessor::get_game_time(level) % 20 == 0 {
+        if level.chunk_source.chunk_map.has_sky_light && crate::world::level::LevelAccessor::get_game_time(level) % 20 == 0 {
             let state = crate::world::level::BlockGetter::get_block_state(level, self.base.pos);
             update_signal_strength(state, level, self.base.pos);
         }

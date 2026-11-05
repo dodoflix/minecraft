@@ -50,6 +50,19 @@ impl BlockBehaviour for LeverBlock {
         pull(state, level, pos, None);
         InteractionResult::SUCCESS
     }
+    fn on_explosion_hit(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        explosion: &dyn crate::world::level::explosion::Explosion,
+        on_hit: &mut dyn FnMut(crate::world::item::ItemStack, BlockPos),
+    ) {
+        if explosion.can_trigger_blocks() {
+            pull(state, level, pos, None);
+        }
+        crate::world::level::explosion::default_on_explosion_hit(state, level, pos, explosion, on_hit);
+    }
     fn affect_neighbors_after_removal(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, moved_by_piston: bool) {
         if !moved_by_piston && state.get(props::POWERED) {
             update_neighbours(state, level, pos);
