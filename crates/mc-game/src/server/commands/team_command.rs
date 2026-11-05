@@ -1,5 +1,5 @@
 //! `TeamCommand`.
-use super::command_response_tracker::CommandResponseTracker;
+use super::score_tracker::ScoreTracker as CommandResponseTracker;
 use super::scoreboard_command::with_scoreboard;
 use crate::commands::arguments::scores::{ScoreHolder, suggest_score_holders};
 use crate::commands::arguments::selector::EntityRef;

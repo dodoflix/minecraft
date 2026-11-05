@@ -37,6 +37,7 @@ mod save_all_command;
 mod save_off_command;
 mod save_on_command;
 mod say_command;
+mod score_tracker;
 mod scoreboard_command;
 mod seed_command;
 mod set_block_command;

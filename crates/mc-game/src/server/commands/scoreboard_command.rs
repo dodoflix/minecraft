@@ -1,5 +1,6 @@
 //! `ScoreboardCommand`.
-use super::command_response_tracker::{CommandResponseTracker, ElementType};
+use super::command_response_tracker::ElementType;
+use super::score_tracker::ScoreTracker as CommandResponseTracker;
 use crate::commands::arguments::scores::{ScoreHolder, suggest_score_holders};
 use crate::commands::arguments::{
     ComponentArgument, ObjectiveArgument, ObjectiveCriteriaArgument, OperationArgument, ScoreHolderArgument, ScoreboardSlotArgument, StyleArgument,

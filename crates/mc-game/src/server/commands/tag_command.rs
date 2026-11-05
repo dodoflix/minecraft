@@ -1,5 +1,5 @@
 //! `TagCommand`.
-use super::command_response_tracker::CommandResponseTracker;
+use super::score_tracker::ScoreTracker as CommandResponseTracker;
 use crate::commands::arguments::selector::EntityRef;
 use crate::commands::arguments::EntityArgument;
 use crate::commands::message::simple_translatable;
