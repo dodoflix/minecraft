@@ -210,8 +210,8 @@ impl Container for HopperBlockEntity {
     fn set_changed(&mut self) {
         changed_log::push(self.base.pos);
     }
-    fn still_valid(&self, _player: &dyn MenuPlayer) -> bool {
-        true
+    fn still_valid(&self, player: &dyn MenuPlayer) -> bool {
+        crate::world::container::still_valid_block_entity(self.base.pos, player)
     }
 }
 

@@ -27,6 +27,9 @@ impl BlockBehaviour for DropperBlock {
     fn tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         dispense_from(level, state, pos);
     }
+    fn use_without_item(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut crate::world::entity::ServerPlayer, hit: &mc_core::phys::BlockHitResult) -> crate::world::item::InteractionResult {
+        DispenserBlock.use_without_item(state, level, pos, player, hit)
+    }
     fn affect_neighbors_after_removal(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, moved_by_piston: bool) {
         DispenserBlock.affect_neighbors_after_removal(state, level, pos, moved_by_piston);
     }

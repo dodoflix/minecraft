@@ -27,6 +27,7 @@ mod beacon_block_entity;
 mod beehive_block_entity;
 mod bell_block_entity;
 mod brushable_block_entity;
+pub mod container_menu_provider;
 mod calibrated_sculk_sensor_block_entity;
 mod comparator_block_entity;
 pub mod command_block_entity;

@@ -118,7 +118,7 @@ pub fn block_is_enabled(block: Block, enabled: FeatureFlagSet) -> bool {
 }
 
 impl BlockItem {
-    fn for_item(item: Item) -> Self {
+    pub fn for_item(item: Item) -> Self {
         let block = item.block().expect("BlockItem without block");
         let name = block.data().name.trim_start_matches("minecraft:");
         let kind = match STANDING_AND_WALL.iter().find(|(b, ..)| *b == name) {

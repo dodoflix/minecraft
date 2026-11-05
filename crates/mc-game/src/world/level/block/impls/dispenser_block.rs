@@ -8,6 +8,11 @@ use crate::world::item::BlockPlaceContext;
 use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::redstone::Orientation;
 use crate::world::level::signal_getter::has_neighbor_signal;
+use crate::stats::{Stat, stats::Stats};
+use crate::world::block_entity::container_menu_provider::BlockEntityMenuProvider;
+use crate::world::entity::ServerPlayer;
+use crate::world::item::InteractionResult;
+use mc_core::phys::BlockHitResult;
 use mc_data::BlockEntityType;
 use mc_data::GameEvent;
 
@@ -49,6 +54,10 @@ impl BlockBehaviour for DispenserBlock {
         dispense_from(level, state, pos);
     }
 
+    fn use_without_item(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut ServerPlayer, _hit: &BlockHitResult) -> InteractionResult {
+        open_container(level, pos, player, Stats::INSPECT_DISPENSER, Stats::INSPECT_DROPPER)
+    }
+
     fn affect_neighbors_after_removal(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _moved_by_piston: bool) {
         update_neighbours_after_destroy(state, level, pos);
     }
@@ -56,6 +65,17 @@ impl BlockBehaviour for DispenserBlock {
     fn get_analog_output_signal(&self, _state: BlockState, level: &ServerLevel, pos: BlockPos, _direction: Direction) -> i32 {
         crate::world::container::get_redstone_signal_from_block_entity(level.get_block_entity(pos))
     }
+}
+
+/// `useWithoutItem` of the dispenser/dropper (`player.openMenu(dispenser)` + the inspect stat) and, with the hopper's
+/// stat, of the hopper: only when the block entity is a container this module opens.
+pub fn open_container(level: &mut ServerLevel, pos: BlockPos, player: &mut ServerPlayer, dispenser_stat: Stat, dropper_stat: Stat) -> InteractionResult {
+    if let Some(provider) = BlockEntityMenuProvider::of(level, pos) {
+        let is_dropper = level.get_block_entity(pos).is_some_and(|be| be.get_type() == BlockEntityType::DROPPER);
+        player.open_menu(level, &provider);
+        player.award_stat_once(level, if is_dropper { dropper_stat } else { dispenser_stat });
+    }
+    InteractionResult::SUCCESS
 }
 
 /// `DispenserBlock.dispenseFrom(level, state, pos)`.

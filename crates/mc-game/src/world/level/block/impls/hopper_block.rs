@@ -8,6 +8,11 @@ use crate::world::entity::item::ItemEntity;
 use crate::world::item::BlockPlaceContext;
 use crate::world::level::redstone::Orientation;
 use crate::world::level::signal_getter::has_neighbor_signal;
+use crate::stats::stats::Stats;
+use crate::world::block_entity::container_menu_provider::BlockEntityMenuProvider;
+use crate::world::entity::ServerPlayer;
+use crate::world::item::InteractionResult;
+use mc_core::phys::BlockHitResult;
 use mc_data::block::PathComputationType;
 
 pub struct HopperBlock;
@@ -38,6 +43,14 @@ impl BlockBehaviour for HopperBlock {
         if !old_state.is_block(state.block()) {
             check_powered_state(level, pos, state);
         }
+    }
+
+    fn use_without_item(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut ServerPlayer, _hit: &BlockHitResult) -> InteractionResult {
+        if let Some(provider) = BlockEntityMenuProvider::of(level, pos) {
+            player.open_menu(level, &provider);
+            player.award_stat_once(level, Stats::INSPECT_HOPPER);
+        }
+        InteractionResult::SUCCESS
     }
 
     fn neighbor_changed(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _block: Block, _orientation: Option<Orientation>, _moved_by_piston: bool) {

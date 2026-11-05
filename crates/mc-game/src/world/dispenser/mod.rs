@@ -26,7 +26,9 @@ use std::sync::OnceLock;
 
 mod behaviors;
 mod default_behavior;
-pub use default_behavior::{DefaultDispense, consume_with_remainder, default_execute, play_default_animation, play_default_sound, spawn_item};
+pub use default_behavior::{
+    DefaultDispense, OptionalState, consume_with_remainder, default_execute, play_default_animation, play_default_sound, play_optional_sound, spawn_item,
+};
 
 /// `BlockSource(level, pos, state, blockEntity)`.
 pub struct BlockSource<'a> {

@@ -81,3 +81,31 @@ fn add_to_inventory_or_dispense(source: &mut BlockSource<'_>, stack: ItemStack) 
         play_default_animation(source, direction);
     }
 }
+
+/// `OptionalDispenseItemBehavior.success`: shared by every dispense through the same behavior instance and never reset
+/// by vanilla (a behavior that fails once keeps reporting failure until it sets `true` again).
+pub struct OptionalState(std::sync::atomic::AtomicBool);
+
+impl OptionalState {
+    pub const fn new() -> Self {
+        Self(std::sync::atomic::AtomicBool::new(true))
+    }
+    pub fn is_success(&self) -> bool {
+        self.0.load(std::sync::atomic::Ordering::Relaxed)
+    }
+    pub fn set_success(&self, success: bool) {
+        self.0.store(success, std::sync::atomic::Ordering::Relaxed);
+    }
+}
+
+impl Default for OptionalState {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+/// `OptionalDispenseItemBehavior.playSound`: click (1000) on success, failure click (1001) otherwise.
+pub fn play_optional_sound(source: &mut BlockSource<'_>, success: bool) {
+    let pos = source.pos;
+    source.level.level_event(None, if success { 1000 } else { 1001 }, pos, 0);
+}
