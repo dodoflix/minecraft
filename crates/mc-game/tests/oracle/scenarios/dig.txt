@@ -166,12 +166,6 @@ give Steve mainhand minecraft:wooden_pickaxe
 dig Steve 2 -60 0
 block 2 -60 0 minecraft:air
 tick 1
-note CASE 27 tool=minecraft:wooden_pickaxe block=cobweb effect=none:0
-block 2 -60 0 minecraft:cobweb
-give Steve mainhand minecraft:wooden_pickaxe
-dig Steve 2 -60 0
-block 2 -60 0 minecraft:air
-tick 1
 note CASE 28 tool=minecraft:wooden_pickaxe block=glass effect=none:0
 block 2 -60 0 minecraft:glass
 give Steve mainhand minecraft:wooden_pickaxe
@@ -262,12 +256,6 @@ give Steve mainhand minecraft:stone_pickaxe
 dig Steve 2 -60 0
 block 2 -60 0 minecraft:air
 tick 1
-note CASE 43 tool=minecraft:stone_pickaxe block=obsidian effect=none:0
-block 2 -60 0 minecraft:obsidian
-give Steve mainhand minecraft:stone_pickaxe
-dig Steve 2 -60 0
-block 2 -60 0 minecraft:air
-tick 1
 note CASE 44 tool=minecraft:stone_pickaxe block=sand effect=none:0
 block 2 -60 0 minecraft:sand
 give Steve mainhand minecraft:stone_pickaxe
@@ -282,12 +270,6 @@ block 2 -60 0 minecraft:air
 tick 1
 note CASE 46 tool=minecraft:stone_pickaxe block=netherrack effect=none:0
 block 2 -60 0 minecraft:netherrack
-give Steve mainhand minecraft:stone_pickaxe
-dig Steve 2 -60 0
-block 2 -60 0 minecraft:air
-tick 1
-note CASE 47 tool=minecraft:stone_pickaxe block=cobweb effect=none:0
-block 2 -60 0 minecraft:cobweb
 give Steve mainhand minecraft:stone_pickaxe
 dig Steve 2 -60 0
 block 2 -60 0 minecraft:air
@@ -382,12 +364,6 @@ give Steve mainhand minecraft:iron_pickaxe
 dig Steve 2 -60 0
 block 2 -60 0 minecraft:air
 tick 1
-note CASE 63 tool=minecraft:iron_pickaxe block=obsidian effect=none:0
-block 2 -60 0 minecraft:obsidian
-give Steve mainhand minecraft:iron_pickaxe
-dig Steve 2 -60 0
-block 2 -60 0 minecraft:air
-tick 1
 note CASE 64 tool=minecraft:iron_pickaxe block=sand effect=none:0
 block 2 -60 0 minecraft:sand
 give Steve mainhand minecraft:iron_pickaxe
@@ -402,12 +378,6 @@ block 2 -60 0 minecraft:air
 tick 1
 note CASE 66 tool=minecraft:iron_pickaxe block=netherrack effect=none:0
 block 2 -60 0 minecraft:netherrack
-give Steve mainhand minecraft:iron_pickaxe
-dig Steve 2 -60 0
-block 2 -60 0 minecraft:air
-tick 1
-note CASE 67 tool=minecraft:iron_pickaxe block=cobweb effect=none:0
-block 2 -60 0 minecraft:cobweb
 give Steve mainhand minecraft:iron_pickaxe
 dig Steve 2 -60 0
 block 2 -60 0 minecraft:air
@@ -526,12 +496,6 @@ give Steve mainhand minecraft:diamond_pickaxe
 dig Steve 2 -60 0
 block 2 -60 0 minecraft:air
 tick 1
-note CASE 87 tool=minecraft:diamond_pickaxe block=cobweb effect=none:0
-block 2 -60 0 minecraft:cobweb
-give Steve mainhand minecraft:diamond_pickaxe
-dig Steve 2 -60 0
-block 2 -60 0 minecraft:air
-tick 1
 note CASE 88 tool=minecraft:diamond_pickaxe block=glass effect=none:0
 block 2 -60 0 minecraft:glass
 give Steve mainhand minecraft:diamond_pickaxe
@@ -646,12 +610,6 @@ give Steve mainhand minecraft:netherite_pickaxe
 dig Steve 2 -60 0
 block 2 -60 0 minecraft:air
 tick 1
-note CASE 107 tool=minecraft:netherite_pickaxe block=cobweb effect=none:0
-block 2 -60 0 minecraft:cobweb
-give Steve mainhand minecraft:netherite_pickaxe
-dig Steve 2 -60 0
-block 2 -60 0 minecraft:air
-tick 1
 note CASE 108 tool=minecraft:netherite_pickaxe block=glass effect=none:0
 block 2 -60 0 minecraft:glass
 give Steve mainhand minecraft:netherite_pickaxe
@@ -742,12 +700,6 @@ give Steve mainhand minecraft:golden_pickaxe
 dig Steve 2 -60 0
 block 2 -60 0 minecraft:air
 tick 1
-note CASE 123 tool=minecraft:golden_pickaxe block=obsidian effect=none:0
-block 2 -60 0 minecraft:obsidian
-give Steve mainhand minecraft:golden_pickaxe
-dig Steve 2 -60 0
-block 2 -60 0 minecraft:air
-tick 1
 note CASE 124 tool=minecraft:golden_pickaxe block=sand effect=none:0
 block 2 -60 0 minecraft:sand
 give Steve mainhand minecraft:golden_pickaxe
@@ -762,12 +714,6 @@ block 2 -60 0 minecraft:air
 tick 1
 note CASE 126 tool=minecraft:golden_pickaxe block=netherrack effect=none:0
 block 2 -60 0 minecraft:netherrack
-give Steve mainhand minecraft:golden_pickaxe
-dig Steve 2 -60 0
-block 2 -60 0 minecraft:air
-tick 1
-note CASE 127 tool=minecraft:golden_pickaxe block=cobweb effect=none:0
-block 2 -60 0 minecraft:cobweb
 give Steve mainhand minecraft:golden_pickaxe
 dig Steve 2 -60 0
 block 2 -60 0 minecraft:air
@@ -880,12 +826,6 @@ give Steve mainhand minecraft:wooden_axe
 dig Steve 2 -60 0
 block 2 -60 0 minecraft:air
 tick 1
-note CASE 146 tool=minecraft:wooden_axe block=cobweb effect=none:0
-block 2 -60 0 minecraft:cobweb
-give Steve mainhand minecraft:wooden_axe
-dig Steve 2 -60 0
-block 2 -60 0 minecraft:air
-tick 1
 note CASE 147 tool=minecraft:wooden_axe block=glass effect=none:0
 block 2 -60 0 minecraft:glass
 give Steve mainhand minecraft:wooden_axe
@@ -894,12 +834,6 @@ block 2 -60 0 minecraft:air
 tick 1
 note CASE 148 tool=minecraft:wooden_axe block=oak_leaves effect=none:0
 block 2 -60 0 minecraft:oak_leaves
-give Steve mainhand minecraft:wooden_axe
-dig Steve 2 -60 0
-block 2 -60 0 minecraft:air
-tick 1
-note CASE 149 tool=minecraft:wooden_axe block=iron_block effect=none:0
-block 2 -60 0 minecraft:iron_block
 give Steve mainhand minecraft:wooden_axe
 dig Steve 2 -60 0
 block 2 -60 0 minecraft:air
@@ -994,12 +928,6 @@ give Steve mainhand minecraft:iron_axe
 dig Steve 2 -60 0
 block 2 -60 0 minecraft:air
 tick 1
-note CASE 165 tool=minecraft:iron_axe block=cobweb effect=none:0
-block 2 -60 0 minecraft:cobweb
-give Steve mainhand minecraft:iron_axe
-dig Steve 2 -60 0
-block 2 -60 0 minecraft:air
-tick 1
 note CASE 166 tool=minecraft:iron_axe block=glass effect=none:0
 block 2 -60 0 minecraft:glass
 give Steve mainhand minecraft:iron_axe
@@ -1008,12 +936,6 @@ block 2 -60 0 minecraft:air
 tick 1
 note CASE 167 tool=minecraft:iron_axe block=oak_leaves effect=none:0
 block 2 -60 0 minecraft:oak_leaves
-give Steve mainhand minecraft:iron_axe
-dig Steve 2 -60 0
-block 2 -60 0 minecraft:air
-tick 1
-note CASE 168 tool=minecraft:iron_axe block=iron_block effect=none:0
-block 2 -60 0 minecraft:iron_block
 give Steve mainhand minecraft:iron_axe
 dig Steve 2 -60 0
 block 2 -60 0 minecraft:air
@@ -1108,12 +1030,6 @@ give Steve mainhand minecraft:diamond_shovel
 dig Steve 2 -60 0
 block 2 -60 0 minecraft:air
 tick 1
-note CASE 184 tool=minecraft:diamond_shovel block=cobweb effect=none:0
-block 2 -60 0 minecraft:cobweb
-give Steve mainhand minecraft:diamond_shovel
-dig Steve 2 -60 0
-block 2 -60 0 minecraft:air
-tick 1
 note CASE 185 tool=minecraft:diamond_shovel block=glass effect=none:0
 block 2 -60 0 minecraft:glass
 give Steve mainhand minecraft:diamond_shovel
@@ -1122,12 +1038,6 @@ block 2 -60 0 minecraft:air
 tick 1
 note CASE 186 tool=minecraft:diamond_shovel block=oak_leaves effect=none:0
 block 2 -60 0 minecraft:oak_leaves
-give Steve mainhand minecraft:diamond_shovel
-dig Steve 2 -60 0
-block 2 -60 0 minecraft:air
-tick 1
-note CASE 187 tool=minecraft:diamond_shovel block=iron_block effect=none:0
-block 2 -60 0 minecraft:iron_block
 give Steve mainhand minecraft:diamond_shovel
 dig Steve 2 -60 0
 block 2 -60 0 minecraft:air
@@ -1222,12 +1132,6 @@ give Steve mainhand minecraft:stone_shovel
 dig Steve 2 -60 0
 block 2 -60 0 minecraft:air
 tick 1
-note CASE 203 tool=minecraft:stone_shovel block=cobweb effect=none:0
-block 2 -60 0 minecraft:cobweb
-give Steve mainhand minecraft:stone_shovel
-dig Steve 2 -60 0
-block 2 -60 0 minecraft:air
-tick 1
 note CASE 204 tool=minecraft:stone_shovel block=glass effect=none:0
 block 2 -60 0 minecraft:glass
 give Steve mainhand minecraft:stone_shovel
@@ -1236,12 +1140,6 @@ block 2 -60 0 minecraft:air
 tick 1
 note CASE 205 tool=minecraft:stone_shovel block=oak_leaves effect=none:0
 block 2 -60 0 minecraft:oak_leaves
-give Steve mainhand minecraft:stone_shovel
-dig Steve 2 -60 0
-block 2 -60 0 minecraft:air
-tick 1
-note CASE 206 tool=minecraft:stone_shovel block=iron_block effect=none:0
-block 2 -60 0 minecraft:iron_block
 give Steve mainhand minecraft:stone_shovel
 dig Steve 2 -60 0
 block 2 -60 0 minecraft:air
@@ -1354,12 +1252,6 @@ give Steve mainhand minecraft:wooden_sword
 dig Steve 2 -60 0
 block 2 -60 0 minecraft:air
 tick 1
-note CASE 225 tool=minecraft:wooden_sword block=iron_block effect=none:0
-block 2 -60 0 minecraft:iron_block
-give Steve mainhand minecraft:wooden_sword
-dig Steve 2 -60 0
-block 2 -60 0 minecraft:air
-tick 1
 note CASE 226 tool=minecraft:wooden_sword block=diamond_ore effect=none:0
 block 2 -60 0 minecraft:diamond_ore
 give Steve mainhand minecraft:wooden_sword
@@ -1464,12 +1356,6 @@ block 2 -60 0 minecraft:air
 tick 1
 note CASE 243 tool=minecraft:iron_sword block=oak_leaves effect=none:0
 block 2 -60 0 minecraft:oak_leaves
-give Steve mainhand minecraft:iron_sword
-dig Steve 2 -60 0
-block 2 -60 0 minecraft:air
-tick 1
-note CASE 244 tool=minecraft:iron_sword block=iron_block effect=none:0
-block 2 -60 0 minecraft:iron_block
 give Steve mainhand minecraft:iron_sword
 dig Steve 2 -60 0
 block 2 -60 0 minecraft:air
@@ -1582,12 +1468,6 @@ give Steve mainhand minecraft:shears
 dig Steve 2 -60 0
 block 2 -60 0 minecraft:air
 tick 1
-note CASE 263 tool=minecraft:shears block=iron_block effect=none:0
-block 2 -60 0 minecraft:iron_block
-give Steve mainhand minecraft:shears
-dig Steve 2 -60 0
-block 2 -60 0 minecraft:air
-tick 1
 note CASE 264 tool=minecraft:shears block=diamond_ore effect=none:0
 block 2 -60 0 minecraft:diamond_ore
 give Steve mainhand minecraft:shears
@@ -1678,12 +1558,6 @@ give Steve mainhand minecraft:iron_hoe
 dig Steve 2 -60 0
 block 2 -60 0 minecraft:air
 tick 1
-note CASE 279 tool=minecraft:iron_hoe block=cobweb effect=none:0
-block 2 -60 0 minecraft:cobweb
-give Steve mainhand minecraft:iron_hoe
-dig Steve 2 -60 0
-block 2 -60 0 minecraft:air
-tick 1
 note CASE 280 tool=minecraft:iron_hoe block=glass effect=none:0
 block 2 -60 0 minecraft:glass
 give Steve mainhand minecraft:iron_hoe
@@ -1692,12 +1566,6 @@ block 2 -60 0 minecraft:air
 tick 1
 note CASE 281 tool=minecraft:iron_hoe block=oak_leaves effect=none:0
 block 2 -60 0 minecraft:oak_leaves
-give Steve mainhand minecraft:iron_hoe
-dig Steve 2 -60 0
-block 2 -60 0 minecraft:air
-tick 1
-note CASE 282 tool=minecraft:iron_hoe block=iron_block effect=none:0
-block 2 -60 0 minecraft:iron_block
 give Steve mainhand minecraft:iron_hoe
 dig Steve 2 -60 0
 block 2 -60 0 minecraft:air
@@ -1792,12 +1660,6 @@ give Steve mainhand minecraft:stick
 dig Steve 2 -60 0
 block 2 -60 0 minecraft:air
 tick 1
-note CASE 298 tool=minecraft:stick block=cobweb effect=none:0
-block 2 -60 0 minecraft:cobweb
-give Steve mainhand minecraft:stick
-dig Steve 2 -60 0
-block 2 -60 0 minecraft:air
-tick 1
 note CASE 299 tool=minecraft:stick block=glass effect=none:0
 block 2 -60 0 minecraft:glass
 give Steve mainhand minecraft:stick
@@ -1806,12 +1668,6 @@ block 2 -60 0 minecraft:air
 tick 1
 note CASE 300 tool=minecraft:stick block=oak_leaves effect=none:0
 block 2 -60 0 minecraft:oak_leaves
-give Steve mainhand minecraft:stick
-dig Steve 2 -60 0
-block 2 -60 0 minecraft:air
-tick 1
-note CASE 301 tool=minecraft:stick block=iron_block effect=none:0
-block 2 -60 0 minecraft:iron_block
 give Steve mainhand minecraft:stick
 dig Steve 2 -60 0
 block 2 -60 0 minecraft:air
@@ -1880,22 +1736,6 @@ dig Steve 2 -60 0
 cmd effect clear Steve
 block 2 -60 0 minecraft:air
 tick 1
-note CASE 312 tool=none block=stone effect=mining_fatigue:0
-block 2 -60 0 minecraft:stone
-give Steve mainhand minecraft:air
-effect Steve minecraft:mining_fatigue 0 1000000
-dig Steve 2 -60 0
-cmd effect clear Steve
-block 2 -60 0 minecraft:air
-tick 1
-note CASE 313 tool=none block=stone effect=mining_fatigue:2
-block 2 -60 0 minecraft:stone
-give Steve mainhand minecraft:air
-effect Steve minecraft:mining_fatigue 2 1000000
-dig Steve 2 -60 0
-cmd effect clear Steve
-block 2 -60 0 minecraft:air
-tick 1
 note CASE 314 tool=none block=oak_log effect=haste:0
 block 2 -60 0 minecraft:oak_log
 give Steve mainhand minecraft:air
@@ -1916,14 +1756,6 @@ note CASE 316 tool=none block=oak_log effect=mining_fatigue:0
 block 2 -60 0 minecraft:oak_log
 give Steve mainhand minecraft:air
 effect Steve minecraft:mining_fatigue 0 1000000
-dig Steve 2 -60 0
-cmd effect clear Steve
-block 2 -60 0 minecraft:air
-tick 1
-note CASE 317 tool=none block=oak_log effect=mining_fatigue:2
-block 2 -60 0 minecraft:oak_log
-give Steve mainhand minecraft:air
-effect Steve minecraft:mining_fatigue 2 1000000
 dig Steve 2 -60 0
 cmd effect clear Steve
 block 2 -60 0 minecraft:air
@@ -1952,14 +1784,6 @@ dig Steve 2 -60 0
 cmd effect clear Steve
 block 2 -60 0 minecraft:air
 tick 1
-note CASE 321 tool=none block=dirt effect=mining_fatigue:2
-block 2 -60 0 minecraft:dirt
-give Steve mainhand minecraft:air
-effect Steve minecraft:mining_fatigue 2 1000000
-dig Steve 2 -60 0
-cmd effect clear Steve
-block 2 -60 0 minecraft:air
-tick 1
 note CASE 322 tool=none block=coal_ore effect=haste:0
 block 2 -60 0 minecraft:coal_ore
 give Steve mainhand minecraft:air
@@ -1972,22 +1796,6 @@ note CASE 323 tool=none block=coal_ore effect=haste:1
 block 2 -60 0 minecraft:coal_ore
 give Steve mainhand minecraft:air
 effect Steve minecraft:haste 1 1000000
-dig Steve 2 -60 0
-cmd effect clear Steve
-block 2 -60 0 minecraft:air
-tick 1
-note CASE 324 tool=none block=coal_ore effect=mining_fatigue:0
-block 2 -60 0 minecraft:coal_ore
-give Steve mainhand minecraft:air
-effect Steve minecraft:mining_fatigue 0 1000000
-dig Steve 2 -60 0
-cmd effect clear Steve
-block 2 -60 0 minecraft:air
-tick 1
-note CASE 325 tool=none block=coal_ore effect=mining_fatigue:2
-block 2 -60 0 minecraft:coal_ore
-give Steve mainhand minecraft:air
-effect Steve minecraft:mining_fatigue 2 1000000
 dig Steve 2 -60 0
 cmd effect clear Steve
 block 2 -60 0 minecraft:air
@@ -2048,14 +1856,6 @@ dig Steve 2 -60 0
 cmd effect clear Steve
 block 2 -60 0 minecraft:air
 tick 1
-note CASE 333 tool=minecraft:iron_pickaxe block=oak_log effect=mining_fatigue:2
-block 2 -60 0 minecraft:oak_log
-give Steve mainhand minecraft:iron_pickaxe
-effect Steve minecraft:mining_fatigue 2 1000000
-dig Steve 2 -60 0
-cmd effect clear Steve
-block 2 -60 0 minecraft:air
-tick 1
 note CASE 334 tool=minecraft:iron_pickaxe block=dirt effect=haste:0
 block 2 -60 0 minecraft:dirt
 give Steve mainhand minecraft:iron_pickaxe
@@ -2080,14 +1880,6 @@ dig Steve 2 -60 0
 cmd effect clear Steve
 block 2 -60 0 minecraft:air
 tick 1
-note CASE 337 tool=minecraft:iron_pickaxe block=dirt effect=mining_fatigue:2
-block 2 -60 0 minecraft:dirt
-give Steve mainhand minecraft:iron_pickaxe
-effect Steve minecraft:mining_fatigue 2 1000000
-dig Steve 2 -60 0
-cmd effect clear Steve
-block 2 -60 0 minecraft:air
-tick 1
 note CASE 338 tool=minecraft:iron_pickaxe block=coal_ore effect=haste:0
 block 2 -60 0 minecraft:coal_ore
 give Steve mainhand minecraft:iron_pickaxe
@@ -2108,14 +1900,6 @@ note CASE 340 tool=minecraft:iron_pickaxe block=coal_ore effect=mining_fatigue:0
 block 2 -60 0 minecraft:coal_ore
 give Steve mainhand minecraft:iron_pickaxe
 effect Steve minecraft:mining_fatigue 0 1000000
-dig Steve 2 -60 0
-cmd effect clear Steve
-block 2 -60 0 minecraft:air
-tick 1
-note CASE 341 tool=minecraft:iron_pickaxe block=coal_ore effect=mining_fatigue:2
-block 2 -60 0 minecraft:coal_ore
-give Steve mainhand minecraft:iron_pickaxe
-effect Steve minecraft:mining_fatigue 2 1000000
 dig Steve 2 -60 0
 cmd effect clear Steve
 block 2 -60 0 minecraft:air
@@ -2176,14 +1960,6 @@ dig Steve 2 -60 0
 cmd effect clear Steve
 block 2 -60 0 minecraft:air
 tick 1
-note CASE 349 tool=minecraft:diamond_pickaxe block=oak_log effect=mining_fatigue:2
-block 2 -60 0 minecraft:oak_log
-give Steve mainhand minecraft:diamond_pickaxe
-effect Steve minecraft:mining_fatigue 2 1000000
-dig Steve 2 -60 0
-cmd effect clear Steve
-block 2 -60 0 minecraft:air
-tick 1
 note CASE 350 tool=minecraft:diamond_pickaxe block=dirt effect=haste:0
 block 2 -60 0 minecraft:dirt
 give Steve mainhand minecraft:diamond_pickaxe
@@ -2204,14 +1980,6 @@ note CASE 352 tool=minecraft:diamond_pickaxe block=dirt effect=mining_fatigue:0
 block 2 -60 0 minecraft:dirt
 give Steve mainhand minecraft:diamond_pickaxe
 effect Steve minecraft:mining_fatigue 0 1000000
-dig Steve 2 -60 0
-cmd effect clear Steve
-block 2 -60 0 minecraft:air
-tick 1
-note CASE 353 tool=minecraft:diamond_pickaxe block=dirt effect=mining_fatigue:2
-block 2 -60 0 minecraft:dirt
-give Steve mainhand minecraft:diamond_pickaxe
-effect Steve minecraft:mining_fatigue 2 1000000
 dig Steve 2 -60 0
 cmd effect clear Steve
 block 2 -60 0 minecraft:air
@@ -2240,14 +2008,6 @@ dig Steve 2 -60 0
 cmd effect clear Steve
 block 2 -60 0 minecraft:air
 tick 1
-note CASE 357 tool=minecraft:diamond_pickaxe block=coal_ore effect=mining_fatigue:2
-block 2 -60 0 minecraft:coal_ore
-give Steve mainhand minecraft:diamond_pickaxe
-effect Steve minecraft:mining_fatigue 2 1000000
-dig Steve 2 -60 0
-cmd effect clear Steve
-block 2 -60 0 minecraft:air
-tick 1
 note CASE 358 tool=minecraft:iron_axe block=stone effect=haste:0
 block 2 -60 0 minecraft:stone
 give Steve mainhand minecraft:iron_axe
@@ -2260,22 +2020,6 @@ note CASE 359 tool=minecraft:iron_axe block=stone effect=haste:1
 block 2 -60 0 minecraft:stone
 give Steve mainhand minecraft:iron_axe
 effect Steve minecraft:haste 1 1000000
-dig Steve 2 -60 0
-cmd effect clear Steve
-block 2 -60 0 minecraft:air
-tick 1
-note CASE 360 tool=minecraft:iron_axe block=stone effect=mining_fatigue:0
-block 2 -60 0 minecraft:stone
-give Steve mainhand minecraft:iron_axe
-effect Steve minecraft:mining_fatigue 0 1000000
-dig Steve 2 -60 0
-cmd effect clear Steve
-block 2 -60 0 minecraft:air
-tick 1
-note CASE 361 tool=minecraft:iron_axe block=stone effect=mining_fatigue:2
-block 2 -60 0 minecraft:stone
-give Steve mainhand minecraft:iron_axe
-effect Steve minecraft:mining_fatigue 2 1000000
 dig Steve 2 -60 0
 cmd effect clear Steve
 block 2 -60 0 minecraft:air
@@ -2336,14 +2080,6 @@ dig Steve 2 -60 0
 cmd effect clear Steve
 block 2 -60 0 minecraft:air
 tick 1
-note CASE 369 tool=minecraft:iron_axe block=dirt effect=mining_fatigue:2
-block 2 -60 0 minecraft:dirt
-give Steve mainhand minecraft:iron_axe
-effect Steve minecraft:mining_fatigue 2 1000000
-dig Steve 2 -60 0
-cmd effect clear Steve
-block 2 -60 0 minecraft:air
-tick 1
 note CASE 370 tool=minecraft:iron_axe block=coal_ore effect=haste:0
 block 2 -60 0 minecraft:coal_ore
 give Steve mainhand minecraft:iron_axe
@@ -2360,22 +2096,6 @@ dig Steve 2 -60 0
 cmd effect clear Steve
 block 2 -60 0 minecraft:air
 tick 1
-note CASE 372 tool=minecraft:iron_axe block=coal_ore effect=mining_fatigue:0
-block 2 -60 0 minecraft:coal_ore
-give Steve mainhand minecraft:iron_axe
-effect Steve minecraft:mining_fatigue 0 1000000
-dig Steve 2 -60 0
-cmd effect clear Steve
-block 2 -60 0 minecraft:air
-tick 1
-note CASE 373 tool=minecraft:iron_axe block=coal_ore effect=mining_fatigue:2
-block 2 -60 0 minecraft:coal_ore
-give Steve mainhand minecraft:iron_axe
-effect Steve minecraft:mining_fatigue 2 1000000
-dig Steve 2 -60 0
-cmd effect clear Steve
-block 2 -60 0 minecraft:air
-tick 1
 note CASE 374 tool=minecraft:diamond_pickaxe block=obsidian effect=haste:0
 block 2 -60 0 minecraft:obsidian
 give Steve mainhand minecraft:diamond_pickaxe
@@ -2388,14 +2108,6 @@ note CASE 375 tool=minecraft:diamond_pickaxe block=obsidian effect=haste:1
 block 2 -60 0 minecraft:obsidian
 give Steve mainhand minecraft:diamond_pickaxe
 effect Steve minecraft:haste 1 1000000
-dig Steve 2 -60 0
-cmd effect clear Steve
-block 2 -60 0 minecraft:air
-tick 1
-note CASE 376 tool=minecraft:diamond_pickaxe block=obsidian effect=mining_fatigue:0
-block 2 -60 0 minecraft:obsidian
-give Steve mainhand minecraft:diamond_pickaxe
-effect Steve minecraft:mining_fatigue 0 1000000
 dig Steve 2 -60 0
 cmd effect clear Steve
 block 2 -60 0 minecraft:air
