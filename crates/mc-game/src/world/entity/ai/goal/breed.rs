@@ -16,7 +16,8 @@ enum PartnerClass {
 
 pub struct BreedGoal {
     partner_class: PartnerClass,
-    partner: Option<EntityId>,
+    /// `partner` (protected).
+    pub partner: Option<EntityId>,
     love_time: i32,
     speed_modifier: f64,
     partner_targeting: TargetingConditions,
@@ -94,6 +95,17 @@ impl Goal for BreedGoal {
     }
 
     fn tick(&mut self, animal: &mut dyn Entity, level: &mut ServerLevel) {
+        self.tick_with(animal, level, &mut |a, l, partner| animal::spawn_child_from_breeding(a, l, partner));
+    }
+
+    fn flags(&self) -> GoalFlags {
+        GoalFlags::of(&[Flag::Move, Flag::Look])
+    }
+}
+
+impl BreedGoal {
+    /// `tick()` with `breed()` supplied by the subclass (`FoxBreedGoal`, `PandaBreedGoal`, `TurtleBreedGoal`).
+    pub fn tick_with(&mut self, animal: &mut dyn Entity, level: &mut ServerLevel, breed: &mut dyn FnMut(&mut dyn Entity, &mut ServerLevel, EntityId)) {
         let Some(partner_id) = self.partner else { return };
         let max_head_x_rot = animal.get_max_head_x_rot() as f32;
         let Some(partner_pos) = level.get_entity(partner_id).map(|p| p.block_position()) else { return };
@@ -104,18 +116,7 @@ impl Goal for BreedGoal {
         self.love_time += 1;
         let close = level.get_entity(partner_id).is_some_and(|p| animal.base().distance_to_sqr_vec(p.position()) < 9.0);
         if self.love_time >= self.adjusted_tick_delay(60) && close {
-            self.breed(animal, level, partner_id);
+            breed(animal, level, partner_id);
         }
-    }
-
-    fn flags(&self) -> GoalFlags {
-        GoalFlags::of(&[Flag::Move, Flag::Look])
-    }
-}
-
-impl BreedGoal {
-    /// `breed()`.
-    fn breed(&mut self, animal: &mut dyn Entity, level: &mut ServerLevel, partner: EntityId) {
-        animal::spawn_child_from_breeding(animal, level, partner);
     }
 }

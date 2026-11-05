@@ -172,3 +172,9 @@ fn remove_all_goals_stops_running_matches() {
 fn reduced_tick_delay_is_ceil_half() {
     assert_eq!((reduced_tick_delay(1), reduced_tick_delay(10), reduced_tick_delay(61)), (1, 5, 31));
 }
+
+#[test]
+fn jump_goal_flags_are_move_and_jump() {
+    assert_eq!(JUMP_GOAL_FLAGS, GoalFlags::of(&[Flag::Move, Flag::Jump]));
+    assert!(!JUMP_GOAL_FLAGS.contains(Flag::Look));
+}

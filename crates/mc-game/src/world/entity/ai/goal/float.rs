@@ -24,6 +24,18 @@ impl FloatGoal {
     }
 }
 
+impl FloatGoal {
+    /// `fluid` (protected): the tag name.
+    pub fn fluid(&self) -> &'static str {
+        self.fluid
+    }
+
+    /// `canUse()` with another fluid depth threshold (`FoxFloatGoal`: `isInFluidDeeperThan(0.25, fluid) || isInLava()`).
+    pub fn can_use_with_threshold(&self, mob: &dyn Entity, threshold: f64) -> bool {
+        mob.get_fluid_height(self.fluid) > threshold || mob.is_in_lava()
+    }
+}
+
 impl Goal for FloatGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) -> bool {
         mob.get_fluid_height(self.fluid) > mob.get_fluid_jump_threshold() || mob.is_in_lava()
