@@ -210,6 +210,9 @@ macro_rules! rail_behaviour {
             update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
                 super::base_rail_block::update_shape(state, level, pos)
             });
+            fn get_state_for_placement(&self, block: Block, level: &mut crate::server::level::ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+                Some(super::base_rail_block::get_state_for_placement(block, &*level, context))
+            }
             fn on_place(&self, state: BlockState, level: &mut crate::server::level::ServerLevel, pos: BlockPos, old_state: BlockState, moved_by_piston: bool) {
                 $on_place(state, level, pos, old_state, moved_by_piston);
             }
