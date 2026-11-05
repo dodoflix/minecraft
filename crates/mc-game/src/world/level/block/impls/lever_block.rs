@@ -2,7 +2,7 @@
 use super::face_attached_horizontal_directional_block::{self as face_attached, get_connected_direction};
 use super::prelude::*;
 use crate::server::level::ServerLevel;
-use crate::world::entity::{Entity as _, EntityId, ServerPlayer};
+use crate::world::entity::{EntityId, ServerPlayer};
 use crate::world::item::InteractionResult;
 use crate::world::level::gameevent::GameEventContext;
 use mc_data::GameEvent;

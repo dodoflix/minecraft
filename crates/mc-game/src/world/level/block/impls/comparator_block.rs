@@ -5,7 +5,6 @@ use crate::server::level::ServerLevel;
 use crate::world::block_entity::ComparatorBlockEntity;
 use crate::world::entity::Entity as _;
 use crate::world::item::InteractionResult;
-use crate::world::level::signal_getter;
 use mc_data::enums::ComparatorMode;
 use mc_protocol::packets::play::level::SoundSource;
 use mc_world::ticks::TickPriority;
