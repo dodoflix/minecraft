@@ -1,0 +1,24 @@
+# Level.explode vs non-player entities: items (ItemEntity.ignoreExplosion / hurt), experience orbs, falling blocks, primed TNT (position
+# based knockback) at several distances: damage (health), knockback (getSeenPercent, 1 - dist), block drops. All entities stay airborne.
+level flat
+difficulty normal
+level_seed 33
+spawn_item i1 minecraft:diamond 17.5 -57 0.5 0 0 0
+spawn_item i2 minecraft:stone 18.5 -58 3.5 0.1 0.2 0 5
+spawn_item i3 minecraft:diamond 5.0 -58 -2 0 0 0
+spawn_item i4 minecraft:diamond 13 -58 0.5 0 0 0
+spawn o1 minecraft:experience_orb 17 -58 2.5 0 0 {Value:7}
+spawn o2 minecraft:experience_orb 12.5 -58 1.5 0 0 {Value:3}
+spawn f1 minecraft:falling_block 14.5 -58 -3.5 0 0 {BlockState:{Name:"minecraft:sand"},Time:1,DropItem:0b}
+spawn t1 minecraft:tnt 8.5 -58 1.5 0 0 {fuse:30}
+spawn t2 minecraft:tnt 11.5 -58 -0.5 0 0 {fuse:30}
+watch entities
+tick 1
+note explosion
+explode 12 -59.5 0.5 4 tnt
+tick 4
+note second explosion, with fire
+explode 15 -59.5 -2 3 fire block
+tick 3
+watch off
+dump blocks:4,-62,-8,20,-56,8

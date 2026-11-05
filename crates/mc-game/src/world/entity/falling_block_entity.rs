@@ -115,6 +115,16 @@ impl FallingBlockEntity {
         self.fall_damage_max = damage_max;
     }
 
+    /// `hurtEntities`.
+    pub fn hurts_entities(&self) -> bool {
+        self.hurt_entities
+    }
+
+    /// `cancelDrop`.
+    pub fn is_drop_cancelled(&self) -> bool {
+        self.cancel_drop
+    }
+
     /// `disableDrop()`.
     pub fn disable_drop(&mut self) {
         self.cancel_drop = true;

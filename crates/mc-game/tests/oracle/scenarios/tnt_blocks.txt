@@ -1,0 +1,23 @@
+# TntBlock: ignition by a neighbouring power source (onPlace/neighborChanged -> prime), TNT blocks hit by an explosion becoming primed TNT
+# with a short random fuse (wasExploded, level RNG order), chains, drops (TNT never drops), unstable blocks.
+level flat
+difficulty normal
+level_seed 91
+block 8 -60 0 minecraft:stone
+block 9 -60 0 minecraft:tnt
+block 10 -60 0 minecraft:tnt
+block 11 -60 0 minecraft:tnt
+block 11 -60 1 minecraft:tnt[unstable=true]
+block 12 -60 1 minecraft:tnt
+block 13 -60 -2 minecraft:tnt
+block 14 -60 -2 minecraft:dirt
+block 14 -59 -2 minecraft:tnt
+note a powered lever next to a TNT block primes it (fuse 80, random sideways kick)
+block 13 -60 -3 minecraft:lever[face=floor,facing=north,powered=true]
+watch entities
+tick 25
+note explosion at the row of TNT blocks
+explode 9.5 -60 -1.5 2.5 tnt
+tick 60
+watch off
+dump blocks:4,-62,-8,20,-56,8

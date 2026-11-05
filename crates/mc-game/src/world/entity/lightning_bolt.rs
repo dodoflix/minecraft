@@ -90,6 +90,14 @@ impl LightningBolt {
         self.blocks_set_on_fire
     }
 
+    pub fn life(&self) -> i32 {
+        self.life
+    }
+
+    pub fn flashes(&self) -> i32 {
+        self.flashes
+    }
+
     /// `getHitEntities()` filtered to the living-in-level ones.
     pub fn get_hit_entities(&self, level: &ServerLevel) -> Vec<EntityId> {
         self.hit_entities.iter().copied().filter(|id| level.get_entity(*id).is_some_and(|e| e.is_alive())).collect()

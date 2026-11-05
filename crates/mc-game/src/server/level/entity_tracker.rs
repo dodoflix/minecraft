@@ -56,6 +56,15 @@ impl<'a> Entities<'a> {
         Self { manager, extra: Some(extra) }
     }
 
+    /// The id of the entity with `uuid` (also the one taken out of the manager): `EntityReference.getEntity` for the owner of a
+    /// projectile whose reference came from NBT, what `Projectile.getAddEntityPacket` writes as the packet data.
+    fn id_by_uuid(&self, uuid: uuid::Uuid) -> Option<EntityId> {
+        match &self.extra {
+            Some(e) if e.uuid() == uuid => Some(e.id()),
+            _ => self.manager.id_by_uuid(uuid),
+        }
+    }
+
     fn get_any(&self, id: EntityId) -> Option<&dyn Entity> {
         match &self.extra {
             Some(e) if e.id() == id => Some(&**e),
@@ -188,6 +197,16 @@ impl TrackedEntity {
 
     /// `ServerEntity.addPairing(player)`.
     fn add_pairing(&mut self, entities: &mut Entities<'_>, player: &TrackerPlayer) {
+        let owner_id = entities
+            .get_any(self.entity_id)
+            .and_then(|e| e.as_projectile())
+            .and_then(|p| p.projectile_data().owner)
+            .map(|owner| entities.id_by_uuid(owner));
+        if let Some(owner_id) = owner_id
+            && let Some(projectile) = entities.get_any_mut(self.entity_id).and_then(|e| e.as_projectile_mut())
+        {
+            projectile.projectile_data_mut().owner_id = owner_id;
+        }
         let vehicle = entities
             .get_any(self.entity_id)
             .and_then(|e| e.base().vehicle)

@@ -192,7 +192,7 @@ fn change_item_damage(level: &mut ServerLevel, actors: &mut Actors<'_>, item: &m
 }
 
 /// The `DamageType` behind a holder (`Holder.value()`), shared into a `DamageSource`.
-fn damage_type_of(level: &ServerLevel, holder: &Holder<DamageType>) -> Option<(mc_core::ident::Identifier, std::sync::Arc<DamageType>)> {
+pub(super) fn damage_type_of(level: &ServerLevel, holder: &Holder<DamageType>) -> Option<(mc_core::ident::Identifier, std::sync::Arc<DamageType>)> {
     match holder {
         Holder::Reference(id) => level.registries.get::<DamageType>("minecraft:damage_type", id).map(|d| (id.clone(), std::sync::Arc::new(d.clone()))),
         // an inline definition has no registry key; vanilla's `DamageSource` keeps the holder itself

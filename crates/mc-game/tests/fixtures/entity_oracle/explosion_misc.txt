@@ -1,0 +1,542 @@
+T 1
+E i1 minecraft:item pos=17.5,-57.04,0.5 delta=0.0,-0.03920000076293945,0.0 rot=66.45862,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=1 pickup=0 health=5 owner=- thrower=-
+E i2 minecraft:item pos=18.6,-57.84,3.5 delta=0.09800000190734864,0.1568000030517578,0.0 rot=118.68753,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=1 pickup=0 health=5 owner=- thrower=-
+E i3 minecraft:item pos=5.0,-58.04,-2.0 delta=0.0,-0.03920000076293945,0.0 rot=76.97367,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=1 pickup=0 health=5 owner=- thrower=-
+E i4 minecraft:item pos=13.0,-58.04,0.5 delta=0.0,-0.03920000076293945,0.0 rot=60.942085,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=1 pickup=0 health=5 owner=- thrower=-
+E o1 minecraft:experience_orb pos=17.0,-58.03,2.5 delta=0.0,-0.02940000057220459,0.0 rot=0.0,0.0 og=0 fall=0.029999999329447746 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=1 health=5
+E o2 minecraft:experience_orb pos=12.5,-58.03,1.5 delta=0.0,-0.02940000057220459,0.0 rot=0.0,0.0 og=0 fall=0.029999999329447746 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=1 health=5
+E f1 minecraft:falling_block pos=14.5,-58.04,-3.5 delta=0.0,-0.03920000076293945,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing state=minecraft:sand time=2 hurt=false cancel=false drop=false
+E t1 minecraft:tnt pos=8.5,-58.04,1.5 delta=0.0,-0.03920000076293945,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing fuse=29
+E t2 minecraft:tnt pos=11.5,-58.04,-0.5 delta=0.0,-0.03920000076293945,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing fuse=29
+# explosion
+T 2
+E i2 minecraft:item pos=18.759982281188147,-57.705614872959956,3.5281737633094536 delta=0.1567826386158034,0.1316974270624431,0.027610288580636376 rot=118.68753,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=2 pickup=0 health=1 owner=- thrower=-
+E i3 minecraft:item pos=4.95119769147752,-58.10753973486369,-2.0174293959008858 delta=-0.04782626328286019,-0.06618894145463645,-0.01708080831530721 rot=76.97367,0.0 og=0 fall=0.10753973573446274 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=2 pickup=0 health=2 owner=- thrower=-
+E f1 minecraft:falling_block pos=14.68245640623771,-57.9518509802984,-3.7919302499803362 delta=0.17880728159303563,0.08638604098887238,-0.28609165054885705 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing state=minecraft:sand time=3 hurt=false cancel=false drop=false
+E t1 minecraft:tnt pos=8.045084124079622,-57.929435092521864,1.6299759645486795 delta=-0.4458175670788027,0.10835361143742843,0.1273764477368008 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing fuse=28
+E t2 minecraft:tnt pos=11.290600200757687,-57.507752586975386,-0.9187995984846269 delta=-0.20521180725145138,0.5216024749159375,-0.41042361450290277 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing fuse=28
+E item#1 minecraft:item pos=14.304524892459806,-61.64043937644575,1.5448526049364413 delta=0.03680310371264187,0.1568000030517578,0.08541662366379661 rot=161.75006,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=1 pickup=9 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=10.642303898097685,-62.603467482978154,0.7335502811760926 delta=0.022861465080300958,0.1568000030517578,0.007042763361759458 rot=130.78447,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=1 pickup=9 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=12.334884776895326,-62.334042843550066,-1.6518213976402012 delta=-0.0523162977203329,0.1568000030517578,-0.050906587443405184 rot=296.35114,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=1 pickup=9 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=14.748141643436911,-60.542415085217996,0.601045206703354 delta=0.04918545049354863,0.1568000030517578,-0.004328834076753626 rot=352.70352,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=1 pickup=9 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=11.474567601753275,-62.40372919981592,2.3431775506332793 delta=0.024112032847585115,0.1568000030517578,-0.07458451341854498 rot=292.56754,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=1 pickup=9 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=12.571189764802607,-61.5081303368204,-2.3087437912887583 delta=-0.07716028426916988,0.1568000030517578,-0.030221462506288318 rot=152.54851,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=1 pickup=9 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=13.465322674362342,-61.4228982861968,1.5034093566451983 delta=0.025720295370659077,0.1568000030517578,0.008565511535394076 rot=92.98592,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=1 pickup=9 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=12.640236933602083,-61.65323225853299,1.6824854238991584 delta=-0.04095472130699907,0.1568000030517578,-0.010424358533209006 rot=17.428951,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*2 age=1 pickup=9 health=5 owner=- thrower=-
+T 3
+E i2 minecraft:item pos=18.91676491980395,-57.61391744589751,3.55578405189009 delta=0.15364698883387887,0.08986348027018386,0.02705808333564811 rot=118.68753,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=3 pickup=0 health=1 owner=- thrower=-
+E i3 minecraft:item pos=4.90337142819466,-58.21372867631833,-2.034510204216193 delta=-0.046869738929416566,-0.10406516465093704,-0.01673919247479163 rot=76.97367,0.0 og=0 fall=0.2137286737561226 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=3 pickup=0 health=2 owner=- thrower=-
+E f1 minecraft:falling_block pos=14.861263687830746,-57.90546493930953,-4.078021900529193 delta=0.17523113937165316,0.04545832105383846,-0.2803698229946451 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing state=minecraft:sand time=4 hurt=false cancel=false drop=false
+E t1 minecraft:tnt pos=7.59926655700082,-57.86108148108443,1.7573524122854804 delta=-0.4369012242405219,0.06698654051242153,0.12482892121157771 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing fuse=27
+E t2 minecraft:tnt pos=11.085388393506236,-57.02615011205945,-1.3292232129875297 delta=-0.20110757502052695,0.47197043460345695,-0.4022151500410539 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing fuse=27
+E item#1 minecraft:item pos=14.341327996172447,-61.52363937339399,1.6302692286002378 delta=0.03606704234035253,0.11446400521850592,0.08370829281971348 rot=161.75006,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=2 pickup=8 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=10.665165363177985,-62.486667479926396,0.740593044537852 delta=0.02240423621474278,0.11446400521850592,0.006901908228854319 rot=130.78447,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=2 pickup=8 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=12.282568479174993,-62.21724284049831,-1.7027279850836063 delta=-0.05126997276378043,0.11446400521850592,-0.04988845666550318 rot=296.35114,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=2 pickup=8 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=14.797327093930459,-60.42561508216624,0.5967163726266004 delta=0.04820174242181568,0.11446400521850592,-0.004242257477784511 rot=352.70352,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=2 pickup=8 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=11.49867963460086,-62.28692919676416,2.2685930372147345 delta=0.023629792650533943,0.11446400521850592,-0.07309282457276078 rot=292.56754,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=2 pickup=8 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=12.494029480533438,-61.39133033376864,-2.3389652537950467 delta=-0.0756170800555021,0.11446400521850592,-0.029617033832591202 rot=152.54851,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=2 pickup=8 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=13.491042969733002,-61.30609828314504,1.5119748681805922 delta=0.025205889953821597,0.11446400521850592,0.008394201468060362 rot=92.98592,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=2 pickup=8 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=12.599282212295083,-61.53643225548123,1.6720610653659493 delta=-0.04013562766200841,0.11446400521850592,-0.010215871561373687 rot=17.428951,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*2 age=2 pickup=8 health=5 owner=- thrower=-
+T 4
+E i2 minecraft:item pos=19.070411908637826,-57.56405396562733,3.582842135225738 delta=0.15057405198778503,0.048866211615850585,0.02651692218502713 rot=118.68753,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=4 pickup=0 health=1 owner=- thrower=-
+E i3 minecraft:item pos=4.856501689265244,-58.35779384096927,-2.0512493966909844 delta=-0.04593234504479756,-0.14118386410574327,-0.016404408944570556 rot=76.97367,0.0 og=0 fall=0.3577938452363014 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=4 pickup=0 health=2 owner=- thrower=-
+E f1 minecraft:falling_block pos=15.0364948272024,-57.900006618255695,-4.358391723523838 delta=0.17172651992648885,0.005349154736870899,-0.27476243188238214 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing state=minecraft:sand time=5 hurt=false cancel=false drop=false
+E t1 minecraft:tnt pos=7.162365332760298,-57.83409494057201,1.882181333497058 delta=-0.428163208088941,0.026446810216900513,0.12233234516826888 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing fuse=26
+E t2 minecraft:tnt pos=10.884280818485708,-56.59417967745599,-1.7314383630285834 delta=-0.197085427355939,0.42333103415057,-0.394170854711878 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing fuse=26
+E item#1 minecraft:item pos=14.3773950385128,-61.44917536817548,1.7139775214199513 delta=0.03534570218146972,0.07297472653442398,0.08203412855992818 rot=161.75006,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=3 pickup=7 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=10.687569599392729,-62.41220347470789,0.7474949527667063 delta=0.021956151917774818,0.07297472653442398,0.006763870195920685 rot=130.78447,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=3 pickup=7 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=12.231298506411212,-62.1427788352798,-1.7526164417491095 delta=-0.05024457428640195,0.07297472653442398,-0.04889068848373991 rot=296.35114,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=3 pickup=7 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=14.845528836352274,-60.35115107694773,0.5924741151488159 delta=0.04723770849275464,0.07297472653442398,-0.0041574124091434605 rot=352.70352,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=3 pickup=7 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=11.522309427251393,-62.212465191545654,2.195500212641974 delta=0.02315719724822579,0.07297472653442398,-0.07163096947544056 rot=292.56754,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=3 pickup=7 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=12.418412400477935,-61.316866328550134,-2.368582287627638 delta=-0.0741047398966734,0.07297472653442398,-0.02902469372083947 rot=152.54851,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=3 pickup=7 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=13.516248859686824,-61.23163427792653,1.5203690696486527 delta=0.02470177263550936,0.07297472653442398,0.008226317598805842 rot=92.98592,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=3 pickup=7 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=12.559146584633075,-61.46196825026272,1.6618451938045757 delta=-0.039332915874294584,0.07297472653442398,-0.0100115543249985 rot=17.428951,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*2 age=3 pickup=7 health=5 owner=- thrower=-
+T 5
+E i2 minecraft:item pos=19.22098596062561,-57.55518775401148,3.609359057410765 delta=0.14756257382000146,0.008688887552643139,0.025986584247096742 rot=118.68753,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=5 pickup=0 health=1 owner=- thrower=-
+E i3 minecraft:item pos=4.810569344220446,-58.53897770507501,-2.067653805635555 delta=-0.04501369901999157,-0.17756019027943637,-0.016076321078568413 rot=76.97367,0.0 og=0 fall=0.5389777049422264 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=5 pickup=0 health=2 owner=- thrower=-
+E f1 minecraft:falling_block pos=15.20822134712889,-57.934657463518825,-4.6331541554062206 delta=0.1682919928033825,-0.033957829018778946,-0.269267188485412 rot=0.0,0.0 og=0 fall=0.0746508426964283 fire=0 air=300 alive=1 pose=standing state=minecraft:sand time=6 hurt=false cancel=false drop=false
+E t1 minecraft:tnt pos=6.734202124671357,-57.84764813035511,2.004513678665327 delta=-0.41959995209372725,-0.01328212624594408,0.11988570059820781 rot=0.0,0.0 og=0 fall=0.053553189150989056 fire=0 air=300 alive=1 pose=standing fuse=25
+E t2 minecraft:tnt pos=10.68719539112977,-56.21084864330542,-2.1256092177404615 delta=-0.19314372256792645,0.37566442077901785,-0.3862874451358529 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing fuse=25
+E item#1 minecraft:item pos=14.41274074069427,-61.416200641641055,1.7960116499798795 delta=0.03463878881200609,0.0323152326326785,0.08039344755340645 rot=161.75006,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=4 pickup=6 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=10.709525751310505,-62.37922874817346,0.754258822962627 delta=0.021517029298199684,0.0323152326326785,0.006628592921012857 rot=130.78447,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=4 pickup=6 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=12.18105393212481,-62.10980410874537,-1.8015071302328494 delta=-0.049239683759013116,0.0323152326326785,-0.04791287564658099 rot=296.35114,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=4 pickup=6 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=14.89276654484503,-60.3181763504133,0.5883167027396724 delta=0.046292955223887336,0.0323152326326785,-0.00407426424025694 rot=352.70352,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=4 pickup=6 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=11.54546662449962,-62.17949046501123,2.123869243166533 delta=0.02269405374494976,0.0323152326326785,-0.07019835145218407 rot=292.56754,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=4 pickup=6 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=12.344307660581261,-61.28389160201571,-2.3976069813484777 delta=-0.07262264651217568,0.0323152326326785,-0.028444200400024777 rot=152.54851,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=4 pickup=6 health=5 owner=- thrower=-
+E item#7 minecraft:item pos=13.540950632322334,-61.198659551392105,1.5285953872474585 delta=0.024207737653948097,0.0323152326326785,0.00806179140373428 rot=92.98592,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=4 pickup=6 health=5 owner=- thrower=-
+E item#8 minecraft:item pos=12.519813668758779,-61.428993523728295,1.6518336394795772 delta=-0.038546258307024524,0.0323152326326785,-0.009811323429453773 rot=17.428951,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*2 age=4 pickup=6 health=5 owner=- thrower=-
+# second explosion, with fire
+T 6
+E i2 minecraft:item pos=19.368548534445612,-57.58649886645883,3.6353456416578616 delta=0.14461132515813416,-0.0306848907956218,0.025466853057809567 rot=118.68753,0.0 og=0 fall=0.03131111338734627 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=6 pickup=0 health=1 owner=- thrower=-
+E i3 minecraft:item pos=4.765555645200455,-58.75653789535445,-2.0837301267141237 delta=-0.04411342589815991,-0.21320899062347898,-0.015754794963628534 rot=76.97367,0.0 og=0 fall=0.7565378919243813 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=6 pickup=0 health=2 owner=- thrower=-
+E f1 minecraft:falling_block pos=15.405009851314109,-57.680385751467085,-5.262786447634909 delta=0.1928527378549588,0.24918628266055026,-0.6170396583933979 rot=0.0,0.0 og=0 fall=0.0746508426964283 fire=0 air=300 alive=1 pose=standing state=minecraft:sand time=7 hurt=false cancel=false drop=false
+E t1 minecraft:tnt pos=6.314602172577629,-57.90093025660106,2.1243993792635347 delta=-0.41120796105508667,-0.05221648473730111,0.11748798887288193 rot=0.0,0.0 og=0 fall=0.1068353159353137 fire=0 air=300 alive=1 pose=standing fuse=24
+E t2 minecraft:tnt pos=10.417918795220372,-55.81712164692881,-2.5141140113379365 delta=-0.2638910691272535,0.3858524639588212,-0.38073470513566654 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing fuse=24
+E item#2 minecraft:item pos=10.713054389070534,-62.398094135202044,0.7724350172053459 delta=0.003458065072131959,-0.018488079647836973,0.017812670704547912 rot=130.78447,0.0 og=0 fall=0.01886538788676262 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=5 pickup=5 health=3 owner=- thrower=-
+E item#5 minecraft:item pos=11.568160678244569,-62.18717523237855,2.053670891714349 delta=0.022240173102905488,-0.0075310721665503766,-0.06879438576206769 rot=292.56754,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=5 pickup=5 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=15.664168279771031,-61.55821596645609,-2.37380067516412 delta=-0.019764838438205114,0.1568000030517578,0.08120439323991503 rot=335.26727,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*14 age=1 pickup=9 health=5 owner=- thrower=-
+T 7
+E i2 minecraft:item pos=19.513159859603746,-57.65718375725445,3.660812494715671 delta=0.14171910141321362,-0.06927119432791666,0.02495751648239505 rot=118.68753,0.0 og=0 fall=0.10199600085616112 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=7 pickup=0 health=1 owner=- thrower=-
+E i3 minecraft:item pos=4.721442219302295,-59.009746885977926,-2.0994849216777522 delta=-0.04323115822159354,-0.2481448156405876,-0.01543969936485483 rot=76.97367,0.0 og=0 fall=1.0097468867897987 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=7 pickup=0 health=2 owner=- thrower=-
+E f1 minecraft:falling_block pos=15.597862589169068,-57.47119946880653,-5.879826106028307 delta=0.18899568677623368,0.20500256099725095,-0.6046988769946274 rot=0.0,0.0 og=0 fall=0.0746508426964283 fire=0 air=300 alive=1 pose=standing state=minecraft:sand time=8 hurt=false cancel=false drop=false
+E t1 minecraft:tnt pos=5.903394211522543,-57.99314674133836,2.2418873681364166 delta=-0.40298380967715436,-0.09037215680144495,0.11513823133632985 rot=0.0,0.0 og=0 fall=0.19905180018395185 fire=0 air=300 alive=1 pose=standing fuse=23
+E t2 minecraft:tnt pos=10.154027726093117,-55.47126918296999,-2.894848716473603 delta=-0.25861325277803116,0.3389354212762571,-0.3731200182948914 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing fuse=23
+E item#2 minecraft:item pos=10.716512454142666,-62.45658221484988,0.7902476879098939 delta=0.003388903836646677,-0.057318319170451826,0.017456417630206684 rot=130.78447,0.0 og=0 fall=0.07735346630215645 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=6 pickup=4 health=3 owner=- thrower=-
+E item#5 minecraft:item pos=11.590400851347475,-62.2347063045451,1.9848765059522813 delta=0.021795370065045016,-0.04658045162980263,-0.0674184993589751 rot=292.56754,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=6 pickup=4 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=15.644403441332827,-61.44141596340433,-2.292596281924205 delta=-0.019369542046425388,0.11446400521850592,0.07958030692396761 rot=335.26727,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*14 age=2 pickup=8 health=5 owner=- thrower=-
+T 8
+E i2 minecraft:item pos=19.65487896101696,-57.76645495158237,3.6857700111980662 delta=0.13888472208802669,-0.10708577252554095,0.024458366628773997 rot=118.68753,0.0 og=0 fall=0.21126719191670418 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*5 age=8 pickup=0 health=1 owner=- thrower=-
+E i3 minecraft:item pos=4.6782110610807015,-59.29789170161851,-2.114924621042607 delta=-0.042366535881730574,-0.28238192482370206,-0.015130905672046628 rot=76.97367,0.0 og=0 fall=1.2978917136788368 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=8 pickup=0 health=2 owner=- thrower=-
+E f1 minecraft:falling_block pos=15.786858275945303,-57.30619690780928,-6.484524983022934 delta=0.18521577664551567,0.16170251292448,-0.5926049109884507 rot=0.0,0.0 og=0 fall=0.0746508426964283 fire=0 air=300 alive=1 pose=standing state=minecraft:sand time=9 hurt=false cancel=false drop=false
+E t1 minecraft:tnt pos=5.5004104018453885,-58.1235188981398,2.3570255994727467 delta=-0.3949241411699175,-0.1277647161520676,0.11283546890569073 rot=0.0,0.0 og=0 fall=0.3294239519163966 fire=0 air=300 alive=1 pose=standing fuse=22
+E t2 minecraft:tnt pos=9.895414473315086,-55.172333761693736,-3.2679687347684947 delta=-0.2534409926551269,0.29295671855247263,-0.3656576250456931 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing fuse=22
+E item#2 minecraft:item pos=10.719901357979314,-62.553900534020336,0.8077041055401005 delta=0.0033211258245519544,-0.09537195464324243,0.017107289610557293 rot=130.78447,0.0 og=0 fall=0.17467178776860237 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=7 pickup=3 health=3 owner=- thrower=-
+E item#5 minecraft:item pos=11.61219622141252,-62.3212867561749,1.9174580065933062 delta=0.021359463079457807,-0.08484884424859764,-0.06607013065770143 rot=292.56754,0.0 og=0 fall=0.1417962945997715 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=7 pickup=3 health=5 owner=- thrower=-
+E item#9 minecraft:item pos=15.625033899286402,-61.36695195818582,-2.2130159750002374 delta=-0.018982151574941576,0.07297472653442398,0.07798870230336216 rot=335.26727,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*14 age=3 pickup=7 health=5 owner=- thrower=-
+B 4 -62 -8 minecraft:dirt
+B 4 -62 -7 minecraft:dirt
+B 4 -62 -6 minecraft:dirt
+B 4 -62 -5 minecraft:dirt
+B 4 -62 -4 minecraft:dirt
+B 4 -62 -3 minecraft:dirt
+B 4 -62 -2 minecraft:dirt
+B 4 -62 -1 minecraft:dirt
+B 4 -62 0 minecraft:dirt
+B 4 -62 1 minecraft:dirt
+B 4 -62 2 minecraft:dirt
+B 4 -62 3 minecraft:dirt
+B 4 -62 4 minecraft:dirt
+B 4 -62 5 minecraft:dirt
+B 4 -62 6 minecraft:dirt
+B 4 -62 7 minecraft:dirt
+B 4 -62 8 minecraft:dirt
+B 4 -61 -8 minecraft:grass_block[snowy=false]
+B 4 -61 -7 minecraft:grass_block[snowy=false]
+B 4 -61 -6 minecraft:grass_block[snowy=false]
+B 4 -61 -5 minecraft:grass_block[snowy=false]
+B 4 -61 -4 minecraft:grass_block[snowy=false]
+B 4 -61 -3 minecraft:grass_block[snowy=false]
+B 4 -61 -2 minecraft:grass_block[snowy=false]
+B 4 -61 -1 minecraft:grass_block[snowy=false]
+B 4 -61 0 minecraft:grass_block[snowy=false]
+B 4 -61 1 minecraft:grass_block[snowy=false]
+B 4 -61 2 minecraft:grass_block[snowy=false]
+B 4 -61 3 minecraft:grass_block[snowy=false]
+B 4 -61 4 minecraft:grass_block[snowy=false]
+B 4 -61 5 minecraft:grass_block[snowy=false]
+B 4 -61 6 minecraft:grass_block[snowy=false]
+B 4 -61 7 minecraft:grass_block[snowy=false]
+B 4 -61 8 minecraft:grass_block[snowy=false]
+B 5 -62 -8 minecraft:dirt
+B 5 -62 -7 minecraft:dirt
+B 5 -62 -6 minecraft:dirt
+B 5 -62 -5 minecraft:dirt
+B 5 -62 -4 minecraft:dirt
+B 5 -62 -3 minecraft:dirt
+B 5 -62 -2 minecraft:dirt
+B 5 -62 -1 minecraft:dirt
+B 5 -62 0 minecraft:dirt
+B 5 -62 1 minecraft:dirt
+B 5 -62 2 minecraft:dirt
+B 5 -62 3 minecraft:dirt
+B 5 -62 4 minecraft:dirt
+B 5 -62 5 minecraft:dirt
+B 5 -62 6 minecraft:dirt
+B 5 -62 7 minecraft:dirt
+B 5 -62 8 minecraft:dirt
+B 5 -61 -8 minecraft:grass_block[snowy=false]
+B 5 -61 -7 minecraft:grass_block[snowy=false]
+B 5 -61 -6 minecraft:grass_block[snowy=false]
+B 5 -61 -5 minecraft:grass_block[snowy=false]
+B 5 -61 -4 minecraft:grass_block[snowy=false]
+B 5 -61 -3 minecraft:grass_block[snowy=false]
+B 5 -61 -2 minecraft:grass_block[snowy=false]
+B 5 -61 -1 minecraft:grass_block[snowy=false]
+B 5 -61 0 minecraft:grass_block[snowy=false]
+B 5 -61 1 minecraft:grass_block[snowy=false]
+B 5 -61 2 minecraft:grass_block[snowy=false]
+B 5 -61 3 minecraft:grass_block[snowy=false]
+B 5 -61 4 minecraft:grass_block[snowy=false]
+B 5 -61 5 minecraft:grass_block[snowy=false]
+B 5 -61 6 minecraft:grass_block[snowy=false]
+B 5 -61 7 minecraft:grass_block[snowy=false]
+B 5 -61 8 minecraft:grass_block[snowy=false]
+B 6 -62 -8 minecraft:dirt
+B 6 -62 -7 minecraft:dirt
+B 6 -62 -6 minecraft:dirt
+B 6 -62 -5 minecraft:dirt
+B 6 -62 -4 minecraft:dirt
+B 6 -62 -3 minecraft:dirt
+B 6 -62 -2 minecraft:dirt
+B 6 -62 -1 minecraft:dirt
+B 6 -62 0 minecraft:dirt
+B 6 -62 1 minecraft:dirt
+B 6 -62 2 minecraft:dirt
+B 6 -62 3 minecraft:dirt
+B 6 -62 4 minecraft:dirt
+B 6 -62 5 minecraft:dirt
+B 6 -62 6 minecraft:dirt
+B 6 -62 7 minecraft:dirt
+B 6 -62 8 minecraft:dirt
+B 6 -61 -8 minecraft:grass_block[snowy=false]
+B 6 -61 -7 minecraft:grass_block[snowy=false]
+B 6 -61 -6 minecraft:grass_block[snowy=false]
+B 6 -61 -5 minecraft:grass_block[snowy=false]
+B 6 -61 -4 minecraft:grass_block[snowy=false]
+B 6 -61 -3 minecraft:grass_block[snowy=false]
+B 6 -61 -2 minecraft:grass_block[snowy=false]
+B 6 -61 -1 minecraft:grass_block[snowy=false]
+B 6 -61 0 minecraft:grass_block[snowy=false]
+B 6 -61 1 minecraft:grass_block[snowy=false]
+B 6 -61 2 minecraft:grass_block[snowy=false]
+B 6 -61 3 minecraft:grass_block[snowy=false]
+B 6 -61 4 minecraft:grass_block[snowy=false]
+B 6 -61 5 minecraft:grass_block[snowy=false]
+B 6 -61 6 minecraft:grass_block[snowy=false]
+B 6 -61 7 minecraft:grass_block[snowy=false]
+B 6 -61 8 minecraft:grass_block[snowy=false]
+B 7 -62 -8 minecraft:dirt
+B 7 -62 -7 minecraft:dirt
+B 7 -62 -6 minecraft:dirt
+B 7 -62 -5 minecraft:dirt
+B 7 -62 -4 minecraft:dirt
+B 7 -62 -3 minecraft:dirt
+B 7 -62 -2 minecraft:dirt
+B 7 -62 -1 minecraft:dirt
+B 7 -62 0 minecraft:dirt
+B 7 -62 1 minecraft:dirt
+B 7 -62 2 minecraft:dirt
+B 7 -62 3 minecraft:dirt
+B 7 -62 4 minecraft:dirt
+B 7 -62 5 minecraft:dirt
+B 7 -62 6 minecraft:dirt
+B 7 -62 7 minecraft:dirt
+B 7 -62 8 minecraft:dirt
+B 7 -61 -8 minecraft:grass_block[snowy=false]
+B 7 -61 -7 minecraft:grass_block[snowy=false]
+B 7 -61 -6 minecraft:grass_block[snowy=false]
+B 7 -61 -5 minecraft:grass_block[snowy=false]
+B 7 -61 -4 minecraft:grass_block[snowy=false]
+B 7 -61 -3 minecraft:grass_block[snowy=false]
+B 7 -61 -2 minecraft:grass_block[snowy=false]
+B 7 -61 -1 minecraft:grass_block[snowy=false]
+B 7 -61 0 minecraft:grass_block[snowy=false]
+B 7 -61 1 minecraft:grass_block[snowy=false]
+B 7 -61 2 minecraft:grass_block[snowy=false]
+B 7 -61 3 minecraft:grass_block[snowy=false]
+B 7 -61 4 minecraft:grass_block[snowy=false]
+B 7 -61 5 minecraft:grass_block[snowy=false]
+B 7 -61 6 minecraft:grass_block[snowy=false]
+B 7 -61 7 minecraft:grass_block[snowy=false]
+B 7 -61 8 minecraft:grass_block[snowy=false]
+B 8 -62 -8 minecraft:dirt
+B 8 -62 -7 minecraft:dirt
+B 8 -62 -6 minecraft:dirt
+B 8 -62 -5 minecraft:dirt
+B 8 -62 -4 minecraft:dirt
+B 8 -62 -3 minecraft:dirt
+B 8 -62 -2 minecraft:dirt
+B 8 -62 -1 minecraft:dirt
+B 8 -62 0 minecraft:dirt
+B 8 -62 1 minecraft:dirt
+B 8 -62 2 minecraft:dirt
+B 8 -62 3 minecraft:dirt
+B 8 -62 4 minecraft:dirt
+B 8 -62 5 minecraft:dirt
+B 8 -62 6 minecraft:dirt
+B 8 -62 7 minecraft:dirt
+B 8 -62 8 minecraft:dirt
+B 8 -61 -8 minecraft:grass_block[snowy=false]
+B 8 -61 -7 minecraft:grass_block[snowy=false]
+B 8 -61 -6 minecraft:grass_block[snowy=false]
+B 8 -61 -5 minecraft:grass_block[snowy=false]
+B 8 -61 -4 minecraft:grass_block[snowy=false]
+B 8 -61 4 minecraft:grass_block[snowy=false]
+B 8 -61 5 minecraft:grass_block[snowy=false]
+B 8 -61 6 minecraft:grass_block[snowy=false]
+B 8 -61 7 minecraft:grass_block[snowy=false]
+B 8 -61 8 minecraft:grass_block[snowy=false]
+B 9 -62 -8 minecraft:dirt
+B 9 -62 -7 minecraft:dirt
+B 9 -62 -6 minecraft:dirt
+B 9 -62 -5 minecraft:dirt
+B 9 -62 -4 minecraft:dirt
+B 9 -62 -3 minecraft:dirt
+B 9 -62 3 minecraft:dirt
+B 9 -62 4 minecraft:dirt
+B 9 -62 5 minecraft:dirt
+B 9 -62 6 minecraft:dirt
+B 9 -62 7 minecraft:dirt
+B 9 -62 8 minecraft:dirt
+B 9 -61 -8 minecraft:grass_block[snowy=false]
+B 9 -61 -7 minecraft:grass_block[snowy=false]
+B 9 -61 -6 minecraft:grass_block[snowy=false]
+B 9 -61 -5 minecraft:grass_block[snowy=false]
+B 9 -61 5 minecraft:grass_block[snowy=false]
+B 9 -61 6 minecraft:grass_block[snowy=false]
+B 9 -61 7 minecraft:grass_block[snowy=false]
+B 9 -61 8 minecraft:grass_block[snowy=false]
+B 10 -62 -8 minecraft:dirt
+B 10 -62 -7 minecraft:dirt
+B 10 -62 -6 minecraft:dirt
+B 10 -62 -5 minecraft:dirt
+B 10 -62 -4 minecraft:dirt
+B 10 -62 -3 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 10 -62 3 minecraft:dirt
+B 10 -62 4 minecraft:dirt
+B 10 -62 5 minecraft:dirt
+B 10 -62 6 minecraft:dirt
+B 10 -62 7 minecraft:dirt
+B 10 -62 8 minecraft:dirt
+B 10 -61 -8 minecraft:grass_block[snowy=false]
+B 10 -61 -7 minecraft:grass_block[snowy=false]
+B 10 -61 -6 minecraft:grass_block[snowy=false]
+B 10 -61 -5 minecraft:grass_block[snowy=false]
+B 10 -61 -4 minecraft:grass_block[snowy=false]
+B 10 -61 4 minecraft:grass_block[snowy=false]
+B 10 -61 5 minecraft:grass_block[snowy=false]
+B 10 -61 6 minecraft:grass_block[snowy=false]
+B 10 -61 7 minecraft:grass_block[snowy=false]
+B 10 -61 8 minecraft:grass_block[snowy=false]
+B 11 -62 -8 minecraft:dirt
+B 11 -62 -7 minecraft:dirt
+B 11 -62 -6 minecraft:dirt
+B 11 -62 -5 minecraft:dirt
+B 11 -62 4 minecraft:dirt
+B 11 -62 5 minecraft:dirt
+B 11 -62 6 minecraft:dirt
+B 11 -62 7 minecraft:dirt
+B 11 -62 8 minecraft:dirt
+B 11 -61 -8 minecraft:grass_block[snowy=false]
+B 11 -61 -7 minecraft:grass_block[snowy=false]
+B 11 -61 -6 minecraft:grass_block[snowy=false]
+B 11 -61 -5 minecraft:grass_block[snowy=false]
+B 11 -61 4 minecraft:grass_block[snowy=false]
+B 11 -61 5 minecraft:grass_block[snowy=false]
+B 11 -61 6 minecraft:grass_block[snowy=false]
+B 11 -61 7 minecraft:grass_block[snowy=false]
+B 11 -61 8 minecraft:grass_block[snowy=false]
+B 12 -62 -8 minecraft:dirt
+B 12 -62 -7 minecraft:dirt
+B 12 -62 -6 minecraft:dirt
+B 12 -62 -5 minecraft:dirt
+B 12 -62 -4 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 12 -62 4 minecraft:dirt
+B 12 -62 5 minecraft:dirt
+B 12 -62 6 minecraft:dirt
+B 12 -62 7 minecraft:dirt
+B 12 -62 8 minecraft:dirt
+B 12 -61 -8 minecraft:grass_block[snowy=false]
+B 12 -61 -7 minecraft:grass_block[snowy=false]
+B 12 -61 -6 minecraft:grass_block[snowy=false]
+B 12 -61 -5 minecraft:grass_block[snowy=false]
+B 12 -61 5 minecraft:grass_block[snowy=false]
+B 12 -61 6 minecraft:grass_block[snowy=false]
+B 12 -61 7 minecraft:grass_block[snowy=false]
+B 12 -61 8 minecraft:grass_block[snowy=false]
+B 12 -60 -6 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 13 -62 -8 minecraft:dirt
+B 13 -62 -7 minecraft:dirt
+B 13 -62 -6 minecraft:dirt
+B 13 -62 -4 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 13 -62 3 minecraft:dirt
+B 13 -62 4 minecraft:dirt
+B 13 -62 5 minecraft:dirt
+B 13 -62 6 minecraft:dirt
+B 13 -62 7 minecraft:dirt
+B 13 -62 8 minecraft:dirt
+B 13 -61 -8 minecraft:grass_block[snowy=false]
+B 13 -61 -7 minecraft:grass_block[snowy=false]
+B 13 -61 -6 minecraft:grass_block[snowy=false]
+B 13 -61 4 minecraft:grass_block[snowy=false]
+B 13 -61 5 minecraft:grass_block[snowy=false]
+B 13 -61 6 minecraft:grass_block[snowy=false]
+B 13 -61 7 minecraft:grass_block[snowy=false]
+B 13 -61 8 minecraft:grass_block[snowy=false]
+B 14 -62 -8 minecraft:dirt
+B 14 -62 -7 minecraft:dirt
+B 14 -62 -6 minecraft:dirt
+B 14 -62 2 minecraft:dirt
+B 14 -62 3 minecraft:dirt
+B 14 -62 4 minecraft:dirt
+B 14 -62 5 minecraft:dirt
+B 14 -62 6 minecraft:dirt
+B 14 -62 7 minecraft:dirt
+B 14 -62 8 minecraft:dirt
+B 14 -61 -8 minecraft:grass_block[snowy=false]
+B 14 -61 -7 minecraft:grass_block[snowy=false]
+B 14 -61 -6 minecraft:grass_block[snowy=false]
+B 14 -61 4 minecraft:grass_block[snowy=false]
+B 14 -61 5 minecraft:grass_block[snowy=false]
+B 14 -61 6 minecraft:grass_block[snowy=false]
+B 14 -61 7 minecraft:grass_block[snowy=false]
+B 14 -61 8 minecraft:grass_block[snowy=false]
+B 15 -62 -8 minecraft:dirt
+B 15 -62 -7 minecraft:dirt
+B 15 -62 -6 minecraft:dirt
+B 15 -62 0 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 15 -62 2 minecraft:dirt
+B 15 -62 3 minecraft:dirt
+B 15 -62 4 minecraft:dirt
+B 15 -62 5 minecraft:dirt
+B 15 -62 6 minecraft:dirt
+B 15 -62 7 minecraft:dirt
+B 15 -62 8 minecraft:dirt
+B 15 -61 -8 minecraft:grass_block[snowy=false]
+B 15 -61 -7 minecraft:grass_block[snowy=false]
+B 15 -61 -6 minecraft:grass_block[snowy=false]
+B 15 -61 4 minecraft:grass_block[snowy=false]
+B 15 -61 5 minecraft:grass_block[snowy=false]
+B 15 -61 6 minecraft:grass_block[snowy=false]
+B 15 -61 7 minecraft:grass_block[snowy=false]
+B 15 -61 8 minecraft:grass_block[snowy=false]
+B 16 -62 -8 minecraft:dirt
+B 16 -62 -7 minecraft:dirt
+B 16 -62 -6 minecraft:dirt
+B 16 -62 -3 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 16 -62 2 minecraft:dirt
+B 16 -62 3 minecraft:dirt
+B 16 -62 4 minecraft:dirt
+B 16 -62 5 minecraft:dirt
+B 16 -62 6 minecraft:dirt
+B 16 -62 7 minecraft:dirt
+B 16 -62 8 minecraft:dirt
+B 16 -61 -8 minecraft:grass_block[snowy=false]
+B 16 -61 -7 minecraft:grass_block[snowy=false]
+B 16 -61 2 minecraft:grass_block[snowy=false]
+B 16 -61 3 minecraft:grass_block[snowy=false]
+B 16 -61 4 minecraft:grass_block[snowy=false]
+B 16 -61 5 minecraft:grass_block[snowy=false]
+B 16 -61 6 minecraft:grass_block[snowy=false]
+B 16 -61 7 minecraft:grass_block[snowy=false]
+B 16 -61 8 minecraft:grass_block[snowy=false]
+B 16 -60 -7 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 16 -60 2 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 17 -62 -8 minecraft:dirt
+B 17 -62 -7 minecraft:dirt
+B 17 -62 -6 minecraft:dirt
+B 17 -62 -5 minecraft:dirt
+B 17 -62 -4 minecraft:dirt
+B 17 -62 -1 minecraft:dirt
+B 17 -62 0 minecraft:dirt
+B 17 -62 1 minecraft:dirt
+B 17 -62 2 minecraft:dirt
+B 17 -62 3 minecraft:dirt
+B 17 -62 4 minecraft:dirt
+B 17 -62 5 minecraft:dirt
+B 17 -62 6 minecraft:dirt
+B 17 -62 7 minecraft:dirt
+B 17 -62 8 minecraft:dirt
+B 17 -61 -8 minecraft:grass_block[snowy=false]
+B 17 -61 -7 minecraft:grass_block[snowy=false]
+B 17 -61 -6 minecraft:grass_block[snowy=false]
+B 17 -61 -5 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 17 -61 -4 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 17 -61 0 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 17 -61 5 minecraft:grass_block[snowy=false]
+B 17 -61 6 minecraft:grass_block[snowy=false]
+B 17 -61 7 minecraft:grass_block[snowy=false]
+B 17 -61 8 minecraft:grass_block[snowy=false]
+B 18 -62 -8 minecraft:dirt
+B 18 -62 -7 minecraft:dirt
+B 18 -62 -6 minecraft:dirt
+B 18 -62 -5 minecraft:dirt
+B 18 -62 -4 minecraft:dirt
+B 18 -62 -3 minecraft:dirt
+B 18 -62 -2 minecraft:dirt
+B 18 -62 -1 minecraft:dirt
+B 18 -62 0 minecraft:dirt
+B 18 -62 1 minecraft:dirt
+B 18 -62 2 minecraft:dirt
+B 18 -62 3 minecraft:dirt
+B 18 -62 4 minecraft:dirt
+B 18 -62 5 minecraft:dirt
+B 18 -62 6 minecraft:dirt
+B 18 -62 7 minecraft:dirt
+B 18 -62 8 minecraft:dirt
+B 18 -61 -8 minecraft:grass_block[snowy=false]
+B 18 -61 -7 minecraft:grass_block[snowy=false]
+B 18 -61 -6 minecraft:grass_block[snowy=false]
+B 18 -61 -5 minecraft:grass_block[snowy=false]
+B 18 -61 -2 minecraft:grass_block[snowy=false]
+B 18 -61 0 minecraft:grass_block[snowy=false]
+B 18 -61 1 minecraft:grass_block[snowy=false]
+B 18 -61 2 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 5 minecraft:grass_block[snowy=false]
+B 18 -61 6 minecraft:grass_block[snowy=false]
+B 18 -61 7 minecraft:grass_block[snowy=false]
+B 18 -61 8 minecraft:grass_block[snowy=false]
+B 19 -62 -8 minecraft:dirt
+B 19 -62 -7 minecraft:dirt
+B 19 -62 -6 minecraft:dirt
+B 19 -62 -5 minecraft:dirt
+B 19 -62 -4 minecraft:dirt
+B 19 -62 -3 minecraft:dirt
+B 19 -62 -2 minecraft:dirt
+B 19 -62 -1 minecraft:dirt
+B 19 -62 0 minecraft:dirt
+B 19 -62 1 minecraft:dirt
+B 19 -62 2 minecraft:dirt
+B 19 -62 3 minecraft:dirt
+B 19 -62 4 minecraft:dirt
+B 19 -62 5 minecraft:dirt
+B 19 -62 6 minecraft:dirt
+B 19 -62 7 minecraft:dirt
+B 19 -62 8 minecraft:dirt
+B 19 -61 -8 minecraft:grass_block[snowy=false]
+B 19 -61 -7 minecraft:grass_block[snowy=false]
+B 19 -61 -6 minecraft:grass_block[snowy=false]
+B 19 -61 -5 minecraft:grass_block[snowy=false]
+B 19 -61 -4 minecraft:grass_block[snowy=false]
+B 19 -61 -3 minecraft:grass_block[snowy=false]
+B 19 -61 -2 minecraft:grass_block[snowy=false]
+B 19 -61 -1 minecraft:grass_block[snowy=false]
+B 19 -61 0 minecraft:grass_block[snowy=false]
+B 19 -61 1 minecraft:grass_block[snowy=false]
+B 19 -61 2 minecraft:grass_block[snowy=false]
+B 19 -61 3 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 5 minecraft:grass_block[snowy=false]
+B 19 -61 6 minecraft:grass_block[snowy=false]
+B 19 -61 7 minecraft:grass_block[snowy=false]
+B 19 -61 8 minecraft:grass_block[snowy=false]
+B 19 -60 -2 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 20 -62 -8 minecraft:dirt
+B 20 -62 -7 minecraft:dirt
+B 20 -62 -6 minecraft:dirt
+B 20 -62 -5 minecraft:dirt
+B 20 -62 -4 minecraft:dirt
+B 20 -62 -3 minecraft:dirt
+B 20 -62 -2 minecraft:dirt
+B 20 -62 -1 minecraft:dirt
+B 20 -62 0 minecraft:dirt
+B 20 -62 1 minecraft:dirt
+B 20 -62 2 minecraft:dirt
+B 20 -62 3 minecraft:dirt
+B 20 -62 4 minecraft:dirt
+B 20 -62 5 minecraft:dirt
+B 20 -62 6 minecraft:dirt
+B 20 -62 7 minecraft:dirt
+B 20 -62 8 minecraft:dirt
+B 20 -61 -8 minecraft:grass_block[snowy=false]
+B 20 -61 -7 minecraft:grass_block[snowy=false]
+B 20 -61 -6 minecraft:grass_block[snowy=false]
+B 20 -61 -5 minecraft:grass_block[snowy=false]
+B 20 -61 -4 minecraft:grass_block[snowy=false]
+B 20 -61 -3 minecraft:grass_block[snowy=false]
+B 20 -61 -2 minecraft:grass_block[snowy=false]
+B 20 -61 -1 minecraft:grass_block[snowy=false]
+B 20 -61 0 minecraft:grass_block[snowy=false]
+B 20 -61 1 minecraft:grass_block[snowy=false]
+B 20 -61 2 minecraft:grass_block[snowy=false]
+B 20 -61 3 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 5 minecraft:grass_block[snowy=false]
+B 20 -61 6 minecraft:grass_block[snowy=false]
+B 20 -61 7 minecraft:grass_block[snowy=false]
+B 20 -61 8 minecraft:grass_block[snowy=false]

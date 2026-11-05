@@ -166,10 +166,12 @@ fn lightning_matches_vanilla() {
                             if kind == "player" {
                                 actual.push(player_line(name, e.as_any().downcast_ref::<ServerPlayer>().unwrap()));
                             } else {
+                                let bolt = e.as_any().downcast_ref::<LightningBolt>().unwrap();
                                 let (p, dm) = (e.position(), e.base().delta_movement());
                                 actual.push(format!(
-                                    "E {name} minecraft:lightning_bolt pos={},{},{} delta={},{},{} rot={:?},{:?} og=0 fall={:?} fire={} air={} alive=1 pose=standing",
-                                    d(p.x), d(p.y), d(p.z), d(dm.x), d(dm.y), d(dm.z), e.base().y_rot(), e.base().x_rot(), e.base().fall_distance, e.base().remaining_fire_ticks, e.base().get_air_supply()
+                                    "E {name} minecraft:lightning_bolt pos={},{},{} delta={},{},{} rot={:?},{:?} og=0 fall={:?} fire={} air={} alive=1 pose=standing life={} flashes={} seed={} fires={}",
+                                    d(p.x), d(p.y), d(p.z), d(dm.x), d(dm.y), d(dm.z), e.base().y_rot(), e.base().x_rot(), e.base().fall_distance, e.base().remaining_fire_ticks, e.base().get_air_supply(),
+                                    bolt.life(), bolt.flashes(), bolt.seed, bolt.get_blocks_set_on_fire()
                                 ));
                             }
                         }

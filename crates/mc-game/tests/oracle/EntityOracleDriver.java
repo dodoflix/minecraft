@@ -1688,6 +1688,8 @@ public final class EntityOracleDriver {
          b.append(" pickup=").append(a.pickup.ordinal()).append(" shake=").append(a.shakeTime);
          b.append(" life=").append(priv(a, net.minecraft.world.entity.projectile.arrow.AbstractArrow.class, "life"));
          b.append(" dmg=").append(priv(a, net.minecraft.world.entity.projectile.arrow.AbstractArrow.class, "baseDamage"));
+      } else if (e instanceof net.minecraft.world.entity.LightningBolt lb) {
+         b.append(" life=").append(priv(lb, "life")).append(" flashes=").append(priv(lb, "flashes")).append(" seed=").append(lb.seed).append(" fires=").append(lb.getBlocksSetOnFire());
       }
       if (e instanceof ItemEntity ie) {
          b.append(" pickup=").append(priv(ie, "pickupDelay")).append(" health=").append(priv(ie, "health"));

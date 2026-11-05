@@ -484,6 +484,18 @@ pub fn reset_current_impulse_context(entity: &mut dyn Entity) {
     l.current_impulse_impact_pos = None;
 }
 
+/// `setIgnoreFallDamageFromCurrentImpulse(ignoreFallDamage, newImpulseImpactPos)`.
+pub fn set_ignore_fall_damage_from_current_impulse(entity: &mut dyn Entity, ignore_fall_damage: bool, new_impulse_impact_pos: Vec3) {
+    let l = entity.living_mut().expect("living");
+    if ignore_fall_damage {
+        // `applyPostImpulseGraceTime(40)`
+        l.current_impulse_context_reset_grace_time = l.current_impulse_context_reset_grace_time.max(40);
+        l.current_impulse_impact_pos = Some(new_impulse_impact_pos);
+    } else {
+        l.current_impulse_context_reset_grace_time = 0;
+    }
+}
+
 /// `tryResetCurrentImpulseContext()`.
 fn try_reset_current_impulse_context(entity: &mut dyn Entity) {
     if entity.living().expect("living").current_impulse_context_reset_grace_time == 0 {
