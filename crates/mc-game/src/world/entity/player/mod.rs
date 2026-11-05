@@ -13,6 +13,7 @@ pub mod inventory;
 pub mod item_use;
 pub mod player_systems;
 pub mod menu_ctx;
+pub mod movement_stats;
 pub mod pickup;
 pub mod tick;
 pub mod travel;

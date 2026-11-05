@@ -14,6 +14,11 @@ impl PlayerSystems for ServerPlayerSystems {
         let packet = ctx.player.stats.lock().stats_packet();
         ctx.send(&packet);
     }
+
+    /// `ServerPlayer.checkMovementStatistics(dx, dy, dz)`.
+    fn check_movement_statistics(&self, ctx: &mut PlayCtx, dx: f64, dy: f64, dz: f64) {
+        ctx.player.check_movement_statistics(ctx.level, dx, dy, dz);
+    }
 }
 
 #[distributed_slice(PLAYER_SYSTEMS)]

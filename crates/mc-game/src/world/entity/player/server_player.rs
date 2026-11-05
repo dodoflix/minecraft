@@ -492,6 +492,12 @@ impl Entity for ServerPlayer {
     fn get_scoreboard_name(&self) -> String {
         self.player.game_profile.name.clone()
     }
+    // ==== [Player] additions (Entity impl) ====
+    /// `ServerPlayer.jumpFromGround()`: the jump stat and the exhaustion after `LivingEntity.jumpFromGround`.
+    fn jump_from_ground(&mut self, level: &crate::server::level::ServerLevel) {
+        crate::world::entity::living_entity::jump::jump_from_ground(self, level);
+        self.after_jump_from_ground(level);
+    }
     // ==== [Effects] additions (Entity impl) ====
     /// `ServerPlayer.updateInvisibilityStatus()`: spectators are invisible and show no effect particles.
     fn update_invisibility_status(&mut self) {

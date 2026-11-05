@@ -23,12 +23,12 @@ impl ScoreHolder for ServerPlayer {
 
 impl ServerPlayer {
     /// `awardStat(stat)` (count 1).
-    pub fn award_stat_once(&mut self, level: &mut ServerLevel, stat: Stat) {
+    pub fn award_stat_once(&mut self, level: &ServerLevel, stat: Stat) {
         self.award_stat(level, stat, 1);
     }
 
     /// `ServerPlayer.awardStat(stat, count)`.
-    pub fn award_stat(&mut self, level: &mut ServerLevel, stat: Stat, count: i32) {
+    pub fn award_stat(&mut self, level: &ServerLevel, stat: Stat, count: i32) {
         self.stats.lock().increment(stat, count);
         let criteria = ObjectiveCriteria::stat(build_name(&stat));
         level.scoreboard_mut().for_all_objectives(&criteria, &*self, |score| {
@@ -37,7 +37,7 @@ impl ServerPlayer {
     }
 
     /// `ServerPlayer.resetStat(stat)`.
-    pub fn reset_stat(&mut self, level: &mut ServerLevel, stat: Stat) {
+    pub fn reset_stat(&mut self, level: &ServerLevel, stat: Stat) {
         self.stats.lock().set_value(stat, 0);
         let criteria = ObjectiveCriteria::stat(build_name(&stat));
         level.scoreboard_mut().for_all_objectives(&criteria, &*self, |score| {
