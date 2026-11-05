@@ -14,7 +14,7 @@ mc-nbt = { path = "../../crates/mc-nbt" }
 mc-world = { path = "../../crates/mc-world" }
 
 [dev-dependencies]
-tempfile = "3"
+tempfile = { workspace = true }
 
 [lints]
 workspace = true

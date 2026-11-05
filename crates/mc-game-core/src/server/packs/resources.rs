@@ -3,6 +3,7 @@
 //! `mc_data::datapack` instead of the jar's file system, i.e. vanilla's `FixedPathPackResources` / jar-backed
 //! `PathPackResources`).
 
+use std::borrow::Cow;
 use std::collections::{HashMap, HashSet};
 use std::fs::{self, File};
 use std::io::{self, Read};
@@ -429,7 +430,7 @@ impl PackResources for FilePackResources {
     fn list_resources(&self, ty: PackType, namespace: &str, directory: &str, output: &mut dyn FnMut(Identifier, IoSupplier)) {
         let root = self.add_prefix(&format!("{}/{namespace}/", ty.directory()));
         let prefix = format!("{root}{directory}/");
-        let names: Vec<String> = self.zip.with(|z| z.file_names().filter(|n| !n.ends_with('/') && n.starts_with(&prefix)).map(str::to_owned).collect()).unwrap_or_default();
+        let names: Vec<String> = self.zip.with(|z| z.file_names().filter_map(Result::ok).filter(|n| !n.ends_with('/') && n.starts_with(&prefix)).map(Cow::into_owned).collect()).unwrap_or_default();
         for name in names {
             let path = &name[root.len()..];
             match Identifier::try_build(namespace, path) {
@@ -441,7 +442,7 @@ impl PackResources for FilePackResources {
 
     fn get_namespaces(&self, ty: PackType) -> HashSet<String> {
         let type_prefix = self.add_prefix(&format!("{}/", ty.directory()));
-        let names: Vec<String> = self.zip.with(|z| z.file_names().map(str::to_owned).collect()).unwrap_or_default();
+        let names: Vec<String> = self.zip.with(|z| z.file_names().filter_map(Result::ok).map(Cow::into_owned).collect()).unwrap_or_default();
         let mut namespaces = HashSet::new();
         for name in names {
             let ns = FilePackResources::extract_namespace(&type_prefix, &name);

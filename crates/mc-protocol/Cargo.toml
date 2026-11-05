@@ -16,18 +16,17 @@ mc-core = { path = "../mc-core" }
 mc-data = { path = "../mc-data" }
 mc-dfu = { path = "../mc-dfu" }
 mc-protocol-macros = { path = "../mc-protocol-macros" }
-aes = "0.9.4"
-cfb8 = "0.9.1"
-flate2 = "1.1.10"
-reqwest = { version = "0.13.5", default-features = false, features = ["json", "rustls"] }
-rand_core = { version = "0.6.4", features = ["getrandom"] }
-rsa = "0.9.10"
-serde = "1.0.229"
+aes = { workspace = true }
+cfb8 = { workspace = true }
+flate2 = { workspace = true }
+reqwest = { workspace = true, features = ["json", "rustls"] }
+rand_core = { workspace = true, features = ["getrandom"] }
+rsa = { workspace = true }
 serde_json = { workspace = true }
-sha1 = "0.11.0"
-thiserror = "2.0.21"
-tokio = { version = "1.54.1", features = ["io-util", "net", "rt", "macros", "time", "sync", "rt-multi-thread"] }
-uuid = "1.29.0"
+sha1 = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true, features = ["io-util", "net", "rt", "macros", "time", "sync", "rt-multi-thread"] }
+uuid = { workspace = true }
 
 [dev-dependencies]
 mc-testkit = { path = "../mc-testkit" }

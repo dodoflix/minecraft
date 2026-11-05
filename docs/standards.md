@@ -148,16 +148,17 @@ Rules:
 - Area crates (`mc-game-*`) import from the crate that owns an item by explicit path (`mc_game_core::world::...`); they do
   not mirror each other's module trees or re-export a lower crate with `pub use <crate>::*`. Only the `mc-game` facade
   re-exports, and only the modules several crates contribute to. New code goes into the area crate that owns it. Enforced: review.
-- Every external crate version is declared once, in `[workspace.dependencies]`, and used with `workspace = true`.
-  Enforced: review. The migration is pending; so far only `serde_json` is declared there.
+- Every external crate version is declared once, in `[workspace.dependencies]`, and used with `workspace = true`;
+  a crate adds only the features it needs. Enforced: review.
 - No unused dependencies. Enforced: review (`cargo check --workspace --tests` shows what a crate does not import).
 - Every crate sets `publish = false` (inherited from `[workspace.package]`) and a `description`.
 - `cargo deny check licenses bans sources` must pass (`deny.toml`: permissive-license allow-list, wildcard version
-  requirements denied, crates.io as the only registry, no git dependencies). Enforced: `scripts/check.sh`.
+  requirements denied, crates.io as the only registry, no git dependencies, a duplicate crate version denied unless it
+  is listed in `bans.skip` with the upstream crate that forces it). Enforced: `scripts/check.sh`.
 - `cargo deny check advisories` runs on a schedule, because its result changes without a code change. One advisory is
   known and unresolved: RUSTSEC-2023-0071 (`rsa`, timing side channel). There is no patched release, and vanilla's
-  login handshake requires an RSA-1024 key exchange. No mitigation is claimed. It is listed in `deny.toml` with this
-  reason.
+  login handshake requires an RSA-1024 key exchange whose private-key decryption an unauthenticated client can reach
+  in online mode. No mitigation is claimed. It is listed in `deny.toml` with this reason.
 - Scripted cargo calls use `--locked`. Enforced: review.
 - Features are additive and checked with `--all-features`. No default feature changes behaviour. Enforced: review.
 
@@ -240,5 +241,4 @@ directory adds a row there. Enforced: review.
 - Decode modules in `mc-protocol`, `mc-nbt`, `mc-world` and the command code still contain `unwrap` and indexing; the
   per-module `warn` attributes and the hostile-packet tests are not in place.
 - `missing_docs` is not enabled on any crate yet, and some crates lack a three-line crate doc.
-- The `mc-game-*` bridge layout is still in place, and external dependency versions are still declared per crate
-  instead of in `[workspace.dependencies]`.
+- The `mc-game-*` bridge layout is still in place.

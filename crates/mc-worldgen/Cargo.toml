@@ -13,10 +13,10 @@ mc-core = { path = "../mc-core" }
 mc-data = { path = "../mc-data" }
 mc-world = { path = "../mc-world" }
 serde_json = { workspace = true }
-log = "0.4"
+log = { workspace = true }
 
 [dev-dependencies]
-flate2 = "1"
+flate2 = { workspace = true }
 mc-nbt = { path = "../mc-nbt" }
 
 [lints]

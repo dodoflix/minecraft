@@ -12,7 +12,7 @@ publish.workspace = true
 mc-core = { path = "../mc-core" }
 mc-data = { path = "../mc-data" }
 mc-world = { path = "../mc-world" }
-indexmap = "2"
+indexmap = { workspace = true }
 
 [dev-dependencies]
 mc-nbt = { path = "../mc-nbt" }

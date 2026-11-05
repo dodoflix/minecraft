@@ -2,11 +2,48 @@
 resolver = "3"
 members = ["crates/*", "tools/worldcmp"]
 
+# Every external crate is declared here once and used with `workspace = true`; a crate adds only the features it needs.
+[workspace.dependencies]
+aes = "0.9.4"
+base64 = "0.23"
+cfb8 = "0.9.1"
+chrono = "0.4"
+flate2 = "1.1.10"
+futures-util = { version = "0.3", default-features = false }
+indexmap = "2"
+libc = "0.2"
+linkme = "0.3"
+log = "0.4"
+# The hash crates (`md-5`, `sha1`, `sha2`) stay on `digest` 0.10: `rsa` 0.9 verifies signatures through it, and `uuid`,
+# `p12-keystore` and `tungstenite` use it too. Using `digest` 0.11 as well would compile each hash twice.
+md-5 = "0.10"
+p12-keystore = "0.1"
+parking_lot = "0.12"
+proc-macro2 = "1"
+quote = "1"
+rand = "0.9"
+# `rsa` 0.9 takes `rand_core` 0.6 generators, so this stays one generation behind `rand`.
+rand_core = "0.6.4"
+regex = "1"
+reqwest = { version = "0.13.5", default-features = false }
+rsa = "0.9.10"
+serde = "1.0.229"
 # One serde_json feature set for every crate and build config: Gson-like insertion order (vanilla's JsonObject is a
 # LinkedTreeMap) and exact decimal parsing. Without this, a crate's isolated tests saw sorted maps while the server
 # binary (feature-unified) saw file order.
-[workspace.dependencies]
 serde_json = { version = "1.0.154", features = ["preserve_order", "float_roundtrip"] }
+sha1 = "0.10"
+sha2 = "0.10"
+signal-hook = "0.3"
+syn = "2"
+tempfile = "3"
+thiserror = "2.0.21"
+tokio = "1.54.1"
+tokio-rustls = "0.26"
+tokio-tungstenite = "0.26"
+twox-hash = { version = "2", default-features = false }
+uuid = "1.29.0"
+zip = { version = "9", default-features = false }
 
 [workspace.package]
 edition = "2024"
