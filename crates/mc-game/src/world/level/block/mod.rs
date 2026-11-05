@@ -7,6 +7,7 @@ pub mod grower;
 pub mod hatch_spawns;
 pub mod helpers;
 pub mod impls;
+pub mod rail_state;
 pub mod sculk_behaviour;
 pub mod sculk_spreader;
 pub mod state;
