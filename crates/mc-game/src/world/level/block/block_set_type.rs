@@ -140,3 +140,31 @@ impl WoodType {
         Some(WoodType { set_type, fence_gate_close, fence_gate_open })
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// Every block of a class that takes a `BlockSetType`/`WoodType` constructor argument must map to one (the behavior
+    /// constructors `expect` it); spot-check the sounds that differ per type.
+    #[test]
+    fn every_set_type_block_maps() {
+        for block in Block::iter() {
+            let classes = block.data().classes;
+            let needs = ["DoorBlock", "TrapDoorBlock", "ButtonBlock", "PressurePlateBlock", "WeightedPressurePlateBlock"].iter().any(|c| classes.contains(c));
+            if needs {
+                assert!(BlockSetType::for_block(block).is_some(), "{} has no BlockSetType", block.data().name);
+            }
+            if classes.contains(&"FenceGateBlock") {
+                assert!(WoodType::for_fence_gate(block).is_some(), "{} has no WoodType", block.data().name);
+            }
+        }
+        let by = |n: &str| BlockSetType::for_block(Block::by_name(n).unwrap()).unwrap();
+        assert_eq!(by("minecraft:iron_door").name, "iron");
+        assert_eq!(by("minecraft:waxed_weathered_copper_trapdoor").name, "copper");
+        assert_eq!(by("minecraft:polished_blackstone_button").name, "stone");
+        assert_eq!(by("minecraft:light_weighted_pressure_plate").name, "gold");
+        assert_eq!(by("minecraft:cherry_button").button_click_on, SoundEvent::BLOCK_CHERRY_WOOD_BUTTON_CLICK_ON);
+        assert!(!by("minecraft:iron_door").can_open_by_hand);
+    }
+}

@@ -1,0 +1,127 @@
+# TrapDoorBlock: placement by face/cursor/yaw, ceilings, waterlogging, powered placement, hand toggle, redstone, iron
+level flat
+preload 3
+spawn_player Steve creative 0.5 -60 -6.5 0 0
+watch events
+snap Steve 1.5 -60 -2.5 0 0
+give Steve hotbar0 minecraft:oak_trapdoor 64
+select Steve 0
+use_on Steve 1 -61 0 up main 0.5 1.0 0.5
+tick 1
+snap Steve 6.5 -60 0.5 90 0
+select Steve 0
+use_on Steve 3 -61 0 up main 0.5 1.0 0.5
+tick 1
+snap Steve 5.5 -60 3.5 180 0
+select Steve 0
+use_on Steve 5 -61 0 up main 0.5 1.0 0.5
+tick 1
+snap Steve 4.5 -60 0.5 270 0
+select Steve 0
+use_on Steve 7 -61 0 up main 0.5 1.0 0.5
+tick 1
+block 10 -59 0 minecraft:stone
+snap Steve 10.5 -60 -2.5 0 0
+select Steve 0
+use_on Steve 10 -59 0 down main 0.5 0.0 0.5
+tick 1
+block 12 -59 0 minecraft:stone
+snap Steve 15.5 -60 0.5 90 0
+select Steve 0
+use_on Steve 12 -59 0 down main 0.5 0.0 0.5
+tick 1
+block 14 -59 0 minecraft:stone
+snap Steve 14.5 -60 3.5 180 0
+select Steve 0
+use_on Steve 14 -59 0 down main 0.5 0.0 0.5
+tick 1
+block 16 -59 0 minecraft:stone
+snap Steve 13.5 -60 0.5 270 0
+select Steve 0
+use_on Steve 16 -59 0 down main 0.5 0.0 0.5
+tick 1
+fill 0 -60 3 12 -59 3 minecraft:stone
+snap Steve 1.5 -60 0.5 0 0
+select Steve 0
+use_on Steve 1 -60 3 north main 0.5 0.2 0.0
+tick 1
+snap Steve 3.5 -60 0.5 0 0
+select Steve 0
+use_on Steve 3 -60 3 north main 0.5 0.8 0.0
+tick 1
+snap Steve 5.5 -60 0.5 0 0
+select Steve 0
+use_on Steve 5 -60 3 north main 0.5 0.5 0.0
+tick 1
+snap Steve 7.5 -60 0.5 0 0
+select Steve 0
+use_on Steve 7 -60 3 north main 0.5 0.51 0.0
+tick 1
+fill 0 -60 6 3 -59 6 minecraft:stone
+fill 5 -60 6 5 -59 6 minecraft:stone
+dump blocks:0,-61,0,20,-58,7
+fill 0 -60 9 8 -60 9 minecraft:water
+snap Steve 1.5 -60 6.5 0 0
+select Steve 0
+use_on Steve 1 -61 9 up main 0.5 1.0 0.5
+tick 1
+snap Steve 6.5 -60 9.5 90 0
+give Steve hotbar0 minecraft:iron_trapdoor 64
+select Steve 0
+use_on Steve 3 -61 9 up main 0.5 1.0 0.5
+tick 1
+snap Steve 5.5 -60 12.5 180 0
+give Steve hotbar0 minecraft:copper_trapdoor 64
+select Steve 0
+use_on Steve 5 -61 9 up main 0.5 1.0 0.5
+tick 1
+tick 5
+dump blocks:0,-61,9,8,-59,9
+fill 0 -60 12 12 -58 14 minecraft:air
+block 1 -60 14 minecraft:redstone_block
+block 7 -60 14 minecraft:redstone_block
+snap Steve 1.5 -60 10.5 0 0
+give Steve hotbar0 minecraft:oak_trapdoor 64
+select Steve 0
+use_on Steve 1 -61 13 up main 0.5 1.0 0.5
+tick 1
+snap Steve 4.5 -60 10.5 0 0
+select Steve 0
+use_on Steve 4 -61 13 up main 0.5 1.0 0.5
+tick 1
+snap Steve 7.5 -60 10.5 0 0
+give Steve hotbar0 minecraft:iron_trapdoor 64
+select Steve 0
+use_on Steve 7 -61 13 up main 0.5 1.0 0.5
+tick 1
+snap Steve 10.5 -60 10.5 0 0
+give Steve hotbar0 minecraft:crimson_trapdoor 64
+select Steve 0
+use_on Steve 10 -61 13 up main 0.5 1.0 0.5
+tick 1
+dump blocks:0,-60,12,12,-59,14
+snap Steve 1.5 -60 10.5 0 0
+select Steve 8
+use_on Steve 1 -60 13 up
+tick 1
+snap Steve 4.5 -60 10.5 0 0
+select Steve 8
+use_on Steve 4 -60 13 up
+tick 1
+snap Steve 7.5 -60 10.5 0 0
+select Steve 8
+use_on Steve 7 -60 13 up
+tick 1
+snap Steve 10.5 -60 10.5 0 0
+select Steve 8
+use_on Steve 10 -60 13 up
+tick 1
+dump blocks:0,-60,12,12,-59,14
+block 4 -60 14 minecraft:redstone_block
+block 7 -60 14 minecraft:air
+block 10 -60 14 minecraft:redstone_block
+tick 2
+dump blocks:0,-60,12,12,-59,14
+block 4 -60 14 minecraft:air
+tick 2
+dump blocks:0,-60,12,12,-59,14

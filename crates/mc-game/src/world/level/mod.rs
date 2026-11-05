@@ -23,7 +23,6 @@ pub mod signal_getter;
 pub mod spawner;
 pub mod shapes;
 pub mod storage;
-pub mod signal_getter;
 pub mod ticket_storage;
 
 pub use level_access::{BlockGetter, LevelAccessor, LevelReader};

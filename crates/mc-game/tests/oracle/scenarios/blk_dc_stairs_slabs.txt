@@ -1,0 +1,510 @@
+# StairBlock + SlabBlock: half from face/cursor, facing from yaw, stair shapes against neighbours, waterlogging, slab merging/replacing
+level flat
+preload 3
+spawn_player Steve creative 0.5 -60 -6.5 0 0
+watch events
+fill 0 -60 0 8 -57 4 minecraft:air
+snap Steve 3.5 -60 -2.0 90 0
+give Steve hotbar0 minecraft:oak_stairs 64
+select Steve 0
+use_on Steve 5 -60 1 south main 0.25 0.51 0.5
+tick 1
+snap Steve 3.5 -60 -2.0 0 0
+select Steve 0
+use_on Steve 3 -61 0 up main 0.0 0.0 1.0
+tick 1
+snap Steve 3.5 -60 -2.0 270 0
+select Steve 0
+use_on Steve 6 -60 0 up main 0.0 0.5 1.0
+tick 1
+select Steve 0
+use_on Steve 4 -61 1 up main 0.75 0.51 0.5
+tick 1
+select Steve 0
+use_on Steve 5 -61 0 east main 0.75 0.25 0.5
+tick 1
+snap Steve 3.5 -60 -2.0 180 0
+give Steve hotbar0 minecraft:stone_stairs 64
+select Steve 0
+use_on Steve 1 -60 0 up main 1.0 1.0 0.5
+tick 1
+snap Steve 3.5 -60 -2.0 0 0
+give Steve hotbar0 minecraft:oak_stairs 64
+select Steve 0
+use_on Steve 3 -61 1 down main 0.25 0.51 0.0
+tick 1
+snap Steve 3.5 -60 -2.0 270 0
+give Steve hotbar0 minecraft:stone_stairs 64
+select Steve 0
+use_on Steve 6 -61 0 west main 0.75 0.5 0.5
+tick 1
+give Steve hotbar0 minecraft:oak_stairs 64
+select Steve 0
+use_on Steve 2 -61 1 north main 0.25 0.51 0.0
+tick 1
+snap Steve 3.5 -60 -2.0 180 0
+give Steve hotbar0 minecraft:stone_stairs 64
+select Steve 0
+use_on Steve 3 -61 0 up main 1.0 1.0 1.0
+tick 1
+snap Steve 3.5 -60 -2.0 90 0
+give Steve hotbar0 minecraft:oak_stairs 64
+select Steve 0
+use_on Steve 5 -60 0 down main 0.25 0.75 0.5
+tick 1
+snap Steve 3.5 -60 -2.0 0 0
+select Steve 0
+use_on Steve 2 -61 2 down main 0.25 0.25 1.0
+tick 1
+select Steve 0
+use_on Steve 2 -61 1 up main 0.75 0.25 0.0
+tick 1
+snap Steve 3.5 -60 -2.0 90 0
+select Steve 0
+use_on Steve 2 -61 0 down main 0.25 0.0 0.5
+tick 1
+select Steve 0
+use_on Steve 4 -61 1 up main 0.5 0.0 0.5
+tick 1
+snap Steve 3.5 -60 -2.0 0 0
+select Steve 0
+use_on Steve 2 -60 1 west main 0.75 0.75 0.0
+tick 1
+snap Steve 3.5 -60 -2.0 90 0
+select Steve 0
+use_on Steve 4 -61 0 north main 0.5 0.0 0.0
+tick 1
+select Steve 0
+use_on Steve 5 -61 0 west main 1.0 0.0 1.0
+tick 1
+give Steve hotbar0 minecraft:stone_stairs 64
+select Steve 0
+use_on Steve 1 -60 1 east main 0.0 1.0 0.0
+tick 1
+snap Steve 3.5 -60 -2.0 0 0
+select Steve 0
+use_on Steve 2 -61 2 east main 1.0 0.25 0.0
+tick 1
+give Steve hotbar0 minecraft:oak_stairs 64
+select Steve 0
+use_on Steve 6 -60 2 east main 0.5 0.0 0.5
+tick 1
+snap Steve 3.5 -60 -2.0 270 0
+select Steve 0
+use_on Steve 1 -61 0 north main 0.25 0.0 1.0
+tick 1
+snap Steve 3.5 -60 -2.0 90 0
+select Steve 0
+use_on Steve 1 -61 0 down main 0.75 0.75 0.5
+tick 1
+snap Steve 3.5 -60 -2.0 270 0
+give Steve hotbar0 minecraft:stone_stairs 64
+select Steve 0
+use_on Steve 2 -61 0 north main 0.25 1.0 1.0
+tick 1
+snap Steve 3.5 -60 -2.0 0 0
+give Steve hotbar0 minecraft:oak_stairs 64
+select Steve 0
+use_on Steve 4 -61 0 up main 0.0 0.51 0.0
+tick 1
+snap Steve 3.5 -60 -2.0 90 0
+select Steve 0
+use_on Steve 6 -60 0 west main 0.75 0.51 1.0
+tick 1
+snap Steve 3.5 -60 -2.0 180 0
+give Steve hotbar0 minecraft:stone_stairs 64
+select Steve 0
+use_on Steve 1 -60 1 down main 0.0 0.25 1.0
+tick 1
+snap Steve 3.5 -60 -2.0 270 0
+select Steve 0
+use_on Steve 2 -60 1 west main 0.5 0.5 1.0
+tick 1
+give Steve hotbar0 minecraft:oak_stairs 64
+select Steve 0
+use_on Steve 5 -61 1 west main 0.0 1.0 1.0
+tick 1
+snap Steve 3.5 -60 -2.0 90 0
+select Steve 0
+use_on Steve 3 -61 1 south main 0.0 1.0 0.0
+tick 1
+snap Steve 3.5 -60 -2.0 0 0
+select Steve 0
+use_on Steve 2 -61 0 down main 1.0 0.51 0.5
+tick 1
+select Steve 0
+use_on Steve 5 -61 2 south main 1.0 0.51 0.5
+tick 1
+give Steve hotbar0 minecraft:stone_stairs 64
+select Steve 0
+use_on Steve 6 -61 2 north main 0.75 0.5 0.5
+tick 1
+snap Steve 3.5 -60 -2.0 90 0
+give Steve hotbar0 minecraft:oak_stairs 64
+select Steve 0
+use_on Steve 5 -61 1 down main 1.0 0.51 1.0
+tick 1
+snap Steve 3.5 -60 -2.0 270 0
+give Steve hotbar0 minecraft:stone_stairs 64
+select Steve 0
+use_on Steve 4 -61 1 south main 0.5 0.51 0.0
+tick 1
+snap Steve 3.5 -60 -2.0 180 0
+give Steve hotbar0 minecraft:oak_stairs 64
+select Steve 0
+use_on Steve 3 -61 2 east main 0.5 0.0 0.0
+tick 1
+snap Steve 3.5 -60 -2.0 0 0
+select Steve 0
+use_on Steve 1 -60 2 down main 0.5 0.75 0.5
+tick 1
+snap Steve 3.5 -60 -2.0 270 0
+select Steve 0
+use_on Steve 3 -61 1 east main 0.0 0.0 1.0
+tick 1
+snap Steve 3.5 -60 -2.0 0 0
+give Steve hotbar0 minecraft:stone_stairs 64
+select Steve 0
+use_on Steve 3 -60 2 up main 0.75 0.51 0.0
+tick 1
+snap Steve 3.5 -60 -2.0 180 0
+give Steve hotbar0 minecraft:oak_stairs 64
+select Steve 0
+use_on Steve 4 -61 1 up main 0.25 0.75 0.5
+tick 1
+dump blocks:0,-61,0,8,-58,3
+fill 0 -60 6 8 -57 9 minecraft:air
+fill 0 -60 8 8 -60 8 minecraft:water
+snap Steve 3.5 -60 2.5 90 0
+select Steve 0
+use_on Steve 4 -61 7 up main 0.0 1.0 0.0
+tick 1
+snap Steve 3.5 -60 2.5 270 0
+select Steve 0
+use_on Steve 5 -61 6 north main 0.0 0.25 0.5
+tick 1
+select Steve 0
+use_on Steve 1 -61 7 east main 1.0 1.0 0.5
+tick 1
+select Steve 0
+use_on Steve 4 -61 7 up main 0.0 1.0 0.5
+tick 1
+give Steve hotbar0 minecraft:stone_stairs 64
+select Steve 0
+use_on Steve 3 -61 7 west main 0.0 0.75 0.0
+tick 1
+snap Steve 3.5 -60 2.5 90 0
+select Steve 0
+use_on Steve 2 -61 7 up main 1.0 0.25 0.5
+tick 1
+snap Steve 3.5 -60 2.5 270 0
+give Steve hotbar0 minecraft:oak_stairs 64
+select Steve 0
+use_on Steve 2 -61 6 east main 0.5 1.0 1.0
+tick 1
+give Steve hotbar0 minecraft:stone_stairs 64
+select Steve 0
+use_on Steve 6 -60 7 south main 0.5 0.75 0.5
+tick 1
+select Steve 0
+use_on Steve 1 -61 8 up main 1.0 0.0 0.5
+tick 1
+give Steve hotbar0 minecraft:oak_stairs 64
+select Steve 0
+use_on Steve 4 -60 6 north main 1.0 0.75 1.0
+tick 1
+snap Steve 3.5 -60 2.5 180 0
+select Steve 0
+use_on Steve 5 -61 6 south main 1.0 0.25 1.0
+tick 1
+snap Steve 3.5 -60 2.5 270 0
+select Steve 0
+use_on Steve 6 -60 7 east main 1.0 0.25 1.0
+tick 1
+snap Steve 3.5 -60 2.5 90 0
+give Steve hotbar0 minecraft:stone_stairs 64
+select Steve 0
+use_on Steve 5 -61 7 up main 1.0 0.25 0.5
+tick 1
+snap Steve 3.5 -60 2.5 0 0
+select Steve 0
+use_on Steve 6 -61 8 up main 0.5 0.25 1.0
+tick 1
+snap Steve 3.5 -60 2.5 180 0
+select Steve 0
+use_on Steve 2 -61 6 east main 1.0 1.0 0.0
+tick 1
+snap Steve 3.5 -60 2.5 270 0
+give Steve hotbar0 minecraft:oak_stairs 64
+select Steve 0
+use_on Steve 5 -60 8 east main 0.5 0.0 0.5
+tick 1
+snap Steve 3.5 -60 2.5 90 0
+give Steve hotbar0 minecraft:stone_stairs 64
+select Steve 0
+use_on Steve 3 -60 8 up main 0.0 0.75 1.0
+tick 1
+give Steve hotbar0 minecraft:oak_stairs 64
+select Steve 0
+use_on Steve 1 -61 8 north main 1.0 0.25 0.0
+tick 1
+snap Steve 3.5 -60 2.5 270 0
+select Steve 0
+use_on Steve 1 -61 8 west main 1.0 0.25 0.0
+tick 1
+snap Steve 3.5 -60 2.5 180 0
+give Steve hotbar0 minecraft:stone_stairs 64
+select Steve 0
+use_on Steve 1 -60 7 south main 1.0 0.0 1.0
+tick 1
+snap Steve 3.5 -60 2.5 270 0
+select Steve 0
+use_on Steve 3 -61 6 up main 0.5 0.75 1.0
+tick 1
+snap Steve 3.5 -60 2.5 180 0
+give Steve hotbar0 minecraft:oak_stairs 64
+select Steve 0
+use_on Steve 3 -61 6 west main 0.0 1.0 0.0
+tick 1
+snap Steve 3.5 -60 2.5 0 0
+give Steve hotbar0 minecraft:stone_stairs 64
+select Steve 0
+use_on Steve 2 -61 8 west main 0.5 0.75 1.0
+tick 1
+snap Steve 3.5 -60 2.5 90 0
+select Steve 0
+use_on Steve 6 -61 8 up main 1.0 0.25 0.0
+tick 1
+give Steve hotbar0 minecraft:oak_stairs 64
+select Steve 0
+use_on Steve 3 -60 8 south main 0.5 1.0 0.0
+tick 1
+dump blocks:0,-61,6,8,-58,9
+fill 0 -60 12 8 -57 16 minecraft:air
+fill 0 -60 14 8 -60 14 minecraft:water
+snap Steve 3.5 -60 8.5 90 0
+give Steve hotbar0 minecraft:cut_copper_slab 64
+select Steve 0
+use_on Steve 2 -61 12 north main 1.0 0.75 0.5
+tick 1
+give Steve hotbar0 minecraft:oak_slab 64
+select Steve 0
+use_on Steve 1 -59 12 east main 0.5 0.5 0.0
+tick 1
+snap Steve 3.5 -60 8.5 0 0
+give Steve hotbar0 minecraft:stone_slab 64
+select Steve 0
+use_on Steve 5 -61 12 south main 0.0 0.5 1.0
+tick 1
+snap Steve 3.5 -60 8.5 180 0
+give Steve hotbar0 minecraft:cut_copper_slab 64
+select Steve 0
+use_on Steve 3 -61 14 west main 0.0 0.5 1.0
+tick 1
+snap Steve 3.5 -60 8.5 270 0
+give Steve hotbar0 minecraft:stone_slab 64
+select Steve 0
+use_on Steve 2 -59 13 up main 1.0 0.51 0.0
+tick 1
+snap Steve 3.5 -60 8.5 90 0
+give Steve hotbar0 minecraft:cut_copper_slab 64
+select Steve 0
+use_on Steve 4 -61 15 east main 1.0 0.25 1.0
+tick 1
+snap Steve 3.5 -60 8.5 0 0
+give Steve hotbar0 minecraft:stone_slab 64
+select Steve 0
+use_on Steve 1 -61 13 north main 1.0 0.0 0.0
+tick 1
+snap Steve 3.5 -60 8.5 180 0
+give Steve hotbar0 minecraft:cut_copper_slab 64
+select Steve 0
+use_on Steve 3 -61 13 up main 0.5 0.25 0.0
+tick 1
+snap Steve 3.5 -60 8.5 90 0
+give Steve hotbar0 minecraft:oak_slab 64
+select Steve 0
+use_on Steve 1 -61 12 east main 0.0 0.5 0.5
+tick 1
+snap Steve 3.5 -60 8.5 180 0
+give Steve hotbar0 minecraft:cut_copper_slab 64
+select Steve 0
+use_on Steve 6 -61 15 up main 0.0 0.75 0.5
+tick 1
+snap Steve 3.5 -60 8.5 0 0
+select Steve 0
+use_on Steve 1 -59 15 down main 1.0 0.0 0.0
+tick 1
+give Steve hotbar0 minecraft:stone_slab 64
+select Steve 0
+use_on Steve 3 -60 14 north main 1.0 0.0 0.0
+tick 1
+snap Steve 3.5 -60 8.5 270 0
+select Steve 0
+use_on Steve 1 -61 14 south main 0.5 0.0 1.0
+tick 1
+snap Steve 3.5 -60 8.5 90 0
+give Steve hotbar0 minecraft:oak_slab 64
+select Steve 0
+use_on Steve 6 -59 12 north main 0.5 0.51 0.0
+tick 1
+snap Steve 3.5 -60 8.5 180 0
+give Steve hotbar0 minecraft:stone_slab 64
+select Steve 0
+use_on Steve 1 -60 12 south main 0.5 0.25 0.0
+tick 1
+snap Steve 3.5 -60 8.5 0 0
+give Steve hotbar0 minecraft:cut_copper_slab 64
+select Steve 0
+use_on Steve 3 -60 12 up main 1.0 0.51 1.0
+tick 1
+snap Steve 3.5 -60 8.5 90 0
+select Steve 0
+use_on Steve 4 -61 13 south main 0.0 0.0 0.5
+tick 1
+snap Steve 3.5 -60 8.5 0 0
+select Steve 0
+use_on Steve 3 -61 13 north main 1.0 0.0 1.0
+tick 1
+snap Steve 3.5 -60 8.5 180 0
+give Steve hotbar0 minecraft:oak_slab 64
+select Steve 0
+use_on Steve 1 -61 12 up main 0.0 0.5 1.0
+tick 1
+select Steve 0
+use_on Steve 3 -61 12 down main 0.5 0.25 1.0
+tick 1
+give Steve hotbar0 minecraft:stone_slab 64
+select Steve 0
+use_on Steve 2 -59 12 down main 0.0 0.0 0.0
+tick 1
+snap Steve 3.5 -60 8.5 90 0
+select Steve 0
+use_on Steve 1 -61 13 up main 0.5 0.5 0.0
+tick 1
+snap Steve 3.5 -60 8.5 270 0
+select Steve 0
+use_on Steve 1 -61 13 up main 0.0 0.0 0.0
+tick 1
+snap Steve 3.5 -60 8.5 0 0
+select Steve 0
+use_on Steve 5 -61 14 east main 0.5 1.0 1.0
+tick 1
+give Steve hotbar0 minecraft:oak_slab 64
+select Steve 0
+use_on Steve 6 -61 14 down main 0.0 0.25 1.0
+tick 1
+give Steve hotbar0 minecraft:cut_copper_slab 64
+select Steve 0
+use_on Steve 4 -60 12 north main 0.0 0.25 1.0
+tick 1
+snap Steve 3.5 -60 8.5 90 0
+give Steve hotbar0 minecraft:oak_slab 64
+select Steve 0
+use_on Steve 2 -60 15 up main 0.5 0.51 1.0
+tick 1
+snap Steve 3.5 -60 8.5 180 0
+select Steve 0
+use_on Steve 4 -59 14 up main 0.0 0.5 0.0
+tick 1
+snap Steve 3.5 -60 8.5 0 0
+give Steve hotbar0 minecraft:cut_copper_slab 64
+select Steve 0
+use_on Steve 3 -61 13 down main 0.5 0.75 0.0
+tick 1
+snap Steve 3.5 -60 8.5 90 0
+give Steve hotbar0 minecraft:stone_slab 64
+select Steve 0
+use_on Steve 5 -59 14 up main 0.5 0.25 0.0
+tick 1
+snap Steve 3.5 -60 8.5 270 0
+give Steve hotbar0 minecraft:oak_slab 64
+select Steve 0
+use_on Steve 3 -61 12 east main 0.5 0.25 0.0
+tick 1
+snap Steve 3.5 -60 8.5 0 0
+select Steve 0
+use_on Steve 2 -60 12 south main 1.0 0.25 0.5
+tick 1
+snap Steve 3.5 -60 8.5 180 0
+select Steve 0
+use_on Steve 6 -60 12 up main 0.5 1.0 0.5
+tick 1
+snap Steve 3.5 -60 8.5 0 0
+select Steve 0
+use_on Steve 2 -59 14 down main 0.0 0.0 1.0
+tick 1
+snap Steve 3.5 -60 8.5 90 0
+give Steve hotbar0 minecraft:stone_slab 64
+select Steve 0
+use_on Steve 6 -61 15 east main 1.0 1.0 0.0
+tick 1
+snap Steve 3.5 -60 8.5 180 0
+give Steve hotbar0 minecraft:oak_slab 64
+select Steve 0
+use_on Steve 3 -61 12 north main 0.0 0.25 0.0
+tick 1
+snap Steve 3.5 -60 8.5 90 0
+give Steve hotbar0 minecraft:stone_slab 64
+select Steve 0
+use_on Steve 4 -61 12 down main 0.5 1.0 0.5
+tick 1
+snap Steve 3.5 -60 8.5 180 0
+select Steve 0
+use_on Steve 4 -61 12 east main 0.5 0.75 1.0
+tick 1
+snap Steve 3.5 -60 8.5 0 0
+select Steve 0
+use_on Steve 2 -60 14 east main 1.0 0.51 1.0
+tick 1
+snap Steve 3.5 -60 8.5 90 0
+give Steve hotbar0 minecraft:cut_copper_slab 64
+select Steve 0
+use_on Steve 1 -59 13 west main 0.5 0.51 0.0
+tick 1
+snap Steve 3.5 -60 8.5 0 0
+select Steve 0
+use_on Steve 4 -59 13 north main 0.5 1.0 0.0
+tick 1
+snap Steve 3.5 -60 8.5 90 0
+select Steve 0
+use_on Steve 5 -61 15 west main 0.0 0.51 0.5
+tick 1
+snap Steve 3.5 -60 8.5 180 0
+give Steve hotbar0 minecraft:oak_slab 64
+select Steve 0
+use_on Steve 4 -60 15 down main 1.0 1.0 0.5
+tick 1
+snap Steve 3.5 -60 8.5 90 0
+give Steve hotbar0 minecraft:stone_slab 64
+select Steve 0
+use_on Steve 5 -59 14 up main 1.0 0.75 1.0
+tick 1
+snap Steve 3.5 -60 8.5 180 0
+give Steve hotbar0 minecraft:cut_copper_slab 64
+select Steve 0
+use_on Steve 3 -59 13 down main 0.5 0.75 1.0
+tick 1
+snap Steve 3.5 -60 8.5 270 0
+give Steve hotbar0 minecraft:oak_slab 64
+select Steve 0
+use_on Steve 4 -59 15 up main 1.0 0.5 0.5
+tick 1
+select Steve 0
+use_on Steve 4 -61 14 up main 0.0 0.25 0.5
+tick 1
+snap Steve 3.5 -60 8.5 90 0
+give Steve hotbar0 minecraft:cut_copper_slab 64
+select Steve 0
+use_on Steve 4 -61 14 up main 0.5 0.75 0.5
+tick 1
+snap Steve 3.5 -60 8.5 270 0
+give Steve hotbar0 minecraft:oak_slab 64
+select Steve 0
+use_on Steve 3 -59 15 south main 0.0 0.25 1.0
+tick 1
+snap Steve 3.5 -60 8.5 0 0
+select Steve 0
+use_on Steve 3 -60 13 south main 1.0 0.75 0.5
+tick 1
+dump blocks:0,-61,12,8,-57,16

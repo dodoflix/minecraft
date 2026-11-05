@@ -1,0 +1,174 @@
+# LadderBlock, ChainBlock, LanternBlock, CarpetBlock, GlazedTerracottaBlock, RotatedPillarBlock, copper variants: placement + survival
+level flat
+preload 3
+spawn_player Steve creative 0.5 -60 -6.5 0 0
+watch events
+fill 0 -60 0 14 -55 10 minecraft:air
+fill 0 -60 4 8 -57 4 minecraft:stone
+snap Steve 1.5 -60 -1.0 0 0
+give Steve hotbar0 minecraft:ladder 64
+select Steve 0
+use_on Steve 1 -60 4 north main 0.5 0.5 0.0
+tick 1
+snap Steve 2.5 -60 -1.0 90 0
+select Steve 0
+use_on Steve 2 -60 4 north main 0.5 0.5 0.0
+tick 1
+snap Steve 3.5 -60 -1.0 180 30
+select Steve 0
+use_on Steve 3 -60 4 north main 0.5 0.5 0.0
+tick 1
+snap Steve 4.5 -60 -1.0 270 -30
+select Steve 0
+use_on Steve 4 -60 4 north main 0.5 0.5 0.0
+tick 1
+snap Steve 5.5 -60 -1.0 0 60
+select Steve 0
+use_on Steve 5 -60 4 north main 0.5 0.5 0.0
+tick 1
+snap Steve 6.5 -60 -1.0 0 -60
+select Steve 0
+use_on Steve 6 -60 4 north main 0.5 0.5 0.0
+tick 1
+snap Steve 1.5 -60 -1.0 0 0
+select Steve 0
+use_on Steve 1 -59 3 up main 0.5 1.0 0.5
+tick 1
+snap Steve 7.5 -60 -1.0 0 0
+select Steve 0
+use_on Steve 7 -61 3 up main 0.5 1.0 0.5
+tick 1
+block 8 -60 3 minecraft:water
+snap Steve 8.5 -60 -1.0 0 0
+select Steve 0
+use_on Steve 8 -60 4 north main 0.5 0.5 0.0
+tick 1
+dump blocks:0,-60,2,9,-57,4
+block 1 -60 8 minecraft:stone
+snap Steve 1.5 -60 5.0 0 0
+give Steve hotbar0 minecraft:iron_chain 64
+select Steve 0
+use_on Steve 1 -60 8 up main 0.5 1.0 0.5
+tick 1
+block 3 -60 8 minecraft:stone
+snap Steve 3.5 -60 5.0 0 0
+select Steve 0
+use_on Steve 3 -60 8 north main 0.5 0.5 0.5
+tick 1
+block 5 -60 8 minecraft:stone
+snap Steve 5.5 -60 5.0 0 0
+select Steve 0
+use_on Steve 5 -60 8 east main 0.5 0.5 0.5
+tick 1
+block 7 -60 8 minecraft:stone
+snap Steve 7.5 -60 5.0 0 0
+select Steve 0
+use_on Steve 7 -60 8 down main 0.5 1.0 0.5
+tick 1
+fill 10 -60 8 12 -60 8 minecraft:water
+snap Steve 10.5 -60 5.0 0 0
+select Steve 0
+use_on Steve 10 -61 8 up main 0.5 1.0 0.5
+tick 1
+snap Steve 12.5 -60 5.0 0 0
+give Steve hotbar0 minecraft:copper_chain 64
+select Steve 0
+use_on Steve 12 -61 8 up main 0.5 1.0 0.5
+tick 1
+dump blocks:0,-61,7,13,-58,9
+fill 0 -60 12 12 -55 16 minecraft:air
+fill 0 -58 13 8 -58 13 minecraft:stone
+snap Steve 1.5 -60 10.0 0 0
+give Steve hotbar0 minecraft:lantern 64
+select Steve 0
+use_on Steve 1 -61 13 up main 0.5 1.0 0.5
+tick 1
+snap Steve 3.5 -60 10.0 0 -60
+select Steve 0
+use_on Steve 3 -59 13 down main 0.5 0.0 0.5
+tick 1
+snap Steve 5.5 -60 10.0 0 -60
+give Steve hotbar0 minecraft:soul_lantern 64
+select Steve 0
+use_on Steve 5 -61 13 up main 0.5 1.0 0.5
+tick 1
+snap Steve 7.5 -60 10.0 90 60
+give Steve hotbar0 minecraft:copper_lantern 64
+select Steve 0
+use_on Steve 7 -59 13 down main 0.5 0.0 0.5
+tick 1
+block 10 -60 13 minecraft:water
+snap Steve 10.5 -60 10.0 0 0
+give Steve hotbar0 minecraft:lantern 64
+select Steve 0
+use_on Steve 10 -61 13 up main 0.5 1.0 0.5
+tick 1
+snap Steve 11.5 -60 10.0 0 0
+select Steve 0
+use_on Steve 11 -60 13 north main 0.5 0.5 0.0
+tick 1
+block 1 -61 13 minecraft:air
+tick 2
+dump blocks:0,-61,12,12,-58,14
+fill 0 -60 18 14 -57 22 minecraft:air
+snap Steve 1.5 -60 16.0 0 0
+give Steve hotbar0 minecraft:white_carpet 64
+select Steve 0
+use_on Steve 1 -61 19 up main 0.5 1.0 0.5
+tick 1
+snap Steve 3.5 -60 16.0 0 0
+select Steve 0
+use_on Steve 3 -60 19 up main 0.5 1.0 0.5
+tick 1
+block 5 -60 19 minecraft:glass
+snap Steve 5.5 -60 16.0 0 0
+select Steve 0
+use_on Steve 5 -59 19 up main 0.5 1.0 0.5
+tick 1
+block 5 -60 19 minecraft:air
+tick 2
+snap Steve 1.5 -60 18.0 0 0
+give Steve hotbar0 minecraft:red_glazed_terracotta 64
+select Steve 0
+use_on Steve 1 -61 21 up main 0.5 1.0 0.5
+tick 1
+snap Steve 3.5 -60 18.0 90 0
+select Steve 0
+use_on Steve 3 -61 21 up main 0.5 1.0 0.5
+tick 1
+snap Steve 5.5 -60 18.0 180 0
+select Steve 0
+use_on Steve 5 -61 21 up main 0.5 1.0 0.5
+tick 1
+snap Steve 7.5 -60 18.0 270 0
+select Steve 0
+use_on Steve 7 -61 21 up main 0.5 1.0 0.5
+tick 1
+block 1 -60 22 minecraft:stone
+snap Steve 1.5 -60 18.5 0 0
+give Steve hotbar0 minecraft:oak_log 64
+select Steve 0
+use_on Steve 1 -60 22 up main 0.5 1.0 0.5
+tick 1
+block 3 -60 22 minecraft:stone
+snap Steve 3.5 -60 18.5 0 0
+select Steve 0
+use_on Steve 3 -60 22 north main 0.5 0.5 0.5
+tick 1
+block 5 -60 22 minecraft:stone
+snap Steve 5.5 -60 18.5 0 0
+select Steve 0
+use_on Steve 5 -60 22 east main 0.5 0.5 0.5
+tick 1
+snap Steve 9.5 -60 16.0 0 0
+give Steve hotbar0 minecraft:copper_grate 64
+select Steve 0
+use_on Steve 9 -61 19 up main 0.5 1.0 0.5
+tick 1
+block 10 -60 19 minecraft:water
+snap Steve 10.5 -60 16.0 0 0
+select Steve 0
+use_on Steve 10 -61 19 up main 0.5 1.0 0.5
+tick 1
+tick 4
+dump blocks:0,-61,18,13,-58,22
