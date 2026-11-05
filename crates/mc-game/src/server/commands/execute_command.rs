@@ -251,6 +251,7 @@ fn store_score(source: &CommandSourceStack, names: Vec<ScoreHolder>, objective: 
                         score.set(value).unwrap_or_else(|e| panic!("{e}"));
                     }
                 }
+                server.flush_scoreboard();
             });
         }),
         CommandResultCallback::chain,
