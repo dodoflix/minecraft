@@ -6,7 +6,7 @@ use mc_nbt::{nbt_io, CompoundTag};
 #[test]
 fn shallow_copy_presizes_like_the_jdk() {
     let mut checked = 0;
-    for line in include_str!("fixtures/shallow_copy_golden.tsv").lines() {
+    for line in include_str!("../fixtures/shallow_copy_golden.tsv").lines() {
         let (n, want) = line.split_once('\t').unwrap();
         let n: i32 = n.parse().unwrap();
         let c: CompoundTag = (0..n).map(|i| (format!("k{i}"), i)).collect();
