@@ -3259,7 +3259,18 @@ pub trait Entity: Any {
     }
     /// The part of `EntityType.create(level, config, pos, ...)` that only applies to mobs (`yHeadRot`/`yBodyRot` = `yRot`,
     /// `finalizeSpawn`).
-    fn finalize_spawn_on_create(&mut self, _level: &mut ServerLevel, _reason: mc_data::enums::EntitySpawnReason) {}
+    fn finalize_spawn_on_create(&mut self, level: &mut ServerLevel, reason: mc_data::enums::EntitySpawnReason) {
+        if !self.is_mob() {
+            return;
+        }
+        let y_rot = self.base().y_rot();
+        if let Some(living) = self.living_mut() {
+            living.y_head_rot = y_rot;
+            living.y_body_rot = y_rot;
+        }
+        let difficulty = crate::world::level::server_level_accessor::ServerLevelAccessor::get_current_difficulty_at(&*level, self.block_position());
+        self.finalize_spawn(level, difficulty, reason, None);
+    }
     /// `thunderHit(level, lightningBolt)` (the bolt is the cause of what the entity does).
     fn thunder_hit_by(&mut self, level: &mut ServerLevel, _bolt: EntityId) {
         self.thunder_hit(level);
