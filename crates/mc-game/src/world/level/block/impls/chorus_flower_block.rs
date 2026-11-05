@@ -76,6 +76,12 @@ fn place_dead_flower(level: &mut ServerLevel, pos: BlockPos) {
 }
 
 impl BlockBehaviour for ChorusFlowerBlock {
+    fn on_projectile_hit(&self, level: &mut ServerLevel, _state: BlockState, hit: &mc_core::phys::BlockHitResult, projectile: &mut dyn crate::world::entity::projectile::Projectile) {
+        let pos = hit.block_pos;
+        if projectile.may_interact_projectile(level, pos) && projectile.may_break(level, pos) {
+            level.destroy_block(pos, true, Some(projectile.id()), 512);
+        }
+    }
     fn tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         if !state.can_survive(&*level, pos) {
             level.destroy_block(pos, true, None, 512);

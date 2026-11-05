@@ -48,6 +48,9 @@ impl BlockBehaviour for CaveVinesBlock {
     fn get_clone_item_stack(&self, _state: BlockState, _level: &ServerLevel, _pos: BlockPos, _include_data: bool) -> crate::world::item::ItemStack {
         super::cave_vines::glow_berries()
     }
+    fn use_without_item(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut crate::world::entity::ServerPlayer, _hit: &mc_core::phys::BlockHitResult) -> crate::world::item::InteractionResult {
+        super::cave_vines::use_(&*player, state, level, pos)
+    }
     fn is_valid_bonemeal_target(&self, _level: &dyn LevelReader, _pos: BlockPos, state: BlockState, _source: BonemealSource) -> bool {
         !state.get(props::BERRIES)
     }

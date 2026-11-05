@@ -104,20 +104,25 @@ fn set_tilt_and_schedule_tick(state: BlockState, level: &mut ServerLevel, pos: B
     }
 }
 
-/// `onProjectileHit`: `setTiltAndScheduleTick(state, level, blockHit.getBlockPos(), Tilt.FULL, BIG_DRIPLEAF_TILT_DOWN)`.
-pub fn on_projectile_hit(state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
-    set_tilt_and_schedule_tick(state, level, pos, Tilt::Full, Some(SoundEvent::BLOCK_BIG_DRIPLEAF_TILT_DOWN));
-}
-
-/// `entityInside` for an entity that is on the ground (`canEntityTilt`: `onGround() && position().y > pos.getY() + 0.6875F`).
-pub fn entity_inside(state: BlockState, level: &mut ServerLevel, pos: BlockPos, on_ground: bool, entity_y: f64) {
-    let can_entity_tilt = on_ground && entity_y > f64::from(pos.y() as f32 + 0.6875_f32);
-    if state.get(props::TILT) == Tilt::None && can_entity_tilt && !crate::world::level::signal_getter::has_neighbor_signal(&*level, pos) {
-        set_tilt_and_schedule_tick(state, level, pos, Tilt::Unstable, None);
-    }
-}
-
 impl BlockBehaviour for BigDripleafBlock {
+    fn on_projectile_hit(&self, level: &mut ServerLevel, state: BlockState, hit: &mc_core::phys::BlockHitResult, _projectile: &mut dyn crate::world::entity::projectile::Projectile) {
+        set_tilt_and_schedule_tick(state, level, hit.block_pos, Tilt::Full, Some(SoundEvent::BLOCK_BIG_DRIPLEAF_TILT_DOWN));
+    }
+    fn entity_inside(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        entity: &mut dyn crate::world::entity::Entity,
+        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        _is_precise: bool,
+    ) {
+        // `canEntityTilt`: `onGround() && position().y > pos.getY() + 0.6875F`
+        let can_entity_tilt = entity.base().on_ground() && entity.position().y > f64::from(pos.y() as f32 + 0.6875_f32);
+        if state.get(props::TILT) == Tilt::None && can_entity_tilt && !crate::world::level::signal_getter::has_neighbor_signal(&*level, pos) {
+            set_tilt_and_schedule_tick(state, level, pos, Tilt::Unstable, None);
+        }
+    }
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         let below_state = level.get_block_state(pos.below());
         below_state.is_block(state.block()) || below_state.is_block(Block::BIG_DRIPLEAF_STEM) || below_state.is_tag("supports_big_dripleaf")
