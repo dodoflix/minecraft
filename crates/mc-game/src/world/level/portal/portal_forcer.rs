@@ -4,6 +4,7 @@
 //! block read of the forcer goes through [`PortalForcer::block_state`] which loads the full chunk first.
 use crate::server::level::ServerLevel;
 use crate::util::block_util::FoundRectangle;
+use crate::world::entity::ai::village::poi::{Occupancy, PoiTypes};
 use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use mc_core::direction::{Axis, AxisDirection, Direction};
 use mc_core::math::mth;
@@ -61,9 +62,11 @@ impl PortalForcer<'_> {
     /// `findClosestPortalPosition(approximateExitPos, toNether, worldBorder)`: the border is the one of this level.
     pub fn find_closest_portal_position(&mut self, approximate_exit_pos: BlockPos, to_nether: bool) -> Option<BlockPos> {
         let radius = if to_nether { NETHER_PORTAL_RADIUS } else { OVERWORLD_PORTAL_RADIUS };
-        let candidates = self.level.nether_portal_pois_in_square(approximate_exit_pos, radius);
+        self.level.poi_ensure_loaded_and_valid(approximate_exit_pos, radius);
+        let candidates = self.level.poi_manager().get_in_square(&|t| t.is(PoiTypes::NETHER_PORTAL), approximate_exit_pos, radius, Occupancy::Any);
         let mut best: Option<(f64, BlockPos)> = None;
-        for pos in candidates {
+        for record in candidates {
+            let pos = record.get_pos();
             if !self.level.world_border().is_within_bounds_block(&pos) {
                 continue;
             }
