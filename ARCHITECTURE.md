@@ -93,7 +93,8 @@ Vanilla's gameplay code is one tightly coupled object graph, so it lives in one 
 
 ## Parallel workflow (from wave 2 on)
 
-Every agent works in its own git worktree on its own branch:
+**The main checkout `/home/dodo/Projects/minecraft` is READ-ONLY for every agent, helpers included.** A guard moves any
+uncommitted edit found there to a `stray-main-<time>` branch every minute. Every agent works in its own git worktree:
 `git worktree add /home/dodo/Projects/mc-wt/<name> -b <name> main && ln -s ./ref /home/dodo/Projects/mc-wt/<name>/ref`
 (the `ref/` symlink is required: builds read `ref/extracted`, `ref/generated`, …), builds only there, then integrates:
 `git rebase main` (resolve conflicts, keep both sides' intent), build + test the crates it touched, and fast-forward
