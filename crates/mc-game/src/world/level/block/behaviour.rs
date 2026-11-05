@@ -399,6 +399,15 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     }
     /// Applies what the container returned by `get_worldly_container` deferred (composter fill / output emptying).
     fn finish_worldly_container(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _container: Box<dyn crate::world::container::Container>) {}
+
+
+    // ==== [Blocks:SpeleothemCopper] AbstractCauldronBlock stalactite drips ====
+    /// `AbstractCauldronBlock.canReceiveStalactiteDrip(fluid)`.
+    fn can_receive_stalactite_drip(&self, _fluid: Fluid) -> bool {
+        false
+    }
+    /// `AbstractCauldronBlock.receiveStalactiteDrip(state, level, pos, fluid)`.
+    fn receive_stalactite_drip(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _fluid: Fluid) {}
 }
 
 /// Vanilla's base behavior (every method default).
