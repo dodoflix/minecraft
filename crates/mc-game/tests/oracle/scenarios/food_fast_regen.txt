@@ -1,0 +1,6 @@
+# FoodData: fast regeneration (food 20, saturation > 0), spending saturation as exhaustion
+level flat
+spawn_player Steve survival 0.5 -60 0.5 0 0
+watch player:Steve
+set Steve health 10
+tick 80

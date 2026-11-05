@@ -1,0 +1,9 @@
+# natural_health_regeneration false: no regeneration at all
+level flat
+gamerule natural_health_regeneration false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+watch player:Steve
+set Steve health 10
+tick 40
+difficulty peaceful
+tick 40
