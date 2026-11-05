@@ -629,6 +629,10 @@ impl BlockGetter for ServerLevel {
 }
 
 impl LevelReader for ServerLevel {
+    fn is_fast_lava(&self) -> bool {
+        self.fast_lava()
+    }
+
     fn has_chunk(&self, chunk_x: i32, chunk_z: i32) -> bool {
         self.chunk_source.has_chunk(chunk_x, chunk_z)
     }

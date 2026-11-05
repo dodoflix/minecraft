@@ -1,0 +1,41 @@
+# Lava random ticks: fire on flammable neighbours above (passes 1-2) and beside (pass 0), RNG-order sensitive.
+level flat
+preload 2
+gamerule fire_spread_radius_around_player -1
+level_seed 7
+fill -3 -60 -3 3 -60 3 minecraft:oak_planks
+block 0 -60 0 minecraft:lava[level=0]
+fill -3 -59 -3 3 -59 3 minecraft:oak_planks
+fill -2 -58 -2 2 -57 2 minecraft:hay_block
+block 2 -60 2 minecraft:air
+block 2 -59 2 minecraft:air
+block 4 -60 0 minecraft:netherrack
+block 5 -60 0 minecraft:lava[level=0]
+block 5 -59 0 minecraft:air
+block 5 -59 1 minecraft:oak_planks
+block 0 -61 0 minecraft:stone
+watch blocks:-4,-61,-4,6,-55,4
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 5 -60 0
+random_tick 5 -60 0
+random_tick 5 -60 0
+random_tick 5 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 5 -60 0
+random_tick 5 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+random_tick 0 -60 0
+tick 5
+dump blocks:-4,-61,-4,6,-55,4

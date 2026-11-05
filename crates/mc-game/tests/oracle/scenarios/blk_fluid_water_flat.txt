@@ -1,0 +1,8 @@
+# Water source on flat ground: spreads 7 blocks, 5 ticks per step; per-tick blocks + pending fluid ticks at the end.
+level flat
+preload 2
+watch blocks:-9,-60,-9,9,-60,9
+block 0 -60 0 minecraft:water[level=0]
+dump ticks
+tick 45
+dump ticks

@@ -1,0 +1,18 @@
+# Water over a ledge (falling column), slope finding toward holes at distance 2/3/4/5, a walled hole, 100+ ticks.
+level flat
+preload 2
+# ledge: stone platform 3 high; source on top at its centre
+fill 6 -60 -2 8 -58 0 minecraft:stone
+block 7 -57 -1 minecraft:water[level=0]
+# holes in the ground south of the origin source: depth 1 at distance 2 (z=2), depth 2 at distance 4 (x=-4,z=2)
+fill 2 -61 2 2 -61 2 minecraft:air
+fill -4 -62 2 -4 -61 2 minecraft:air
+# a hole only reachable by walking around a wall
+fill -1 -60 3 3 -60 3 minecraft:stone
+fill 5 -61 5 5 -61 5 minecraft:air
+block 0 -60 0 minecraft:water[level=0]
+block -12 -60 10 minecraft:water[level=0]
+fill -14 -61 10 -14 -61 10 minecraft:air
+watch blocks:-16,-62,-8,12,-56,12
+tick 120
+dump ticks

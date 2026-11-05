@@ -41,6 +41,9 @@ pub struct CollisionContext {
     always_collide_with_fluid: bool,
     entity: Option<EntityId>,
     can_stand_on_fluid: Option<CanStandOnFluid>,
+    /// `LivingEntity.getLiquidCollisionShape()` of the context's entity when it is not the default empty shape
+    /// (`Strider`: the lower half block).
+    liquid_collision_shape: Option<VoxelShape>,
     /// `MinecartCollisionContext.ingoreBelow` / `slopeIgnore`.
     ignored_positions: [Option<BlockPos>; 2],
     entity_fall_distance: f64,
@@ -59,6 +62,7 @@ impl CollisionContext {
             always_collide_with_fluid: false,
             entity: None,
             can_stand_on_fluid: None,
+            liquid_collision_shape: None,
             ignored_positions: [None, None],
             entity_fall_distance: 0.0,
             entity_is_falling_block: false,
@@ -159,6 +163,22 @@ impl CollisionContext {
             (ContextKind::Entity, Some(f)) => f(fluid.fluid()) && fluid_state_above.fluid() != fluid.fluid(),
             _ => false,
         }
+    }
+
+    /// `getEntity() instanceof LivingEntity` (the entity side provided `canStandOnFluid`).
+    pub fn is_living_entity(&self) -> bool {
+        self.kind == ContextKind::Entity && self.can_stand_on_fluid.is_some()
+    }
+
+    /// `LivingEntity.getLiquidCollisionShape()` of the context's living entity (`Shapes.empty()` by default).
+    pub fn liquid_collision_shape(&self) -> VoxelShape {
+        self.liquid_collision_shape.clone().unwrap_or_else(Shapes::empty)
+    }
+
+    /// Sets the entity's `getLiquidCollisionShape()` (only `Strider` overrides the empty default).
+    pub fn with_liquid_collision_shape(mut self, shape: VoxelShape) -> Self {
+        self.liquid_collision_shape = Some(shape);
+        self
     }
 
     pub fn is_placement(&self) -> bool {

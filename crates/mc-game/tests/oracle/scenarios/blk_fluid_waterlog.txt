@@ -1,0 +1,35 @@
+# Water flowing through waterloggable blocks (slab/stairs/trapdoor/fence/ladder/chain/lantern/bars/scaffolding/leaves/sign/
+# candle/rail/barrier/campfire...) and past non-waterloggable ones; waterlogged blocks spread further.
+level flat
+preload 2
+block 0 -60 0 minecraft:water[level=0]
+block 1 -60 0 minecraft:oak_slab[type=bottom,waterlogged=false]
+block 2 -60 0 minecraft:oak_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+block 3 -60 0 minecraft:oak_trapdoor[facing=east,half=bottom,open=false,powered=false,waterlogged=false]
+block 4 -60 0 minecraft:oak_fence[waterlogged=false]
+block 5 -60 0 minecraft:ladder[facing=north,waterlogged=false]
+block 6 -60 0 minecraft:iron_chain[axis=y,waterlogged=false]
+block 7 -60 0 minecraft:lantern[hanging=false,waterlogged=false]
+block 8 -60 0 minecraft:iron_bars[waterlogged=false]
+block 9 -60 0 minecraft:oak_leaves[distance=7,persistent=true,waterlogged=false]
+block 10 -60 0 minecraft:cobblestone_wall[up=true,waterlogged=false]
+block 11 -60 0 minecraft:oak_slab[type=double,waterlogged=false]
+block 0 -60 4 minecraft:water[level=0]
+block 1 -60 4 minecraft:oak_slab[type=top,waterlogged=false]
+block 2 -60 4 minecraft:oak_trapdoor[facing=east,half=top,open=true,powered=false,waterlogged=false]
+block 3 -60 4 minecraft:candle[candles=1,lit=false,waterlogged=false]
+block 4 -60 4 minecraft:sea_pickle[pickles=1,waterlogged=false]
+block 5 -60 4 minecraft:oak_sign[rotation=0,waterlogged=false]
+block 6 -60 4 minecraft:rail[shape=east_west,waterlogged=false]
+block 7 -60 4 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+block 8 -60 4 minecraft:stone_slab[type=bottom,waterlogged=true]
+block 9 -60 4 minecraft:glass
+block 0 -60 8 minecraft:water[level=0]
+block 1 -60 8 minecraft:cobblestone_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+block 2 -60 8 minecraft:campfire[facing=north,lit=false,signal_fire=false,waterlogged=false]
+block 3 -60 8 minecraft:barrier[waterlogged=false]
+block 4 -60 8 minecraft:light[level=15,waterlogged=false]
+block 5 -60 8 minecraft:end_rod[facing=up]
+watch blocks:-1,-61,-1,14,-58,10
+tick 60
+dump ticks

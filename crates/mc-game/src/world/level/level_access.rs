@@ -72,6 +72,10 @@ pub trait LevelReader: BlockGetter {
     fn is_loaded(&self, pos: BlockPos) -> bool {
         !self.is_outside_build_height(pos.y()) && self.has_chunk(pos.x() >> 4, pos.z() >> 4)
     }
+    /// `environmentAttributes().getDimensionValue(EnvironmentAttributes.FAST_LAVA)` (the nether's dimension type).
+    fn is_fast_lava(&self) -> bool {
+        false
+    }
     /// `enabledFeatures()`.
     fn enabled_features(&self) -> FeatureFlagSet {
         FeatureFlagSet::DEFAULT_FLAGS

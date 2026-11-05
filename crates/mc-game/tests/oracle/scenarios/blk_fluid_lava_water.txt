@@ -1,0 +1,36 @@
+# Lava and water meeting: obsidian (source) / cobblestone (flowing), water over lava, lava over water, soul soil + blue ice basalt.
+level flat
+preload 3
+# 1. lava source then water source next to it
+block 0 -60 0 minecraft:lava[level=0]
+block 1 -60 0 minecraft:water[level=0]
+# 2. lava flowing from a pillar meets a water source on the ground
+fill 10 -60 0 10 -60 0 minecraft:stone
+block 10 -59 0 minecraft:lava[level=0]
+block 13 -60 0 minecraft:water[level=0]
+# 3. water source above a lava source
+block 20 -60 0 minecraft:lava[level=0]
+block 20 -59 0 minecraft:water[level=0]
+# 4. lava over soul soil with blue ice next to it (both orders)
+block 30 -61 0 minecraft:soul_soil
+block 31 -60 0 minecraft:blue_ice
+block 30 -60 0 minecraft:lava[level=0]
+block 35 -61 0 minecraft:soul_soil
+block 35 -60 0 minecraft:lava[level=0]
+block 36 -60 0 minecraft:blue_ice
+# 5. water flowing from a pillar onto flowing lava
+fill 40 -60 0 40 -60 0 minecraft:stone
+block 40 -59 0 minecraft:water[level=0]
+block 43 -60 0 minecraft:lava[level=0]
+# 6. lava source below a flowing water column
+fill 50 -60 0 50 -60 0 minecraft:stone
+block 50 -59 0 minecraft:lava[level=0]
+block 50 -56 0 minecraft:water[level=0]
+# 7. water flowing down onto a lava source, and lava flowing down onto a water source
+block 55 -61 0 minecraft:lava[level=0]
+block 55 -60 0 minecraft:water[level=0]
+block 58 -61 0 minecraft:water[level=0]
+block 58 -60 0 minecraft:lava[level=0]
+watch blocks:-2,-62,-3,60,-55,3
+tick 150
+dump ticks

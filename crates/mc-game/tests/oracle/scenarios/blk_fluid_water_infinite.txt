@@ -1,0 +1,25 @@
+# Infinite water: gap between two sources over solid ground fills to a source; not over a hole; then remove a source.
+level flat
+preload 2
+block 0 -60 0 minecraft:water[level=0]
+block 2 -60 0 minecraft:water[level=0]
+# second pair over a hole: stays flowing
+fill 12 -61 0 12 -61 0 minecraft:air
+block 11 -60 0 minecraft:water[level=0]
+block 13 -60 0 minecraft:water[level=0]
+# third pair on top of a source pool (below is a source): becomes a source
+block 20 -60 0 minecraft:water[level=0]
+block 20 -61 -1 minecraft:water[level=0]
+block 22 -60 0 minecraft:water[level=0]
+watch blocks:-1,-61,-2,23,-60,2
+tick 30
+dump ticks
+block 0 -60 0 minecraft:air
+tick 30
+dump ticks
+gamerule water_source_conversion false
+block 0 -60 0 minecraft:water[level=0]
+block 30 -60 0 minecraft:water[level=0]
+block 32 -60 0 minecraft:water[level=0]
+tick 30
+dump blocks:28,-60,-2,34,-60,2

@@ -1,0 +1,10 @@
+# Lava (overworld: 30 ticks delay, drop-off 2, slope distance 2): flat spread, a cliff, and a low hole.
+level flat
+preload 2
+fill 6 -60 -2 8 -59 0 minecraft:stone
+block 7 -58 -1 minecraft:lava[level=0]
+fill -3 -61 3 -3 -61 3 minecraft:air
+block 0 -60 0 minecraft:lava[level=0]
+watch blocks:-9,-62,-4,12,-56,6
+tick 200
+dump ticks

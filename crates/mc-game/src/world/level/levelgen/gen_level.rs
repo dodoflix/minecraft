@@ -297,6 +297,11 @@ impl BlockGetter for GenLevel<'_> {
 }
 
 impl LevelReader for GenLevel<'_> {
+    /// The dimension type's `fast_lava` (only the nether's has it; custom dimension types are not consulted here).
+    fn is_fast_lava(&self) -> bool {
+        self.env.dimension.to_string() == "minecraft:the_nether"
+    }
+
     /// `hasChunk`: `distance < directDependencies.size()`.
     fn has_chunk(&self, chunk_x: i32, chunk_z: i32) -> bool {
         self.max_allowed_status(self.region.center.get_chessboard_distance_xz(chunk_x, chunk_z)).is_some()

@@ -35,6 +35,8 @@ pub trait FluidBehaviour: Send + Sync + 'static {
     fn get_height(&self, state: FluidState, _level: &dyn BlockGetter, _pos: BlockPos) -> f32 {
         state.own_height()
     }
+    /// `isSame(other)` (`this` is the fluid this behavior belongs to).
+    fn is_same(&self, other: Fluid) -> bool;
     /// `getShape(state, level, pos)`.
     fn get_shape(&self, state: FluidState, _level: &dyn BlockGetter, _pos: BlockPos) -> VoxelShape {
         voxel_shape(state.data().shape)
@@ -43,7 +45,21 @@ pub trait FluidBehaviour: Send + Sync + 'static {
 
 /// `EmptyFluid`.
 pub struct EmptyFluid;
-impl FluidBehaviour for EmptyFluid {}
+impl FluidBehaviour for EmptyFluid {
+    fn is_same(&self, other: Fluid) -> bool {
+        other == Fluid::EMPTY
+    }
+}
+
+/// `fluid.isSame(other)`.
+pub fn fluid_is_same(fluid: Fluid, other: Fluid) -> bool {
+    fluid_behaviour(fluid).is_same(other)
+}
+
+/// `fluid.is(tag)` (`Fluid.is(TagKey)`), tag name without namespace (`water`, `lava`).
+pub fn fluid_is_tag(fluid: Fluid, tag: &str) -> bool {
+    mc_data::tags::get::<Fluid>(tag).is_some_and(|t| t.contains(fluid))
+}
 
 /// Registers behavior for the fluid with registry name `fluid` (`minecraft:water`). (Java class names are ambiguous
 /// for fluids: both `WaterFluid.Flowing` and `LavaFluid.Flowing` are `Flowing`.)
@@ -75,10 +91,7 @@ pub fn fluid_behaviour(fluid: Fluid) -> &'static dyn FluidBehaviour {
             Fluid::iter()
                 .map(|f| match FLUIDS.iter().find(|r| r.fluid == f.data().name) {
                     Some(r) => (r.create)(f),
-                    None => match super::flowing_fluid::flowing_fluid_for(f) {
-                        Some(flowing) => Box::new(flowing) as Box<dyn FluidBehaviour>,
-                        None => Box::new(EmptyFluid) as Box<dyn FluidBehaviour>,
-                    },
+                    None => Box::new(EmptyFluid) as Box<dyn FluidBehaviour>,
                 })
                 .collect()
         })[fluid.id() as usize]
@@ -108,7 +121,7 @@ impl FluidStateExt for FluidState {
         self.fluid()
     }
     fn is_tag(self, tag: &str) -> bool {
-        mc_data::tags::get::<Fluid>(tag).is_some_and(|t| t.contains(self.fluid()))
+        fluid_is_tag(self.fluid(), tag)
     }
     fn is_source_of_type(self, fluid: Fluid) -> bool {
         self.fluid() == fluid && self.is_source()
