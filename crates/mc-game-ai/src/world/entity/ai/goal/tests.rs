@@ -1,6 +1,7 @@
 //! GoalSelector arbitration (priority replacement, flag locks, disabled flags, interruptibility, tick rates).
 
 use super::*;
+use crate::world::entity::Entity;
 use crate::server::level::ServerLevel;
 use crate::world::entity::plain::PlainEntity;
 use mc_data::EntityType;

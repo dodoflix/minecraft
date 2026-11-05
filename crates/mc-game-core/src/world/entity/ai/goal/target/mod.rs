@@ -1,21 +1,11 @@
 //! `net.minecraft.world.entity.ai.goal.target`: the target-selecting goals (`TargetGoal` base embedded by each).
 
-mod defend_village_target_goal;
 mod hurt_by_target_goal;
 mod nearest_attackable_target_goal;
-mod non_tame_random_target_goal;
-mod owner_hurt_by_target_goal;
-mod owner_hurt_target_goal;
-mod nearest_attackable_witch_target_goal;
-mod target_goal;
+pub mod target_goal;
 
-pub use defend_village_target_goal::DefendVillageTargetGoal;
 pub use hurt_by_target_goal::{AlertOtherFn, HurtByTargetGoal};
 pub use nearest_attackable_target_goal::{NearestAttackableTargetGoal, SearchAreaFn};
-pub use non_tame_random_target_goal::NonTameRandomTargetGoal;
-pub use owner_hurt_by_target_goal::OwnerHurtByTargetGoal;
-pub use owner_hurt_target_goal::OwnerHurtTargetGoal;
-pub use nearest_attackable_witch_target_goal::NearestAttackableWitchTargetGoal;
 pub use target_goal::TargetGoal;
 
 use crate::world::entity::Entity;

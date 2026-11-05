@@ -78,6 +78,9 @@ What stays in `core` on purpose (referenced from the spine, so it cannot sit abo
 
 * `monsters`: `macro_rules! block_entity_base` / `update_shape` made `#[macro_export]` (+ `impls::prelude` and `block_entity::read_codec` `pub`) so
   the creaking heart files import them by path across the crate boundary.
+* `ai`: `goal/target/mod.rs` declares `target_goal` as `pub mod` (the moved target goals import `super::target_goal`; private child
+  modules are not visible through the shim's glob re-export); `goal/tests.rs` imports `Entity` itself (it relied on
+  `use super::*` seeing the private import of `goal/mod.rs`).
 * `animals`: `macro_rules! model_type` made `#[macro_export]`; the generated `animal/mod.rs` shim does not declare `bee` (its
   `pub mod bee;` is commented out in the original: the file is dead code that never compiled).
 
@@ -94,6 +97,9 @@ What stays in `core` on purpose (referenced from the spine, so it cannot sit abo
 | `ai/behavior/{villager_goal_packages,poi_competitor_scan,trade_with_villager,villager_make_love,yield_job_site}.rs` | `villager.rs` builds its brain from `villager_goal_packages`, which pulls the other four |
 | `animal/chicken/*`, `animal/temperature_variants.rs` | `zombie/base.rs` (chicken jockey) downcasts to `Chicken`; `chicken_variant` uses `temperature_variants` |
 | `animal/equine/{abstract_horse,mod}.rs` | `abstract_horse.rs` has blanket `impl<T: AbstractHorse> MountInventory/AbstractHorseAccess for T` (core traits): an orphan-rule violation unless the `AbstractHorse` trait lives in the same crate as those traits; `mod.rs` follows (parent module must not be above its child) |
+| `ai/goal/{break_door,breed,door_interact,follow_parent,melee_attack,move_back_to_village,move_through_village,move_to_block,random_look_around,random_stand,ranged_attack,remove_block,run_around_like_crazy,tempt,zombie_attack}.rs`, `ai/goal/target/hurt_by_target_goal.rs` | named by the pinned zombie goals / chicken / abstract horse / villager files above (the goal framework is core, these concrete goals are their dependencies) |
+| `ai/behavior/{assign_profession_from_job_site,behavior_utils,celebrate_villagers_survived_raid,do_nothing,gate_behavior,give_gift_to_hero,go_to_closest_village,go_to_potential_job_site,go_to_wanted_item,harvest_farmland,inside_brownian_walk,interact_with,interact_with_door,jump_on_bed,locate_hiding_place,look_and_follow_trading_player_sink,look_at_target_sink,move_to_sky_seeing_spot,move_to_target_sink,play_tag_with_other_kids,react_to_bell,reset_profession,reset_raid_status,ring_bell,set_closest_home_as_walk_target,set_entity_look_target,set_hidden_state,set_look_and_interact,set_raid_status,set_walk_target_away_from,set_walk_target_from_block_memory,set_walk_target_from_look_target,show_trades_to_player,shuffling_list,sleep_in_bed,socialize_at_bell,stroll_around_poi,stroll_to_poi,stroll_to_poi_list,swim,trigger_gate,use_bonemeal,validate_nearby_poi,village_bound_random_stroll,villager_calm_down,villager_panic_trigger,wake_up,work_at_composter,work_at_poi}.rs` | the pinned `villager_goal_packages.rs` (and `villager.rs`) name them |
+| `npc/villager/villager_data.rs` | `villager.rs` / `villager_type.rs` import `super::villager_data` |
 
 ## linkme
 
