@@ -93,7 +93,8 @@ pub fn with_player_container<R>(player: &mut dyn MenuPlayer, key: &ContainerKey,
             let mut f = Some(f);
             let resolved = player.level().and_then(|level| {
                 let be = level.get_block_entity_immediate(*pos)?;
-                let result = (f.take().expect("called once"))(be.as_container_mut()?);
+                let container = be.as_container_mut()?;
+                let result = (f.take().expect("called once"))(container);
                 let pending = be.container_pending();
                 Some((result, pending))
             });
