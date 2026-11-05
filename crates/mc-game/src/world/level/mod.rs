@@ -13,12 +13,9 @@ pub mod gamerules;
 pub mod level_access;
 pub mod levelgen;
 pub mod material;
-<<<<<<< HEAD
 pub mod path_navigation_region;
 pub mod pathfinder;
-=======
 pub mod portal;
->>>>>>> a1012abe (wip(portal): PortalShape, BlockUtil, PortalForcer, NetherPortalBlock, fire onPlace)
 pub mod precipitation;
 pub mod redstone;
 pub mod server_level_accessor;
