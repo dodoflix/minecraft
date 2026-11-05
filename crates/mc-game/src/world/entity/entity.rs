@@ -738,6 +738,14 @@ pub trait Entity: Any {
         None
     }
 
+    /// Rideable mobs with a saddle / body armor / chest screen (horse, llama, nautilus, ...).
+    fn as_mount_inventory(&self) -> Option<&dyn crate::world::inventory::MountInventory> {
+        None
+    }
+    fn as_mount_inventory_mut(&mut self) -> Option<&mut dyn crate::world::inventory::MountInventory> {
+        None
+    }
+
     /// `entity instanceof Merchant` (villager, wandering trader): what `MerchantMenu` talks to.
     fn as_merchant(&self) -> Option<&dyn crate::world::item::trading::Merchant> {
         None

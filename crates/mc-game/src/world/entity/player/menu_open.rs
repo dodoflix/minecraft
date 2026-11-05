@@ -6,7 +6,7 @@ use super::menu_ctx::{PlayerCtx, ServerPlayerMenuInit};
 use crate::server::level::ServerLevel;
 use crate::translatable;
 use crate::world::entity::Entity;
-use crate::world::inventory::{AbstractContainerMenu, MenuProvider, PlayerMenus};
+use crate::world::inventory::{AbstractContainerMenu, HorseInventoryMenu, MenuProvider, NautilusInventoryMenu, PlayerMenus};
 use mc_protocol::packets::play::{ClientboundContainerClosePacket, ClientboundMountScreenOpenPacket, ClientboundOpenScreenPacket, ClientboundSystemChatPacket};
 use mc_text::ChatFormatting;
 
@@ -52,6 +52,18 @@ impl ServerPlayer {
             create(container_id, &mut ctx)
         };
         self.init_menu(level, menu);
+    }
+
+    /// `openHorseInventory(horse, container)` (the container is the horse's `Entity::as_container`).
+    pub fn open_horse_inventory(&mut self, level: &mut ServerLevel, horse: crate::world::entity::EntityId) {
+        let Some(columns) = level.get_entity(horse).and_then(|e| e.as_mount_inventory()).map(|m| m.get_inventory_columns()) else { return };
+        self.open_mount_inventory(level, horse, columns, |id, ctx| Box::new(HorseInventoryMenu::new(id, ctx, horse)));
+    }
+
+    /// `openNautilusInventory(nautilus, container)`.
+    pub fn open_nautilus_inventory(&mut self, level: &mut ServerLevel, nautilus: crate::world::entity::EntityId) {
+        let Some(columns) = level.get_entity(nautilus).and_then(|e| e.as_mount_inventory()).map(|m| m.get_inventory_columns()) else { return };
+        self.open_mount_inventory(level, nautilus, columns, |id, ctx| Box::new(NautilusInventoryMenu::new(id, ctx, nautilus)));
     }
 
     /// `initMenu(menu)` + `containerMenu = menu`.

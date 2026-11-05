@@ -78,6 +78,10 @@ pub trait MenuPlayer {
     fn container_interaction_range(&self) -> f64 {
         4.5
     }
+    /// `isWithinEntityInteractionRange(bb, buffer)`.
+    fn is_within_entity_interaction_range(&self, _target: &mc_core::phys::AABB, _buffer: f64) -> bool {
+        true
+    }
     /// `isWithinBlockInteractionRange(pos, buffer)`.
     fn is_within_block_interaction_range(&self, pos: BlockPos, buffer: f64) -> bool;
     /// Runs `f` with the real `ServerLevel`/`ServerPlayer` (advancement triggers, stats, xp, ...); no-op for test

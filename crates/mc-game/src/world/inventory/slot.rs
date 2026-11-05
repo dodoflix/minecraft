@@ -31,6 +31,8 @@ pub enum ContainerKey {
     Entity(EntityId),
     /// The owner's `PlayerEnderChestContainer`.
     PlayerEnderChest,
+    /// `mob.createEquipmentSlotContainer(slot)`: one equipment slot of a mount (via `Entity::as_mount_inventory`).
+    EntityEquipment(EntityId, crate::world::entity::equipment::EquipmentSlot),
 }
 
 impl ContainerKey {
@@ -43,6 +45,7 @@ impl ContainerKey {
             (Self::Shared(a), Self::Shared(b)) => Rc::ptr_eq(a, b),
             (Self::BlockEntity(a), Self::BlockEntity(b)) => a == b,
             (Self::Entity(a), Self::Entity(b)) => a == b,
+            (Self::EntityEquipment(a, sa), Self::EntityEquipment(b, sb)) => a == b && sa == sb,
             _ => false,
         }
     }
@@ -59,6 +62,8 @@ impl ContainerKey {
                 .is_some_and(|be| be.as_container().is_some_and(|c| c.still_valid(player))),
             Self::Entity(id) => player.level_ref().and_then(|l| l.get_entity(*id)).is_some_and(|e| e.as_container().is_some_and(|c| c.still_valid(player))),
             Self::PlayerEnderChest => player.ender_chest().is_none_or(|c| c.still_valid(player)),
+            // `player.getVehicle() == mob || within range`: the mount menus check the range themselves
+            Self::EntityEquipment(..) => true,
         }
     }
 }
@@ -117,6 +122,24 @@ pub fn with_player_container<R>(player: &mut dyn MenuPlayer, key: &ContainerKey,
                 None => (f.take().expect("not consumed"))(&mut SimpleContainer::new(0)),
             }
         }
+        ContainerKey::EntityEquipment(id, equipment) => {
+            let mut f = Some(f);
+            let resolved = player.level().and_then(|l| {
+                l.with_entity(*id, |_, e| {
+                    let mount = e.as_mount_inventory_mut()?;
+                    let mut container = super::mount_menu::EquipmentSlotContainer { stack: mount.get_equipment_slot_item(*equipment), dirty: false };
+                    let result = (f.take().expect("called once"))(&mut container);
+                    if container.dirty {
+                        mount.set_equipment_slot_item(*equipment, container.stack);
+                    }
+                    Some(result)
+                })
+            });
+            match resolved.flatten() {
+                Some(r) => r,
+                None => (f.take().expect("not consumed"))(&mut SimpleContainer::new(1)),
+            }
+        }
         ContainerKey::PlayerEnderChest => match player.ender_chest_mut() {
             Some(c) => f(c),
             None => f(&mut SimpleContainer::new(27)),
@@ -144,7 +167,7 @@ impl ContainerKey {
             }
         };
         match self {
-            ContainerKey::PlayerInventory | ContainerKey::Local(_) => {}
+            ContainerKey::PlayerInventory | ContainerKey::Local(_) | ContainerKey::EntityEquipment(..) => {}
             ContainerKey::Shared(c) => {
                 if open {
                     c.borrow_mut().start_open(user)

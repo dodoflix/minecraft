@@ -75,6 +75,9 @@ impl MenuPlayer for PlayerCtx<'_> {
     fn container_interaction_range(&self) -> f64 {
         self.player.player.living.get_attribute_value(mc_data::Attribute::BLOCK_INTERACTION_RANGE)
     }
+    fn is_within_entity_interaction_range(&self, target: &mc_core::phys::AABB, buffer: f64) -> bool {
+        self.player.is_within_entity_interaction_range(target, buffer)
+    }
     fn with_server_player(&mut self, f: &mut dyn FnMut(&mut ServerLevel, &mut ServerPlayer)) {
         f(&mut *self.level, &mut *self.player);
     }
