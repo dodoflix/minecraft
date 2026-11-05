@@ -226,7 +226,7 @@ impl<'a> ServerExplosion<'a> {
             .map(Target::Level)
             .collect();
         for (i, p) in participants.iter().enumerate() {
-            if !p.is_spectator() && p.get_bounding_box().intersects(&area) && self.source.is_none_or(|s| s.id() != p.id()) {
+            if !p.is_spectator() && p.get_bounding_box().intersects_aabb(&area) && self.source.is_none_or(|s| s.id() != p.id()) {
                 targets.push(Target::External(i));
             }
         }
@@ -308,7 +308,7 @@ impl<'a> ServerExplosion<'a> {
                 && level.get_block_state(pos).is_air()
                 && level.get_block_state(pos.below()).is_solid_render()
             {
-                let fire = crate::world::level::block::impls::base_fire_block::get_state(level, pos);
+                let fire = crate::world::level::block::impls::base_fire_block::get_state(&*level, pos);
                 level.set_block_and_update(pos, fire);
             }
         }

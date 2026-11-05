@@ -168,7 +168,7 @@ pub trait Projectile: Entity {
     /// `canBreakBlockInAdventureMode(level, blockInWorld)` at `pos`.
     fn can_break_block_in_adventure_mode(&self, level: &ServerLevel, pos: BlockPos) -> bool {
         let owner = self.get_owner(level);
-        let world_game_mode_is_adventure = level.level_data.get_game_type() == mc_data::enums::GameType::Adventure;
+        let world_game_mode_is_adventure = level.level_data.get_game_type() == mc_world::level_storage::GameType::Adventure;
         let owner_not_adventure_player = owner.is_some_and(|o| {
             o.as_any().downcast_ref::<crate::world::entity::ServerPlayer>().is_some_and(|p| p.game_mode.game_mode_for_player != mc_data::enums::GameType::Adventure)
         });

@@ -8,7 +8,7 @@
 pub mod server_explosion;
 
 use crate::world::entity::{Entity, EntityId};
-use crate::world::level::BlockGetter;
+use crate::world::level::{BlockGetter, LevelAccessor as _};
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::material::FluidStateExt;
 use mc_core::phys::Vec3;
