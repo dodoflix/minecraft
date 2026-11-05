@@ -2114,6 +2114,10 @@ pub trait Entity: Any {
     fn can_be_hit_by_projectile(&self) -> bool {
         self.is_alive() && self.is_pickable()
     }
+    /// `projectileReceivesSideEffectsOnHit(wasHurt)` (Enderman: `wasHurt`).
+    fn projectile_receives_side_effects_on_hit(&self, _was_hurt: bool) -> bool {
+        true
+    }
     /// `mayInteract(level, pos)`.
     fn may_interact(&self, _level: &ServerLevel, _pos: BlockPos) -> bool {
         true

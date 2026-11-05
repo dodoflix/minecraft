@@ -6,7 +6,10 @@
 //! which ends in `Entity.tick`), its hit logic [`hit_target_or_deflect_self`] after [`util::get_hit_result_on_move_vector`].
 //! The owner is an `EntityReference` = a UUID resolved through the level.
 
+pub mod arrow;
 pub mod deflection;
+pub mod hurting;
+pub mod spawn;
 pub mod util;
 
 use super::{Entity, EntityId};
@@ -123,6 +126,36 @@ pub trait Projectile: Entity {
     /// `onItemBreak(item)`.
     fn on_item_break(&mut self, _item: &crate::world::item::ItemStack) {}
 
+    /// `shoot(xd, yd, zd, pow, uncertainty)` (overridable; default [`shoot_base`]).
+    fn shoot(&mut self, xd: f64, yd: f64, zd: f64, pow: f32, uncertainty: f32) {
+        if let Some(this) = self.as_projectile_mut() {
+            shoot_base(this, xd, yd, zd, pow, uncertainty);
+        }
+    }
+
+    /// `onHit(hitResult)` (overridable; default [`on_hit_base`]).
+    fn on_hit(&mut self, level: &mut ServerLevel, hit: &HitResult) {
+        if let Some(this) = self.as_projectile_mut() {
+            on_hit_base(this, level, hit);
+        }
+    }
+
+    /// `deflect(deflection, deflectingEntity, newOwner, byAttack, power)` (overridable; default [`deflect_base`]).
+    fn deflect(
+        &mut self,
+        level: &mut ServerLevel,
+        deflection: ProjectileDeflection,
+        deflecting_entity: Option<EntityId>,
+        new_owner: Option<Uuid>,
+        by_attack: bool,
+        power: Vec3,
+    ) -> bool {
+        match self.as_projectile_mut() {
+            Some(this) => deflect_base(this, level, deflection, deflecting_entity, new_owner, by_attack, power),
+            None => false,
+        }
+    }
+
     /// `onHitEntity(hitResult)`.
     fn on_hit_entity(&mut self, _level: &mut ServerLevel, _hit: &EntityHitResult) {}
 
@@ -140,7 +173,7 @@ pub trait Projectile: Entity {
         let owner_id = self.get_owner(level).map(|o| o.id());
         level.with_entity(hit_projectile, |level, e| {
             if let Some(p) = e.as_projectile_mut() {
-                deflect(p, level, ProjectileDeflection::AimDeflect, owner_id, owner, true, Vec3::new(1.0, 1.0, 1.0));
+                p.deflect(level, ProjectileDeflection::AimDeflect, owner_id, owner, true, Vec3::new(1.0, 1.0, 1.0));
             }
         });
     }
@@ -207,14 +240,50 @@ pub trait Projectile: Entity {
 #[macro_export]
 macro_rules! impl_projectile_entity {
     () => {
+        $crate::impl_projectile_entity!(@base);
+        $crate::impl_projectile_entity!(@hurt);
+        fn is_pickable(&self) -> bool {
+            $crate::world::entity::projectile::is_pickable(self.get_type())
+        }
+        fn on_above_bubble_column(&mut self, level: &mut $crate::server::level::ServerLevel, drag_down: bool, pos: mc_core::pos::BlockPos) {
+            $crate::world::entity::projectile::on_above_bubble_column(self, level, drag_down, pos);
+        }
+        fn on_inside_bubble_column(&mut self, _level: &mut $crate::server::level::ServerLevel, drag_down: bool) {
+            $crate::world::entity::projectile::on_inside_bubble_column(self, drag_down);
+        }
+    };
+    // Projectiles that override `isPickable` and the bubble column behavior themselves (arrows).
+    (arrow) => {
+        $crate::impl_projectile_entity!(@base);
+        $crate::impl_projectile_entity!(@hurt);
+    };
+    // Projectiles that override `hurtServer` themselves (hurting projectiles).
+    (hurting) => {
+        $crate::impl_projectile_entity!(@base);
+        fn is_pickable(&self) -> bool {
+            $crate::world::entity::projectile::is_pickable(self.get_type())
+        }
+        fn on_above_bubble_column(&mut self, level: &mut $crate::server::level::ServerLevel, drag_down: bool, pos: mc_core::pos::BlockPos) {
+            $crate::world::entity::projectile::on_above_bubble_column(self, level, drag_down, pos);
+        }
+        fn on_inside_bubble_column(&mut self, _level: &mut $crate::server::level::ServerLevel, drag_down: bool) {
+            $crate::world::entity::projectile::on_inside_bubble_column(self, drag_down);
+        }
+    };
+    (@hurt) => {
+        fn hurt_server(&mut self, level: &mut $crate::server::level::ServerLevel, source: &$crate::world::damagesource::DamageSource, _amount: f32) -> bool {
+            if !self.is_invulnerable_to_base(level, source) {
+                self.mark_hurt();
+            }
+            false
+        }
+    };
+    (@base) => {
         fn as_projectile(&self) -> Option<&dyn $crate::world::entity::projectile::Projectile> {
             Some(self)
         }
         fn as_projectile_mut(&mut self) -> Option<&mut dyn $crate::world::entity::projectile::Projectile> {
             Some(self)
-        }
-        fn is_pickable(&self) -> bool {
-            $crate::world::entity::projectile::is_pickable(self.get_type())
         }
         fn get_pick_radius(&self) -> f32 {
             if self.is_pickable() { 1.0 } else { 0.0 }
@@ -232,12 +301,35 @@ macro_rules! impl_projectile_entity {
         fn may_interact(&self, level: &$crate::server::level::ServerLevel, pos: mc_core::pos::BlockPos) -> bool {
             $crate::world::entity::projectile::Projectile::may_interact_projectile(self, level, pos)
         }
+        fn hurt_knockback_direction(&self) -> Option<$crate::world::damagesource::HurtKnockbackDirection> {
+            let (x, z) = $crate::world::entity::projectile::Projectile::calculate_horizontal_hurt_knockback_direction(self);
+            Some($crate::world::damagesource::HurtKnockbackDirection::DeltaMovement { x, z })
+        }
+        fn get_dimension_changing_delay(&self, _level: &$crate::server::level::ServerLevel) -> i32 {
+            2
+        }
     };
 }
 
 /// `Projectile.isPickable()`: `is(EntityTypeTags.REDIRECTABLE_PROJECTILE)`.
 pub fn is_pickable(ty: mc_data::EntityType) -> bool {
     mc_data::tags::get::<mc_data::EntityType>("redirectable_projectile").is_some_and(|t| t.contains(ty))
+}
+
+/// `Projectile.onAboveBubbleColumn(dragDown, pos)`.
+pub fn on_above_bubble_column(projectile: &mut dyn Entity, level: &mut ServerLevel, drag_down: bool, pos: BlockPos) {
+    let yd = if drag_down { -0.03 } else { 0.1 };
+    let b = projectile.base_mut();
+    b.set_delta_movement(b.delta_movement().add_xyz(0.0, yd, 0.0));
+    super::entity::send_bubble_column_particles(level, pos);
+}
+
+/// `Projectile.onInsideBubbleColumn(dragDown)`.
+pub fn on_inside_bubble_column(projectile: &mut dyn Entity, drag_down: bool) {
+    let yd = if drag_down { -0.03 } else { 0.06 };
+    let b = projectile.base_mut();
+    b.set_delta_movement(b.delta_movement().add_xyz(0.0, yd, 0.0));
+    projectile.reset_fall_distance();
 }
 
 /// `Projectile.tick()`: the shoot game event, the owner check, then `Entity.tick()`.
@@ -275,8 +367,13 @@ fn is_outside_owner_collision_range(projectile: &dyn Projectile, level: &ServerL
     !members.into_iter().filter_map(|id| level.get_entity(id).or((id == owner.id()).then_some(owner))).any(|e| e.is_pickable() && aabb.intersects_aabb(&e.get_bounding_box()))
 }
 
-/// `shoot(xd, yd, zd, pow, uncertainty)`.
+/// `shoot(xd, yd, zd, pow, uncertainty)`: the (overridable) `Projectile.shoot`.
 pub fn shoot(projectile: &mut dyn Projectile, xd: f64, yd: f64, zd: f64, pow: f32, uncertainty: f32) {
+    projectile.shoot(xd, yd, zd, pow, uncertainty);
+}
+
+/// `Projectile.shoot` itself.
+pub fn shoot_base(projectile: &mut dyn Projectile, xd: f64, yd: f64, zd: f64, pow: f32, uncertainty: f32) {
     let movement = projectile.get_movement_to_shoot(xd, yd, zd, pow, uncertainty);
     let b = projectile.base_mut();
     b.set_delta_movement(movement);
@@ -310,8 +407,8 @@ pub fn shoot_from_rotation(
     b.set_delta_movement(b.delta_movement().add_xyz(source_movement.x, if source_on_ground { 0.0 } else { source_movement.y }, source_movement.z));
 }
 
-/// `deflect(deflection, deflectingEntity, newOwner, byAttack, power)`.
-pub fn deflect(
+/// `deflect(deflection, deflectingEntity, newOwner, byAttack, power)`: `Projectile`'s implementation.
+pub fn deflect_base(
     projectile: &mut dyn Projectile,
     level: &mut ServerLevel,
     deflection: ProjectileDeflection,
@@ -335,7 +432,7 @@ pub fn hit_target_or_deflect_self(projectile: &mut dyn Projectile, level: &mut S
             let deflection = level.get_entity(id).map_or(ProjectileDeflection::None, |e| e.deflection(&*projectile));
             if deflection != ProjectileDeflection::None {
                 let owner = projectile.projectile_data().owner;
-                if projectile.projectile_data().last_deflected_by != Some(id) && deflect(projectile, level, deflection, Some(id), owner, false, Vec3::new(1.0, 1.0, 1.0)) {
+                if projectile.projectile_data().last_deflected_by != Some(id) && projectile.deflect(level, deflection, Some(id), owner, false, Vec3::new(1.0, 1.0, 1.0)) {
                     projectile.projectile_data_mut().last_deflected_by = Some(id);
                 }
                 return deflection;
@@ -349,18 +446,18 @@ pub fn hit_target_or_deflect_self(projectile: &mut dyn Projectile, level: &mut S
             } else if projectile.should_bounce_on_world_border() {
                 let deflection = ProjectileDeflection::Reverse;
                 let owner = projectile.projectile_data().owner;
-                if deflect(projectile, level, deflection, None, owner, false, Vec3::new(0.2, 0.2, 0.2)) {
+                if projectile.deflect(level, deflection, None, owner, false, Vec3::new(0.2, 0.2, 0.2)) {
                     return deflection;
                 }
             }
         }
     }
-    on_hit(projectile, level, hit);
+    projectile.on_hit(level, hit);
     ProjectileDeflection::None
 }
 
-/// `onHit(hitResult)`.
-pub fn on_hit(projectile: &mut dyn Projectile, level: &mut ServerLevel, hit: &HitResult) {
+/// `onHit(hitResult)`: `Projectile`'s implementation.
+pub fn on_hit_base(projectile: &mut dyn Projectile, level: &mut ServerLevel, hit: &HitResult) {
     match hit {
         HitResult::Entity(entity_hit) => {
             let id = entity_hit.entity;
@@ -381,6 +478,12 @@ pub fn on_hit(projectile: &mut dyn Projectile, level: &mut ServerLevel, hit: &Hi
         }
         HitResult::Block(_) => {}
     }
+}
+
+/// `Projectile.onHitBlock(hitResult)`: `state.onProjectileHit(level, state, hitResult, this)`.
+pub fn on_hit_block_base(projectile: &mut dyn Projectile, level: &mut ServerLevel, hit: &BlockHitResult) {
+    let state = level.get_block_state(hit.block_pos);
+    crate::world::level::block::behaviour(state.block()).on_projectile_hit(level, state, hit, projectile);
 }
 
 /// `updateRotation()`.
