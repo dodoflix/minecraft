@@ -3366,7 +3366,10 @@ pub trait Entity: Any {
         14.0 - (level.difficulty() as i32 * 4) as f32
     }
     // TEMP-EC2ATTACK: replaced by EC2Attack's `do_hurt_target` on rebase
-    fn do_hurt_target(&mut self, _level: &mut ServerLevel, _target: &mut dyn Entity) -> bool {
+    fn do_hurt_target(&mut self, level: &mut ServerLevel, target: &mut dyn Entity) -> bool {
+        if self.mob().is_some() {
+            return super::living_entity::combat::mob_do_hurt_target(self.as_dyn_mut(), level, target);
+        }
         false
     }
     /// `canReplaceCurrentItem(newItemStack, currentItemStack, slot)`.
