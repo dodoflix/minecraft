@@ -9,7 +9,6 @@ pub mod block_transformer;
 pub mod bone_meal_item;
 pub mod bucket_item;
 pub mod debug_stick_item;
-pub mod fire_items;
 pub mod honeycomb_item;
 mod item_use_helpers;
 pub mod shears_item;
