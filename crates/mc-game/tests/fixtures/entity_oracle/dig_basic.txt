@@ -1,0 +1,28 @@
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:iron_pickaxe*1
+DIG Steve ticks=5 broken=true
+B 0 -61 0 minecraft:grass_block[snowy=false]
+B 0 -61 1 minecraft:grass_block[snowy=false]
+B 0 -61 2 minecraft:grass_block[snowy=false]
+B 0 -61 3 minecraft:grass_block[snowy=false]
+B 1 -61 0 minecraft:grass_block[snowy=false]
+B 1 -61 1 minecraft:grass_block[snowy=false]
+B 1 -61 2 minecraft:grass_block[snowy=false]
+B 1 -61 3 minecraft:grass_block[snowy=false]
+B 2 -61 0 minecraft:grass_block[snowy=false]
+B 2 -61 1 minecraft:grass_block[snowy=false]
+B 2 -61 2 minecraft:dirt
+B 2 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 0 minecraft:grass_block[snowy=false]
+B 3 -61 1 minecraft:grass_block[snowy=false]
+B 3 -61 2 minecraft:grass_block[snowy=false]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 4 -61 0 minecraft:grass_block[snowy=false]
+B 4 -61 1 minecraft:grass_block[snowy=false]
+B 4 -61 2 minecraft:grass_block[snowy=false]
+B 4 -61 3 minecraft:grass_block[snowy=false]
+DIG Steve ticks=15 broken=true
+E item#1 minecraft:item pos=2.5277312095100735,-60.0,0.4731793567449755 delta=-5.851791385316027E-4,-0.08,9.393058705450681E-4 rot=279.93356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=16 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=2.464627121583628,-60.49962135470979,2.336582368041866 delta=-0.05760083614429863,0.1568000030517578,-0.06432773834673372 rot=47.64352,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=2.527146030371542,-60.0,0.4741186626155206 delta=-3.440853680569419E-4,-0.12,5.523119074195968E-4 rot=279.93356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=21 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=2.1879149890101446,-60.33059845943897,2.125 delta=-0.05206659877069404,-0.04658045162980263,0.0 rot=47.64352,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=6 pickup=4 health=5 owner=- thrower=-
+I Steve 0 minecraft:iron_pickaxe*1/dmg=1

@@ -52,7 +52,7 @@ import net.minecraft.world.phys.Vec3;
  * <pre>
  * -- options (only before the first world command) --
  * level flat|void|normal      world type (default flat)            seed N              world seed (default 4242)
- * difficulty peaceful|easy|normal|hard (default normal)            preload R           chunk radius kept loaded (3)
+ * difficulty peaceful|easy|normal|hard (default normal)            preload R           chunk radius kept loaded (6)
  * -- world --
  * gamerule NAME VALUE         e.g. gamerule keep_inventory true    time N       (game clock stays frozen otherwise)
  * block X Y Z STATE           e.g. block 0 -60 0 minecraft:water[level=0]   (setBlock flags 3, like /setblock)
@@ -60,6 +60,7 @@ import net.minecraft.world.phys.Vec3;
  * cmd COMMAND...              any vanilla command as the console (output appears as "C ..." lines)
  * note TEXT...                prints "# TEXT"
  * reseed N                    restart the entity random-seed sequence (entities created afterwards: see VanillaLevel header)
+ * level_seed N                Level.random.setSeed(N) (explosion rays, drop spread, ... draw from it; LegacyRandomSource)
  * -- entities --
  * spawn REF TYPE X Y Z [yaw pitch] [SNBT]        real vanilla entity (EntityType.create + addFreshEntity), random seeded from REF
  * spawn_item REF STACK X Y Z [vx vy vz] [count]  ItemEntity (constructor random motion unless vx vy vz given)
@@ -86,6 +87,7 @@ import net.minecraft.world.phys.Vec3;
  * use_on PLAYER X Y Z FACE [main|off] [cx cy cz]  ServerboundUseItemOnPacket (FACE: down up north south west east)
  * attack PLAYER REF           ServerboundAttackPacket               swing PLAYER   ServerboundPunchPacket (main hand)
  * drop PLAYER [all]           DROP_ITEM / DROP_ALL_ITEMS            respawn PLAYER   ServerboundClientCommandPacket
+ * pcommand PLAYER ACTION [data]   ServerboundPlayerCommandPacket (START_SPRINTING STOP_SPRINTING START_FALL_FLYING STOP_SLEEPING ...)
  * hurt REF DAMAGETYPE AMOUNT [by=REF] [direct=REF] [at=X,Y,Z]    entity.hurtServer(level, source, amount); prints "HURT result"
  * explode X Y Z RADIUS [fire] [none|block|mob|tnt|trigger] [source=REF]    Level.explode
  * -- time --
@@ -95,8 +97,11 @@ import net.minecraft.world.phys.Vec3;
  * </pre>
  *
  * <p>Output lines: {@code T n} (tick counter header before per-tick dumps), {@code P ...} player, {@code E ...} entity,
- * {@code I ...} inventory slot, {@code PKT player type hex}, {@code B x y z state}, {@code C text} (command output),
- * {@code DIG/HURT ...} action results, {@code # ...} notes. Numbers use Java's Double/Float.toString (shortest round trip;
+ * {@code I ...} inventory slot, {@code PKT player type hex} (hex = id + payload; `update_advancements` prints `-` (timestamps), `level_chunk_with_light` prints
+ * `chunk=x,z/len=n` (heightmap map order varies per JVM run), `update_attributes` prints `entity=ID;attr=base[mod/amount/op,..];..` sorted
+ * (HashSet order varies per JVM run)), {@code B x y z state}, {@code C text} (command output),
+ * {@code DIG/HURT ...} action results (entities created by game logic are named {@code type_path#n}, n counting per type in
+ * creation order, e.g. {@code item#1}, {@code experience_orb#2}; `dump entities` lists all live non-player entities by name), {@code # ...} notes. Numbers use Java's Double/Float.toString (shortest round trip;
  * the Rust comparator parses numeric tokens instead of comparing text). Entity ids are NOT printed (not stable across servers).
  */
 public final class EntityOracleDriver {
@@ -106,6 +111,8 @@ public final class EntityOracleDriver {
    final Map<String, Entity> refs = new LinkedHashMap<>();
    final List<String[]> watches = new ArrayList<>();
    final Map<String, Integer> sequence = new HashMap<>();
+   final Map<String, Integer> autoCounter = new HashMap<>();
+   final Set<Integer> known = new HashSet<>();
    int lineNo;
    String line = "";
 
@@ -236,6 +243,9 @@ public final class EntityOracleDriver {
 
    void run(List<String> a) throws Exception {
       String cmd = a.get(0);
+      if (v != null && !cmd.equals("reseed")) {
+         VanillaLevel.reseed(hash(line)); // entities created by this command (drops, spawns) draw reproducible seeds
+      }
       switch (cmd) {
          case "level" -> options.levelType = a.get(1);
          case "seed" -> options.seed = Long.parseLong(a.get(1));
@@ -253,6 +263,10 @@ public final class EntityOracleDriver {
          case "cmd" -> {
             world();
             command(line.substring(3).strip());
+         }
+         case "level_seed" -> {
+            world();
+            v.level.getRandom().setSeed(Long.parseLong(a.get(1)));
          }
          case "reseed" -> {
             world();
@@ -421,6 +435,11 @@ public final class EntityOracleDriver {
             refs.put(a.get(1), neu);
             v.player(a.get(1)).replaceServerPlayer(neu);
          }
+         case "pcommand" -> {
+            world();
+            ServerPlayer p = player(a.get(1));
+            p.connection.handlePlayerCommand(new ServerboundPlayerCommandPacket(p, ServerboundPlayerCommandPacket.Action.valueOf(a.get(2).toUpperCase(Locale.ROOT)), a.size() > 3 ? Integer.parseInt(a.get(3)) : 0));
+         }
          case "hurt" -> {
             world();
             Entity e = ref(a.get(1));
@@ -477,11 +496,30 @@ public final class EntityOracleDriver {
          }
          default -> throw new IllegalArgumentException("unknown command " + cmd);
       }
+      nameNewEntities();
       flushCommandOutput();
    }
 
    void command(String c) {
       v.command(c);
+   }
+
+   /** Entities created by game logic (drops, orbs, falling blocks, ...) get stable names `type_path#n` in creation order. */
+   void nameNewEntities() {
+      if (v == null) {
+         return;
+      }
+      List<Entity> all = new ArrayList<>();
+      for (Entity e : v.level.getAllEntities()) {
+         all.add(e);
+      }
+      all.sort(Comparator.comparingInt(Entity::getId));
+      for (Entity e : all) {
+         if (known.add(e.getId()) && !refs.containsValue(e)) {
+            String path = BuiltInRegistries.ENTITY_TYPE.getKey(e.getType()).getPath();
+            refs.put(path + "#" + autoCounter.merge(path, 1, Integer::sum) , e);
+         }
+      }
    }
 
    void flushCommandOutput() {
@@ -495,6 +533,7 @@ public final class EntityOracleDriver {
 
    void tickOnce() {
       v.tick();
+      nameNewEntities();
       if (!watches.isEmpty()) {
          out.println("T " + v.ticks);
          for (String[] w : watches) {
@@ -582,8 +621,16 @@ public final class EntityOracleDriver {
       while (!stopped) {
          ticks++;
          // client tick: continueDestroyBlock accumulates progress, then sends STOP at >= 1
-         progress += v.level.getBlockState(pos).getDestroyProgress(p, v.level, pos);
+         float step = v.level.getBlockState(pos).getDestroyProgress(p, v.level, pos);
+         if (System.getenv("ORACLE_DEBUG") != null && System.getenv("ORACLE_DEBUG").equals("2") ? step != 0.06666667f && step != 0.24444444f : System.getenv("ORACLE_DEBUG") != null) {
+            VanillaLevel.ERR.println("tick " + ticks + " step=" + step + " og=" + p.onGround() + " y=" + p.getY() + " inWater=" + p.isEyeInFluid(net.minecraft.tags.FluidTags.WATER));
+         }
+         progress += step;
          if (limit >= 0 ? ticks >= limit : progress >= 1.0f) {
+            if (System.getenv("ORACLE_DEBUG") != null) {
+               var gm = p.gameMode;
+               VanillaLevel.ERR.println("STOP gameTicks=" + priv(gm, "gameTicks") + " start=" + priv(gm, "destroyProgressStart") + " destroying=" + priv(gm, "isDestroyingBlock") + " pos=" + priv(gm, "destroyPos") + " serverProgress=" + v.level.getBlockState(pos).getDestroyProgress(p, v.level, pos) + " clientProgress=" + progress + " og=" + p.onGround());
+            }
             conn.handlePlayerAction(new ServerboundPlayerActionPacket(ServerboundPlayerActionPacket.Action.STOP_DESTROY_BLOCK, pos, face, seq(a.get(1))));
             stopped = true;
             tickOnce();
@@ -612,18 +659,16 @@ public final class EntityOracleDriver {
             }
             case "entity" -> describe(arg, ref(arg));
             case "entities" -> {
-               List<Entity> all = new ArrayList<>();
-               for (Entity e : v.level.getAllEntities()) {
-                  if (!(e instanceof ServerPlayer)) {
-                     all.add(e);
+               nameNewEntities();
+               List<Map.Entry<String, Entity>> all = new ArrayList<>();
+               for (var en : refs.entrySet()) {
+                  if (!(en.getValue() instanceof ServerPlayer) && en.getValue().isAlive()) {
+                     all.add(en);
                   }
                }
-               all.sort(Comparator.comparingInt(Entity::getId));
-               Map<Entity, String> names = new HashMap<>();
-               refs.forEach((k, e) -> names.put(e, k));
-               int[] idx = {0};
-               for (Entity e : all) {
-                  describe(names.getOrDefault(e, "#" + idx[0]++), e);
+               all.sort(Comparator.comparingInt(en -> en.getValue().getId()));
+               for (var en : all) {
+                  describe(en.getKey(), en.getValue());
                }
             }
             case "inventory" -> inventory(arg, (Player)ref(arg));
@@ -713,7 +758,7 @@ public final class EntityOracleDriver {
       if (e instanceof LivingEntity le) {
          b.append(" hp=").append(f(le.getHealth()));
          b.append(" abs=").append(f(le.getAbsorptionAmount()));
-         b.append(" hurt=").append(le.hurtTime).append('/').append(((Integer)priv(le, Entity.class, "invulnerableTime")));
+         b.append(" hurt=").append(le.hurtTime).append('/').append(le.damageCooldownTime);
          b.append(" death=").append(le.deathTime);
          b.append(" fx=");
          List<MobEffectInstance> fx = new ArrayList<>(le.getActiveEffects());
@@ -742,7 +787,30 @@ public final class EntityOracleDriver {
       } else if (e instanceof net.minecraft.world.entity.item.PrimedTnt t) {
          b.append(" fuse=").append(t.getFuse());
       }
+      if (e instanceof ItemEntity ie) {
+         b.append(" pickup=").append(priv(ie, "pickupDelay")).append(" health=").append(priv(ie, "health"));
+         b.append(" owner=").append(uuidName((UUID)priv(ie, "target")));
+         var th = (net.minecraft.world.entity.EntityReference<?>)priv(ie, "thrower");
+         b.append(" thrower=").append(uuidName(th == null ? null : th.getUUID()));
+      } else if (e instanceof net.minecraft.world.entity.ExperienceOrb o) {
+         b.append(" count=").append(priv(o, "count")).append(" age=").append(priv(o, "age")).append(" health=").append(priv(o, "health"));
+      } else if (e instanceof net.minecraft.world.entity.item.FallingBlockEntity fb) {
+         b.append(" state=").append(BlockStateParser.serialize(fb.getBlockState())).append(" time=").append(fb.time);
+         b.append(" hurt=").append(priv(fb, "hurtEntities")).append(" cancel=").append(priv(fb, "cancelDrop")).append(" drop=").append(fb.dropItem);
+      }
       out.println(b);
+   }
+
+   String uuidName(UUID u) {
+      if (u == null) {
+         return "-";
+      }
+      for (var en : refs.entrySet()) {
+         if (en.getValue().getUUID().equals(u)) {
+            return en.getKey();
+         }
+      }
+      return u.toString();
    }
 
    void inventory(String name, Player p) {

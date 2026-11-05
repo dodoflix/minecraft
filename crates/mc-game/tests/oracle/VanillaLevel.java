@@ -76,7 +76,9 @@ import net.minecraft.world.level.storage.PrimaryLevelData;
  * <p>Determinism: fixed world seed; game time/weather frozen by default ({@code advance_time}/{@code advance_weather} false), no
  * natural spawning; every entity created by the vanilla code on the server thread draws its {@code RandomSource.create()} seed
  * from {@link RandomSupport#reseedUniquifier}'s per-thread counter (the ORACLE SHADOW in {@code tests/oracle/shadow}, a copy of
- * vanilla's RandomSupport without {@code System.nanoTime()}); the sequence is reset at boot and by {@link #reseed}. Chunks around
+ * vanilla's RandomSupport without {@code System.nanoTime()}); the sequence is reset at boot, at the start of every tick and by
+ * {@link #reseed}. {@code Level.random} is seeded at boot and by the driver's {@code level_seed};
+ * {@code random_tick_speed} defaults to 0 so random ticks (chunk-order dependent) do not consume it. Chunks around
  * the origin are fully loaded and entity-ticking before the first script line. Player connections are real
  * {@link Connection}s over a Netty {@code EmbeddedChannel}: every clientbound packet the vanilla code sends is recorded
  * (bundles flattened with their delimiters, encoded with the real play codec) in {@link FakePlayer#packets}.
@@ -98,7 +100,7 @@ public final class VanillaLevel {
       public long seed = 4242L;
       public String difficulty = "normal";
       public GameType defaultGameType = GameType.SURVIVAL;
-      public int preloadRadiusChunks = 3;
+      public int preloadRadiusChunks = 6; // > view distance, so joining a player never waits for async chunk generation
       public int viewDistance = 4;
       public int simulationDistance = 4;
    }
@@ -233,6 +235,7 @@ public final class VanillaLevel {
       Bootstrap.bootStrap();
       Bootstrap.validate();
       Util.startTimerHackThread();
+      BUNDLER = GameProtocols.CLIENTBOUND_TEMPLATE.bind(RegistryFriendlyByteBuf.decorator(null)).bundlerInfo();
       Path dir = Files.createTempDirectory("entity-oracle-");
       Runtime.getRuntime().addShutdownHook(new Thread(() -> deleteTree(dir)));
       String generator = switch (o.levelType) {
@@ -274,8 +277,10 @@ public final class VanillaLevel {
       for (String rule : new String[] {"advance_time", "advance_weather", "spawn_mobs", "spawn_monsters", "spawn_patrols", "spawn_phantoms", "spawn_wandering_traders", "spawn_wardens", "raids", "log_admin_commands", "send_command_feedback"}) {
          v.command("gamerule " + rule + " false");
       }
+      v.command("gamerule random_tick_speed 0"); // random ticks consume Level.random in chunk-order dependent ways
       v.commandOutput.clear();
       v.preload(o.preloadRadiusChunks);
+      v.level.getRandom().setSeed(o.seed ^ 0x5DEECE66DL); // Level.random: drop offsets, explosion rays, sound seeds; scripts override with `level_seed`
       v.server.getPlayerList().setViewDistance(o.viewDistance);
       RandomSupport.reseedUniquifier(8682522807148012L);
       return v;
@@ -341,6 +346,9 @@ public final class VanillaLevel {
 
    /** One real server tick; answers keep-alives so long real-time runs never time out. */
    public void tick() {
+      // every tick restarts the entity-seed sequence: calls to RandomSource.create() made by main-thread housekeeping
+      // (chunk tasks, light, ...) vary between runs and would otherwise shift the seeds of entities created later
+      RandomSupport.reseedUniquifier(8682522807148012L ^ (ticks + 1) * 0x9E3779B97F4A7C15L);
       for (FakePlayer p : players) {
          if (p.player instanceof SimPlayer sp && sp.sim) {
             sp.applyInput();
@@ -408,11 +416,17 @@ public final class VanillaLevel {
             player.connection.handleAcceptTeleportPacket(new ServerboundAcceptTeleportationPacket(pos.id(), pos.change().position().x, pos.change().position().y, pos.change().position().z, pos.change().yRot(), pos.change().xRot()));
          }
       }
+      // the client reports onGround with its movement packets; a non-simulated player has none, so derive it once (resting on a block)
+      if (!sim) {
+         player.setOnGround(!level.noCollision(player, player.getBoundingBox().move(0, -1.0E-3, 0)));
+      }
       // handlePlayerPositionChange of the accept flags a hovering client (kick after 80 ticks); a real client keeps sending moves
       setField(player.connection, "clientIsFloating", false);
       player.connection.handleAcceptPlayerLoad(new ServerboundPlayerLoadedPacket());
       return fp;
    }
+
+   private static net.minecraft.network.protocol.BundlerInfo BUNDLER; // set after Bootstrap (GameProtocols needs the registries)
 
    private static void record(FakePlayer fp, net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, Packet<? super net.minecraft.network.protocol.game.ClientGamePacketListener>> codec, Packet<?> packet) {
       if (fp == null) {
@@ -425,11 +439,12 @@ public final class VanillaLevel {
          return;
       }
       if (p instanceof ClientboundBundlePacket bundle) {
-         record(fp, codec, new ClientboundBundleDelimiterPacket());
-         for (Packet<? super ClientGamePacketListener> sub : bundle.subPackets()) {
+         // exactly what PacketBundleUnpacker puts on the wire: delimiter, sub packets, delimiter
+         List<Packet<?>> flat = new ArrayList<>();
+         BUNDLER.unbundlePacket(bundle, flat::add);
+         for (Packet<?> sub : flat) {
             record(fp, codec, sub);
          }
-         record(fp, codec, new ClientboundBundleDelimiterPacket());
          return;
       }
       ByteBuf buf = Unpooled.buffer();
@@ -441,7 +456,27 @@ public final class VanillaLevel {
       for (byte b : bytes) {
          hex.append(Character.forDigit((b >> 4) & 15, 16)).append(Character.forDigit(b & 15, 16));
       }
-      fp.packets.add(new Sent(p.type().id().toString(), hex.toString(), p));
+      String type = p.type().id().toString();
+      String text = hex.toString();
+      if (type.equals("minecraft:update_advancements")) {
+         text = "-"; // carries Instant.now() timestamps of obtained criteria
+      } else if (p instanceof ClientboundUpdateAttributesPacket attrs) {
+         // the snapshot list is a HashSet iteration (identity hashes): canonical order by attribute id and modifier id
+         List<String> entries = new ArrayList<>();
+         for (var snap : attrs.getValues()) {
+            List<String> mods = new ArrayList<>();
+            for (var m : snap.modifiers()) {
+               mods.add(m.id() + "/" + m.amount() + "/" + m.operation().getSerializedName());
+            }
+            Collections.sort(mods);
+            entries.add(snap.attribute().getRegisteredName() + "=" + snap.base() + "[" + String.join(",", mods) + "]");
+         }
+         Collections.sort(entries);
+         text = "entity=" + attrs.getEntityId() + ";" + String.join(";", entries);
+      } else if (p instanceof ClientboundLevelChunkWithLightPacket chunk) {
+         text = "chunk=" + chunk.x() + "," + chunk.z() + "/len=" + bytes.length; // heightmap map order is identity-hash dependent
+      }
+      fp.packets.add(new Sent(type, text, p));
    }
 
    static void setField(Object o, String name, Object value) {

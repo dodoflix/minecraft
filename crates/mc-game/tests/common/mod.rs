@@ -128,5 +128,6 @@ pub fn write_broken_packs(world: &Path) {
     write(dp.join("broken/data/test/chat_type/missing_field.json"), r#"{"chat": {"translation_key": "x", "parameters": []}}"#);
 }
 
+pub mod entity_oracle;
 pub mod feature_harness;
 pub mod structure_golden;
