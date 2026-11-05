@@ -1,0 +1,7 @@
+# seed x y z : level.dat spawn of the real vanilla 26.3 server (normal world, structures on); scripts/world-spawn-check.sh compares ours
+-4172144997902289642 -448 71 -432
+-99887766 -48 63 0
+0 -32 69 0
+12345 96 145 -32
+424242424242 0 72 0
+777 0 76 0
