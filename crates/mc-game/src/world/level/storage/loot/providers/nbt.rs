@@ -106,26 +106,12 @@ impl NbtProvider for ContextNbtProvider {
     fn get(&self, context: &LootContext) -> Option<Tag> {
         match self.source {
             NbtSource::BlockEntity => context.params().block_entity.map(|be| Tag::Compound(be.save_with_full_metadata())),
-            NbtSource::Entity(target) => target.get(context).map(|e| Tag::Compound(entity_tag_to_compare(e))),
+            NbtSource::Entity(target) => target.get(context).map(|e| Tag::Compound(crate::advancements::predicates::nbt_predicate::get_entity_tag_to_compare(context.get_level(), e))),
         }
     }
     fn referenced_params(&self) -> Vec<ContextKey> {
         vec![self.source.context_param()]
     }
-}
-
-/// `NbtPredicate.getEntityTagToCompare(entity)`.
-pub fn entity_tag_to_compare(entity: &dyn crate::world::entity::Entity) -> CompoundTag {
-    let mut tag = CompoundTag::new();
-    entity.save_without_id(&mut tag, &|_| None);
-    if let Some(player) = entity.player() {
-        if let Some(selected) = Some(player.inventory.get_selected_item()).filter(|s| !s.is_empty()) {
-            if let Ok(t) = selected.to_tag().into_result() {
-                tag.put("SelectedItem", t);
-            }
-        }
-    }
-    tag
 }
 
 static TYPES: LazyLock<Arc<TypeTable<dyn NbtProvider>>> = LazyLock::new(|| {

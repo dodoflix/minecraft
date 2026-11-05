@@ -72,8 +72,8 @@ impl LocationPredicate {
         static C: LazyLock<Codec<LocationPredicate>> = LazyLock::new(|| {
             mc_dfu::record!(LocationPredicate {
                 position: PositionPredicate::codec().optional_field_of("position"),
-                biomes: data_driven_set_codec("worldgen/biome").optional_field_of("biomes"),
-                structures: data_driven_set_codec("worldgen/structure").optional_field_of("structures"),
+                biomes: data_driven_set_codec("minecraft:worldgen/biome").optional_field_of("biomes"),
+                structures: data_driven_set_codec("minecraft:worldgen/structure").optional_field_of("structures"),
                 dimension: IDENTIFIER.optional_field_of("dimension"),
                 smokey: BOOL.optional_field_of("smokey"),
                 light: LightPredicate::codec().optional_field_of("light"),
