@@ -6,7 +6,8 @@
 //! `setChanged`) and the menu replays them as `update_sell_item` after each slot operation (`flush_container_events`).
 
 use super::{AbstractContainerMenu, ContainerKey, MenuBase, MenuPlayer, Prediction, Slot, SlotBehavior, SlotEnv, place_item_back_in_inventory};
-use crate::stats::{Stat, Stats};
+use crate::stats::Stat;
+use crate::stats::stats::Stats;
 use crate::world::container::{Container, helper};
 use crate::world::entity::EntityId;
 use crate::world::item::trading::{ItemCost, MerchantOffers, with_merchant};
