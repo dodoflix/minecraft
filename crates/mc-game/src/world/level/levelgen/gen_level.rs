@@ -324,6 +324,9 @@ impl LevelReader for GenLevel<'_> {
 }
 
 impl LevelAccessor for GenLevel<'_> {
+    fn mark_for_post_processing(&mut self, pos: BlockPos) {
+        WorldGenLevel::mark_pos_for_post_processing(self, pos);
+    }
     fn set_block(&mut self, pos: BlockPos, state: BlockState, flags: u32, _update_limit: i32) -> bool {
         if !self.ensure_can_write(pos) {
             return false;

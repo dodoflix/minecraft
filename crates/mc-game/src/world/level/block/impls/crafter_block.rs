@@ -21,14 +21,4 @@ impl BlockBehaviour for CrafterBlock {
     }
 }
 
-/// `CrafterBlock.getFrontFacing(state)`.
-pub fn get_front_facing(state: BlockState) -> Direction {
-    core_orientation(state).front()
-}
-
-/// `CrafterBlock.getTopFacing(state)`.
-pub fn get_top_facing(state: BlockState) -> Direction {
-    core_orientation(state).top()
-}
-
 register_block_class!("CrafterBlock", |_| Box::new(CrafterBlock));

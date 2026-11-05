@@ -1,0 +1,1 @@
+brown_mushroom red_mushroom fire soul_fire redstone_wire soul_sand magma_block nether_portal pointed_dripstone sulfur_spike sculk_vein
