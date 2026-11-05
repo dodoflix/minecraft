@@ -182,6 +182,7 @@ impl ServerLevel {
         static COUNTER: std::sync::atomic::AtomicU32 = std::sync::atomic::AtomicU32::new(0);
         let dir = std::env::temp_dir().join(format!("mc-detached-level-{}-{}", std::process::id(), COUNTER.fetch_add(1, std::sync::atomic::Ordering::Relaxed)));
         let (shared, _rx) = ServerShared::new();
+        shared.bind_game_thread(); // the test thread is the server thread: `execute` runs inline like vanilla
         let biomes = mc_world::palette::BiomeRegistry::new(vec!["minecraft:plains".to_string()]);
         Self::new(ServerLevelParams {
             shared,
