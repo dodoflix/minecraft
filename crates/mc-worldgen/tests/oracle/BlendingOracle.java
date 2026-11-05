@@ -20,11 +20,11 @@ import net.minecraft.world.level.levelgen.densityfunction.*;
 /**
  * Differential oracle for crates/mc-worldgen::blending: the real Blender / BlendingData / BelowZeroRetrogen on hand-built old-chunk
  * scenarios. Usage (repo root): scripts/vanilla-java.sh crates/mc-worldgen/tests/oracle/BlendingOracle.java out.txt
- * The output holds the scenario parameters (SCENARIO/OLD lines, read by tests/blending.rs) followed by digests (FNV-1a 64 over the
+ * The output holds the scenario parameters (SCENARIO/OLD lines, read by tests/golden/blending.rs) followed by digests (FNV-1a 64 over the
  * little-endian ints / float bits) of every dumped value stream: `S <id> <what> <digest> <count>`.
  */
 public class BlendingOracle {
-    // ---- shared deterministic helpers (ported verbatim in tests/blending.rs) ----
+    // ---- shared deterministic helpers (ported verbatim in tests/golden/blending.rs) ----
     static long mix64(long z) {
         z = (z ^ (z >>> 30)) * 0xBF58476D1CE4E5B9L;
         z = (z ^ (z >>> 27)) * 0x94D049BB133111EBL;

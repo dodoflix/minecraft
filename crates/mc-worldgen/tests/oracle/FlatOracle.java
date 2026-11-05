@@ -53,7 +53,7 @@ import net.minecraft.world.level.levelgen.presets.WorldPreset;
  *   java -cp tools/extractor/build:$(scripts/vanilla-cp.sh) crates/mc-worldgen/tests/oracle/FlatOracle.java <outdir>
  * Writes <outdir>/flat.txt, <outdir>/debug.txt, <outdir>/debug_grid.txt, <outdir>/world_presets.txt and
  * <outdir>/world_dimensions.txt (WorldDimensions codec + bake over crafted dimension sets).
- * The Rust test (tests/flat_golden.rs) re-derives the same lines and compares them verbatim.
+ * The Rust test (tests/golden/flat_golden.rs) re-derives the same lines and compares them verbatim.
  */
 public class FlatOracle {
    static RegistryAccess.Frozen access;

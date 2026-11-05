@@ -8,7 +8,7 @@ import java.util.*;
 
 /**
  * Generates stream_golden.tsv from the real NbtIo.parse / Tag.acceptAsRoot and the nbt.visitors classes.
- * One line per input: "P\t<hex of a named-root NBT>\t<cell>...". Cells (same order as tests/stream_golden.rs):
+ * One line per input: "P\t<hex of a named-root NBT>\t<cell>...". Cells (same order as tests/golden/stream_golden.rs):
  *   parse cells:  "<status>|<accounter usage>|..." where status is "OK" or "<exception>:<message>" (escaped)
  *   accept cells: operate on the tag read back with NbtIo.readUnnamedTag ("-" when that fails).
  * Inputs: a deterministic selection of the "O" rows of snbt_golden.tsv (named hex; non-compound rows get an empty name),
@@ -64,7 +64,7 @@ public class StreamOracle {
         return Integer.parseInt(n.substring(8, n.length() - 1));
     }
 
-    /** Deterministic BREAK/SKIP/HALT policy; hashes every call. Mirrored in tests/stream_golden.rs. */
+    /** Deterministic BREAK/SKIP/HALT policy; hashes every call. Mirrored in tests/golden/stream_golden.rs. */
     static class Trace implements StreamTagVisitor {
         static final int[][] POLICY = {{0, 0, 0}, {0, 0, 7}, {0, 2, 0}, {1, 0, 0}, {1, 2, 7}, {2, 3, 5}};
         final int mode;

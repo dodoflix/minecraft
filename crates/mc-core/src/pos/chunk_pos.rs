@@ -22,7 +22,7 @@ impl ChunkPos {
     pub const REGION_SIZE: i32 = 32;
     pub const REGION_MAX_INDEX: i32 = 31;
     /// `ChunkPyramid.MAX_CHUNK_COORDINATE_VALUE` (section of `BlockPos.MAX_HORIZONTAL_COORDINATE` minus the
-    /// pyramid safety margin; value taken from the vanilla oracle, verified in `tests/pos.rs`).
+    /// pyramid safety margin; value taken from the vanilla oracle, verified in `tests/golden/pos.rs`).
     pub const MAX_CHUNK_COORDINATE_VALUE: i32 = 2097061;
     pub const INVALID_CHUNK_POS: i64 = ChunkPos::pack_xz(1875066, 1875066);
 

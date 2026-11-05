@@ -10,7 +10,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.*;
 
-/** Interprets shapes.script against vanilla and prints the result lines that tests/shapes.rs must reproduce. */
+/** Interprets shapes.script against vanilla and prints the result lines that tests/golden/shapes.rs must reproduce. */
 public class ShapesOracle {
     static final Map<String, VoxelShape> S = new HashMap<>();
     static final StringBuilder OUT = new StringBuilder();

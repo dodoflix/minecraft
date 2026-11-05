@@ -21,7 +21,7 @@ import net.minecraft.world.level.levelgen.synth.NormalNoise;
  * Blender.of(region) over hand-built old chunks (and below-zero-retrogen targets).
  * Run from the repo root (writes the fixture to args[0]):
  *   java -cp tools/extractor/build:$(scripts/vanilla-cp.sh) crates/mc-worldgen/tests/oracle/BlendedTerrainOracle.java crates/mc-worldgen/tests/fixtures/blended_terrain_golden.txt
- * Output: CASE/OLD/RETRO parameter lines (read by tests/blending.rs) and per case
+ * Output: CASE/OLD/RETRO parameter lines (read by tests/golden/blending.rs) and per case
  *   BE key empty | BB key biomeHash | BD key sectionHashes | BF key sectionHashes | BFH key type hash | BFP key hash | BR key sectionHashes
  */
 public class BlendedTerrainOracle {

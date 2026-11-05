@@ -15,7 +15,7 @@ import org.joml.Vector3f;
 import org.joml.Vector3i;
 
 /**
- * Prints the output lines tests/octahedral.rs must reproduce: group tables, rotation of directions/vectors/
+ * Prints the output lines tests/golden/octahedral.rs must reproduce: group tables, rotation of directions/vectors/
  * FrontAndTop, Rotation/Mirror.rotation(), and the shape rotation family driven by octahedral.script.
  */
 public class OctahedralOracle {

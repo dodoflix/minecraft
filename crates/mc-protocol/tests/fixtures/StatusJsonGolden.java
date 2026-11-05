@@ -14,7 +14,7 @@ import net.minecraft.network.Utf8String;
 import net.minecraft.network.protocol.status.ClientboundStatusResponsePacket;
 
 /**
- * Golden generator for crates/mc-protocol/tests/status_json.rs: vanilla's status JSON path over crafted lenient/malformed
+ * Golden generator for crates/mc-protocol/tests/golden/status_json.rs: vanilla's status JSON path over crafted lenient/malformed
  * inputs. Run: scripts/vanilla-java.sh StatusJsonGolden.java crates/mc-protocol/tests/fixtures/status_json.txt.gz
  *
  * Line = hex(input) TAB parse TAB status, where

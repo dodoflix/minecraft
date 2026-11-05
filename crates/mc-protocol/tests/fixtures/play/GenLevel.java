@@ -1,4 +1,4 @@
-// Golden generator for the `level` play packet group (tests/play_level.rs). Run through gen.sh.
+// Golden generator for the `level` play packet group (tests/golden/play_level.rs). Run through gen.sh.
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.*;

@@ -1,4 +1,4 @@
-// Golden generator for crates/mc-world/tests/level_storage_golden.rs
+// Golden generator for crates/mc-world/tests/golden/level_storage_golden.rs
 //   scripts/vanilla-java.sh crates/mc-world/tests/fixtures/level_storage/LevelDatGolden.java \
 //       crates/mc-world/tests/fixtures/level_storage/level_dat_golden.txt
 // For every input `Data` compound the REAL vanilla classes (LevelStorageSource.readDataConfig, LevelSettings.parse,

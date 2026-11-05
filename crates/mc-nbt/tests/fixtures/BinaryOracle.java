@@ -6,7 +6,7 @@ import java.util.*;
 
 /**
  * Generates binary_golden.tsv from the real NbtIo/NbtAccounter:
- *   "S\t<name>\t<hex>"                       tag-building scenarios (recipes mirrored in tests/binary_golden.rs)
+ *   "S\t<name>\t<hex>"                       tag-building scenarios (recipes mirrored in tests/golden/binary_golden.rs)
  *   "R\t<hex>\t<usage>\t<r1>\t<r2>\t<r3>\t<r4>"  reads of every OK case of snbt_golden.tsv (+ hand cases):
  *        usage with unlimited quota, then results with quota usage-1, usage/2, truncated-1, truncated-half
  *   "H\t<hex>\t<result>"                     hand-made malformed inputs read with the default quota

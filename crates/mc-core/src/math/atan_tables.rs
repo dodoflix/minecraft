@@ -1,6 +1,6 @@
 //! `Mth.ASIN_TAB` / `Mth.COS_TAB` as raw bits, dumped from the vanilla JVM (x86_64 HotSpot).
 //! `Math.asin` is fdlibm but `Math.cos` is a HotSpot intrinsic that differs from glibc/fdlibm by 1 ulp at 10 table
-//! points, so the values are embedded rather than recomputed (golden-checked by `tests/math.rs` through `atan2`).
+//! points, so the values are embedded rather than recomputed (golden-checked by `tests/golden/math.rs` through `atan2`).
 
 pub(super) const ASIN_TAB_BITS: [u64; 257] = [
     0x0000000000000000, 0x3f700002aaabdddf, 0x3f80000aaabdde0c,

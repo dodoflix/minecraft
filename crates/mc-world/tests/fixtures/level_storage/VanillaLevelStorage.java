@@ -1,4 +1,4 @@
-// Oracle for crates/mc-world/tests/level_storage_vanilla.rs (real vanilla LevelStorageSource / PlayerDataStorage /
+// Oracle for crates/mc-world/tests/oracle/level_storage_vanilla.rs (real vanilla LevelStorageSource / PlayerDataStorage /
 // DirectoryLock):
 //   summary <savesDir> <levelId> <playerUuid>   print level data, summary, resource paths, player data
 //   lock <dir>                                  DirectoryLock.isLocked + try DirectoryLock.create

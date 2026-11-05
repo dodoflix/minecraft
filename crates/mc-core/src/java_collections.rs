@@ -2,7 +2,7 @@
 //! (`String`, `Identifier`, `Integer`, ...). Keys hashed by `Object.hashCode()` (registry holders, `DataComponentType`,
 //! `ResourceKey`, `TagKey`, enums) iterate in a per-JVM-run random order and cannot be modelled.
 //!
-//! Tested against the real `java.util.HashMap` / fastutil classes (`tests/java_collections.rs`, `HashOrderGolden.java`).
+//! Tested against the real `java.util.HashMap` / fastutil classes (`tests/golden/java_collections.rs`, `HashOrderGolden.java`).
 
 use crate::math::java::java_string_hash;
 
