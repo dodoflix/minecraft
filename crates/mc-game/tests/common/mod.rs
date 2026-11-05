@@ -132,4 +132,3 @@ pub mod entity_oracle;
 pub mod feature_harness;
 pub mod structure_golden;
 pub mod block_scenario;
-pub mod entity_oracle;
