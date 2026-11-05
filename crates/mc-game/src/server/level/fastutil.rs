@@ -260,6 +260,19 @@ impl<V> LongOpenHashMap<V> {
         null.into_iter().chain((0..self.n).rev().filter(|&p| self.key[p] != 0).map(|p| (self.key[p], self.value[p].as_ref().expect("value"))))
     }
 
+    /// Entries in the order of `values().stream()` / the map spliterator: the `0` key first, then the table from the
+    /// first slot up (the *iterator* of the same map runs the table downwards, see [`Self::iter`]).
+    pub fn for_each_stream_order(&self, mut f: impl FnMut(i64, &V)) {
+        if self.contains_null_key {
+            f(0, self.value[self.n].as_ref().expect("null key value"));
+        }
+        for p in 0..self.n {
+            if self.key[p] != 0 {
+                f(self.key[p], self.value[p].as_ref().expect("value"));
+            }
+        }
+    }
+
     /// `values()` in iteration order.
     pub fn values(&self) -> impl Iterator<Item = &V> {
         self.iter().map(|(_, v)| v)

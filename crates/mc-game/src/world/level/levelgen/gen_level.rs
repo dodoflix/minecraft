@@ -7,8 +7,8 @@
 //!   `Detected unsafe terrain read during worldgen` error (and continue); a chunk the step may not see is the crash
 //!   `Requested chunk unavailable during world generation` (a panic here);
 //! * writes go through `ensureCanWrite` (`Detected setBlock in a far chunk` + dropped outside the write zone, the
-//!   upgrading-chunk height rule), then `ProtoChunk.setBlockState` (heightmaps per the chunk's status, light engine and
-//!   POI untouched), the `DUMMY` block entity NBT of block-entity states (the real NBT arrives through
+//!   upgrading-chunk height rule), then `ProtoChunk.setBlockState` (heightmaps per the chunk's status, light engine untouched; POI
+//!   type changes are queued in `WorldGenRegion::poi_changes` for the game thread), the `DUMMY` block entity NBT of block-entity states (the real NBT arrives through
 //!   [`WorldGenLevel::set_block_entity_nbt`]) and `getPostProcessPos` post-processing marks (`flags & 16 == 0`);
 //! * chunks the game thread merely lends read-only (`GenChunk::Snapshot`, vanilla `ImposterProtoChunk(allowWrites=false)`)
 //!   drop block, block entity, post-processing, entity and tick writes silently;
@@ -24,6 +24,7 @@ use super::world_gen_level::WorldGenLevel;
 use crate::server::level::world_gen::{GenChunk, WorldGenRegion};
 use crate::world::block_entity::BlockEntity;
 use crate::world::difficulty_instance::DifficultyInstance;
+use crate::world::entity::ai::village::poi::PoiTypes;
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::chunk::status::ChunkStep;
 use crate::world::level::{BlockGetter, LevelAccessor, LevelHeight, LevelReader, LightLayer};
@@ -354,9 +355,10 @@ impl LevelAccessor for GenLevel<'_> {
             return false;
         }
         self.flush_heightmaps();
+        let mut old_state_written = None;
         if let Some(chunk) = self.chunk_for_write(pos) {
-            // (`updatePOIOnBlockStateChange` has no effect on proto chunks' generation output)
             let old_state = chunk.set_block_state(pos, state, None);
+            old_state_written = Some(old_state);
             if state.has_block_entity() {
                 // A ProtoChunk never has the LEVELCHUNK type: the placeholder the real block entity NBT replaces. A live
                 // block entity (anything but the placeholder: vanilla keeps the instance in `ProtoChunk.blockEntities`, the
@@ -372,6 +374,13 @@ impl LevelAccessor for GenLevel<'_> {
                 }
             } else if old_state.has_block_entity() {
                 chunk.access.remove_block_entity(pos);
+            }
+        }
+        if let Some(old_state) = old_state_written {
+            // `level.updatePOIOnBlockStateChange(pos, oldState, blockState)`: applied by the game thread with the batch
+            let (old_type, new_type) = (PoiTypes::for_state(old_state), PoiTypes::for_state(state));
+            if old_type != new_type {
+                self.region.poi_changes.push((pos, old_type, new_type));
             }
         }
         if flags & 16 == 0

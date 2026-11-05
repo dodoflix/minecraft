@@ -34,6 +34,7 @@ mod generation;
 pub mod player_map;
 mod server_chunk_cache;
 mod server_level;
+mod server_level_poi;
 pub mod player_spawn_finder;
 mod server_level_entities;
 pub mod server_level_features;

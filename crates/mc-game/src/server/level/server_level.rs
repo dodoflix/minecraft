@@ -9,6 +9,7 @@ use super::{FullChunkStatus, Ticket, TicketType};
 use crate::server::shared::ServerShared;
 use crate::world::block_entity::BlockEntity;
 use crate::world::entity::EntityId;
+use crate::world::entity::ai::village::poi::PoiManager;
 use crate::world::level::chunk::LevelChunk;
 use crate::world::level::entity::{PersistentEntitySectionManager, Visibility};
 use crate::world::level::ticket_storage::TicketStorage;
@@ -113,6 +114,7 @@ impl ServerLevel {
     /// `new ServerLevel(...)` for the chunk side: creates the chunk source over the dimension folder.
     pub fn new(params: ServerLevelParams) -> Self {
         let region_dir = params.dimension_dir.join("region");
+        let poi_dir = params.dimension_dir.join("poi");
         let data_dir = params.dimension_dir.join("data");
         let spawning = crate::world::level::spawner::LevelSpawnData::default();
         let gen_context = Arc::new(WorldGenContext {
@@ -129,6 +131,7 @@ impl ServerLevel {
             dimension: params.dimension.clone(),
             level_id: params.level_id,
             region_dir,
+            poi_dir,
             level_height: params.level_height,
             has_sky_light: params.has_sky_light,
             factory: params.factory.clone(),
@@ -218,6 +221,11 @@ impl ServerLevel {
 
     pub fn chunk_source_mut(&mut self) -> &mut ServerChunkCache {
         &mut self.chunk_source
+    }
+
+    /// `getPoiManager()`: queries load POI sections on demand, so every access is through `&self` (interior mutability).
+    pub fn poi_manager(&self) -> &PoiManager {
+        &self.chunk_source.chunk_map.poi_manager
     }
 
     /// `getGameTime()`.
@@ -519,6 +527,7 @@ impl ServerLevel {
                     break;
                 }
             }
+            self.chunk_source.chunk_map.poi_manager.flush_all();
             self.chunk_source.chunk_map.process_unloads(&|| true);
             self.apply_chunk_events();
             self.chunk_source.chunk_map.synchronize(true);

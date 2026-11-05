@@ -7,6 +7,7 @@
 
 use super::world_gen::{GenChunk, WorldGenContext, WorldGenRegion};
 use crate::crash_report::CrashReport;
+use crate::world::entity::ai::village::poi::PoiTypeHolder;
 use crate::world::level::chunk::status::{ChunkStatusTask, ChunkStep};
 use mc_core::pos::ChunkPos;
 use mc_world::chunk::{ProtoChunk, StructureData};
@@ -36,6 +37,8 @@ pub struct BatchResult {
     pub chunks: Vec<(i64, Box<ProtoChunk>)>,
     /// `(chunk, status)` pairs whose step finished.
     pub completed: Vec<(i64, ChunkStatus)>,
+    /// `WorldGenRegion.setBlock` POI updates of the batch's steps (see `WorldGenRegion::poi_changes`).
+    pub poi_changes: Vec<(mc_core::pos::BlockPos, Option<PoiTypeHolder>, Option<PoiTypeHolder>)>,
 }
 
 /// Run the jobs of a batch one after another (the worldgen executor is serial). A panic in a step is vanilla's
@@ -44,6 +47,7 @@ pub struct BatchResult {
 pub fn run_batch(ctx: &WorldGenContext, batch: GenBatch) -> Result<BatchResult, CrashReport> {
     let GenBatch { id, jobs, mut chunks, structure_views } = batch;
     let mut completed = Vec::with_capacity(jobs.len());
+    let mut poi_changes = Vec::new();
     for job in &jobs {
         let step = &job.step;
         let mut region = WorldGenRegion::new(
@@ -64,6 +68,7 @@ pub fn run_batch(ctx: &WorldGenContext, batch: GenBatch) -> Result<BatchResult, 
                 .set_detail("Generator", ctx.generator.type_name_for_data_fixer().map_or_else(|| "unknown".to_owned(), |id| id.to_string()));
             return Err(report);
         }
+        poi_changes.append(&mut region.poi_changes);
         chunks = region.into_chunks();
         completed.push((job.pos.pack(), step.target_status));
     }
@@ -74,7 +79,7 @@ pub fn run_batch(ctx: &WorldGenContext, batch: GenBatch) -> Result<BatchResult, 
             GenChunk::Snapshot(_) => None,
         })
         .collect();
-    Ok(BatchResult { id, chunks, completed })
+    Ok(BatchResult { id, chunks, completed, poi_changes })
 }
 
 /// `ChunkStep.apply` for a chunk that is still before the target status.

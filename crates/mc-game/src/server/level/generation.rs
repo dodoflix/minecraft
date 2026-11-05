@@ -467,6 +467,10 @@ impl ChunkMap {
     pub(crate) fn on_batch_done(&mut self, result: BatchResult) {
         self.worldgen_busy = false;
         self.in_flight_batch = None;
+        // the `getServer().execute(...)` tasks of `updatePOIOnBlockStateChange`, in call order
+        for (pos, old_type, new_type) in result.poi_changes {
+            self.poi_manager.apply_block_state_change(pos, old_type, new_type);
+        }
         for (key, chunk) in result.chunks {
             if let Some(holder) = self.holders.holder_mut(key) {
                 holder.set_persisted_status_cache(Some(chunk.get_persisted_status()));

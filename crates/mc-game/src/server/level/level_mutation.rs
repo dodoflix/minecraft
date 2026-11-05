@@ -5,6 +5,7 @@
 use super::ServerLevel;
 use super::FullChunkStatus;
 use crate::world::entity::EntityId;
+use crate::world::entity::ai::village::poi::PoiTypes;
 use crate::world::level::block::helpers::{drop_resources, update_or_destroy_limited};
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::flags::*;
@@ -183,13 +184,16 @@ impl ServerLevel {
         self.set_block_impl(pos, fluid_state.create_legacy_block(), UPDATE_ALL | if moved_by_piston { UPDATE_MOVE_BY_PISTON } else { 0 }, 512)
     }
 
-    /// `updatePOIOnBlockStateChange(pos, old, new)`: compares the point of interest types and tells the POI hook.
+    /// `updatePOIOnBlockStateChange(pos, old, new)`: the removal/registration runs as a server task (`getServer().execute`).
     pub fn update_poi_on_block_state_change(&mut self, pos: BlockPos, old_state: BlockState, new_state: BlockState) {
-        let (old_type, new_type) = (poi_type_for_state(old_state), poi_type_for_state(new_state));
-        if old_type != new_type
-            && let Some(hook) = self.tick_state.poi_hook
-        {
-            hook(self, pos, old_type, new_type);
+        let (old_type, new_type) = (PoiTypes::for_state(old_state), PoiTypes::for_state(new_state));
+        if old_type != new_type {
+            let dimension = self.dimension.clone();
+            self.shared.execute(move |server| {
+                if let Some(level) = server.level_mut(&dimension) {
+                    level.poi_manager().apply_block_state_change(pos, old_type, new_type);
+                }
+            });
         }
     }
 
@@ -222,23 +226,6 @@ impl ServerLevel {
         self.tick_state.sub_tick_count = current.wrapping_add(1);
         current
     }
-}
-
-/// `PoiTypes.forState(state)`: index into `mc_data::misc::POI_TYPES` of the point of interest the state is, if any.
-pub fn poi_type_for_state(state: BlockState) -> Option<usize> {
-    use std::collections::HashMap;
-    use std::sync::OnceLock;
-    static BY_STATE: OnceLock<HashMap<u16, usize>> = OnceLock::new();
-    let map = BY_STATE.get_or_init(|| {
-        let mut map = HashMap::new();
-        for (index, poi) in mc_data::misc::POI_TYPES.iter().enumerate() {
-            for &id in poi.matching_states {
-                map.entry(id).or_insert(index);
-            }
-        }
-        map
-    });
-    map.get(&(state.id() as u16)).copied()
 }
 
 impl LevelAccessor for ServerLevel {

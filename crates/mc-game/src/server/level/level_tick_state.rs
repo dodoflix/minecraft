@@ -121,9 +121,6 @@ pub struct LevelTickState {
     pub empty_time: i32,
     /// `server.getWorldData().enabledFeatures()` (set by the world loader).
     pub enabled_features: FeatureFlagSet,
-    /// Called when a block state change swaps the point of interest type at a position (`updatePOIOnBlockStateChange`);
-    /// arguments are the old and new `mc_data::misc::POI_TYPES` index. Set by the POI manager.
-    pub poi_hook: Option<fn(&mut ServerLevel, BlockPos, Option<usize>, Option<usize>)>,
     /// `canHaveWeather()` (`dimensionType.hasSkyLight && !hasCeiling && dimension != END`).
     pub can_have_weather: bool,
     /// `dimensionType().hasFixedTime()`.
@@ -181,7 +178,6 @@ impl LevelTickState {
             random: LevelRandom::new(create_new()),
             sound_seed_generator: mc_core::random::create_thread_safe(),
             enabled_features: FeatureFlagSet::DEFAULT_FLAGS,
-            poi_hook: None,
             can_have_weather: false,
             has_fixed_time: false,
             infiniburn: crate::registry::typed::HolderSetRef::Tag(mc_core::ident::Identifier::with_default_namespace("infiniburn_overworld").expect("valid tag")),

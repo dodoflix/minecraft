@@ -19,6 +19,7 @@ use super::world_gen::WorldGenContext;
 use super::{FullChunkStatus, Ticket, TicketType};
 use crate::server::network::ConnectionSender;
 use crate::world::entity::EntityId;
+use crate::world::entity::ai::village::poi::PoiManager;
 use crate::world::level::DimensionKey;
 use crate::world::level::chunk::LevelChunk;
 use crate::world::level::ticket_storage::TicketStorage;
@@ -188,6 +189,8 @@ pub struct ChunkMapParams {
     pub dimension: DimensionKey,
     pub level_id: String,
     pub region_dir: PathBuf,
+    /// `<dimension>/poi` (`PoiManager` storage folder).
+    pub poi_dir: PathBuf,
     pub level_height: LevelHeight,
     pub has_sky_light: bool,
     pub factory: Arc<PalettedContainerFactory>,
@@ -251,6 +254,8 @@ pub struct ChunkMap {
     /// Save jobs (NBT encoding on the pool) not finished yet.
     pub(crate) encoding_chunks: Arc<AtomicI32>,
     pub(crate) storage_info: RegionStorageInfo,
+    /// `poiManager`.
+    pub poi_manager: PoiManager,
 
     // players
     pub player_map: PlayerMap,
@@ -260,9 +265,10 @@ pub struct ChunkMap {
 
 impl ChunkMap {
     pub fn new(params: ChunkMapParams) -> Self {
-        let ChunkMapParams { dimension, level_id, region_dir, level_height, has_sky_light, factory, gen_context, is_known_structure, sync_writes, view_distance, tickets } = params;
+        let ChunkMapParams { dimension, level_id, region_dir, poi_dir, level_height, has_sky_light, factory, gen_context, is_known_structure, sync_writes, view_distance, tickets } = params;
         let (result_tx, results) = channel();
-        let storage_info = RegionStorageInfo::new(level_id, dimension.clone(), "chunk");
+        let storage_info = RegionStorageInfo::new(level_id.clone(), dimension.clone(), "chunk");
+        let poi_manager = PoiManager::new(RegionStorageInfo::new(level_id, dimension.clone(), "poi"), poi_dir, sync_writes, level_height);
         let io = RegionIo::new(storage_info.clone(), region_dir, sync_writes, result_tx.clone());
         let pool = WorkerPool::new("Chunk-Pool", std::thread::available_parallelism().map_or(2, |n| n.get().min(4)), result_tx.clone());
         let worldgen = WorldgenThread::new(result_tx.clone());
@@ -314,6 +320,7 @@ impl ChunkMap {
             active_chunk_writes: Arc::new(AtomicI32::new(0)),
             encoding_chunks: Arc::new(AtomicI32::new(0)),
             storage_info,
+            poi_manager,
             player_map: PlayerMap::new(),
             players: IndexMap::new(),
             server_view_distance: 0,
@@ -387,6 +394,7 @@ impl ChunkMap {
             || self.worldgen_busy
             || self.worldgen_queue.has_work()
             || !self.pending_generation_tasks.is_empty()
+            || self.poi_manager.has_work()
             || !self.main_tasks.is_empty()
             || self.distance_manager_has_tickets()
     }
@@ -742,6 +750,7 @@ impl ChunkMap {
 
     /// `ChunkMap.tick(haveTime)`: unloads and eager saves.
     pub fn tick(&mut self, have_time: &dyn Fn() -> bool) {
+        self.poi_manager.tick(have_time);
         if !self.settings.no_save {
             self.process_unloads(have_time);
         }

@@ -1,5 +1,6 @@
-//! `net.minecraft.world.entity.ai.village` (the POI storage under `poi` is owned by DimensionsScope).
+//! `net.minecraft.world.entity.ai.village`.
 
+pub mod poi;
 pub mod reputation_event_type;
 
 pub use reputation_event_type::ReputationEventType;

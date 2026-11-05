@@ -4,6 +4,7 @@
 //! behaviours (structure starts/references, feature decoration, mob spawning) are [`WorldGenHooks`], implemented by the
 //! structures/features slices (`levelgen::hooks::VanillaWorldGenHooks`), one per level (`ServerLevelParams::hooks`).
 
+use crate::world::entity::ai::village::poi::PoiTypeHolder;
 use crate::world::level::DimensionKey;
 use mc_core::ident::Identifier;
 use mc_core::pos::ChunkPos;
@@ -48,6 +49,9 @@ pub struct WorldGenRegion {
     /// Structure data of chunks outside the lent set (structure starts are read up to 8 chunks away).
     structure_views: HashMap<i64, Arc<StructureData>>,
     pub level_height: LevelHeight,
+    /// `level.updatePOIOnBlockStateChange(pos, old, new)` of every `setBlock` that changed the POI type at a position
+    /// (old type, new type), in call order: the game thread applies them to the `PoiManager` when the batch is back.
+    pub poi_changes: Vec<(mc_core::pos::BlockPos, Option<PoiTypeHolder>, Option<PoiTypeHolder>)>,
 }
 
 impl WorldGenRegion {
@@ -59,7 +63,7 @@ impl WorldGenRegion {
         structure_views: HashMap<i64, Arc<StructureData>>,
         level_height: LevelHeight,
     ) -> Self {
-        Self { center, read_radius, write_radius, chunks, structure_views, level_height }
+        Self { center, read_radius, write_radius, chunks, structure_views, level_height, poi_changes: Vec::new() }
     }
 
     /// `getCenter()`.

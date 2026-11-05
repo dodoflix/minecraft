@@ -6,7 +6,7 @@ use super::chunk_io::WorkerMessage;
 use super::chunk_map::{ChunkMap, ChunkMapEvent};
 use crate::crash_report::ReportedException;
 use crate::world::level::chunk::LevelChunk;
-use mc_core::pos::ChunkPos;
+use mc_core::pos::{ChunkPos, SectionPos};
 use mc_world::chunk::ProtoChunk;
 use mc_world::serial::{LoadedChunk, ReadContext, SerializableChunkData};
 use mc_world::status::{ChunkStatus, ChunkType};
@@ -75,6 +75,12 @@ impl ChunkMap {
 
     fn install_parsed_chunk(&mut self, key: i64, data: SerializableChunkData) {
         let pos = ChunkPos::unpack(key);
+        // `SerializableChunkData.read`: `poiManager.checkConsistencyWithBlocks(sectionPos, section.chunkSection)`
+        for section in &data.section_data {
+            if let Some(chunk_section) = &section.chunk_section {
+                self.poi_manager.check_consistency_with_blocks(SectionPos::of_chunk(&pos, section.y), chunk_section);
+            }
+        }
         let known = self.is_known_structure.clone();
         let ctx = ReadContext { level_height: self.level_height, has_sky_light: self.has_sky_light, factory: &self.factory, is_known_structure: &*known };
         let loaded = data.read(&ctx, pos);
@@ -294,6 +300,7 @@ impl ChunkMap {
 
     /// `save(chunk)`: queue the chunk's NBT for writing. `false` if there was nothing to save.
     pub fn save_slot(&mut self, pos: ChunkPos, slot: &mut ChunkSlot) -> bool {
+        self.poi_manager.flush(pos);
         let (access_unsaved, status) = match slot {
             ChunkSlot::Level(l) => (l.data.access.try_mark_saved(), ChunkStatus::Full),
             ChunkSlot::Proto(p) => (p.access.try_mark_saved(), p.get_persisted_status()),
@@ -434,6 +441,7 @@ impl ChunkMap {
     /// `close()`: stop the worker threads (the region files are flushed and closed).
     pub fn close(&mut self) {
         self.worldgen.close();
+        self.poi_manager.close();
         self.pool.close();
         if let Err(e) = self.io.close() {
             log::error!("Failed to close storage: {e}");
