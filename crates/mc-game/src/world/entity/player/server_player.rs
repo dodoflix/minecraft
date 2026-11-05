@@ -339,6 +339,12 @@ impl Entity for ServerPlayer {
     fn is_player(&self) -> bool {
         true
     }
+    /// `ServerPlayer.pushEntities()`: only while the tick rate manager runs normally.
+    fn push_entities(&mut self, level: &mut ServerLevel) {
+        if level.tick_state.runs_normally {
+            crate::world::entity::living_entity::push::push_entities(self.as_dyn_mut(), level);
+        }
+    }
     fn is_always_ticking(&self) -> bool {
         true
     }

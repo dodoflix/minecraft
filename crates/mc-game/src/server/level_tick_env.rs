@@ -28,9 +28,8 @@ impl LevelTickEnv for ServerTickEnv<'_> {
         self.server.tick_rate_manager.runs_normally()
     }
 
-    fn is_entity_frozen(&self, entity: &dyn Entity) -> bool {
-        // `countPlayerPassengers() <= 0`: any passenger might be a player, the entity is only frozen when it has none.
-        self.server.tick_rate_manager.is_entity_frozen(entity.is_player(), i32::from(!entity.base().passengers.is_empty()))
+    fn is_entity_frozen(&self, entity: &dyn Entity, count_player_passengers: i32) -> bool {
+        self.server.tick_rate_manager.is_entity_frozen(entity.is_player(), count_player_passengers)
     }
 
     fn weather(&self) -> WeatherState {

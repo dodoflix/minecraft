@@ -180,7 +180,7 @@ impl MinecraftServer {
     fn broadcast_border_event(&self, dimension: &DimensionKey, border: &WorldBorder, event: BorderEvent) {
         let list = &self.player_list;
         match event {
-            BorderEvent::SetSize(_) => list.broadcast_all_in_dimension(&wire::ClientboundSetBorderSizePacket { size: border.get_size() }, dimension),
+            BorderEvent::SetSize(_) => list.broadcast_all_in_dimension(&wire::ClientboundSetBorderSizePacket { size: border.get_lerp_target() }, dimension),
             BorderEvent::LerpSize { .. } => list.broadcast_all_in_dimension(
                 &wire::ClientboundSetBorderLerpSizePacket { old_size: border.get_size(), new_size: border.get_lerp_target(), lerp_time: border.get_lerp_time() },
                 dimension,
@@ -218,6 +218,23 @@ impl MinecraftServer {
 }
 
 impl ServerLevel {
+    /// `Level.getWorldBorderAdjustedRespawnData(respawnData)`: a respawn outside the border moves to the
+    /// `MOTION_BLOCKING` height at the border centre.
+    pub fn get_world_border_adjusted_respawn_data(&mut self, respawn_data: mc_world::level_storage::RespawnData) -> mc_world::level_storage::RespawnData {
+        let (center_x, center_z) = {
+            let border = self.get_world_border();
+            if border.is_within_bounds_block(&respawn_data.pos) {
+                return respawn_data;
+            }
+            (border.get_center_x(), border.get_center_z())
+        };
+        let center = BlockPos::containing(center_x, 0.0, center_z);
+        // vanilla loads the chunk synchronously
+        self.chunk_blocking_mut(center.x() >> 4, center.z() >> 4);
+        let new_pos = self.get_heightmap_pos(mc_world::heightmap::HeightmapType::MotionBlocking, center);
+        crate::world::entity::respawn::respawn_data_of(respawn_data.dimension, new_pos, respawn_data.yaw, respawn_data.pitch)
+    }
+
     /// The border if it was already initialized by `get_world_border` (`createLevels` does that for every level).
     pub fn world_border_ref(&self) -> Option<&WorldBorder> {
         self.chunk_source.data_storage.peek(&WorldBorder::type_())

@@ -429,9 +429,14 @@ impl MinecraftServer {
         self.player_list.broadcast_all(&mc_protocol::packets::play::ClientboundChangeDifficultyPacket { difficulty: mc_protocol::packets::play::Difficulty::by_id(difficulty.get_id()), locked });
     }
 
-    /// `updateEffectiveRespawnData`: the respawn data adjusted to the world border (not modelled yet: unchanged).
+    /// `updateEffectiveRespawnData`: the overworld level data's respawn adjusted to the respawn level's world border.
     pub(super) fn update_effective_respawn_data(&mut self) {
-        self.effective_respawn_data = Some(self.world_data.lock().respawn_data.clone());
+        let respawn_data = self.world_data.lock().respawn_data.clone();
+        let dimension = self.find_respawn_dimension();
+        self.effective_respawn_data = Some(match self.level_mut(&dimension) {
+            Some(level) => level.get_world_border_adjusted_respawn_data(respawn_data),
+            None => respawn_data,
+        });
     }
 
     /// `findRespawnDimension`: the dimension of the overworld level data's respawn, else the overworld.

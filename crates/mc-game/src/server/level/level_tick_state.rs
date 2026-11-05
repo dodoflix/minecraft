@@ -131,6 +131,8 @@ pub struct LevelTickState {
     pub ambient_light: f32,
     /// `tickTime` constructor flag (only the overworld advances the game time).
     pub tick_time: bool,
+    /// `tickRateManager().runsNormally()` as of the current level tick (read by `ServerPlayer.pushEntities`).
+    pub runs_normally: bool,
     /// `sleepStatus`.
     pub sleep_status: super::sleep_status::SleepStatus,
     /// The biome registry and `BiomeManager` zoom seed (`BiomeManager.obfuscateSeed(seed)`), set by the world loader.
@@ -183,6 +185,7 @@ impl LevelTickState {
             infiniburn: crate::registry::typed::HolderSetRef::Tag(mc_core::ident::Identifier::with_default_namespace("infiniburn_overworld").expect("valid tag")),
             ambient_light: 0.0,
             tick_time: false,
+            runs_normally: true,
             sleep_status: super::sleep_status::SleepStatus::default(),
             biomes: None,
             biome_zoom_seed: 0,

@@ -314,7 +314,12 @@ impl PersistentEntitySectionManager {
 
     fn count_player_passengers(&self, id: EntityId) -> usize {
         let Some(e) = self.get_any(id) else { return 0 };
-        e.base().passengers.iter().map(|&p| usize::from(self.get_any(p).is_some_and(|p| p.is_player())) + self.count_player_passengers(p)).sum()
+        self.count_players_among(&e.base().passengers)
+    }
+
+    /// `countPlayerPassengers()` of an entity whose slot is taken out: its indirect passengers that are players.
+    pub(crate) fn count_players_among(&self, passengers: &[EntityId]) -> usize {
+        passengers.iter().map(|&p| usize::from(self.get_any(p).is_some_and(|p| p.is_player())) + self.count_player_passengers(p)).sum()
     }
 
     /// `getPassengersAndSelf()` ids (post-order).

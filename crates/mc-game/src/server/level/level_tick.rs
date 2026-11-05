@@ -45,7 +45,7 @@ pub trait LevelTickEnv {
     /// `tickRateManager().runsNormally()`.
     fn runs_normally(&self) -> bool;
     /// `tickRateManager().isEntityFrozen(entity)`.
-    fn is_entity_frozen(&self, entity: &dyn Entity) -> bool;
+    fn is_entity_frozen(&self, entity: &dyn Entity, count_player_passengers: i32) -> bool;
     /// `getWeatherData()` read / write.
     fn weather(&self) -> WeatherState;
     fn set_weather(&mut self, weather: WeatherState);
@@ -642,6 +642,7 @@ impl ServerLevel {
         self.tick_state.attributes.invalidate_tick_cache();
         let runs = env.runs_normally();
         self.tick_state.command_rules = env.command_rules();
+        self.tick_state.runs_normally = runs;
         if runs {
             self.get_world_border().tick();
             self.advance_weather_cycle(env);

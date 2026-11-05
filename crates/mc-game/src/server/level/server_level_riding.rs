@@ -244,7 +244,8 @@ impl ServerLevel {
     /// `tickNonPassenger` (the vehicle is back in storage while its passengers tick).
     pub fn tick_listed_entity(&mut self, env: &mut dyn LevelTickEnv, id: EntityId) {
         let Some(mut entity) = self.take_entity(id) else { return };
-        if entity.is_removed() || env.is_entity_frozen(&*entity) {
+        let player_passengers = self.entity_manager.count_players_among(&entity.base().passengers) as i32;
+        if entity.is_removed() || env.is_entity_frozen(&*entity, player_passengers) {
             self.put_back_entity(id, entity);
             return;
         }
