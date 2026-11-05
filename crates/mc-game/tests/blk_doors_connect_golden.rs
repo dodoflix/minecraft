@@ -38,3 +38,27 @@ fn stairs_shapes_random_updates() {
 fn ladders_chains_lanterns_carpets_random_updates() {
     check("blk_dc_np_misc");
 }
+
+#[test]
+#[ignore = "until BxFluids lands on main: WaterFluid tick/spread (waterlogged blocks and placed water flow in vanilla)"]
+fn trapdoors_waterlogged_water_ticks() {
+    check("blk_dc_np_trapdoors_wet");
+}
+
+#[test]
+#[ignore = "until BxFluids lands on main: WaterFluid tick/spread (waterlogged blocks and placed water flow in vanilla)"]
+fn fences_bars_walls_gates_waterlogged_random_updates() {
+    check("blk_dc_np_fences_wet");
+}
+
+#[test]
+#[ignore = "until BxFluids lands on main: WaterFluid tick/spread (waterlogged blocks and placed water flow in vanilla)"]
+fn stairs_waterlogged_random_updates() {
+    check("blk_dc_np_stairs_wet");
+}
+
+#[test]
+#[ignore = "until BxFluids lands on main: WaterFluid tick/spread (waterlogged blocks and placed water flow in vanilla)"]
+fn ladders_chains_lanterns_waterlogged_random_updates() {
+    check("blk_dc_np_misc_wet");
+}
