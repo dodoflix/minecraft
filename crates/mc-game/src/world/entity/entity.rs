@@ -2826,6 +2826,14 @@ pub trait Entity: Any {
     fn is_preventing_player_rest(&self, _level: &ServerLevel, _player: &dyn Entity) -> bool {
         true
     }
+    // ==== [Blocks:TechnicalA] additions (Entity trait methods) ====
+    /// `this instanceof Bee`: the `Bee` methods `BeehiveBlockEntity` / `BeehiveBlock` call (implemented by the bee entity).
+    fn as_bee_access(&mut self) -> Option<&mut dyn crate::world::block_entity::BeeAccess> {
+        None
+    }
+    /// `getBrain().setMemory(MemoryModuleType.HEARD_BELL_TIME, gameTime)` (`BellBlockEntity.updateEntities`): entities whose
+    /// brain registers the memory (villagers, ...) override this; the memory write is a no-op for brains without it.
+    fn set_heard_bell_time(&mut self, _game_time: i64) {}
 }
 
 /// `Entity.saveAsPassenger(output)`: `None` when the entity isn't saved (removal reason / non-serializable type).

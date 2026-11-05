@@ -259,3 +259,10 @@ pub fn get_max_local_raw_brightness(level: &dyn crate::world::level::LevelReader
         15
     }
 }
+
+/// `stack.set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(property, value))` (`value` is the
+/// property's serialized name).
+pub fn set_block_state_property(stack: &mut crate::world::item::ItemStack, property: &str, value: &str) {
+    use mc_protocol::components::{BLOCK_STATE, BlockItemStateProperties};
+    stack.set(BLOCK_STATE, BlockItemStateProperties { properties: vec![(property.to_string(), value.to_string())] });
+}

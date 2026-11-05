@@ -23,6 +23,10 @@ macro_rules! block_entity_base {
 
 pub mod base_container;
 pub mod changed_log;
+mod beacon_block_entity;
+mod beehive_block_entity;
+mod bell_block_entity;
+mod brushable_block_entity;
 mod calibrated_sculk_sensor_block_entity;
 mod comparator_block_entity;
 pub mod command_block_entity;
@@ -42,6 +46,10 @@ mod the_end_portal_block_entity;
 pub mod structure_block_entity;
 
 pub use comparator_block_entity::ComparatorBlockEntity;
+pub use beacon_block_entity::BeaconBlockEntity;
+pub use beehive_block_entity::{BeeAccess, BeeReleaseStatus, BeehiveBlockEntity};
+pub use bell_block_entity::BellBlockEntity;
+pub use brushable_block_entity::BrushableBlockEntity;
 pub use creaking_heart_block_entity::CreakingHeartBlockEntity;
 pub use daylight_detector_block_entity::DaylightDetectorBlockEntity;
 pub use command_block_entity::CommandBlockEntity;

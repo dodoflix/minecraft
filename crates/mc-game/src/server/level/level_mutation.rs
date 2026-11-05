@@ -246,6 +246,10 @@ impl LevelAccessor for ServerLevel {
         self.gen_env.as_ref().map(|_| self as &dyn crate::world::level::levelgen::WorldGenLevel)
     }
 
+    fn as_server_level_mut(&mut self) -> Option<&mut ServerLevel> {
+        Some(self)
+    }
+
     fn is_unobstructed_block(&self, pos: BlockPos) -> bool {
         use crate::world::level::collision::CollisionGetter as _;
         self.is_unobstructed(None, &mc_core::phys::shapes::Shapes::block().move_vec3i(*pos))
