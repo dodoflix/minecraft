@@ -815,6 +815,9 @@ pub trait Entity: Any {
 
     /// `getItemBySlot(slot)` (empty for non-living entities).
     fn get_item_by_slot(&self, slot: super::equipment::EquipmentSlot) -> crate::world::item::ItemStack {
+        if let Some(p) = self.player() {
+            return p.inventory.equipment_get(slot).clone();
+        }
         self.living().map(|l| l.equipment.get(slot).clone()).unwrap_or_default()
     }
 
@@ -1196,6 +1199,80 @@ pub trait Entity: Any {
     // ==== [EntityBase] additions (Entity trait methods) ====
     // ==== [LivingCore] additions (Entity trait methods) ====
     // ==== [Damage] additions (Entity trait methods) ====
+
+    /// `getWeaponItem()`: `LivingEntity` = main hand; projectiles override with the weapon that fired them.
+    fn get_weapon_item(&self) -> Option<crate::world::item::ItemStack> {
+        self.living().map(|_| self.get_item_by_slot(super::equipment::EquipmentSlot::MainHand))
+    }
+
+    /// `isInvulnerable()`.
+    fn is_invulnerable(&self) -> bool {
+        self.is_permanently_invulnerable() || self.is_temporarily_invulnerable()
+    }
+
+    /// `isPermanentlyInvulnerable()`.
+    fn is_permanently_invulnerable(&self) -> bool {
+        self.base().permanently_invulnerable
+    }
+
+    /// `isTemporarilyInvulnerable()`.
+    fn is_temporarily_invulnerable(&self) -> bool {
+        self.base().invulnerable_time > 0
+    }
+
+    /// `isInvulnerableToPiercingWeapon()`.
+    fn is_invulnerable_to_piercing_weapon(&self) -> bool {
+        self.is_invulnerable()
+    }
+
+    /// `isInvulnerableToBase(source)`.
+    fn is_invulnerable_to_base(&self, level: &ServerLevel, source: &crate::world::damagesource::DamageSource) -> bool {
+        use crate::world::damagesource::DamageTypeTags;
+        self.is_removed()
+            || self.is_invulnerable() && !source.is_tag(level, DamageTypeTags::BYPASSES_INVULNERABILITY) && !source.is_creative_player()
+            || source.is_tag(level, DamageTypeTags::IS_FIRE) && self.fire_immune()
+            || source.is_tag(level, DamageTypeTags::IS_FALL) && mc_data::tags::get::<EntityType>("fall_damage_immune").is_some_and(|t| t.contains(self.get_type()))
+    }
+
+    /// `isInvulnerableTo(level, source)` (`LivingEntity`: plus `EnchantmentHelper.isImmuneToDamage`; `Player`/`ServerPlayer` add their rules).
+    fn is_invulnerable_to(&self, level: &ServerLevel, source: &crate::world::damagesource::DamageSource) -> bool {
+        super::living_entity::damage::is_invulnerable_to(self.as_dyn(), level, source)
+    }
+
+    /// `hurtServer(level, source, damage)`: abstract in `Entity`; every living entity runs `LivingEntity.hurtServer`.
+    fn hurt_server(&mut self, level: &mut ServerLevel, source: &crate::world::damagesource::DamageSource, amount: f32) -> bool {
+        super::living_entity::damage::hurt_server(self.as_dyn_mut(), level, source, amount)
+    }
+
+    /// `die(source)` (`LivingEntity`; no-op for non-living entities).
+    fn die(&mut self, level: &mut ServerLevel, source: &crate::world::damagesource::DamageSource) {
+        super::living_entity::damage::die(self.as_dyn_mut(), level, source);
+    }
+
+    /// `causeFallDamage(fallDistance, damageModifier, source)`.
+    fn cause_fall_damage(&mut self, level: &mut ServerLevel, fall_distance: f64, damage_modifier: f32, source: &crate::world::damagesource::DamageSource) -> bool {
+        super::living_entity::damage::cause_fall_damage(self.as_dyn_mut(), level, fall_distance, damage_modifier, source)
+    }
+
+    /// `heal(amount)`.
+    fn heal(&mut self, _level: &mut ServerLevel, amount: f32) {
+        if let Some(l) = self.living_mut() {
+            let health = l.get_health();
+            if health > 0.0 {
+                l.set_health(health + amount);
+            }
+        }
+    }
+
+    /// `getHealth()` (0 for non-living entities).
+    fn get_health(&self) -> f32 {
+        self.living().map_or(0.0, |l| l.get_health())
+    }
+
+    /// `isDeadOrDying()`.
+    fn is_dead_or_dying(&self) -> bool {
+        self.living().is_some_and(|l| l.get_health() <= 0.0 || l.dead)
+    }
     // ==== [Effects] additions (Entity trait methods) ====
     // ==== [Player] additions (Entity trait methods) ====
     // ==== [Level] additions (Entity trait methods) ====

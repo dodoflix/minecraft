@@ -17,6 +17,7 @@ pub mod factory;
 pub mod interpolation;
 pub mod item;
 pub mod living;
+pub mod living_entity;
 pub mod movement;
 pub mod plain;
 pub mod player;
