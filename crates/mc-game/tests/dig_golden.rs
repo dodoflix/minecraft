@@ -154,7 +154,6 @@ fn drain(rx: &mut UnboundedReceiver<Outbound>) -> Vec<(String, String)> {
 /// One server tick of the digger (`ServerPlayer.tick` -> `gameMode.tick()`), then the observer's packets.
 fn tick_once(r: &mut Replay, case_tick: &mut i32, got: &mut Vec<(i32, String, String)>) {
     *case_tick += 1;
-    r.steve.game_mode.game_ticks += 1;
     r.steve.tick_game_mode(&mut r.level);
     for (kind, h) in drain(&mut r.rx) {
         got.push((*case_tick, kind, h));

@@ -202,14 +202,6 @@ impl PlayCtx<'_> {
 
     /// `level.getChunkSource().move(player)` after the player's position changed.
     pub(super) fn chunk_source_move(&mut self) {
-        let update = crate::server::level::chunk_map::PlayerTrackingUpdate {
-            entity_id: self.player.id(),
-            position: self.player.position(),
-            requested_view_distance: self.player.requested_view_distance,
-            spectator: self.player.is_spectator(),
-            alive: self.player.is_alive(),
-        };
-        self.level.entity_tracker_move_taken_out_player(&mut *self.player);
-        self.level.chunk_source.chunk_map.move_player(update);
+        self.player.chunk_source_move(self.level);
     }
 }

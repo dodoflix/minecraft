@@ -81,17 +81,21 @@ impl ServerPlayer {
     /// post effects. The camera follow-up belongs to the level slice's spectator camera; the criteria triggers and
     /// `advancements.flushDirty` are `// SEAM(advancements)`.
     pub fn tick_server_player(&mut self, level: &mut ServerLevel) {
-        self.game_mode.game_ticks += 1;
+        self.tick_game_mode(level);
         let ws = &mut self.warden_spawn_tracker;
         ws.ticks_since_last_warning = ws.ticks_since_last_warning.saturating_add(1);
         if self.player.living.damage_cooldown_time > 0 {
             self.player.living.damage_cooldown_time -= 1;
         }
         self.broadcast_menu_changes(level);
+<<<<<<< HEAD
         self.close_container_if_invalid(level);
         // SEAM(advancements): CriteriaTriggers.TICK / LEVITATION
         self.track_start_falling_position();
         self.track_entered_or_exited_lava_on_vehicle(level);
+=======
+        self.tick_camera(level);
+>>>>>>> cbfecbb (feat(game): spectator camera, game mode tick wired into the player tick, entity event broadcast helpers)
         self.update_player_attributes();
         // SEAM(advancements): advancements.flushDirty(this, true)
         if self.post_effects_dirty {

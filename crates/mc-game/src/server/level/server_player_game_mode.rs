@@ -411,8 +411,9 @@ impl ServerPlayer {
         }
         InteractionResult::PASS
     }
-    /// `ServerPlayerGameMode.tick()` minus the `gameTicks++` (done in `ServerPlayer::tick_server_player`): digging progress broadcast.
+    /// `ServerPlayerGameMode.tick()`: `gameTicks++`, the delayed-destroy and digging progress.
     pub fn tick_game_mode(&mut self, level: &mut ServerLevel) {
+        self.game_mode.game_ticks += 1;
         let id = self.base_id();
         if self.game_mode.has_delayed_destroy {
             let pos = self.game_mode.delayed_destroy_pos;
