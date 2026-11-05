@@ -75,7 +75,7 @@ pub fn use_item_on(
                 let text = sign.get_text(slot).clone();
                 if applicator.can_apply_to_sign(&text, stack, player) && applicator.try_apply_to_sign(level, sign, slot, stack, player) {
                     sign.execute_click_commands_if_present(level, player, pos, slot);
-                    // `player.awardStat(Stats.ITEM_USED.get(item))`: statistics are not tracked yet
+                    player.award_stat_once(level, crate::stats::Stat::Used(stack.item()));
                     level.game_event_at_block(GameEvent::BLOCK_CHANGE, sign.get_block_pos(), &GameEventContext::of(Some(player.base_id()), Some(sign.get_block_state())));
                     let mut held = player.get_item_in_hand(hand);
                     held.consume(1, player.player.abilities.instabuild);
