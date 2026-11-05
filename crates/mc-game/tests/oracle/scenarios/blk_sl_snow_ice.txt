@@ -1,0 +1,95 @@
+# Snow layers (melt by block light), ice (melt by light -> water, neighbor update, game event), frosted ice cycle.
+level flat
+preload 2
+level_seed 31337
+rand_value 5
+gamerule block_drops false
+block 1 -60 1 minecraft:snow[layers=1]
+block 2 -60 1 minecraft:snow[layers=2]
+block 3 -60 1 minecraft:snow[layers=3]
+block 4 -60 1 minecraft:snow[layers=4]
+block 5 -60 1 minecraft:snow[layers=5]
+block 6 -60 1 minecraft:snow[layers=6]
+block 7 -60 1 minecraft:snow[layers=7]
+block 8 -60 1 minecraft:snow[layers=8]
+block 4 -60 2 minecraft:torch
+block 10 -60 1 minecraft:snow[layers=3]
+block 10 -61 1 minecraft:glass
+block 12 -61 1 minecraft:ice
+block 12 -60 1 minecraft:snow[layers=2]
+block 14 -61 1 minecraft:barrier
+block 14 -60 1 minecraft:snow
+block 16 -61 1 minecraft:honey_block
+block 16 -60 1 minecraft:snow
+dump blocks:0,-61,0,17,-59,3 ticks
+random_tick 1 -60 1
+random_tick 2 -60 1
+random_tick 3 -60 1
+random_tick 4 -60 1
+random_tick 5 -60 1
+random_tick 6 -60 1
+random_tick 7 -60 1
+random_tick 8 -60 1
+random_tick 10 -60 1
+dump blocks:0,-61,0,17,-59,3 events
+random_tick 1 -60 1
+random_tick 2 -60 1
+random_tick 3 -60 1
+random_tick 4 -60 1
+random_tick 5 -60 1
+random_tick 6 -60 1
+random_tick 7 -60 1
+random_tick 8 -60 1
+random_tick 10 -60 1
+dump blocks:0,-61,0,17,-59,3 events
+random_tick 1 -60 1
+random_tick 2 -60 1
+random_tick 3 -60 1
+random_tick 4 -60 1
+random_tick 5 -60 1
+random_tick 6 -60 1
+random_tick 7 -60 1
+random_tick 8 -60 1
+random_tick 10 -60 1
+dump blocks:0,-61,0,17,-59,3 events
+fill 20 -61 1 22 -61 1 minecraft:ice
+block 21 -60 1 minecraft:torch
+block 30 -61 1 minecraft:ice
+block 30 -60 1 minecraft:torch
+block 24 -61 1 minecraft:ice
+block 24 -60 2 minecraft:torch
+block 24 -60 1 minecraft:air
+dump blocks:19,-61,0,31,-59,3 ticks
+random_tick 20 -61 1
+random_tick 21 -61 1
+random_tick 22 -61 1
+random_tick 24 -61 1
+random_tick 30 -61 1
+dump blocks:19,-61,0,31,-59,3 ticks events
+random_tick 20 -61 1
+random_tick 21 -61 1
+random_tick 22 -61 1
+random_tick 24 -61 1
+random_tick 30 -61 1
+dump blocks:19,-61,0,31,-59,3 ticks events
+random_tick 20 -61 1
+random_tick 21 -61 1
+random_tick 22 -61 1
+random_tick 24 -61 1
+random_tick 30 -61 1
+dump blocks:19,-61,0,31,-59,3 ticks events
+fill 40 -61 40 44 -61 44 minecraft:frosted_ice[age=0]
+dump blocks:39,-62,39,45,-60,45 ticks
+tick 70
+dump blocks:39,-62,39,45,-60,45 ticks
+tick 80
+dump blocks:39,-62,39,45,-60,45 ticks
+tick 200
+dump blocks:39,-62,39,45,-60,45 ticks events
+block 50 -61 50 minecraft:frosted_ice[age=0]
+block 51 -61 50 minecraft:frosted_ice[age=0]
+tick 1
+block 51 -61 50 minecraft:air
+dump blocks:49,-62,49,52,-60,51 ticks events
+tick 100
+dump blocks:49,-62,49,52,-60,51 ticks events
