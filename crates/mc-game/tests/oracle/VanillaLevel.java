@@ -1,0 +1,465 @@
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.services.MinecraftServicesDiscoveryService;
+import com.mojang.serialization.Dynamic;
+import com.mojang.serialization.Lifecycle;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelOutboundHandlerAdapter;
+import io.netty.channel.ChannelPromise;
+import io.netty.channel.embedded.EmbeddedChannel;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.Proxy;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
+import java.util.*;
+import java.util.function.Consumer;
+import net.minecraft.SharedConstants;
+import net.minecraft.commands.CommandSource;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.Connection;
+import net.minecraft.network.PacketSendListener;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.PacketFlow;
+import net.minecraft.network.protocol.common.ServerboundKeepAlivePacket;
+import net.minecraft.network.protocol.game.*;
+import net.minecraft.server.Bootstrap;
+import net.minecraft.server.Eula;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.Services;
+import net.minecraft.server.WorldLoader;
+import net.minecraft.server.WorldStem;
+import net.minecraft.server.dedicated.DedicatedPlayerList;
+import net.minecraft.server.dedicated.DedicatedServer;
+import net.minecraft.server.dedicated.DedicatedServerProperties;
+import net.minecraft.server.dedicated.DedicatedServerSettings;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.CommonListenerCookie;
+import net.minecraft.server.notifications.NotificationManager;
+import net.minecraft.server.packs.repository.PackRepository;
+import net.minecraft.server.packs.repository.ServerPacksSource;
+import net.minecraft.util.Util;
+import net.minecraft.util.datafix.DataFixers;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.LevelSettings;
+import net.minecraft.world.level.WorldDataConfiguration;
+import net.minecraft.world.level.dimension.LevelStem;
+import net.minecraft.world.level.levelgen.RandomSupport;
+import net.minecraft.world.level.levelgen.WorldGenSettings;
+import net.minecraft.world.level.levelgen.WorldDimensions;
+import net.minecraft.world.level.levelgen.WorldOptions;
+import net.minecraft.world.level.storage.LevelDataAndDimensions;
+import net.minecraft.world.level.storage.LevelStorageSource;
+import net.minecraft.world.level.storage.PrimaryLevelData;
+
+/**
+ * In-process VANILLA level for the entity oracle: a real {@code DedicatedServer} (real {@code ServerLevel}, chunk system,
+ * {@code PlayerList}, commands, game rules, registries and data packs) living in a temp dir, without sockets, console thread or
+ * watchdog, ticked by hand on the calling thread (the calling thread IS the server thread). Nothing of the game logic is
+ * reimplemented: every observable comes from the real vanilla code paths (level.tick, entity ticks, packet handlers).
+ *
+ * <p>Run it through the scenario DSL: {@code scripts/entity-oracle.sh crates/mc-game/tests/oracle/scenarios/fall.txt}
+ * (see {@code EntityOracleDriver.java} for the command list), or programmatically from a Java file
+ * ({@code scripts/entity-oracle.sh MyScenario.java}, which may use {@code VanillaLevel.boot(...)} directly).
+ *
+ * <p>Determinism: fixed world seed; game time/weather frozen by default ({@code advance_time}/{@code advance_weather} false), no
+ * natural spawning; every entity created by the vanilla code on the server thread draws its {@code RandomSource.create()} seed
+ * from {@link RandomSupport#reseedUniquifier}'s per-thread counter (the ORACLE SHADOW in {@code tests/oracle/shadow}, a copy of
+ * vanilla's RandomSupport without {@code System.nanoTime()}); the sequence is reset at boot and by {@link #reseed}. Chunks around
+ * the origin are fully loaded and entity-ticking before the first script line. Player connections are real
+ * {@link Connection}s over a Netty {@code EmbeddedChannel}: every clientbound packet the vanilla code sends is recorded
+ * (bundles flattened with their delimiters, encoded with the real play codec) in {@link FakePlayer#packets}.
+ */
+public final class VanillaLevel {
+   /** The untouched stdout: Bootstrap replaces System.out by a logger, fixtures are printed here. */
+   public static final PrintStream OUT = System.out;
+   public static final PrintStream ERR = System.err;
+
+   public final Path dir;
+   public final Server server;
+   public final ServerLevel level;
+   public final List<FakePlayer> players = new ArrayList<>();
+   public final List<String> commandOutput = new ArrayList<>();
+   public long ticks;
+
+   public static final class Options {
+      public String levelType = "flat"; // flat | void | normal
+      public long seed = 4242L;
+      public String difficulty = "normal";
+      public GameType defaultGameType = GameType.SURVIVAL;
+      public int preloadRadiusChunks = 3;
+      public int viewDistance = 4;
+      public int simulationDistance = 4;
+   }
+
+   /** Real DedicatedServer minus network/console/query/rcon/watchdog; used on the calling thread. */
+   public static final class Server extends DedicatedServer {
+      Server(Thread thread, LevelStorageSource.LevelStorageAccess access, PackRepository packs, WorldStem stem, DedicatedServerSettings settings,
+         Services services, NotificationManager notifications) {
+         super(thread, access, packs, stem, Optional.empty(), settings, DataFixers.getDataFixer(), services, null, notifications);
+      }
+
+      void start() {
+         this.setUsesAuthentication(false);
+         this.worldData.setGameType(this.settingsGameType());
+         this.setPlayerList(new DedicatedPlayerList(this, this.registries(), this.playerDataStorage));
+         this.loadLevel();
+      }
+
+      private GameType settingsGameType() {
+         return this.getProperties().gameMode.get();
+      }
+
+      /** One vanilla server tick (tickServer: level ticks, connection ticks, player list, ...). */
+      public void tickOnce() {
+         this.tickServer(() -> true);
+      }
+
+      @Override
+      public boolean isDedicatedServer() {
+         return true;
+      }
+   }
+
+   /** Server player on a recording connection. */
+   public final class FakePlayer {
+      public final String name;
+      public ServerPlayer player;
+      public final Connection connection;
+      public final EmbeddedChannel channel;
+      public final List<Sent> packets = new ArrayList<>();
+      Long pendingKeepAlive;
+
+      FakePlayer(String name, ServerPlayer player, Connection connection, EmbeddedChannel channel) {
+         this.name = name;
+         this.player = player;
+         this.connection = connection;
+         this.channel = channel;
+      }
+
+      /** After a respawn the PlayerList has a new ServerPlayer object for the same connection. */
+      public void replaceServerPlayer(ServerPlayer neu) {
+         this.player = neu;
+      }
+
+      /** Take all packets sent since the last drain. */
+      public List<Sent> drain() {
+         List<Sent> r = new ArrayList<>(packets);
+         packets.clear();
+         return r;
+      }
+   }
+
+   /**
+    * A real ServerPlayer; with {@code sim} it is simulated by the server like a locally controlled player (the physics the
+    * vanilla CLIENT runs for LocalPlayer: travel/aiStep/fall damage in Entity.move), because vanilla ServerPlayers are
+    * client-authoritative (their motion arrives as movement packets and the server never runs travel for them).
+    */
+   public static final class SimPlayer extends ServerPlayer {
+      public final boolean sim;
+      // simulated client input (see EntityOracleDriver `input`)
+      public boolean inForward, inBack, inLeft, inRight, inJump, inSneak, inSprint;
+
+      SimPlayer(MinecraftServer server, ServerLevel level, GameProfile profile, net.minecraft.server.level.ClientInformation info, boolean sim) {
+         super(server, level, profile, info);
+         this.sim = sim;
+      }
+
+      @Override
+      public boolean isClientAuthoritative() {
+         return !sim;
+      }
+
+      private boolean keepPosition;
+
+      // ServerGamePacketListenerImpl.tickPlayer = doTick() then absSnapTo(firstGood*): it throws away server-side motion of a
+      // client-authoritative player. A simulated player keeps the position its physics produced.
+      @Override
+      public void doTick() {
+         super.doTick();
+         keepPosition = sim;
+      }
+
+      @Override
+      public void absSnapTo(double x, double y, double z, float yRot, float xRot) {
+         if (keepPosition) {
+            keepPosition = false;
+            return;
+         }
+         super.absSnapTo(x, y, z, yRot, xRot);
+      }
+
+      /** What LocalPlayer.aiStep does with KeyboardInput before LivingEntity.aiStep (movement vector, jump, sneak, sprint). */
+      public void applyInput() {
+         float f = (inForward ? 1f : 0f) - (inBack ? 1f : 0f);
+         float s = (inLeft ? 1f : 0f) - (inRight ? 1f : 0f);
+         this.setShiftKeyDown(inSneak);
+         if (inSneak && !this.getAbilities().flying) {
+            float sneak = (float)this.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.SNEAKING_SPEED);
+            f *= sneak;
+            s *= sneak;
+         }
+         this.zza = f;
+         this.xxa = s;
+         this.setJumping(inJump);
+         this.setSprinting(inSprint && inForward);
+      }
+   }
+
+   public record Sent(String type, String hex, Packet<?> packet) {
+   }
+
+   private VanillaLevel(Path dir, Server server, ServerLevel level) {
+      this.dir = dir;
+      this.server = server;
+      this.level = level;
+   }
+
+   // ------------------------------------------------------------------------------------------------ boot
+
+   public static VanillaLevel boot(Options o) throws Exception {
+      SharedConstants.tryDetectVersion();
+      Bootstrap.bootStrap();
+      Bootstrap.validate();
+      Util.startTimerHackThread();
+      Path dir = Files.createTempDirectory("entity-oracle-");
+      Runtime.getRuntime().addShutdownHook(new Thread(() -> deleteTree(dir)));
+      String generator = switch (o.levelType) {
+         case "flat" -> "level-type=minecraft:flat\n";
+         case "void" -> "level-type=minecraft:flat\ngenerator-settings={\"layers\":[],\"biome\":\"minecraft:plains\",\"features\":false,\"lakes\":false,\"structure_overrides\":[]}\n";
+         case "normal" -> "level-type=minecraft:normal\n";
+         default -> throw new IllegalArgumentException("level type flat|void|normal, got " + o.levelType);
+      };
+      Files.writeString(dir.resolve("server.properties"),
+         generator + "level-seed=" + o.seed + "\nonline-mode=false\nenforce-secure-profile=false\nspawn-protection=0\ndifficulty=" + o.difficulty
+            + "\ngamemode=" + o.defaultGameType.getName() + "\ngenerate-structures=false\nview-distance=" + o.viewDistance
+            + "\nsimulation-distance=" + o.simulationDistance + "\nspawn-monsters=false\nspawn-animals=false\nspawn-npcs=false\nallow-nether=false\n"
+            + "pause-when-empty-seconds=0\nmax-tick-time=-1\nenable-jmx-monitoring=false\nlevel-name=world\n");
+      Files.writeString(dir.resolve("eula.txt"), "eula=true\n");
+      DedicatedServerSettings settings = new DedicatedServerSettings(dir.resolve("server.properties"));
+      Eula ignored = new Eula(dir.resolve("eula.txt"));
+      Services services = Services.create(MinecraftServicesDiscoveryService.create(Proxy.NO_PROXY), dir.toFile());
+      LevelStorageSource source = LevelStorageSource.createDefault(dir);
+      LevelStorageSource.LevelStorageAccess access = source.validateAndCreateAccess("world");
+      PackRepository packs = ServerPacksSource.createPackRepository(access);
+      DedicatedServerProperties props = settings.getProperties();
+      WorldDataConfiguration dataConfig = new WorldDataConfiguration(props.initialDataPackConfiguration, FeatureFlags.DEFAULT_FLAGS);
+      WorldLoader.InitConfig init = new WorldLoader.InitConfig(new WorldLoader.PackConfig(packs, dataConfig, false, true), Commands.CommandSelection.DEDICATED, props.functionPermissions);
+      WorldStem stem = Util.<WorldStem>blockUntilDone(executor -> WorldLoader.load(init, context -> {
+         Registry<LevelStem> dims = context.datapackDimensions().lookupOrThrow(Registries.LEVEL_STEM);
+         LevelSettings ls = new LevelSettings(props.levelName, props.gameMode.get(), new LevelSettings.DifficultySettings(props.difficulty.get(), props.hardcore, false), false, context.dataConfiguration());
+         WorldDimensions dimensions = props.createDimensions(context.datapackWorldRegistries());
+         WorldDimensions.Complete finalDims = dimensions.bake(dims);
+         Lifecycle lifecycle = finalDims.lifecycle().add(context.datapackWorldRegistries().allRegistriesLifecycle());
+         PrimaryLevelData data = new PrimaryLevelData(ls, finalDims.specialWorldProperty(), lifecycle);
+         return new WorldLoader.DataLoadOutput<>(new LevelDataAndDimensions.WorldDataAndGenSettings(data, new WorldGenSettings(props.worldOptions, dimensions)), finalDims.dimensionsRegistryAccess());
+      }, WorldStem::new, Util.backgroundExecutor(), executor)).get();
+      access.saveDataTag(stem.worldDataAndGenSettings().data());
+      RandomSupport.reseedUniquifier(8682522807148012L);
+      Server server = new Server(Thread.currentThread(), access, packs, stem, settings, services, new NotificationManager());
+      server.start();
+      VanillaLevel v = new VanillaLevel(dir, server, server.overworld());
+      // frozen, quiet world; scripts may flip any rule with `gamerule`
+      for (String rule : new String[] {"advance_time", "advance_weather", "spawn_mobs", "spawn_monsters", "spawn_patrols", "spawn_phantoms", "spawn_wandering_traders", "spawn_wardens", "raids", "log_admin_commands", "send_command_feedback"}) {
+         v.command("gamerule " + rule + " false");
+      }
+      v.commandOutput.clear();
+      v.preload(o.preloadRadiusChunks);
+      v.server.getPlayerList().setViewDistance(o.viewDistance);
+      RandomSupport.reseedUniquifier(8682522807148012L);
+      return v;
+   }
+
+   private static void deleteTree(Path p) {
+      try (var s = Files.walk(p)) {
+         s.sorted(Comparator.reverseOrder()).forEach(f -> f.toFile().delete());
+      } catch (IOException ignored) {
+      }
+   }
+
+   /** Fully load the chunks around the origin and keep them entity-ticking (forced tickets), so ticks are timing independent. */
+   public void preload(int radius) {
+      for (int cx = -radius; cx <= radius; cx++) {
+         for (int cz = -radius; cz <= radius; cz++) {
+            level.setChunkForced(cx, cz, true);
+         }
+      }
+      level.waitForEntities(new ChunkPos(0, 0), radius);
+      for (int cx = -radius; cx <= radius; cx++) {
+         for (int cz = -radius; cz <= radius; cz++) {
+            level.getChunk(cx, cz);
+         }
+      }
+   }
+
+   /** Restart the unique-seed sequence of RandomSource.create() (entity constructors etc.). */
+   public static void reseed(long value) {
+      RandomSupport.reseedUniquifier(value);
+   }
+
+   // ------------------------------------------------------------------------------------------------ commands
+
+   /** Run a vanilla command (without the slash) as the server console, collecting its output into {@link #commandOutput}. */
+   public void command(String command) {
+      CommandSource sink = new CommandSource() {
+         @Override
+         public void sendSystemMessage(Component message) {
+            commandOutput.add(message.getString());
+         }
+
+         @Override
+         public boolean acceptsSuccess() {
+            return true;
+         }
+
+         @Override
+         public boolean acceptsFailure() {
+            return true;
+         }
+
+         @Override
+         public boolean shouldInformAdmins() {
+            return false;
+         }
+      };
+      CommandSourceStack stack = server.createCommandSourceStack().withSource(sink);
+      server.getCommands().performPrefixedCommand(stack, command);
+   }
+
+   // ------------------------------------------------------------------------------------------------ ticking
+
+   /** One real server tick; answers keep-alives so long real-time runs never time out. */
+   public void tick() {
+      for (FakePlayer p : players) {
+         if (p.player instanceof SimPlayer sp && sp.sim) {
+            sp.applyInput();
+         }
+      }
+      server.tickOnce();
+      ticks++;
+      for (FakePlayer p : players) {
+         if (p.pendingKeepAlive != null) {
+            p.player.connection.handleKeepAlive(new ServerboundKeepAlivePacket(p.pendingKeepAlive));
+            p.pendingKeepAlive = null;
+         }
+      }
+   }
+
+   public void tick(int n) {
+      for (int i = 0; i < n; i++) {
+         tick();
+      }
+   }
+
+   // ------------------------------------------------------------------------------------------------ players
+
+   /** Join a player the vanilla way (PrepareSpawnTask.spawn + PlayerList.placeNewPlayer) with the given default game mode. */
+   public FakePlayer connect(String name, GameType gameMode, double x, double y, double z, float yaw, float pitch, boolean sim) throws Exception {
+      server.setDefaultGameType(gameMode);
+      GameProfile profile = new GameProfile(UUID.nameUUIDFromBytes(("OfflinePlayer:" + name).getBytes(StandardCharsets.UTF_8)), name);
+      CommonListenerCookie cookie = CommonListenerCookie.createInitial(profile, false);
+      Connection connection = new Connection(PacketFlow.SERVERBOUND);
+      EmbeddedChannel channel = new EmbeddedChannel(false, false);
+      Connection.configureInMemoryPipeline(channel.pipeline(), PacketFlow.SERVERBOUND);
+      connection.configurePacketHandler(channel.pipeline());
+      FakePlayer[] holder = new FakePlayer[1];
+      var codec = GameProtocols.CLIENTBOUND_TEMPLATE.bind(RegistryFriendlyByteBuf.decorator(server.registryAccess())).codec();
+      channel.pipeline().addLast("oracle_recorder", new ChannelOutboundHandlerAdapter() {
+         @Override
+         public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
+            if (msg instanceof Packet<?> packet) {
+               record(holder[0], codec, packet);
+               promise.setSuccess();
+            } else {
+               super.write(ctx, msg, promise);
+            }
+         }
+      });
+      channel.register();
+      server.getConnection().getConnections().add(connection);
+      ChunkPos spawnChunk = ChunkPos.containing(net.minecraft.core.BlockPos.containing(x, y, z));
+      level.waitForEntities(spawnChunk, 3);
+      ServerPlayer player = new SimPlayer(server, level, profile, cookie.clientInformation(), sim);
+      FakePlayer fp = new FakePlayer(name, player, connection, channel);
+      holder[0] = fp;
+      player.snapTo(new net.minecraft.world.phys.Vec3(x, y, z), yaw, pitch);
+      server.getPlayerList().placeNewPlayer(connection, player, cookie);
+      players.add(fp);
+      // the client reports it is in the world, as the vanilla client does after the join sequence
+      // ServerGamePacketListenerImpl.tickPlayer records these on its first tick; the client accept below needs them now
+      for (String f : new String[] {"firstGood", "lastGood"}) {
+         for (String axis : new String[] {"X", "Y", "Z"}) {
+            setField(player.connection, f + axis, axis.equals("X") ? player.getX() : axis.equals("Y") ? player.getY() : player.getZ());
+         }
+      }
+      for (Sent sent : fp.packets) {
+         if (sent.packet() instanceof ClientboundPlayerPositionPacket pos) {
+            player.connection.handleAcceptTeleportPacket(new ServerboundAcceptTeleportationPacket(pos.id(), pos.change().position().x, pos.change().position().y, pos.change().position().z, pos.change().yRot(), pos.change().xRot()));
+         }
+      }
+      // handlePlayerPositionChange of the accept flags a hovering client (kick after 80 ticks); a real client keeps sending moves
+      setField(player.connection, "clientIsFloating", false);
+      player.connection.handleAcceptPlayerLoad(new ServerboundPlayerLoadedPacket());
+      return fp;
+   }
+
+   private static void record(FakePlayer fp, net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, Packet<? super net.minecraft.network.protocol.game.ClientGamePacketListener>> codec, Packet<?> packet) {
+      if (fp == null) {
+         return;
+      }
+      @SuppressWarnings("unchecked")
+      Packet<? super ClientGamePacketListener> p = (Packet<? super ClientGamePacketListener>)packet;
+      if (p instanceof net.minecraft.network.protocol.common.ClientboundKeepAlivePacket ka) {
+         fp.pendingKeepAlive = ka.getId();
+         return;
+      }
+      if (p instanceof ClientboundBundlePacket bundle) {
+         record(fp, codec, new ClientboundBundleDelimiterPacket());
+         for (Packet<? super ClientGamePacketListener> sub : bundle.subPackets()) {
+            record(fp, codec, sub);
+         }
+         record(fp, codec, new ClientboundBundleDelimiterPacket());
+         return;
+      }
+      ByteBuf buf = Unpooled.buffer();
+      codec.encode(buf, p);
+      byte[] bytes = new byte[buf.readableBytes()];
+      buf.readBytes(bytes);
+      buf.release();
+      StringBuilder hex = new StringBuilder(bytes.length * 2);
+      for (byte b : bytes) {
+         hex.append(Character.forDigit((b >> 4) & 15, 16)).append(Character.forDigit(b & 15, 16));
+      }
+      fp.packets.add(new Sent(p.type().id().toString(), hex.toString(), p));
+   }
+
+   static void setField(Object o, String name, Object value) {
+      try {
+         var f = o.getClass().getDeclaredField(name);
+         f.setAccessible(true);
+         f.set(o, value);
+      } catch (ReflectiveOperationException e) {
+         throw new IllegalStateException(e);
+      }
+   }
+
+   public FakePlayer player(String name) {
+      for (FakePlayer p : players) {
+         if (p.name.equals(name)) {
+            return p;
+         }
+      }
+      throw new IllegalArgumentException("no player " + name);
+   }
+}

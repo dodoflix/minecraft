@@ -1,0 +1,9 @@
+# Standing player holds jump for 30 ticks, then sprint-jumps forward for 20 (simulated player physics).
+level flat
+spawn_player Steve survival 0.5 -60 0.5 0 0 sim
+tick 3
+watch player:Steve
+input Steve jump
+tick 30
+input Steve forward,sprint,jump
+tick 20
