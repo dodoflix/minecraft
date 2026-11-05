@@ -303,6 +303,19 @@ pub fn get_scale_times_age_scale(e: &dyn Entity) -> f32 {
     scale * if e.is_baby() { 0.5 } else { 1.0 }
 }
 
+/// `Entity.distanceTo(entity)` (float math).
+pub fn distance_to(a: &dyn Entity, b: &dyn Entity) -> f32 {
+    let f = (a.base().x() - b.base().x()) as f32;
+    let g = (a.base().y() - b.base().y()) as f32;
+    let h = (a.base().z() - b.base().z()) as f32;
+    mc_core::math::mth::sqrt(f * f + g * g + h * h)
+}
+
+/// `Entity.hasMovedHorizontallyRecently()`.
+pub fn has_moved_horizontally_recently(level: &ServerLevel, e: &dyn Entity) -> bool {
+    e.get_known_speed(level).horizontal_distance().abs() > f64::from(1.0E-5f32)
+}
+
 // ==== [FarmAnimals] additions ====
 
 /// `Level.playSound(except, entity, sound, source, volume, pitch)`: the entity-bound sound packet with the level's sound seed.

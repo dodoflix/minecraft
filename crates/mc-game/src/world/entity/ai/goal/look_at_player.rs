@@ -18,13 +18,16 @@ pub enum LookAtType {
 }
 
 pub struct LookAtPlayerGoal {
-    look_at: Option<EntityId>,
+    /// `lookAt` (protected: `LookAtTradingPlayerGoal` assigns it).
+    pub look_at: Option<EntityId>,
     look_distance: f32,
     look_time: i32,
     probability: f32,
     only_horizontal: bool,
     look_at_type: LookAtType,
     look_at_context: TargetingConditions,
+    /// `setFlags(...)` (`LOOK`; `InteractGoal` adds `MOVE`).
+    flags: GoalFlags,
 }
 
 impl LookAtPlayerGoal {
@@ -41,6 +44,11 @@ impl LookAtPlayerGoal {
         Self::build(mob, look_at_type, look_distance, probability, false)
     }
 
+    /// `setFlags(flags)` of a subclass constructor.
+    pub fn set_flags(&mut self, flags: GoalFlags) {
+        self.flags = flags;
+    }
+
     pub fn build(mob: &dyn Entity, look_at_type: LookAtType, look_distance: f32, probability: f32, only_horizontal: bool) -> Self {
         let look_at_context = if matches!(look_at_type, LookAtType::Player) {
             // `EntitySelector.notRiding(mob)`
@@ -49,7 +57,7 @@ impl LookAtPlayerGoal {
         } else {
             TargetingConditions::for_non_combat().range(f64::from(look_distance))
         };
-        Self { look_at: None, look_distance, look_time: 0, probability, only_horizontal, look_at_type, look_at_context }
+        Self { look_at: None, look_distance, look_time: 0, probability, only_horizontal, look_at_type, look_at_context, flags: GoalFlags::of(&[Flag::Look]) }
     }
 }
 
@@ -116,6 +124,6 @@ impl Goal for LookAtPlayerGoal {
     }
 
     fn flags(&self) -> GoalFlags {
-        GoalFlags::of(&[Flag::Look])
+        self.flags
     }
 }

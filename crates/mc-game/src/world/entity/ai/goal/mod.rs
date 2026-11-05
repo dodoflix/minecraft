@@ -5,6 +5,15 @@
 //! the mob's `MobData` while it runs, so goals may freely use `mob.mob_mut()` for everything except the two goal
 //! selectors themselves. A goal that needs the concrete mob type does `mob.as_any().downcast_ref::<Chicken>()`.
 
+mod abstract_villager_access;
+mod follow_mob;
+mod interact_goal;
+mod land_on_owners_shoulder;
+mod look_at_trading_player;
+mod offer_flower;
+mod trade_with_player;
+mod water_avoiding_random_flying;
+pub mod remove_block;
 mod abstract_horse_access;
 mod avoid_entity;
 mod breath_air;
@@ -37,6 +46,15 @@ mod tempt;
 mod water_avoiding_random_stroll;
 mod zombie_attack;
 
+pub use abstract_villager_access::AbstractVillagerAccess;
+pub use follow_mob::FollowMobGoal;
+pub use interact_goal::InteractGoal;
+pub use land_on_owners_shoulder::{LandOnOwnersShoulderGoal, ShoulderRidingAccess};
+pub use look_at_trading_player::LookAtTradingPlayerGoal;
+pub use offer_flower::{OfferFlowerFn, OfferFlowerGoal};
+pub use remove_block::{RemoveBlockGoal, RemoveBlockHooks};
+pub use trade_with_player::TradeWithPlayerGoal;
+pub use water_avoiding_random_flying::WaterAvoidingRandomFlyingGoal;
 pub use abstract_horse_access::AbstractHorseAccess;
 pub use avoid_entity::{AvoidEntityGoal, EntityTest};
 pub use breath_air::BreathAirGoal;
@@ -56,7 +74,7 @@ pub use eat_block::EatBlockGoal;
 pub use float::FloatGoal;
 pub use follow_parent::FollowParentGoal;
 pub use follow_player_ridden_entity_goal::FollowPlayerRiddenEntityGoal;
-pub use look_at_player::LookAtPlayerGoal;
+pub use look_at_player::{LookAtPlayerGoal, LookAtType};
 pub use melee_attack::MeleeAttackGoal;
 pub use panic::PanicGoal;
 pub use random_look_around::RandomLookAroundGoal;

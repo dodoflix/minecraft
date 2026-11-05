@@ -2947,6 +2947,20 @@ pub trait Entity: Any {
     fn as_abstract_horse_mut(&mut self) -> Option<&mut dyn crate::world::entity::ai::goal::AbstractHorseAccess> {
         None
     }
+    /// `this instanceof AbstractVillager` (the `Merchant` surface the trading goals use).
+    fn as_abstract_villager(&self) -> Option<&dyn crate::world::entity::ai::goal::AbstractVillagerAccess> {
+        None
+    }
+    fn as_abstract_villager_mut(&mut self) -> Option<&mut dyn crate::world::entity::ai::goal::AbstractVillagerAccess> {
+        None
+    }
+    /// `this instanceof ShoulderRidingEntity` (parrots).
+    fn as_shoulder_riding(&self) -> Option<&dyn crate::world::entity::ai::goal::ShoulderRidingAccess> {
+        None
+    }
+    fn as_shoulder_riding_mut(&mut self) -> Option<&mut dyn crate::world::entity::ai::goal::ShoulderRidingAccess> {
+        None
+    }
     // ==== [MobSpine] additions (Entity trait methods) ====
     // `Mob` and its generic subclasses. Every default is the vanilla behavior and dispatches on `mob()` (the `MobData`
     // of mob types); concrete mobs override what their Java class overrides and call the `world::entity::mob` function
