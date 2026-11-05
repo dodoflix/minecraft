@@ -309,6 +309,19 @@ fn normalized_tags(line: &str) -> Vec<(String, Vec<(String, Vec<i32>)>)> {
     out
 }
 
+/// Each registry's tags are in `HashMap<Identifier, _>` bucket order (vanilla: oracle-verified, ties inside a bucket are
+/// random per run; `mc_core::java_collections`): re-ordering the packet's order must be the identity.
+fn assert_hash_map_tag_order(who: &str, line: &str) {
+    let hex = line.split(' ').nth(1).unwrap();
+    let bytes: Vec<u8> = (0..hex.len()).step_by(2).map(|i| u8::from_str_radix(&hex[i..i + 2], 16).unwrap()).collect();
+    let ClientboundConfigurationPacket::UpdateTags(p) = ClientboundConfigurationPacket::decode_payload(&bytes).unwrap() else { panic!() };
+    for (registry, payload) in p.tags {
+        let hashes: Vec<i32> = payload.tags.iter().map(|(id, _)| id.java_hash_code()).collect();
+        let order = mc_core::java_collections::hash_map_order(&hashes, mc_core::java_collections::HASH_MAP_DEFAULT_CAPACITY);
+        assert!(order.iter().enumerate().all(|(i, &j)| i == j), "{who}: tags of {registry} are not in HashMap bucket order");
+    }
+}
+
 /// Runs `MC_SERVER_BIN` (our `mc-server` binary) in a scratch directory with the same properties as the vanilla run.
 fn start_ours(bin: &str) -> Option<Vanilla> {
     let port = std::net::TcpListener::bind("127.0.0.1:0").ok()?.local_addr().ok()?.port();
@@ -357,6 +370,8 @@ async fn real_server_registry_and_tag_packets_equal_vanilla() {
         if name == "minecraft:update_tags" {
             // Vanilla sends Java `HashMap` order (registries and tags); only the content is comparable.
             assert_eq!(normalized_tags(a), normalized_tags(b), "update_tags content differs: vanilla (left) vs ours (right)");
+            assert_hash_map_tag_order("vanilla", a);
+            assert_hash_map_tag_order("ours", b);
         } else {
             assert_eq!(a, b, "packet #{i} ({name}) differs: vanilla (left) vs ours (right)");
         }
