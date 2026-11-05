@@ -27,8 +27,8 @@ have its final name yet.
 - **Known gap:** crafting never produces a result.
   `crates/mc-game-core/src/world/inventory/crafting.rs` has a recipe-source hook
   (`set_crafting_recipe_source`) that nothing installs yet.
-- **Layout:** the `mc-game-*` crates mirror each other's module trees. This is a
-  temporary layout, see [docs/crate-split.md](docs/crate-split.md).
+- **Layout:** gameplay is split over `mc-game-core` and the `mc-game-*` area crates, re-exported by the `mc-game` facade;
+  see [docs/crate-split.md](docs/crate-split.md).
 
 ## Prerequisites
 

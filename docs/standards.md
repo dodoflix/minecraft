@@ -141,14 +141,13 @@ Rules:
 ## 8. Layout, crates and dependencies
 
 - Dependency direction is fixed (see [ARCHITECTURE.md](../ARCHITECTURE.md)): a lower crate never imports a higher
-  one; the `mc-game-*` area crates never depend on each other or on `mc-game`. Enforced: Cargo (a cycle does not
+  one; the `mc-game-*` area crates never depend on each other (except `animals`/`monsters` on `ai`) or on `mc-game`. Enforced: Cargo (a cycle does not
   build) and review for the sibling rule.
 - Every `.rs` file is reachable from a crate root through `mod`, `#[path]`, a `[[bin]]` or a `[[test]]` target.
   Enforced: the orphan-file check in `scripts/check.sh`. Do not comment out a `mod` line; delete the file.
-- The `mc-game-*` re-export bridge (a `parent` dependency plus `pub use parent::*`, see
-  [docs/crate-split.md](crate-split.md)) is a temporary layout. It is removed before any statement of API stability,
-  before any crates.io publication and before `mc-game-core` is split further. Until then new code goes into the area
-  crate that owns it. Enforced: review.
+- Area crates (`mc-game-*`) import from the crate that owns an item by explicit path (`mc_game_core::world::...`); they do
+  not mirror each other's module trees or re-export a lower crate with `pub use <crate>::*`. Only the `mc-game` facade
+  re-exports, and only the modules several crates contribute to. New code goes into the area crate that owns it. Enforced: review.
 - Every external crate version is declared once, in `[workspace.dependencies]`, and used with `workspace = true`.
   Enforced: review. The migration is pending; so far only `serde_json` is declared there.
 - No unused dependencies. Enforced: review (`cargo check --workspace --tests` shows what a crate does not import).

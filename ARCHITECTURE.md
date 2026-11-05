@@ -57,8 +57,8 @@ crates/
   mc-game-cmds        the vanilla commands, registered via linkme               (leaf over core)
   mc-game-ai          concrete goals/behaviors/sensors                          (leaf over core)
   mc-game-animals     animals + ambient mobs                                    (over mc-game-ai)
-  mc-game-monsters    monsters, npc, raid parts, creaking heart                 (over mc-game-animals)
-  mc-game             thin: merges the module trees of the crates above so `mc_game::...` stays the public API; tests, examples
+  mc-game-monsters    monsters, npc, raid parts, creaking heart                 (over mc-game-ai)
+  mc-game             thin facade: re-exports the crates above so `mc_game::...` is the public API; tests, examples
   mc-server           thin binary: CLI args, server.properties, console, JSON-RPC management, starts mc-game
   mc-testbot          headless protocol client (scriptable bot) used by integration/E2E tests
 tools/                tools/extractor (Java data extractor), tools/worldcmp (chunk-by-chunk comparison of two world directories)
@@ -67,16 +67,16 @@ scripts/              helper scripts (setup-ref, vanilla oracle, real client har
 
 Dependency direction (lower never imports higher):
 `mc-core, mc-nbt, mc-brigadier` → `mc-text, mc-data, mc-dfu` → `mc-datafix, mc-protocol, mc-world` → `mc-light, mc-worldgen`
-→ `mc-game-core` → `mc-game-{blocks,levelgen,cmds,ai}` → `mc-game-animals` → `mc-game-monsters` → `mc-game` → `mc-server`;
-`mc-testbot` → `mc-protocol`. Sibling area crates (`blocks`, `levelgen`, `cmds`, `ai`) never depend on each other; the area crates
+→ `mc-game-core` → `mc-game-{blocks,levelgen,cmds,ai}` → `mc-game-{animals,monsters}` (over `ai`) → `mc-game` → `mc-server`;
+`mc-testbot` → `mc-protocol`. Sibling area crates (`blocks`, `levelgen`, `cmds`, `animals`, `monsters`) never depend on each other; the area crates
 never depend on `mc-game`. Rule for gameplay code: it goes into the area crate that owns it (see docs/crate-split.md); code that
 `mc-game-core` itself calls must live in `core`.
 
 ## mc-game design (contract for gameplay code)
 
 Vanilla's gameplay code is one tightly coupled object graph. It mirrors vanilla structure and is split over `mc-game-core` + the area
-crates (docs/crate-split.md: a bridge layout where every area crate mirrors the module tree of its parent, so all paths are
-still `crate::world::...`; module paths stay vanilla-shaped). Everything below applies to the crates together.
+crates (docs/crate-split.md: each area crate imports what it uses from the owning crate by explicit path, and `mc-game`
+re-exports all of them under the vanilla-shaped `mc_game::world::...` paths). Everything below applies to the crates together.
 
 - **Threads.** One game thread runs `MinecraftServer` exactly like vanilla's main thread (20 TPS loop, task queue
   drained between ticks, same per-tick order: `MinecraftServer::tick_server` → `tick_children` → each
