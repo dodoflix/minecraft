@@ -1,0 +1,186 @@
+// Golden generator for crates/mc-game/tests/menu_golden.rs: scripted container clicks through the REAL vanilla
+// InventoryMenu / Inventory / AbstractContainerMenu with a constructor-less ServerPlayer subclass.
+//   scripts/golden-menu.sh  (runs this against the vanilla classpath and writes menu_golden.txt)
+// Output: "OP ..." lines (the script, replayed by Rust) each followed by "OUT ..." lines (state after the op).
+import java.lang.reflect.Field;
+import java.util.*;
+import net.minecraft.core.NonNullList;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.*;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundSetPlayerInventoryPacket;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import net.minecraft.util.Prediction;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.ItemStackWithSlot;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.inventory.*;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
+import com.mojang.serialization.Codec;
+
+import net.minecraft.SharedConstants;
+import net.minecraft.resources.RegistryDataLoader;
+import net.minecraft.core.*;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.server.*;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.repository.ServerPacksSource;
+import net.minecraft.server.packs.resources.MultiPackResourceManager;
+import net.minecraft.tags.TagLoader;
+import net.minecraft.world.item.crafting.*;
+import java.util.concurrent.Executor;
+// Golden generator for crates/mc-game/tests/place_recipe_golden.rs: the REAL vanilla InventoryMenu.handlePlacement
+// (ServerPlaceRecipe + StackedItemContents) over random inventories, using the real RecipeManager.
+//   scripts/golden-recipes.sh  (also regenerates place_recipe_golden.txt.gz)
+// Output: "OP ..." lines (replayed by Rust) each followed by "OUT ..." lines (state after the op).
+public class PlaceRecipeGolden {
+   static final StringBuilder OUT = new StringBuilder();
+   static final List<String> events = new ArrayList<>();
+   static void op(String s) { OUT.append("OP ").append(s).append('\n'); }
+   static void out(String s) { OUT.append("OUT ").append(s).append('\n'); }
+   static String st(ItemStack s) {
+      if (s.isEmpty()) return "-";
+      return BuiltInRegistries.ITEM.getKey(s.getItem()).getPath() + "x" + s.getCount();
+   }
+   static boolean creative = false;
+
+   public static class RecListener extends ServerGamePacketListenerImpl {
+      public RecListener() { super(null, null, null, null); }
+      @Override public void send(Packet<?> p) { }
+   }
+   public static class FakeLevel extends ServerLevel {
+      public FakeLevel() { super(null, null, null, null, null, null, false, 0L, null, false); }
+      @Override public net.minecraft.world.flag.FeatureFlagSet enabledFeatures() { return FeatureFlags.DEFAULT_FLAGS; }
+   }
+   public static class FakePlayer extends ServerPlayer {
+      public FakePlayer() { super(null, null, null, null); }
+      @Override public boolean isSpectator() { return false; }
+      @Override public boolean isCreative() { return creative; }
+      @Override public boolean hasDisconnected() { return false; }
+      @Override public ItemEntity drop(ItemStack s, boolean thrown, Prediction p) { events.add("DROP " + st(s) + " " + thrown + " " + p); return null; }
+      public ServerLevel lvl;
+      @Override public ServerLevel level() { return lvl; }
+   }
+   static sun.misc.Unsafe U;
+   static void set(Class<?> c, Object o, String f, Object v) throws Exception {
+      Field fld = c.getDeclaredField(f); fld.setAccessible(true); fld.set(o, v);
+   }
+
+   static final String[] PALETTE = {"oak_planks", "oak_log", "stick", "cobblestone", "iron_ingot", "gold_ingot", "diamond", "coal", "string", "paper", "dirt", "apple"};
+   static final Set<Item> PALETTE_ITEMS = new HashSet<>();
+
+   static void dump(InventoryMenu menu, Player p, String action) {
+      out("action " + action);
+      StringBuilder b = new StringBuilder("grid");
+      for (int i = 1; i <= 4; i++) b.append(' ').append(st(menu.getSlot(i).getItem()));
+      out(b.toString());
+      b = new StringBuilder("inv");
+      Inventory inv = p.getInventory();
+      for (int i = 0; i < inv.getContainerSize(); i++) { ItemStack s = inv.getItem(i); if (!s.isEmpty()) b.append(' ').append(i).append(':').append(st(s)); }
+      out(b.toString());
+      for (String e : events) out(e);
+      events.clear();
+   }
+
+   public static void main(String[] args) throws Exception {
+      try { run(); } catch (Throwable t) { t.printStackTrace(); System.exit(1); }
+      System.out.print(OUT);
+   }
+
+   static void run() throws Exception {
+      SharedConstants.tryDetectVersion();
+      Bootstrap.bootStrap();
+      Executor direct = Runnable::run;
+      MultiPackResourceManager resources = new MultiPackResourceManager(PackType.SERVER_DATA, List.of(ServerPacksSource.createVanillaPackSource().fullResources()));
+      LayeredRegistryAccess<RegistryLayer> layers = RegistryLayer.createRegistryAccess();
+      List<Registry.PendingTags<?>> staticTags = TagLoader.loadTagsForExistingRegistries(resources, layers.getLayer(RegistryLayer.STATIC));
+      staticTags.forEach(Registry.PendingTags::apply);
+      var worldContext = TagLoader.buildUpdatedLookups(layers.getAccessForLoading(RegistryLayer.WORLD), staticTags);
+      var world = RegistryDataLoader.load(resources, worldContext, RegistryDataLoader.WORLD_REGISTRIES, direct).join();
+      List<HolderLookup.RegistryLookup<?>> dimContext = new ArrayList<>(worldContext);
+      world.listRegistries().forEach(dimContext::add);
+      var dims = RegistryDataLoader.load(resources, dimContext, RegistryDataLoader.DIMENSION_REGISTRIES, direct).join();
+      layers = layers.replaceFrom(RegistryLayer.WORLD, world, dims);
+      var loaded = ReloadableServerRegistries.reload(layers, staticTags, resources, direct).join();
+      var comps = BuiltInRegistries.DATA_COMPONENT_INITIALIZERS.build(loaded.lookupWithUpdatedTags());
+      comps.forEach(net.minecraft.core.component.DataComponentInitializers.PendingComponents::apply);
+      RecipeManager rm = new RecipeManager(loaded.lookupWithUpdatedTags());
+      rm.finalizeRecipeLoading(FeatureFlags.VANILLA_SET);
+      Field uf = sun.misc.Unsafe.class.getDeclaredField("theUnsafe"); uf.setAccessible(true); U = (sun.misc.Unsafe) uf.get(null);
+      for (String n : PALETTE) PALETTE_ITEMS.add(BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(n)));
+
+      // recipes of the 2x2 grid whose ingredients each accept exactly one palette item
+      List<RecipeHolder<?>> candidates = new ArrayList<>();
+      for (RecipeHolder<?> h : rm.getRecipes()) {
+         Recipe<?> r = h.value();
+         if (r.isSpecial() || r.getType() != RecipeType.CRAFTING) continue;
+         boolean fits = r instanceof ShapedRecipe sr ? sr.getWidth() <= 2 && sr.getHeight() <= 2 : r instanceof ShapelessRecipe && r.placementInfo().ingredients().size() <= 4;
+         if (!fits || r.placementInfo().isImpossibleToPlace()) continue;
+         boolean ok = true;
+         for (Ingredient i : r.placementInfo().ingredients()) {
+            long n = i.items().filter(x -> PALETTE_ITEMS.contains(x.value())).count();
+            if (n != 1) ok = false;
+         }
+         if (ok) candidates.add(h);
+      }
+      System.err.println("candidates " + candidates.size());
+
+      for (int scenario = 0; scenario < 6; scenario++) {
+         creative = scenario % 3 == 2;
+         Random r = new Random(77 + scenario);
+         FakePlayer p = (FakePlayer) U.allocateInstance(FakePlayer.class);
+         ServerLevel lvl = (ServerLevel) U.allocateInstance(FakeLevel.class);
+         p.lvl = lvl;
+         set(Entity.class, p, "type", EntityTypes.PLAYER);
+         EntityEquipment eq = new PlayerEquipment(p);
+         Inventory inv = new Inventory(p, eq);
+         set(Player.class, p, "inventory", inv);
+         set(LivingEntity.class, p, "equipment", eq);
+         Abilities ab = new Abilities(); ab.instabuild = creative;
+         set(Player.class, p, "abilities", ab);
+         p.connection = (RecListener) U.allocateInstance(RecListener.class);
+         InventoryMenu menu = new InventoryMenu(inv, true, p) {
+            @Override public void slotsChanged(Container c) { }
+            @Override public void finishPlacingRecipe(ServerLevel level, RecipeHolder<CraftingRecipe> recipe) { }
+         };
+         set(Player.class, p, "inventoryMenu", menu);
+         set(Player.class, p, "containerMenu", menu);
+         op("scenario " + scenario + " creative=" + creative);
+         for (int step = 0; step < 90; step++) {
+            int kind = r.nextInt(20);
+            if (kind < 7) {
+               int slot = r.nextInt(36);
+               String name = PALETTE[r.nextInt(PALETTE.length - 3)];
+               int count = 1 + r.nextInt(Math.max(1, new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(name))).getMaxStackSize()));
+               op("inv " + slot + " " + name + " " + count);
+               inv.setItem(slot, new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(name)), count));
+            } else if (kind < 8) {
+               int slot = 1 + r.nextInt(4);
+               String name = PALETTE[r.nextInt(PALETTE.length)];
+               int count = 1 + r.nextInt(8);
+               op("grid " + slot + " " + name + " " + count);
+               menu.getSlot(slot).set(new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(name)), count));
+            } else if (kind < 9) {
+               op("clearinv");
+               for (int i = 0; i < 36; i++) inv.setItem(i, ItemStack.EMPTY);
+            } else {
+               RecipeHolder<?> h = candidates.get(r.nextInt(candidates.size()));
+               boolean useMax = r.nextBoolean();
+               op("place " + h.id().identifier() + " " + useMax);
+               var action = menu.handlePlacement(useMax, p.isCreative(), h, lvl, inv);
+               dump(menu, p, action.name());
+               continue;
+            }
+            dump(menu, p, "-");
+         }
+      }
+   }
+}

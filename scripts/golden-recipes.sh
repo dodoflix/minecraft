@@ -6,3 +6,5 @@ CP="$("$ROOT/scripts/vanilla-cp.sh")"
 F="$ROOT/crates/mc-game/tests/fixtures"
 java -cp "$CP" "$F/RecipeGolden.java" | gzip -9n > "$F/recipe_golden.txt.gz"
 zcat "$F/recipe_golden.txt.gz" | wc -l
+java -cp "$CP" "$F/PlaceRecipeGolden.java" 2>/dev/null | grep -E "^(OP|OUT) " | gzip -9n > "$F/place_recipe_golden.txt.gz"
+zcat "$F/place_recipe_golden.txt.gz" | wc -l
