@@ -53,8 +53,6 @@ pub trait LevelTickEnv {
     fn set_weather(&mut self, weather: WeatherState);
     /// `server.clockManager().moveToTimeMarker(defaultClock, WAKE_UP_FROM_SLEEP)` when the dimension has a default clock.
     fn wake_up_from_sleep(&mut self);
-    /// `clockManager().getInstance(clock).totalTicks()` (the clock inputs of the environment attribute system).
-    fn clock_total_ticks(&self, clock: &mc_core::ident::Identifier) -> i64;
     /// `getDifficulty()`.
     fn difficulty(&self) -> Difficulty;
     /// `getOverworldClockTime()` (ticks).
@@ -431,7 +429,7 @@ impl ServerLevel {
         let (mut local_time, mut moon_brightness) = (0i64, 0.0f32);
         if let Some(chunk) = self.chunk_now(pos.x() >> 4, pos.z() >> 4) {
             local_time = chunk.data.access.inhabited_time();
-            moon_brightness = self.get_moon_brightness(env);
+            moon_brightness = self.get_moon_brightness(pos);
         }
         DifficultyInstance::new(env.difficulty(), env.overworld_clock_time(), local_time, moon_brightness)
     }
@@ -586,34 +584,21 @@ impl ServerLevel {
     // ------------------------------------------------------------------------------------------------ the tick
 
     /// `updateSkyBrightness()`.
-    pub fn update_sky_brightness(&mut self, env: &dyn LevelTickEnv) {
-        self.sky_darken = (15.0f32 - self.environment_sky_light_level(env)) as i32;
+    pub fn update_sky_brightness(&mut self) {
+        self.sky_darken = (15.0f32 - self.dimension_float(crate::world::attribute::attributes::SKY_LIGHT_LEVEL)) as i32;
     }
 
-    /// `environmentAttributes().getDimensionValue(SKY_LIGHT_LEVEL)`.
-    pub fn environment_sky_light_level(&self, env: &dyn LevelTickEnv) -> f32 {
-        self.with_attribute_env(env, |system, attribute_env| system.get_float("gameplay/sky_light_level", attribute_env))
-    }
-
-    /// `environmentAttributes().getValue(MOON_PHASE, pos)` (ordinal; the moon phase is not position dependent).
-    pub fn environment_moon_phase(&self, env: &dyn LevelTickEnv) -> u8 {
-        self.with_attribute_env(env, |system, attribute_env| system.get_moon_phase(attribute_env))
+    /// `environmentAttributes().getValue(MOON_PHASE, pos)` (ordinal).
+    pub fn environment_moon_phase(&self, pos: BlockPos) -> u8 {
+        match self.environment_value_at(crate::world::attribute::attributes::MOON_PHASE, pos) {
+            crate::world::attribute::AttrValue::MoonPhase(phase) => phase,
+            _ => 0,
+        }
     }
 
     /// `getMoonBrightness(pos)`: `DimensionType.MOON_BRIGHTNESS_PER_PHASE[moonPhase]`.
-    pub fn get_moon_brightness(&self, env: &dyn LevelTickEnv) -> f32 {
-        crate::registry::typed::dimension_type::MOON_BRIGHTNESS_PER_PHASE[usize::from(self.environment_moon_phase(env))]
-    }
-
-    /// Fills the attribute system's per-tick cache (see `EnvironmentAttributeSystem::prime`).
-    fn prime_environment_attributes(&self, env: &dyn LevelTickEnv) {
-        self.with_attribute_env(env, |system, attribute_env| system.prime(attribute_env));
-    }
-
-    fn with_attribute_env<R>(&self, env: &dyn LevelTickEnv, f: impl FnOnce(&crate::world::attribute::EnvironmentAttributeSystem, &crate::world::attribute::AttributeEnv<'_>) -> R) -> R {
-        let clock = |clock: &mc_core::ident::Identifier| env.clock_total_ticks(clock);
-        let attribute_env = crate::world::attribute::AttributeEnv { clock_total_ticks: &clock, rain_level: self.get_rain_level(1.0), thunder_level: self.get_thunder_level(1.0) };
-        f(&self.tick_state.attributes, &attribute_env)
+    pub fn get_moon_brightness(&self, pos: BlockPos) -> f32 {
+        crate::registry::typed::dimension_type::MOON_BRIGHTNESS_PER_PHASE[usize::from(self.environment_moon_phase(pos))]
     }
 
     fn sleep_infos(&self) -> Vec<SleepInfo> {
@@ -657,8 +642,7 @@ impl ServerLevel {
             }
         }
 
-        self.prime_environment_attributes(env);
-        self.update_sky_brightness(env);
+        self.update_sky_brightness();
         if runs {
             self.tick_time(env);
         }

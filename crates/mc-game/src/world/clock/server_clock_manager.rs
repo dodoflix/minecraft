@@ -10,6 +10,22 @@ use crate::impl_saved_data;
 use crate::util::codec::{DataResult, DecodeResult, map_decoded};
 use crate::world::level::saveddata::{SavedData, SavedDataType};
 
+/// A thread-safe mirror of every clock's `totalTicks` (what the environment attribute timelines read of
+/// `clockManager.getInstance(clock).totalTicks()`), shared with the levels.
+#[derive(Debug, Default)]
+pub struct ClockTotals(parking_lot::RwLock<std::collections::HashMap<Identifier, i64>>);
+
+impl ClockTotals {
+    /// `getInstance(clock).totalTicks()` (0 for a clock that is not initialized).
+    pub fn total_ticks(&self, clock: &Identifier) -> i64 {
+        self.0.read().get(clock).copied().unwrap_or(0)
+    }
+
+    pub fn set(&self, clock: &Identifier, ticks: i64) {
+        self.0.write().insert(clock.clone(), ticks);
+    }
+}
+
 /// `ClockInstance`.
 pub trait ClockInstance {
     fn total_ticks(&self) -> i64;
@@ -107,6 +123,7 @@ pub struct ServerClockManager {
     dirty: bool,
     packed_clock_states: PackedClockStates,
     clocks: IndexMap<Identifier, ServerClockInstance>,
+    totals: std::sync::Arc<ClockTotals>,
 }
 
 impl_saved_data!(ServerClockManager);
@@ -119,7 +136,7 @@ impl Default for ServerClockManager {
 
 impl ServerClockManager {
     fn new(packed_clock_states: PackedClockStates) -> Self {
-        ServerClockManager { dirty: false, packed_clock_states, clocks: IndexMap::new() }
+        ServerClockManager { dirty: false, packed_clock_states, clocks: IndexMap::new(), totals: Default::default() }
     }
 
     /// `init(server)`: one instance per registered world clock (registry order), every timeline's time markers
@@ -143,6 +160,18 @@ impl ServerClockManager {
                 None => log::warn!("Saved state for unknown world clock {clock}"),
             }
         }
+        self.sync_totals();
+    }
+
+    /// The shared mirror of the clocks' total ticks (see [`ClockTotals`]).
+    pub fn totals(&self) -> std::sync::Arc<ClockTotals> {
+        self.totals.clone()
+    }
+
+    fn sync_totals(&self) {
+        for (id, clock) in &self.clocks {
+            self.totals.set(id, clock.total_ticks);
+        }
     }
 
     pub fn pack_state(&self) -> PackedClockStates {
@@ -156,6 +185,7 @@ impl ServerClockManager {
                 clock.tick();
             }
             self.set_dirty();
+            self.sync_totals();
         }
     }
 
@@ -171,6 +201,7 @@ impl ServerClockManager {
         let updates = vec![(clock.clone(), instance.pack_network_state(advance_time))];
         host.broadcast_set_time(host.game_time(), updates);
         self.set_dirty();
+        self.sync_totals();
         host.invalidate_environment_attributes_tick_cache();
     }
 

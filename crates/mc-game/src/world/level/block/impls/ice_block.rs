@@ -21,13 +21,13 @@ fn melts_into() -> BlockState {
 }
 
 /// `environmentAttributes().getValue(WATER_EVAPORATES, pos)`.
-fn water_evaporates(level: &ServerLevel) -> bool {
-    level.environment_bool("gameplay/water_evaporates")
+fn water_evaporates(level: &ServerLevel, pos: BlockPos) -> bool {
+    level.attribute_bool(crate::world::attribute::attributes::WATER_EVAPORATES, pos)
 }
 
 /// `IceBlock.melt(state, level, pos)`.
 pub fn melt(state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
-    if water_evaporates(level) {
+    if water_evaporates(level, pos) {
         level.remove_block(pos, false);
     } else {
         level.set_block_and_update(pos, melts_into());
@@ -42,7 +42,7 @@ pub fn after_player_destroy(level: &mut ServerLevel, pos: BlockPos, prevents_ice
     if prevents_ice_melting {
         return;
     }
-    if water_evaporates(level) {
+    if water_evaporates(level, pos) {
         level.remove_block(pos, false);
         return;
     }

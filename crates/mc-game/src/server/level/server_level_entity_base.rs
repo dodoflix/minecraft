@@ -1,15 +1,12 @@
 //! Level-side helpers of `Entity` base behaviour: environment flags and the portal hand-off queue.
 
 use super::ServerLevel;
-use crate::world::attribute::AttributeEnv;
 use crate::world::entity::EntityId;
 
 impl ServerLevel {
     /// `environmentAttributes().getDimensionValue(EnvironmentAttributes.FAST_LAVA)`.
     pub fn fast_lava(&self) -> bool {
-        // `gameplay/fast_lava` is a dimension constant (no clock / weather input), the cached tick value is used when present
-        let env = AttributeEnv { clock_total_ticks: &|_| 0, rain_level: 0.0, thunder_level: 0.0 };
-        self.tick_state.attributes.get_bool("gameplay/fast_lava", &env)
+        self.dimension_bool(crate::world::attribute::attributes::FAST_LAVA)
     }
 
     /// An entity's `PortalProcessor` reached its transition time: the level tick resolves the destination with the

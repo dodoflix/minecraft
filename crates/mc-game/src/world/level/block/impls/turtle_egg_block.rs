@@ -21,8 +21,8 @@ pub fn on_sand(level: &dyn BlockGetter, pos: BlockPos) -> bool {
 }
 
 /// `shouldUpdateHatchLevel`.
-fn should_update_hatch_level(level: &mut ServerLevel, _pos: BlockPos) -> bool {
-    let chance = level.environment_float("gameplay/turtle_egg_hatch_chance");
+fn should_update_hatch_level(level: &mut ServerLevel, pos: BlockPos) -> bool {
+    let chance = level.attribute_float(crate::world::attribute::attributes::TURTLE_EGG_HATCH_CHANCE, pos);
     chance > 0.0 && level.random().next_float() < chance
 }
 

@@ -8,14 +8,14 @@ use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
 use mc_core::random::{PositionalRandomFactory, RandomSource};
 use mc_dfu::extra::IDENTIFIER;
-use mc_dfu::{BOOL, Codec, DataResult, FLOAT, MapCodec};
+use mc_dfu::{BOOL, Codec, DataResult, FLOAT, INT, MapCodec, STRING};
 use mc_nbt::CompoundTag;
 use parking_lot::Mutex;
 
 use super::context::LootContext;
 use crate::registry::typed::attributes::{ATTRIBUTES, AttributeDef, AttributeKind};
 use crate::server::level::ServerLevel;
-use crate::world::attribute::{AttrValue, AttributeEnv};
+use crate::world::attribute::AttrValue;
 use crate::world::level::saveddata::random_sequences::RandomSequences;
 
 /// The shared server data loot reads (`MinecraftServer.getRandomSequence`, `getCommandStorage`).
@@ -174,24 +174,27 @@ pub fn environment_attribute_codec(as_float: bool) -> MapCodec<Identifier> {
         .field_of("attribute")
 }
 
+/// `environmentAttributes().getValue(context, attribute)`: positional attributes read at `ORIGIN` (the default without
+/// one), the others at the dimension.
 fn attribute_value(context: &LootContext, id: &Identifier) -> Option<AttrValue> {
     let def = attribute_def(id)?;
     let level = context.get_level();
-    let clock = |clock: &Identifier| clock_total_ticks(level, clock);
-    let env = AttributeEnv { clock_total_ticks: &clock, rain_level: level.get_rain_level(1.0), thunder_level: level.get_thunder_level(1.0) };
-    level.tick_state.attributes.get_dimension_value(def.name, &env)
-}
-
-pub fn environment_attribute_float(context: &LootContext, id: &Identifier) -> Option<f32> {
-    match attribute_value(context, id)? {
-        AttrValue::Float(f) => Some(f),
-        _ => None,
+    if def.positional {
+        Some(match context.params().origin {
+            Some(origin) => level.environment_value(def.name, &origin),
+            None => level.tick_state.attributes.default_value(def.name),
+        })
+    } else {
+        Some(level.environment_dimension_value(def.name))
     }
 }
 
-pub fn environment_attribute_int(_context: &LootContext, _id: &Identifier) -> Option<i32> {
-    // The attribute system models no `integer` attribute values.
-    None
+pub fn environment_attribute_float(context: &LootContext, id: &Identifier) -> Option<f32> {
+    attribute_value(context, id)?.to_float()
+}
+
+pub fn environment_attribute_int(context: &LootContext, id: &Identifier) -> Option<i32> {
+    attribute_value(context, id)?.to_int()
 }
 
 /// `EnvironmentAttributeCheck`'s `value` codec for an attribute (`attribute.valueCodec()`).
@@ -200,6 +203,17 @@ pub fn environment_attribute_value_codec(id: &Identifier) -> Option<Codec<AttrVa
     Some(match def.kind {
         AttributeKind::Float | AttributeKind::AngleDegrees => FLOAT.xmap(AttrValue::Float, |v: &AttrValue| if let AttrValue::Float(f) = v { *f } else { 0.0 }),
         AttributeKind::Boolean => BOOL.xmap(AttrValue::Bool, |v: &AttrValue| matches!(v, AttrValue::Bool(true))),
+        AttributeKind::Integer => INT.xmap(AttrValue::Int, |v: &AttrValue| v.to_int().unwrap_or(0)),
+        AttributeKind::MoonPhase => STRING.flat_xmap(
+            |name: String| match crate::world::attribute::value::MOON_PHASES.iter().position(|p| *p == name) {
+                Some(i) => DataResult::success(AttrValue::MoonPhase(i as u8)),
+                None => DataResult::error(move || format!("Unknown moon phase: {name}")),
+            },
+            |v: &AttrValue| match v {
+                AttrValue::MoonPhase(i) => DataResult::success(crate::world::attribute::value::MOON_PHASES[usize::from(*i)].to_owned()),
+                _ => DataResult::error(|| "not a moon phase".to_owned()),
+            },
+        ),
         _ => return None,
     })
 }

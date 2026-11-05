@@ -62,11 +62,6 @@ impl LevelTickEnv for ServerTickEnv<'_> {
         self.server.wake_up_from_sleep(&dimension);
     }
 
-    fn clock_total_ticks(&self, clock: &mc_core::ident::Identifier) -> i64 {
-        use crate::world::clock::ClockInstance as _;
-        self.server.clock_manager().get_instance(clock).total_ticks()
-    }
-
     fn difficulty(&self) -> Difficulty {
         self.server.world_data.lock().settings.difficulty_settings.difficulty
     }

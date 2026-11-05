@@ -243,13 +243,14 @@ impl MinecraftServer {
         level.tick_state.enabled_features = enabled_features;
         level.tick_state.biomes = Some(factory.biomes.clone());
         level.tick_state.biome_zoom_seed = BiomeManager::obfuscate_seed(seed);
-        level.tick_state.attributes = self.build_attribute_system(&dimension_type);
+        level.tick_state.has_fixed_time = dimension_type.has_fixed_time;
+        level.tick_state.attributes = self.build_attribute_system(&dimension_type, &factory.biomes);
         level
     }
 
     /// `EnvironmentAttributeSystem.builder().addDefaultLayers(level)` for a dimension type: its constant attributes, its
     /// timelines (the `timelines` holder set resolved against the timeline registry) and the weather layers.
-    fn build_attribute_system(&self, dimension_type: &DimensionType) -> crate::world::attribute::EnvironmentAttributeSystem {
+    fn build_attribute_system(&self, dimension_type: &DimensionType, biomes: &mc_worldgen::biome::BiomeRegistry) -> crate::world::attribute::EnvironmentAttributeSystem {
         use crate::registry::typed::HolderSetRef;
         use crate::world::attribute::Timeline;
         let access = self.registries.composite_access();
@@ -264,7 +265,11 @@ impl MinecraftServer {
             }
         };
         let can_have_weather = dimension_type.has_sky_light && !dimension_type.has_ceiling;
-        crate::world::attribute::EnvironmentAttributeSystem::build(&dimension_type.attributes, &timelines, can_have_weather)
+        let mut biome_attributes: Vec<Option<&serde_json::Value>> = vec![None; biomes.len()];
+        for id in biomes.ids() {
+            biome_attributes[id.0 as usize] = biomes.get(id).attributes.as_ref();
+        }
+        crate::world::attribute::EnvironmentAttributeSystem::build(&dimension_type.attributes, &biome_attributes, &timelines, can_have_weather, self.clock_manager().totals())
     }
 
     /// `createLevels`.
@@ -475,6 +480,10 @@ impl MinecraftServer {
         crate::world::level::storage::loot::server_access::LootServices {
             random_sequences: self.loot_random_sequences.clone(),
             world_seed: self.world_gen_settings.options.seed,
+            clock_total_ticks: {
+                let totals = self.clock_manager().totals();
+                Arc::new(move |clock| Some(totals.total_ticks(clock)))
+            },
             ..Default::default()
         }
     }

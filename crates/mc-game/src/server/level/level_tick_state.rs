@@ -122,6 +122,8 @@ pub struct LevelTickState {
     pub poi_hook: Option<fn(&mut ServerLevel, BlockPos, Option<usize>, Option<usize>)>,
     /// `canHaveWeather()` (`dimensionType.hasSkyLight && !hasCeiling && dimension != END`).
     pub can_have_weather: bool,
+    /// `dimensionType().hasFixedTime()`.
+    pub has_fixed_time: bool,
     /// `tickTime` constructor flag (only the overworld advances the game time).
     pub tick_time: bool,
     /// The game rules read by the random-tick code, refreshed at the start of every level tick.
@@ -166,6 +168,7 @@ impl LevelTickState {
             enabled_features: FeatureFlagSet::DEFAULT_FLAGS,
             poi_hook: None,
             can_have_weather: false,
+            has_fixed_time: false,
             tick_time: false,
             rules: super::level_rules::LevelRules::default(),
             sleep_status: super::sleep_status::SleepStatus::default(),
@@ -174,7 +177,7 @@ impl LevelTickState {
             lightning_spawn: Some(crate::world::entity::lightning_bolt::spawn_from_thunder),
             find_lightning_rod: None,
             dragon_fight_tick: None,
-            attributes: crate::world::attribute::EnvironmentAttributeSystem::build(&Default::default(), &[], false),
+            attributes: crate::world::attribute::EnvironmentAttributeSystem::build(&Default::default(), &Vec::new(), &[], false, Default::default()),
             handling_tick: false,
             empty_time: 0,
             o_rain_level: 0.0,
