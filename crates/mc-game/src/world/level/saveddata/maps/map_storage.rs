@@ -69,6 +69,11 @@ impl ServerLevel {
         })
     }
 
+    /// `getMapData(id)` for readers that only need to look at the saved data.
+    pub fn read_map_data<R>(&self, id: MapId, f: impl FnOnce(&MapItemSavedData) -> R) -> Option<R> {
+        self.shared.map_storage.with(|storage| storage.get(&MapItemSavedData::type_(id)).map(|data| f(data)))
+    }
+
     /// `setMapData(id, data)`.
     pub fn set_map_data(&self, id: MapId, data: MapItemSavedData) {
         self.shared.map_storage.with(|storage| {

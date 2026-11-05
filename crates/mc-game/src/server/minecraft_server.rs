@@ -219,6 +219,7 @@ impl MinecraftServer {
             init.storage_source.get_level_path(mc_world::level_storage::LevelResource::DATA),
         ));
         shared.map_storage.init(mc_world::level_storage::SavedDataStorage::new(init.storage_source.get_level_path(mc_world::level_storage::LevelResource::DATA)));
+        crate::world::item::crafting::set_map_scale_lookup(crate::world::item::map_item::map_scale_lookup);
         let registries = init.registries;
         crate::server::players::server_join_host::set_send_commands(|server, player, permissions| {
             crate::commands::send_commands(server, player, &permissions.into());

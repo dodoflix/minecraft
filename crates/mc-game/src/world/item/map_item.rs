@@ -44,6 +44,11 @@ pub fn with_saved_data<R>(stack: &ItemStack, level: &mut ServerLevel, f: impl Fn
     level.with_map_data(id, f)
 }
 
+/// `MapItem.getSavedData(map, level).scale` for `MapExtendingRecipe` (installed with the server's map storage).
+pub fn map_scale_lookup(level: &ServerLevel, stack: &ItemStack) -> Option<i32> {
+    level.read_map_data(*stack.get(&MAP_ID)?, |data| i32::from(data.scale))
+}
+
 /// The facts of a map's saved data that menus read (`locked`, `scale`), `None` without saved data.
 pub fn saved_data_info(stack: &ItemStack, level: &mut ServerLevel) -> Option<(bool, i8)> {
     with_saved_data(stack, level, |_, data| (data.locked, data.scale))
