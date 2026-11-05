@@ -205,7 +205,7 @@ pub fn update(level: &mut ServerLevel, player: &dyn Entity, data: &mut MapItemSa
                         Brightness::Normal
                     }
                 } else {
-                    let diff = (average_area_height - previous_average_area_height) * 4.0 / f64::from(data.scale as i32 + 4) + (f64::from(parity) - 0.5) * 0.4;
+                    let diff = (average_area_height - previous_average_area_height) * 4.0 / f64::from(scale + 4) + (f64::from(parity) - 0.5) * 0.4;
                     if diff > 0.6 {
                         Brightness::High
                     } else if diff < -0.6 {

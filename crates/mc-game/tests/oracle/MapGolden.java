@@ -100,7 +100,7 @@ public final class MapGolden {
                pos.set(x, y, z);
                BlockState s = state(x, y, z, seed);
                if (level.getBlockState(pos) != s) {
-                  level.setBlock(pos, s, 18);
+                  level.setBlock(pos, s, 18 | 256 | 512);
                }
             }
          }

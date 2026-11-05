@@ -148,10 +148,14 @@ fn map_update_and_packets_match_vanilla() {
             for z in LO..HI {
                 for y in Y_MIN..Y_MAX {
                     if let Some(block) = state(x, y, z, seed) {
-                        level.set_block(BlockPos::new(x, y, z), block.default_state(), 18, 0);
+                        level.set_block(BlockPos::new(x, y, z), block.default_state(), 18 | 256 | 512, 0);
                     }
                 }
             }
+        }
+        // the oracle world allocates one map id per case
+        for _ in 0..i {
+            level.get_free_map_id();
         }
         let map = map_item::create(&mut level, px, pz, scale as i8, true, false);
         let id = *map.get(&MAP_ID).unwrap();
@@ -163,14 +167,10 @@ fn map_update_and_packets_match_vanilla() {
         let pid = p.base_id();
         let mut got: BTreeMap<usize, String> = BTreeMap::new();
         for t in 0..ticks as usize {
-            p.tick_inventory(&mut level);
+            p.tick_inventory_items(&mut level);
             if let Some(Some(packet)) = level.with_map_data(id, |_, data| data.get_update_packet(id, pid)) {
                 got.insert(t, hex(&encode_packet(&packet)));
             }
-        }
-        assert_eq!(got.keys().collect::<Vec<_>>(), case.packets.keys().collect::<Vec<_>>(), "case {i}: ticks with a map packet");
-        for (t, expected) in &case.packets {
-            assert_eq!(&got[t], expected, "case {i}: packet of tick {t}");
         }
         let (colors, center, decos) = level
             .with_map_data(id, |_, d| (hex(&d.colors), vec![d.center_x, d.center_z, i32::from(d.scale)], d.get_decorations().map(|d| format!("{} {} {} {}", d.ty.name(), d.x, d.y, d.rot)).collect::<Vec<_>>()))
@@ -178,8 +178,15 @@ fn map_update_and_packets_match_vanilla() {
         assert_eq!(center, case.center, "case {i}: center/scale");
         if colors != case.colors {
             let at = colors.as_bytes().chunks(2).zip(case.colors.as_bytes().chunks(2)).position(|(a, b)| a != b).unwrap();
-            panic!("case {i}: color mismatch first at pixel x={} y={}", at % 128, at / 128);
+            let (ax, ay) = (at % 128, at / 128);
+            let around = |c: &str| (0..4).map(|k| format!("{}", &c[(ax + (ay + k - 1) * 128) * 2..(ax + (ay + k - 1) * 128) * 2 + 2])).collect::<Vec<_>>().join(",");
+            let n = colors.as_bytes().chunks(2).zip(case.colors.as_bytes().chunks(2)).filter(|(a, b)| a != b).count();
+            panic!("case {i}: {n} color mismatches, first at pixel x={ax} y={ay}; rust column {} java column {}", around(&colors), around(&case.colors));
         }
         assert_eq!(decos, case.decos, "case {i}: decorations");
+        assert_eq!(got.keys().collect::<Vec<_>>(), case.packets.keys().collect::<Vec<_>>(), "case {i}: ticks with a map packet");
+        for (t, expected) in &case.packets {
+            assert_eq!(&got[t], expected, "case {i}: packet of tick {t}");
+        }
     }
 }
