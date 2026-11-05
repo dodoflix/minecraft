@@ -1,18 +1,29 @@
 //! `CompoundTagArgument`, `NbtTagArgument`, `ComponentArgument`, `StyleArgument`.
 //!
-//! Vanilla parses with the packrat `SnbtGrammar`; `mc_nbt::snbt` is a port of it, so error texts and cursors match.
-//! Grammar-driven suggestions (`parseForSuggestions`) are not exposed by `mc_nbt` and yield no suggestions.
+//! Vanilla parses with the packrat `SnbtGrammar`; `mc_nbt::snbt` is a port of it, so error texts, cursors and the
+//! grammar-driven suggestions (`parseForSuggestions`, [`snbt::suggest`]) match.
 
 use super::util::{reader_byte_cursor, set_reader_byte_cursor, snbt_exception};
 use crate::commands::message::dynamic_translatable;
+use crate::commands::shared_suggestion_provider::suggest;
 use crate::commands::CommandSourceStack;
 use mc_brigadier::arguments::value;
 use mc_brigadier::{
     ArgumentType, CommandContext, CommandSyntaxException, DynamicCommandExceptionType, ImmutableStringReader, ParsedValue, StringReader,
+    Suggestions, SuggestionsBuilder,
 };
 use mc_nbt::{CompoundTag, Tag, snbt};
 use mc_text::{Component, Style};
 use std::sync::LazyLock;
+
+/// `ParserBasedArgument.listSuggestions` = `Grammar.parseForSuggestions`: what the terminals that failed furthest into
+/// the input would have accepted.
+fn grammar_suggestions(builder: SuggestionsBuilder) -> Suggestions {
+    match snbt::suggest(builder.get_input(), builder.get_start()) {
+        None => builder.build(),
+        Some((cursor, values)) => suggest(values, builder.create_offset(cursor)),
+    }
+}
 
 /// `TagParser.parseAsArgument(reader)`.
 pub fn parse_tag_as_argument(reader: &mut StringReader) -> Result<Tag, CommandSyntaxException> {
@@ -75,6 +86,10 @@ impl ArgumentType<CommandSourceStack> for NbtTagArgument {
         parse_tag_as_argument(reader).map(value)
     }
 
+    fn list_suggestions(&self, _context: &CommandContext<CommandSourceStack>, builder: SuggestionsBuilder) -> Suggestions {
+        grammar_suggestions(builder)
+    }
+
     fn get_examples(&self) -> Vec<String> {
         ["0", "0b", "0l", "0.0", "\"foo\"", "{foo=bar}", "[0]"].map(String::from).to_vec()
     }
@@ -135,6 +150,10 @@ impl ArgumentType<CommandSourceStack> for ComponentArgument {
         parse_with_codec(reader, Component::from_nbt, &ERROR_INVALID_COMPONENT).map(value)
     }
 
+    fn list_suggestions(&self, _context: &CommandContext<CommandSourceStack>, builder: SuggestionsBuilder) -> Suggestions {
+        grammar_suggestions(builder)
+    }
+
     fn get_examples(&self) -> Vec<String> {
         ["\"hello world\"", "'hello world'", "\"\"", "{text:\"hello world\"}", "[\"\"]"].map(String::from).to_vec()
     }
@@ -160,6 +179,10 @@ impl StyleArgument {
 impl ArgumentType<CommandSourceStack> for StyleArgument {
     fn parse(&self, reader: &mut StringReader) -> Result<ParsedValue, CommandSyntaxException> {
         parse_with_codec(reader, Style::from_nbt, &ERROR_INVALID_STYLE).map(value)
+    }
+
+    fn list_suggestions(&self, _context: &CommandContext<CommandSourceStack>, builder: SuggestionsBuilder) -> Suggestions {
+        grammar_suggestions(builder)
     }
 
     fn get_examples(&self) -> Vec<String> {

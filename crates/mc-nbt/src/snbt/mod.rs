@@ -200,6 +200,33 @@ fn expect_compound(tag: Tag, input: &str, units: &[u16], cursor: usize) -> Resul
     }
 }
 
+/// `Grammar.parseForSuggestions` of the SNBT grammar: parses from UTF-16 offset `start` and returns the UTF-16 cursor of
+/// the longest failure with the strings its failed terminals would have accepted (`None`: nothing to suggest).
+pub fn suggest(input: &str, start: usize) -> Option<(usize, Vec<String>)> {
+    let units: Vec<u16> = input.encode_utf16().collect();
+    let start = start.min(units.len());
+    let nesting = nesting_depth(&units, start);
+    if nesting > MAX_NESTING {
+        return None;
+    }
+    let work = || {
+        let mut ps = Ps::new(&grammar::GRAMMAR, &units, start);
+        ps.parse_top();
+        ps.suggestions().map(|(cursor, values)| (cursor, values.to_vec()))
+    };
+    if nesting <= 32 {
+        return work();
+    }
+    std::thread::scope(|s| {
+        std::thread::Builder::new()
+            .stack_size((1 << 20) + nesting * (16 << 10))
+            .spawn_scoped(s, work)
+            .expect("spawn SNBT parser thread")
+            .join()
+            .unwrap_or_else(|p| std::panic::resume_unwind(p))
+    })
+}
+
 /// `TagParser.parseFully` with `NbtOps`: any SNBT value, whole input.
 pub fn parse(input: &str) -> Result<Tag, SnbtError> {
     let units: Vec<u16> = input.encode_utf16().collect();

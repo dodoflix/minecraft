@@ -214,21 +214,44 @@ struct ErrorCollector {
     last_cursor: i64,
     /// First error stored at `last_cursor`; vanilla throws the first exception of the list.
     first: Option<Reason>,
+    /// Number of errors stored at `last_cursor` (vanilla's entry list size).
+    entries: usize,
+    /// What the failed terminals at `last_cursor` would have accepted (`SuggestionSupplier.possibleValues`).
+    suggestions: Vec<String>,
 }
 
 impl ErrorCollector {
     fn new() -> Self {
-        ErrorCollector { last_cursor: -1, first: None }
+        ErrorCollector { last_cursor: -1, first: None, entries: 0, suggestions: Vec::new() }
+    }
+
+    /// `discardErrorsFromShorterParse`.
+    fn discard_shorter(&mut self, cursor: i64) {
+        if cursor > self.last_cursor {
+            self.last_cursor = cursor;
+            self.first = None;
+            self.entries = 0;
+            self.suggestions.clear();
+        }
+    }
+
+    /// `finish(finalCursor)`, called when the top rule succeeded.
+    fn finish(&mut self, cursor: usize) {
+        self.discard_shorter(cursor as i64);
     }
 
     fn store(&mut self, cursor: usize, reason: Reason) {
         let cursor = cursor as i64;
-        if cursor > self.last_cursor {
-            self.last_cursor = cursor;
-            self.first = None;
-        }
-        if cursor == self.last_cursor && self.first.is_none() {
-            self.first = Some(reason);
+        self.discard_shorter(cursor);
+        if cursor == self.last_cursor {
+            self.entries += 1;
+            // `TerminalCharacters`: one suggestion per accepted character (the error text joins them with `|`)
+            if let Reason::Literal(text) = &reason {
+                self.suggestions.extend(text.split('|').filter(|c| !c.is_empty()).map(str::to_owned));
+            }
+            if self.first.is_none() {
+                self.first = Some(reason);
+            }
         }
     }
 }
@@ -336,7 +359,17 @@ impl<'g> Ps<'g> {
 
     /// `Grammar.parse` → `parseTopRule`.
     pub fn parse_top(&mut self) -> Option<Val> {
-        self.parse(self.grammar.top)
+        let result = self.parse(self.grammar.top);
+        if result.is_some() {
+            self.err.finish(self.cursor);
+        }
+        result
+    }
+
+    /// `Grammar.parseForSuggestions` after the parse: the cursor of the longest failure and what its terminals would
+    /// have accepted; `None` when no error was recorded there.
+    pub fn suggestions(&self) -> Option<(usize, &[String])> {
+        (self.err.entries > 0).then(|| (self.err.last_cursor as usize, self.err.suggestions.as_slice()))
     }
 
     /// `CachedParseState.parse(rule)`.
