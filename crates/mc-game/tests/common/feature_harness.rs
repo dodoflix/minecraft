@@ -29,6 +29,12 @@ use mc_game::world::level::chunk::status::{ChunkStep, GENERATION_PYRAMID};
 use mc_game::world::level::levelgen::gen_level::GenLevel;
 use mc_game::world::level::levelgen::registries::GenRegistries;
 use mc_game::world::level::levelgen::structure::registries::{StartCache, StructureRegistries};
+use mc_game::world::level::levelgen::structure::templatesystem::StructureTemplateManager;
+use mc_game::server::packs::repository::PackSource;
+use mc_game::server::packs::resource_manager::MultiPackResourceManager;
+use mc_game::server::packs::resources::PathPackResources;
+use mc_game::server::packs::{PackLocationInfo, PackType};
+use mc_text::Component;
 use mc_game::world::level::levelgen::GenEnv;
 use mc_game::world::level::LevelAccessor;
 use mc_world::chunk::{LevelHeight, ProtoChunk};
@@ -165,6 +171,7 @@ pub struct FeatureWorld {
     pub biomes: Arc<BiomeRegistry>,
     pub registries: Arc<GenRegistries>,
     pub structures: Arc<StructureRegistries>,
+    pub templates: Arc<StructureTemplateManager>,
     pub generator: Arc<NoiseBasedChunkGenerator>,
     pub factory: PalettedContainerFactory,
     /// Whether the vanilla feature registries decoded completely (`false`: empty registries are used).
@@ -194,7 +201,14 @@ pub static WORLD: LazyLock<FeatureWorld> = LazyLock::new(|| {
         .expect("overworld biome source");
     let generator = NoiseBasedChunkGenerator::new(generator_source, Arc::new(settings), worldgen.clone(), biomes.clone()).expect("overworld generator");
     let factory = PalettedContainerFactory::create(mc_world::palette::BiomeRegistry::new(biomes.names())).expect("plains");
-    FeatureWorld { worldgen, biomes, registries: Arc::new(registries), structures: Arc::new(structures), generator: Arc::new(generator), factory, registries_loaded }
+    // The vanilla data pack (`ref/src/data`), e.g. for the structure templates; generated structures go to a scratch dir.
+    let pack = PathPackResources::new(
+        PackLocationInfo { id: "vanilla".into(), title: Component::literal("vanilla"), source: PackSource::BuiltIn, known_pack_info: None },
+        std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../ref/src"),
+    );
+    let resources = Arc::new(MultiPackResourceManager::new(PackType::ServerData, vec![Arc::new(pack)]));
+    let templates = Arc::new(StructureTemplateManager::new(resources, std::env::temp_dir().join("mc-feature-harness-generated")));
+    FeatureWorld { worldgen, biomes, registries: Arc::new(registries), structures: Arc::new(structures), templates, generator: Arc::new(generator), factory, registries_loaded }
 });
 
 pub fn level_height() -> LevelHeight {
@@ -213,6 +227,7 @@ pub fn gen_env(seed: i64) -> Arc<GenEnv> {
         registries: w.registries.clone(),
         structures: w.structures.clone(),
         start_cache: StartCache::default(),
+        structure_template_manager: w.templates.clone(),
         generate_structures: true,
         level_height: level_height(),
     })
