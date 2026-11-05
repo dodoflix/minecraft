@@ -67,8 +67,4 @@ mc-game tests/structure_template_golden.rs place_in_world_matches_vanilla
 mc-game tests/tnt_golden.rs primed_tnt_chain_matches_vanilla
 mc-protocol tests/play_debug.rs string_limits
 mc-protocol tests/text_payload_golden.rs hover_item_components_match_vanilla
-mc-testbot tests/entity_dual.rs entity_dual_vanilla
-mc-testbot tests/join_phase.rs status_and_configuration_against_vanilla
-mc-testbot tests/portal_dual.rs portal_dual_vanilla
-mc-testbot tests/vanilla_play.rs bot_plays_on_vanilla
 mc-testbot tests/world_commands_dual.rs world_commands_vanilla
