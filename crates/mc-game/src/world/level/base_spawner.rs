@@ -73,18 +73,12 @@ pub fn read_or_random_spawn_pos(entity_tag: &CompoundTag, level: &mut ServerLeve
     mc_core::phys::Vec3::new(x, y, z)
 }
 
-/// `EntityType.loadEntityRecursive(input, level, reason, postLoad)`: the loaded tree, root first, with `post_load` applied
-/// to every entity in loading order (a passenger loads after its vehicle's post-processing).
-pub fn load_entity_recursive(tag: &CompoundTag, level: &ServerLevel, reason: EntitySpawnReason, mut post_load: impl FnMut(&mut dyn Entity)) -> Option<LoadedEntities> {
+/// `EntityType.loadEntityRecursive(input, level, reason, postLoad)` without `postLoad`: the loaded tree, root first. The
+/// caller applies its post-load step to every entity in this order (a passenger is post-processed after its vehicle).
+pub fn load_entity_tree(tag: &CompoundTag, level: &ServerLevel, reason: EntitySpawnReason) -> Option<LoadedEntities> {
     let mut out = Vec::new();
     factory::load_entity_recursive(tag, level, EntitySpawnRequest { reason, ignore_checks: false }, &mut out);
-    if out.is_empty() {
-        return None;
-    }
-    for entity in &mut out {
-        post_load(entity.as_mut());
-    }
-    Some(out)
+    if out.is_empty() { None } else { Some(out) }
 }
 
 impl BaseSpawner {
@@ -123,7 +117,7 @@ impl BaseSpawner {
 
     /// `serverTick(level, pos)`.
     pub fn server_tick(&mut self, level: &mut ServerLevel, pos: BlockPos) {
-        if !(self.is_near_player(level, pos) && level.is_spawner_block_enabled()) {
+        if !(self.is_near_player(level, pos) && level.spawner_blocks_work()) {
             return;
         }
         if self.spawn_delay == -1 {
@@ -157,13 +151,14 @@ impl BaseSpawner {
             } else if !spawner_mob_seam::check_spawn_placements(level, entity_type, EntitySpawnReason::Spawner, spawn_block_pos) {
                 continue;
             }
-            let Some(mut entities) = load_entity_recursive(&next.entity_to_spawn, level, EntitySpawnReason::Spawner, |e| {
-                let (y_rot, x_rot) = (e.base().y_rot(), e.base().x_rot());
-                e.snap_to(spawn_pos.x, spawn_pos.y, spawn_pos.z, y_rot, x_rot);
-            }) else {
+            let Some(mut entities) = load_entity_tree(&next.entity_to_spawn, level, EntitySpawnReason::Spawner) else {
                 self.delay(level, pos);
                 return;
             };
+            for entity in &mut entities {
+                let (y_rot, x_rot) = (entity.base().y_rot(), entity.base().x_rot());
+                entity.snap_to(spawn_pos.x, spawn_pos.y, spawn_pos.z, y_rot, x_rot);
+            }
             let entity_type_loaded = entities[0].get_type();
             let area = AABB::new(f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z()), f64::from(pos.x() + 1), f64::from(pos.y() + 1), f64::from(pos.z() + 1))
                 .inflate_scalar(f64::from(self.spawn_range));

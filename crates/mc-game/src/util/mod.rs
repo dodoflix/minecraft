@@ -4,7 +4,11 @@ pub mod codec;
 pub mod game_modes;
 pub mod file_util;
 pub mod java_format;
+<<<<<<< HEAD
 pub mod java_hash_order;
+=======
+pub mod java_uuid_hash_set;
+>>>>>>> 2cf0bbee (wip(game): spawner, trial spawner, vault block entities (uncompiled, not wired into mod.rs))
 pub mod long_open_hash_set;
 pub mod profiling;
 pub mod object_open_hash_map;

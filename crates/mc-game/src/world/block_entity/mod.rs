@@ -48,6 +48,7 @@ mod skull_block_entity;
 pub mod test_block_entity;
 pub mod test_instance_block_entity;
 mod the_end_gateway_block_entity;
+pub mod spawner_block_entity;
 mod the_end_portal_block_entity;
 pub mod structure_block_entity;
 pub mod vibration;
@@ -283,6 +284,13 @@ pub trait BlockEntity: Any {
     /// which is all the types that ignore their level need.
     fn load_additional_in_level(&mut self, _level: &mut crate::server::level::ServerLevel, tag: &CompoundTag) -> Option<BlockState> {
         self.load_additional(tag);
+        None
+    }
+
+
+    // ==== [Blocks:Spawners] hooks ====
+    /// This entity as a `Spawner` (`SpawnerBlockEntity`, `TrialSpawnerBlockEntity`) for spawn eggs / `/data`.
+    fn as_spawner_mut(&mut self) -> Option<&mut dyn spawner_block_entity::Spawner> {
         None
     }
 }
