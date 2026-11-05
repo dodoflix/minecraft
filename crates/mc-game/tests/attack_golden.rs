@@ -339,7 +339,7 @@ impl Replay {
             }
         }
         if let Some(p) = e.player() {
-            let gm = e.as_any().downcast_ref::<ServerPlayer>().expect("server player").game_mode.game_mode_for_player.get_serialized_name();
+            let gm = e.as_any().downcast_ref::<ServerPlayer>().expect("server player").game_mode.game_mode_for_player.serialized_name().expect("game type name");
             l.push_str(&format!(
                 " gm={gm} food={} sat={} exh={} xp={}/{}/{} sel={} main={}",
                 p.food_data.get_food_level(),
