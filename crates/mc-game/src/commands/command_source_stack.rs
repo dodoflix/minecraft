@@ -230,7 +230,17 @@ impl CommandSourceStack {
     pub fn get_display_name(&self) -> Component {
         match (&self.names_provider, &self.entity) {
             (NamesProvider::Constant(name), _) => name.clone(),
-            (NamesProvider::ForEntity, Some(entity)) => entity.display_name.clone(),
+            (NamesProvider::ForEntity, Some(entity)) => {
+                // `Entity.getDisplayName()` is live (team prefix/color change while a command runs); the snapshot is the
+                // fallback when no server is reachable.
+                let live = super::server_access::has_server().then(|| {
+                    self.with_server(|server| {
+                        let entity_ref = super::arguments::selector::EntityRef { dimension: self.level.clone(), id: entity.id };
+                        super::host::get_entity(server, &entity_ref).map(|e| super::host::entity_display_name(server, e))
+                    })
+                });
+                live.flatten().unwrap_or_else(|| entity.display_name.clone())
+            }
             (NamesProvider::ForEntity, None) => Component::empty(),
         }
     }

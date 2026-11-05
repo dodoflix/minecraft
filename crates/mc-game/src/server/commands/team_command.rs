@@ -143,6 +143,15 @@ fn formatted(source: &CommandSourceStack, team: &str) -> Component {
     source.with_server(|s| s.scoreboard.read().get_player_team(team).expect("team exists").get_formatted_display_name())
 }
 
+/// `holder.getFeedbackDisplayName()` of the live entity: joining or leaving a team changes its prefix/color.
+fn live_name(source: &CommandSourceStack, holder: &ScoreHolder) -> Component {
+    holder
+        .entity
+        .as_ref()
+        .and_then(|e| source.with_server(|s| ScoreHolder::of_entity(s, e)))
+        .map_or_else(|| holder.get_feedback_display_name(), |h| h.get_feedback_display_name())
+}
+
 fn leave_team(source: &CommandSourceStack, members: Vec<ScoreHolder>) -> Result<i32, CommandSyntaxException> {
     let mut tracker = CommandResponseTracker::new();
     with_scoreboard(source, |scoreboard| {
@@ -155,7 +164,7 @@ fn leave_team(source: &CommandSourceStack, members: Vec<ScoreHolder>) -> Result<
         source,
         true,
         None,
-        |holder, _| translatable!("commands.team.leave.success.single", holder.get_feedback_display_name()),
+        |holder, _| translatable!("commands.team.leave.success.single", live_name(source, holder)),
         |count, _| translatable!("commands.team.leave.success.multiple", count),
     )
 }
@@ -173,7 +182,7 @@ fn join_team(source: &CommandSourceStack, team: &str, members: Vec<ScoreHolder>)
         source,
         true,
         None,
-        |holder, _| translatable!("commands.team.join.success.single", holder.get_feedback_display_name(), team.clone()),
+        |holder, _| translatable!("commands.team.join.success.single", live_name(source, holder), team.clone()),
         |count, _| translatable!("commands.team.join.success.multiple", count, team.clone()),
     )
 }

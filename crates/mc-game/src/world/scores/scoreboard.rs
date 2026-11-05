@@ -197,7 +197,7 @@ impl PlayerTeam {
 
     fn apply_color(&self, result: Component) -> Component {
         match self.color {
-            Some(c) => result.with_color(c.rgb()),
+            Some(c) => result.with_style_fn(|s| s.with_color(Some(c.text_color()))),
             None => result,
         }
     }
@@ -278,7 +278,7 @@ struct ServerState {
 }
 
 /// `Scoreboard` / `ServerScoreboard`.
-#[derive(Debug, Default)]
+#[derive(Debug)]
 pub struct Scoreboard {
     objectives_by_name: ObjectOpenHashMap<Objective>,
     objectives_by_criteria: HashMap<ObjectiveCriteria, Vec<String>>,
@@ -303,15 +303,28 @@ pub enum ScoreboardError {
     NotOnTeam(String),
 }
 
+impl Default for Scoreboard {
+    fn default() -> Self {
+        Scoreboard::new()
+    }
+}
+
 impl Scoreboard {
-    /// The plain `Scoreboard` (no server hooks).
     pub fn new() -> Scoreboard {
-        Scoreboard::default()
+        Scoreboard {
+            objectives_by_name: ObjectOpenHashMap::with_expected(16, 0.5),
+            objectives_by_criteria: HashMap::new(),
+            player_scores: ObjectOpenHashMap::with_expected(16, 0.5),
+            display_objectives: BTreeMap::new(),
+            teams_by_name: ObjectOpenHashMap::new(),
+            teams_by_player: HashMap::new(),
+            server: None,
+        }
     }
 
     /// A `ServerScoreboard`.
     pub fn new_server() -> Scoreboard {
-        Scoreboard { server: Some(ServerState::default()), ..Scoreboard::default() }
+        Scoreboard { server: Some(ServerState::default()), ..Scoreboard::new() }
     }
 
     // ---------------- hooks (ServerScoreboard overrides) ----------------
