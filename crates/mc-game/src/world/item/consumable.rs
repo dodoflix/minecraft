@@ -61,7 +61,7 @@ pub fn emit_particles_and_sounds(consumable: &Consumable, level: &mut ServerLeve
 }
 
 /// `ConsumeEffect.apply(level, stack, user)`.
-fn apply_consume_effect(effect: &ConsumeEffect, level: &mut ServerLevel, user: &mut dyn Entity) {
+pub fn apply_consume_effect(effect: &ConsumeEffect, level: &mut ServerLevel, user: &mut dyn Entity) {
     match effect {
         ConsumeEffect::PlaySound(p) => {
             if let Some(sound) = holder_sound(&p.sound) {

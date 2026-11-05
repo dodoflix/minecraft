@@ -13,6 +13,8 @@ use crate::world::damagesource::combat_rules;
 use crate::world::damagesource::{DamageSource, DamageTypeTags, DamageTypes, HurtKnockbackDirection};
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::{Entity, EntityId};
+use crate::world::item::enchantment::actors::Actors;
+use crate::world::item::enchantment_helper;
 
 /// `Float.MAX_VALUE`-ish bound the stat awards use (`damage < 3.4028235E37F`).
 const STAT_DAMAGE_LIMIT: f32 = 3.4028235E37;
@@ -46,8 +48,17 @@ pub fn as_server_player(entity: &mut dyn Entity) -> Option<&mut crate::world::en
 }
 
 /// `LivingEntity.isInvulnerableTo(level, source)`.
-pub fn is_invulnerable_to(entity: &dyn Entity, level: &ServerLevel, source: &DamageSource) -> bool {
-    entity.is_invulnerable_to_base(level, source) || crate::world::item::enchantment::enchantment_helper::is_immune_to_damage(level, entity, source)
+pub fn is_invulnerable_to(entity: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSource) -> bool {
+    if entity.is_invulnerable_to_base(level, source) {
+        return true;
+    }
+    let victim = entity.id();
+    let mut causing = source.causing_snapshot(level);
+    let mut actors = Actors::of(entity);
+    if let Some(c) = causing.as_mut() {
+        actors.push(&mut ***c);
+    }
+    enchantment_helper::is_immune_to_damage(level, &mut actors, victim, source)
 }
 
 /// `LivingEntity.hurtServer(level, source, damage)`.
@@ -150,7 +161,7 @@ pub fn hurt_server(entity: &mut dyn Entity, level: &mut ServerLevel, source: &Da
         l.last_damage_source = Some(source.clone());
         l.last_damage_stamp = game_time;
         // `effect.onMobHurt(level, this, source, damage)` for every active effect (EcEffects).
-        crate::world::entity::living_entity::effects::on_mob_hurt(entity, level, source, damage);
+        crate::world::entity::living_entity::effects::on_mob_hurt(entity, level);
     }
 
     if let Some(player) = as_server_player(entity) {
@@ -323,7 +334,15 @@ pub fn get_damage_after_magic_absorb(entity: &mut dyn Entity, level: &mut Server
     if source.is_tag(level, DamageTypeTags::BYPASSES_ENCHANTMENTS) {
         return damage;
     }
-    let enchantment_armor = crate::world::item::enchantment::enchantment_helper::get_damage_protection(level, entity, source);
+    let enchantment_armor = {
+        let victim = entity.id();
+        let mut causing = source.causing_snapshot(level);
+        let mut actors = Actors::of(&mut *entity);
+        if let Some(c) = causing.as_mut() {
+            actors.push(&mut ***c);
+        }
+        enchantment_helper::get_damage_protection(level, &mut actors, victim, source)
+    };
     if enchantment_armor > 0.0 {
         damage = combat_rules::get_damage_after_magic_absorb(damage, enchantment_armor);
     }

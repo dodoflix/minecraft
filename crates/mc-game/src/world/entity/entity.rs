@@ -2363,8 +2363,8 @@ pub trait Entity: Any {
     }
 
     /// `isInvulnerableTo(level, source)` (`LivingEntity`: plus `EnchantmentHelper.isImmuneToDamage`).
-    fn is_invulnerable_to(&self, level: &ServerLevel, source: &crate::world::damagesource::DamageSource) -> bool {
-        super::living_entity::damage::is_invulnerable_to(self.as_dyn(), level, source)
+    fn is_invulnerable_to(&mut self, level: &mut ServerLevel, source: &crate::world::damagesource::DamageSource) -> bool {
+        super::living_entity::damage::is_invulnerable_to(self.as_dyn_mut(), level, source)
     }
 
     /// `hurtServer(level, source, damage)`: abstract in `Entity` (non-living entities override); every living entity runs `LivingEntity.hurtServer`.
@@ -2421,11 +2421,6 @@ pub trait Entity: Any {
     /// `isBlocking()`.
     fn is_blocking(&self) -> bool {
         super::living_entity::blocking::get_item_blocking_with(self.as_dyn()).is_some()
-    }
-
-    /// `isBaby()`.
-    fn is_baby(&self) -> bool {
-        false
     }
 
     /// `getSecondsToDisableBlocking()`.

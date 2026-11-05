@@ -5,6 +5,7 @@ use mc_data::enums::Pose;
 use mc_data::{Block, EntityType, GameEvent, Item};
 
 use super::damage::broadcast_entity_event;
+use crate::world::item::enchantment::actors::Actors;
 use crate::server::level::ServerLevel;
 use crate::world::damagesource::{DamageEntity, DamageSource};
 use crate::world::entity::Entity;
@@ -105,8 +106,40 @@ pub fn default_loot_table(entity: &dyn Entity) -> Option<Identifier> {
 
 /// `LivingEntity.dropFromLootTable(level, source, playerKilled)`.
 fn drop_from_loot_table(entity: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSource, player_killed: bool) {
-    let Some(table) = entity.get_loot_table() else { return };
-    let items = crate::world::level::storage::loot::entity_drops::death_loot(level, entity, source, player_killed, &table, entity.get_loot_table_seed());
+    use crate::world::level::storage::loot::{LootParams, LootContextParamSets, loading};
+    let Some(table_id) = entity.get_loot_table() else { return };
+    let table = loading::get_loot_table(&level.registries, &table_id);
+    let seed = entity.get_loot_table_seed();
+    let items = {
+        let causing_guard = source.causing_snapshot(level);
+        let direct_guard = source.direct_snapshot(level);
+        let attacker: Option<&dyn Entity> = match source.get_entity() {
+            Some(id) => level.get_entity(id).or_else(|| causing_guard.as_deref().map(|b| &**b)),
+            None => None,
+        };
+        let direct: Option<&dyn Entity> = match source.get_direct_entity() {
+            Some(id) if Some(id) == source.get_entity() => attacker,
+            Some(id) => level.get_entity(id).or_else(|| direct_guard.as_deref().map(|b| &**b)),
+            None => None,
+        };
+        let killer_uuid = entity.living().expect("living").last_hurt_by_player;
+        let killer_player: Option<&dyn Entity> = match killer_uuid {
+            Some(uuid) if player_killed => level
+                .get_entity_by_uuid(uuid)
+                .filter(|e| e.is_player())
+                .or_else(|| attacker.filter(|a| a.uuid() == uuid && a.is_player())),
+            _ => None,
+        };
+        let this: &dyn Entity = &*entity;
+        let origin = this.position();
+        let mut builder = LootParams::builder(level).this_entity(this).origin(origin).damage_source(source).attacking_entity(attacker).direct_attacking_entity(direct);
+        if let Some(p) = killer_player {
+            let luck = p.living().map_or(0.0, |l| l.get_attribute_value(mc_data::Attribute::LUCK) as f32);
+            builder = builder.last_damage_player(Some(p)).luck(luck);
+        }
+        let params = builder.create(&LootContextParamSets::ENTITY);
+        table.get_random_items_with_seed(&params, seed)
+    };
     for stack in items {
         crate::world::entity::item::spawn_at_location(level, entity, stack, mc_core::phys::Vec3::ZERO);
     }
@@ -119,8 +152,13 @@ pub fn drop_experience(entity: &mut dyn Entity, level: &mut ServerLevel, source:
         && (entity.is_always_experience_dropper() || living.last_hurt_by_player_memory_time > 0 && entity.should_drop_experience() && level.mob_drops());
     if eligible {
         let base = entity.get_base_experience_reward(level);
-        let killer_entity = source.causing_entity_view(level);
-        let amount = crate::world::item::enchantment::enchantment_helper::process_mob_experience(level, killer_entity, entity, base);
+        let victim_id = entity.id();
+        let mut causing = source.causing_snapshot(level);
+        let mut actors = Actors::of(&mut *entity);
+        if let Some(c) = causing.as_mut() {
+            actors.push(&mut ***c);
+        }
+        let amount = crate::world::item::enchantment_helper::process_mob_experience(level, &mut actors, source.get_entity(), victim_id, base);
         let pos = entity.position();
         crate::world::entity::experience_orb::ExperienceOrb::award(level, &pos, amount);
     }

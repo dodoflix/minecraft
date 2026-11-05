@@ -519,7 +519,7 @@ impl Entity for ServerPlayer {
     }
 
     // ==== [Damage] Entity overrides (Player / ServerPlayer damage behaviour, see player/damage.rs) ====
-    fn is_invulnerable_to(&self, level: &crate::server::level::ServerLevel, source: &crate::world::damagesource::DamageSource) -> bool {
+    fn is_invulnerable_to(&mut self, level: &mut crate::server::level::ServerLevel, source: &crate::world::damagesource::DamageSource) -> bool {
         super::damage::is_invulnerable_to(self, level, source)
     }
     fn hurt_server(&mut self, level: &mut crate::server::level::ServerLevel, source: &crate::world::damagesource::DamageSource, amount: f32) -> bool {
@@ -542,9 +542,6 @@ impl Entity for ServerPlayer {
     }
     fn get_death_sound(&self) -> Option<mc_data::SoundEvent> {
         Some(mc_data::SoundEvent::ENTITY_PLAYER_DEATH)
-    }
-    fn get_fall_sounds(&self) -> (mc_data::SoundEvent, mc_data::SoundEvent) {
-        (mc_data::SoundEvent::ENTITY_PLAYER_SMALL_FALL, mc_data::SoundEvent::ENTITY_PLAYER_BIG_FALL)
     }
     /// `Player.getVoicePitch()`.
     fn get_voice_pitch(&mut self) -> f32 {

@@ -136,6 +136,15 @@ pub fn trigger_on_death_mob_effects(entity: &mut dyn Entity, level: &mut ServerL
     }
 }
 
+/// `effect.onMobHurt(level, this, source, damage)` for every active effect (`LivingEntity.hurtServer`).
+pub fn on_mob_hurt(entity: &mut dyn Entity, level: &mut ServerLevel) {
+    let Some(living) = entity.living() else { return };
+    let effects: Vec<MobEffectInstance> = living.active_effects.values().cloned().collect();
+    for effect in &effects {
+        effect.effect.on_mob_hurt(level, entity, effect.amplifier);
+    }
+}
+
 /// `tickEffects()` (server side). `ConcurrentModificationException` (a structural modification of the effect map
 /// while its iterator is live, e.g. a totem clearing the effects from inside a poison tick) ends the loop silently,
 /// like the `catch` in vanilla.

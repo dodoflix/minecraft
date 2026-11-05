@@ -46,7 +46,7 @@ impl ServerPlayer {
 }
 
 /// `Player.isInvulnerableTo` + `ServerPlayer.isInvulnerableTo`.
-pub fn is_invulnerable_to(player: &ServerPlayer, level: &ServerLevel, source: &DamageSource) -> bool {
+pub fn is_invulnerable_to(player: &mut ServerPlayer, level: &mut ServerLevel, source: &DamageSource) -> bool {
     // Player: LivingEntity (base + enchantment immunity), then the game rules
     let player_invulnerable = if damage::is_invulnerable_to(player, level, source) {
         true
@@ -192,7 +192,7 @@ pub fn on_leave_combat(player: &ServerPlayer) {
 /// `Player.dropEquipment(level)`: unless `keepInventory`, vanishing-cursed items are destroyed and the inventory dropped.
 pub fn drop_equipment(player: &mut ServerPlayer, level: &mut ServerLevel) {
     if !level.keep_inventory() {
-        destroy_vanishing_cursed_items(player);
+        destroy_vanishing_cursed_items(player, &level.registries.clone());
         // `Inventory.dropAll()`: `createItemStackToDrop(stack, true, false)` + `addFreshEntity` per stack, in drop order
         for stack in player.player.inventory.drop_all() {
             if let Some(entity) = player.create_item_stack_to_drop(level, stack, true, false) {
@@ -203,12 +203,12 @@ pub fn drop_equipment(player: &mut ServerPlayer, level: &mut ServerLevel) {
 }
 
 /// `Player.destroyVanishingCursedItems()`.
-fn destroy_vanishing_cursed_items(player: &mut ServerPlayer) {
+fn destroy_vanishing_cursed_items(player: &mut ServerPlayer, level_registries: &crate::registry::RegistryAccess) {
     use crate::world::container::Container;
     let size = player.player.inventory.get_container_size();
     for i in 0..size {
         let stack = player.player.inventory.get_item(i);
-        if !stack.is_empty() && crate::world::item::enchantment::enchantment_helper::has_prevent_equipment_drop(&stack) {
+        if !stack.is_empty() && crate::world::item::enchantment_helper::has(&level_registries, &stack, crate::world::item::enchantment::enchantment_effect_components::EffectComponent::prevent_equipment_drop) {
             player.player.inventory.remove_item_no_update(i);
         }
     }

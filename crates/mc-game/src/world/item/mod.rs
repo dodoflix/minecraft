@@ -24,7 +24,7 @@ pub use behaviour::*;
 pub use bundle::{BundleItem, BundleMutable, can_item_be_in_bundle, toggle_selected_item as toggle_bundle_selected_item};
 pub use block_item::{BlockItem, block_is_enabled, calculate_view_vector, player_pov_hit_result, update_custom_block_entity_tag};
 pub use component_ext::*;
-pub use consumable::{entity_play_sound, holder_sound};
+pub use consumable::{apply_consume_effect, entity_play_sound, holder_sound};
 pub use context::*;
 pub use cooldowns::*;
 pub use interaction::*;

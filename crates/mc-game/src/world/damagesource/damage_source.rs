@@ -23,11 +23,11 @@ use crate::world::item::{ItemStack, ItemStackExt as _};
 /// running is taken out of the level, but loot/xp evaluation at the victim's death still reads its equipment,
 /// attributes and effects.
 #[derive(Clone)]
-pub struct EntitySnapshot(pub Rc<dyn Entity>);
+pub struct EntitySnapshot(pub Rc<std::cell::RefCell<Box<dyn Entity>>>);
 
 impl std::fmt::Debug for EntitySnapshot {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "EntitySnapshot({} #{})", self.0.get_type().name(), self.0.id())
+        write!(f, "EntitySnapshot(#{})", self.0.borrow().id())
     }
 }
 
@@ -76,7 +76,7 @@ impl DamageEntity {
     /// The entity as a damage source participant: description + full snapshot.
     pub fn capture(entity: &dyn Entity) -> DamageEntity {
         let mut info = DamageEntity::of(entity);
-        info.snapshot = entity.snapshot_for_damage().map(|b| EntitySnapshot(Rc::from(b)));
+        info.snapshot = entity.snapshot_for_damage().map(|b| EntitySnapshot(Rc::new(std::cell::RefCell::new(b))));
         info
     }
 
@@ -170,16 +170,23 @@ impl DamageSource {
         self.causing_entity
     }
 
-    /// The causing entity for read access: the live one if it is in the level, else the snapshot taken with the source.
-    pub fn causing_entity_view<'a>(&'a self, level: &'a ServerLevel) -> Option<&'a dyn Entity> {
+    /// The snapshot of the causing entity when it is not in the level (it is the running, taken-out entity): lend it
+    /// to enchantment/loot code (`Actors::push`) and read it as the attacker.
+    pub fn causing_snapshot(&self, level: &ServerLevel) -> Option<std::cell::RefMut<'_, Box<dyn Entity>>> {
         let info = self.causing.as_deref()?;
-        level.get_entity(info.id).or_else(|| info.snapshot.as_ref().map(|s| &*s.0))
+        if level.get_entity(info.id).is_some() {
+            return None;
+        }
+        info.snapshot.as_ref().and_then(|s| s.0.try_borrow_mut().ok())
     }
 
-    /// The direct entity for read access (see [`DamageSource::causing_entity_view`]).
-    pub fn direct_entity_view<'a>(&'a self, level: &'a ServerLevel) -> Option<&'a dyn Entity> {
+    /// Like [`DamageSource::causing_snapshot`] for the direct entity (`None` when it is the causing one, already lent).
+    pub fn direct_snapshot(&self, level: &ServerLevel) -> Option<std::cell::RefMut<'_, Box<dyn Entity>>> {
         let info = self.direct.as_deref()?;
-        level.get_entity(info.id).or_else(|| info.snapshot.as_ref().map(|s| &*s.0))
+        if level.get_entity(info.id).is_some() || self.causing_entity == self.direct_entity {
+            return None;
+        }
+        info.snapshot.as_ref().and_then(|s| s.0.try_borrow_mut().ok())
     }
 
     /// Snapshot of the direct entity.
