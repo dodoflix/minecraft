@@ -3,15 +3,15 @@
 
 use super::piece::StructurePieceSerializationContext;
 use super::pools::structure_template_pool::{StructureTemplatePool, TEMPLATE_POOL_REGISTRY, load_template_pools};
-use super::structure::{Structure, decode_direct};
+use super::structure::{STRUCTURE_TYPES, Structure, decode_direct};
 use super::templatesystem::structure_processor_list::load_processor_lists;
 use super::templatesystem::StructureProcessorList;
 use super::structure_start::{StartHandle, StructureStart};
-use crate::world::level::levelgen::codec::LoadResult;
+use crate::world::level::levelgen::codec::{LoadError, LoadResult};
 use crate::world::level::levelgen::env::GenEnv;
 use crate::world::level::levelgen::generation_step::Decoration;
 use crate::world::level::levelgen::holder::Holder;
-use crate::world::level::levelgen::registries::{Cells, DecodeCtx, TypedRegistry, load_registry};
+use crate::world::level::levelgen::registries::{Cells, DecodeCtx, TypedRegistry};
 use mc_core::ident::Identifier;
 use mc_core::pos::ChunkPos;
 use mc_nbt::CompoundTag;
@@ -29,6 +29,9 @@ pub struct StructureRegistries {
     /// `worldgen/template_pool`.
     pub template_pools: TypedRegistry<StructureTemplatePool>,
     pub structures: TypedRegistry<dyn Structure>,
+    /// Entries whose `type` has no implementation in `STRUCTURE_TYPES` yet (skipped while the legacy structure types are
+    /// ported; empty once every vanilla type is registered, and vanilla would refuse to start with such an entry).
+    pub unported: Vec<Identifier>,
     /// `structuresRegistry.stream().collect(groupingBy(step().ordinal()))`: registry order within each step.
     structures_by_step: Vec<Vec<Holder<dyn Structure>>>,
 }
@@ -45,13 +48,27 @@ impl StructureRegistries {
     pub fn load_with(ctx: &DecodeCtx<'_>) -> LoadResult<StructureRegistries> {
         let processor_lists = load_processor_lists(ctx)?;
         let template_pools = load_template_pools(ctx)?;
-        let structures = load_registry(ctx, STRUCTURE_REGISTRY, decode_direct)?;
+        let mut entries = indexmap::IndexMap::new();
+        let mut unported = Vec::new();
+        for id in ctx.cells.list(STRUCTURE_REGISTRY) {
+            let json = ctx.cells.source().get(STRUCTURE_REGISTRY, &id).ok_or_else(|| LoadError::new("no such registry entry").in_entry(STRUCTURE_REGISTRY, &id))?;
+            let registered = json.get("type").and_then(|t| t.as_str()).and_then(|t| t.strip_prefix("minecraft:")).is_some_and(|t| STRUCTURE_TYPES.iter().any(|e| e.name == t));
+            if !registered {
+                unported.push(id);
+                continue;
+            }
+            let value = decode_direct(&json, ctx).map_err(|e| e.in_entry(STRUCTURE_REGISTRY, &id))?;
+            let holder = Holder::reference(id.clone(), ctx.cells.cell::<dyn Structure>(STRUCTURE_REGISTRY, &id));
+            holder.bind(value);
+            entries.insert(id, holder);
+        }
+        let structures = TypedRegistry::new(STRUCTURE_REGISTRY, entries);
         ctx.cells.check_all_bound::<dyn Structure>(STRUCTURE_REGISTRY)?;
         let mut structures_by_step = vec![Vec::new(); Decoration::ALL.len()];
         for (_, holder) in structures.iter() {
             structures_by_step[holder.value().step().ordinal()].push(holder.clone());
         }
-        Ok(StructureRegistries { processor_lists, template_pools, structures, structures_by_step })
+        Ok(StructureRegistries { processor_lists, template_pools, structures, unported, structures_by_step })
     }
 
     /// A registry without structures.
@@ -60,6 +77,7 @@ impl StructureRegistries {
             processor_lists: TypedRegistry::new("worldgen/processor_list", indexmap::IndexMap::new()),
             template_pools: TypedRegistry::new(TEMPLATE_POOL_REGISTRY, indexmap::IndexMap::new()),
             structures: TypedRegistry::new(STRUCTURE_REGISTRY, indexmap::IndexMap::new()),
+            unported: Vec::new(),
             structures_by_step: vec![Vec::new(); Decoration::ALL.len()] }
     }
 

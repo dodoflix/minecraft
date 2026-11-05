@@ -53,7 +53,8 @@ fn codec_cases_match_vanilla() {
         let mut parts = line.split('\t');
         let (kind, json, expected) = (parts.next().unwrap(), parts.next().unwrap(), parts.next().unwrap());
         let expected_canon = parts.next();
-        let value: serde_json::Value = serde_json::from_str(json).unwrap();
+        // the oracle parses leniently (`a` is the string "a")
+        let value: serde_json::Value = serde_json::from_str(json).unwrap_or_else(|_| serde_json::Value::String(json.to_owned()));
         let (ok, encoded) = match kind {
             "alias" => (PoolAliasBinding::from_json(&value).is_ok(), None),
             "padding" => (DimensionPadding::from_json(&value).is_ok(), None),

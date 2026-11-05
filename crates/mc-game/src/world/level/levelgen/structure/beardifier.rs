@@ -5,6 +5,7 @@ use super::manager::{StructureDataSource, StructureManager};
 use crate::world::level::levelgen::env::GenEnv;
 use mc_core::pos::ChunkPos;
 use mc_world::chunk::{ProtoChunk, StructureData};
+use super::structure_start::StructureStart;
 use mc_worldgen::beardifier::{StructurePieceInfo, StructureStartInfo, TerrainAdjustment};
 
 /// The chunk being generated (lent separately) plus the surrounding region's chunks.
@@ -19,25 +20,17 @@ impl StructureDataSource for CenterAndRegion<'_> {
     }
 }
 
-/// `structureManager.startsForStructure(chunkX, chunkZ, s -> s.terrainAdaptation() != NONE)` converted for the
-/// beardifier (`getStructure().terrainAdaptation()`, every piece's box and `PoolElementStructurePiece` data).
+/// A start as the beardifier sees it (`getStructure().terrainAdaptation()`, every piece's box and `PoolElementStructurePiece` data).
+pub fn start_info(start: &StructureStart) -> StructureStartInfo {
+    StructureStartInfo {
+        terrain_adaptation: start.get_structure().value().terrain_adaptation(),
+        pieces: start.piece_container.pieces.iter().map(|p| StructurePieceInfo { bounding_box: p.base().bounding_box, kind: p.beardifier_kind() }).collect(),
+    }
+}
+
+/// `structureManager.startsForStructure(chunkX, chunkZ, s -> s.terrainAdaptation() != NONE)` converted for the beardifier.
 pub fn structure_start_infos(env: &GenEnv, source: &dyn StructureDataSource, chunk_pos: ChunkPos) -> Vec<StructureStartInfo> {
     let manager = StructureManager::new(env);
     let adapts = |id: &mc_core::ident::Identifier| env.structures.get(id).is_some_and(|s| s.value().terrain_adaptation() != TerrainAdjustment::None);
-    manager
-        .starts_for_structure_matching(source, chunk_pos.x, chunk_pos.z, &adapts)
-        .into_iter()
-        .map(|start| {
-            let start = start.lock();
-            StructureStartInfo {
-                terrain_adaptation: start.get_structure().value().terrain_adaptation(),
-                pieces: start
-                    .piece_container
-                    .pieces
-                    .iter()
-                    .map(|p| StructurePieceInfo { bounding_box: p.base().bounding_box, kind: p.beardifier_kind() })
-                    .collect(),
-            }
-        })
-        .collect()
+    manager.starts_for_structure_matching(source, chunk_pos.x, chunk_pos.z, &adapts).into_iter().map(|start| start_info(&start.lock())).collect()
 }

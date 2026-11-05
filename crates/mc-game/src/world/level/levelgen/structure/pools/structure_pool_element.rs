@@ -138,7 +138,12 @@ impl ProcessorListRef {
     pub fn encode(&self) -> Tag {
         match self.holder.id() {
             Some(id) => Tag::String(id.to_string()),
-            None => json_to_tag(self.inline.as_ref().unwrap_or(&Value::Object(Map::from_iter([("processors".to_owned(), Value::Array(Vec::new()))])))),
+            // `StructureProcessorList.DIRECT_CODEC` always encodes the `{processors: [...]}` form, whichever form was read
+            None => match self.inline.as_ref() {
+                Some(Value::Array(list)) => json_to_tag(&Value::Object(Map::from_iter([("processors".to_owned(), Value::Array(list.clone()))]))),
+                Some(object) => json_to_tag(object),
+                None => json_to_tag(&Value::Object(Map::from_iter([("processors".to_owned(), Value::Array(Vec::new()))]))),
+            },
         }
     }
 }
