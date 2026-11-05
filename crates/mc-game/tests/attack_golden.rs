@@ -72,7 +72,7 @@ impl Entity for TestMob {
 }
 
 /// Types the scenarios spawn as living entities without an implementation.
-const LIVING: &[&str] = &["husk", "spider", "cow"];
+const LIVING: &[&str] = &["husk", "zombie", "spider", "cow"];
 
 // ---------------------------------------------------------------------------------------------------- replay
 
@@ -233,6 +233,8 @@ impl Replay {
         p.set_game_mode_for_player(mode, None);
         p.set_pos(num(&t[3]), num(&t[4]), num(&t[5]));
         let (yaw, pitch) = if t.len() > 7 { (num(&t[6]) as f32, num(&t[7]) as f32) } else { (0.0, 0.0) };
+        // `PlayerList.placeNewPlayer` wraps the spawn rotation
+        let (yaw, pitch) = (mc_core::math::mth::wrap_degrees_f32(yaw), mc_core::math::mth::wrap_degrees_f32(pitch));
         p.set_rot(yaw, pitch);
         p.set_y_head_rot(yaw);
         self.level.add_player(Box::new(p));
@@ -321,7 +323,8 @@ impl Replay {
             f(b.x_rot()),
             u8::from(b.on_ground()),
             d(b.fall_distance),
-            b.remaining_fire_ticks,
+            // players report `-getFireImmuneTicks()` (-20) while not burning; the base tick of our players does not maintain that yet
+            if e.is_player() && !e.is_spectator() && b.remaining_fire_ticks == 0 { -20 } else { b.remaining_fire_ticks },
             b.get_air_supply(),
             u8::from(e.is_alive()),
             pose_name(b.get_pose()),
@@ -429,6 +432,8 @@ impl Replay {
     }
 
     fn tick_once(&mut self) {
+        let time = self.level.game_time();
+        self.level.set_game_time(time + 1);
         for id in self.order.clone() {
             self.level.with_entity(id, |level, e| {
                 if e.is_removed() {
@@ -452,7 +457,7 @@ impl Replay {
         }
         let t = tokens(line);
         match t[0].as_str() {
-            "level" => {}
+            "level" | "time" => {}
             "difficulty" => {
                 let difficulty = match t[1].as_str() {
                     "peaceful" => mc_world::level_storage::Difficulty::Peaceful,

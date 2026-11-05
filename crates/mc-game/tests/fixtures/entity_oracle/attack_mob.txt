@@ -1,119 +1,120 @@
+C Set minecraft:overworld to 18000 tick(s)
 MOBATTACK M0 T0 -> true
-E M0 minecraft:husk pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-P T0 minecraft:player pos=0.5,-60.0,2.0 delta=0.0,0.36080000519752503,0.4000000059604645 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=10/20 death=0 fx=minecraft:hunger/0/140 gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+E M0 minecraft:zombie pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+P T0 minecraft:player pos=0.5,-60.0,2.0 delta=0.0,0.36080000519752503,0.4000000059604645 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
 MOBATTACK M1 T1 -> true
-E M1 minecraft:husk pos=5.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-P T1 minecraft:player pos=5.5,-60.0,2.0 delta=0.0,0.36080000519752503,0.4000000059604645 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.896 abs=0.0 hurt=10/20 death=0 fx=minecraft:hunger/0/140 gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+E M1 minecraft:zombie pos=5.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+P T1 minecraft:player pos=5.5,-60.0,2.0 delta=0.0,0.36080000519752503,0.4000000059604645 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.896 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
 I T1 36 minecraft:iron_boots*1/dmg=1
 I T1 37 minecraft:iron_leggings*1/dmg=1
 I T1 38 minecraft:diamond_chestplate*1/dmg=1
 I T1 39 minecraft:iron_helmet*1/dmg=1
 MOBATTACK M2 T2 -> true
-E M2 minecraft:husk pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-E T2 minecraft:husk pos=10.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=997.06 abs=0.0 hurt=10/20 death=0 fx=minecraft:hunger/0/140
+E M2 minecraft:zombie pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E T2 minecraft:zombie pos=10.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=997.06 abs=0.0 hurt=10/20 death=0 fx=-
 MOBATTACK M3 T3 -> false
-E M3 minecraft:husk pos=15.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E M3 minecraft:zombie pos=15.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 P T3 minecraft:player pos=15.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 I T3 40 minecraft:shield*1/dmg=4
 MOBATTACK M4 T4 -> true
-E M4 minecraft:husk pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E M4 minecraft:zombie pos=20.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 P T4 minecraft:player pos=20.5,-60.0,2.0 delta=0.0,0.36080000519752503,0.4000000059604645 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
 MOBATTACK M5 T5 -> true
-E M5 minecraft:husk pos=25.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E M5 minecraft:zombie pos=25.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 P T5 minecraft:player pos=25.5,-60.0,2.0 delta=0.0,0.36080000519752503,0.4000000059604645 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.416 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
 I T5 36 minecraft:iron_boots*1/dmg=2
 I T5 37 minecraft:iron_leggings*1/dmg=2
 I T5 38 minecraft:diamond_chestplate*1/dmg=2
 I T5 39 minecraft:iron_helmet*1/dmg=2
 MOBATTACK M6 T6 -> true
-E M6 minecraft:husk pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-E T6 minecraft:husk pos=30.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=992.128 abs=0.0 hurt=10/20 death=0 fx=-
+E M6 minecraft:zombie pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E T6 minecraft:zombie pos=30.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=992.128 abs=0.0 hurt=10/20 death=0 fx=-
 MOBATTACK M7 T7 -> false
-E M7 minecraft:husk pos=35.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E M7 minecraft:zombie pos=35.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 P T7 minecraft:player pos=35.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 I T7 40 minecraft:shield*1/dmg=9
 MOBATTACK M8 T8 -> true
-E M8 minecraft:husk pos=40.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E M8 minecraft:zombie pos=40.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 P T8 minecraft:player pos=40.5,-60.0,2.0 delta=0.0,0.36080000519752503,0.4000000059604645 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
 MOBATTACK M9 T9 -> true
-E M9 minecraft:husk pos=45.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E M9 minecraft:zombie pos=45.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 P T9 minecraft:player pos=45.5,-60.0,2.0 delta=0.0,0.36080000519752503,0.4000000059604645 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=13.856001 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
 I T9 36 minecraft:iron_boots*1/dmg=3
 I T9 37 minecraft:iron_leggings*1/dmg=3
 I T9 38 minecraft:diamond_chestplate*1/dmg=3
 I T9 39 minecraft:iron_helmet*1/dmg=3
 MOBATTACK M10 T10 -> true
-E M10 minecraft:husk pos=50.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-E T10 minecraft:husk pos=50.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=10/20 death=0 fx=-
+E M10 minecraft:zombie pos=50.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E T10 minecraft:zombie pos=50.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=988.192 abs=0.0 hurt=10/20 death=0 fx=-
 MOBATTACK M11 T11 -> false
-E M11 minecraft:husk pos=55.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E M11 minecraft:zombie pos=55.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 P T11 minecraft:player pos=55.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 I T11 40 minecraft:shield*1/dmg=13
 MOBATTACK M12 T12 -> true
-E M12 minecraft:husk pos=60.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E M12 minecraft:zombie pos=60.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 P T12 minecraft:player pos=60.5,-60.0,2.0 delta=0.0,0.4,1.2000000029802322 rot=-180.0,0.0 og=1 fall=0.0 fire=80 air=300 alive=1 pose=standing hp=11.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
 MOBATTACK M13 T13 -> true
-E M13 minecraft:husk pos=65.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E M13 minecraft:zombie pos=65.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 P T13 minecraft:player pos=65.5,-60.0,2.0 delta=0.0,0.4,1.2000000029802322 rot=-180.0,0.0 og=1 fall=0.0 fire=80 air=300 alive=1 pose=standing hp=15.824 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
 I T13 36 minecraft:iron_boots*1/dmg=2
 I T13 37 minecraft:iron_leggings*1/dmg=2
 I T13 38 minecraft:diamond_chestplate*1/dmg=2
 I T13 39 minecraft:iron_helmet*1/dmg=2
 MOBATTACK M14 T14 -> true
-E M14 minecraft:husk pos=70.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-E T14 minecraft:husk pos=70.5,-60.0,2.0 delta=0.0,0.0,1.2000000029802322 rot=180.0,0.0 og=0 fall=0.0 fire=80 air=300 alive=1 pose=standing hp=991.144 abs=0.0 hurt=10/20 death=0 fx=-
+E M14 minecraft:zombie pos=70.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E T14 minecraft:zombie pos=70.5,-60.0,2.0 delta=0.0,0.0,1.2000000029802322 rot=180.0,0.0 og=0 fall=0.0 fire=80 air=300 alive=1 pose=standing hp=991.144 abs=0.0 hurt=10/20 death=0 fx=-
 MOBATTACK M15 T15 -> false
-E M15 minecraft:husk pos=75.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E M15 minecraft:zombie pos=75.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 P T15 minecraft:player pos=75.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 I T15 40 minecraft:shield*1/dmg=10
 MOBATTACK M16 T16 -> true
-E M16 minecraft:husk pos=80.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E M16 minecraft:zombie pos=80.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 P T16 minecraft:player pos=80.5,-60.0,2.0 delta=0.0,0.36080000519752503,0.4000000059604645 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
 MOBATTACK M17 T17 -> true
-E M17 minecraft:husk pos=85.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E M17 minecraft:zombie pos=85.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 P T17 minecraft:player pos=85.5,-60.0,2.0 delta=0.0,0.36080000519752503,0.4000000059604645 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.544001 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
 I T17 36 minecraft:iron_boots*1/dmg=2
 I T17 37 minecraft:iron_leggings*1/dmg=2
 I T17 38 minecraft:diamond_chestplate*1/dmg=2
 I T17 39 minecraft:iron_helmet*1/dmg=2
 MOBATTACK M18 T18 -> true
-E M18 minecraft:husk pos=90.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-E T18 minecraft:husk pos=90.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=989.176 abs=0.0 hurt=10/20 death=0 fx=-
+E M18 minecraft:zombie pos=90.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E T18 minecraft:zombie pos=90.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=989.176 abs=0.0 hurt=10/20 death=0 fx=-
 MOBATTACK M19 T19 -> false
-E M19 minecraft:husk pos=95.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E M19 minecraft:zombie pos=95.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 P T19 minecraft:player pos=95.5,-60.0,2.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 I T19 40 minecraft:shield*1/dmg=12
 MOBATTACK M20 T20 -> true
-E M20 minecraft:husk pos=0.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E M20 minecraft:zombie pos=0.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 P T20 minecraft:player pos=0.5,-60.0,12.0 delta=0.0,0.36080000519752503,0.4000000059604645 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
 MOBATTACK M21 T21 -> true
-E M21 minecraft:husk pos=5.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E M21 minecraft:zombie pos=5.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 P T21 minecraft:player pos=5.5,-60.0,12.0 delta=0.0,0.36080000519752503,0.4000000059604645 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=13.136 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
 I T21 36 minecraft:iron_boots*1/dmg=3
 I T21 37 minecraft:iron_leggings*1/dmg=3
 I T21 38 minecraft:diamond_chestplate*1/dmg=3
 I T21 39 minecraft:iron_helmet*1/dmg=3
 MOBATTACK M22 T22 -> true
-E M22 minecraft:husk pos=10.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-E T22 minecraft:husk pos=10.5,-60.0,12.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=987.208 abs=0.0 hurt=10/20 death=0 fx=-
+E M22 minecraft:zombie pos=10.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E T22 minecraft:zombie pos=10.5,-60.0,12.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=987.208 abs=0.0 hurt=10/20 death=0 fx=-
 MOBATTACK M23 T23 -> false
-E M23 minecraft:husk pos=15.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E M23 minecraft:zombie pos=15.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 P T23 minecraft:player pos=15.5,-60.0,12.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 I T23 40 minecraft:shield*1/dmg=14
 MOBATTACK M24 T24 -> true
-E M24 minecraft:husk pos=20.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-P T24 minecraft:player pos=20.5,-60.0,12.0 delta=0.0,0.4,0.9500000029802322 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=10/20 death=0 fx=minecraft:hunger/0/140 gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+E M24 minecraft:zombie pos=20.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+P T24 minecraft:player pos=20.5,-60.0,12.0 delta=0.0,0.4,0.9500000029802322 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
 MOBATTACK M25 T25 -> true
-E M25 minecraft:husk pos=25.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-P T25 minecraft:player pos=25.5,-60.0,12.0 delta=0.0,0.4,0.9500000029802322 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.896 abs=0.0 hurt=10/20 death=0 fx=minecraft:hunger/0/140 gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+E M25 minecraft:zombie pos=25.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+P T25 minecraft:player pos=25.5,-60.0,12.0 delta=0.0,0.4,0.9500000029802322 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.896 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
 I T25 36 minecraft:iron_boots*1/dmg=1
 I T25 37 minecraft:iron_leggings*1/dmg=1
 I T25 38 minecraft:diamond_chestplate*1/dmg=1
 I T25 39 minecraft:iron_helmet*1/dmg=1
 MOBATTACK M26 T26 -> true
-E M26 minecraft:husk pos=30.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-E T26 minecraft:husk pos=30.5,-60.0,12.0 delta=0.0,0.0,0.9500000029802322 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=997.06 abs=0.0 hurt=10/20 death=0 fx=minecraft:hunger/0/140
+E M26 minecraft:zombie pos=30.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E T26 minecraft:zombie pos=30.5,-60.0,12.0 delta=0.0,0.0,0.9500000029802322 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=997.06 abs=0.0 hurt=10/20 death=0 fx=-
 MOBATTACK M27 T27 -> false
-E M27 minecraft:husk pos=35.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E M27 minecraft:zombie pos=35.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 P T27 minecraft:player pos=35.5,-60.0,12.0 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 I T27 40 minecraft:shield*1/dmg=4

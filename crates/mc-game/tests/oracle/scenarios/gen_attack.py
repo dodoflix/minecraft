@@ -288,27 +288,27 @@ def entities():
 
 def mob():
     s = Scenario("Mob.doHurtTarget (mob melee): ATTACK_DAMAGE attribute, held weapon enchantments, knockback attribute/enchant, armor of the target; targets players and husks.", spacing=5)
-    s.add("level_seed 9")
+    s.add("level_seed 9", "time 18000")
     rows = []
     cfgs = [("", None), ("minecraft:iron_sword", None), ("minecraft:diamond_sword[enchantments={\"minecraft:sharpness\":5}]", None), ("minecraft:diamond_sword[enchantments={\"minecraft:knockback\":2,\"minecraft:fire_aspect\":1}]", None),
             ("minecraft:diamond_axe", None), ("minecraft:diamond_sword", ("attack_damage", 7.0)), ("", ("attack_knockback", 1.5))]
     for item, attr in cfgs:
-        for tgt in ["player", "armored", "husk", "shield"]:
+        for tgt in ["player", "armored", "zombie", "shield"]:
             x, z = s.slot()
             m = f"M{len(rows)}"
             t = f"T{len(rows)}"
-            s.add(f"spawn {m} minecraft:husk {x} -60 {z} 0 0 {NOAI}")
+            s.add(f"spawn {m} minecraft:zombie {x} -60 {z} 0 0 {NOAI}")
             s.seeded(m)
             if item:
                 s.add(f"give {m} mainhand {item}")
             if attr:
                 s.add(f"attribute {m} minecraft:{attr[0]} {attr[1]}")
-            if tgt == "husk":
-                s.add(f"spawn {t} minecraft:husk {x} -60 {z + 1.5} 180 0 {NOAI}")
+            if tgt == "zombie":
+                s.add(f"spawn {t} minecraft:zombie {x} -60 {z + 1.5} 180 0 {NOAI}")
             else:
                 s.add(f"spawn_player {t} survival {x} -60 {z + 1.5} 180 0")
             s.seeded(t)
-            if tgt == "husk":
+            if tgt == "zombie":
                 s.tough(t)
             if tgt == "armored":
                 for slot, it in [("head", "minecraft:iron_helmet"), ("chest", "minecraft:diamond_chestplate"), ("legs", "minecraft:iron_leggings"), ("feet", "minecraft:iron_boots")]:
@@ -318,7 +318,7 @@ def mob():
             rows.append((m, t, tgt))
     s.add("tick 40")
     for m, t, tgt in rows:
-        s.add(f"mob_attack {m} {t}", f"dump entity:{m} " + (f"player:{t}" if tgt != "husk" else f"entity:{t}") + (f" inventory:{t}" if tgt != "husk" else ""))
+        s.add(f"mob_attack {m} {t}", f"dump entity:{m} " + (f"player:{t}" if tgt != "zombie" else f"entity:{t}") + (f" inventory:{t}" if tgt != "zombie" else ""))
     s.save("mob")
 
 
@@ -332,8 +332,8 @@ def mace():
             s.add(f"spawn_player M{len(rows)} survival {x} -60 {z + 1.5} 180 0")
             s.seeded(f"M{len(rows)}")
         else:
-            s.mob(f"M{len(rows)}", "husk", x, z)
-        s.add(f"spawn M{len(rows)}n0 minecraft:husk {x + 1.5} -60 {z + 1.5} 180 0 {NOAI}")
+            s.mob(f"M{len(rows)}", "zombie", x, z)
+        s.add(f"spawn M{len(rows)}n0 minecraft:zombie {x + 1.5} -60 {z + 1.5} 180 0 {NOAI}")
         s.seeded(f"M{len(rows)}n0")
         s.tough(f"M{len(rows)}n0")
         s.add(f"spawn M{len(rows)}n1 minecraft:cow {x - 2.0} -60 {z + 1.0} 180 0 {NOAI}")

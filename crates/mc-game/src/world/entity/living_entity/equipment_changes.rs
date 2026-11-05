@@ -62,7 +62,19 @@ pub fn detect_equipment_updates(entity: &mut dyn Entity, level: &mut ServerLevel
     if let Some(last) = entity.living().map(|l| l.last_equipment_items.clone()) {
         entity.collect_equipment_changes_pre(level, &last);
     }
+    let previous_items = entity.living().map(|l| l.last_equipment_items.clone());
     let Some(mut changed) = collect_equipment_changes(entity) else { return };
+    // `collectEquipmentChanges`: the enchantments' location based effects (`attributes`: sweeping edge, ...) of the old/new stacks
+    let id = entity.id();
+    for (slot, current) in &changed {
+        let previous = previous_items.as_ref().map(|p| p[*slot as usize].clone()).unwrap_or_else(ItemStack::empty);
+        if !previous.is_empty() {
+            crate::world::item::enchantment_helper::stop_location_based_effects_for_slot(level, &mut crate::world::item::enchantment::actors::Actors::of(&mut *entity), &previous, id, *slot);
+        }
+        if !current.is_empty() && !current.is_broken() {
+            crate::world::item::enchantment_helper::run_location_changed_effects_for_slot(level, &mut crate::world::item::enchantment::actors::Actors::of(&mut *entity), current, id, *slot);
+        }
+    }
     handle_hand_swap(entity, level, &mut changed);
     if !changed.is_empty() {
         handle_equipment_changes(entity, level, changed);
