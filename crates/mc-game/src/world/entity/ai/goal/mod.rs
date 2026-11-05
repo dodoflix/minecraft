@@ -6,6 +6,10 @@
 //! selectors themselves. A goal that needs the concrete mob type does `mob.as_any().downcast_ref::<Chicken>()`.
 
 mod abstract_villager_access;
+mod golem_random_stroll_in_village;
+pub mod move_back_to_village;
+mod move_through_village;
+mod stroll_through_village;
 mod follow_mob;
 mod interact_goal;
 mod land_on_owners_shoulder;
@@ -47,6 +51,10 @@ mod water_avoiding_random_stroll;
 mod zombie_attack;
 
 pub use abstract_villager_access::AbstractVillagerAccess;
+pub use golem_random_stroll_in_village::GolemRandomStrollInVillageGoal;
+pub use move_back_to_village::MoveBackToVillageGoal;
+pub use move_through_village::{MobSupplier, MoveThroughVillageGoal};
+pub use stroll_through_village::StrollThroughVillageGoal;
 pub use follow_mob::FollowMobGoal;
 pub use interact_goal::InteractGoal;
 pub use land_on_owners_shoulder::{LandOnOwnersShoulderGoal, ShoulderRidingAccess};

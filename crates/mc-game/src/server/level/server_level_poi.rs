@@ -52,3 +52,12 @@ impl ServerLevel {
         }
     }
 }
+
+// ==== [GoalsA] additions ====
+impl ServerLevel {
+    /// `holder.is(PoiTypeTags.VILLAGE)`.
+    pub fn poi_type_is_village(&self, t: PoiTypeHolder) -> bool {
+        let village = mc_core::ident::Identifier::parse("minecraft:village").expect("valid tag");
+        mc_core::ident::Identifier::parse(t.registered_name()).is_ok_and(|id| self.registries.is_in_tag("minecraft:point_of_interest_type", &id, &village))
+    }
+}

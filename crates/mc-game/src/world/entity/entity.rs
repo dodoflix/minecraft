@@ -2970,6 +2970,11 @@ pub trait Entity: Any {
     fn as_shoulder_riding_mut(&mut self) -> Option<&mut dyn crate::world::entity::ai::goal::ShoulderRidingAccess> {
         None
     }
+    /// `Villager.wantsToSpawnGolem(gameTime)` (read for `EntityType.VILLAGER` by `GolemRandomStrollInVillageGoal`; the villager
+    /// overrides it).
+    fn villager_wants_to_spawn_golem(&self, _game_time: i64) -> bool {
+        false
+    }
     // ==== [MobSpine] additions (Entity trait methods) ====
     // `Mob` and its generic subclasses. Every default is the vanilla behavior and dispatches on `mob()` (the `MobData`
     // of mob types); concrete mobs override what their Java class overrides and call the `world::entity::mob` function
