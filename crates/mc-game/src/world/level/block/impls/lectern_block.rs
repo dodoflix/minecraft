@@ -91,7 +91,7 @@ pub fn drop_book(level: &mut ServerLevel, pos: BlockPos, state: BlockState, book
 
 /// `player.openMenu(lecternBlockEntity)`: `LecternBlockEntity.createMenu` + `getDisplayName`.
 pub fn lectern_menu_provider(pos: BlockPos) -> Box<dyn MenuProvider> {
-    Box::new(SimpleMenuProvider::new(Component::translatable("container.lectern", vec![]), move |id, _player| Some(Box::new(LecternMenu::new(id, pos)) as Box<dyn AbstractContainerMenu>)))
+    Box::new(SimpleMenuProvider::new(Component::translatable("container.lectern", vec![]), move |id, player| Some(Box::new(LecternMenu::new(id, player, pos)) as Box<dyn AbstractContainerMenu>)))
 }
 
 impl BlockBehaviour for LecternBlock {

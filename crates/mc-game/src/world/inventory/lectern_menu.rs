@@ -1,6 +1,6 @@
 //! `LecternMenu`: the book slot and the current page (the lectern block entity's `ContainerData`).
 
-use super::{AbstractContainerMenu, ContainerKey, MenuBase, MenuPlayer, Prediction, Slot, with_player_container};
+use super::{AbstractContainerMenu, ContainerKey, ContainerRef, MenuBase, MenuPlayer, Prediction, Slot, with_player_container};
 use crate::world::item::ItemStack;
 use mc_core::pos::BlockPos;
 use mc_data::MenuType;
@@ -14,16 +14,19 @@ pub const BUTTON_PAGE_JUMP_RANGE_START: i32 = 100;
 pub struct LecternMenu {
     base: MenuBase,
     pos: BlockPos,
+    container: ContainerRef,
 }
 
 impl LecternMenu {
     /// `LecternMenu(containerId, lectern, lecternData)` over the lectern block entity at `pos`.
     /// (`Slot.setChanged` -> `slotsChanged` only triggers a `broadcastChanges`, which every click does anyway.)
-    pub fn new(container_id: i32, pos: BlockPos) -> Self {
+    pub fn new(container_id: i32, player: &mut dyn MenuPlayer, pos: BlockPos) -> Self {
         let mut base = MenuBase::new(Some(MenuType::LECTERN), container_id);
         base.add_slot(Slot::new(ContainerKey::BlockEntity(pos), 0, 0, 0));
         base.add_block_entity_data_slots(pos, 1);
-        Self { base, pos }
+        let container = ContainerRef::block_entity(pos, 1);
+        container.start_open(player);
+        Self { base, pos, container }
     }
 
     /// `getPage()`.
@@ -108,6 +111,6 @@ impl AbstractContainerMenu for LecternMenu {
     }
 
     fn still_valid(&self, player: &dyn MenuPlayer) -> bool {
-        ContainerKey::BlockEntity(self.pos).still_valid(player)
+        self.container.still_valid(player)
     }
 }

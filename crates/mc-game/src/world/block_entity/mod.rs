@@ -174,11 +174,16 @@ pub struct BlockEntityData {
     /// `setChanged()` was requested by a container operation that had no level at hand (see
     /// [`BlockEntity::flush_pending`]).
     pub changed: bool,
+    /// Identity of this block entity object (vanilla compares references: `level.getBlockEntity(pos) != blockEntity`
+    /// in `Container.stillValidBlockEntity`).
+    pub instance_id: u64,
 }
+
+static NEXT_INSTANCE_ID: std::sync::atomic::AtomicU64 = std::sync::atomic::AtomicU64::new(1);
 
 impl BlockEntityData {
     pub fn new(ty: BlockEntityType, pos: BlockPos, block_state: BlockState) -> Self {
-        Self { ty, pos, block_state, removed: false, components: Default::default(), changed: false }
+        Self { ty, pos, block_state, removed: false, components: Default::default(), changed: false, instance_id: NEXT_INSTANCE_ID.fetch_add(1, std::sync::atomic::Ordering::Relaxed) }
     }
 }
 

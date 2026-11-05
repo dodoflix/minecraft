@@ -8,11 +8,23 @@ use mc_core::pos::BlockPos;
 pub struct ContainerRef {
     /// `(container, size)`; the compound's slot `i` lives in the first part whose cumulative size exceeds `i`.
     parts: Vec<(ContainerKey, usize)>,
+    /// Block entity instance each part was bound to by `start_open` (`stillValidBlockEntity` compares the object, not
+    /// the position): a part whose block entity was replaced meanwhile is no longer valid.
+    bound: std::cell::RefCell<Vec<Option<u64>>>,
+}
+
+/// The instance id of the block entity at `pos` as seen by `player`.
+fn instance_at(player: &dyn MenuPlayer, key: &ContainerKey) -> Option<u64> {
+    use crate::world::level::BlockGetter;
+    match key {
+        ContainerKey::BlockEntity(pos) => player.level_ref()?.get_block_entity(*pos).map(|be| be.base().instance_id),
+        _ => None,
+    }
 }
 
 impl ContainerRef {
     pub fn single(key: ContainerKey, size: usize) -> Self {
-        Self { parts: vec![(key, size)] }
+        Self { parts: vec![(key, size)], bound: std::cell::RefCell::new(vec![None]) }
     }
 
     /// The `Container` of the block entity at `pos` (`size` = `getContainerSize()`).
@@ -32,7 +44,9 @@ impl ContainerRef {
 
     /// `new CompoundContainer(first, second, ...)`.
     pub fn compound(parts: impl IntoIterator<Item = ContainerRef>) -> Self {
-        Self { parts: parts.into_iter().flat_map(|p| p.parts).collect() }
+        let parts: Vec<_> = parts.into_iter().flat_map(|p| p.parts).collect();
+        let bound = std::cell::RefCell::new(vec![None; parts.len()]);
+        Self { parts, bound }
     }
 
     /// `getContainerSize()`.
@@ -59,13 +73,15 @@ impl ContainerRef {
 
     /// `container.stillValid(player)` (`CompoundContainer`: every part).
     pub fn still_valid(&self, player: &dyn MenuPlayer) -> bool {
-        self.parts.iter().all(|(key, _)| key.still_valid(player))
+        let bound = self.bound.borrow();
+        self.parts.iter().zip(bound.iter()).all(|((key, _), bound)| key.still_valid(player) && bound.is_none_or(|id| instance_at(player, key) == Some(id)))
     }
 
     /// `container.startOpen(player)` (every part).
     pub fn start_open(&self, player: &mut dyn MenuPlayer) {
-        for (key, _) in &self.parts {
+        for (i, (key, _)) in self.parts.iter().enumerate() {
             key.start_open(player);
+            self.bound.borrow_mut()[i] = instance_at(&*player, key);
         }
     }
 
