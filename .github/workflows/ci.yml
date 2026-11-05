@@ -60,6 +60,9 @@ jobs:
         if: steps.ref-cache.outputs.cache-hit != 'true'
         run: scripts/setup-ref.sh
 
+      - name: Fingerprint ref/ (compare with a local `sha256sum` to catch JVM-dependent generator output)
+        run: (cd ref && sha256sum generated/reports/*.json extracted/*.json) | tee ref-fingerprint.txt
+
       - uses: dtolnay/rust-toolchain@1.97.1
 
       - uses: Swatinem/rust-cache@v2

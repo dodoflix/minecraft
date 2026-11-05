@@ -2,6 +2,12 @@
 resolver = "3"
 members = ["crates/*", "tools/worldcmp"]
 
+# One serde_json feature set for every crate and build config: Gson-like insertion order (vanilla's JsonObject is a
+# LinkedTreeMap) and exact decimal parsing. Without this, a crate's isolated tests saw sorted maps while the server
+# binary (feature-unified) saw file order.
+[workspace.dependencies]
+serde_json = { version = "1.0.154", features = ["preserve_order", "float_roundtrip"] }
+
 [workspace.package]
 edition = "2024"
 version = "0.1.0"

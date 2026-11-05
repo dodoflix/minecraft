@@ -20,7 +20,7 @@ regex = "1"
 linkme = "0.3"
 log = "0.4"
 serde = { version = "1", features = ["derive"] }
-serde_json = { version = "1", features = ["preserve_order", "float_roundtrip"] }
+serde_json = { workspace = true }
 tokio = { version = "1", features = ["rt-multi-thread", "net", "sync", "time", "io-util", "macros", "signal"] }
 indexmap = "2"
 parking_lot = "0.12"
