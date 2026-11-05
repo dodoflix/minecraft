@@ -421,7 +421,7 @@ impl Entity for Wolf {
         mob::spawn::finalize_spawn(self, level, difficulty, reason, group_data)
     }
 
-    fn get_ambient_sound_in(&mut self, level: &ServerLevel) -> Option<SoundEvent> {
+    fn get_ambient_sound_in(&mut self, level: &mut ServerLevel) -> Option<SoundEvent> {
         if neutral::is_angry(self, level) {
             Some(self.get_sound_set().growl_sound)
         } else if self.base_mut().random.next_int_bounded(3) == 0 {

@@ -1,8 +1,6 @@
 //! `ServerPlayer` shoulder entities (`ShoulderEntityLeft/Right`): `handleShoulderEntities`, `setEntityOnShoulder`,
 //! `removeEntitiesOnShoulder`.
 //!
-//! Gap (parrot class owner): `playShoulderEntityAmbientSound` draws the vanilla `random.nextInt(200)` but a parrot's
-//! `Parrot.imitateNearbyMobs/getAmbient/getPitch` sound is not played.
 
 use super::ServerPlayer;
 use crate::server::level::ServerLevel;
@@ -15,8 +13,8 @@ use mc_nbt::CompoundTag;
 impl ServerPlayer {
     /// `handleShoulderEntities()` (the `aiStep` tail).
     pub fn handle_shoulder_entities(&mut self, level: &mut ServerLevel) {
-        self.play_shoulder_entity_ambient_sound(false);
-        self.play_shoulder_entity_ambient_sound(true);
+        self.play_shoulder_entity_ambient_sound(level, false);
+        self.play_shoulder_entity_ambient_sound(level, true);
         let b = self.base();
         // `isInPowderSnow` is tracked by the entity base (`EntityData.is_in_powder_snow`)
         if b.fall_distance > 0.5 || self.is_in_water() || self.player.abilities.flying || self.player.living.is_sleeping() || self.base().is_in_powder_snow {
@@ -24,10 +22,18 @@ impl ServerPlayer {
         }
     }
 
-    fn play_shoulder_entity_ambient_sound(&mut self, right: bool) {
+    fn play_shoulder_entity_ambient_sound(&mut self, level: &mut ServerLevel, right: bool) {
         let tag = if right { &self.shoulder_entity_right } else { &self.shoulder_entity_left };
-        if !tag.is_empty() && !tag.get_boolean_or("Silent", false) {
-            let _ = self.base_mut().random.next_int_bounded(200);
+        if !tag.is_empty() && !tag.get_boolean_or("Silent", false) && self.base_mut().random.next_int_bounded(200) == 0 {
+            let is_parrot = (if right { &self.shoulder_entity_right } else { &self.shoulder_entity_left }).get_string("id") == Some("minecraft:parrot");
+            if is_parrot && !crate::world::entity::animal::parrot::parrot::imitate_nearby_mobs(level, self) {
+                let sound = crate::world::entity::animal::parrot::parrot::get_ambient(level.difficulty(), &mut self.base_mut().random);
+                let pitch = crate::world::entity::animal::parrot::parrot::get_pitch(&mut self.base_mut().random);
+                let pos = self.position();
+                if let Some(sound) = sound {
+                    level.play_sound_at(None, pos.x, pos.y, pos.z, sound, self.get_sound_source(), 1.0, pitch);
+                }
+            }
         }
     }
 

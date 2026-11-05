@@ -12,6 +12,7 @@ pub mod fish;
 pub mod equine;
 pub mod frog;
 pub mod nautilus;
+pub mod parrot;
 pub mod pig;
 pub mod polarbear;
 pub mod rabbit;

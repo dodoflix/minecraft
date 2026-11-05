@@ -216,7 +216,7 @@ impl Entity for Ocelot {
         !self.is_trusting() && self.base().tick_count > 2400
     }
 
-    fn get_ambient_sound_in(&mut self, _level: &ServerLevel) -> Option<SoundEvent> {
+    fn get_ambient_sound_in(&mut self, _level: &mut ServerLevel) -> Option<SoundEvent> {
         Some(SoundEvent::ENTITY_OCELOT_AMBIENT)
     }
 

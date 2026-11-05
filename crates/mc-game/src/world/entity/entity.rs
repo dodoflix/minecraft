@@ -1722,10 +1722,14 @@ pub trait Entity: Any {
     }
     /// `onFlap()`.
     fn on_flap(&mut self) {}
+    /// `onFlap()` for classes that play a sound (`Parrot`): called by `processFlappingMovement`.
+    fn on_flap_in(&mut self, _level: &mut ServerLevel) {
+        self.on_flap();
+    }
     /// `processFlappingMovement()`.
     fn process_flapping_movement(&mut self, level: &mut ServerLevel) {
         if self.is_flapping() {
-            self.on_flap();
+            self.on_flap_in(level);
             if self.get_movement_emission().emits_events() {
                 self.game_event(level, mc_data::GameEvent::FLAP);
             }
@@ -3051,7 +3055,7 @@ pub trait Entity: Any {
     }
     /// `getAmbientSound()` for classes that draw random numbers or read level state (`Wolf`, `Cat`): the sound played by
     /// `playAmbientSound`; defaults to the plain [`Entity::get_ambient_sound`].
-    fn get_ambient_sound_in(&mut self, _level: &ServerLevel) -> Option<mc_data::SoundEvent> {
+    fn get_ambient_sound_in(&mut self, _level: &mut ServerLevel) -> Option<mc_data::SoundEvent> {
         self.get_ambient_sound()
     }
     /// `getAmbientSoundInterval()` (`Animal`: 120).
@@ -3387,6 +3391,8 @@ pub trait Entity: Any {
     /// controlled `PathfinderMob` vehicle).
     fn after_ride_tick(&mut self, _level: &ServerLevel) {}
     // ==== [Pets] additions (Entity trait methods) ====
+    /// `LivingEntity.setRecordPlayingNearby(jukebox, isPlaying)` (`Parrot` dances to jukebox music).
+    fn set_record_playing_nearby(&mut self, _jukebox: BlockPos, _is_playing: bool) {}
     /// `AgeableMob.getAgeScale()` (`Turtle`: 0.3 for babies).
     fn get_age_scale(&self) -> f32 {
         if self.is_baby() { 0.5 } else { 1.0 }

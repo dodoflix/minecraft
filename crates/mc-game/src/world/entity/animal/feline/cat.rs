@@ -658,7 +658,7 @@ impl Entity for Cat {
         super::custom_server_ai_step(self);
     }
 
-    fn get_ambient_sound_in(&mut self, _level: &ServerLevel) -> Option<SoundEvent> {
+    fn get_ambient_sound_in(&mut self, _level: &mut ServerLevel) -> Option<SoundEvent> {
         if tamable::is_tame(self) {
             if mob::animal::is_in_love(self) {
                 Some(self.get_sound_set().purr_sound)
