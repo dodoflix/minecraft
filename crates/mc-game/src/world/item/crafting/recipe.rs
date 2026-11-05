@@ -5,12 +5,13 @@
 
 use mc_core::ident::Identifier;
 use mc_data::{Item, RecipeBookCategory, RecipeSerializer, RecipeType};
-use mc_dfu::{BOOL, Codec, DataResult, MapCodec, STRING, string_enum_codec};
+use mc_dfu::{BOOL, Codec, MapCodec, STRING, string_enum_codec};
 use mc_protocol::components::holder::registry_by_name_codec;
 use mc_protocol::packets::play::inventory::RecipeDisplay;
 
 use super::brewing_recipe::BrewingRecipe;
 use super::crafting_recipes::{ShapedRecipe, ShapelessRecipe};
+use super::custom_recipes::{CustomRecipe, DyeRecipe, ImbueRecipe, TransmuteRecipe};
 use super::ingredient::{Ingredient, PlacementInfo};
 use super::inputs::{BrewingInput, CraftingInput, SmithingRecipeInput};
 use super::single_item_recipes::{CookingRecipe, StonecutterRecipe};
@@ -104,6 +105,10 @@ impl CookingBookInfo {
 pub enum RecipeKind {
     Shaped(ShapedRecipe),
     Shapeless(ShapelessRecipe),
+    Transmute(TransmuteRecipe),
+    Dye(DyeRecipe),
+    Imbue(ImbueRecipe),
+    Custom(CustomRecipe),
     Cooking(CookingRecipe),
     Stonecutting(StonecutterRecipe),
     SmithingTransform(SmithingTransformRecipe),
@@ -130,6 +135,10 @@ impl Recipe {
         let placement_info = match &kind {
             RecipeKind::Shaped(r) => r.create_placement_info(),
             RecipeKind::Shapeless(r) => r.create_placement_info(),
+            RecipeKind::Transmute(r) => r.create_placement_info(),
+            RecipeKind::Dye(r) => r.create_placement_info(),
+            RecipeKind::Imbue(r) => r.create_placement_info(),
+            RecipeKind::Custom(_) => PlacementInfo::not_placeable(),
             RecipeKind::Cooking(r) => r.placement_info(),
             RecipeKind::Stonecutting(r) => r.placement_info(),
             RecipeKind::SmithingTransform(r) => r.create_placement_info(),
@@ -142,6 +151,9 @@ impl Recipe {
     /// Binds every named ingredient to its tag in `registries` and recomputes `placementInfo()`.
     pub fn resolve(mut self, registries: &RegistryAccess) -> Recipe {
         self.for_each_ingredient_mut(&mut |i| i.resolve(registries));
+        if let RecipeKind::Custom(c) = &mut self.kind {
+            c.resolve_registries(registries);
+        }
         Recipe::new(self.kind)
     }
 
@@ -149,6 +161,19 @@ impl Recipe {
         match &mut self.kind {
             RecipeKind::Shaped(r) => r.for_each_ingredient_mut(f),
             RecipeKind::Shapeless(r) => r.ingredients.iter_mut().for_each(f),
+            RecipeKind::Transmute(r) => {
+                f(&mut r.input);
+                f(&mut r.material);
+            }
+            RecipeKind::Dye(r) => {
+                f(&mut r.target);
+                f(&mut r.dye);
+            }
+            RecipeKind::Imbue(r) => {
+                f(&mut r.source);
+                f(&mut r.material);
+            }
+            RecipeKind::Custom(r) => r.for_each_ingredient_mut(f),
             RecipeKind::Cooking(r) => f(&mut r.input),
             RecipeKind::Stonecutting(r) => f(&mut r.input),
             RecipeKind::SmithingTransform(r) => {
@@ -171,7 +196,7 @@ impl Recipe {
     /// `getType()`.
     pub fn recipe_type(&self) -> RecipeType {
         match &self.kind {
-            RecipeKind::Shaped(_) | RecipeKind::Shapeless(_) => RecipeType::CRAFTING,
+            RecipeKind::Shaped(_) | RecipeKind::Shapeless(_) | RecipeKind::Transmute(_) | RecipeKind::Dye(_) | RecipeKind::Imbue(_) | RecipeKind::Custom(_) => RecipeType::CRAFTING,
             RecipeKind::Cooking(r) => r.kind.recipe_type(),
             RecipeKind::Stonecutting(_) => RecipeType::STONECUTTING,
             RecipeKind::SmithingTransform(_) | RecipeKind::SmithingTrim(_) => RecipeType::SMITHING,
@@ -184,6 +209,10 @@ impl Recipe {
         match &self.kind {
             RecipeKind::Shaped(_) => RecipeSerializer::CRAFTING_SHAPED,
             RecipeKind::Shapeless(_) => RecipeSerializer::CRAFTING_SHAPELESS,
+            RecipeKind::Transmute(_) => RecipeSerializer::CRAFTING_TRANSMUTE,
+            RecipeKind::Dye(_) => RecipeSerializer::CRAFTING_DYE,
+            RecipeKind::Imbue(_) => RecipeSerializer::CRAFTING_IMBUE,
+            RecipeKind::Custom(c) => c.serializer(),
             RecipeKind::Cooking(r) => r.kind.serializer(),
             RecipeKind::Stonecutting(_) => RecipeSerializer::STONECUTTING,
             RecipeKind::SmithingTransform(_) => RecipeSerializer::SMITHING_TRANSFORM,
@@ -194,7 +223,7 @@ impl Recipe {
 
     /// `isSpecial()` (custom recipes and brewing).
     pub fn is_special(&self) -> bool {
-        matches!(self.kind, RecipeKind::Brewing(_))
+        matches!(self.kind, RecipeKind::Brewing(_) | RecipeKind::Custom(_))
     }
 
     /// `showNotification()`.
@@ -202,6 +231,10 @@ impl Recipe {
         match &self.kind {
             RecipeKind::Shaped(r) => r.common.show_notification,
             RecipeKind::Shapeless(r) => r.common.show_notification,
+            RecipeKind::Transmute(r) => r.common.show_notification,
+            RecipeKind::Dye(r) => r.common.show_notification,
+            RecipeKind::Imbue(r) => r.common.show_notification,
+            RecipeKind::Custom(_) => false,
             RecipeKind::Cooking(r) => r.common.show_notification,
             RecipeKind::Stonecutting(r) => r.common.show_notification,
             RecipeKind::SmithingTransform(r) => r.common.show_notification,
@@ -215,8 +248,11 @@ impl Recipe {
         match &self.kind {
             RecipeKind::Shaped(r) => &r.book.group,
             RecipeKind::Shapeless(r) => &r.book.group,
+            RecipeKind::Transmute(r) => &r.book.group,
+            RecipeKind::Dye(r) => &r.book.group,
+            RecipeKind::Imbue(r) => &r.book.group,
             RecipeKind::Cooking(r) => &r.book.group,
-            RecipeKind::Stonecutting(_) | RecipeKind::SmithingTransform(_) | RecipeKind::SmithingTrim(_) | RecipeKind::Brewing(_) => "",
+            RecipeKind::Custom(_) | RecipeKind::Stonecutting(_) | RecipeKind::SmithingTransform(_) | RecipeKind::SmithingTrim(_) | RecipeKind::Brewing(_) => "",
         }
     }
 
@@ -230,6 +266,10 @@ impl Recipe {
         match &self.kind {
             RecipeKind::Shaped(r) => r.display(),
             RecipeKind::Shapeless(r) => r.display(),
+            RecipeKind::Transmute(r) => r.display(),
+            RecipeKind::Dye(r) => r.display(),
+            RecipeKind::Imbue(r) => r.display(),
+            RecipeKind::Custom(_) => Vec::new(),
             RecipeKind::Cooking(r) => r.display(),
             RecipeKind::Stonecutting(r) => r.display(),
             RecipeKind::SmithingTransform(r) => r.display(),
@@ -243,6 +283,10 @@ impl Recipe {
         match &self.kind {
             RecipeKind::Shaped(r) => crafting_category(r.book.category),
             RecipeKind::Shapeless(r) => crafting_category(r.book.category),
+            RecipeKind::Transmute(r) => crafting_category(r.book.category),
+            RecipeKind::Dye(r) => crafting_category(r.book.category),
+            RecipeKind::Imbue(r) => crafting_category(r.book.category),
+            RecipeKind::Custom(_) => RecipeBookCategory::CRAFTING_MISC,
             RecipeKind::Cooking(r) => r.recipe_book_category(),
             RecipeKind::Stonecutting(_) => RecipeBookCategory::STONECUTTER,
             RecipeKind::SmithingTransform(_) | RecipeKind::SmithingTrim(_) => RecipeBookCategory::SMITHING,
@@ -252,10 +296,13 @@ impl Recipe {
 
     /// `CraftingRecipe.matches(input, level)` (false for recipes of another input kind).
     pub fn matches_crafting(&self, input: &CraftingInput, level: &ServerLevel) -> bool {
-        let _ = level;
         match &self.kind {
             RecipeKind::Shaped(r) => r.matches(input),
             RecipeKind::Shapeless(r) => r.matches(input),
+            RecipeKind::Transmute(r) => r.matches(input),
+            RecipeKind::Dye(r) => r.matches(input),
+            RecipeKind::Imbue(r) => r.matches(input),
+            RecipeKind::Custom(r) => r.matches(input, level),
             _ => false,
         }
     }
@@ -265,13 +312,20 @@ impl Recipe {
         match &self.kind {
             RecipeKind::Shaped(r) => r.result.create(),
             RecipeKind::Shapeless(r) => r.assemble(input),
+            RecipeKind::Transmute(r) => r.assemble(input),
+            RecipeKind::Dye(r) => r.assemble(input),
+            RecipeKind::Imbue(r) => r.assemble(input),
+            RecipeKind::Custom(r) => r.assemble(input),
             _ => ItemStack::empty(),
         }
     }
 
     /// `CraftingRecipe.getRemainingItems(input)` (one entry per slot of `input`).
     pub fn get_remaining_items(&self, input: &CraftingInput) -> Vec<ItemStack> {
-        default_crafting_reminder(input)
+        match &self.kind {
+            RecipeKind::Custom(r) => r.get_remaining_items(input),
+            _ => default_crafting_reminder(input),
+        }
     }
 
     /// `SmithingRecipe.matches(input, level)`.
@@ -390,6 +444,26 @@ fn serializer_codec(serializer: RecipeSerializer) -> MapCodec<RecipeKind> {
             RecipeKind::Shapeless(r) => r.clone(),
             _ => unreachable!("serializer/kind mismatch"),
         })
+    } else if serializer == RecipeSerializer::CRAFTING_TRANSMUTE {
+        TransmuteRecipe::map_codec().xmap(RecipeKind::Transmute, |k: &RecipeKind| match k {
+            RecipeKind::Transmute(r) => r.clone(),
+            _ => unreachable!("serializer/kind mismatch"),
+        })
+    } else if serializer == RecipeSerializer::CRAFTING_DYE {
+        DyeRecipe::map_codec().xmap(RecipeKind::Dye, |k: &RecipeKind| match k {
+            RecipeKind::Dye(r) => r.clone(),
+            _ => unreachable!("serializer/kind mismatch"),
+        })
+    } else if serializer == RecipeSerializer::CRAFTING_IMBUE {
+        ImbueRecipe::map_codec().xmap(RecipeKind::Imbue, |k: &RecipeKind| match k {
+            RecipeKind::Imbue(r) => r.clone(),
+            _ => unreachable!("serializer/kind mismatch"),
+        })
+    } else if let Some(custom) = CustomRecipe::map_codec(serializer) {
+        custom.xmap(RecipeKind::Custom, |k: &RecipeKind| match k {
+            RecipeKind::Custom(r) => r.clone(),
+            _ => unreachable!("serializer/kind mismatch"),
+        })
     } else if let Some(kind) = super::single_item_recipes::CookingKind::of_serializer(serializer) {
         CookingRecipe::map_codec(kind).xmap(RecipeKind::Cooking, |k: &RecipeKind| match k {
             RecipeKind::Cooking(r) => r.clone(),
@@ -416,14 +490,7 @@ fn serializer_codec(serializer: RecipeSerializer) -> MapCodec<RecipeKind> {
             _ => unreachable!("serializer/kind mismatch"),
         })
     } else {
-        MapCodec::from_fns(
-            |_, _, _| {},
-            move |_, _| {
-                let name = mc_data::registry::by_name("minecraft:recipe_serializer").and_then(|r| r.name_of(serializer.id())).unwrap_or("?").to_owned();
-                DataResult::error(move || format!("Recipe serializer {name} is not implemented"))
-            },
-            Vec::new,
-        )
+        unreachable!("every recipe serializer of vanilla is handled")
     }
 }
 

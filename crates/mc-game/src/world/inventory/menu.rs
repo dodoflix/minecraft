@@ -497,6 +497,11 @@ pub trait AbstractContainerMenu: Any {
         self.base_mut().broadcast_full_state_data(player);
     }
 
+    /// `this instanceof RecipeBookMenu` (crafting/furnace menus override).
+    fn as_recipe_book_menu(&mut self) -> Option<&mut dyn crate::world::item::crafting::RecipeBookMenu> {
+        None
+    }
+
     fn click_menu_button(&mut self, _player: &mut dyn MenuPlayer, _button_id: i32) -> bool {
         false
     }

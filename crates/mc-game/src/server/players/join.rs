@@ -65,6 +65,10 @@ pub trait JoinHost {
     fn level_join_info(&mut self) -> LevelJoinInfo;
     /// `recipeManager.getSynchronizedItemProperties()/StonecutterRecipes()`.
     fn update_recipes_packet(&self) -> ClientboundUpdateRecipesPacket;
+    /// `server.getRecipeManager()`.
+    fn recipe_manager(&self) -> crate::world::item::crafting::RecipeManager {
+        crate::world::item::crafting::RecipeManager::empty()
+    }
     /// `server.getCommands().sendCommands(player)` (after the op-level entity event).
     fn send_commands(&mut self, player: &PlayerHandle, permissions: LevelBasedPermissionSet);
     /// `updateEntireScoreboard(level.getScoreboard(), player)`.
@@ -144,39 +148,11 @@ pub fn abilities_packet(player: &ServerPlayer) -> ClientboundPlayerAbilitiesPack
     }
 }
 
-/// `RecipeBookSettings` of the saved `recipeBook` tag (`isGuiOpen`, `isFilteringCraftable`, `isFurnaceGuiOpen`, ...).
-pub fn recipe_book_settings(recipe_book: Option<&Tag>) -> RecipeBookSettings {
-    let flag = |key: &str| recipe_book.and_then(Tag::as_compound).and_then(|c| c.get(key)).and_then(Tag::as_boolean).unwrap_or(false);
-    let ty = |open: &str, filtering: &str| RecipeBookSettingsTypeSettings { open: flag(open), filtering: flag(filtering) };
-    RecipeBookSettings {
-        crafting: ty("isGuiOpen", "isFilteringCraftable"),
-        furnace: ty("isFurnaceGuiOpen", "isFurnaceFilteringCraftable"),
-        blast_furnace: ty("isBlastingFurnaceGuiOpen", "isBlastingFurnaceFilteringCraftable"),
-        smoker: ty("isSmokerGuiOpen", "isSmokerFilteringCraftable"),
-    }
-}
-
-fn recipe_ids(recipe_book: Option<&Tag>, key: &str) -> Vec<Identifier> {
-    recipe_book
-        .and_then(Tag::as_compound)
-        .and_then(|c| c.get_list(key))
-        .map(|l| l.iter().filter_map(|t| t.as_string().and_then(Identifier::try_parse)).collect())
-        .unwrap_or_default()
-}
-
-/// `ServerRecipeBook` display resolution of the known recipes (`RecipeManager.listDisplaysForRecipe`): the recipe
-/// manager is a later wave, so no displays resolve.
-pub fn recipe_book_entries(_known: &[Identifier], _highlight: &[Identifier]) -> Vec<ClientboundRecipeBookAddEntry> {
-    Vec::new()
-}
-
 /// `ServerRecipeBook.sendInitialRecipeBook(player)`.
-pub fn send_initial_recipe_book(player: &ServerPlayer) {
-    let book = player.recipe_book.as_ref();
-    player.send(&ClientboundRecipeBookSettingsPacket { book_settings: recipe_book_settings(book) });
-    let known = recipe_ids(book, "recipes");
-    let highlight = recipe_ids(book, "toBeDisplayed");
-    player.send(&ClientboundRecipeBookAddPacket { entries: recipe_book_entries(&known, &highlight), replace: true });
+pub fn send_initial_recipe_book(player: &ServerPlayer, manager: &crate::world::item::crafting::RecipeManager) {
+    let (settings, add) = player.recipe_book.initial_packets(manager);
+    player.send(&settings);
+    player.send(&add);
 }
 
 /// `ServerPlayer.sendPostEffects()`.
@@ -302,7 +278,7 @@ pub fn place_new_player(
     // `player.getStats().markAllDirty()`: the statistics are loaded (and their file created) with the first access
     player.stats = host.list().get_player_stats(&handle);
     player.stats.lock().mark_all_dirty();
-    send_initial_recipe_book(&player);
+    send_initial_recipe_book(&player, &host.recipe_manager());
     host.update_entire_scoreboard(&handle);
     host.invalidate_status();
     let display_name = mc_text::Component::literal(profile.name.clone());

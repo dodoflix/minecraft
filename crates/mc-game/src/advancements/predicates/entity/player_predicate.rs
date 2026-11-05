@@ -136,9 +136,7 @@ pub struct PlayerPredicate {
 
 /// `ServerRecipeBook.contains(recipe)` over the saved `ServerRecipeBook.Packed` tag.
 fn recipe_book_contains(player: &ServerPlayer, recipe: &Identifier) -> bool {
-    let Some(Tag::Compound(book)) = &player.recipe_book else { return false };
-    let wanted = recipe.to_string();
-    book.get_list("recipes").is_some_and(|known| known.iter().any(|t| t.as_string() == Some(wanted.as_str())))
+    player.recipe_book.contains(recipe)
 }
 
 /// `ProjectileUtil.getEntityHitResult(level, source, from, to, box, matching, margin)`: the nearest entity whose box

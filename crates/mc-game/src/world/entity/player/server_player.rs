@@ -87,7 +87,7 @@ pub struct ServerPlayer {
     pub is_changing_dimension: bool,
     pub seen_credits: bool,
     /// `recipeBook` (`ServerRecipeBook.Packed`), kept as the saved tag until the recipe slice models it.
-    pub recipe_book: Option<Tag>,
+    pub recipe_book: crate::world::item::crafting::ServerRecipeBook,
     pub levitation_start_pos: Option<Vec3>,
     pub levitation_start_time: i32,
     pub disconnected: bool,
@@ -164,7 +164,7 @@ impl ServerPlayer {
             camera: None,
             is_changing_dimension: false,
             seen_credits: false,
-            recipe_book: None,
+            recipe_book: Default::default(),
             levitation_start_pos: None,
             levitation_start_time: 0,
             listener: None,
@@ -687,13 +687,8 @@ impl Entity for ServerPlayer {
         out.put_boolean("seenCredits", self.seen_credits);
         put_vec3(out, "entered_nether_pos", self.entered_nether_position);
         put_vec3(out, "last_explosion_impact_pos", self.current_explosion_impact_pos);
-        // `recipeBook.pack()`: always written; an unknown book packs as the empty default
-        out.put(
-            "recipeBook",
-            self.recipe_book.clone().unwrap_or_else(|| {
-                Tag::Compound(CompoundTag::new().with("recipes", ListTag::new()).with("toBeDisplayed", ListTag::new()))
-            }),
-        );
+        // `recipeBook.pack()`
+        out.put("recipeBook", self.recipe_book.pack());
         if let Some(r) = &self.respawn_config {
             out.put("respawn", r.encode());
         }
@@ -781,7 +776,11 @@ impl Entity for ServerPlayer {
         self.entered_nether_position = entity::read_vec3(input.get("entered_nether_pos"));
         self.current_explosion_impact_pos = entity::read_vec3(input.get("last_explosion_impact_pos"));
         self.seen_credits = input.get_boolean_or("seenCredits", false);
-        self.recipe_book = input.get("recipeBook").cloned();
+        // validated against the recipe manager at join (`ServerRecipeBook::retain_known`)
+        self.recipe_book = Default::default();
+        if let Some(book) = input.get("recipeBook") {
+            self.recipe_book.load_untrusted(book, |_| true);
+        }
         self.respawn_config = input.get("respawn").and_then(|t| RespawnConfig::decode(t).ok());
         self.spawn_extra_particles_on_fall = input.get_boolean_or("spawn_extra_particles_on_fall", false);
         self.raid_omen_position = living::read_block_pos(input.get("raid_omen_position"));

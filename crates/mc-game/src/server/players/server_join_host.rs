@@ -135,6 +135,10 @@ impl JoinHost for ServerJoinHost<'_> {
         crate::world::item::crafting::update_recipes_packet(&self.level.recipe_access())
     }
 
+    fn recipe_manager(&self) -> crate::world::item::crafting::RecipeManager {
+        self.level.recipe_access()
+    }
+
     fn send_commands(&mut self, player: &PlayerHandle, permissions: LevelBasedPermissionSet) {
         if let Some(send) = SEND_COMMANDS.get() {
             send(self.server, player, permissions);

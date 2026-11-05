@@ -250,6 +250,7 @@ impl PrepareSpawn for PrepareSpawnTask {
             let previous = player.game_mode.previous_game_mode_for_player;
             if let Some(tag) = &saved {
                 player.load(tag)?;
+                player.recipe_book.retain_known(&server.shared.recipe_manager());
             }
             let previous = if saved.is_some() { player.game_mode.previous_game_mode_for_player } else { previous };
             let mode = calculate_game_mode_for_new_player(server, loaded_mode);

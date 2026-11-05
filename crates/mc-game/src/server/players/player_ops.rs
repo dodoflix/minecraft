@@ -152,7 +152,8 @@ pub fn reload_resources(server: &mut MinecraftServer) {
         let (dimension, id) = (handle.dimension(), handle.id);
         server.with_level(&dimension, |server, level| {
             handle.connection.send(&ServerJoinHost { server, level }.update_recipes_packet());
-            level.with_player(id, |_, player| super::join::send_initial_recipe_book(player));
+            let manager = level.recipe_access();
+            level.with_player(id, |_, player| super::join::send_initial_recipe_book(player, &manager));
         });
     }
 }

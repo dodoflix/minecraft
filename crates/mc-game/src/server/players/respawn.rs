@@ -152,7 +152,7 @@ fn restore_from(new: &mut ServerPlayer, mut old: ServerPlayer, restore_all: bool
     new.last_sent_exp = -1;
     new.last_sent_health = -1.0;
     new.last_sent_food = -1;
-    new.recipe_book = old.recipe_book.take();
+    new.recipe_book.copy_over_data(&old.recipe_book);
     new.seen_credits = old.seen_credits;
     new.entered_nether_position = old.entered_nether_position;
     new.current_explosion_impact_pos = old.current_explosion_impact_pos;
