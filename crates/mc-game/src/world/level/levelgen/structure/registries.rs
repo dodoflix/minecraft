@@ -3,6 +3,8 @@
 
 use super::piece::StructurePieceSerializationContext;
 use super::structure::{Structure, decode_direct};
+use super::templatesystem::structure_processor_list::load_processor_lists;
+use super::templatesystem::StructureProcessorList;
 use super::structure_start::{StartHandle, StructureStart};
 use crate::world::level::levelgen::codec::LoadResult;
 use crate::world::level::levelgen::env::GenEnv;
@@ -21,6 +23,8 @@ pub const STRUCTURE_REGISTRY: &str = "worldgen/structure";
 
 /// `Registries.STRUCTURE` as typed holders.
 pub struct StructureRegistries {
+    /// `worldgen/processor_list`.
+    pub processor_lists: TypedRegistry<StructureProcessorList>,
     pub structures: TypedRegistry<dyn Structure>,
     /// `structuresRegistry.stream().collect(groupingBy(step().ordinal()))`: registry order within each step.
     structures_by_step: Vec<Vec<Holder<dyn Structure>>>,
@@ -36,18 +40,22 @@ impl StructureRegistries {
 
     /// As [`Self::load`] with a shared decode context (the jigsaw structure resolves pools/processor lists through it).
     pub fn load_with(ctx: &DecodeCtx<'_>) -> LoadResult<StructureRegistries> {
+        let processor_lists = load_processor_lists(ctx)?;
         let structures = load_registry(ctx, STRUCTURE_REGISTRY, decode_direct)?;
         ctx.cells.check_all_bound::<dyn Structure>(STRUCTURE_REGISTRY)?;
         let mut structures_by_step = vec![Vec::new(); Decoration::ALL.len()];
         for (_, holder) in structures.iter() {
             structures_by_step[holder.value().step().ordinal()].push(holder.clone());
         }
-        Ok(StructureRegistries { structures, structures_by_step })
+        Ok(StructureRegistries { processor_lists, structures, structures_by_step })
     }
 
     /// A registry without structures.
     pub fn empty() -> StructureRegistries {
-        StructureRegistries { structures: TypedRegistry::new(STRUCTURE_REGISTRY, indexmap::IndexMap::new()), structures_by_step: vec![Vec::new(); Decoration::ALL.len()] }
+        StructureRegistries {
+            processor_lists: TypedRegistry::new("worldgen/processor_list", indexmap::IndexMap::new()),
+            structures: TypedRegistry::new(STRUCTURE_REGISTRY, indexmap::IndexMap::new()),
+            structures_by_step: vec![Vec::new(); Decoration::ALL.len()] }
     }
 
     pub fn get(&self, id: &Identifier) -> Option<&Holder<dyn Structure>> {
