@@ -716,29 +716,25 @@ pub fn player_advancements_flush_dirty(server: &mut MinecraftServer, player: &En
 }
 
 /// `server.getRecipeManager().byKey(key)` filtered by `!recipe.isSpecial()`.
-/// SEAM(ItemsMenusScope.ImRecipes): `RecipeManager` is not on main yet.
 pub fn learnable_recipe_exists(server: &MinecraftServer, id: &Identifier) -> bool {
-    let _ = (server, id);
-    false
+    server.shared.recipe_manager().by_key(id).is_some_and(|r| !r.value.is_special())
 }
 
 /// `server.getRecipeManager().getLearnableRecipes()` (ids, in manager order).
-/// SEAM(ItemsMenusScope.ImRecipes).
 pub fn learnable_recipes(server: &MinecraftServer) -> Vec<Identifier> {
-    let _ = server;
-    Vec::new()
+    server.shared.recipe_manager().learnable_recipes().iter().map(|r| r.id.clone()).collect()
 }
 
 /// `player.awardRecipes(recipes)`: the number of newly unlocked recipes.
-/// SEAM(ItemsMenusScope.ImRecipes).
 pub fn player_award_recipes(server: &mut MinecraftServer, player: &EntityRef, recipes: &[Identifier]) -> i32 {
-    let _ = (server, player, recipes);
-    0
+    let manager = server.shared.recipe_manager();
+    let holders: Vec<_> = recipes.iter().filter_map(|id| manager.by_key(id).cloned()).collect();
+    server.level_mut(&player.dimension).and_then(|level| level.with_player(player.id, |level, p| p.award_recipes(level, &holders))).unwrap_or(0)
 }
 
 /// `player.resetRecipes(recipes)`: the number of removed recipes.
-/// SEAM(ItemsMenusScope.ImRecipes).
 pub fn player_reset_recipes(server: &mut MinecraftServer, player: &EntityRef, recipes: &[Identifier]) -> i32 {
-    let _ = (server, player, recipes);
-    0
+    let manager = server.shared.recipe_manager();
+    let holders: Vec<_> = recipes.iter().filter_map(|id| manager.by_key(id).cloned()).collect();
+    server.level_mut(&player.dimension).and_then(|level| level.with_player(player.id, |level, p| p.reset_recipes(level, &holders))).unwrap_or(0)
 }
