@@ -12,6 +12,7 @@ pub mod pattern;
 pub mod pattern_blocks;
 pub mod rotation_segment;
 pub mod sculk_behaviour;
+pub mod simple_waterlogged;
 pub mod sculk_spreader;
 pub mod state;
 pub mod valid_spawn;
