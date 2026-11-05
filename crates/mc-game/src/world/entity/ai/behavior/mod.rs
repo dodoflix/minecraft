@@ -59,16 +59,20 @@
 //!
 //! ```ignore
 //! pub struct LookAtTargetSink;
-//! impl Behavior for LookAtTargetSink {
-//!     fn check_extra_start_conditions(&mut self, _l: &mut ServerLevel, body: &mut dyn Entity) -> bool {
-//!         body.brain().get_memory(&LOOK_TARGET).is_some_and(|t| t.is_visible_by(level, body))
+//! impl LookAtTargetSink {
+//!     pub fn new(min: i32, max: i32) -> BehaviorBase<LookAtTargetSink> {
+//!         BehaviorBase::with_duration(entry_condition![LOOK_TARGET => ValuePresent], min, max, LookAtTargetSink)
 //!     }
-//!     fn can_still_use(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, _ts: i64) -> bool { /* same */ }
-//!     fn start(..) {}
-//!     fn stop(.., body, _) { body.brain_mut().erase_memory(&LOOK_TARGET) }
-//!     fn tick(.., body, _) { look_control.set_look_at(tracker.current_position(level)) }
 //! }
-//! // BehaviorBase::with_duration(entry_condition, 45, 90, LookAtTargetSink)  (vanilla: super(ImmutableMap.of(LOOK_TARGET, VALUE_PRESENT), minDuration, maxDuration))
+//! impl Behavior for LookAtTargetSink {
+//!     fn can_still_use(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, _ts: i64) -> bool {
+//!         body.brain().get_memory(&LOOK_TARGET).is_some_and(|pos| pos.is_visible_by(level, &*body))
+//!     }
+//!     fn stop(&mut self, _l: &mut ServerLevel, body: &mut dyn Entity, _ts: i64) { body.brain_mut().erase_memory(&LOOK_TARGET); }
+//!     fn tick(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, _ts: i64) {
+//!         if let Some(t) = body.brain().get_memory(&LOOK_TARGET) { let p = t.current_position(level); mob::look_at_xyz(body, p.x, p.y, p.z); }
+//!     }
+//! }
 //! ```
 //!
 //! Both examples are implemented for real in [`set_walk_target_from_look_target`] and [`look_at_target_sink`].
