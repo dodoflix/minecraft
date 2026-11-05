@@ -1,0 +1,8 @@
+# Chicken on flat grass: ctor RNG (egg timer), goal selection (strolls, look-around), flap state, 200 ticks of the rich E line.
+level flat
+difficulty normal
+spawn_player Steve creative 0.5 -60 0.5 0 0
+mobspawn C minecraft:chicken 8.5 -60 8.5 0 0
+dump mob:C
+watch mob:C
+tick 200

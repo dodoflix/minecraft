@@ -1,0 +1,16 @@
+# Chickens: love mode, BreedGoal walking, spawnChildFromBreeding (baby chicken, variant pick, parents' age, xp orb), baby follow-parent.
+level flat
+difficulty normal
+spawn_player Steve creative 0.5 -60 0.5 0 0
+mobspawn A minecraft:chicken 6.5 -60 4.5 0 0 {PersistenceRequired:1b}
+mobspawn B minecraft:chicken 9.5 -60 4.5 0 0 {PersistenceRequired:1b}
+tick 3
+love A Steve
+love B Steve
+dump mobs
+watch mob:A mob:B
+tick 80
+watch off
+dump mobs
+tick 5
+dump mobs

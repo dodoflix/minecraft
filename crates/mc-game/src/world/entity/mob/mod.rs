@@ -66,6 +66,7 @@ pub mod navigation;
 pub mod nbt;
 pub mod neutral;
 pub mod pathfinder;
+pub mod scenario_dump;
 pub mod spawn;
 pub mod tamable;
 pub mod tick;

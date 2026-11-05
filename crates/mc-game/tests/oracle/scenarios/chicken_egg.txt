@@ -1,0 +1,9 @@
+# Egg laying: EggLayTime countdown, chicken_lay gift loot (no loot seed), sound/game event RNG, next timer.
+level flat
+difficulty normal
+spawn_player Steve creative 0.5 -60 0.5 0 0
+mobspawn C minecraft:chicken 4.5 -60 4.5 0 0 {PersistenceRequired:1b,EggLayTime:6}
+watch mob:C
+tick 12
+watch off
+dump entities

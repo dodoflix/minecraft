@@ -244,6 +244,11 @@ impl Harness {
         level.level_data = Box::new(mc_game::server::level::level_data::PrimaryServerLevelData(world.clone()));
         mc_core::random::reseed_uniquifier(8682522807148012);
         level.entity_id_counter = Some(std::sync::atomic::AtomicI32::new(0));
+        // `Level.random` is seeded at boot like the oracle (`o.seed ^ 0x5DEECE66DL`, default world seed 4242)
+        {
+            use mc_core::random::RandomSource as _;
+            level.tick_state.random.set_seed(4242 ^ 0x5DEECE66D);
+        }
         Harness {
             level,
             world,
@@ -412,7 +417,17 @@ impl Harness {
                     other => self.fail(&format!("level type {other} is not supported by the replay")),
                 }
             }
-            "seed" | "preload" => {}
+            "seed" => {
+                use mc_core::random::RandomSource as _;
+                let n = a[1].parse::<i64>().unwrap_or_else(|_| self.fail("seed"));
+                self.level.tick_state.random.set_seed(n ^ 0x5DEECE66D);
+            }
+            "level_seed" => {
+                use mc_core::random::RandomSource as _;
+                let n = a[1].parse::<i64>().unwrap_or_else(|_| self.fail("level_seed"));
+                self.level.tick_state.random.set_seed(n);
+            }
+            "preload" => {}
             "difficulty" => {
                 let d = match a[1].as_str() {
                     "peaceful" => Difficulty::Peaceful,

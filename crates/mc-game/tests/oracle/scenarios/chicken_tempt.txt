@@ -1,0 +1,10 @@
+# Chicken tempted by wheat seeds: TemptGoal range/selector, navigation towards the player, stop distance, look control.
+level flat
+difficulty normal
+spawn_player Steve survival 0.5 -60 0.5 0 0
+give Steve mainhand minecraft:wheat_seeds 5
+mobspawn C minecraft:chicken 6.5 -60 0.5 0 0 {PersistenceRequired:1b}
+watch mob:C
+tick 60
+give Steve mainhand minecraft:stick 1
+tick 30
