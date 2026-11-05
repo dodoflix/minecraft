@@ -1,0 +1,41 @@
+# 0 setblock 90 140 -24 minecraft:stone
+ClientboundBlockUpdatePacket { pos: BlockPos{x=90, y=140, z=-24}, block_state: BlockState(1: minecraft:stone) }
+# 1 setblock 90 140 -24 minecraft:stone
+# 2 setblock 90 140 -24 minecraft:dirt
+ClientboundBlockUpdatePacket { pos: BlockPos{x=90, y=140, z=-24}, block_state: BlockState(10: minecraft:dirt) }
+# 3 setblock 90 140 -24 minecraft:glass destroy
+ClientboundLevelEventPacket { type: 2001, pos: BlockPos{x=90, y=140, z=-24}, data: 10, global_event: false }
+ClientboundBlockUpdatePacket { pos: BlockPos{x=90, y=140, z=-24}, block_state: BlockState(661: minecraft:glass) }
+# 4 setblock 90 140 -24 minecraft:air destroy
+ClientboundLevelEventPacket { type: 2001, pos: BlockPos{x=90, y=140, z=-24}, data: 661, global_event: false }
+ClientboundBlockUpdatePacket { pos: BlockPos{x=90, y=140, z=-24}, block_state: BlockState(0: minecraft:air) }
+# 5 setblock 90 140 -24 minecraft:oak_stairs[facing=east,half=top] keep
+ClientboundBlockUpdatePacket { pos: BlockPos{x=90, y=140, z=-24}, block_state: BlockState(5524: minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]) }
+# 6 setblock 90 140 -24 minecraft:stone keep
+# 7 setblock 91 140 -23 minecraft:oak_stairs[facing=east,half=top]
+ClientboundBlockUpdatePacket { pos: BlockPos{x=91, y=140, z=-23}, block_state: BlockState(5524: minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=false]) }
+# 8 fill 90 141 -24 93 141 -21 minecraft:stone
+ClientboundSectionBlocksUpdatePacket { section_pos: SectionPos{x=5, y=8, z=-2}, changes: [(2989, BlockState(1: minecraft:stone)), (3261, BlockState(1: minecraft:stone)), (2733, BlockState(1: minecraft:stone)), (3005, BlockState(1: minecraft:stone)), (3469, BlockState(1: minecraft:stone)), (3517, BlockState(1: minecraft:stone)), (2973, BlockState(1: minecraft:stone)), (3245, BlockState(1: minecraft:stone)), (2717, BlockState(1: minecraft:stone)), (3229, BlockState(1: minecraft:stone)), (3501, BlockState(1: minecraft:stone)), (2957, BlockState(1: minecraft:stone)), (2701, BlockState(1: minecraft:stone)), (3213, BlockState(1: minecraft:stone)), (2749, BlockState(1: minecraft:stone)), (3485, BlockState(1: minecraft:stone))] }
+# 9 fill 90 141 -24 93 141 -21 minecraft:glass replace minecraft:stone
+ClientboundSectionBlocksUpdatePacket { section_pos: SectionPos{x=5, y=8, z=-2}, changes: [(2989, BlockState(661: minecraft:glass)), (3261, BlockState(661: minecraft:glass)), (2733, BlockState(661: minecraft:glass)), (3005, BlockState(661: minecraft:glass)), (3469, BlockState(661: minecraft:glass)), (3517, BlockState(661: minecraft:glass)), (2973, BlockState(661: minecraft:glass)), (3245, BlockState(661: minecraft:glass)), (2717, BlockState(661: minecraft:glass)), (3229, BlockState(661: minecraft:glass)), (3501, BlockState(661: minecraft:glass)), (2957, BlockState(661: minecraft:glass)), (2701, BlockState(661: minecraft:glass)), (3213, BlockState(661: minecraft:glass)), (2749, BlockState(661: minecraft:glass)), (3485, BlockState(661: minecraft:glass))] }
+# 10 fill 90 141 -24 93 141 -21 minecraft:air destroy
+ClientboundLevelEventPacket { type: 2001, pos: BlockPos{x=90, y=141, z=-24}, data: 661, global_event: false }
+ClientboundLevelEventPacket { type: 2001, pos: BlockPos{x=91, y=141, z=-24}, data: 661, global_event: false }
+ClientboundLevelEventPacket { type: 2001, pos: BlockPos{x=92, y=141, z=-24}, data: 661, global_event: false }
+ClientboundLevelEventPacket { type: 2001, pos: BlockPos{x=93, y=141, z=-24}, data: 661, global_event: false }
+ClientboundLevelEventPacket { type: 2001, pos: BlockPos{x=90, y=141, z=-23}, data: 661, global_event: false }
+ClientboundLevelEventPacket { type: 2001, pos: BlockPos{x=91, y=141, z=-23}, data: 661, global_event: false }
+ClientboundLevelEventPacket { type: 2001, pos: BlockPos{x=92, y=141, z=-23}, data: 661, global_event: false }
+ClientboundLevelEventPacket { type: 2001, pos: BlockPos{x=93, y=141, z=-23}, data: 661, global_event: false }
+ClientboundLevelEventPacket { type: 2001, pos: BlockPos{x=90, y=141, z=-22}, data: 661, global_event: false }
+ClientboundLevelEventPacket { type: 2001, pos: BlockPos{x=91, y=141, z=-22}, data: 661, global_event: false }
+ClientboundLevelEventPacket { type: 2001, pos: BlockPos{x=92, y=141, z=-22}, data: 661, global_event: false }
+ClientboundLevelEventPacket { type: 2001, pos: BlockPos{x=93, y=141, z=-22}, data: 661, global_event: false }
+ClientboundLevelEventPacket { type: 2001, pos: BlockPos{x=90, y=141, z=-21}, data: 661, global_event: false }
+ClientboundLevelEventPacket { type: 2001, pos: BlockPos{x=91, y=141, z=-21}, data: 661, global_event: false }
+ClientboundLevelEventPacket { type: 2001, pos: BlockPos{x=92, y=141, z=-21}, data: 661, global_event: false }
+ClientboundLevelEventPacket { type: 2001, pos: BlockPos{x=93, y=141, z=-21}, data: 661, global_event: false }
+ClientboundSectionBlocksUpdatePacket { section_pos: SectionPos{x=5, y=8, z=-2}, changes: [(2989, BlockState(0: minecraft:air)), (3261, BlockState(0: minecraft:air)), (2733, BlockState(0: minecraft:air)), (3005, BlockState(0: minecraft:air)), (3469, BlockState(0: minecraft:air)), (3517, BlockState(0: minecraft:air)), (2973, BlockState(0: minecraft:air)), (3245, BlockState(0: minecraft:air)), (2717, BlockState(0: minecraft:air)), (3229, BlockState(0: minecraft:air)), (3501, BlockState(0: minecraft:air)), (2957, BlockState(0: minecraft:air)), (2701, BlockState(0: minecraft:air)), (3213, BlockState(0: minecraft:air)), (2749, BlockState(0: minecraft:air)), (3485, BlockState(0: minecraft:air))] }
+# 11 fill 90 142 -24 92 143 -22 minecraft:gold_block hollow
+ClientboundSectionBlocksUpdatePacket { section_pos: SectionPos{x=5, y=8, z=-2}, changes: [(3230, BlockState(3830: minecraft:gold_block)), (2958, BlockState(3830: minecraft:gold_block)), (2735, BlockState(3830: minecraft:gold_block)), (3247, BlockState(3830: minecraft:gold_block)), (2702, BlockState(3830: minecraft:gold_block)), (3246, BlockState(3830: minecraft:gold_block)), (2974, BlockState(3830: minecraft:gold_block)), (2991, BlockState(3830: minecraft:gold_block)), (2719, BlockState(3830: minecraft:gold_block)), (2990, BlockState(3830: minecraft:gold_block)), (2718, BlockState(3830: minecraft:gold_block)), (3231, BlockState(3830: minecraft:gold_block)), (2734, BlockState(3830: minecraft:gold_block)), (2703, BlockState(3830: minecraft:gold_block)), (2975, BlockState(3830: minecraft:gold_block)), (3215, BlockState(3830: minecraft:gold_block)), (3214, BlockState(3830: minecraft:gold_block)), (2959, BlockState(3830: minecraft:gold_block))] }
+# 12 setblock 110 140 -4 minecraft:stone

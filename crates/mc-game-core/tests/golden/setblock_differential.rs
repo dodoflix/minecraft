@@ -1,6 +1,6 @@
 //! Differential test: the block-change packets (`block_update`, `section_blocks_update`, `level_event`) of a scripted
 //! `/setblock` + `/fill` sequence, recorded from the REAL vanilla server (fixture written by
-//! `mc-testbot/tests/record_setblock.rs`), against our level mutation + chunk change broadcast driven with the same
+//! `mc-server/tests/oracle/record_setblock.rs`), against our level mutation + chunk change broadcast driven with the same
 //! operations (the commands' own logic is replayed here: `SetBlockCommand` / `FillCommand` + `Level.setBlock` flags).
 
 use mc_core::ident::Identifier;
@@ -123,11 +123,7 @@ fn decode_line(payload: &[u8]) -> Option<String> {
 
 #[test]
 fn setblock_and_fill_packets_match_vanilla() {
-    let fixture = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../mc-testbot/tests/fixtures/setblock_vanilla.txt");
-    let Ok(text) = std::fs::read_to_string(&fixture) else {
-        eprintln!("no vanilla fixture ({fixture:?}): skipped");
-        return;
-    };
+    let text = include_str!("../fixtures/setblock_vanilla.txt");
     // fixture: `# i command` header lines followed by the packet lines of that command
     let mut expected: Vec<(String, Vec<String>)> = Vec::new();
     for line in text.lines() {

@@ -46,6 +46,7 @@ sha1 = { workspace = true, features = ["oid"] }
 reqwest = { workspace = true, features = ["rustls", "blocking"] }
 
 [dev-dependencies]
+mc-testkit = { path = "../mc-testkit" }
 tempfile = { workspace = true }
 tokio = { workspace = true, features = ["test-util"] }
 
