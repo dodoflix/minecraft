@@ -219,10 +219,7 @@ public class FeatureOracleBase {
         public long seed;
         public long gameTime;
         public Map<Long, ProtoChunk> chunks = new HashMap<>();
-        /** Optional stub returned by {@code getLevel()} (null = vanilla's null level of this harness). */
-        public net.minecraft.server.level.ServerLevel serverLevel;
 
-        @Override public net.minecraft.server.level.ServerLevel getLevel() { return serverLevel; }
         @Override public int getMinY() { return MIN_Y; }
         @Override public int getHeight() { return HEIGHT; }
         @Override public int getSeaLevel() { return SEA_LEVEL; }
@@ -233,7 +230,11 @@ public class FeatureOracleBase {
         @Override public int getBrightness(net.minecraft.world.level.LightLayer layer, BlockPos pos) { return 0; }
         @Override public int getRawBrightness(BlockPos pos, int darkening) { return 0; }
         @Override public boolean canSeeSky(BlockPos pos) { return false; }
-        @Override public net.minecraft.server.level.ServerLevel getLevel() { return stubLevel(); }
+        /** Optional level returned by {@code getLevel()} (template/scattered goldens); default: the Unsafe-allocated stub. */
+        public net.minecraft.server.level.ServerLevel serverLevel;
+        @Override public net.minecraft.server.level.ServerLevel getLevel() {
+            return serverLevel != null ? serverLevel : fakeLevel != null ? fakeLevel : stubLevel();
+        }
         /** The overworld's dimension attributes are the defaults (no fast lava, ...). */
         @Override public net.minecraft.world.attribute.EnvironmentAttributeReader environmentAttributes() { return net.minecraft.world.attribute.EnvironmentAttributeReader.EMPTY; }
         /** The server difficulty is runtime configuration (NORMAL here), the clock and moon brightness are 0. */
@@ -245,11 +246,6 @@ public class FeatureOracleBase {
         public net.minecraft.server.level.ServerLevel fakeLevel;
         /** Optional: returned by getRandom() inside a mob's finalizeSpawn (Rust has no mob classes, those draws are not modelled). */
         public RandomSource finalizeSpawnRandom;
-        @Override public net.minecraft.server.level.ServerLevel getLevel() { return fakeLevel; }
-        @Override public net.minecraft.world.DifficultyInstance getCurrentDifficultyAt(BlockPos pos) {
-            return new net.minecraft.world.DifficultyInstance(net.minecraft.world.Difficulty.NORMAL, 0L, 0L, 0.0F);
-        }
-        @Override public net.minecraft.world.attribute.EnvironmentAttributeReader environmentAttributes() { return net.minecraft.world.attribute.EnvironmentAttributeReader.EMPTY; }
         @Override public RandomSource getRandom() {
             if (finalizeSpawnRandom != null) {
                 for (StackTraceElement e : Thread.currentThread().getStackTrace()) if (e.getMethodName().equals("finalizeSpawn")) return finalizeSpawnRandom;
