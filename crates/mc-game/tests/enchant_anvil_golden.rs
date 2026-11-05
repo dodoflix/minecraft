@@ -166,6 +166,12 @@ impl Session {
     fn new() -> Self {
         let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
         level.registries = registries();
+        // entities are only found in accessible sections (vanilla: the chunk is loaded and ticking)
+        for cx in -1..=0 {
+            for cz in -1..=0 {
+                level.entity_manager.update_chunk_status(mc_core::pos::ChunkPos::new(cx, cz), mc_game::world::level::entity::Visibility::Ticking);
+            }
+        }
         Self {
             player: TestPlayer { inv: Inventory::new(), creative: false, xp_level: 0, seed: 0, rng: LegacyRandomSource::new(0), level },
             menu: None,
