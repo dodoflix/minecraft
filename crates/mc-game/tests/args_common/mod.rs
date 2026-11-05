@@ -24,6 +24,67 @@ pub fn render_source() -> CommandSourceStack {
         .with_rotation(Vec2 { x: 12.5, y: 40.0 })
 }
 
+pub const TEAMS: [&str; 5] = ["red", "blue", "Team Name!", "sp ace", "\u{e9}quipe"];
+pub const OBJECTIVES: [&str; 5] = ["kills", "deaths", "Obj 1", "health_bar", "\u{e9}"];
+
+/// `Coordinates` rendering of `ArgsSpecs.coords`.
+pub fn render_coordinates(c: &mc_game::commands::arguments::coordinates::Coordinates, src: &CommandSourceStack) -> String {
+    use mc_core::math::java::{java_double_to_string as d, java_float_to_string as f};
+    let rel = |b: bool| if b { "~" } else { "a" };
+    let p = c.get_position(src);
+    let r = c.get_rotation(src);
+    let b = c.get_block_pos(src);
+    format!(
+        "{}{}{} pos={},{},{} rot={},{} block={},{},{}",
+        rel(c.is_x_relative()),
+        rel(c.is_y_relative()),
+        rel(c.is_z_relative()),
+        d(p.x),
+        d(p.y),
+        d(p.z),
+        f(r.x),
+        f(r.y),
+        b.x(),
+        b.y(),
+        b.z()
+    )
+}
+
+/// `ArgsSpecs.registerScoreboard` "operation" rendering.
+pub fn render_operation(op: mc_game::commands::arguments::Operation) -> String {
+    let mut out = String::new();
+    for (a, b) in [(17, 5), (-7, 3), (5, 0), (i32::MAX, 1), (i32::MIN, -1), (0, 0)] {
+        match op.apply(a, b) {
+            Ok((a, b)) => out.push_str(&format!("{a},{b}")),
+            Err(e) => out.push_str(&e.get_message()),
+        }
+        out.push(';');
+    }
+    out
+}
+
+pub fn render_bounds<T: Copy>(b: &mc_game::commands::arguments::min_max_bounds::Bounds<T>, show: impl Fn(T) -> String) -> String {
+    format!("{}..{}", b.min.map_or("-".to_owned(), &show), b.max.map_or("-".to_owned(), &show))
+}
+
+pub fn render_doubles(d: &mc_game::commands::arguments::min_max_bounds::Doubles) -> String {
+    let show = |x: f64| mc_core::math::java::java_double_to_string(x);
+    format!("{} sq={}", render_bounds(&d.bounds, show), render_bounds(&d.bounds_sqr, show))
+}
+
+pub fn render_criteria(c: &mc_game::commands::arguments::scores::ObjectiveCriteria) -> String {
+    use mc_game::commands::arguments::scores::RenderType;
+    format!(
+        "{}|{}|{}",
+        c.get_name(),
+        c.is_read_only(),
+        match c.get_default_render_type() {
+            RenderType::Integer => "integer",
+            RenderType::Hearts => "hearts",
+        }
+    )
+}
+
 /// Java `esc` of the generator.
 pub fn esc(s: &str) -> String {
     let mut b = String::new();
@@ -93,6 +154,18 @@ pub fn replay(
         Arc::new(AccessRegistries(server.registries.composite_access().clone())),
         mc_world::level_storage::FeatureFlagSet::VANILLA,
     );
+    {
+        use mc_game::world::scores::{ObjectiveCriteria, RenderType};
+        for team in TEAMS {
+            server.scoreboard.add_player_team(team);
+        }
+        for objective in OBJECTIVES {
+            server
+                .scoreboard
+                .add_objective(objective, ObjectiveCriteria::DUMMY, mc_text::Component::literal(objective), RenderType::Integer, false, None)
+                .expect("objective");
+        }
+    }
     let dispatcher = CommandDispatcher::<CommandSourceStack>::new();
     dispatcher.register(
         LiteralArgumentBuilder::literal("t").then(RequiredArgumentBuilder::argument_shared("a", make(&build_context)).executes(|_| Ok(1))),

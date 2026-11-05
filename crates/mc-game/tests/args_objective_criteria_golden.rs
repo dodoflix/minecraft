@@ -10,6 +10,6 @@ fn objective_criteria_matches_vanilla() {
         "objective_criteria",
         include_str!("fixtures/args/objective_criteria_golden.txt"),
         |_| Arc::new(ObjectiveCriteriaArgument::criteria()),
-        |v, src| args_common::render_criteria(v.downcast_ref::<ObjectiveCriteria>().expect("criteria")),
+        |v, src| args_common::render_criteria(v.downcast_ref::<scores::ObjectiveCriteria>().expect("criteria")),
     );
 }
