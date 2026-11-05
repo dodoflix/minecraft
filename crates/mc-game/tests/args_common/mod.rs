@@ -247,7 +247,7 @@ pub fn replay_with(
     mc_game::commands::install_text_validators();
     let (mut server, _keep) = command_common::test_server();
     let build_context = CommandBuildContext::simple(
-        Arc::new(AccessRegistries(server.registries.composite_access().clone())),
+        Arc::new(AccessRegistries(server.resources.managers.full_registries().clone())),
         mc_world::level_storage::FeatureFlagSet::VANILLA,
     );
     {

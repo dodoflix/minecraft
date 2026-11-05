@@ -278,11 +278,14 @@ pub fn scoreboard_tracked_players(server: &MinecraftServer) -> Vec<String> {
 
 /// The registry `registry_key` (e.g. `minecraft:item`) as the command source sees it: the server's registries
 /// (static, data-driven and reloadable ones).
-/// SEAM(reloadable registries): loot tables / predicates / item modifiers (`reloadableRegistries().lookup()`) are not
-/// owned by the server yet; the data-pack registry access (with tags) and the built-in registries answer.
+/// Reloadable registries (loot tables, predicates, item modifiers) come from `reloadableRegistries().lookup()`: the
+/// full registry access of the loaded resources.
 pub fn registry_view(server: &MinecraftServer, registry_key: &str) -> Option<std::sync::Arc<dyn super::RegistryView>> {
     use super::command_build_context::{AccessRegistries, HolderLookupProvider, StaticRegistries};
-    AccessRegistries(server.registries.composite_access().clone()).lookup(registry_key).or_else(|| StaticRegistries.lookup(registry_key))
+    AccessRegistries(server.registries.composite_access().clone())
+        .lookup(registry_key)
+        .or_else(|| AccessRegistries(server.resources.managers.full_registries().clone()).lookup(registry_key))
+        .or_else(|| StaticRegistries.lookup(registry_key))
 }
 
 // ---- players, chat, permissions ----
