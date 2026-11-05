@@ -206,7 +206,7 @@ impl LevelTickEnv for Env {
     fn overworld_clock_time(&self) -> i64 {
         self.clock
     }
-    fn tick_scheduled_events(&mut self, _game_time: i64) {}
+    fn tick_scheduled_events(&mut self, _game_time: i64, _level: &mut mc_game::server::level::ServerLevel) {}
     fn tick_raids(&mut self, _level: &mut ServerLevel) {}
     fn broadcast_game_event_to_all(&mut self, _packet: &mc_protocol::packets::play::ClientboundGameEventPacket) {}
     fn set_game_time(&mut self, _game_time: i64) {}
