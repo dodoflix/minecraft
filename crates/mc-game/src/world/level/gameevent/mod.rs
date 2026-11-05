@@ -7,6 +7,7 @@
 
 mod listener;
 mod registry;
+pub mod vibrations;
 
 pub use listener::*;
 pub use registry::*;
