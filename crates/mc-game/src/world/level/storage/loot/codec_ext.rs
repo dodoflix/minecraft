@@ -38,3 +38,14 @@ pub fn dispatch_optional_value<K: Clone + 'static, V: 'static>(
         move || vec![Dyn::Str(type_key.to_owned()), Dyn::Str(value_key.to_owned())],
     )
 }
+
+/// `optionalFieldOf(name, default)` for values without `PartialEq` (holders): absent reads as `default`, always written.
+pub trait OptionalDefaultWith<H> {
+    fn optional_field_of_default_with(&self, name: &str, default: H) -> MapCodec<H>;
+}
+
+impl<H: Clone + Send + Sync + 'static> OptionalDefaultWith<H> for Codec<H> {
+    fn optional_field_of_default_with(&self, name: &str, default: H) -> MapCodec<H> {
+        self.optional_field_of(name).xmap(move |o| o.unwrap_or_else(|| default.clone()), |h: &H| Some(h.clone()))
+    }
+}

@@ -166,6 +166,11 @@ impl WritableBookContent {
     pub const PAGE_EDIT_LENGTH: usize = 1024;
     pub const MAX_PAGES: usize = 100;
 
+    /// `WritableBookContent.PAGES_CODEC`.
+    pub fn pages_codec() -> Codec<Vec<Filterable<String>>> {
+        Filterable::codec(&string_range(0, 1024)).size_limited_list_of(100)
+    }
+
     pub fn codec() -> Codec<WritableBookContent> {
         let page = Filterable::codec(&string_range(0, 1024));
         record!(WritableBookContent {
@@ -217,6 +222,11 @@ impl WrittenBookContent {
     pub const PAGE_LENGTH: usize = 32767;
     pub const TITLE_MAX_LENGTH: usize = 32;
     pub const MAX_GENERATION: i32 = 3;
+
+    /// `WrittenBookContent.PAGES_CODEC`.
+    pub fn pages_codec() -> Codec<Vec<Filterable<Component>>> {
+        Filterable::codec(&flat_restricted_codec(32767)).list_of()
+    }
 
     pub fn codec() -> Codec<WrittenBookContent> {
         let pages = Filterable::codec(&flat_restricted_codec(32767)).list_of();

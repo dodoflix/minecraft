@@ -103,8 +103,8 @@ pub fn level_random(level: &ServerLevel) -> Box<dyn RandomSource> {
 /// `scoreboard.getPlayerScoreInfo(holder, objective).value()`.
 pub fn score(level: &ServerLevel, holder_name: &str, objective: &str) -> Option<i32> {
     let scoreboard = level.scoreboard();
-    let objective = scoreboard.get_objective(objective)?;
-    scoreboard.get_player_score_info_by_name(holder_name, &objective).map(|s| s.value())
+    scoreboard.get_objective(objective)?;
+    scoreboard.get_player_score_info(&crate::world::scores::score::for_name_only(holder_name), objective).map(|s| s.value())
 }
 
 /// `server.getCommandStorage().get(id)`.

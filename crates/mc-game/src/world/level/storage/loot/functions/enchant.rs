@@ -10,6 +10,7 @@ use mc_protocol::components::values::basic::ADDITIONAL_TRADE_COST;
 use mc_protocol::components::values::predicates::data_driven_set_codec;
 use mc_protocol::components::{HolderSet, ItemStack, NoDirect};
 
+use crate::world::level::storage::loot::codec_ext::OptionalDefaultWith;
 use super::{ConditionalFunction, LootItemFunctionRef, condition_field};
 use crate::registry::keys;
 use crate::world::level::storage::loot::context::{ContextKey, LootContext};
@@ -85,7 +86,7 @@ impl ConditionalFunction for EnchantRandomlyFunction {
         if self.include_additional_cost_component { vec![ContextKey::AdditionalCostComponentAllowed] } else { vec![] }
     }
     fn run(&self, stack: ItemStack, context: &mut LootContext) -> ItemStack {
-        let target_is_book = stack.is(Item::Book);
+        let target_is_book = stack.is(Item::BOOK);
         let should_check_compatibility = !target_is_book && self.only_compatible;
         let registries = context.get_resolver();
         let candidates: Vec<Identifier> = match &self.options {
@@ -106,8 +107,8 @@ impl EnchantRandomlyFunction {
     fn enchant_item(&self, mut stack: ItemStack, enchantment: &Identifier, context: &mut LootContext) -> ItemStack {
         let (min, max) = enchant_api::min_max_level(context.get_resolver(), enchantment);
         let level = mth::next_int(context.get_random(), min, max);
-        if stack.is(Item::Book) {
-            stack = ItemStack::new(Item::EnchantedBook);
+        if stack.is(Item::BOOK) {
+            stack = ItemStack::new(Item::ENCHANTED_BOOK);
         }
         enchant_api::enchant(&mut stack, enchantment, level);
         if self.include_additional_cost_component && context.has_parameter(ContextKey::AdditionalCostComponentAllowed) {
@@ -142,8 +143,8 @@ impl ConditionalFunction for SetEnchantmentsFunction {
         }
     }
     fn run(&self, mut stack: ItemStack, context: &mut LootContext) -> ItemStack {
-        if stack.is(Item::Book) {
-            stack = if stack.is_empty() { stack } else { ItemStack::with_patch(Item::EnchantedBook, stack.count(), &stack.get_components_patch()) };
+        if stack.is(Item::BOOK) {
+            stack = if stack.is_empty() { stack } else { ItemStack::with_patch(Item::ENCHANTED_BOOK, stack.count(), &stack.get_components_patch()) };
         }
         let mut levels: Vec<(Identifier, i32)> = Vec::new();
         for (enchantment, provider) in &self.enchantments {
@@ -185,7 +186,7 @@ pub(super) fn register(entries: &mut Entries) {
         "set_enchantments",
         entry(record!(SetEnchantmentsFunction {
             condition: cond(),
-            enchantments: registry_ref_codec(keys::ENCHANTMENT).unbounded_map(&int_holder_codec()).optional_field_of_default("enchantments", Vec::new()),
+            enchantments: registry_ref_codec(keys::ENCHANTMENT).unbounded_map(&int_holder_codec()).optional_field_of_default_with("enchantments", Vec::new()),
             add: BOOL.optional_field_of_default("add", false),
         })),
     ));

@@ -130,7 +130,7 @@ impl ConditionalFunction for SetStewEffectFunction {
         }
     }
     fn run(&self, mut stack: ItemStack, context: &mut LootContext) -> ItemStack {
-        if !stack.is(Item::SuspiciousStew) || self.effects.is_empty() {
+        if !stack.is(Item::SUSPICIOUS_STEW) || self.effects.is_empty() {
             return stack;
         }
         let entry = random_of(&self.effects, context.get_random());
@@ -269,7 +269,7 @@ fn apply_dyes(stack: &ItemStack, dyes: &[mc_protocol::components::DyeColor]) -> 
         color_count += 1;
     }
     for dye in dyes {
-        let color = mc_data::misc::dye_color(dye.id() as usize).texture_diffuse_color;
+        let color = mc_data::misc::DYE_COLORS[dye.id() as usize].texture_diffuse_color;
         let (r, g, b) = ((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF);
         intensity_total += r.max(g.max(b));
         red_total += r;
@@ -558,8 +558,8 @@ pub(super) fn register(entries: &mut Entries) {
         entry(record!(SetFireworkExplosionFunction {
             condition: cond(),
             shape: FireworkShape::codec().optional_field_of("shape"),
-            colors: FireworkExplosion::color_list_codec().optional_field_of("colors"),
-            fade_colors: FireworkExplosion::color_list_codec().optional_field_of("fade_colors"),
+            colors: INT.list_of().optional_field_of("colors"),
+            fade_colors: INT.list_of().optional_field_of("fade_colors"),
             trail: BOOL.optional_field_of("trail"),
             twinkle: BOOL.optional_field_of("twinkle"),
         })),

@@ -18,5 +18,5 @@ pub fn resolve_component(_level: &ServerLevel, _entity: &dyn Entity, line: &Comp
 /// `ResolvableProfile.createResolved(player.getGameProfile())`.
 pub fn player_profile(player: &dyn Entity) -> Option<ResolvableProfile> {
     let data = player.player()?;
-    Some(ResolvableProfile { contents: mc_dfu::Either::Left(data.game_profile.clone()), skin_patch: Default::default() })
+    Some(ResolvableProfile { contents: mc_protocol::codec::Either::Left(data.game_profile.clone()), skin_patch: Default::default() })
 }

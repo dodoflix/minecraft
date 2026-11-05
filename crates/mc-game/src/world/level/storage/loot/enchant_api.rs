@@ -15,7 +15,7 @@ use crate::world::entity::Entity;
 use crate::world::entity::equipment::EquipmentSlot;
 
 fn component_is_stored(stack: &ItemStack) -> bool {
-    stack.is(Item::EnchantedBook)
+    stack.is(Item::ENCHANTED_BOOK)
 }
 
 /// `stack.get(ENCHANTMENTS / STORED_ENCHANTMENTS)` as (id, level).
@@ -165,7 +165,7 @@ fn random_weighted(random: &mut dyn RandomSource, items: &[(Identifier, i32)], r
 
 /// `EnchantmentHelper.getAvailableEnchantmentResults(value, stack, source)`.
 fn available_results(registries: &RegistryAccess, value: i32, stack: &ItemStack, source: &[Identifier]) -> Vec<(Identifier, i32)> {
-    let is_book = stack.is(Item::Book);
+    let is_book = stack.is(Item::BOOK);
     let mut results = Vec::new();
     for id in source {
         if !(is_primary_item(registries, id, stack) || is_book) {
@@ -221,8 +221,8 @@ pub fn enchant_item(
         None => registries.registry(keys::ENCHANTMENT).map(|r| r.names()).unwrap_or_default(),
     };
     let enchants = select_enchantment(random, &stack, enchantment_cost, registries, &source);
-    if stack.is(Item::Book) {
-        stack = ItemStack::new(Item::EnchantedBook);
+    if stack.is(Item::BOOK) {
+        stack = ItemStack::new(Item::ENCHANTED_BOOK);
     }
     for (id, level) in enchants {
         enchant(&mut stack, &id, level);

@@ -18,6 +18,7 @@ use crate::world::level::storage::loot::providers::score::{ScoreboardNameProvide
 use crate::world::level::storage::loot::validation::{
     Validatable, ValidatableData, ValidationContext, validate_holder, validate_holder_field, validate_holder_list, validate_holder_set_min,
 };
+use crate::world::level::storage::loot::codec_ext::OptionalDefaultWith;
 use crate::world::level::storage::loot::server_access;
 
 /// `java.lang.ArithmeticException`.
@@ -462,11 +463,11 @@ impl ContextFloatProvider for Unary<FloatHolder> {
         Ok(match self.kind {
             "abs" => v.abs(),
             "ceil" => ((v as f64).ceil() as i32) as f32,
-            "cos" => mc_core::math::mth::cos(v),
+            "cos" => mc_core::math::mth::cos(f64::from(v)),
             "floor" => (v as f64).floor() as f32,
             "negate" => -v,
             "round" => round_f32(v) as f32,
-            "sin" => mc_core::math::mth::sin(v),
+            "sin" => mc_core::math::mth::sin(f64::from(v)),
             "sqrt" => mc_core::math::mth::sqrt(v),
             "truncate" => {
                 if v > 0.0 {
@@ -662,17 +663,6 @@ fn conditional_codec<H: Clone + Send + Sync + 'static>(value: Codec<H>, default_
         on_true: value.field_of("on_true"),
         on_false: value.optional_field_of_default_with("on_false", default_if_false),
     })
-}
-
-/// A `Holder` default of `optionalFieldOf(name, default)` (holders have no `PartialEq`: the default is never "equal").
-trait OptionalDefaultWith<H> {
-    fn optional_field_of_default_with(&self, name: &str, default: H) -> MapCodec<H>;
-}
-
-impl<H: Clone + Send + Sync + 'static> OptionalDefaultWith<H> for Codec<H> {
-    fn optional_field_of_default_with(&self, name: &str, default: H) -> MapCodec<H> {
-        self.optional_field_of(name).xmap(move |o| o.unwrap_or_else(|| default.clone()), |h: &H| Some(h.clone()))
-    }
 }
 
 impl ContextIntProvider for NumberDispatcher<IntHolder> {
@@ -1098,7 +1088,7 @@ impl ContextFloatProvider for FloatStorageValue {
 /// `EnchantmentLevelProvider`.
 #[derive(Clone)]
 pub struct EnchantmentLevelProvider {
-    pub amount: crate::world::item::enchantment::LevelBasedValue,
+    pub amount: crate::world::item::enchantment::level_based_value::LevelBasedValue,
 }
 
 impl ContextFloatProvider for EnchantmentLevelProvider {
@@ -1146,7 +1136,7 @@ impl ContextIntProvider for EnvironmentAttributeValue {
         server_access::environment_attribute_int(context, &self.attribute).ok_or(ArithmeticException)
     }
     fn validate(&self, context: &ValidationContext) {
-        context.validate_context_usage(&self.referenced_params());
+        context.validate_context_usage(&ContextIntProvider::referenced_params(self));
     }
 }
 
@@ -1164,7 +1154,7 @@ impl ContextFloatProvider for EnvironmentAttributeValue {
         server_access::environment_attribute_float(context, &self.attribute).ok_or(ArithmeticException)
     }
     fn validate(&self, context: &ValidationContext) {
-        context.validate_context_usage(&self.referenced_params());
+        context.validate_context_usage(&ContextFloatProvider::referenced_params(self));
     }
 }
 
@@ -1309,7 +1299,7 @@ impl ProviderTypes for dyn ContextFloatProvider {
                 (
                     "enchantment_level",
                     lift(
-                        crate::world::item::enchantment::LevelBasedValue::codec()
+                        crate::world::item::enchantment::level_based_value::LevelBasedValue::codec()
                             .field_of("amount")
                             .xmap(|amount| EnchantmentLevelProvider { amount }, |p: &EnchantmentLevelProvider| p.amount.clone()),
                         |v| Arc::new(v) as FloatProviderRef,

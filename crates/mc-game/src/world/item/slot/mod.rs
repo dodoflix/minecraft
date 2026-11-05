@@ -482,7 +482,7 @@ fn range_source_codec() -> Codec<RangeSource> {
 fn slot_range_codec() -> Codec<(String, Vec<i32>)> {
     mc_dfu::STRING.flat_xmap(
         |name: String| match SlotRanges::name_to_ids(&name) {
-            Some(r) => mc_dfu::DataResult::success((r.name().to_owned(), r.slots().to_vec())),
+            Some(r) => mc_dfu::DataResult::success((r.get_serialized_name().to_owned(), r.slots().to_vec())),
             None => mc_dfu::DataResult::error(move || format!("Unknown element name:{name}")),
         },
         |(name, _): &(String, Vec<i32>)| mc_dfu::DataResult::success(name.clone()),

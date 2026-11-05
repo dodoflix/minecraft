@@ -57,7 +57,7 @@ impl ContainerComponentManipulator {
                 _ => DataResult::error_str("No items in component"),
             },
             |m: &ContainerComponentManipulator| {
-                mc_data::DataComponentType::from_name(&format!("minecraft:{}", m.type_name())).expect("registered component type")
+                mc_data::DataComponentType::by_name(&format!("minecraft:{}", m.type_name())).expect("registered component type")
             },
         )
     }

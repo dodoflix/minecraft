@@ -657,13 +657,11 @@ impl ConditionalFunction for CopyComponentsFunction {
             ComponentSource::BlockEntity => {
                 if let Some(be) = context.params().block_entity {
                     let components: DataComponentMap = be.collect_components();
-                    let mut builder = DataComponentMap::builder();
                     for (t, v) in components.iter() {
                         if allowed(t) {
-                            builder.set_value(t, Some(v.clone()));
+                            stack.set_value(t, Some(v.clone()));
                         }
                     }
-                    stack.apply_components(&DataComponentPatch::from_map(&builder.build()));
                 }
             }
             ComponentSource::Tool => {
@@ -717,16 +715,17 @@ impl MergeStrategy {
                 path.set(target, sources.last().expect("non-empty"))?;
             }
             MergeStrategy::Append => {
-                path.for_each_created_mut(target, &|| Tag::List(mc_nbt::ListTag::new()), &mut |tag| {
+                path.get_or_create_mut(target, &|| Tag::List(mc_nbt::ListTag::new()), &mut |tag| {
                     if let Tag::List(list) = tag {
                         for s in sources {
                             list.push(s.clone());
                         }
                     }
+                    Ok(())
                 })?;
             }
             MergeStrategy::Merge => {
-                path.for_each_created_mut(target, &|| Tag::Compound(CompoundTag::new()), &mut |tag| {
+                path.get_or_create_mut(target, &|| Tag::Compound(CompoundTag::new()), &mut |tag| {
                     if let Tag::Compound(compound) = tag {
                         for s in sources {
                             if let Tag::Compound(src) = s {
@@ -734,6 +733,7 @@ impl MergeStrategy {
                             }
                         }
                     }
+                    Ok(())
                 })?;
             }
         }
@@ -786,7 +786,7 @@ impl ConditionalFunction for FillPlayerHead {
         vec![self.entity_target.context_param()]
     }
     fn run(&self, mut stack: ItemStack, context: &mut LootContext) -> ItemStack {
-        if stack.is(mc_data::Item::PlayerHead) {
+        if stack.is(mc_data::Item::PLAYER_HEAD) {
             if let Some(donor) = self.entity_target.get(context).filter(|e| e.is_player()) {
                 if let Some(profile) = crate::world::level::storage::loot::text_api::player_profile(donor) {
                     stack.set(mc_protocol::components::values::profile::PROFILE, profile);
@@ -931,7 +931,7 @@ pub(super) fn register(entries: &mut Entries) {
         })
         .xmap(
             |raw| {
-                let names: Vec<String> = raw.block.default_state().values_defs().map(|d| d.name.to_owned()).collect();
+                let names: Vec<String> = raw.block.default_state().values().map(|(d, _)| d.name.to_owned()).collect();
                 // `Collectors.toSet()` of the properties that exist on the block
                 CopyBlockState {
                     condition: raw.condition,

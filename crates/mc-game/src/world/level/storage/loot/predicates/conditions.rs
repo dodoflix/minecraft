@@ -18,7 +18,7 @@ use crate::world::level::storage::loot::providers::number::{FloatHolder, IntHold
 use crate::world::level::storage::loot::range::{FloatRangePredicate, IntRangePredicate};
 use crate::world::level::storage::loot::server_access;
 use crate::world::level::storage::loot::validation::{ValidationContext, validate_holder_field, validate_holder_set};
-use crate::world::item::enchantment::LevelBasedValue;
+use crate::world::item::enchantment::level_based_value::LevelBasedValue;
 
 macro_rules! condition_basics {
     ($name:literal) => {
