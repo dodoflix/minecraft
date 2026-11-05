@@ -9,6 +9,12 @@ pub fn can_survive_on_block(state: BlockState) -> bool {
 }
 
 impl BlockBehaviour for SoulFireBlock {
+    fn get_state_for_placement(&self, _block: Block, level: &mut crate::server::level::ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+        Some(super::base_fire_block::get_state(&*level, context.get_clicked_pos()))
+    }
+    fn player_will_destroy(&self, state: BlockState, level: &mut crate::server::level::ServerLevel, pos: BlockPos, player: &mut crate::world::entity::ServerPlayer) -> BlockState {
+        super::base_fire_block::player_will_destroy(state, level, pos, player)
+    }
     fn entity_inside(
         &self,
         _state: BlockState,

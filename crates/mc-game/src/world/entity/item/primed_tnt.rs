@@ -63,6 +63,11 @@ impl PrimedTnt {
 
     /// `PrimedTnt(level, x, y, z, owner)`: the sideways kick uses the level's random.
     pub fn at(level: &mut ServerLevel, x: f64, y: f64, z: f64, owner: Option<&dyn Entity>) -> Self {
+        Self::at_owner_uuid(level, x, y, z, owner.map(|o| o.uuid()))
+    }
+
+    /// [`PrimedTnt::at`] with the owner given by uuid (for callers that cannot borrow the owner while the level is borrowed).
+    pub fn at_owner_uuid(level: &mut ServerLevel, x: f64, y: f64, z: f64, owner: Option<Uuid>) -> Self {
         let mut tnt = Self::new(EntityType::TNT, level.next_entity_id());
         tnt.set_pos(x, y, z);
         let rot = LevelAccessor::random(level).next_double() * f64::from((std::f64::consts::PI * 2.0) as f32);
@@ -71,7 +76,7 @@ impl PrimedTnt {
         tnt.base.xo = x;
         tnt.base.yo = y;
         tnt.base.zo = z;
-        tnt.owner = owner.map(|o| o.uuid());
+        tnt.owner = owner;
         tnt
     }
 

@@ -23,3 +23,9 @@ pub fn entity_inside(effect_applier: &mut dyn crate::world::entity::inside_block
         }),
     );
 }
+
+/// `BaseFireBlock.playerWillDestroy`: the fire-extinguish sound event, then `Block.playerWillDestroy`.
+pub fn player_will_destroy(state: BlockState, level: &mut crate::server::level::ServerLevel, pos: BlockPos, player: &mut crate::world::entity::ServerPlayer) -> BlockState {
+    level.level_event(None, 1009, pos, 0);
+    crate::server::level::block_break::player_will_destroy(level, pos, state, player)
+}
