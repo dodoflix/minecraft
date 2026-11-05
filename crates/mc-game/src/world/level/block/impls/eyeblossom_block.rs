@@ -68,7 +68,7 @@ pub struct EyeblossomBlock {
 impl EyeblossomBlock {
     /// `tryChangingState(state, level, pos, random)`.
     fn try_changing_state(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) -> bool {
-        let should_be_open = level.environment_tri_state("gameplay/eyeblossom_open").unwrap_or(self.ty.open);
+        let should_be_open = level.attribute_tri_state(crate::world::attribute::attributes::EYEBLOSSOM_OPEN, pos).to_boolean(self.ty.open);
         if should_be_open == self.ty.open {
             return false;
         }
@@ -115,7 +115,6 @@ impl BlockBehaviour for EyeblossomBlock {
         _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
         _is_precise: bool,
     ) {
-        use crate::server::level::level_data::ServerLevelData;
         if level.level_data.get_difficulty() != mc_world::level_storage::Difficulty::Peaceful
             && entity.get_type() == mc_data::EntityType::BEE
             && super::flower_block::attracts_bees(state)

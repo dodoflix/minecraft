@@ -5,7 +5,7 @@ use crate::world::entity::ServerPlayer;
 use crate::world::inventory::Prediction;
 use crate::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt};
 use crate::world::level::gameevent::GameEventContext;
-use mc_data::{GameEvent, SoundEvent};
+use mc_data::GameEvent;
 use mc_protocol::packets::play::level::SoundSource;
 use std::sync::OnceLock;
 
@@ -93,7 +93,7 @@ impl BlockBehaviour for FlowerPotBlock {
     fn random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         if state.is_block(Block::POTTED_OPEN_EYEBLOSSOM) || state.is_block(Block::POTTED_CLOSED_EYEBLOSSOM) {
             let is_open = self.potted == Block::OPEN_EYEBLOSSOM;
-            let should_be_open = level.environment_tri_state("gameplay/eyeblossom_open").unwrap_or(is_open);
+            let should_be_open = level.attribute_tri_state(crate::world::attribute::attributes::EYEBLOSSOM_OPEN, pos).to_boolean(is_open);
             if is_open != should_be_open {
                 level.set_block_and_update(pos, opposite(state));
                 let new_type = super::eyeblossom_block::transformed_type(is_open);
