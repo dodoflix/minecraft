@@ -30,8 +30,13 @@ fn struct_fields() {
     assert_eq!(from_bytes::<Mixed>(&bytes).unwrap(), m);
     // string longer than max = 3 chars
     let long = Mixed { s: "abcd".into(), ..m };
+    // `#[mc(max = 3)]` limits the encoder too (`EncoderException`), so feed the decoder hand-made bytes
+    assert_eq!(to_bytes(&long).unwrap_err().to_string(), "String too big (was 4 characters, max 3)");
+    let mut raw = bytes.clone();
+    let at = raw.windows(4).position(|w| w == [3, b'a', b'b', b'c']).unwrap();
+    raw.splice(at..at + 4, [4, b'a', b'b', b'c', b'd']);
     assert_eq!(
-        from_bytes::<Mixed>(&to_bytes(&long).unwrap()),
+        from_bytes::<Mixed>(&raw),
         Err(DecodeError::msg("The received string length is longer than maximum allowed (4 > 3)"))
     );
 }
@@ -129,13 +134,23 @@ fn vanilla_packet_limits() {
     assert_eq!(ClientIntentionPacket::decode(&mut &b[..]), Err(DecodeError::msg("Unknown connection intent: 4")));
     // login name > 16
     let hello = ServerboundHelloPacket { name: "a".repeat(17), profile_id: uuid::Uuid::nil() };
-    assert!(ServerboundHelloPacket::decode(&mut &to_bytes(&hello).unwrap()[..]).is_err());
+    assert!(to_bytes(&hello).is_err(), "`writeUtf(name, 16)`");
+    let mut raw = Vec::new();
+    mc_protocol::codec::write_utf(&mut raw, &"a".repeat(17), 100).unwrap();
+    raw.extend([0u8; 16]);
+    assert!(ServerboundHelloPacket::decode(&mut &raw[..]).is_err());
     // known packs > 64
     let packs = ServerboundSelectKnownPacks {
         known_packs: (0..65).map(|_| KnownPack { namespace: "a".into(), id: "b".into(), version: "c".into() }).collect(),
     };
+    assert_eq!(to_bytes(&packs).unwrap_err().to_string(), "65 elements exceeded max size of: 64");
+    let mut raw = Vec::new();
+    mc_protocol::codec::write_varint(&mut raw, 65);
+    for _ in 0..65 {
+        raw.extend(to_bytes(&packs.known_packs[0]).unwrap());
+    }
     assert_eq!(
-        ServerboundSelectKnownPacks::decode(&mut &to_bytes(&packs).unwrap()[..]),
+        ServerboundSelectKnownPacks::decode(&mut &raw[..]),
         Err(DecodeError::msg("65 elements exceeded max size of: 64"))
     );
     // client information: out-of-range enum ids use vanilla's WRAP / ZERO strategies

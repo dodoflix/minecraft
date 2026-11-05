@@ -116,7 +116,7 @@ fn rand_suffix() -> u64 {
 macro_rules! send {
     ($conn:expr, $enum:ident :: $variant:ident($packet:expr)) => {{
         let mut buf = Vec::new();
-        $enum::$variant($packet).encode_payload(&mut buf);
+        $enum::$variant($packet).encode_payload(&mut buf).unwrap();
         $conn.write_payload(&buf).await.unwrap();
         $conn.flush().await.unwrap();
     }};

@@ -29,12 +29,12 @@ fn parse_result(input: &str) -> String {
 
 fn status_result(input: &str) -> String {
     let mut wire = Vec::new();
-    write_utf(&mut wire, input);
+    write_utf(&mut wire, input, 1 << 24).unwrap(); // the test feeds over-long inputs to the decoder
     let mut slice = &wire[..];
     match ClientboundStatusResponsePacket::decode(&mut slice) {
         Ok(p) => {
             let mut out = Vec::new();
-            p.encode(&mut out);
+            p.encode(&mut out).unwrap();
             let mut s = &out[..];
             format!("ok:{}", mc_protocol::codec::read_utf(&mut s, 32767).expect("own output decodes"))
         }

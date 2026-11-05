@@ -163,7 +163,7 @@ fn offers_canon(offers: &MerchantOffers) -> String {
 
 fn wire_hex(offers: &MerchantOffers) -> String {
     let mut out = Vec::new();
-    offers.encode_stream(&mut out);
+    offers.encode_stream(&mut out).unwrap();
     out.iter().map(|b| format!("{b:02x}")).collect()
 }
 
@@ -320,7 +320,7 @@ fn trades_equal_vanilla() {
     // the offers packet
     let packet = ClientboundMerchantOffersPacket { container_id: 7, offers: first.expect("an offer").to_wire(), villager_level: 3, villager_xp: 150, show_progress: true, can_restock: false };
     let mut out = Vec::new();
-    packet.encode(&mut out);
+    packet.encode(&mut out).unwrap();
     let got: String = out.iter().map(|b| format!("{b:02x}")).collect();
     assert_eq!(got, fx.of('K')[0][0], "offers packet");
 }

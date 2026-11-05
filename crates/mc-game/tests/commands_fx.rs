@@ -20,7 +20,7 @@ fn particle_argument_matches_vanilla() {
         let ours = match ParticleArgument::read_particle(&mut reader) {
             Ok(options) => {
                 let mut wire = Vec::new();
-                options.encode(&mut wire);
+                options.encode(&mut wire).unwrap();
                 let hex: String = wire.iter().map(|b| format!("{b:02x}")).collect();
                 format!("OK\t{hex}\t{}", reader.get_remaining().encode_utf16().count())
             }

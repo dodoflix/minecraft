@@ -741,13 +741,15 @@ fn attributes(g: &Golden) {
         base: 0.0,
         modifiers: vec![],
     });
+    // `ByteBufCodecs.list(128)`: the encoder refuses 129 attributes...
+    let too_many = ClientboundUpdateAttributesPacket { entity_id: 1, attributes: over.clone() };
+    assert_eq!(to_bytes(&too_many).unwrap_err().to_string(), "129 elements exceeded max size of: 128");
+    // ...and the decoder rejects a stream that carries them anyway: patch the count of the 128 element packet
+    let mut raw = to_bytes(&ClientboundUpdateAttributesPacket { entity_id: 1, attributes: over[..128].to_vec() }).unwrap();
+    raw.splice(1..3, [0x81, 0x01]); // VarInt entity id (1 byte), then the VarInt count 128 -> 129
+    raw.extend(to_bytes(&over[128]).unwrap());
     assert_eq!(
-        from_bytes::<ClientboundUpdateAttributesPacket>(&to_bytes(
-            &ClientboundUpdateAttributesPacket {
-                entity_id: 1,
-                attributes: over
-            }
-        ).unwrap()),
+        from_bytes::<ClientboundUpdateAttributesPacket>(&raw),
         Err(DecodeError::msg("129 elements exceeded max size of: 128"))
     );
     // operation ids out of range are ADD_VALUE

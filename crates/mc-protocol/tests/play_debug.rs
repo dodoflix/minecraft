@@ -888,6 +888,13 @@ fn body<T: Encode>(v: &T) -> Vec<u8> {
     to_bytes(v).unwrap()
 }
 
+/// A string as vanilla would read it, whatever its length (our encoder refuses strings over the limit).
+fn utf(s: &str) -> Vec<u8> {
+    let mut b = Vec::new();
+    mc_protocol::codec::write_utf(&mut b, s, 1 << 30).unwrap();
+    b
+}
+
 fn varint(v: i32) -> Vec<u8> {
     let mut b = Vec::new();
     write_varint(&mut b, v);
@@ -904,15 +911,26 @@ fn subscription_request_limit() {
     let ok = ServerboundDebugSubscriptionRequestPacket {
         subscriptions: vec![sub; 32],
     };
+    // a `ReferenceOpenHashSet`: the 32 equal elements collapse to one on decode
     assert_eq!(
-        from_bytes::<ServerboundDebugSubscriptionRequestPacket>(&body(&ok)).unwrap(),
-        ok
+        from_bytes::<ServerboundDebugSubscriptionRequestPacket>(&body(&ok)).unwrap().subscriptions,
+        vec![sub]
     );
     let too_many = ServerboundDebugSubscriptionRequestPacket {
         subscriptions: vec![sub; 33],
     };
+    // the encoder refuses it first (`ByteBufCodecs.collection(.., 32)`)...
     assert_eq!(
-        err::<ServerboundDebugSubscriptionRequestPacket>(&body(&too_many)),
+        to_bytes(&too_many).unwrap_err().to_string(),
+        "33 elements exceeded max size of: 32"
+    );
+    // ...and the decoder rejects what arrives anyway
+    let mut raw = varint(33);
+    for _ in 0..33 {
+        raw.extend(body(&sub));
+    }
+    assert_eq!(
+        err::<ServerboundDebugSubscriptionRequestPacket>(&raw),
         "33 elements exceeded max size of: 32"
     );
     // unknown registry id
@@ -930,7 +948,7 @@ fn string_limits() {
     // set_test_block message: STRING_UTF8
     let mut b = body(&bp(0, 0, 0));
     b.extend(varint(0));
-    b.extend(body(&long));
+    b.extend(utf(&long));
     assert_eq!(
         err::<ServerboundSetTestBlockPacket>(&b),
         "The received string length is longer than maximum allowed (32768 > 32767)"
@@ -938,7 +956,7 @@ fn string_limits() {
     // set_game_rule value
     let mut b = varint(1);
     b.extend(body(&id("minecraft:advance_time")));
-    b.extend(body(&long));
+    b.extend(utf(&long));
     assert_eq!(
         err::<ServerboundSetGameRulePacket>(&b),
         "The received string length is longer than maximum allowed (32768 > 32767)"
@@ -946,7 +964,7 @@ fn string_limits() {
     // game rule values
     let mut b = varint(1);
     b.extend(body(&id("minecraft:advance_time")));
-    b.extend(body(&long));
+    b.extend(utf(&long));
     assert_eq!(
         err::<ClientboundGameRuleValuesPacket>(&b),
         "The received string length is longer than maximum allowed (32768 > 32767)"

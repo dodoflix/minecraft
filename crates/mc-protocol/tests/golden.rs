@@ -35,7 +35,7 @@ macro_rules! check {
         let expected = $g.get($label).unwrap_or_else(|| panic!("no fixture {}", $label));
         let p: $enum = $packet.into();
         let mut out = Vec::new();
-        p.encode_payload(&mut out);
+        p.encode_payload(&mut out).unwrap();
         assert_eq!(hex(&out), hex(expected), "encode {}", $label);
         assert_eq!(<$enum>::decode_payload(expected).unwrap_or_else(|e| panic!("decode {}: {e}", $label)), p, "decode {}", $label);
     }};

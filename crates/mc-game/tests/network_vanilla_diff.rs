@@ -96,13 +96,13 @@ fn name_of(state: ConnectionState, payload: &[u8]) -> String {
 
 fn login_bytes(p: ServerboundLoginPacket) -> Vec<u8> {
     let mut b = Vec::new();
-    p.encode_payload(&mut b);
+    p.encode_payload(&mut b).unwrap();
     b
 }
 
 fn config_bytes(p: ServerboundConfigurationPacket) -> Vec<u8> {
     let mut b = Vec::new();
-    p.encode_payload(&mut b);
+    p.encode_payload(&mut b).unwrap();
     b
 }
 

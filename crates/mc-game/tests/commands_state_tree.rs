@@ -37,7 +37,7 @@ fn state_command_trees_match_vanilla() {
         let permissions = PermissionSet::from(LevelBasedPermissionSet::for_level(PermissionLevel::by_id(level)));
         let root = command_tree::usable_root(&subset_root, &CommandSourceStack::compilation_context(permissions));
         let mut out = Vec::new();
-        command_tree::commands_packet(&root).encode(&mut out);
+        command_tree::commands_packet(&root).encode(&mut out).unwrap();
         let bytes = unhex(hex);
         let ours = ClientboundCommandsPacket::decode(&mut out.as_slice()).unwrap();
         let theirs = ClientboundCommandsPacket::decode(&mut bytes.as_slice()).unwrap();

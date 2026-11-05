@@ -85,7 +85,7 @@ fn recipes_match_vanilla() {
     for holder in manager.recipes() {
         manager.list_displays_for_recipe(&holder.id, |entry| {
             let mut out = Vec::new();
-            entry.encode(&mut out);
+            entry.encode(&mut out).unwrap();
             ours.push((entry.id.index.to_string(), holder.id.to_string(), hex(&out)));
         });
     }
@@ -107,8 +107,8 @@ fn recipes_match_vanilla() {
     assert_eq!(manager.stonecutter_recipes().entries.len(), stonecut.len());
     for (entry, row) in manager.stonecutter_recipes().entries.iter().zip(&stonecut) {
         let (mut input, mut display) = (Vec::new(), Vec::new());
-        mc_protocol::packets::play::inventory::Ingredient { values: entry.input.wire_set() }.encode(&mut input);
-        entry.recipe.option_display.encode(&mut display);
+        mc_protocol::packets::play::inventory::Ingredient { values: entry.input.wire_set() }.encode(&mut input).unwrap();
+        entry.recipe.option_display.encode(&mut display).unwrap();
         assert_eq!((hex(&input), hex(&display)), (row[1].clone(), row[2].clone()));
     }
 

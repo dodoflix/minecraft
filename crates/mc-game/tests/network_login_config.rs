@@ -1,15 +1,15 @@
 //! Login (offline + online-mode encryption against a mock session server), configuration sequence, and the
 //! per-connection failure isolation of `ConnectionSender::send`.
 mod net_common;
-use mc_protocol::codec::EncodeResult;
 use net_common as common;
 
 use common::*;
 use mc_game::server::network::ConnectionSender;
 use mc_game::server::network::Outbound;
+use mc_game::server::network::connection::Payload;
 use mc_protocol::PROTOCOL_VERSION;
 use mc_protocol::auth::{digest_server_id, encrypt_with_public_key, generate_secret};
-use mc_protocol::codec::{Decode, DecodeResult, Encode};
+use mc_protocol::codec::{Decode, DecodeResult, Encode, EncodeError, EncodeResult};
 use mc_protocol::net::Connection;
 use mc_protocol::packet::{ConnectionState, Packet, PacketFlow};
 use mc_protocol::packets::common::ClientInformation;
@@ -23,13 +23,13 @@ use uuid::Uuid;
 
 fn login_payload(p: ServerboundLoginPacket) -> Vec<u8> {
     let mut buf = Vec::new();
-    p.encode_payload(&mut buf);
+    p.encode_payload(&mut buf).unwrap();
     buf
 }
 
 fn config_payload(p: ServerboundConfigurationPacket) -> Vec<u8> {
     let mut buf = Vec::new();
-    p.encode_payload(&mut buf);
+    p.encode_payload(&mut buf).unwrap();
     buf
 }
 
@@ -404,33 +404,35 @@ async fn online_mode_rejects_unverified_sessions_and_bad_keys() {
 
 // ---- failure isolation ---------------------------------------------------------------------------------------------
 
-/// A packet whose encoder refuses its data like vanilla codecs that throw (mc-protocol panics there).
-struct Unencodable;
-impl Encode for Unencodable {
+/// A packet whose encoder refuses its data like vanilla codecs that throw `EncoderException`.
+struct Unencodable<const SKIPPABLE: bool>;
+impl<const SKIPPABLE: bool> Encode for Unencodable<SKIPPABLE> {
     fn encode(&self, _out: &mut Vec<u8>) -> EncodeResult<()> {
-        panic!("Cannot serialize this component");
-        Ok(())
+        Err(EncodeError::msg("String too big (was 32768 characters, max 32767)"))
     }
 }
-impl Decode for Unencodable {
+impl<const SKIPPABLE: bool> Decode for Unencodable<SKIPPABLE> {
     fn decode(_input: &mut &[u8]) -> DecodeResult<Self> {
         Ok(Self)
     }
 }
-impl Packet for Unencodable {
+impl<const SKIPPABLE: bool> Packet for Unencodable<SKIPPABLE> {
     const ID: i32 = 0x7e;
     const NAME: &'static str = "minecraft:unencodable";
     const STATE: ConnectionState = ConnectionState::Play;
     const FLOW: PacketFlow = PacketFlow::Clientbound;
+    const SKIPPABLE: bool = SKIPPABLE;
 }
 
 #[test]
-fn an_encoder_panic_disconnects_only_that_connection() {
+fn an_encoder_failure_disconnects_only_that_connection() {
     let (tx_bad, mut rx_bad) = tokio::sync::mpsc::unbounded_channel();
     let (tx_ok, mut rx_ok) = tokio::sync::mpsc::unbounded_channel();
+    let (tx_other, mut rx_other) = tokio::sync::mpsc::unbounded_channel();
     let bad = ConnectionSender::new(tx_bad);
     let ok = ConnectionSender::new(tx_ok);
-    bad.send(&Unencodable); // must not unwind into the caller
+    let other = ConnectionSender::new(tx_other);
+    bad.send(&Unencodable::<false>);
     match rx_bad.try_recv() {
         Ok(Outbound::Disconnect(reason)) => assert_eq!(
             reason.get_string(),
@@ -443,6 +445,25 @@ fn an_encoder_panic_disconnects_only_that_connection() {
     ok.send(&ClientboundFinishConfigurationPacket);
     assert!(matches!(rx_ok.try_recv(), Ok(Outbound::Payload(_))));
     assert!(!ok.handle().is_read_only());
+
+    // A packet encoded once for a broadcast fails on every recipient that gets it, and only on those.
+    let broadcast = Payload::encode(&Unencodable::<false>);
+    other.send_payload(broadcast.clone());
+    assert!(matches!(rx_other.try_recv(), Ok(Outbound::Disconnect(_))));
+    ok.send_payload(Payload::encode(&ClientboundFinishConfigurationPacket));
+    assert!(matches!(rx_ok.try_recv(), Ok(Outbound::Payload(_))));
+}
+
+#[test]
+fn a_skippable_packet_that_fails_to_encode_is_dropped() {
+    // `Packet.isSkippable()` (chat, combat kill, tag query): `SkipPacketEncoderException` = logged and skipped.
+    let (tx, mut rx) = tokio::sync::mpsc::unbounded_channel();
+    let conn = ConnectionSender::new(tx);
+    conn.send(&Unencodable::<true>);
+    assert!(rx.try_recv().is_err(), "nothing is queued and nobody is kicked");
+    assert!(!conn.handle().is_read_only());
+    conn.send(&ClientboundFinishConfigurationPacket);
+    assert!(matches!(rx.try_recv(), Ok(Outbound::Payload(_))));
 }
 
 #[tokio::test(flavor = "multi_thread")]

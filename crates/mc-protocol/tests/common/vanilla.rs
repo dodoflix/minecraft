@@ -91,7 +91,7 @@ pub async fn connect(port: u16) -> Connection<TcpStream> {
 macro_rules! send {
     ($conn:expr, $packet:expr) => {{
         let mut buf = Vec::new();
-        $packet.encode_payload(&mut buf);
+        $packet.encode_payload(&mut buf).unwrap();
         $conn.write_payload(&buf).await.unwrap();
         $conn.flush().await.unwrap();
     }};
@@ -107,7 +107,7 @@ pub async fn handshake(conn: &mut Connection<TcpStream>, port: u16, intention: C
             port,
             intention,
         })
-    ).unwrap();
+    );
 }
 
 pub async fn read(conn: &mut Connection<TcpStream>) -> Vec<u8> {

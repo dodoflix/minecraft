@@ -12,7 +12,7 @@ use tokio::net::TcpStream;
 
 fn encode(p: ServerboundStatusPacket) -> Vec<u8> {
     let mut buf = Vec::new();
-    p.encode_payload(&mut buf);
+    p.encode_payload(&mut buf).unwrap();
     buf
 }
 

@@ -40,7 +40,7 @@ fn advancement_and_recipe_trees_match_vanilla() {
         let permissions = PermissionSet::from(LevelBasedPermissionSet::for_level(PermissionLevel::by_id(level.parse().unwrap())));
         let root = command_tree::usable_root(commands.get_dispatcher().get_root(), &CommandSourceStack::compilation_context(permissions));
         let mut out = Vec::new();
-        command_tree::commands_packet(&root).encode(&mut out);
+        command_tree::commands_packet(&root).encode(&mut out).unwrap();
         let ours = ClientboundCommandsPacket::decode(&mut out.as_slice()).unwrap();
         for name in ["advancement", "recipe"] {
             let vanilla = top_level(&theirs, name);

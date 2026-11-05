@@ -7,7 +7,7 @@
 use crate::codec::EncodeResult;
 use crate::components::common::uuid_codec;
 use crate::components::component::{ComponentDef, ComponentKey};
-use crate::codec::{group_properties_by_name, read_property_count, write_varint, DecodeBounded, DecodeResult, Either, GameProfile, Property};
+use crate::codec::{group_properties_by_name, read_property_count, DecodeBounded, DecodeResult, Either, GameProfile, Property};
 use crate::string_enum;
 use crate::{Decode, Encode};
 use mc_core::ident::Identifier;

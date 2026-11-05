@@ -28,7 +28,7 @@ fn vanilla_full_trees_roundtrip() {
     for (sel, level, kind, bytes) in golden() {
         let packet = ClientboundCommandsPacket::decode(&mut bytes.as_slice()).unwrap_or_else(|e| panic!("{sel} {level} {kind}: {e:?}"));
         let mut out = Vec::new();
-        packet.encode(&mut out);
+        packet.encode(&mut out).unwrap();
         assert_eq!(out, bytes, "{sel} {level} {kind}");
     }
 }
@@ -42,7 +42,7 @@ fn ours_packet(commands: &mc_game::commands::Commands, level: u32) -> Clientboun
     let permissions = PermissionSet::from(LevelBasedPermissionSet::for_level(PermissionLevel::by_id(level as i32)));
     let root = command_tree::usable_root(&commands.get_dispatcher().get_root(), &CommandSourceStack::compilation_context(permissions));
     let mut out = Vec::new();
-    command_tree::commands_packet(&root).encode(&mut out);
+    command_tree::commands_packet(&root).encode(&mut out).unwrap();
     ClientboundCommandsPacket::decode(&mut out.as_slice()).unwrap()
 }
 
@@ -106,8 +106,8 @@ fn tree_equals_vanilla_full() {
     for level in 0..=4 {
         let (ours, vanilla) = (ours_packet(&commands, level), vanilla_packet(level));
         let (mut a, mut b) = (Vec::new(), Vec::new());
-        canonical(&vanilla).encode(&mut a);
-        canonical(&ours).encode(&mut b);
+        canonical(&vanilla).encode(&mut a).unwrap();
+        canonical(&ours).encode(&mut b).unwrap();
         assert!(a == b, "permission level {level}: tree differs from vanilla\n{}", diff_trees(&vanilla, &ours).render());
     }
 }

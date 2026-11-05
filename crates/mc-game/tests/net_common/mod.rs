@@ -225,7 +225,7 @@ pub async fn handshake(conn: &mut Connection<TcpStream>, protocol_version: i32, 
         port: 25565,
         intention,
     })
-    .encode_payload(&mut buf);
+    .encode_payload(&mut buf).unwrap();
     write_payload(conn, &buf).await;
 }
 

@@ -1139,8 +1139,11 @@ fn err<T: Decode + std::fmt::Debug>(bytes: &[u8]) -> String {
     }
 }
 
+/// A string as vanilla would read it, whatever its length (our encoder refuses strings over the limit).
 fn utf(s: &str) -> Vec<u8> {
-    to_bytes(s).unwrap()
+    let mut b = Vec::new();
+    mc_protocol::codec::write_utf(&mut b, s, 1 << 30).unwrap();
+    b
 }
 
 #[test]
