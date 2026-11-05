@@ -131,7 +131,7 @@ pub fn item_stack_use_on(context: &mut UseOnContext, level: &mut ServerLevel, pl
     let result = behaviour(used_item).use_on(context, level, player);
     if let InteractionResult::Success(success) = &result {
         if success.was_item_interaction() {
-            // `player.awardStat(Stats.ITEM_USED.get(usedItem))`: statistics are not tracked yet
+            player.award_stat_once(level, crate::stats::Stat::Used(used_item));
             let transform_to = success.item_context.held_item_transformed_to.clone().unwrap_or_else(|| context.item_stack.clone());
             let result_stack = apply_after_use_component_side_effects(transform_to, player, &before);
             return InteractionResult::Success(success.clone().held_item_transformed_to(result_stack));
@@ -179,7 +179,7 @@ pub fn on_use_tick(stack: &mut ItemStack, level: &mut ServerLevel, entity: &mut 
 pub fn mine_block(stack: &mut ItemStack, level: &mut ServerLevel, state: BlockState, pos: BlockPos, owner: &mut ServerPlayer) {
     let used_item = stack.item();
     if behaviour(used_item).mine_block(stack, level, state, pos, owner) {
-        // `owner.awardStat(Stats.ITEM_USED.get(usedItem))`
+        owner.award_stat_once(level, crate::stats::Stat::Used(used_item));
     }
 }
 

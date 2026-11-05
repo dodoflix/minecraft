@@ -52,15 +52,20 @@ impl PlayerSystems for ServerPlayerSystems {
         ctx.player.set_camera(ctx.level, Some(target));
     }
 
-    /// `ServerPlayer.teleportTo(level, x, y, z, Set.of(), yRot, xRot, resetCamera)` within the player's own dimension
-    /// (spectator `ServerboundTeleportToEntityPacket`); a target in another dimension needs the server-level
-    /// `dimension_change::teleport_player`, which cannot run while the player is taken out of its level.
+    /// `ServerPlayer.teleportTo(level, x, y, z, Set.of(), yRot, xRot, resetCamera)` (spectator
+    /// `ServerboundTeleportToEntityPacket`). Another dimension is a `teleport(TeleportTransition)`, which needs the
+    /// player in its level: it runs as a deferred server task once the player is put back.
     fn teleport_to(&self, ctx: &mut PlayCtx, dimension: &crate::world::level::DimensionKey, x: f64, y: f64, z: f64, y_rot: f32, x_rot: f32, set_camera: bool) {
-        if *dimension != ctx.level.dimension {
-            return;
-        }
         if set_camera {
             ctx.player.set_camera(ctx.level, None);
+        }
+        if *dimension != ctx.level.dimension {
+            let (old, id, target) = (ctx.level.dimension.clone(), ctx.player.base_id(), dimension.clone());
+            ctx.lis().deferred_tasks.push(Box::new(move |server| {
+                let transition = crate::server::players::dimension_change::TeleportTransition::new(target, mc_core::phys::Vec3::new(x, y, z), mc_core::phys::Vec3::ZERO, y_rot, x_rot);
+                crate::server::players::dimension_change::teleport_player(server, &old, id, &transition);
+            }));
+            return;
         }
         ctx.player.connection_teleport(x, y, z, y_rot, x_rot);
         crate::world::entity::Entity::set_y_head_rot(&mut *ctx.player, y_rot);
