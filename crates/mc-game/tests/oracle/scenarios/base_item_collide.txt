@@ -1,5 +1,6 @@
 # Items shot along +x at obstacle shapes (collision corpus of Entity.move/collide with stairs, slabs, fences, walls, trapdoors, ...).
 level flat
+entity_counter 1000
 fill -2 -60 -2 30 -50 40 minecraft:air
 block 3 -60 0 minecraft:oak_stairs[facing=east,half=bottom,shape=straight]
 block 3 -60 3 minecraft:stone_slab[type=bottom]

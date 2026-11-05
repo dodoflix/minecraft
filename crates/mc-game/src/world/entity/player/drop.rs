@@ -75,11 +75,4 @@ impl ServerPlayer {
         self.drop(level, removed, true, Prediction::Predicted);
         self.reset_attack_strength_ticker();
     }
-
-    /// Items queued by code that had no level at hand (`pending_drops`): spawn them now.
-    pub fn flush_pending_drops(&mut self, level: &mut ServerLevel) {
-        for (stack, thrown_from_hand) in std::mem::take(&mut self.pending_drops) {
-            self.drop(level, stack, thrown_from_hand, Prediction::Predicted);
-        }
-    }
 }

@@ -188,7 +188,6 @@ impl ServerPlayer {
         self.player.cooldowns.tick();
         self.update_player_pose(level);
         self.flush_item_cooldown_packets();
-        self.flush_pending_drops(level);
     }
 
     /// `Player.aiStep()`: `super.aiStep()` is the generic `LivingEntity.aiStep`.

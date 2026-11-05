@@ -259,6 +259,22 @@ impl Entity for ExperienceOrb {
         0.999999
     }
 
+    /// `doWaterSplashEffect()`: orbs make no splash.
+    fn do_water_splash_effect(&mut self, _level: &mut ServerLevel) {}
+
+    /// `hurtServer(level, source, damage)`: health 5, no extra immunity.
+    fn hurt_server(&mut self, level: &mut ServerLevel, source: &crate::world::damagesource::DamageSource, damage: f32) -> bool {
+        if self.is_invulnerable_to_base(level, source) {
+            return false;
+        }
+        self.mark_hurt();
+        self.health = (self.health as f32 - damage) as i32;
+        if self.health <= 0 {
+            self.discard();
+        }
+        true
+    }
+
     fn tick(&mut self, level: &mut ServerLevel) {
         self.base_tick(level);
         let colliding = !level.no_collision(None, None, &self.base.bounding_box());

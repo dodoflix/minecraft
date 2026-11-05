@@ -1,0 +1,245 @@
+T 1
+E d1 minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=122.51569,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=1 pickup=0 health=5 owner=- thrower=-
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=1 pickup=0 health=5 owner=- thrower=-
+E d3 minecraft:item pos=21.5,-57.04,0.5 delta=0.0,-0.03920000076293945,0.0 rot=309.6314,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_log*1 age=1 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-57.04,-0.5 delta=0.0,-0.03920000076293945,0.0 rot=92.805916,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=1 pickup=0 health=5 owner=- thrower=-
+E b1 minecraft:item pos=5.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bundle*1 age=1 pickup=0 health=5 owner=- thrower=-
+T 2
+E d1 minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=122.51569,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=2 pickup=0 health=5 owner=- thrower=-
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=2 pickup=0 health=5 owner=- thrower=-
+E d3 minecraft:item pos=21.5,-57.11920000076294,0.5 delta=0.0,-0.0776160022583008,0.0 rot=309.6314,0.0 og=0 fall=0.11919999867677689 fire=300 air=300 alive=1 pose=standing item=minecraft:oak_log*1 age=2 pickup=0 health=1 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-57.11920000076294,-0.5 delta=0.0,-0.0776160022583008,0.0 rot=92.805916,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=2 pickup=0 health=5 owner=- thrower=-
+E b1 minecraft:item pos=5.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bundle*1 age=2 pickup=0 health=5 owner=- thrower=-
+HURT d1 in_fire 1 -> true
+HURT d2 in_fire 1 -> false
+HURT d1 cactus 2 -> true
+HURT d1 cactus 2 -> true
+HURT d1 cactus 2 -> false
+T 3
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=3 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-57.23681600302124,-0.5 delta=0.0,-0.115263684456482,0.0 rot=92.805916,0.0 og=0 fall=0.17721600458025932 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=3 pickup=0 health=5 owner=- thrower=-
+E b1 minecraft:item pos=5.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bundle*1 age=3 pickup=0 health=5 owner=- thrower=-
+T 4
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=4 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-57.35157968745397,-0.5 delta=0.0,-0.11246841293302218,0.0 rot=92.805916,0.0 og=0 fall=0.203371686860919 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=4 pickup=0 health=5 owner=- thrower=-
+E b1 minecraft:item pos=5.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bundle*1 age=4 pickup=0 health=5 owner=- thrower=-
+T 5
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=5 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-57.46354810036324,-0.5 delta=0.0,-0.10972904678671598,0.0 rot=92.805916,0.0 og=0 fall=0.21365425642579794 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=5 pickup=0 health=5 owner=- thrower=-
+E b1 minecraft:item pos=5.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=114.02304,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bundle*1 age=5 pickup=0 health=5 owner=- thrower=-
+HURT b1 generic 10 -> true
+T 6
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=6 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-57.57277714712621,-0.5 delta=0.0,-0.10704446791108664,0.0 rot=92.805916,0.0 og=0 fall=0.21605617133900523 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=6 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.506699194818737,-59.84,0.5567238000453653 delta=0.0065652110501395605,0.1568000030517578,0.055589325126378604 rot=281.82538,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=1 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.525477315852579,-59.84,0.5231849242733567 delta=0.0249677700214685,0.1568000030517578,0.022721226230106965 rot=180.24385,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=1 pickup=0 health=5 owner=- thrower=-
+T 7
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=7 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-57.67932161501355,-0.5 delta=0.0,-0.10441358056176561,0.0 rot=92.805916,0.0 og=0 fall=0.21457255049608648 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=7 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.513264405868877,-59.723199996948246,0.6123131251717439 delta=0.006433906954358233,0.11446400521850592,0.05447753968413326 rot=281.82538,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=2 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.550445085874047,-59.723199996948246,0.5459061505034637 delta=0.02446841509726155,0.11446400521850592,0.022266802138877825 rot=180.24385,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=2 pickup=0 health=5 owner=- thrower=-
+T 8
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=8 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-57.78323519555157,-0.5 delta=0.0,-0.10183531090925081,0.0 rot=92.805916,0.0 og=0 fall=0.21119985810946673 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=8 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.519698312823235,-59.64873599172974,0.6667906648558771 delta=0.006305228937988104,0.07297472653442398,0.0533879899295272 rot=281.82538,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=3 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.5749135009713084,-59.64873599172974,0.5681729526423415 delta=0.0239790472620143,0.07297472653442398,0.021821466520805813 rot=180.24385,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=3 pickup=0 health=5 owner=- thrower=-
+T 9
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=9 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-57.88457050643707,-0.5 delta=0.0,-0.09930860660060971,0.0 rot=92.805916,0.0 og=0 fall=0.20693523850059137 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=9 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.526003541761223,-59.61576126519531,0.7201786547854043 delta=0.00617912447949104,0.0323152326326785,0.052320231149231754 rot=281.82538,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=4 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.598892548233323,-59.61576126519531,0.5899944191631473 delta=0.023499466774138042,0.0323152326326785,0.02138503760660114 rot=180.24385,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=4 pickup=0 health=5 owner=- thrower=-
+T 10
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=10 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-57.98337911301393,-0.5 delta=0.0,-0.09683243632994837,0.0 rot=92.805916,0.0 og=0 fall=0.2022762281994801 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=10 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.532182666240714,-59.62344603256263,0.7724988859346361 delta=0.006055542107758665,-0.0075310721665503766,0.051273827524176335 rot=281.82538,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=5 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.622392015007461,-59.62344603256263,0.6113794567697485 delta=0.02302947788687204,-0.0075310721665503766,0.02095733726235634 rot=180.24385,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=5 pickup=0 health=5 owner=- thrower=-
+T 11
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=11 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-58.07971154932013,-0.5 delta=0.0,-0.09440578941747106,0.0 rot=92.805916,0.0 og=0 fall=0.19747055238985922 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=11 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.5382382083484725,-59.67097710472918,0.8237727134588124 delta=0.005934431381103791,-0.04658045162980263,0.05024835195166346 rot=281.82538,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=6 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.645421492894332,-59.67097710472918,0.6323367940321049 delta=0.02256888876838703,-0.04658045162980263,0.0205381909168387 rot=180.24385,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=6 pickup=0 health=5 owner=- thrower=-
+T 12
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=12 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-58.17361733871385,-0.5 delta=0.0,-0.09202767539695868,0.0 rot=92.805916,0.0 og=0 fall=0.1926410678352113 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=12 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.5441726397295765,-59.75755755635898,0.8740210654104759 delta=0.0058157428666720115,-0.08484884424859764,0.04924338587104145 rot=281.82538,0.0 og=0 fall=0.1417962945997715 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=7 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.667990381662719,-59.75755755635898,0.6528749849489436 delta=0.02211751142348668,-0.08484884424859764,0.02012742749023683 rot=180.24385,0.0 og=0 fall=0.1417962945997715 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=7 pickup=0 health=5 owner=- thrower=-
+T 13
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=13 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-58.26514501408706,-0.5 delta=0.0,-0.08969712361149762,0.0 rot=92.805916,0.0 og=0 fall=0.1878482119900582 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=13 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.549988382596249,-59.88240640060758,0.9232644512815174 delta=0.005699428120265063,-0.1223518697449284,0.04825851909286367 rot=281.82538,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=8 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.690107893086205,-59.88240640060758,0.6730024124391805 delta=0.021675161616874997,-0.1223518697449284,0.019724879324332308 rot=180.24385,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=8 pickup=0 health=5 owner=- thrower=-
+T 14
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=14 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-58.35434213767481,-0.5 delta=0.0,-0.08741318281729403,0.0 rot=92.805916,0.0 og=0 fall=0.18312122755560267 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=14 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.555687810716514,-60.0,0.9715229703743811 delta=0.0033512640717105464,0.0,0.02837601208002427 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=9 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.71178305470308,-60.0,0.6927272917635128 delta=0.012744996312327285,0.0,0.011598230208996268 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=9 pickup=0 health=5 owner=- thrower=-
+T 15
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=15 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-58.44125532046836,-0.5 delta=0.0,-0.08517492079541181,0.0 rot=92.805916,0.0 og=0 fall=0.1784737971092909 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=15 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.559039074788225,-60.0,0.9998989824544053 delta=0.0019705434723186984,0.0,0.016685096780865653 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=10 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.724528051015407,-60.0,0.7043255219725091 delta=0.007494058585232134,0.0,0.00681976004866773 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=10 pickup=0 health=5 owner=- thrower=-
+T 16
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=16 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-58.52593024124002,-0.5 delta=0.0,-0.08298142397127577,0.0 rot=92.805916,0.0 og=0 fall=0.17391181571611014 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=16 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.5610096182605435,-60.0,1.016584079235271 delta=0.00115867967823731,0.0,0.009810837893702197 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=11 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.732022109600639,-60.0,0.7111452820211768 delta=0.0044065068912237495,0.0,0.004010019311854085 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=11 pickup=0 health=5 owner=- thrower=-
+T 17
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=17 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-58.608411665187546,-0.5 delta=0.0,-0.08083179704178481,0.0 rot=92.805916,0.0 og=0 fall=0.1694373293883018 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=17 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.562168297938781,-60.0,1.0263949171289732 delta=6.813037193137274E-4,0.0,0.005768773261590227 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=12 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.736428616491863,-60.0,0.7151553013330308 delta=0.0025910263125866564,0.0,0.0023578915924738525 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=12 pickup=0 health=5 owner=- thrower=-
+T 18
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=18 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-58.68874346220558,-0.5 delta=0.0,-0.0787251626098828,0.0 rot=92.805916,0.0 og=0 fall=0.16505045961173437 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=18 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.562849601658095,-60.0,1.0321636903905635 delta=4.0060662724046694E-4,0.0,0.0033920390189099694 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=13 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.7390196428044495,-60.0,0.7175131929255048 delta=0.0015235236250026594,0.0,0.0013864403957915858 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=13 pickup=0 health=5 owner=- thrower=-
+T 19
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=19 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-58.766968624791716,-0.5 delta=0.0,-0.07666066082643797,0.0 rot=92.805916,0.0 og=0 fall=0.16075039541141223 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=19 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.563250208285336,-60.0,1.0355557294094735 delta=2.3555672050438615E-4,0.0,0.0019945191436828926 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=14 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.7390196428044495,-60.0,0.7175131929255048 delta=0.0015235236250026594,-0.04,0.0013864403957915858 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=14 pickup=0 health=5 owner=- thrower=-
+T 20
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=20 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-58.84312928559441,-0.5 delta=0.0,-0.07463744903928478,0.0 rot=92.805916,0.0 og=0 fall=0.15653585958190774 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=20 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.563250208285336,-60.0,1.0355557294094735 delta=2.3555672050438615E-4,-0.04,0.0019945191436828926 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=15 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.7390196428044495,-60.0,0.7175131929255048 delta=0.0015235236250026594,-0.08,0.0013864403957915858 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=15 pickup=0 health=5 owner=- thrower=-
+T 21
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=21 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-58.917266734609946,-0.5 delta=0.0,-0.07265470144928496,0.0 rot=92.805916,0.0 og=0 fall=0.15240537905548024 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=21 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.563250208285336,-60.0,1.0355557294094735 delta=2.3555672050438615E-4,-0.08,0.0019945191436828926 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=16 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.7390196428044495,-60.0,0.7175131929255048 delta=0.0015235236250026594,-0.12,0.0013864403957915858 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=16 pickup=0 health=5 owner=- thrower=-
+T 22
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=22 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-58.989421436035485,-0.5 delta=0.0,-0.07071160877326722,0.0 rot=92.805916,0.0 og=0 fall=0.14835739028381312 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=22 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.563250208285336,-60.0,1.0355557294094735 delta=2.3555672050438615E-4,-0.12,0.0019945191436828926 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=17 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.740543166429452,-60.0,0.7188996333212964 delta=8.958319815841755E-4,0.0,8.152270347026334E-4 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=17 pickup=0 health=5 owner=- thrower=-
+T 23
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=23 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-59.059633044785,-0.5 delta=0.0,-0.06880737791370829,0.0 rot=92.805916,0.0 og=0 fall=0.1443903068300436 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=23 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.56348576500584,-60.0,1.0375502485531565 delta=1.385073655845315E-4,0.0,0.001172777374417085 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=18 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.740543166429452,-60.0,0.7188996333212964 delta=8.958319815841755E-4,-0.04,8.152270347026334E-4 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=18 pickup=0 health=5 owner=- thrower=-
+T 24
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=24 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-59.12794042267496,-0.5 delta=0.0,-0.0669412316350202,0.0 rot=92.805916,0.0 og=0 fall=0.14050253081303588 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=24 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.56348576500584,-60.0,1.0375502485531565 delta=1.385073655845315E-4,-0.04,0.001172777374417085 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=19 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.740543166429452,-60.0,0.7188996333212964 delta=8.958319815841755E-4,-0.08,8.152270347026334E-4 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=19 pickup=0 health=5 owner=- thrower=-
+T 25
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=25 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-59.19438165428623,-0.5 delta=0.0,-0.06511240824631198,0.0 rot=92.805916,0.0 og=0 fall=0.1366924958824205 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=25 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.56348576500584,-60.0,1.0375502485531565 delta=1.385073655845315E-4,-0.08,0.001172777374417085 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=20 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.740543166429452,-60.0,0.7188996333212964 delta=8.958319815841755E-4,-0.12,8.152270347026334E-4 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=20 pickup=0 health=5 owner=- thrower=-
+T 26
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=26 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-59.2589940625088,-0.5 delta=0.0,-0.06332016129049588,0.0 rot=92.805916,0.0 og=0 fall=0.13295865890379188 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=26 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.56348576500584,-60.0,1.0375502485531565 delta=1.385073655845315E-4,-0.12,0.001172777374417085 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=21 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.741438998411036,-60.0,0.719714860355999 delta=5.267492581400762E-4,0.0,4.793535446077357E-4 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=21 pickup=0 health=5 owner=- thrower=-
+T 27
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=27 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-59.32181422377555,-0.5 delta=0.0,-0.061563759239611694,0.0 rot=92.805916,0.0 og=0 fall=0.12929948835072635 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=27 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.563624272371425,-60.0,1.0387230259275735 delta=8.14423391533414E-5,0.0,6.89593165501001E-4 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=22 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.741438998411036,-60.0,0.719714860355999 delta=5.267492581400762E-4,-0.04,4.793535446077357E-4 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=22 pickup=0 health=5 owner=- thrower=-
+T 28
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=28 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-59.38287798299141,-0.5 delta=0.0,-0.05984248519624449,0.0 rot=92.805916,0.0 og=0 fall=0.12571350320427477 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=28 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.563624272371425,-60.0,1.0387230259275735 delta=8.14423391533414E-5,-0.04,6.89593165501001E-4 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=23 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.741438998411036,-60.0,0.719714860355999 delta=5.267492581400762E-4,-0.08,4.793535446077357E-4 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=23 pickup=0 health=5 owner=- thrower=-
+T 29
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=29 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-59.4422204681639,-0.5 delta=0.0,-0.058155636600913926,0.0 rot=92.805916,0.0 og=0 fall=0.12219923652335435 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=29 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.563624272371425,-60.0,1.0387230259275735 delta=8.14423391533414E-5,-0.08,6.89593165501001E-4 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=24 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.741438998411036,-60.0,0.719714860355999 delta=5.267492581400762E-4,-0.12,4.793535446077357E-4 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=24 pickup=0 health=5 owner=- thrower=-
+T 30
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=30 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-59.49987610474107,-0.5 delta=0.0,-0.05650252494531589,0.0 rot=92.805916,0.0 og=0 fall=0.1187552544828476 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=30 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.563624272371425,-60.0,1.0387230259275735 delta=8.14423391533414E-5,-0.12,6.89593165501001E-4 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=25 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.741965747669176,-60.0,0.7201942139006067 delta=3.097285949318936E-4,0.0,2.8185991257247275E-4 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=25 pickup=0 health=5 owner=- thrower=-
+T 31
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=31 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-59.55587862966264,-0.5 delta=0.0,-0.05488247549129922,0.0 rot=92.805916,0.0 og=0 fall=0.11538015099149056 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=31 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.563705714710578,-60.0,1.0394126190930746 delta=4.78881002376717E-5,0.0,4.054808220887206E-4 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=26 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.741965747669176,-60.0,0.7201942139006067 delta=3.097285949318936E-4,-0.04,2.8185991257247275E-4 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=26 pickup=0 health=5 owner=- thrower=-
+T 32
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=32 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-59.610261105130185,-0.5 delta=0.0,-0.05329482699546288,0.0 rot=92.805916,0.0 og=0 fall=0.11207255245139752 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=32 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.563705714710578,-60.0,1.0394126190930746 delta=4.78881002376717E-5,-0.04,4.054808220887206E-4 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=27 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.741965747669176,-60.0,0.7201942139006067 delta=3.097285949318936E-4,-0.08,2.8185991257247275E-4 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=27 pickup=0 health=5 owner=- thrower=-
+T 33
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=33 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-59.6630559321019,-0.5 delta=0.0,-0.05173893143926128,0.0 rot=92.805916,0.0 og=0 fall=0.1088311015113719 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=33 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.563705714710578,-60.0,1.0394126190930746 delta=4.78881002376717E-5,-0.08,4.054808220887206E-4 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=28 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.741965747669176,-60.0,0.7201942139006067 delta=3.097285949318936E-4,-0.12,2.8185991257247275E-4 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=28 pickup=0 health=5 owner=- thrower=-
+T 34
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=34 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-59.71429486351741,-0.5 delta=0.0,-0.050214153764507365,0.0 rot=92.805916,0.0 og=0 fall=0.10565448247117439 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=34 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.563705714710578,-60.0,1.0394126190930746 delta=4.78881002376717E-5,-0.12,4.054808220887206E-4 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=29 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.7422754762641075,-60.0,0.7204760738131791 delta=1.8212043213352623E-4,0.0,1.6573364525837266E-4 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=29 pickup=0 health=5 owner=- thrower=-
+T 35
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=35 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-59.76400901725817,-0.5 delta=0.0,-0.048719871614165695,0.0 rot=92.805916,0.0 og=0 fall=0.10254139673075396 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=35 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.563753602810816,-60.0,1.0398180999151634 delta=2.8158205771269338E-5,0.0,2.3842274736335977E-4 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=30 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.7422754762641075,-60.0,0.7204760738131791 delta=1.8212043213352623E-4,-0.04,1.6573364525837266E-4 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=30 pickup=0 health=5 owner=- thrower=-
+T 36
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=36 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-59.81222888884859,-0.5 delta=0.0,-0.047255475078329695,0.0 rot=92.805916,0.0 og=0 fall=0.09949056914131502 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=36 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.563753602810816,-60.0,1.0398180999151634 delta=2.8158205771269338E-5,-0.04,2.3842274736335977E-4 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=31 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.7422754762641075,-60.0,0.7204760738131791 delta=1.8212043213352623E-4,-0.08,1.6573364525837266E-4 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=31 pickup=0 health=5 owner=- thrower=-
+T 37
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=37 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-59.85898436390317,-0.5 delta=0.0,-0.045820366445279266,0.0 rot=92.805916,0.0 og=0 fall=0.09650075863143136 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=37 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.563753602810816,-60.0,1.0398180999151634 delta=2.8158205771269338E-5,-0.08,2.3842274736335977E-4 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=32 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.7422754762641075,-60.0,0.7204760738131791 delta=1.8212043213352623E-4,-0.12,1.6573364525837266E-4 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=32 pickup=0 health=5 owner=- thrower=-
+T 38
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=38 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-59.9043047303247,-0.5 delta=0.0,-0.04441395995751732,0.0 rot=92.805916,0.0 og=0 fall=0.09357074489365186 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=38 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.563753602810816,-60.0,1.0398180999151634 delta=2.8158205771269338E-5,-0.12,2.3842274736335977E-4 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=33 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.7422754762641075,-60.0,0.7204760738131791 delta=1.070868248628953E-4,0.0,9.745139321139022E-5 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=33 pickup=0 health=5 owner=- thrower=-
+T 39
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=39 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-59.948218690258464,-0.5 delta=0.0,-0.04303568157268554,0.0 rot=92.805916,0.0 og=0 fall=0.09069933290367407 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=39 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.563753602810816,-60.0,1.0398180999151634 delta=1.6557026658439346E-5,0.0,1.4019258954706988E-4 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=34 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.7422754762641075,-60.0,0.7204760738131791 delta=1.070868248628953E-4,-0.04,9.745139321139022E-5 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=34 pickup=0 health=5 owner=- thrower=-
+T 40
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=40 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-59.9907543718074,-0.5 delta=0.0,-0.04168496872926181,0.0 rot=92.805916,0.0 og=0 fall=0.08788534772935054 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=40 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.563753602810816,-60.0,1.0398180999151634 delta=1.6557026658439346E-5,-0.04,1.4019258954706988E-4 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=35 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.7422754762641075,-60.0,0.7204760738131791 delta=1.070868248628953E-4,-0.08,9.745139321139022E-5 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=35 pickup=0 health=5 owner=- thrower=-
+T 41
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=41 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=92.805916,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=41 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.563753602810816,-60.0,1.0398180999151634 delta=1.6557026658439346E-5,-0.08,1.4019258954706988E-4 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=36 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.7422754762641075,-60.0,0.7204760738131791 delta=1.070868248628953E-4,-0.12,9.745139321139022E-5 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=36 pickup=0 health=5 owner=- thrower=-
+T 42
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=42 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-60.0,-0.5 delta=0.0,5.000000237487257E-4,0.0 rot=92.805916,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=42 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.563753602810816,-60.0,1.0398180999151634 delta=1.6557026658439346E-5,-0.12,1.4019258954706988E-4 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=37 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.7422754762641075,-60.0,0.7204760738131791 delta=6.296705935119161E-5,0.0,5.730142497038468E-5 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=37 pickup=0 health=5 owner=- thrower=-
+T 43
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=43 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-60.0,-0.5 delta=0.0,0.0010000000474974513,0.0 rot=92.805916,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=43 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.563753602810816,-60.0,1.0398180999151634 delta=9.735532654143023E-6,0.0,8.243325094295755E-5 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=38 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.7422754762641075,-60.0,0.7204760738131791 delta=6.296705935119161E-5,-0.04,5.730142497038468E-5 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=38 pickup=0 health=5 owner=- thrower=-
+T 44
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=44 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-59.998499999928754,-0.5 delta=0.0,0.0014700000984314843,0.0 rot=92.805916,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=44 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.563753602810816,-60.0,1.0398180999151634 delta=9.735532654143023E-6,-0.04,8.243325094295755E-5 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=39 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.7422754762641075,-60.0,0.7204760738131791 delta=6.296705935119161E-5,-0.08,5.730142497038468E-5 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=39 pickup=0 health=5 owner=- thrower=-
+T 45
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=45 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-59.996529999806576,-0.5 delta=0.0,0.0019306001573113761,0.0 rot=92.805916,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=45 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.563753602810816,-60.0,1.0398180999151634 delta=9.735532654143023E-6,-0.08,8.243325094295755E-5 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=40 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.7422754762641075,-60.0,0.7204760738131791 delta=6.296705935119161E-5,-0.12,5.730142497038468E-5 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=40 pickup=0 health=5 owner=- thrower=-
+T 46
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=46 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-59.99409939962552,-0.5 delta=0.0,0.002381988223798919,0.0 rot=92.805916,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=46 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.563753602810816,-60.0,1.0398180999151634 delta=9.735532654143023E-6,-0.12,8.243325094295755E-5 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=41 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.7422754762641075,-60.0,0.7204760738131791 delta=3.702463462160484E-5,0.0,3.3693241270693824E-5 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=41 pickup=0 health=5 owner=- thrower=-
+T 47
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=47 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-59.991217411377974,-0.5 delta=0.0,0.002824348537566255,0.0 rot=92.805916,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=47 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.563753602810816,-60.0,1.0398180999151634 delta=5.724493776276799E-6,0.0,4.8470756428556445E-5 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=42 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.7422754762641075,-60.0,0.7204760738131791 delta=3.702463462160484E-5,-0.04,3.3693241270693824E-5 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=42 pickup=0 health=5 owner=- thrower=-
+T 48
+E d2 minecraft:item pos=2.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=132.63182,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_ingot*1 age=48 pickup=0 health=5 owner=- thrower=-
+E d4 minecraft:item pos=21.5,-59.98789306281666,-0.5 delta=0.0,0.003257861653495598,0.0 rot=92.805916,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:netherite_sword*1 age=48 pickup=0 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=5.563753602810816,-60.0,1.0398180999151634 delta=5.724493776276799E-6,-0.04,4.8470756428556445E-5 rot=281.82538,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=43 pickup=0 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=5.7422754762641075,-60.0,0.7204760738131791 delta=3.702463462160484E-5,-0.08,3.3693241270693824E-5 rot=180.24385,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*2 age=43 pickup=0 health=5 owner=- thrower=-

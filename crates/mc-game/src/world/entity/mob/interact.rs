@@ -45,7 +45,7 @@ pub fn use_player_item(level: &mut ServerLevel, player: &mut ServerPlayer, hand:
             } else {
                 let mut extra = remainder_stack;
                 if !player.player.inventory.add(&mut extra, infinite) {
-                    player.pending_drops.push((extra, false));
+                    player.drop(level, extra, false, crate::world::inventory::Prediction::Predicted);
                 }
                 stack
             }

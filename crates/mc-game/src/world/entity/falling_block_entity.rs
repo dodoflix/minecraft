@@ -24,7 +24,7 @@ use mc_data::block::{Block, BlockState};
 use mc_data::props;
 use mc_nbt::{CompoundTag, Tag};
 use mc_protocol::packets::play::{ClientboundAddEntityPacket, ClientboundAddTransientBlockPacket, ClientboundBlockUpdatePacket};
-use mc_world::palette::{BlockStateCodec, ElementCodec};
+use crate::world::item::enchantment::value_codecs::block_state_codec;
 use std::any::Any;
 
 define_accessor!(pub DATA_START_POS: BlockPos = FallingBlockEntity);
@@ -36,8 +36,8 @@ pub struct FallingBlockEntity {
     block_state: BlockState,
     pub time: i32,
     pub drop_item: bool,
-    cancel_drop: bool,
-    hurt_entities: bool,
+    pub cancel_drop: bool,
+    pub hurt_entities: bool,
     fall_damage_max: i32,
     fall_damage_per_distance: f32,
     pub block_data: Option<CompoundTag>,
@@ -310,7 +310,8 @@ impl Entity for FallingBlockEntity {
     }
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
-        if let Ok(tag) = BlockStateCodec.encode(self.block_state) {
+        // `BlockState.CODEC`: a bare block id for the default state, else `{id, properties}`
+        if let Some(tag) = block_state_codec().encode_start(&mc_dfu::NBT, &self.block_state).result().and_then(|d| d.to_tag().ok()) {
             out.put("BlockState", tag);
         }
         out.put_int("Time", self.time);
@@ -325,7 +326,7 @@ impl Entity for FallingBlockEntity {
     }
 
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        self.block_state = input.get("BlockState").and_then(|t| BlockStateCodec.decode(t).ok()).unwrap_or_else(|| Block::SAND.default_state());
+        self.block_state = input.get("BlockState").and_then(|t| block_state_codec().parse(&mc_dfu::NBT, &mc_dfu::Dyn::from(t)).result()).unwrap_or_else(|| Block::SAND.default_state());
         self.time = input.get_int_or("Time", 0);
         let default_hurt_entities = self.block_state.is_tag("anvil");
         self.hurt_entities = input.get_boolean_or("HurtEntities", default_hurt_entities);

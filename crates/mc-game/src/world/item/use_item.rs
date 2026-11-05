@@ -34,7 +34,7 @@ pub fn is_item_enabled(stack: &ItemStack, enabled_features: FeatureFlagSet) -> b
 
 /// `ItemStack.applyAfterUseComponentSideEffects(user, stackBeforeUsing)`: `use_remainder` conversion and
 /// `use_cooldown`. Returns the (possibly replaced) stack.
-pub fn apply_after_use_component_side_effects(stack: ItemStack, user: &mut dyn Entity, before: &ItemStack) -> ItemStack {
+pub fn apply_after_use_component_side_effects(level: &mut ServerLevel, stack: ItemStack, user: &mut dyn Entity, before: &ItemStack) -> ItemStack {
     let count_before = before.count();
     let infinite = user.player().is_some_and(|p| p.abilities.instabuild);
     let mut result = stack;
@@ -49,7 +49,7 @@ pub fn apply_after_use_component_side_effects(stack: ItemStack, user: &mut dyn E
                 let mut extra = remainder_stack;
                 let inf = player.player.abilities.instabuild;
                 if !player.player.inventory.add(&mut extra, inf) {
-                    player.pending_drops.push((extra, false));
+                    player.drop(level, extra, false, crate::world::inventory::Prediction::Predicted);
                 }
             }
         }
@@ -133,7 +133,7 @@ pub fn item_stack_use_on(context: &mut UseOnContext, level: &mut ServerLevel, pl
         if success.was_item_interaction() {
             player.award_stat_once(level, crate::stats::Stat::Used(used_item));
             let transform_to = success.item_context.held_item_transformed_to.clone().unwrap_or_else(|| context.item_stack.clone());
-            let result_stack = apply_after_use_component_side_effects(transform_to, player, &before);
+            let result_stack = apply_after_use_component_side_effects(level, transform_to, player, &before);
             return InteractionResult::Success(success.clone().held_item_transformed_to(result_stack));
         }
     }
@@ -149,7 +149,7 @@ pub fn item_stack_use(level: &mut ServerLevel, player: &mut ServerPlayer, hand: 
     if is_instantly_used {
         if let InteractionResult::Success(success) = &result {
             let transform_to = success.item_context.held_item_transformed_to.clone().unwrap_or_else(|| player.get_item_in_hand(hand));
-            let result_stack = apply_after_use_component_side_effects(transform_to, player, &before);
+            let result_stack = apply_after_use_component_side_effects(level, transform_to, player, &before);
             return InteractionResult::Success(success.clone().held_item_transformed_to(result_stack));
         }
     }
@@ -160,7 +160,7 @@ pub fn item_stack_use(level: &mut ServerLevel, player: &mut ServerPlayer, hand: 
 pub fn finish_using_item(stack: &mut ItemStack, level: &mut ServerLevel, entity: &mut dyn Entity) -> ItemStack {
     let before = stack.copy();
     let result = behaviour(stack.item()).finish_using_item(stack, level, entity);
-    apply_after_use_component_side_effects(result, entity, &before)
+    apply_after_use_component_side_effects(level, result, entity, &before)
 }
 
 /// `ItemStack.onUseTick(level, entity, ticksRemaining)`.

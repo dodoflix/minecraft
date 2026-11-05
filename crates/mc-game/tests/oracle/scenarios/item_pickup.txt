@@ -1,0 +1,20 @@
+# Item pickup: pickup delay, merge into a partial inventory stack (selected slot first), full leftover stays, owner/thrower after `drop`,
+# the player's own thrown item waits 40 ticks.
+level flat
+entity_counter 1000
+spawn_player Steve survival 0.5 -60 0.5
+entity_seed Steve 99
+give Steve hotbar0 minecraft:cobblestone 40
+give Steve hotbar1 minecraft:stick 3
+spawn_item a minecraft:cobblestone 0.5 -60 0.5 0 0 0 30
+spawn_item b minecraft:diamond 1.5 -60 0.5 0 0 0
+spawn_item c minecraft:iron_sword 0.5 -60 2.5 0 0 0
+spawn_item delayed minecraft:emerald 0.5 -60 0.5 0 0 0
+nbt delayed {PickupDelay:10s}
+spawn_item never minecraft:coal 0.5 -60 0.5 0 0 0
+nbt never {PickupDelay:32767s}
+drop Steve
+watch player:Steve inventory:Steve entities
+tick 70
+drop Steve all
+tick 50

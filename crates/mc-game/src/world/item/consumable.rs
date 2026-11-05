@@ -220,7 +220,7 @@ fn swap_with_equipment_slot(equippable: &mc_protocol::components::Equippable, le
         player.set_item_slot(level, slot, swapped_to_equipment);
         let mut to_inv = swapped_to_inventory;
         if !player.player.inventory.add(&mut to_inv, infinite) {
-            player.pending_drops.push((to_inv, false));
+            player.drop(level, to_inv, false, crate::world::inventory::Prediction::Predicted);
         }
         match InteractionResult::SUCCESS {
             InteractionResult::Success(s) => InteractionResult::Success(s.held_item_transformed_to(in_hand)),

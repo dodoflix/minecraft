@@ -1,6 +1,7 @@
 # Items (zero velocity) dropped into air / water / flowing water / lava / cobweb / slime / honey / powder snow / bubble columns.
 # Fluids are enclosed in stone so the (unported) fluid spreading cannot change the world while the vanilla server runs.
 level flat
+entity_counter 1000
 fill -2 -60 -2 40 -40 6 minecraft:air
 # water pool (sources)
 fill 4 -60 -2 8 -57 2 minecraft:stone

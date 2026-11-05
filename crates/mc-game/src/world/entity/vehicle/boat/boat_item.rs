@@ -15,7 +15,7 @@ use mc_data::{EntityType, GameEvent, Item};
 use mc_protocol::packets::play::Stat;
 
 /// Every boat entity type (the `EntityType` a `BoatItem` places is the one whose drop item it is).
-const BOAT_TYPES: [EntityType; 22] = [
+const BOAT_TYPES: [EntityType; 20] = [
     EntityType::OAK_BOAT,
     EntityType::OAK_CHEST_BOAT,
     EntityType::SPRUCE_BOAT,
@@ -34,8 +34,6 @@ const BOAT_TYPES: [EntityType; 22] = [
     EntityType::PALE_OAK_CHEST_BOAT,
     EntityType::MANGROVE_BOAT,
     EntityType::MANGROVE_CHEST_BOAT,
-    EntityType::POPLAR_BOAT,
-    EntityType::POPLAR_CHEST_BOAT,
     EntityType::BAMBOO_RAFT,
     EntityType::BAMBOO_CHEST_RAFT,
 ];

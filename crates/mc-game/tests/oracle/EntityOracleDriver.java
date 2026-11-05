@@ -101,6 +101,8 @@ import net.minecraft.util.RandomSource;
  * note TEXT...                prints "# TEXT"
  * reseed N                    restart the entity random-seed sequence (entities created afterwards: see VanillaLevel header)
  * level_seed N                Level.random.setSeed(N) (explosion rays, drop spread, ... draw from it; LegacyRandomSource)
+ * entity_counter N            ServerLevel.ENTITY_COUNTER = N (the next created entity gets id N+1; ids are not printed)
+ * award X Y Z AMOUNT [dx dy dz]   ExperienceOrb.award / awardWithDirection (orb split, merge into existing orbs)
  * rand_value N                Level.randValue = N (the LCG getBlockRandomPos draws from; set it before random ticks)
  * tick_chunk CX CZ SPEED      ServerLevel.tickChunk(chunk, SPEED): random ticks of one chunk (use instead of gamerule random_tick_speed)
  * random_tick X Y Z           randomTick of that block (+ its fluid) as tickChunk's inner loop does for one chosen position
@@ -414,6 +416,20 @@ public final class EntityOracleDriver {
          case "reseed" -> {
             world();
             VanillaLevel.reseed(Long.parseLong(a.get(1)));
+         }
+         case "entity_counter" -> { // ServerLevel.ENTITY_COUNTER: the next created entity gets N+1 (pins ids, which only the sleeping-item phase and orb merging observe)
+            world();
+            ((java.util.concurrent.atomic.AtomicInteger)priv(null, net.minecraft.server.level.ServerLevel.class, "ENTITY_COUNTER")).set(Integer.parseInt(a.get(1)));
+         }
+         case "award" -> { // award X Y Z AMOUNT [dx dy dz]: ExperienceOrb.award / awardWithDirection
+            world();
+            Vec3 at = new Vec3(d(a.get(1)), d(a.get(2)), d(a.get(3)));
+            int amount = Integer.parseInt(a.get(4));
+            if (a.size() >= 8) {
+               net.minecraft.world.entity.ExperienceOrb.awardWithDirection(v.level, at, new Vec3(d(a.get(5)), d(a.get(6)), d(a.get(7))), amount);
+            } else {
+               net.minecraft.world.entity.ExperienceOrb.award(v.level, at, amount);
+            }
          }
          case "block" -> {
             world();

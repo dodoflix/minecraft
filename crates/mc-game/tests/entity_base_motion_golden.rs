@@ -64,7 +64,7 @@ fn replay(scenario: &str) -> Vec<String> {
         let t: Vec<&str> = line.split_whitespace().collect();
         let num = |i: usize| t[i].parse::<f64>().unwrap();
         match t[0] {
-            "level" | "watch" | "difficulty" | "preload" | "seed" | "gamerule" => {}
+            "level" | "watch" | "difficulty" | "preload" | "seed" | "gamerule" | "entity_counter" => {}
             "block" => {
                 level.set_block(BlockPos::new(num(1) as i32, num(2) as i32, num(3) as i32), parse_state(t[4]), 3, 512);
             }
@@ -83,7 +83,10 @@ fn replay(scenario: &str) -> Vec<String> {
             }
             "spawn_item" => {
                 let item = Item::by_name(t[2].trim_start_matches("minecraft:")).expect("item");
-                let e = ItemEntity::with_stack_and_motion(&level, num(3), num(4), num(5), ItemStack::with_count(item, 1), num(6), num(7), num(8));
+                let mut e = ItemEntity::with_stack_and_motion(&level, num(3), num(4), num(5), ItemStack::with_count(item, 1), num(6), num(7), num(8));
+                // A resting item moves only every `(tickCount + id) % 4`th tick and the oracle does not print ids: pin them like
+                // items_oracle.rs (our id counter is shared by parallel tests; 1001 reproduces the vanilla oracle's phase).
+                e.base_mut().id = 1001 + refs.len() as EntityId;
                 let id = e.id();
                 assert!(level.add_fresh_entity(Box::new(e)));
                 refs.push((t[1].to_string(), id));
@@ -134,10 +137,10 @@ fn compare_scenario(name: &str) {
 
 #[test]
 fn item_motion_matches_vanilla() {
-    compare_scenario("item_motion");
+    compare_scenario("base_item_motion");
 }
 
 #[test]
 fn item_collisions_match_vanilla() {
-    compare_scenario("item_collide");
+    compare_scenario("base_item_collide");
 }

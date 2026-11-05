@@ -94,7 +94,7 @@ impl ServerPlayer {
             let before = stack.copy();
             let released = behaviour(stack.item()).release_using(&mut stack, level, self, remaining);
             if released {
-                let with_side_effects = crate::world::item::apply_after_use_component_side_effects(stack.clone(), self, &before);
+                let with_side_effects = crate::world::item::apply_after_use_component_side_effects(level, stack.clone(), self, &before);
                 self.set_item_in_hand_slot(level, hand, with_side_effects);
             } else {
                 self.set_item_in_hand_slot(level, hand, stack.clone());

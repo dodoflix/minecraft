@@ -1,0 +1,19 @@
+# Orbs follow the nearest player (8 blocks), are touched one at a time (takeXpDelay 2, a random orb of those in reach), repair mending items
+# (REPAIR_WITH_XP random damaged item) and give the rest as experience; orb hurt + count handling.
+level flat
+entity_counter 1000
+spawn_player Steve survival 0.5 -60 0.5
+entity_seed Steve 99
+give Steve hotbar0 minecraft:diamond_pickaxe[damage=500,enchantments={"minecraft:mending":1}]
+give Steve hotbar1 minecraft:diamond_sword[damage=300,enchantments={"minecraft:mending":1}]
+give Steve hotbar2 minecraft:iron_axe[damage=40]
+spawn o1 minecraft:experience_orb 5.5 -60 0.5 {Value:37s}
+spawn o2 minecraft:experience_orb 3.5 -60 2.5 {Value:3s,Count:4}
+spawn o3 minecraft:experience_orb 0.5 -60 1.0 {Value:7s}
+spawn o4 minecraft:experience_orb 0.5 -60 0.5 {Value:5s}
+spawn far minecraft:experience_orb 20.5 -60 0.5 {Value:9s}
+watch player:Steve inventory:Steve entities
+tick 70
+spawn o5 minecraft:experience_orb 0.5 -59 0.5 {Value:2477s}
+hurt o1 generic 1
+tick 40

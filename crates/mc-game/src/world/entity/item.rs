@@ -390,7 +390,7 @@ impl Entity for ItemEntity {
                 self.set_item_in_place(stack);
             }
             player.award_stat(level, crate::stats::Stat::PickedUp(item), org_count);
-            // `player.onItemPickup(this)`: `THROWN_ITEM_PICKED_UP_BY_*` criteria triggers need advancements.
+            player.on_item_pickup(level, self);
         }
     }
 

@@ -1,0 +1,23 @@
+# ExperienceOrb.award: value split table, merging into an existing orb of the same value in the same 1x1x1 box (random id % 40 gate),
+# the 20-tick scan that merges neighbours (id difference % 40), awardWithDirection.
+level flat
+entity_counter 1000
+level_seed 7
+award 0.5 -60 0.5 11
+award 0.5 -60 0.5 11
+award 0.5 -60 0.5 5
+award 3.5 -60 0.5 2477
+award 3.5 -60 0.5 1238
+award 3.5 -60 0.5 616
+award 8.5 -60 0.5 100 1 0 0
+award 8.5 -60 0.5 100 -1 0 0
+award 12.5 -60 0.5 3
+award 12.5 -60 0.5 3
+award 12.5 -60 0.5 3
+award 12.5 -60 0.5 3
+award 12.5 -60 0.5 3
+award 12.5 -60 0.5 3
+award 12.5 -60 0.5 3
+award 12.5 -60 0.5 3
+watch entities
+tick 45

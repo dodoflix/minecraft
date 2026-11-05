@@ -1,0 +1,1200 @@
+T 1
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=1 pickup=0 health=5 owner=- thrower=-
+E delayed minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=170.84727,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:emerald*1 age=1 pickup=9 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=1 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.4986586208243805,-58.65630764603615,0.7923263357956649 delta=-0.0013145516176918876,0.02321851434597704,0.28647981465543404 rot=315.52356,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=1 pickup=39 health=5 owner=- thrower=Steve
+T 2
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=2 pickup=0 health=5 owner=- thrower=-
+E delayed minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=170.84727,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:emerald*1 age=2 pickup=8 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=2 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.4973440692066886,-58.67308913169017,1.0788061504510988 delta=-0.001288260610411132,-0.016445856261023937,0.28075022382649417 rot=315.52356,0.0 og=0 fall=0.016781486570835114 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=2 pickup=38 health=5 owner=- thrower=Steve
+T 3
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=3 pickup=0 health=5 owner=- thrower=-
+E delayed minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=170.84727,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:emerald*1 age=3 pickup=7 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=3 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.49605580859627746,-58.72953498795119,1.359556374277593 delta=-0.0012624954227745306,-0.05531694021242273,0.27513522470484986 rot=315.52356,0.0 og=0 fall=0.07322734221816063 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=3 pickup=37 health=5 owner=- thrower=Steve
+T 4
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=4 pickup=0 health=5 owner=- thrower=-
+E delayed minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=170.84727,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:emerald*1 age=4 pickup=6 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=4 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.49479331317350295,-58.82485192816361,1.6346915989824429 delta=-0.0012372455383992292,-0.09341060322620064,0.26963252545854083 rot=315.52356,0.0 og=0 fall=0.16854428127408028 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=4 pickup=36 health=5 owner=- thrower=Steve
+T 5
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=5 pickup=0 health=5 owner=- thrower=-
+E delayed minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=170.84727,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:emerald*1 age=5 pickup=5 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=5 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.49355606763510373,-58.95826253138981,1.9043241244409836 delta=-0.0012125006512298305,-0.13074239370628193,0.2642398800922023 rot=315.52356,0.0 og=0 fall=0.30195488408207893 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=5 pickup=35 health=5 owner=- thrower=Steve
+T 6
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=6 pickup=0 health=5 owner=- thrower=-
+E delayed minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=170.84727,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:emerald*1 age=6 pickup=4 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=6 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.4923435669838739,-59.1290049250961,2.1685640045331858 delta=-0.0011882506613318485,-0.167327549088809,0.25895508753033397 rot=315.52356,0.0 og=0 fall=0.47269727662205696 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=6 pickup=34 health=5 owner=- thrower=Steve
+T 7
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=7 pickup=0 health=5 owner=- thrower=-
+E delayed minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=170.84727,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:emerald*1 age=7 pickup=3 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=7 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.49115531632254206,-59.33633247418491,2.4275190920635197 delta=-0.0011644856707692943,-0.203181002061492,0.2537759907189036 rot=315.52356,0.0 og=0 fall=0.6800248213112354 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=7 pickup=33 health=5 owner=- thrower=Steve
+T 8
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=8 pickup=0 health=5 owner=- thrower=-
+E delayed minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=170.84727,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:emerald*1 age=8 pickup=2 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=8 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48999083065177274,-59.5795134762464,2.681295082782423 delta=-0.00114119597956471,-0.2383173866585717,0.24870047574491844 rot=315.52356,0.0 og=0 fall=0.9232058264315128 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=8 pickup=32 health=5 owner=- thrower=Steve
+T 9
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=9 pickup=0 health=5 owner=- thrower=-
+E delayed minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=170.84727,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:emerald*1 age=9 pickup=1 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=9 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48884963467220804,-59.85783086290497,2.9299955585273416 delta=-0.0011183720817400018,-0.27275104423388313,0.2437264709736052 rot=315.52356,0.0 og=0 fall=1.2015232183039188 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=9 pickup=31 health=5 owner=- thrower=Steve
+T 10
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=10 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=10 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48773126259046806,-60.0,3.1737220295009467 delta=-6.576028501900104E-4,0.0,0.14331117934349175 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=10 pickup=30 health=5 owner=- thrower=Steve
+T 11
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=11 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=11 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48707365974027805,-60.0,3.3170332088444385 delta=-3.8667051479434093E-4,0.0,0.08426698192764899 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=11 pickup=29 health=5 owner=- thrower=Steve
+T 12
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=12 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=12 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.4866869892254837,-60.0,3.4013001907720875 delta=-2.2736228556205227E-4,0.0,0.049548990355979504 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=12 pickup=28 health=5 owner=- thrower=Steve
+T 13
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=13 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=13 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.4864596269399217,-60.0,3.450849181128067 delta=-1.336890373539202E-4,0.0,0.029134809259039118 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=13 pickup=27 health=5 owner=- thrower=Steve
+T 14
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=14 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=14 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48632593790256773,-60.0,3.4799839903871064 delta=-7.860916186884476E-5,0.0,0.0171312695669924 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=14 pickup=26 health=5 owner=- thrower=Steve
+T 15
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=15 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=15 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48624732874069887,-60.0,3.4971152599540987 delta=-4.622219182686812E-5,0.0,0.010073187518325942 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=15 pickup=25 health=5 owner=- thrower=Steve
+T 16
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=16 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=16 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.486201106548872,-60.0,3.5071884474724246 delta=-2.7178651527215323E-5,0.0,0.005923034856381147 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=16 pickup=24 health=5 owner=- thrower=Steve
+T 17
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=17 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=17 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48617392789734476,-60.0,3.5131114823288057 delta=-1.598104870501669E-5,0.0,0.00348274484576818 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=17 pickup=23 health=5 owner=- thrower=Steve
+T 18
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=18 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=18 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.4861579468486397,-60.0,3.516594227174574 delta=-9.396857583474186E-6,0.0,0.002047854175238757 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=18 pickup=22 health=5 owner=- thrower=Steve
+T 19
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=19 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=19 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.4861579468486397,-60.0,3.516594227174574 delta=-9.396857583474186E-6,-0.04,0.002047854175238757 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=19 pickup=21 health=5 owner=- thrower=Steve
+T 20
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=20 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=20 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.4861579468486397,-60.0,3.516594227174574 delta=-9.396857583474186E-6,-0.08,0.002047854175238757 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=20 pickup=20 health=5 owner=- thrower=Steve
+T 21
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=21 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=21 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.4861485499910562,-60.0,3.5186420813498125 delta=-5.525352814698409E-6,0.0,0.0012041383761255168 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=21 pickup=19 health=5 owner=- thrower=Steve
+T 22
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=22 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=22 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.4861485499910562,-60.0,3.5186420813498125 delta=-5.525352814698409E-6,-0.04,0.0012041383761255168 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=22 pickup=18 health=5 owner=- thrower=Steve
+T 23
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=23 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=23 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.4861485499910562,-60.0,3.5186420813498125 delta=-5.525352814698409E-6,-0.08,0.0012041383761255168 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=23 pickup=17 health=5 owner=- thrower=Steve
+T 24
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=24 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=24 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.4861485499910562,-60.0,3.5186420813498125 delta=-5.525352814698409E-6,-0.12,0.0012041383761255168 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=24 pickup=16 health=5 owner=- thrower=Steve
+T 25
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=25 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=25 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48614302463824155,-60.0,3.519846219725938 delta=-3.2489077817446628E-6,0.0,7.080334363598662E-4 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=25 pickup=15 health=5 owner=- thrower=Steve
+T 26
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=26 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=26 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48614302463824155,-60.0,3.519846219725938 delta=-3.2489077817446628E-6,-0.04,7.080334363598662E-4 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=26 pickup=14 health=5 owner=- thrower=Steve
+T 27
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=27 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=27 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48614302463824155,-60.0,3.519846219725938 delta=-3.2489077817446628E-6,-0.08,7.080334363598662E-4 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=27 pickup=13 health=5 owner=- thrower=Steve
+T 28
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=28 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=28 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48614302463824155,-60.0,3.519846219725938 delta=-3.2489077817446628E-6,-0.12,7.080334363598662E-4 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=28 pickup=12 health=5 owner=- thrower=Steve
+T 29
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=29 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=29 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.4861397757304598,-60.0,3.520554253162298 delta=-1.910357967766656E-6,0.0,4.163237024440661E-4 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=29 pickup=11 health=5 owner=- thrower=Steve
+T 30
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=30 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=30 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.4861397757304598,-60.0,3.520554253162298 delta=-1.910357967766656E-6,-0.04,4.163237024440661E-4 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=30 pickup=10 health=5 owner=- thrower=Steve
+T 31
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=31 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=31 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.4861397757304598,-60.0,3.520554253162298 delta=-1.910357967766656E-6,-0.08,4.163237024440661E-4 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=31 pickup=9 health=5 owner=- thrower=Steve
+T 32
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=32 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=32 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.4861397757304598,-60.0,3.520554253162298 delta=-1.910357967766656E-6,-0.12,4.163237024440661E-4 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=32 pickup=8 health=5 owner=- thrower=Steve
+T 33
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=33 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=33 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.1232905980020722E-6,0.0,2.4479836165341865E-4 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=33 pickup=7 health=5 owner=- thrower=Steve
+T 34
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=34 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=34 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.1232905980020722E-6,-0.04,2.4479836165341865E-4 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=34 pickup=6 health=5 owner=- thrower=Steve
+T 35
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=35 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=35 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.1232905980020722E-6,-0.08,2.4479836165341865E-4 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=35 pickup=5 health=5 owner=- thrower=Steve
+T 36
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=36 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=36 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.1232905980020722E-6,-0.12,2.4479836165341865E-4 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=36 pickup=4 health=5 owner=- thrower=Steve
+T 37
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=37 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=37 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-6.604949380429288E-7,0.0,1.439414511266006E-4 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=37 pickup=3 health=5 owner=- thrower=Steve
+T 38
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=38 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=38 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-6.604949380429288E-7,-0.04,1.439414511266006E-4 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=38 pickup=2 health=5 owner=- thrower=Steve
+T 39
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=39 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=39 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-6.604949380429288E-7,-0.08,1.439414511266006E-4 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=39 pickup=1 health=5 owner=- thrower=Steve
+T 40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=40 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=40 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-6.604949380429288E-7,-0.12,1.439414511266006E-4 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=40 pickup=0 health=5 owner=- thrower=Steve
+T 41
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=41 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=41 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-3.8837106262285977E-7,0.0,8.463758177338357E-5 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=41 pickup=0 health=5 owner=- thrower=Steve
+T 42
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=42 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=42 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-3.8837106262285977E-7,-0.04,8.463758177338357E-5 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=42 pickup=0 health=5 owner=- thrower=Steve
+T 43
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=43 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=43 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-3.8837106262285977E-7,-0.08,8.463758177338357E-5 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=43 pickup=0 health=5 owner=- thrower=Steve
+T 44
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=44 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=44 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-3.8837106262285977E-7,-0.12,8.463758177338357E-5 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=44 pickup=0 health=5 owner=- thrower=Steve
+T 45
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=45 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=45 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-2.2836220778577102E-7,0.0,4.9766903087184194E-5 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=45 pickup=0 health=5 owner=- thrower=Steve
+T 46
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=46 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=46 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-2.2836220778577102E-7,-0.04,4.9766903087184194E-5 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=46 pickup=0 health=5 owner=- thrower=Steve
+T 47
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=47 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=47 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-2.2836220778577102E-7,-0.08,4.9766903087184194E-5 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=47 pickup=0 health=5 owner=- thrower=Steve
+T 48
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=48 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=48 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-2.2836220778577102E-7,-0.12,4.9766903087184194E-5 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=48 pickup=0 health=5 owner=- thrower=Steve
+T 49
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=49 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=49 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.3427699168059005E-7,0.0,2.9262941957872178E-5 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=49 pickup=0 health=5 owner=- thrower=Steve
+T 50
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=50 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=50 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.3427699168059005E-7,-0.04,2.9262941957872178E-5 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=50 pickup=0 health=5 owner=- thrower=Steve
+T 51
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=51 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=51 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.3427699168059005E-7,-0.08,2.9262941957872178E-5 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=51 pickup=0 health=5 owner=- thrower=Steve
+T 52
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=52 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=52 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.3427699168059005E-7,-0.12,2.9262941957872178E-5 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=52 pickup=0 health=5 owner=- thrower=Steve
+T 53
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=53 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=53 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-7.895487904769108E-8,0.0,1.7206611601482442E-5 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=53 pickup=0 health=5 owner=- thrower=Steve
+T 54
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=54 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=54 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-7.895487904769108E-8,-0.04,1.7206611601482442E-5 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=54 pickup=0 health=5 owner=- thrower=Steve
+T 55
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=55 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=55 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-7.895487904769108E-8,-0.08,1.7206611601482442E-5 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=55 pickup=0 health=5 owner=- thrower=Steve
+T 56
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=56 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=56 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-7.895487904769108E-8,-0.12,1.7206611601482442E-5 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=56 pickup=0 health=5 owner=- thrower=Steve
+T 57
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=57 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=57 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-4.642547354847126E-8,0.0,1.0117488639060897E-5 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=57 pickup=0 health=5 owner=- thrower=Steve
+T 58
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=58 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=58 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-4.642547354847126E-8,-0.04,1.0117488639060897E-5 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=58 pickup=0 health=5 owner=- thrower=Steve
+T 59
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=59 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=59 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-4.642547354847126E-8,-0.08,1.0117488639060897E-5 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=59 pickup=0 health=5 owner=- thrower=Steve
+T 60
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=60 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=60 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-4.642547354847126E-8,-0.12,1.0117488639060897E-5 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=60 pickup=0 health=5 owner=- thrower=Steve
+T 61
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=61 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=61 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-2.729818119153757E-8,0.0,5.949083917992729E-6 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=61 pickup=0 health=5 owner=- thrower=Steve
+T 62
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=62 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=62 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-2.729818119153757E-8,-0.04,5.949083917992729E-6 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=62 pickup=0 health=5 owner=- thrower=Steve
+T 63
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=63 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=63 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-2.729818119153757E-8,-0.08,5.949083917992729E-6 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=63 pickup=0 health=5 owner=- thrower=Steve
+T 64
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=64 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=64 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-2.729818119153757E-8,-0.12,5.949083917992729E-6 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=64 pickup=0 health=5 owner=- thrower=Steve
+T 65
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=65 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=65 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.6051332154705697E-8,0.0,3.498061695536014E-6 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=65 pickup=0 health=5 owner=- thrower=Steve
+T 66
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=66 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=66 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.6051332154705697E-8,-0.04,3.498061695536014E-6 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=66 pickup=0 health=5 owner=- thrower=Steve
+T 67
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=67 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=67 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.6051332154705697E-8,-0.08,3.498061695536014E-6 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=67 pickup=0 health=5 owner=- thrower=Steve
+T 68
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=68 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=68 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.6051332154705697E-8,-0.12,3.498061695536014E-6 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=68 pickup=0 health=5 owner=- thrower=Steve
+T 69
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=69 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=69 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-9.43818425604703E-9,0.0,2.056860483807895E-6 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=69 pickup=0 health=5 owner=- thrower=Steve
+T 70
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:cobblestone*64
+I Steve 0 minecraft:cobblestone*64
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=70 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=70 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-9.43818425604703E-9,-0.04,2.056860483807895E-6 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=70 pickup=0 health=5 owner=- thrower=Steve
+T 71
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=71 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=71 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-9.43818425604703E-9,-0.08,2.056860483807895E-6 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=71 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5031408697178004,-58.59267259478569,0.7928252198024464 delta=0.0030780523833517375,0.08558086578516792,0.2869687209915952 rot=208.43874,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=1 pickup=39 health=5 owner=- thrower=Steve
+T 72
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=72 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=72 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-9.43818425604703E-9,-0.12,2.056860483807895E-6 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=72 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5062189221011522,-58.54709172900052,1.0797939407940416 delta=0.0030164913943938926,0.04466924933885058,0.2812293520452573 rot=208.43874,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=2 pickup=38 health=5 owner=- thrower=Steve
+T 73
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=73 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=73 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-5.5496529006147965E-9,0.0,1.2094340860966933E-6 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=73 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.509235413495546,-58.54242247966167,1.361023292839299 delta=0.002956161624041022,0.004575864441132432,0.27560477036837633 rot=208.43874,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=3 pickup=37 health=5 owner=- thrower=Steve
+T 74
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=74 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=74 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-5.5496529006147965E-9,-0.04,1.2094340860966933E-6 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=74 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.512191575119587,-58.57784661522054,1.6366280632076753 delta=0.00289703844794451,-0.034715653523351986,0.2700926802177526 rot=208.43874,0.0 og=0 fall=0.035424135625362396 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=4 pickup=36 health=5 owner=- thrower=Steve
+T 75
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=75 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=75 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-5.5496529006147965E-9,-0.08,1.2094340860966933E-6 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=75 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5150886135675316,-58.652562268743885,1.9067207434254279 delta=0.002839097734242243,-0.07322134187797295,0.26469083176500663 rot=208.43874,0.0 og=0 fall=0.11013978719711304 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=5 pickup=35 health=5 owner=- thrower=Steve
+T 76
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=76 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=76 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-5.5496529006147965E-9,-0.12,1.2094340860966933E-6 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=76 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5179277113017738,-58.76578361062186,2.1714115751904344 delta=0.00278231583370889,-0.1109569171999392,0.2593970201782835 rot=208.43874,0.0 og=0 fall=0.22336112707853317 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=6 pickup=34 health=5 owner=- thrower=Steve
+T 77
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=77 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=77 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-3.2631962337003094E-9,0.0,7.111473141360416E-7 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=77 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5207100271354828,-58.9167405278218,2.4308085953687177 delta=0.0027266695701031753,-0.1479377817352151,0.25420908472232334 rot=208.43874,0.0 og=0 fall=0.37431804090738297 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=7 pickup=33 health=5 owner=- thrower=Steve
+T 78
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=78 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=78 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-3.2631962337003094E-9,-0.04,7.111473141360416E-7 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=78 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5234366967055859,-59.104678309557016,2.685017680091041 delta=0.0026721362307082067,-0.18417902968513952,0.24912490787653038 rot=208.43874,0.0 og=0 fall=0.562255822122097 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=8 pickup=32 health=5 owner=- thrower=Steve
+T 79
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=79 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=79 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-3.2631962337003094E-9,-0.08,7.111473141360416E-7 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=79 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5261088329362941,-59.328857339242155,2.9341425879675715 delta=0.0026186935570609964,-0.2196954533673124,0.2441424144706803 rot=208.43874,0.0 og=0 fall=0.7864348515868187 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=9 pickup=31 health=5 owner=- thrower=Steve
+T 80
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=80 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=80 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-3.2631962337003094E-9,-0.12,7.111473141360416E-7 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=80 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5287275264933551,-59.58855279260947,3.178285002438252 delta=0.0025663197358673923,-0.2545015492532638,0.2392595708379137 rot=208.43874,0.0 og=0 fall=1.0461302921175957 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=10 pickup=30 health=5 owner=- thrower=Steve
+T 81
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=81 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=81 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.918759578361421E-9,0.0,4.1815466276057406E-7 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=81 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5312938462292225,-59.88305434186273,3.4175445732761656 delta=0.0025149933900987086,-0.28861152388536976,0.23447438398466958 rot=208.43874,0.0 og=0 fall=1.3406318351626396 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=11 pickup=29 health=5 owner=- thrower=Steve
+T 82
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=82 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=82 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.918759578361421E-9,-0.04,4.1815466276057406E-7 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=82 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5338088396193212,-60.0,3.652018957260835 delta=0.001478816262084086,0.0,0.137870951646942 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=12 pickup=28 health=5 owner=- thrower=Steve
+T 83
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=83 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=83 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.918759578361421E-9,-0.08,4.1815466276057406E-7 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=83 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5352876558814054,-60.0,3.789889908907777 delta=8.69544049544606E-4,0.0,0.081068127720409 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=13 pickup=27 health=5 owner=- thrower=Steve
+T 84
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=84 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=84 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.918759578361421E-9,-0.12,4.1815466276057406E-7 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=84 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.53615719993095,-60.0,3.870958036628186 delta=5.112919525464616E-4,0.0,0.04766806389298115 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=14 pickup=26 health=5 owner=- thrower=Steve
+T 85
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=85 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=85 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.1282307455285627E-9,0.0,2.4587496642778603E-7 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=85 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5366684918834965,-60.0,3.918626100521167 delta=3.006396983288916E-4,0.0,0.028028824387581027 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=15 pickup=25 health=5 owner=- thrower=Steve
+T 86
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=86 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=86 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.1282307455285627E-9,-0.04,2.4587496642778603E-7 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=86 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5369691315818255,-60.0,3.946654924908748 delta=1.7677616039355452E-4,0.0,0.01648095039718058 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=16 pickup=24 health=5 owner=- thrower=Steve
+T 87
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=87 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=87 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.1282307455285627E-9,-0.08,2.4587496642778603E-7 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=87 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.537145907742219,-60.0,3.9631358753059285 delta=1.0394439276379686E-4,0.0,0.009690799808024645 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=17 pickup=23 health=5 owner=- thrower=Steve
+T 88
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=88 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=88 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.1282307455285627E-9,-0.12,2.4587496642778603E-7 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=88 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5372498521349829,-60.0,3.972826675113953 delta=6.111930909111662E-5,0.0,0.005698190860114238 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=18 pickup=22 health=5 owner=- thrower=Steve
+T 89
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=89 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=89 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-6.633997450806053E-10,0.0,1.445744947975859E-7 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=89 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.537310971444074,-60.0,3.9785248659740673 delta=3.593815735942732E-5,0.0,0.003350536562668705 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=19 pickup=21 health=5 owner=- thrower=Steve
+T 90
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=90 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=90 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-6.633997450806053E-10,-0.04,1.445744947975859E-7 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=90 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373469096014335,-60.0,3.981875402536736 delta=2.113163865228772E-5,0.0,0.0019701156969590796 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=20 pickup=20 health=5 owner=- thrower=Steve
+T 91
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=91 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=91 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-6.633997450806053E-10,-0.08,1.445744947975859E-7 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=91 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373469096014335,-60.0,3.981875402536736 delta=2.113163865228772E-5,-0.04,0.0019701156969590796 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=21 pickup=19 health=5 owner=- thrower=Steve
+T 92
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=92 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=92 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-6.633997450806053E-10,-0.12,1.445744947975859E-7 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=92 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373469096014335,-60.0,3.981875402536736 delta=2.113163865228772E-5,-0.08,0.0019701156969590796 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=22 pickup=18 health=5 owner=- thrower=Steve
+T 93
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=93 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=93 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-3.9007908933276845E-10,0.0,8.500981148935341E-8 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=93 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373469096014335,-60.0,3.981875402536736 delta=2.113163865228772E-5,-0.12,0.0019701156969590796 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=23 pickup=17 health=5 owner=- thrower=Steve
+T 94
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=94 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=94 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-3.9007908933276845E-10,-0.04,8.500981148935341E-8 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=94 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373680412400857,-60.0,3.983845518233695 delta=1.2425404777012644E-5,0.0,0.0011584281463005606 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=24 pickup=16 health=5 owner=- thrower=Steve
+T 95
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=95 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=95 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-3.9007908933276845E-10,-0.08,8.500981148935341E-8 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=95 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373680412400857,-60.0,3.983845518233695 delta=1.2425404777012644E-5,-0.04,0.0011584281463005606 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=25 pickup=15 health=5 owner=- thrower=Steve
+T 96
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=96 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=96 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-3.9007908933276845E-10,-0.12,8.500981148935341E-8 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=96 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373680412400857,-60.0,3.983845518233695 delta=1.2425404777012644E-5,-0.08,0.0011584281463005606 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=26 pickup=14 health=5 owner=- thrower=Steve
+T 97
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=97 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=97 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-2.293665275921892E-10,0.0,4.998577418218359E-8 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=97 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373680412400857,-60.0,3.983845518233695 delta=1.2425404777012644E-5,-0.12,0.0011584281463005606 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=27 pickup=13 health=5 owner=- thrower=Steve
+T 98
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=98 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=98 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-2.293665275921892E-10,-0.04,4.998577418218359E-8 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=98 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373804666448627,-60.0,3.9850039463799956 delta=7.306138743570378E-6,0.0,6.811558185200462E-4 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=28 pickup=12 health=5 owner=- thrower=Steve
+T 99
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=99 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=99 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-2.293665275921892E-10,-0.08,4.998577418218359E-8 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=99 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373804666448627,-60.0,3.9850039463799956 delta=7.306138743570378E-6,-0.04,6.811558185200462E-4 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=29 pickup=11 health=5 owner=- thrower=Steve
+T 100
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=100 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=100 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-2.293665275921892E-10,-0.12,4.998577418218359E-8 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=100 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373804666448627,-60.0,3.9850039463799956 delta=7.306138743570378E-6,-0.08,6.811558185200462E-4 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=30 pickup=10 health=5 owner=- thrower=Steve
+T 101
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=101 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=101 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.3486753178614715E-10,0.0,2.939163817467319E-8 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=101 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373804666448627,-60.0,3.9850039463799956 delta=7.306138743570378E-6,-0.12,6.811558185200462E-4 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=31 pickup=9 health=5 owner=- thrower=Steve
+T 102
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=102 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=102 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.3486753178614715E-10,-0.04,2.939163817467319E-8 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=102 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373877727836063,-60.0,3.9856851021985156 delta=4.296010013215349E-6,0.0,4.005196615650374E-4 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=32 pickup=8 health=5 owner=- thrower=Steve
+T 103
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=103 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=103 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.3486753178614715E-10,-0.08,2.939163817467319E-8 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=103 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373877727836063,-60.0,3.9856851021985156 delta=4.296010013215349E-6,-0.04,4.005196615650374E-4 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=33 pickup=7 health=5 owner=- thrower=Steve
+T 104
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=104 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=104 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.3486753178614715E-10,-0.12,2.939163817467319E-8 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=104 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373877727836063,-60.0,3.9856851021985156 delta=4.296010013215349E-6,-0.08,4.005196615650374E-4 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=34 pickup=6 health=5 owner=- thrower=Steve
+T 105
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=105 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=105 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-7.9302116664676E-11,0.0,1.728228498457096E-8 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=105 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373877727836063,-60.0,3.9856851021985156 delta=4.296010013215349E-6,-0.12,4.005196615650374E-4 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=35 pickup=5 health=5 owner=- thrower=Steve
+T 106
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=106 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=106 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-7.9302116664676E-11,-0.04,1.728228498457096E-8 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=106 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373920687936194,-60.0,3.9860856218600804 delta=2.5260541417842786E-6,0.0,2.3550558468209148E-4 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=36 pickup=4 health=5 owner=- thrower=Steve
+T 107
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=107 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=107 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-7.9302116664676E-11,-0.08,1.728228498457096E-8 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=107 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373920687936194,-60.0,3.9860856218600804 delta=2.5260541417842786E-6,-0.04,2.3550558468209148E-4 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=37 pickup=3 health=5 owner=- thrower=Steve
+T 108
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=108 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=108 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-7.9302116664676E-11,-0.12,1.728228498457096E-8 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=108 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373920687936194,-60.0,3.9860856218600804 delta=2.5260541417842786E-6,-0.08,2.3550558468209148E-4 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=38 pickup=2 health=5 owner=- thrower=Steve
+T 109
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=109 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=109 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-4.6629649287789786E-11,0.0,1.0161984592791346E-8 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=109 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373920687936194,-60.0,3.9860856218600804 delta=2.5260541417842786E-6,-0.12,2.3550558468209148E-4 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=39 pickup=1 health=5 owner=- thrower=Steve
+T 110
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=110 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=110 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-4.6629649287789786E-11,-0.04,1.0161984592791346E-8 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=110 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373920687936194,-60.0,3.9860856218600804 delta=1.485319984729199E-6,0.0,1.384772977179987E-4 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=40 pickup=0 health=5 owner=- thrower=Steve
+T 111
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=111 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=111 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-4.6629649287789786E-11,-0.08,1.0161984592791346E-8 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=111 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373920687936194,-60.0,3.9860856218600804 delta=1.485319984729199E-6,-0.04,1.384772977179987E-4 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=41 pickup=0 health=5 owner=- thrower=Steve
+T 112
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=112 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=112 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-4.6629649287789786E-11,-0.12,1.0161984592791346E-8 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=112 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373920687936194,-60.0,3.9860856218600804 delta=1.485319984729199E-6,-0.08,1.384772977179987E-4 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=42 pickup=0 health=5 owner=- thrower=Steve
+T 113
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=113 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=113 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-2.7418236538329327E-11,0.0,5.9752475414171815E-9 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=113 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373920687936194,-60.0,3.9860856218600804 delta=1.485319984729199E-6,-0.12,1.384772977179987E-4 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=43 pickup=0 health=5 owner=- thrower=Steve
+T 114
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=114 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=114 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-2.7418236538329327E-11,-0.04,5.9752475414171815E-9 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=114 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373920687936194,-60.0,3.9860856218600804 delta=8.733682388444833E-7,0.0,8.142465924604225E-5 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=44 pickup=0 health=5 owner=- thrower=Steve
+T 115
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=115 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=115 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-2.7418236538329327E-11,-0.08,5.9752475414171815E-9 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=115 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373920687936194,-60.0,3.9860856218600804 delta=8.733682388444833E-7,-0.04,8.142465924604225E-5 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=45 pickup=0 health=5 owner=- thrower=Steve
+T 116
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=116 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=116 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-2.7418236538329327E-11,-0.12,5.9752475414171815E-9 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=116 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373920687936194,-60.0,3.9860856218600804 delta=8.733682388444833E-7,-0.08,8.142465924604225E-5 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=46 pickup=0 health=5 owner=- thrower=Steve
+T 117
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=117 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=117 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.6121924705717858E-11,0.0,3.5134459076565898E-9 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=117 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373920687936194,-60.0,3.9860856218600804 delta=8.733682388444833E-7,-0.12,8.142465924604225E-5 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=47 pickup=0 health=5 owner=- thrower=Steve
+T 118
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.08,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=118 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=118 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.6121924705717858E-11,-0.04,3.5134459076565898E-9 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=118 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373920687936194,-60.0,3.9860856218600804 delta=5.135405760809054E-7,0.0,4.787770445113443E-5 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=48 pickup=0 health=5 owner=- thrower=Steve
+T 119
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,-0.12,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=119 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=119 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.6121924705717858E-11,-0.08,3.5134459076565898E-9 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=119 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373920687936194,-60.0,3.9860856218600804 delta=5.135405760809054E-7,-0.04,4.787770445113443E-5 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=49 pickup=0 health=5 owner=- thrower=Steve
+T 120
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I Steve 1 minecraft:stick*3
+I Steve 2 minecraft:cobblestone*5
+I Steve 3 minecraft:diamond*1
+I Steve 4 minecraft:emerald*1
+E c minecraft:item pos=0.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=266.42517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_sword*1 age=120 pickup=0 health=5 owner=- thrower=-
+E never minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=261.17932,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*1 age=120 pickup=32767 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=0.48613786537249204,-60.0,3.520970576864742 delta=-1.6121924705717858E-11,-0.12,3.5134459076565898E-9 rot=315.52356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=120 pickup=0 health=5 owner=- thrower=Steve
+E item#2 minecraft:item pos=0.5373920687936194,-60.0,3.9860856218600804 delta=5.135405760809054E-7,-0.08,4.787770445113443E-5 rot=208.43874,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*64 age=50 pickup=0 health=5 owner=- thrower=Steve

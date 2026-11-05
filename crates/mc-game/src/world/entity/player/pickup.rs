@@ -5,8 +5,10 @@ use super::ServerPlayer;
 use crate::server::level::ServerLevel;
 use crate::server::level::server_entity::encode_payload;
 use crate::world::entity::Entity;
+use crate::world::entity::item::ItemEntity;
 use mc_data::EntityType;
 use mc_protocol::packets::play::ClientboundTakeItemEntityPacket;
+use std::sync::OnceLock;
 
 impl ServerPlayer {
     /// `ServerPlayer.take(entity, orgCount)` = `LivingEntity.take` + `containerMenu.broadcastChanges()`: the pickup
@@ -20,6 +22,26 @@ impl ServerPlayer {
         }
         self.broadcast_menu_changes(level);
     }
+
+    /// `ServerPlayer.onItemPickup(entity)` (+ `LivingEntity.onItemPickup`): the `THROWN_ITEM_PICKED_UP_BY_ENTITY` trigger of a
+    /// player owner and `THROWN_ITEM_PICKED_UP_BY_PLAYER` for this player when the item has a thrower.
+    pub fn on_item_pickup(&mut self, level: &mut ServerLevel, item: &ItemEntity) {
+        if let Some(hooks) = ITEM_PICKUP_HOOKS.get() {
+            hooks.on_item_pickup(level, self, item);
+        }
+    }
+}
+
+/// SEAM(advancements): the criteria triggers of `onItemPickup`. `ItemEntity.thrower` is a UUID: when it is the picker itself the
+/// picker is out of `level` (taken out while it ticks), so the implementation resolves the owner from `picker` first.
+pub trait ItemPickupHooks: Send + Sync {
+    fn on_item_pickup(&self, level: &mut ServerLevel, picker: &mut ServerPlayer, item: &ItemEntity);
+}
+
+static ITEM_PICKUP_HOOKS: OnceLock<&'static dyn ItemPickupHooks> = OnceLock::new();
+
+pub fn set_item_pickup_hooks(hooks: &'static dyn ItemPickupHooks) {
+    let _ = ITEM_PICKUP_HOOKS.set(hooks);
 }
 
 /// `ExperienceOrb.repairPlayerItems(player, amount)`: mending. Returns the experience that is left over.

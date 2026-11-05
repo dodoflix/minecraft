@@ -1,0 +1,24 @@
+# Experience orbs (zero velocity): fall + bounce on grass / ice / slime, water (eye in fluid), lava, cobweb, embedded in a block (unstick), launched.
+# Fluids are enclosed in stone so the (unported) fluid spreading cannot change the world while the vanilla server runs.
+level flat
+entity_counter 1000
+fill 4 -60 -2 8 -57 2 minecraft:stone
+fill 5 -60 -1 7 -57 1 minecraft:water[level=0]
+fill 19 -60 -2 23 -58 2 minecraft:stone
+fill 20 -60 -1 22 -58 1 minecraft:lava[level=0]
+block 26 -59 0 minecraft:cobweb
+fill 29 -61 -1 31 -61 1 minecraft:ice
+block 34 -61 0 minecraft:slime_block
+block 37 -59 0 minecraft:stone
+spawn air minecraft:experience_orb 0.5 -50 0.5 {Value:3s}
+spawn pool minecraft:experience_orb 6.5 -55.5 0.5 {Value:5s}
+spawn lava minecraft:experience_orb 21.5 -56 0.5 {Value:17s}
+spawn web minecraft:experience_orb 26.5 -55 0.5 {Value:1s}
+spawn ice minecraft:experience_orb 30.5 -55 0.5 {Value:37s}
+spawn slime minecraft:experience_orb 34.5 -55 0.5 {Value:73s}
+spawn stuck minecraft:experience_orb 37.5 -58.5 0.5 {Value:7s}
+spawn moving minecraft:experience_orb 40.5 -60 0.5 {Value:149s}
+spawn old minecraft:experience_orb 44.5 -60 0.5 {Value:3s,Age:5995s}
+velocity moving 0.3 0.2 0.1
+watch entities
+tick 80

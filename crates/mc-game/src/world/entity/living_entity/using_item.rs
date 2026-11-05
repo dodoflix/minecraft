@@ -103,7 +103,7 @@ pub fn release_using_item(e: &mut dyn Entity, level: &mut ServerLevel) {
         let before = in_hand.copy();
         let released = behaviour(in_hand.item()).release_using(&mut in_hand, level, e, remaining);
         // the hook mutates the stack the entity holds (`this.useItem` aliases the hand stack)
-        let stored = if released { crate::world::item::apply_after_use_component_side_effects(in_hand.clone(), e, &before) } else { in_hand.clone() };
+        let stored = if released { crate::world::item::apply_after_use_component_side_effects(level, in_hand.clone(), e, &before) } else { in_hand.clone() };
         if stored != item_in_hand(e, hand) {
             e.set_item_slot(level, hand.as_equipment_slot(), stored);
         }

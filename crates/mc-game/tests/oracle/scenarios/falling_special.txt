@@ -1,0 +1,29 @@
+# Falling anvils damaging entities (FallHurtAmount/Max, the damaged-anvil roll), concrete powder solidifying in water (also at high speed),
+# dragon egg and waterlogged states, gamerule entity_drops.
+level flat
+entity_counter 1000
+fill 4 -60 -2 8 -57 2 minecraft:stone
+fill 5 -60 -1 7 -57 1 minecraft:water[level=0]
+spawn_player Steve survival 0.5 -60 0.5
+entity_seed Steve 5
+spawn anvil minecraft:falling_block 0.5 -53 0.5 {BlockState:{id:"minecraft:anvil",properties:{facing:"north"}},HurtEntities:1b,FallHurtAmount:0.5f,FallHurtMax:40}
+spawn anvil2 minecraft:falling_block 10.5 -53 0.5 {BlockState:{id:"minecraft:anvil",properties:{facing:"east"}},HurtEntities:1b,FallHurtAmount:2.0f,FallHurtMax:4}
+spawn powder minecraft:falling_block 6.5 -52 0.5 {BlockState:"minecraft:red_concrete_powder"}
+spawn fast minecraft:falling_block 5.5 -52 0.5 {BlockState:"minecraft:blue_concrete_powder"}
+velocity fast 0 -1.4 0
+spawn ground minecraft:falling_block 14.5 -52 0.5 {BlockState:"minecraft:white_concrete_powder"}
+spawn egg minecraft:falling_block 18.5 -52 0.5 {BlockState:"minecraft:dragon_egg"}
+spawn damaged minecraft:falling_block 22.5 -52 0.5 {BlockState:{id:"minecraft:damaged_anvil",properties:{facing:"south"}},HurtEntities:1b}
+spawn gone minecraft:falling_block 26.5 -52 0.5 {BlockState:"minecraft:sand"}
+gamerule entity_drops false
+spawn slab minecraft:falling_block 30.5 -58 0.5 {BlockState:"minecraft:sand"}
+block 30 -60 0 minecraft:torch
+watch player:Steve entities
+tick 30
+dump blocks:0,-61,0,30,-50,0
+# DragonEggBlock.useWithoutItem: teleport to a random air block (level random, 1000 tries) with a block below
+block 40 -60 0 minecraft:dragon_egg
+spawn_player Alex creative 38.5 -60 0.5
+level_seed 11
+use_on Alex 40 -60 0 up main
+dump blocks:24,-60,-16,56,-52,16
