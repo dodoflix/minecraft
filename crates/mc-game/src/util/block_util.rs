@@ -1,5 +1,6 @@
 //! `net.minecraft.util.BlockUtil`.
 use crate::world::level::BlockGetter;
+use crate::world::level::block::BlockStateExt;
 use mc_core::direction::{Axis, AxisDirection, Direction};
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
@@ -75,7 +76,7 @@ pub fn get_largest_rectangle_around(center: BlockPos, axis1: Axis, limit1: i32, 
         }
     }
 
-    FoundRectangle { min_corner: center.relative_n(axis1, min_axis1 - center_index1).relative_n(axis2, min_axis2 - center_index2), axis1_size: size_axis1, axis2_size: size_axis2 }
+    FoundRectangle { min_corner: center.relative_axis(axis1, min_axis1 - center_index1).relative_axis(axis2, min_axis2 - center_index2), axis1_size: size_axis1, axis2_size: size_axis2 }
 }
 
 /// `getLimit(test, pos, direction, limit)` (the cursor starts at `start`).
