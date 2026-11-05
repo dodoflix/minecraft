@@ -88,7 +88,23 @@ case "${1:-}" in
   check|clippy)
     # Check-only incremental caches are small (metadata); rechecks after a rebase drop from ~8 min to <1 min.
     export CARGO_INCREMENTAL=1
-    if [ -n "${MC_MERGE_SLOT:-}" ]; then with_slot cargo "$@"; else with_slot_or_remote "$@"; fi
+    if [ -n "${MC_MERGE_SLOT:-}" ]; then
+      # Merge gate (serialized by the merge lock): prefer a builder's dedicated "gate" lane, whose warm cache tracks main.
+      for reg in /tmp/mc-builders/*.ip; do
+        [ -e "$reg" ] || continue
+        name=$(basename "$reg" .ip)
+        exec {gfd}>"/tmp/mc-remote.$name.gate"
+        if flock -n "$gfd"; then
+          touch "/tmp/mc-builders/$name.last"; rc=0
+          "$BUILDERS_DIR/remote-cargo.sh" "$(cat "$reg")" gate "$@" 2>&1 | sed -u "s#/w/src/#$PWD/#g" || rc=${PIPESTATUS[0]}
+          touch "/tmp/mc-builders/$name.last"; exec {gfd}>&-
+          [ "$rc" = 255 ] || exit $rc
+          break
+        fi
+        exec {gfd}>&-
+      done
+      with_slot cargo "$@"
+    else with_slot_or_remote "$@"; fi
     ;;
   *)
     with_slot cargo "$@"
