@@ -3165,6 +3165,28 @@ pub trait Entity: Any {
     fn is_panicking_by_brain(&self) -> Option<bool> {
         None
     }
+    // ==== [GoalsB] additions (Entity trait methods) ====
+    /// `this instanceof RangedAttackMob`: the mob implements `performRangedAttack` (Skeleton, Witch, SnowGolem, ...).
+    fn as_ranged_attack_mob_mut(&mut self) -> Option<&mut dyn super::mob::ranged::RangedAttackMob> {
+        None
+    }
+    /// `this instanceof CrossbowAttackMob` (Pillager, Piglin).
+    fn as_crossbow_attack_mob_mut(&mut self) -> Option<&mut dyn super::mob::ranged::CrossbowAttackMob> {
+        None
+    }
+    /// `Creeper.getSwellDir()` (`SwellGoal`); 0 for non-creepers.
+    fn get_swell_dir(&self) -> i32 {
+        0
+    }
+    /// `Creeper.setSwellDir(dir)`.
+    fn set_swell_dir(&mut self, _dir: i32) {}
+    /// `Mob.setTarget(target)` (virtual: `Creeper`, `Enderman`, `Fox`, `ZombifiedPiglin` override and call
+    /// `mob::tick::set_target` as their `super` call). `target` is validated by `asValidTarget`.
+    fn set_target(&mut self, level: &ServerLevel, target: Option<EntityId>) {
+        if self.mob().is_some() {
+            super::mob::tick::set_target(self.as_dyn_mut(), level, target);
+        }
+    }
     /// `Entity.hasControllingPassenger()`.
     fn has_controlling_passenger(&self) -> bool {
         self.get_controlling_passenger().is_some()

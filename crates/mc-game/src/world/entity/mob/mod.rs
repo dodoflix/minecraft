@@ -52,6 +52,7 @@
 //!     spawn predicates are registered with SpawnFramework's `register_spawn_placement!`.
 
 pub mod ageable;
+pub mod combat;
 pub mod animal;
 pub mod convert;
 pub mod drop_chances;
@@ -64,6 +65,7 @@ pub mod navigation;
 pub mod nbt;
 pub mod neutral;
 pub mod pathfinder;
+pub mod ranged;
 pub mod spawn;
 pub mod tamable;
 pub mod tick;

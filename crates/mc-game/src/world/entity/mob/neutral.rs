@@ -81,7 +81,7 @@ pub fn read_persistent_anger_save_data(e: &mut dyn Entity, level: Option<&Server
     set_persistent_anger_target(e, crate::world::entity::entity::read_uuid(input.get("angry_at")));
     if let Some(level) = level {
         let target = get_persistent_anger_target(e).and_then(|u| level.get_entity_by_uuid(u)).filter(|t| t.living().is_some()).map(|t| t.id());
-        super::tick::set_target(e, level, target);
+        e.set_target(level, target);
     }
 }
 
@@ -168,7 +168,7 @@ pub fn stop_being_angry(e: &mut dyn Entity, level: &ServerLevel) {
         l.last_hurt_by_mob_timestamp = tick_count;
     }
     set_persistent_anger_target(e, None);
-    super::tick::set_target(e, level, None);
+    e.set_target(level, None);
     set_persistent_anger_end_time(e, -1);
 }
 
