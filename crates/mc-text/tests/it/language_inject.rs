@@ -1,4 +1,4 @@
-//! `Language::inject` swaps the translations used by `getString()` (own test binary: global state).
+//! `Language::inject` swaps the translations used by `getString()` (process-wide state, hence the `it` target).
 
 use mc_text::{Component, Language};
 
