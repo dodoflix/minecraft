@@ -6,7 +6,7 @@ use crate::commands::message::{message, simple_translatable};
 use crate::commands::shared_suggestion_provider::suggest_resource;
 use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
 use crate::server::level::ServerLevel;
-use crate::server::level::server_level_worldgen::{place_feature, with_worldgen_level};
+use crate::server::level::server_level_worldgen::with_worldgen_level;
 use crate::world::level::levelgen::holder::Holder;
 use crate::world::level::levelgen::structure::generation::generate_structure;
 use crate::world::level::levelgen::structure::manager::StructureManager;
@@ -182,7 +182,7 @@ pub fn place_feature_command(source: &CommandSourceStack, feature: Holder<dyn cr
     let placed = with_level(source, |level| {
         let chunk = ChunkPos::containing(&pos);
         check_loaded(level, ChunkPos::new(chunk.x - 1, chunk.z - 1), ChunkPos::new(chunk.x + 1, chunk.z + 1))?;
-        Ok(place_feature(level, &feature, pos))
+        Ok(level.place_feature_value(feature.value().as_ref(), pos))
     })?;
     if !placed {
         return Err(ERROR_FEATURE_FAILED.create());
@@ -201,7 +201,8 @@ pub fn place_jigsaw(source: &CommandSourceStack, pool: ResourceKey, target: Iden
         check_loaded(level, chunk, chunk)?;
         let env = level.gen_env().clone();
         let pool = env.structures.template_pools.get(&pool.id).expect("the argument checked that the pool exists").clone();
-        Ok(level.with_level_random(|level, random| generate_jigsaw(level, random, &pool, &target, max_depth, pos, false)))
+        let mut random = level.tick_state.random.clone();
+        Ok(generate_jigsaw(level, &mut random, &pool, &target, max_depth, pos, false))
     })?;
     if !placed {
         return Err(ERROR_JIGSAW_FAILED.create());
@@ -225,12 +226,11 @@ pub fn place_structure(source: &CommandSourceStack, structure: ResourceKey, pos:
         check_loaded(level, chunk_min, chunk_max)?;
         let manager = StructureManager::new(&env);
         let (min_y, max_y) = (level.get_min_y(), level.get_max_y());
-        level.with_level_random(|level, random| {
-            for c in ChunkPos::range_closed_between(&chunk_min, &chunk_max) {
-                let chunk_bb = BoundingBox::new(c.get_min_block_x(), min_y, c.get_min_block_z(), c.get_max_block_x(), max_y + 1, c.get_max_block_z());
-                start.place_in_chunk(level, &manager, &env, random, &chunk_bb, c);
-            }
-        });
+        let mut random = level.tick_state.random.clone();
+        for c in ChunkPos::range_closed_between(&chunk_min, &chunk_max) {
+            let chunk_bb = BoundingBox::new(c.get_min_block_x(), min_y, c.get_min_block_z(), c.get_max_block_x(), max_y + 1, c.get_max_block_z());
+            start.place_in_chunk(level, &manager, &env, &mut random, &chunk_bb, c);
+        }
         Ok(())
     });
     placed?;

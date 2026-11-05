@@ -14,10 +14,7 @@ use crate::world::entity::factory::{EntitySpawnRequest, load_entity_recursive};
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::levelgen::{GenEnv, WorldGenLevel};
 use crate::world::level::{BlockGetter, DimensionKey, LevelAccessor};
-use crate::world::level::levelgen::feature::Feature;
-use crate::world::level::levelgen::holder::Holder;
 use mc_core::pos::{BlockPos, ChunkPos};
-use mc_core::random::{LegacyRandomSource, RandomSource};
 use mc_data::block::{Block, BlockState};
 use mc_data::enums::EntitySpawnReason;
 use mc_nbt::CompoundTag;
@@ -53,26 +50,6 @@ impl ServerLevel {
                 }
             }
         }
-    }
-}
-
-/// `feature.place(level, level.getChunkSource().getGenerator(), level.getRandom(), origin)` for a holder of the feature
-/// registry or an inline feature.
-pub fn place_feature(level: &mut ServerLevel, feature: &Holder<dyn Feature>, origin: BlockPos) -> bool {
-    let env = level.gen_env().clone();
-    let feature = feature.value().clone();
-    level.with_level_random(|level, random| feature.place(level, &env, random, origin))
-}
-
-impl ServerLevel {
-    /// Runs `f` with the level and its own `random` (`level.getRandom()`); the random is moved out of the level while `f`
-    /// runs, so code reaching `level.random()` meanwhile sees a fresh stand-in stream (vanilla's level random is
-    /// unseeded, nothing can depend on its exact sequence).
-    pub fn with_level_random<R>(&mut self, f: impl FnOnce(&mut ServerLevel, &mut dyn RandomSource) -> R) -> R {
-        let mut random = std::mem::replace(&mut self.tick_state.random, LegacyRandomSource::new(0));
-        let result = f(self, &mut random);
-        self.tick_state.random = random;
-        result
     }
 }
 
