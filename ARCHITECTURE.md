@@ -48,9 +48,16 @@ crates/
   mc-world            chunk storage: PalettedContainer, sections, ChunkAccess/ProtoChunk/LevelChunk data, heightmaps,
                       chunk NBT serialization, Anvil region files, level.dat / playerdata IO, chunk packet data
   mc-light            light engine (sky + block) over mc-world chunks
-  mc-game             all gameplay: MinecraftServer, PlayerList, ServerLevel, chunk map/tickets, network listeners
-                      (login/config/play), block behaviors, block entities, fluids, entities + AI, items, menus,
-                      recipes, loot, advancements, commands, features/structures/placement, scoreboard, raids, …
+  mc-game-core        the gameplay spine: MinecraftServer, PlayerList, ServerLevel, chunk map/tickets, network listeners
+                      (login/config/play), Entity/LivingEntity/Mob/Player + AI framework, BlockBehaviour + state, item base,
+                      enchantments, recipes, menus, loot, advancements, command infra + arguments, scoreboard, raids, ...
+  mc-game-blocks      block behavior implementations + block entities           (leaf over core)
+  mc-game-levelgen    features, structures, placement, template processors, /place (leaf over core)
+  mc-game-cmds        the vanilla commands, registered via linkme               (leaf over core)
+  mc-game-ai          concrete goals/behaviors/sensors                          (leaf over core)
+  mc-game-animals     animals + ambient mobs                                    (over mc-game-ai)
+  mc-game-monsters    monsters, npc, raid parts, creaking heart                 (over mc-game-animals)
+  mc-game             thin: merges the module trees of the crates above so `mc_game::...` stays the public API; tests, examples
   mc-server           thin binary: CLI args, server.properties, console, JSON-RPC management, starts mc-game
   mc-testbot          headless protocol client (scriptable bot) used by integration/E2E tests
 tools/                non-Rust tooling (e.g. Java data extractor)
@@ -59,11 +66,16 @@ scripts/              helper scripts (vanilla oracle, real client harness, setup
 
 Dependency direction (lower never imports higher):
 `mc-core, mc-nbt, mc-brigadier` → `mc-text, mc-data` → `mc-protocol, mc-world` → `mc-light, mc-worldgen`
-→ `mc-game` → `mc-server`; `mc-testbot` → `mc-protocol`.
+→ `mc-game-core` → `mc-game-{blocks,levelgen,cmds,ai}` → `mc-game-animals` → `mc-game-monsters` → `mc-game` → `mc-server`;
+`mc-testbot` → `mc-protocol`. Sibling area crates (`blocks`, `levelgen`, `cmds`, `ai`) never depend on each other; the area crates
+never depend on `mc-game`. Rule for gameplay code: it goes into the area crate that owns it (see docs/crate-split.md); code that
+`mc-game-core` itself calls must live in `core`.
 
 ## mc-game design (contract for all gameplay work)
 
-Vanilla's gameplay code is one tightly coupled object graph, so it lives in one crate and mirrors vanilla structure.
+Vanilla's gameplay code is one tightly coupled object graph. It mirrors vanilla structure and is split over `mc-game-core` + the area
+crates (docs/crate-split.md: a bridge layout where every area crate mirrors the module tree of its parent, so all paths are
+still `crate::world::...`; module paths stay vanilla-shaped). Everything below applies to the crates together.
 
 - **Threads.** One game thread runs `MinecraftServer` exactly like vanilla's main thread (20 TPS loop, task queue
   drained between ticks, same per-tick order: `MinecraftServer::tick_server` → `tick_children` → each
