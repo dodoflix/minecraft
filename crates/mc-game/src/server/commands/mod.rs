@@ -7,6 +7,7 @@ mod difficulty_command;
 mod emote_commands;
 mod game_mode_command;
 mod game_rule_command;
+mod give_command;
 mod help_command;
 mod kick_command;
 mod list_players_command;

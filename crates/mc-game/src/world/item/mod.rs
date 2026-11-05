@@ -12,6 +12,7 @@ mod interaction;
 mod item_utils;
 mod simple_items;
 mod player_systems;
+mod potion_item;
 mod stack_ext;
 mod use_item;
 pub mod tool;

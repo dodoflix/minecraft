@@ -93,6 +93,11 @@ impl ItemEntity {
     pub fn set_never_pick_up(&mut self) {
         self.pickup_delay = INFINITE_PICKUP_DELAY;
     }
+    /// `makeFakeItem()`: a visual-only item (`/give` pickup animation).
+    pub fn make_fake_item(&mut self) {
+        self.set_never_pick_up();
+        self.age = 5999;
+    }
     pub fn set_pick_up_delay(&mut self, ticks: i32) {
         self.pickup_delay = ticks;
     }

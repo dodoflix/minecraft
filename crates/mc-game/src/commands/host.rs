@@ -597,3 +597,37 @@ pub fn kick_player(server: &mut MinecraftServer, player: &EntityRef, reason: &Co
     handle.disconnect(reason);
     Some(name)
 }
+
+// ==== GiveCommand seams ====
+
+/// `GiveCommand.giveItem`'s per-player loop: gives `count` of `prototype` in stacks of `max_stack_size`.
+pub fn give_item(server: &mut MinecraftServer, player: &EntityRef, prototype: &mc_protocol::components::ItemStack, max_stack_size: i32, count: i32) {
+    use mc_core::random::RandomSource;
+    use mc_protocol::packets::play::level::SoundSource;
+    let Some(level) = server.level_mut(&player.dimension) else { return };
+    level.with_player(player.id, |level, player| {
+        let mut remaining = count;
+        while remaining > 0 {
+            let size = max_stack_size.min(remaining);
+            remaining -= size;
+            let mut copy_to_drop = prototype.copy_with_count(size);
+            let infinite = player.player.abilities.instabuild;
+            let added = player.player.inventory.add(&mut copy_to_drop, infinite);
+            if added && copy_to_drop.is_empty() {
+                if let Some(mut drop) = player.create_item_stack_to_drop(level, prototype.clone(), false, false) {
+                    drop.make_fake_item();
+                    level.add_fresh_entity(Box::new(drop));
+                }
+                let (x, y, z) = (player.base().x(), player.base().y(), player.base().z());
+                let random = &mut player.base_mut().random;
+                let pitch = ((random.next_float() - random.next_float()) * 0.7 + 1.0) * 2.0;
+                level.play_sound_at(None, x, y, z, mc_data::SoundEvent::ENTITY_ITEM_PICKUP, SoundSource::Players, 0.2, pitch);
+                player.broadcast_menu_changes(level);
+            } else if let Some(mut drop) = player.create_item_stack_to_drop(level, copy_to_drop, false, false) {
+                drop.set_no_pick_up_delay();
+                drop.set_target(Some(player.uuid()));
+                level.add_fresh_entity(Box::new(drop));
+            }
+        }
+    });
+}
