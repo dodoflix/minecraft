@@ -55,7 +55,7 @@
 #   (name, flags, parser, suggestions, children order, redirect path; `gamerule` as a set). Differing node PATHS are listed,
 #   plus the vanilla commands we do not register yet. `--tree` fails on a differing command or extra command, not on
 #   missing ones; `--tree-strict` also fails on missing commands and requires the packets to be equal after canonical
-#   gamerule ordering (the final goal, see tests/command_tree_golden.rs `tree_equals_vanilla_full`).
+#   gamerule ordering (the final goal, see crates/mc-game/tests/golden/command_tree_golden.rs `tree_equals_vanilla_full`).
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
