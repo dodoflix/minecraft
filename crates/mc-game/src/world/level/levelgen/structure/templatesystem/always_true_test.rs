@@ -11,7 +11,7 @@ use std::sync::Arc;
 pub struct AlwaysTrueTest;
 
 impl AlwaysTrueTest {
-    pub fn decode(f: &Fields<'_>, _ctx: &DecodeCtx<'_>) -> LoadResult<Arc<dyn RuleTest>> {
+    pub fn decode(_f: &Fields<'_>, _ctx: &DecodeCtx<'_>) -> LoadResult<Arc<dyn RuleTest>> {
         Ok(Arc::new(AlwaysTrueTest))
     }
 }

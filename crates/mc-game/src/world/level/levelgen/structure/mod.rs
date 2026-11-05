@@ -14,6 +14,7 @@ pub mod single_piece_structure;
 pub mod structure;
 pub mod structure_start;
 pub mod structures;
+pub mod templatesystem;
 
 pub use manager::StructureManager;
 pub use piece::{PieceBase, StructurePiece, StructurePieceSerializationContext, StructurePieceType};

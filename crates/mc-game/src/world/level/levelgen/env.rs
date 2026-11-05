@@ -4,6 +4,7 @@
 
 use super::registries::GenRegistries;
 use super::structure::check::StructureCheck;
+use super::structure::templatesystem::StructureTemplateManager;
 use super::structure::registries::{StartCache, StructureRegistries};
 use mc_worldgen::structure_placement::ChunkGeneratorStructureState;
 use mc_core::ident::Identifier;
@@ -25,6 +26,8 @@ pub struct GenEnv {
     pub random_state: Arc<RandomState>,
     pub biomes: Arc<BiomeRegistry>,
     pub registries: Arc<GenRegistries>,
+    /// `server.getStructureTemplateManager()`.
+    pub structure_template_manager: Arc<StructureTemplateManager>,
     /// The `worldgen/structure` registry.
     pub structures: Arc<StructureRegistries>,
     /// Parsed structure starts of the level's chunks (see [`StartCache`]).
