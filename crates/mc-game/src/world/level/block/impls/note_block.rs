@@ -7,7 +7,6 @@ use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::redstone::Orientation;
 use crate::world::level::signal_getter::SignalGetter;
 use mc_core::phys::BlockHitResult;
-use mc_core::random::RandomSource as _;
 use mc_data::GameEvent;
 use mc_data::enums::NoteBlockInstrument;
 use mc_data::misc::NOTE_BLOCK_INSTRUMENTS;
