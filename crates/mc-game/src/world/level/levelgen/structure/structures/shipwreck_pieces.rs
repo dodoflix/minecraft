@@ -12,7 +12,6 @@ use crate::world::level::levelgen::structure::template_structure_piece::{
 };
 use crate::world::level::levelgen::structure::templatesystem::block_ignore_processor::STRUCTURE_AND_AIR;
 use crate::world::level::levelgen::structure::templatesystem::{StructurePlaceSettings, StructureTemplateManager};
-use crate::world::level::{BlockGetter as _, LevelReader as _};
 use mc_core::bounding_box::BoundingBox;
 use mc_core::ident::Identifier;
 use mc_core::mirror::Mirror;

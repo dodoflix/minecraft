@@ -16,6 +16,7 @@ pub mod single_piece_structure;
 pub mod structure;
 pub mod structure_start;
 pub mod structures;
+pub mod template_structure_piece;
 pub mod templatesystem;
 
 pub use manager::StructureManager;

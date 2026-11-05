@@ -13,7 +13,6 @@ use crate::world::level::levelgen::structure::templatesystem::block_ignore_proce
 use crate::world::level::levelgen::structure::templatesystem::{StructurePlaceSettings, StructureTemplateManager};
 use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
 use crate::world::level::block::BlockStateExt as _;
-use crate::world::level::{BlockGetter as _, LevelAccessor as _};
 use mc_core::bounding_box::BoundingBox;
 use mc_core::ident::Identifier;
 use mc_core::mirror::Mirror;

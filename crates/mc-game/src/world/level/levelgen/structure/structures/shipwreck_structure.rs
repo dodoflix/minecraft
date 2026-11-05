@@ -3,6 +3,7 @@
 use super::shipwreck_pieces::{ShipwreckPiece, add_random_piece};
 use crate::world::level::levelgen::codec::*;
 use crate::world::level::levelgen::registries::DecodeCtx;
+use crate::world::level::levelgen::structure::piece::StructurePiece as _;
 use crate::world::level::levelgen::structure::pieces::StructurePiecesBuilder;
 use crate::world::level::levelgen::structure::structure::{
     GenerationContext, GenerationStub, STRUCTURE_TYPES, Structure, StructureSettings, get_lowest_y_at, get_mean_first_occupied_height, on_top_of_chunk_center,
