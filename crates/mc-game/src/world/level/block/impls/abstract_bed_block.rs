@@ -201,6 +201,13 @@ impl BlockBehaviour for AbstractBedBlock {
     fn is_pathfindable(&self, _state: BlockState, _ty: mc_data::block::PathComputationType) -> bool {
         false
     }
+    /// The bed part of `ServerPlayer.findRespawnAndUseSpawnBlock`.
+    fn find_respawn_position(&self, level: &mut ServerLevel, state: BlockState, pos: BlockPos, _forced: bool, _consume_spawn_block: bool, yaw: f32) -> Option<Option<Vec3>> {
+        if !get_bed_rule(level, state, pos).can_set_spawn(level) {
+            return None;
+        }
+        Some(find_stand_up_position(EntityType::PLAYER, level, pos, state.get(props::HORIZONTAL_FACING), yaw))
+    }
 }
 
 register_block_class!("AbstractBedBlock", |_| Box::new(AbstractBedBlock));
