@@ -8,6 +8,7 @@ pub mod name_resolver;
 pub mod dedicated_player_list;
 pub mod dimension_change;
 pub mod join;
+pub mod mojang_profile_lookup;
 pub mod player_data;
 pub mod player_files;
 pub mod old_users_converter;

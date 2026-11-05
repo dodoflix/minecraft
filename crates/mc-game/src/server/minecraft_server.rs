@@ -71,6 +71,8 @@ pub struct ServerInit {
     pub dedicated: DedicatedServer,
     pub notification_manager: Arc<NotificationManager>,
     pub name_to_id_cache: Arc<CachedUserNameToIdResolver>,
+    /// `Services.profileResolver()`.
+    pub profile_resolver: Arc<dyn crate::server::players::ProfileResolver>,
     pub level_load_listener: Box<dyn LevelLoadListener>,
 }
 
@@ -135,6 +137,8 @@ pub struct MinecraftServer {
     pub player_list: PlayerList,
     pub notification_manager: Arc<NotificationManager>,
     pub name_to_id_cache: Arc<CachedUserNameToIdResolver>,
+    /// `services().profileResolver()`.
+    pub profile_resolver: Arc<dyn crate::server::players::ProfileResolver>,
     pub dedicated: DedicatedServer,
     /// `getCommands()` (`resources.managers.getCommands()` in vanilla).
     pub commands: Arc<crate::commands::Commands>,
@@ -252,6 +256,7 @@ impl MinecraftServer {
             player_list,
             notification_manager: init.notification_manager,
             name_to_id_cache: init.name_to_id_cache,
+            profile_resolver: init.profile_resolver,
             dedicated: init.dedicated,
             key_pair: None,
             connection: None,

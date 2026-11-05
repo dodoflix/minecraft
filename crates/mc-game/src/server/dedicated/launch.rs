@@ -13,7 +13,8 @@ use crate::server::level_load_listener::LoggingLevelLoadListener;
 use crate::server::minecraft_server::{ReloadableResources, ServerInit, SERVER_THREAD_NAME};
 use crate::server::notifications::NotificationManager;
 use crate::server::packs::ServerPacksSource;
-use crate::server::players::name_resolver::{CachedUserNameToIdResolver, NoProfileLookup};
+use crate::server::players::mojang_profile_lookup::MojangProfileLookup;
+use crate::server::players::name_resolver::{CachedProfileResolver, CachedUserNameToIdResolver, NoProfileLookup, ProfileLookup};
 use crate::server::shared::ServerShared;
 use crate::server::world_dimensions::WorldDimensions;
 use crate::server::world_loader::{DataLoadContext, DataLoadOutput, PackConfig, WorldLoadError, WorldStem, load};
@@ -79,7 +80,7 @@ struct Prepared {
 /// Builds the `MinecraftServer` of `options` on the calling thread without running it (tests, tooling): `None` when
 /// the launch stops early like `start` does (logged).
 pub fn create_server(options: ServerOptions, settings: DedicatedServerSettings) -> Result<Option<MinecraftServer>, String> {
-    let Some(Prepared { shared, tasks, init, .. }) = prepare(&options, settings)? else { return Ok(None) };
+    let Some(Prepared { shared, tasks, init, .. }) = prepare(&options, settings, Arc::new(NoProfileLookup))? else { return Ok(None) };
     let mut server = MinecraftServer::new(shared, tasks, init)?;
     server.port = options.port;
     server.is_demo = options.demo;
@@ -87,9 +88,11 @@ pub fn create_server(options: ServerOptions, settings: DedicatedServerSettings) 
     Ok(Some(server))
 }
 
-fn prepare(options: &ServerOptions, settings: DedicatedServerSettings) -> Result<Option<Prepared>, String> {
+/// `lookup`: the Mojang profile services (`Services.profileResolver()` / `nameToIdCache` repository).
+fn prepare(options: &ServerOptions, settings: DedicatedServerSettings, lookup: Arc<dyn ProfileLookup>) -> Result<Option<Prepared>, String> {
     let universe = PathBuf::from(&options.universe);
-    let name_to_id_cache = Arc::new(CachedUserNameToIdResolver::new(Arc::new(NoProfileLookup), universe.join("usercache.json")));
+    let name_to_id_cache = Arc::new(CachedUserNameToIdResolver::new(lookup.clone(), universe.join("usercache.json")));
+    let profile_resolver = Arc::new(CachedProfileResolver::new(lookup, name_to_id_cache.clone()));
     let notification_manager = Arc::new(NotificationManager::new());
     let properties = settings.get_properties().clone();
     let level_name = options.world_name.clone().unwrap_or_else(|| properties.level_name.clone());
@@ -186,6 +189,7 @@ fn prepare(options: &ServerOptions, settings: DedicatedServerSettings) -> Result
         dedicated,
         notification_manager,
         name_to_id_cache,
+        profile_resolver,
         level_load_listener: Box::new(LoggingLevelLoadListener::for_dedicated_server()),
     };
     Ok(Some(Prepared { shared, tasks, init, stop_signal }))
@@ -193,7 +197,7 @@ fn prepare(options: &ServerOptions, settings: DedicatedServerSettings) -> Result
 
 fn start(options: ServerOptions, settings: DedicatedServerSettings) -> Result<i32, String> {
     install_panic_hook();
-    let Some(Prepared { shared, tasks, init, stop_signal }) = prepare(&options, settings)? else { return Ok(0) };
+    let Some(Prepared { shared, tasks, init, stop_signal }) = prepare(&options, settings, Arc::new(MojangProfileLookup::new()))? else { return Ok(0) };
     let (port, demo, server_id) = (options.port, options.demo, options.server_id.clone());
     let server_shared = shared.clone();
     let thread = std::thread::Builder::new()

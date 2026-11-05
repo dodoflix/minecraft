@@ -12,6 +12,7 @@ mod default_game_mode_commands;
 mod deop_commands;
 mod difficulty_command;
 mod emote_commands;
+mod fetch_profile_command;
 mod game_mode_command;
 mod game_rule_command;
 mod give_command;
