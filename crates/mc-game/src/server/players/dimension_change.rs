@@ -201,6 +201,7 @@ pub fn teleport_player(server: &mut MinecraftServer, old_dimension: &DimensionKe
                     player.reset_position_after_teleport();
                     return Some(None);
                 }
+                player.close_menus_on_removal(level);
                 let profile = player.player.game_profile.clone();
                 let mut dummy = ServerPlayer::new(id, player.dimension.clone(), profile, Default::default());
                 dummy.remove(RemovalReason::ChangedDimension);

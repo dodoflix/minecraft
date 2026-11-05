@@ -22,11 +22,17 @@ impl ServerLevel {
         feature.place(self, &env, &mut random, pos)
     }
 
+    /// `registryAccess().lookupOrThrow(FEATURE).get(key)`: a configured feature by id (`huge_brown_mushroom` or
+    /// `minecraft:huge_brown_mushroom`).
+    pub fn lookup_feature(&self, id: &str) -> Option<Arc<dyn Feature>> {
+        let id = Identifier::read(id).ok()?;
+        self.gen_env().registries.feature(&id).map(|h| h.value().clone())
+    }
+
     /// `registry.get(id).value().place(level, generator, level.getRandom(), pos)` for a configured feature id
     /// (`minecraft:nylium_bonemeal` or `nylium_bonemeal`); `false` when the id is not registered.
     pub fn place_feature(&mut self, id: &str, pos: BlockPos) -> bool {
-        let Ok(id) = Identifier::read(id) else { return false };
-        let Some(feature) = self.gen_env().registries.feature(&id).map(|h| h.value().clone()) else { return false };
+        let Some(feature) = self.lookup_feature(id) else { return false };
         self.place_feature_value(feature.as_ref(), pos)
     }
 

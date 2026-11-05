@@ -1,10 +1,15 @@
 //! `net.minecraft.world.level.block.InfestedBlock`: the host block <-> infested block tables
 //! (`infestedStateByHost`, `hostStateByInfested`, `isCompatibleHostBlock`).
 //!
-//! The silverfish that comes out when an infested block is broken (`spawnAfterBreak`) is wired with the entity
-//! hooks, see STATUS.md.
+//! The silverfish that comes out when an infested block is broken (`spawnAfterBreak`) is created through the entity
+//! factory; until MobsScope registers the `Silverfish` type nothing is spawned (see STATUS.md).
 use super::prelude::*;
-use crate::world::item::BlockPlaceContext;
+use crate::server::level::ServerLevel;
+use crate::world::entity::factory::{self, EntitySpawnRequest};
+use crate::world::item::{ItemStack, enchantment_helper};
+use crate::world::item::enchantment::enchantment_tags;
+use mc_data::EntityType;
+use mc_data::enums::EntitySpawnReason;
 
 pub struct InfestedBlock;
 
@@ -37,6 +42,32 @@ pub fn host_state_by_infested(infested_state: BlockState) -> BlockState {
     get_host_block(infested_state.block()).default_state().with_properties_of(infested_state)
 }
 
-impl BlockBehaviour for InfestedBlock {}
+/// `InfestedBlock.spawnInfestation`.
+fn spawn_infestation(level: &mut ServerLevel, pos: BlockPos) {
+    if !factory::has_factory(EntityType::SILVERFISH) {
+        return;
+    }
+    let request = EntitySpawnRequest { reason: EntitySpawnReason::Triggered, ignore_checks: false };
+    if let Some(mut silverfish) = factory::create(EntityType::SILVERFISH, level, request) {
+        silverfish.snap_to(f64::from(pos.x()) + 0.5, f64::from(pos.y()), f64::from(pos.z()) + 0.5, 0.0, 0.0);
+        let id = silverfish.id();
+        level.add_fresh_entity(silverfish);
+        level.broadcast_entity_event(id, 20); // `Mob.spawnAnim`
+    }
+}
+
+/// `InfestedBlock.spawnAfterBreak` (`Block.spawnAfterBreak` itself does nothing).
+pub fn spawn_after_break(level: &mut ServerLevel, pos: BlockPos, tool: &ItemStack) {
+    let tag = mc_core::ident::Identifier::parse(enchantment_tags::PREVENTS_INFESTED_SPAWNS).expect("valid tag id");
+    if level.block_drops() && !enchantment_helper::has_tag(&level.registries, tool, &tag) {
+        spawn_infestation(level, pos);
+    }
+}
+
+impl BlockBehaviour for InfestedBlock {
+    fn spawn_after_break(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, tool: &ItemStack, _drop_experience: bool) {
+        spawn_after_break(level, pos, tool);
+    }
+}
 
 register_block_class!("InfestedBlock", |_| Box::new(InfestedBlock));

@@ -23,7 +23,9 @@ macro_rules! block_entity_base {
 
 pub mod base_container;
 mod calibrated_sculk_sensor_block_entity;
+mod comparator_block_entity;
 mod creaking_heart_block_entity;
+mod daylight_detector_block_entity;
 mod potent_sulfur_block_entity;
 mod sculk_catalyst_block_entity;
 mod sculk_sensor_block_entity;
@@ -31,7 +33,9 @@ mod sculk_shrieker_block_entity;
 mod the_end_gateway_block_entity;
 mod the_end_portal_block_entity;
 
+pub use comparator_block_entity::ComparatorBlockEntity;
 pub use creaking_heart_block_entity::CreakingHeartBlockEntity;
+pub use daylight_detector_block_entity::DaylightDetectorBlockEntity;
 pub use potent_sulfur_block_entity::PotentSulfurBlockEntity;
 pub use sculk_catalyst_block_entity::SculkCatalystBlockEntity;
 pub use sculk_sensor_block_entity::SculkSensorBlockEntity;
@@ -64,6 +68,16 @@ impl BlockEntityData {
 }
 
 /// Vanilla `BlockEntity` (overridable behavior; defaults = the base class).
+/// `ContainerUser` of the player that opens/closes a block-entity container (the player itself is not reachable
+/// through the level while its packet is handled).
+#[derive(Clone, Copy, Debug)]
+pub struct ContainerUser {
+    pub id: crate::world::entity::EntityId,
+    pub spectator: bool,
+    /// `getContainerInteractionRange()` (`BLOCK_INTERACTION_RANGE` attribute value).
+    pub interaction_range: f64,
+}
+
 pub trait BlockEntity: Any {
     fn base(&self) -> &BlockEntityData;
     fn base_mut(&mut self) -> &mut BlockEntityData;
@@ -176,6 +190,41 @@ pub trait BlockEntity: Any {
     fn set_removed_in_level(&mut self, _level: &mut crate::server::level::ServerLevel) {
         self.set_removed();
     }
+
+    // ==== [Blocks:RedstoneDevices] ====
+    /// `SkullBlockEntity.getNoteBlockSound()`: the sound a note block plays below this head (`None` for every other type).
+    fn get_note_block_sound(&self) -> Option<mc_core::ident::Identifier> {
+        None
+    }
+
+    /// The `Container` view of this block entity (vanilla `this instanceof Container`); menus reach block-entity
+    /// containers through `ContainerKey::BlockEntity(pos)`.
+    fn as_container(&self) -> Option<&dyn crate::world::container::Container> {
+        None
+    }
+    fn as_container_mut(&mut self) -> Option<&mut dyn crate::world::container::Container> {
+        None
+    }
+    /// The `ContainerData` this block entity hands its menu (`dataAccess`: furnace progress, brewing time, beacon
+    /// levels, lectern page, ...).
+    fn container_data(&self) -> Option<&dyn crate::world::inventory::ContainerData> {
+        None
+    }
+    fn container_data_mut(&mut self) -> Option<&mut dyn crate::world::inventory::ContainerData> {
+        None
+    }
+    /// `Container.startOpen(user)` / `stopOpen(user)` of a block-entity container (chest open counter, sounds, block
+    /// events); called by the menus, the block entity is out of its chunk while this runs.
+    /// Set by the block entity's `Container::set_item`/`set_changed`/`remove_item` when vanilla would touch the level
+    /// there (`this.level`: recipe lookup, `setChanged()` -> `blockEntityChanged` + comparator update); the menu
+    /// resolver then calls [`BlockEntity::container_accessed`] right after the container operation.
+    fn container_pending(&self) -> bool {
+        false
+    }
+    /// Does the level-dependent part of the container operation that just ran (see `container_pending`); clears the flag.
+    fn container_accessed(&mut self, _level: &mut crate::server::level::ServerLevel) {}
+    fn start_open(&mut self, _level: &mut crate::server::level::ServerLevel, _user: &ContainerUser) {}
+    fn stop_open(&mut self, _level: &mut crate::server::level::ServerLevel, _user: &ContainerUser) {}
 }
 
 /// `ValueInput.read(key, codec)`: the decoded value, or the partial value of a failed decode (`resultOrPartial`).

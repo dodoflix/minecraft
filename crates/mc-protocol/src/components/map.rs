@@ -632,6 +632,14 @@ impl DataComponentExactPredicate {
     pub fn expected_components(&self) -> &[TypedDataComponent] {
         &self.expected
     }
+    /// `asPatch()`: the expected components as additions to a patch (a later entry of the same type wins).
+    pub fn as_patch(&self) -> DataComponentPatch {
+        let mut builder = DataComponentPatch::builder();
+        for e in &self.expected {
+            builder = builder.set_value(e.id, e.value.clone());
+        }
+        builder.build()
+    }
     pub fn test(&self, actual: &impl DataComponentGetter) -> bool {
         self.expected.iter().all(|e| actual.get_value(e.id) == Some(&e.value))
     }

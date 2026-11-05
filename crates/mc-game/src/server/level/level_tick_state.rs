@@ -82,6 +82,16 @@ pub struct TickContainers {
 
 pub type SharedTickContainers = Arc<Mutex<TickContainers>>;
 
+/// A block entity that is out of its chunk while its code runs (`with_block_entity`): `setBlock` calls on its position
+/// from inside that code must neither create a second block entity nor lose this one.
+pub struct TakenBlockEntity {
+    pub pos: BlockPos,
+    /// The state `setBlock` put at `pos` while the block entity was out (same block): applied on put-back.
+    pub new_state: Option<mc_data::block::BlockState>,
+    /// `setBlock` replaced the block (or removed the block entity): it must not be put back.
+    pub removed: bool,
+}
+
 pub struct LevelTickState {
     /// `neighborUpdater`.
     pub neighbor_updater: CollectingNeighborUpdater,
@@ -112,6 +122,10 @@ pub struct LevelTickState {
     pub poi_hook: Option<fn(&mut ServerLevel, BlockPos, Option<usize>, Option<usize>)>,
     /// `canHaveWeather()` (`dimensionType.hasSkyLight && !hasCeiling && dimension != END`).
     pub can_have_weather: bool,
+    /// `dimensionType().hasFixedTime()`.
+    pub has_fixed_time: bool,
+    /// `dimensionType().ambientLight()`.
+    pub ambient_light: f32,
     /// `tickTime` constructor flag (only the overworld advances the game time).
     pub tick_time: bool,
     /// `sleepStatus`.
@@ -134,6 +148,8 @@ pub struct LevelTickState {
     pub thunder_level: f32,
     /// Entities whose `PortalProcessor` decided to teleport this tick (see `world::entity::portal`).
     pub pending_portal_teleports: Vec<crate::world::entity::EntityId>,
+    /// Block entities currently taken out of their chunk by `ServerLevel::with_block_entity` (innermost last).
+    pub taken_block_entities: Vec<TakenBlockEntity>,
 }
 
 impl LevelTickState {
@@ -152,6 +168,8 @@ impl LevelTickState {
             enabled_features: FeatureFlagSet::DEFAULT_FLAGS,
             poi_hook: None,
             can_have_weather: false,
+            has_fixed_time: false,
+            ambient_light: 0.0,
             tick_time: false,
             sleep_status: super::sleep_status::SleepStatus::default(),
             biomes: None,
@@ -159,7 +177,7 @@ impl LevelTickState {
             lightning_spawn: Some(crate::world::entity::lightning_bolt::spawn_from_thunder),
             find_lightning_rod: None,
             dragon_fight_tick: None,
-            attributes: crate::world::attribute::EnvironmentAttributeSystem::build(&Default::default(), &[], false),
+            attributes: crate::world::attribute::EnvironmentAttributeSystem::build(&Default::default(), &Vec::new(), &[], false, Default::default()),
             handling_tick: false,
             empty_time: 0,
             o_rain_level: 0.0,
@@ -167,6 +185,7 @@ impl LevelTickState {
             o_thunder_level: 0.0,
             thunder_level: 0.0,
             pending_portal_teleports: Vec::new(),
+            taken_block_entities: Vec::new(),
         }
     }
 }

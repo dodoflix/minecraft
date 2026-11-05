@@ -20,6 +20,18 @@ pub fn empty_stack() -> &'static ItemStack {
     &EMPTY_STACK
 }
 
+/// `Container.stillValidBlockEntity(blockEntity, player)` (distance buffer 4.0) for the block entity at `pos`: it must
+/// still be the live block entity of the player's level and in interaction range.
+pub fn still_valid_block_entity(pos: mc_core::pos::BlockPos, player: &dyn MenuPlayer) -> bool {
+    still_valid_block_entity_range(pos, player, 4.0)
+}
+
+/// `stillValidBlockEntity(blockEntity, player, distanceBuffer)`.
+pub fn still_valid_block_entity_range(pos: mc_core::pos::BlockPos, player: &dyn MenuPlayer, distance_buffer: f64) -> bool {
+    use crate::world::level::BlockGetter;
+    player.level_ref().and_then(|l| l.get_block_entity(pos)).is_some_and(|be| !be.is_removed()) && player.is_within_block_interaction_range(pos, distance_buffer)
+}
+
 /// `Container` (+ `Clearable`).
 pub trait Container: Any {
     fn as_any(&self) -> &dyn Any;

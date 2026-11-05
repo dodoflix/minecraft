@@ -1,0 +1,32 @@
+# Dirt path (survival check, tick -> dirt), concrete powder solidifying next to water, mud/soul sand/hay unchanged.
+level flat
+preload 2
+level_seed 5
+block 2 -61 2 minecraft:dirt_path
+block 2 -60 2 minecraft:stone
+dump blocks:0,-62,0,4,-59,4 ticks
+tick 2
+dump blocks:0,-62,0,4,-59,4 ticks events
+block 6 -61 2 minecraft:dirt_path
+block 6 -60 2 minecraft:oak_fence_gate
+dump blocks:5,-62,0,8,-59,4 ticks
+tick 3
+dump blocks:5,-62,0,8,-59,4 ticks
+block 10 -61 2 minecraft:dirt_path
+block 10 -60 2 minecraft:glass
+tick 2
+dump blocks:9,-62,0,12,-59,4 ticks
+block 10 -60 2 minecraft:oak_slab[type=top]
+dump blocks:9,-62,0,12,-59,4 ticks
+tick 2
+dump blocks:9,-62,0,12,-59,4 ticks events
+block 20 -60 20 minecraft:water
+block 21 -60 20 minecraft:white_concrete_powder
+block 20 -60 22 minecraft:red_concrete_powder
+block 20 -60 21 minecraft:water
+block 25 -60 25 minecraft:black_concrete_powder
+block 25 -60 26 minecraft:water
+block 25 -61 25 minecraft:air
+dump blocks:19,-61,19,27,-59,27 ticks
+tick 5
+dump blocks:19,-61,19,27,-59,27 ticks events

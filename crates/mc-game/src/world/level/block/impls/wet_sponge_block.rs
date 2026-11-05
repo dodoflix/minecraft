@@ -8,7 +8,7 @@ pub struct WetSpongeBlock;
 
 impl BlockBehaviour for WetSpongeBlock {
     fn on_place(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, _old_state: BlockState, _moved_by_piston: bool) {
-        if level.environment_bool("gameplay/water_evaporates") {
+        if level.attribute_bool(crate::world::attribute::attributes::WATER_EVAPORATES, pos) {
             level.set_block_and_update(pos, Block::SPONGE.default_state());
             level.level_event(None, 2009, pos, 0);
             let pitch = (1.0f32 + level.random().next_float() * 0.2f32) * 0.7f32;

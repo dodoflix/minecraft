@@ -1,0 +1,45 @@
+# Nylium dies under cover, netherrack bone meal -> nylium, nylium bone meal -> nether vegetation.
+level flat
+preload 2
+level_seed 2024
+rand_value 11
+fill 0 -61 0 9 -61 9 minecraft:netherrack
+block 2 -61 2 minecraft:crimson_nylium
+block 3 -61 2 minecraft:warped_nylium
+block 8 -61 8 minecraft:warped_nylium
+block 0 -61 9 minecraft:crimson_nylium
+block 0 -60 9 minecraft:stone
+block 1 -61 9 minecraft:warped_nylium
+block 1 -60 9 minecraft:glass
+dump blocks:0,-61,0,9,-60,9
+random_tick 0 -61 9
+random_tick 1 -61 9
+dump blocks:0,-61,9,1,-60,9
+bonemeal 2 -61 3
+dump blocks:0,-61,0,9,-60,9
+bonemeal 3 -61 3
+dump blocks:0,-61,0,9,-60,9
+bonemeal 4 -61 2
+dump blocks:0,-61,0,9,-60,9
+bonemeal 2 -61 1
+dump blocks:0,-61,0,9,-60,9
+bonemeal 7 -61 8
+dump blocks:0,-61,0,9,-60,9
+bonemeal 8 -61 7
+dump blocks:0,-61,0,9,-60,9
+bonemeal 5 -61 5
+dump blocks:0,-61,0,9,-60,9
+bonemeal 6 -61 6
+dump blocks:0,-61,0,9,-60,9
+bonemeal 3 -61 1
+dump blocks:0,-61,0,9,-60,9
+bonemeal 4 -61 4
+dump blocks:0,-61,0,9,-60,9
+bonemeal 1 -61 2
+dump blocks:0,-61,0,9,-60,9
+bonemeal 2 -61 2
+dump blocks:0,-61,0,9,-60,9 ticks events
+bonemeal 3 -61 2
+dump blocks:0,-61,0,9,-60,9 ticks events
+bonemeal 8 -61 8
+dump blocks:5,-61,5,11,-58,11 ticks events

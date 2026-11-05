@@ -30,7 +30,7 @@ impl ServerPlayer {
     /// `containerMenu.broadcastChanges()`.
     pub fn broadcast_menu_changes(&mut self, level: &mut ServerLevel) {
         let mut ctx = PlayerCtx { player: self, level };
-        PlayerMenus::with_current(&mut ctx, |c| &mut c.player.player.menus, |menu, c| menu.base_mut().broadcast_changes(c));
+        PlayerMenus::with_current(&mut ctx, |c| &mut c.player.player.menus, |menu, c| menu.broadcast_changes(c));
     }
 
     /// `isWithinBlockInteractionRange(pos, buffer)`: `BLOCK_INTERACTION_RANGE` attribute + `buffer`.
@@ -97,18 +97,6 @@ impl ServerPlayer {
         // SEAM(advancements): advancements.flushDirty(this, true)
         if self.post_effects_dirty {
             crate::server::players::join::send_post_effects(self);
-        }
-    }
-
-    /// `if (!containerMenu.stillValid(this)) { closeContainer(); containerMenu = inventoryMenu; }` (`ServerPlayer.closeContainer`
-    /// = `ClientboundContainerClosePacket` + `doCloseContainer`).
-    fn close_container_if_invalid(&mut self, level: &mut ServerLevel) {
-        let mut ctx = PlayerCtx { player: self, level };
-        let valid = PlayerMenus::with_current(&mut ctx, |c| &mut c.player.player.menus, |menu, c| menu.still_valid(c));
-        if !valid {
-            let id = self.player.menus.current_container_id();
-            self.send(&mc_protocol::packets::play::ClientboundContainerClosePacket { container_id: id });
-            self.do_close_container(level);
         }
     }
 

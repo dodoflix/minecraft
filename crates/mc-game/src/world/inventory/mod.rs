@@ -6,29 +6,40 @@
 //! entity / ender chest) — resolved on every access through a [`SlotEnv`].
 
 mod armor_slot;
+mod beacon_menu;
 mod click;
 mod container_data;
+mod container_menus;
+mod container_ref;
 mod crafting;
 mod inventory_menu;
 mod item_click;
 mod level_access;
 mod menu;
 mod menu_container;
+mod menu_handlers;
 mod menu_player;
+mod menu_provider;
+mod player_ender_chest;
 mod player_menus;
 mod remote_slot;
 mod slot;
 mod synchronizer;
 
 pub use armor_slot::*;
+pub use beacon_menu::*;
 pub use click::*;
 pub use container_data::*;
+pub use container_menus::*;
+pub use container_ref::*;
 pub use crafting::*;
 pub use inventory_menu::*;
 pub use level_access::*;
 pub use menu::*;
 pub use menu_container::*;
 pub use menu_player::*;
+pub use menu_provider::*;
+pub use player_ender_chest::*;
 pub use player_menus::*;
 pub use remote_slot::*;
 pub use slot::*;

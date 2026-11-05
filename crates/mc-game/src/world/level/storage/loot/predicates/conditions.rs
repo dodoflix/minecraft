@@ -557,7 +557,7 @@ fn environment_attribute_check_codec() -> MapCodec<EnvironmentAttributeCheck> {
                 let a = attribute.clone();
                 DataResult::success(value_codec.field_of("value").xmap(
                     move |value| EnvironmentAttributeCheck { attribute: a.clone(), value },
-                    |c: &EnvironmentAttributeCheck| c.value,
+                    |c: &EnvironmentAttributeCheck| c.value.clone(),
                 ))
             }
             None => {

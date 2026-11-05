@@ -1,11 +1,15 @@
 //! `net.minecraft.world.level.block.IceBlock` and `FrostedIceBlock`.
 //!
-//! `IceBlock.playerDestroy` (silk touch / `prevents_ice_melting` check, then melt) is the inherent
-//! [`after_player_destroy`]; `FrostedIceBlock.getCloneItemStack` is empty. Frost Walker (`ReplaceDisk`) only places the
-//! block and schedules its tick like vanilla, nothing of it lives here.
+//! `FrostedIceBlock.getCloneItemStack` is empty. Frost Walker (`ReplaceDisk`) only places the block and schedules its tick
+//! like vanilla, nothing of it lives here.
 use super::prelude::*;
 use crate::server::level::ServerLevel;
-use crate::world::item::ItemStack;
+use crate::server::level::block_break;
+use crate::world::block_entity::BlockEntity;
+use crate::world::entity::ServerPlayer;
+use crate::world::item::enchantment::enchantment_tags;
+use crate::world::item::{ItemStack, enchantment_helper};
+use mc_core::ident::Identifier;
 use crate::world::level::LightLayer;
 use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::redstone::Orientation;
@@ -21,13 +25,13 @@ fn melts_into() -> BlockState {
 }
 
 /// `environmentAttributes().getValue(WATER_EVAPORATES, pos)`.
-fn water_evaporates(level: &ServerLevel) -> bool {
-    level.environment_bool("gameplay/water_evaporates")
+fn water_evaporates(level: &ServerLevel, pos: BlockPos) -> bool {
+    level.attribute_bool(crate::world::attribute::attributes::WATER_EVAPORATES, pos)
 }
 
 /// `IceBlock.melt(state, level, pos)`.
 pub fn melt(state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
-    if water_evaporates(level) {
+    if water_evaporates(level, pos) {
         level.remove_block(pos, false);
     } else {
         level.set_block_and_update(pos, melts_into());
@@ -36,13 +40,14 @@ pub fn melt(state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
     }
 }
 
-/// The part of `IceBlock.playerDestroy` after `super.playerDestroy`; `prevents_ice_melting` is whether the tool has
-/// the `#minecraft:prevents_ice_melting` enchantment tag (silk touch).
-pub fn after_player_destroy(level: &mut ServerLevel, pos: BlockPos, prevents_ice_melting: bool) {
-    if prevents_ice_melting {
+/// `IceBlock.playerDestroy`.
+fn player_destroy(level: &mut ServerLevel, player: &mut ServerPlayer, pos: BlockPos, state: BlockState, block_entity: Option<&dyn BlockEntity>, destroyed_with: &ItemStack) {
+    block_break::player_destroy(level, player, pos, state, block_entity, destroyed_with);
+    let tag = Identifier::parse(enchantment_tags::PREVENTS_ICE_MELTING).expect("valid tag id");
+    if enchantment_helper::has_tag(&level.registries, destroyed_with, &tag) {
         return;
     }
-    if water_evaporates(level) {
+    if water_evaporates(level, pos) {
         level.remove_block(pos, false);
         return;
     }
@@ -53,6 +58,9 @@ pub fn after_player_destroy(level: &mut ServerLevel, pos: BlockPos, prevents_ice
 }
 
 impl BlockBehaviour for IceBlock {
+    fn player_destroy(&self, level: &mut ServerLevel, player: &mut ServerPlayer, pos: BlockPos, state: BlockState, block_entity: Option<&dyn BlockEntity>, destroyed_with: &ItemStack) {
+        player_destroy(level, player, pos, state, block_entity, destroyed_with);
+    }
     fn random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         ice_random_tick(state, level, pos);
     }
@@ -91,6 +99,9 @@ fn slightly_melt(state: BlockState, level: &mut ServerLevel, pos: BlockPos) -> b
 }
 
 impl BlockBehaviour for FrostedIceBlock {
+    fn player_destroy(&self, level: &mut ServerLevel, player: &mut ServerPlayer, pos: BlockPos, state: BlockState, block_entity: Option<&dyn BlockEntity>, destroyed_with: &ItemStack) {
+        player_destroy(level, player, pos, state, block_entity, destroyed_with);
+    }
     fn random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         ice_random_tick(state, level, pos);
     }

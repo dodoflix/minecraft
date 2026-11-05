@@ -14,6 +14,7 @@ pub mod material;
 pub mod precipitation;
 pub mod redstone;
 pub mod saveddata;
+pub mod signal_getter;
 pub mod shapes;
 pub mod storage;
 pub mod ticket_storage;

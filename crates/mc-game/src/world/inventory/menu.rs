@@ -94,6 +94,8 @@ pub struct MenuBase {
     container_listeners: Vec<Box<dyn ContainerListener>>,
     synchronizer: Option<Box<dyn ContainerSynchronizer>>,
     suppress_remote_updates: bool,
+    /// Slot changes found by `triggerSlotListeners` not yet handed to the menu's own listener.
+    pub(crate) slot_events: Vec<(usize, ItemStack)>,
 }
 
 impl MenuBase {
@@ -117,6 +119,7 @@ impl MenuBase {
             container_listeners: Vec::new(),
             synchronizer: None,
             suppress_remote_updates: false,
+            slot_events: Vec::new(),
         }
     }
 
@@ -176,6 +179,19 @@ impl MenuBase {
         }
     }
 
+    /// `addDataSlots(dataAccess)` for the `ContainerData` of the block entity at `pos` (`count` ints).
+    pub fn add_block_entity_data_slots(&mut self, pos: mc_core::pos::BlockPos, count: usize) {
+        for i in 0..count {
+            self.add_data_slot(DataSlot::for_block_entity(pos, i));
+        }
+    }
+
+    fn refresh_data_slots(&mut self, player: &dyn MenuPlayer) {
+        for d in &mut self.data_slots {
+            d.refresh(player);
+        }
+    }
+
     pub fn is_valid_slot_index(&self, slot_index: i32) -> bool {
         slot_index == -1 || slot_index == -999 || (slot_index as i64) < self.slots.len() as i64
     }
@@ -217,10 +233,10 @@ impl MenuBase {
         self.suppress_remote_updates = false;
     }
 
-    pub fn add_slot_listener(&mut self, listener: Box<dyn ContainerListener>, player: &mut dyn MenuPlayer) {
+    /// `addSlotListener` without the initial `broadcastChanges` (the trait method `add_slot_listener` runs it).
+    pub(crate) fn push_slot_listener(&mut self, listener: Box<dyn ContainerListener>) {
         // Vanilla de-duplicates by identity; a listener is only ever attached once per menu by the owner.
         self.container_listeners.push(listener);
-        self.broadcast_changes(player);
     }
 
     pub fn set_synchronizer(&mut self, synchronizer: Box<dyn ContainerSynchronizer>, player: &mut dyn MenuPlayer) {
@@ -237,6 +253,7 @@ impl MenuBase {
     }
 
     pub fn send_all_data_to_remote(&mut self, player: &mut dyn MenuPlayer) {
+        self.refresh_data_slots(player);
         let mut items_to_send = Vec::with_capacity(self.slots.len());
         for i in 0..self.slots.len() {
             let contents = self.with_slot(player, i, |s, e| s.get_item(e));
@@ -265,13 +282,15 @@ impl MenuBase {
         (0..self.slots.len()).map(|i| self.with_slot(player, i, |s, e| s.get_item(e))).collect()
     }
 
-    pub fn broadcast_changes(&mut self, player: &mut dyn MenuPlayer) {
-        for i in 0..self.slots.len() {
-            let current = self.with_slot(player, i, |s, e| s.get_item(e));
-            self.trigger_slot_listeners(i, &current);
-            self.synchronize_slot_to_remote(i, &current);
-        }
+    /// Step of `broadcastChanges`/`broadcastFullState`: slot `i` as seen now.
+    pub(crate) fn current_slot_item(&mut self, player: &mut dyn MenuPlayer, i: usize) -> ItemStack {
+        self.with_slot(player, i, |s, e| s.get_item(e))
+    }
+
+    /// The part of `broadcastChanges` after the slot loop: carried item and data slots.
+    pub(crate) fn broadcast_carried_and_data(&mut self, player: &mut dyn MenuPlayer) {
         self.synchronize_carried_to_remote();
+        self.refresh_data_slots(player);
         for i in 0..self.data_slots.len() {
             let current_value = self.data_slots[i].get();
             if self.data_slots[i].check_and_clear_update_flag() {
@@ -281,11 +300,9 @@ impl MenuBase {
         }
     }
 
-    pub fn broadcast_full_state(&mut self, player: &mut dyn MenuPlayer) {
-        for i in 0..self.slots.len() {
-            let current = self.with_slot(player, i, |s, e| s.get_item(e));
-            self.trigger_slot_listeners(i, &current);
-        }
+    /// The part of `broadcastFullState` after the slot loop.
+    pub(crate) fn broadcast_full_state_data(&mut self, player: &mut dyn MenuPlayer) {
+        self.refresh_data_slots(player);
         for i in 0..self.data_slots.len() {
             let current_value = self.data_slots[i].get();
             if self.data_slots[i].check_and_clear_update_flag() {
@@ -301,17 +318,19 @@ impl MenuBase {
         }
     }
 
-    fn trigger_slot_listeners(&mut self, i: usize, current: &ItemStack) {
+    /// `triggerSlotListeners`: records the change for the menu's own `slot_changed_listener` too.
+    pub(crate) fn trigger_slot_listeners(&mut self, i: usize, current: &ItemStack) {
         if !ItemStack::matches(&self.last_slots[i], current) {
             let new_item = current.copy();
             self.last_slots[i] = new_item.clone();
             for l in &mut self.container_listeners {
                 l.slot_changed(&self.slots[i], i, &new_item);
             }
+            self.slot_events.push((i, new_item));
         }
     }
 
-    fn synchronize_slot_to_remote(&mut self, i: usize, current: &ItemStack) {
+    pub(crate) fn synchronize_slot_to_remote(&mut self, i: usize, current: &ItemStack) {
         if !self.suppress_remote_updates && !self.remote_slots[i].matches(current) {
             self.remote_slots[i].force(current);
             if self.synchronizer.is_some() {
@@ -437,6 +456,47 @@ pub trait AbstractContainerMenu: Any {
         }
     }
 
+    /// The menu acting as its own `ContainerListener` (`CrafterMenu.slotChanged`): called in slot order right after
+    /// the change was detected, inside `broadcast_changes`/`broadcast_full_state`/`add_slot_listener`.
+    fn slot_changed_listener(&mut self, _player: &mut dyn MenuPlayer, _slot_index: usize, _stack: &ItemStack) {}
+
+    /// Hands the recorded slot changes to [`AbstractContainerMenu::slot_changed_listener`].
+    fn dispatch_slot_events(&mut self, player: &mut dyn MenuPlayer) {
+        while !self.base().slot_events.is_empty() {
+            let events = std::mem::take(&mut self.base_mut().slot_events);
+            for (i, stack) in events {
+                self.slot_changed_listener(player, i, &stack);
+            }
+        }
+    }
+
+    /// `addSlotListener(listener)`: attach and `broadcastChanges()`.
+    fn add_slot_listener(&mut self, listener: Box<dyn ContainerListener>, player: &mut dyn MenuPlayer) {
+        self.base_mut().push_slot_listener(listener);
+        self.broadcast_changes(player);
+    }
+
+    /// `broadcastChanges()`.
+    fn broadcast_changes(&mut self, player: &mut dyn MenuPlayer) {
+        for i in 0..self.base().slots.len() {
+            let current = self.base_mut().current_slot_item(player, i);
+            self.base_mut().trigger_slot_listeners(i, &current);
+            self.dispatch_slot_events(player);
+            self.base_mut().synchronize_slot_to_remote(i, &current);
+        }
+        self.base_mut().broadcast_carried_and_data(player);
+    }
+
+    /// `broadcastFullState()`.
+    fn broadcast_full_state(&mut self, player: &mut dyn MenuPlayer) {
+        for i in 0..self.base().slots.len() {
+            let current = self.base_mut().current_slot_item(player, i);
+            self.base_mut().trigger_slot_listeners(i, &current);
+            self.dispatch_slot_events(player);
+        }
+        self.base_mut().broadcast_full_state_data(player);
+    }
+
     fn click_menu_button(&mut self, _player: &mut dyn MenuPlayer, _button_id: i32) -> bool {
         false
     }
@@ -448,7 +508,7 @@ pub trait AbstractContainerMenu: Any {
     }
     /// `slotsChanged(container)`: `container` is the key of the container that changed.
     fn slots_changed(&mut self, player: &mut dyn MenuPlayer, _container: &ContainerKey) {
-        self.base_mut().broadcast_changes(player);
+        self.broadcast_changes(player);
     }
     fn removed(&mut self, player: &mut dyn MenuPlayer) {
         self.base_removed(player);

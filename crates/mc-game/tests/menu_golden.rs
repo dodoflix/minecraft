@@ -229,7 +229,7 @@ fn menu_click_golden() {
             "click" => {
                 let (p, m) = (player.as_mut().unwrap(), menu.as_mut().unwrap());
                 m.clicked(parts[1].parse().unwrap(), parts[2].parse().unwrap(), input(parts[3]), p).expect("click");
-                m.base_mut().broadcast_changes(p);
+                m.broadcast_changes(p);
                 actual = dump(m, p, &sync);
             }
             "add" => {
@@ -238,19 +238,19 @@ fn menu_click_golden() {
                 let infinite = p.creative;
                 let ok = p.inv.add(&mut s, infinite);
                 p.events.push(format!("ADD {ok} {}", st(&s)));
-                m.base_mut().broadcast_changes(p);
+                m.broadcast_changes(p);
                 actual = dump(m, p, &sync);
             }
             "select" => {
                 let (p, m) = (player.as_mut().unwrap(), menu.as_mut().unwrap());
                 p.inv.set_selected_slot(parts[1].parse().unwrap()).unwrap();
-                m.base_mut().broadcast_changes(p);
+                m.broadcast_changes(p);
                 actual = dump(m, p, &sync);
             }
             "bundlesel" => {
                 let (p, m) = (player.as_mut().unwrap(), menu.as_mut().unwrap());
                 m.set_selected_bundle_item_index(p, parts[1].parse().unwrap(), parts[2].parse().unwrap());
-                m.base_mut().broadcast_changes(p);
+                m.broadcast_changes(p);
                 actual = dump(m, p, &sync);
             }
             "creative" => {
@@ -261,13 +261,13 @@ fn menu_click_golden() {
                     m.base_mut().with_slot(p, idx, |sl, e| sl.set_by_player(e, s.clone()));
                     m.base_mut().set_remote_slot(idx, &s);
                 }
-                m.base_mut().broadcast_changes(p);
+                m.broadcast_changes(p);
                 actual = dump(m, p, &sync);
             }
             "remove" => {
                 let (p, m) = (player.as_mut().unwrap(), menu.as_mut().unwrap());
                 m.removed(p);
-                m.base_mut().broadcast_changes(p);
+                m.broadcast_changes(p);
                 actual = dump(m, p, &sync);
             }
             other => panic!("unknown op {other}"),
