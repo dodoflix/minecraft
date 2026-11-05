@@ -26,6 +26,7 @@ fn is_fully_grown(state: BlockState) -> bool {
 }
 
 impl BlockBehaviour for MangrovePropaguleBlock {
+    crate::simple_waterlogged!();
     fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
         let is_water_source = level.get_fluid_state(context.get_clicked_pos()).fluid() == Fluid::WATER;
         Some(block.default_state().set(props::WATERLOGGED, is_water_source).set(props::AGE_4, 4))

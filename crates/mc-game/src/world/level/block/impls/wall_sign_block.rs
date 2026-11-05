@@ -7,6 +7,7 @@ use crate::world::item::BlockPlaceContext;
 pub struct WallSignBlock;
 
 impl BlockBehaviour for WallSignBlock {
+    crate::simple_waterlogged!();
     sign_block_common!();
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         level.get_block_state(pos.relative(state.get(props::HORIZONTAL_FACING).get_opposite())).is_solid()

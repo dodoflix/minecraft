@@ -100,6 +100,7 @@ pub fn step_on_sensor(level: &mut ServerLevel, pos: BlockPos, on_state: BlockSta
 pub struct SculkSensorBlock;
 
 impl BlockBehaviour for SculkSensorBlock {
+    crate::simple_waterlogged!();
     fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
         let replaced_fluid = level.get_fluid_state(context.get_clicked_pos());
         Some(block.default_state().set(props::WATERLOGGED, replaced_fluid.fluid() == Fluid::WATER))

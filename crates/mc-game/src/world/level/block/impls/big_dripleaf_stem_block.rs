@@ -17,6 +17,7 @@ pub fn place(level: &mut dyn LevelAccessor, pos: BlockPos, fluid_state: FluidSta
 }
 
 impl BlockBehaviour for BigDripleafStemBlock {
+    crate::simple_waterlogged!();
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         let below_state = level.get_block_state(pos.below());
         let above_state = level.get_block_state(pos.above());

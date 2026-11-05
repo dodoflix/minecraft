@@ -93,6 +93,7 @@ fn has_any_vacant_face(state: BlockState) -> bool {
 }
 
 impl BlockBehaviour for MultifaceBlock {
+    crate::simple_waterlogged!();
     fn can_be_replaced(&self, state: BlockState, context: &crate::world::item::BlockPlaceContext) -> bool {
         let held = context.use_on.get_item_in_hand();
         held.is_empty() || Some(held.item()) != state.block().item() || has_any_vacant_face(state)

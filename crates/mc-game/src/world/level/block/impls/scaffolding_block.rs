@@ -54,6 +54,7 @@ fn is_bottom(level: &dyn BlockGetter, pos: BlockPos, distance: i32) -> bool {
 }
 
 impl BlockBehaviour for ScaffoldingBlock {
+    crate::simple_waterlogged!();
     fn get_shape(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos, context: &CollisionContext) -> VoxelShape {
         if !state.block().item().is_some_and(|item| context.is_holding_item(item)) {
             if state.get(props::BOTTOM) { SHAPE_UNSTABLE.clone() } else { SHAPE_STABLE.clone() }

@@ -27,6 +27,7 @@ pub fn can_place(state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> b
 }
 
 impl BlockBehaviour for WallHangingSignBlock {
+    crate::simple_waterlogged!();
     fn is_possible_to_respawn_in_this(&self, _state: BlockState) -> bool {
         true
     }

@@ -105,6 +105,7 @@ fn set_tilt_and_schedule_tick(state: BlockState, level: &mut ServerLevel, pos: B
 }
 
 impl BlockBehaviour for BigDripleafBlock {
+    crate::simple_waterlogged!();
     fn on_projectile_hit(&self, level: &mut ServerLevel, state: BlockState, hit: &mc_core::phys::BlockHitResult, _projectile: &mut dyn crate::world::entity::projectile::Projectile) {
         set_tilt_and_schedule_tick(state, level, hit.block_pos, Tilt::Full, Some(SoundEvent::BLOCK_BIG_DRIPLEAF_TILT_DOWN));
     }

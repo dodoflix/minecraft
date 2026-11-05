@@ -8,6 +8,7 @@ use crate::world::item::BlockPlaceContext;
 pub struct CalibratedSculkSensorBlock;
 
 impl BlockBehaviour for CalibratedSculkSensorBlock {
+    crate::simple_waterlogged!();
     fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
         SculkSensorBlock.get_state_for_placement(block, level, context).map(|state| state.set(props::HORIZONTAL_FACING, context.get_horizontal_direction()))
     }

@@ -256,6 +256,7 @@ impl<C: SpeleothemClass> Speleothem<C> {
 }
 
 impl<C: SpeleothemClass> BlockBehaviour for Speleothem<C> {
+    crate::simple_waterlogged!();
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         self.is_valid_placement(level, pos, state.get(props::VERTICAL_DIRECTION))
     }

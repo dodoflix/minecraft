@@ -9,6 +9,7 @@ use crate::world::level::shapes::is_face_full;
 pub struct CeilingHangingSignBlock;
 
 impl BlockBehaviour for CeilingHangingSignBlock {
+    crate::simple_waterlogged!();
     fn is_possible_to_respawn_in_this(&self, _state: BlockState) -> bool {
         true
     }

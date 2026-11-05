@@ -8,6 +8,7 @@ use crate::world::level::block::rotation_segment;
 pub struct StandingSignBlock;
 
 impl BlockBehaviour for StandingSignBlock {
+    crate::simple_waterlogged!();
     sign_block_common!();
     fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         level.get_block_state(pos.below()).is_solid()

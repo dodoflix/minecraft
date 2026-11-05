@@ -4,6 +4,7 @@ use super::prelude::*;
 pub struct AmethystClusterBlock;
 
 impl BlockBehaviour for AmethystClusterBlock {
+    crate::simple_waterlogged!();
     fn on_projectile_hit(&self, level: &mut crate::server::level::ServerLevel, _state: BlockState, hit: &mc_core::phys::BlockHitResult, _projectile: &mut dyn crate::world::entity::projectile::Projectile) {
         super::amethyst_block::on_projectile_hit(level, hit);
     }

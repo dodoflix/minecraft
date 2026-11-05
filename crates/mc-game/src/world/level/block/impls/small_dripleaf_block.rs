@@ -21,6 +21,7 @@ impl MayPlaceOn for SmallDripleafBlock {
 }
 
 impl BlockBehaviour for SmallDripleafBlock {
+    crate::simple_waterlogged!();
     fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
         // `DoublePlantBlock.getStateForPlacement`
         let pos = context.get_clicked_pos();

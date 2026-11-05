@@ -9,6 +9,7 @@ use mc_data::fluid::Fluid;
 pub struct SculkShriekerBlock;
 
 impl BlockBehaviour for SculkShriekerBlock {
+    crate::simple_waterlogged!();
     fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
         let replaced_fluid = level.get_fluid_state(context.get_clicked_pos());
         Some(block.default_state().set(props::WATERLOGGED, replaced_fluid.fluid() == Fluid::WATER))

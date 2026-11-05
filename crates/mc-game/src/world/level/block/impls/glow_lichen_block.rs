@@ -16,6 +16,7 @@ pub fn spreader() -> &'static MultifaceSpreader {
 }
 
 impl BlockBehaviour for GlowLichenBlock {
+    crate::simple_waterlogged!();
     // `MultifaceBlock` shape logic
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
         super::multiface_block::MultifaceBlock.update_shape(state, level, pos, direction, neighbour_pos, neighbour_state)
