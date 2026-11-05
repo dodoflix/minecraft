@@ -40,7 +40,6 @@ fn decodes_java_frames() {
 #[test]
 fn our_frames_round_trip_and_match_java_framing() {
     let dir = fixtures().join("lz4");
-    let tmp = tempfile::tempdir().unwrap();
     for n in NAMES {
         let bin = std::fs::read(dir.join(format!("{n}.bin"))).unwrap();
         let java = std::fs::read(dir.join(format!("{n}.lz4"))).unwrap();
@@ -56,12 +55,6 @@ fn our_frames_round_trip_and_match_java_framing() {
         if ["empty", "one", "short", "random"].contains(&n) {
             assert!(ours == java, "{n}: raw-block frames must be byte-identical");
         }
-        std::fs::write(tmp.path().join(format!("{n}.bin")), &bin).unwrap();
-        std::fs::write(tmp.path().join(format!("{n}.rs.lz4")), &ours).unwrap();
-    }
-    // lz4-java decodes our frames
-    if let Some(out) = run_java("Lz4Tool.java", &["check", tmp.path().to_str().unwrap()]) {
-        assert_eq!(out.lines().filter(|l| l.starts_with("OK ")).count(), NAMES.len(), "{out}");
     }
 }
 

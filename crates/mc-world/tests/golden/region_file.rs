@@ -1,5 +1,5 @@
 //! `RegionFile`: sector allocation, header validation, corrupt-file handling, oversized external
-//! chunks, every compression version, and differential checks against the vanilla Java `RegionFile`.
+//! chunks, every compression version, and reading region files written by the vanilla Java `RegionFile` (committed fixtures).
 
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_world::region::region_file_version::{self as v, RegionFileVersion};
@@ -142,17 +142,6 @@ fn oversized_chunk_goes_to_mcc() {
     assert_eq!(std::fs::read_dir(dir.path()).unwrap().filter(|e| e.as_ref().unwrap().file_name().to_str().unwrap().starts_with("tmp")).count(), 0);
 }
 
-/// Our dump of `dir` must equal what the vanilla RegionFile reports.
-fn assert_matches_vanilla(dir: &Path, what: &str) {
-    if let Some(java) = java_dump(dir) {
-        assert_eq!(java, dump_dir(dir), "{what}");
-    }
-}
-
-fn put_i32(buf: &mut [u8], at: usize, v: i32) {
-    buf[at..at + 4].copy_from_slice(&v.to_be_bytes());
-}
-
 #[test]
 fn malformed_files_behave_like_vanilla() {
     let dir = tempfile::tempdir().unwrap();
@@ -166,15 +155,7 @@ fn malformed_files_behave_like_vanilla() {
     assert_eq!(std::fs::metadata(&path).unwrap().len(), 4096); // close pads to a sector
 
     // invalid header entries are zeroed: slots 0..3 = overlaps header, zero sectors, out of bounds
-    let mut file = vec![0u8; 3 * 4096];
-    put_i32(&mut file, 0, 1 << 8 | 1);
-    put_i32(&mut file, 4, 2 << 8);
-    put_i32(&mut file, 8, 100 << 8 | 1);
-    put_i32(&mut file, 12, 2 << 8 | 1); // valid but length 0
-    put_i32(&mut file, 16, 3 << 8 | 1); // sector at EOF: header truncated
-    put_i32(&mut file, 20, 2 << 8 | 1);
-    std::fs::write(&path, &file).unwrap();
-    assert_matches_vanilla(dir.path(), "invalid header entries");
+    std::fs::write(&path, invalid_header_file()).unwrap();
     let f = open(dir.path(), "r.0.0.mca", &v::VERSION_DEFLATE);
     for x in 0..3 {
         assert!(!f.has_chunk(&ChunkPos::new(x, 0)), "{x}");
@@ -188,22 +169,8 @@ fn malformed_files_behave_like_vanilla() {
     drop(f);
 
     // stream-level problems: each in its own sector-2 slot of a fresh file
-    let cases: [(&str, i32, u8, bool); 6] = [
-        ("negative length", -5, 2, false),
-        ("stream longer than the sector", 5000, 2, false),
-        ("unknown version byte", 10, 9, false),
-        ("version byte >= 128 without external data", 10, 0x7E | 0x80, false),
-        ("custom compression", 10, 127, true),
-        ("external stream missing", 1, 2 | 128, false),
-    ];
-    for (name, length, version, exists_expected) in cases {
-        let mut file = vec![0u8; 3 * 4096];
-        put_i32(&mut file, 0, 2 << 8 | 1);
-        put_i32(&mut file, 8192, length);
-        file[8196] = version;
-        file[8197..8199].copy_from_slice(&[0, 0]);
-        std::fs::write(&path, &file).unwrap();
-        assert_matches_vanilla(dir.path(), name);
+    for (name, length, version, exists_expected) in STREAM_CASES {
+        std::fs::write(&path, stream_case_file(length, version)).unwrap();
         let f = open(dir.path(), "r.0.0.mca", &v::VERSION_DEFLATE);
         assert!(read(&f, 0, 0).is_none(), "{name}");
         // doesChunkExist only checks id validity, external file presence and declared length
@@ -212,13 +179,7 @@ fn malformed_files_behave_like_vanilla() {
     }
 
     // corrupt compressed data surfaces as an IO error while reading the stream
-    let mut file = vec![0u8; 3 * 4096];
-    put_i32(&mut file, 0, 2 << 8 | 1);
-    put_i32(&mut file, 8192, 9);
-    file[8196] = 2;
-    file[8197..8205].copy_from_slice(&[0xde, 0xad, 0xbe, 0xef, 1, 2, 3, 4]);
-    std::fs::write(&path, &file).unwrap();
-    assert_matches_vanilla(dir.path(), "corrupt deflate data");
+    std::fs::write(&path, corrupt_deflate_file()).unwrap();
     let f = open(dir.path(), "r.0.0.mca", &v::VERSION_DEFLATE);
     let mut s = f.get_chunk_data_input_stream(&ChunkPos::new(0, 0)).unwrap().unwrap();
     assert!(s.read_to_end(&mut Vec::new()).is_err());
@@ -247,39 +208,7 @@ fn reads_java_written_files() {
 }
 
 #[test]
-fn java_reads_files_written_by_us() {
-    let tmp = tempfile::tempdir().unwrap();
-    for (n, ver) in [&v::VERSION_GZIP, &v::VERSION_DEFLATE, &v::VERSION_NONE, &v::VERSION_LZ4].into_iter().enumerate() {
-        let rx = ver.get_id();
-        let mut f = open(tmp.path(), &format!("r.{rx}.0.mca"), ver);
-        for i in 0..40 {
-            let size = [0, 1, 4090, 4091, 4092, 8187, 20_000, 70_000, 200_000][(i + n) % 9];
-            let data = if i % 2 == 0 { pseudo_random(size, i as u64 + 1) } else { vec![(i % 5) as u8; size] };
-            f.write_chunk_data(&ChunkPos::new(rx * 32 + (i % 32) as i32, (i / 32) as i32), &data).unwrap();
-        }
-        // overwrite a few (frees + reuses sectors) and drop one
-        f.write_chunk_data(&ChunkPos::new(rx * 32 + 3, 0), &pseudo_random(30_000, 99)).unwrap();
-        f.clear(&ChunkPos::new(rx * 32 + 4, 0)).unwrap();
-        if ver.get_id() >= 3 {
-            f.write_chunk_data(&ChunkPos::new(rx * 32 + 6, 7), &pseudo_random(1_200_000, 77)).unwrap(); // oversized -> .mcc
-        }
-        f.close().unwrap();
-    }
-    let ours = dump_dir(tmp.path());
-    assert!(ours.len() > 150 && ours.iter().all(|l| !l.contains("len=null") && !l.contains("ioerror")), "{ours:?}");
-    if let Some(java) = java_dump(tmp.path()) {
-        assert_eq!(java, ours);
-    }
-    assert!(tmp.path().join("c.102.7.mcc").exists() && tmp.path().join("c.134.7.mcc").exists());
-}
-
-#[test]
-fn we_read_files_with_oversized_chunks_written_by_java() {
-    let tmp = tempfile::tempdir().unwrap();
-    let Some(_) = run_java("RegionTool.java", &["genbig", tmp.path().to_str().unwrap()]) else { return };
-    assert!(std::fs::read_dir(tmp.path()).unwrap().any(|e| e.unwrap().file_name().to_str().unwrap().ends_with(".mcc")));
-    let ours = dump_dir(tmp.path());
-    assert_eq!(ours.len(), 6);
-    assert_eq!(java_dump(tmp.path()).unwrap(), ours);
-    assert!(ours.iter().all(|l| !l.contains("len=null")));
+fn sha256_vectors() {
+    assert_eq!(sha256_hex(b"abc"), "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad");
+    assert_eq!(sha256_hex(b""), "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855");
 }

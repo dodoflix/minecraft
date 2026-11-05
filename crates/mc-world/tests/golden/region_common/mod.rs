@@ -1,13 +1,13 @@
-//! Shared helpers for the `region_*` integration tests: repo paths, a vanilla-java runner, SHA-256
-//! and a dump of region files in the same line format as `fixtures/region/RegionTool.java dump`.
-#![allow(dead_code, reason = "each test binary uses a subset of the shared helpers")]
+//! Helpers shared by the golden and oracle `region_*` tests: repo paths, SHA-256, a dump of region files in the same
+//! line format as `fixtures/region/RegionTool.java dump`, and the malformed region files both targets feed to the
+//! Rust and the vanilla `RegionFile`.
+#![allow(dead_code, reason = "each test target uses a subset of the shared helpers")]
 
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_core::ident::Identifier;
 use mc_world::region::{RegionFile, RegionStorageInfo};
 use std::io::Read;
 use std::path::{Path, PathBuf};
-use std::process::Command;
 
 pub fn repo_root() -> PathBuf {
     match std::env::var_os("MC_REPO_ROOT") {
@@ -22,20 +22,6 @@ pub fn fixtures() -> PathBuf {
 
 pub fn info() -> RegionStorageInfo {
     RegionStorageInfo::new("test", Identifier::parse("minecraft:overworld").unwrap(), "chunk")
-}
-
-/// Runs `scripts/vanilla-java.sh <program> <args>`; `None` (after printing why) when the vanilla
-/// oracle is unavailable so tests skip instead of failing on a clean checkout.
-pub fn run_java(program: &str, args: &[&str]) -> Option<String> {
-    let root = repo_root();
-    let script = root.join("scripts/vanilla-java.sh");
-    if !script.exists() || !root.join("ref/bundle").exists() || Command::new("java").arg("-version").output().is_err() {
-        eprintln!("SKIP: vanilla oracle (scripts/vanilla-java.sh, ref/bundle, java) unavailable");
-        return None;
-    }
-    let out = Command::new(script).arg(fixtures().join(program)).args(args).output().expect("spawn vanilla-java.sh");
-    assert!(out.status.success(), "{program} {args:?} failed:\n{}", String::from_utf8_lossy(&out.stderr));
-    Some(String::from_utf8(out.stdout).unwrap())
 }
 
 pub fn sha256_hex(data: &[u8]) -> String {
@@ -120,25 +106,48 @@ pub fn dump_dir(dir: &Path) -> Vec<String> {
     lines
 }
 
-/// Vanilla `dump` output restricted to `has=true` slots.
-pub fn java_dump(dir: &Path) -> Option<Vec<String>> {
-    let out = run_java("RegionTool.java", &["dump", dir.to_str().unwrap()])?;
-    Some(out.lines().filter(|l| l.contains(" has=true ")).map(str::to_owned).collect())
+pub fn put_i32(buf: &mut [u8], at: usize, v: i32) {
+    buf[at..at + 4].copy_from_slice(&v.to_be_bytes());
 }
 
-/// Copies the `.mca`/`.mcc` files of `src` into a fresh directory.
-pub fn copy_region_files(src: &Path, dst: &Path) {
-    std::fs::create_dir_all(dst).unwrap();
-    for e in std::fs::read_dir(src).unwrap() {
-        let e = e.unwrap();
-        if e.file_type().unwrap().is_file() {
-            std::fs::copy(e.path(), dst.join(e.file_name())).unwrap();
-        }
-    }
+/// Header slots 0..3 overlap the header, have zero sectors or lie out of bounds; slot 3 is valid with length 0 and
+/// slot 4 starts at EOF.
+pub fn invalid_header_file() -> Vec<u8> {
+    let mut file = vec![0u8; 3 * 4096];
+    put_i32(&mut file, 0, 1 << 8 | 1);
+    put_i32(&mut file, 4, 2 << 8);
+    put_i32(&mut file, 8, 100 << 8 | 1);
+    put_i32(&mut file, 12, 2 << 8 | 1); // valid but length 0
+    put_i32(&mut file, 16, 3 << 8 | 1); // sector at EOF: header truncated
+    put_i32(&mut file, 20, 2 << 8 | 1);
+    file
 }
 
-#[test]
-fn sha256_vectors() {
-    assert_eq!(sha256_hex(b"abc"), "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad");
-    assert_eq!(sha256_hex(b""), "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855");
+/// `(name, declared length, version byte, does_chunk_exist)`: stream-level problems, each in sector 2 of chunk (0, 0).
+pub const STREAM_CASES: [(&str, i32, u8, bool); 6] = [
+    ("negative length", -5, 2, false),
+    ("stream longer than the sector", 5000, 2, false),
+    ("unknown version byte", 10, 9, false),
+    ("version byte >= 128 without external data", 10, 0x7E | 0x80, false),
+    ("custom compression", 10, 127, true),
+    ("external stream missing", 1, 2 | 128, false),
+];
+
+pub fn stream_case_file(length: i32, version: u8) -> Vec<u8> {
+    let mut file = vec![0u8; 3 * 4096];
+    put_i32(&mut file, 0, 2 << 8 | 1);
+    put_i32(&mut file, 8192, length);
+    file[8196] = version;
+    file[8197..8199].copy_from_slice(&[0, 0]);
+    file
+}
+
+/// A chunk whose compressed payload is not valid deflate data.
+pub fn corrupt_deflate_file() -> Vec<u8> {
+    let mut file = vec![0u8; 3 * 4096];
+    put_i32(&mut file, 0, 2 << 8 | 1);
+    put_i32(&mut file, 8192, 9);
+    file[8196] = 2;
+    file[8197..8205].copy_from_slice(&[0xde, 0xad, 0xbe, 0xef, 1, 2, 3, 4]);
+    file
 }
