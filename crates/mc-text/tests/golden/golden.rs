@@ -9,10 +9,10 @@ use mc_text::{legacy, set_validators, ChatFormatting, Component, Style, TextColo
 use serde_json::Value;
 use std::sync::Once;
 
-const GOLDEN: &str = include_str!("fixtures/golden.jsonl");
-const TRANSLATIONS: &str = include_str!("fixtures/translations.jsonl");
-const MISC: &str = include_str!("fixtures/misc.jsonl");
-const NBT_TEXT: &str = include_str!("fixtures/nbt_text.jsonl");
+const GOLDEN: &str = include_str!("../fixtures/golden.jsonl");
+const TRANSLATIONS: &str = include_str!("../fixtures/translations.jsonl");
+const MISC: &str = include_str!("../fixtures/misc.jsonl");
+const NBT_TEXT: &str = include_str!("../fixtures/nbt_text.jsonl");
 
 fn entity_type_exists(id: &Identifier) -> bool {
     id.namespace() == "minecraft" && matches!(id.path(), "pig" | "zombie")
