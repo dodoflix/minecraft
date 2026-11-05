@@ -101,7 +101,14 @@ pub struct ServerLevel {
     game_time: i64,
     /// Mutation/ticking state (neighbor updater, scheduled ticks, block events, ...): see `level_tick_state.rs`.
     pub tick_state: super::level_tick_state::LevelTickState,
+    // ==== [Damage] additions (ServerLevel field) ====
+    /// Operations on entities that were taken out (running) when they were requested: run when put back
+    /// (`ServerLevel::with_entity_or_defer`).
+    pub deferred_level_ops: std::collections::HashMap<EntityId, Vec<DeferredLevelOp>>,
 }
+
+/// A change to an entity that needs the level (kill credit, stats) and runs once the entity is back in storage.
+pub type DeferredLevelOp = Box<dyn FnOnce(&mut ServerLevel, &mut dyn crate::world::entity::Entity)>;
 
 impl ServerLevel {
     /// `new ServerLevel(...)` for the chunk side: creates the chunk source over the dimension folder.
@@ -155,6 +162,8 @@ impl ServerLevel {
             chunk_tick_hooks: ChunkTickHooks::default(),
             game_time: 0,
             tick_state,
+            // ==== [Damage] additions (ServerLevel::new initializer) ====
+            deferred_level_ops: Default::default(),
         }
     }
 

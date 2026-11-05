@@ -91,6 +91,13 @@ pub struct LivingEntityData {
     /// `autoSpinAttackItemStack`.
     pub auto_spin_attack_item_stack: Option<crate::world::item::ItemStack>,
     // ==== [Damage] additions (LivingEntityData field) ====
+    /// `combatTracker`.
+    pub combat_tracker: crate::world::damagesource::CombatTracker,
+    /// `lastDamageSource` / `lastDamageStamp` (`getLastDamageSource()`).
+    pub last_damage_source: Option<crate::world::damagesource::DamageSource>,
+    pub last_damage_stamp: i64,
+    /// `skipDropExperience`.
+    pub skip_drop_experience: bool,
     // ==== [Effects] additions (LivingEntityData field) ====
     /// `activeEffects.modCount`: bumped by every structural modification, `tickEffects` detects its own iterator being
     /// invalidated (`ConcurrentModificationException`) with it.
@@ -172,6 +179,10 @@ impl LivingEntityData {
             discard_friction: false,
             auto_spin_attack_item_stack: None,
             // ==== [Damage] additions (LivingEntityData::new initializer) ====
+            combat_tracker: Default::default(),
+            last_damage_source: None,
+            last_damage_stamp: 0,
+            skip_drop_experience: false,
             // ==== [Effects] additions (LivingEntityData::new initializer) ====
             effects_mod_count: 0,
             last_equipment_items: std::array::from_fn(|_| crate::world::item::ItemStack::empty()),

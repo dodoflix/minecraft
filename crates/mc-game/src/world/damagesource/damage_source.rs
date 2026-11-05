@@ -16,7 +16,7 @@ use crate::registry::typed::damage_type::{DamageScaling, DamageType};
 use crate::server::level::ServerLevel;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::{Entity, EntityId};
-use crate::world::item::ItemStack;
+use crate::world::item::{ItemStack, ItemStackExt as _};
 
 /// What a [`DamageSource`] needs to know about its direct/causing entity, captured when the source is built.
 #[derive(Clone, Debug)]
@@ -38,6 +38,23 @@ pub struct DamageEntity {
     pub main_hand_item: ItemStack,
     /// `getWeaponItem()`.
     pub weapon_item: Option<ItemStack>,
+    /// `getSecondsToDisableBlocking()` (living entities).
+    pub seconds_to_disable_blocking: f32,
+    /// `AbstractArrow.getPierceLevel()` (0 for everything else).
+    pub pierce_level: i32,
+    /// `Projectile.calculateHorizontalHurtKnockbackDirection` (`None` for non-projectiles).
+    pub projectile_hurt_knockback: Option<HurtKnockbackDirection>,
+    /// A tamed wolf's `getOwnerReference()` (`Some(None)`: tamed without owner), `None` for everything else.
+    pub tamed_wolf_owner: Option<Option<Uuid>>,
+}
+
+/// `Projectile.calculateHorizontalHurtKnockbackDirection(hurtEntity, source)`.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum HurtKnockbackDirection {
+    /// `Projectile`: the projectile's horizontal delta movement.
+    DeltaMovement { x: f64, z: f64 },
+    /// `FireworkRocketEntity` / `AbstractThrownPotion`: from the projectile towards the hurt entity.
+    AwayFromProjectile,
 }
 
 impl DamageEntity {
@@ -55,6 +72,10 @@ impl DamageEntity {
             instabuild: entity.is_player() && entity.player().is_some_and(|p| p.abilities.instabuild),
             main_hand_item: if is_living { entity.get_item_by_slot(EquipmentSlot::MainHand) } else { ItemStack::empty() },
             weapon_item: entity.get_weapon_item(),
+            seconds_to_disable_blocking: entity.get_seconds_to_disable_blocking(),
+            pierce_level: entity.get_pierce_level(),
+            projectile_hurt_knockback: entity.hurt_knockback_direction(),
+            tamed_wolf_owner: entity.tamed_wolf_owner(),
         }
     }
 }
@@ -191,5 +212,41 @@ impl DamageSource {
     pub fn is_tag(&self, level: &ServerLevel, tag: &str) -> bool {
         let Some(tag) = Identifier::try_parse(tag) else { return false };
         level.registries.is_in_tag(crate::registry::keys::DAMAGE_TYPE, &self.damage_type, &tag)
+    }
+
+    /// `getLocalizedDeathMessage(victim)`.
+    pub fn get_localized_death_message(&self, level: &ServerLevel, victim: &dyn Entity) -> Component {
+        use crate::world::damagesource::display_name::entity_display_name;
+        let death_msg = format!("death.attack.{}", self.data.msg_id);
+        let victim_name = entity_display_name(level, victim);
+        if self.causing.is_none() && self.direct.is_none() {
+            let source = crate::world::entity::living_entity::death::resolve_kill_credit(level, victim, None);
+            let player_msg = format!("{death_msg}.player");
+            match source {
+                Some(source) => Component::translatable(player_msg, vec![victim_name.into(), source.display_name(level).into()]),
+                None => Component::translatable(death_msg, vec![victim_name.into()]),
+            }
+        } else {
+            let name_source = self.causing.as_ref().or(self.direct.as_ref()).expect("one entity present");
+            let name = name_source.display_name(level);
+            let held = match &self.causing {
+                Some(c) if c.is_living => c.main_hand_item.clone(),
+                _ => ItemStack::empty(),
+            };
+            if !held.is_empty() && held.has(mc_data::DataComponentType::CUSTOM_NAME) {
+                Component::translatable(format!("{death_msg}.item"), vec![victim_name.into(), name.into(), held.get_display_name().into()])
+            } else {
+                Component::translatable(death_msg, vec![victim_name.into(), name.into()])
+            }
+        }
+    }
+
+    /// `HolderSet<DamageType>.contains(source.typeHolder())` for the `bypassed_by` / `type` sets of data components.
+    pub fn is_in_holder_set(&self, level: &ServerLevel, set: &mc_protocol::components::holder::HolderSet<mc_protocol::components::holder::NoDirect>) -> bool {
+        use mc_protocol::components::holder::{Holder, HolderSet};
+        match set {
+            HolderSet::Named(tag) => self.is_tag(level, &tag.to_string()),
+            HolderSet::Direct(holders) => holders.iter().any(|h| matches!(h, Holder::Reference(name) if *name == self.damage_type)),
+        }
     }
 }

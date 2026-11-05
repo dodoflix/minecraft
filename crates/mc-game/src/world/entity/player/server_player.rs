@@ -518,6 +518,76 @@ impl Entity for ServerPlayer {
         self.server_player_on_effects_removed(level, effects);
     }
 
+    // ==== [Damage] Entity overrides (Player / ServerPlayer damage behaviour, see player/damage.rs) ====
+    fn is_invulnerable_to(&self, level: &crate::server::level::ServerLevel, source: &crate::world::damagesource::DamageSource) -> bool {
+        super::damage::is_invulnerable_to(self, level, source)
+    }
+    fn hurt_server(&mut self, level: &mut crate::server::level::ServerLevel, source: &crate::world::damagesource::DamageSource, amount: f32) -> bool {
+        super::damage::hurt_server(self, level, source, amount)
+    }
+    fn die(&mut self, level: &mut crate::server::level::ServerLevel, source: &crate::world::damagesource::DamageSource) {
+        super::damage::die(self, level, source);
+    }
+    fn actually_hurt(&mut self, level: &mut crate::server::level::ServerLevel, source: &crate::world::damagesource::DamageSource, damage: f32) {
+        super::damage::actually_hurt(self, level, source, damage);
+    }
+    fn hurt_armor(&mut self, level: &mut crate::server::level::ServerLevel, source: &crate::world::damagesource::DamageSource, damage: f32) {
+        super::damage::hurt_armor(self, level, source, damage);
+    }
+    fn hurt_helmet(&mut self, level: &mut crate::server::level::ServerLevel, source: &crate::world::damagesource::DamageSource, damage: f32) {
+        super::damage::hurt_helmet(self, level, source, damage);
+    }
+    fn get_hurt_sound(&self, source: &crate::world::damagesource::DamageSource) -> Option<mc_data::SoundEvent> {
+        Some(super::damage::get_hurt_sound(source))
+    }
+    fn get_death_sound(&self) -> Option<mc_data::SoundEvent> {
+        Some(mc_data::SoundEvent::ENTITY_PLAYER_DEATH)
+    }
+    fn get_fall_sounds(&self) -> (mc_data::SoundEvent, mc_data::SoundEvent) {
+        (mc_data::SoundEvent::ENTITY_PLAYER_SMALL_FALL, mc_data::SoundEvent::ENTITY_PLAYER_BIG_FALL)
+    }
+    /// `Player.getVoicePitch()`.
+    fn get_voice_pitch(&mut self) -> f32 {
+        1.0
+    }
+    fn indicate_damage(&mut self, _level: &mut crate::server::level::ServerLevel, xd: f64, zd: f64) {
+        super::damage::indicate_damage(self, xd, zd);
+    }
+    fn block_using_item(
+        &mut self,
+        level: &mut crate::server::level::ServerLevel,
+        attacker: &crate::world::damagesource::DamageEntity,
+        source: &crate::world::damagesource::DamageSource,
+        damage: f32,
+        fully_blocked: bool,
+    ) {
+        super::damage::block_using_item(self, level, attacker, source, damage, fully_blocked);
+    }
+    fn cause_fall_damage(&mut self, level: &mut crate::server::level::ServerLevel, fall_distance: f64, damage_modifier: f32, source: &crate::world::damagesource::DamageSource) -> bool {
+        super::damage::cause_fall_damage(self, level, fall_distance, damage_modifier, source)
+    }
+    fn on_enter_combat(&mut self, _level: &mut crate::server::level::ServerLevel) {
+        super::damage::on_enter_combat(self);
+    }
+    fn on_leave_combat(&mut self, _level: &mut crate::server::level::ServerLevel) {
+        super::damage::on_leave_combat(self);
+    }
+    fn drop_equipment(&mut self, level: &mut crate::server::level::ServerLevel) {
+        super::damage::drop_equipment(self, level);
+    }
+    fn get_base_experience_reward(&self, level: &crate::server::level::ServerLevel) -> i32 {
+        super::damage::get_base_experience_reward(self, level)
+    }
+    fn is_always_experience_dropper(&self) -> bool {
+        true
+    }
+    fn killed_entity(&mut self, level: &mut crate::server::level::ServerLevel, victim: &crate::world::damagesource::DamageEntity, _source: &crate::world::damagesource::DamageSource) -> bool {
+        super::damage::killed_entity(self, level, victim)
+    }
+    fn award_kill_score(&mut self, level: &mut crate::server::level::ServerLevel, victim: &crate::world::damagesource::DamageEntity, source: &crate::world::damagesource::DamageSource) {
+        super::damage::award_kill_score(self, level, victim, source);
+    }
+
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
         let p = &self.player;
         living::add_additional_save_data(&p.living, p.get_absorption_amount(), p.inventory.equipment(), out);

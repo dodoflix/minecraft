@@ -4,7 +4,10 @@
 
 pub mod ai_step;
 pub mod base_tick;
+pub mod blocking;
+pub mod combat;
 pub mod damage;
+pub mod death;
 pub mod effects;
 pub mod equipment_changes;
 pub mod equipment;
@@ -14,6 +17,7 @@ pub mod push;
 pub mod seams;
 pub mod sleeping;
 pub mod tick;
+pub mod totem;
 pub mod travel;
 pub mod util;
 

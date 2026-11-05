@@ -2313,6 +2313,8 @@ pub trait Entity: Any {
         super::living_entity::sleeping::get_bed_orientation(self.as_dyn(), level)
     }
     // ==== [Damage] additions (Entity trait methods) ====
+    // Defaults implement `Entity`/`LivingEntity`; `Player`/`ServerPlayer` and mobs override and call the free
+    // functions of `living_entity::damage` as their `super` call.
 
     /// `getWeaponItem()`: `LivingEntity` = main hand; projectiles override with the weapon that fired them.
     fn get_weapon_item(&self) -> Option<crate::world::item::ItemStack> {
@@ -2348,12 +2350,12 @@ pub trait Entity: Any {
             || source.is_tag(level, DamageTypeTags::IS_FALL) && mc_data::tags::get::<EntityType>("fall_damage_immune").is_some_and(|t| t.contains(self.get_type()))
     }
 
-    /// `isInvulnerableTo(level, source)` (`LivingEntity`: plus `EnchantmentHelper.isImmuneToDamage`; `Player`/`ServerPlayer` add their rules).
+    /// `isInvulnerableTo(level, source)` (`LivingEntity`: plus `EnchantmentHelper.isImmuneToDamage`).
     fn is_invulnerable_to(&self, level: &ServerLevel, source: &crate::world::damagesource::DamageSource) -> bool {
         super::living_entity::damage::is_invulnerable_to(self.as_dyn(), level, source)
     }
 
-    /// `hurtServer(level, source, damage)`: abstract in `Entity`; every living entity runs `LivingEntity.hurtServer`.
+    /// `hurtServer(level, source, damage)`: abstract in `Entity` (non-living entities override); every living entity runs `LivingEntity.hurtServer`.
     fn hurt_server(&mut self, level: &mut ServerLevel, source: &crate::world::damagesource::DamageSource, amount: f32) -> bool {
         super::living_entity::damage::hurt_server(self.as_dyn_mut(), level, source, amount)
     }
@@ -2387,6 +2389,142 @@ pub trait Entity: Any {
     fn is_dead_or_dying(&self) -> bool {
         self.living().is_some_and(|l| l.get_health() <= 0.0 || l.dead)
     }
+
+    /// `getArmorValue()`.
+    fn get_armor_value(&self) -> i32 {
+        self.living().map_or(0, |l| mth::floor_f64(l.get_attribute_value(mc_data::Attribute::ARMOR)))
+    }
+
+    /// `isBlocking()`.
+    fn is_blocking(&self) -> bool {
+        super::living_entity::blocking::get_item_blocking_with(self.as_dyn()).is_some()
+    }
+
+    /// `isBaby()`.
+    fn is_baby(&self) -> bool {
+        false
+    }
+
+    /// `getSecondsToDisableBlocking()`.
+    fn get_seconds_to_disable_blocking(&self) -> f32 {
+        super::living_entity::blocking::seconds_to_disable_blocking(self.as_dyn())
+    }
+
+    /// `AbstractArrow.getPierceLevel()`.
+    fn get_pierce_level(&self) -> i32 {
+        0
+    }
+
+    /// `Projectile.calculateHorizontalHurtKnockbackDirection` (`None`: not a projectile).
+    fn hurt_knockback_direction(&self) -> Option<crate::world::damagesource::HurtKnockbackDirection> {
+        None
+    }
+
+    /// `Wolf.isTame()` + `getOwnerReference()`: `Some(owner)` for a tamed wolf (`resolvePlayerResponsibleForDamage`).
+    fn tamed_wolf_owner(&self) -> Option<Option<Uuid>> {
+        None
+    }
+
+    /// `getHurtSound(source)` (`Player`: the damage type's `effects` sound).
+    fn get_hurt_sound(&self, _source: &crate::world::damagesource::DamageSource) -> Option<mc_data::SoundEvent> {
+        Some(mc_data::SoundEvent::ENTITY_GENERIC_HURT)
+    }
+
+    /// `getDeathSound()`.
+    fn get_death_sound(&self) -> Option<mc_data::SoundEvent> {
+        Some(mc_data::SoundEvent::ENTITY_GENERIC_DEATH)
+    }
+
+    /// `getSoundVolume()`.
+    fn get_sound_volume(&self) -> f32 {
+        1.0
+    }
+
+    /// `getVoicePitch()` (draws two floats from the entity's random; players: 1.0).
+    fn get_voice_pitch(&mut self) -> f32 {
+        super::living_entity::damage::voice_pitch(self.as_dyn_mut())
+    }
+
+    /// `indicateDamage(xd, zd)` (`ServerPlayer`: the hurt animation packet).
+    fn indicate_damage(&mut self, _level: &mut ServerLevel, _xd: f64, _zd: f64) {}
+
+    /// `knockback(power, xd, zd, source, damage, comesFromEffect)`.
+    fn knockback(&mut self, power: f64, xd: f64, zd: f64, source: &crate::world::damagesource::DamageSource, damage: f32, comes_from_effect: bool) {
+        super::living_entity::damage::knockback(self.as_dyn_mut(), power, xd, zd, source, damage, comes_from_effect);
+    }
+
+    /// `actuallyHurt(level, source, damage)`.
+    fn actually_hurt(&mut self, level: &mut ServerLevel, source: &crate::world::damagesource::DamageSource, damage: f32) {
+        super::living_entity::damage::actually_hurt(self.as_dyn_mut(), level, source, damage);
+    }
+
+    /// `hurtArmor(source, damage)` (players damage their armor; mobs do nothing).
+    fn hurt_armor(&mut self, _level: &mut ServerLevel, _source: &crate::world::damagesource::DamageSource, _damage: f32) {}
+
+    /// `hurtHelmet(source, damage)`.
+    fn hurt_helmet(&mut self, _level: &mut ServerLevel, _source: &crate::world::damagesource::DamageSource, _damage: f32) {}
+
+    /// `blockUsingItem(level, attacker, source, damage, fullyBlocked)` (`attacker` = the direct living entity).
+    fn block_using_item(
+        &mut self,
+        level: &mut ServerLevel,
+        attacker: &crate::world::damagesource::DamageEntity,
+        source: &crate::world::damagesource::DamageSource,
+        damage: f32,
+        fully_blocked: bool,
+    ) {
+        super::living_entity::blocking::block_using_item(self.as_dyn_mut(), level, attacker, source, damage, fully_blocked);
+    }
+
+    /// `onEnterCombat()` / `onLeaveCombat()` (`ServerPlayer` sends the combat packets).
+    fn on_enter_combat(&mut self, _level: &mut ServerLevel) {}
+    fn on_leave_combat(&mut self, _level: &mut ServerLevel) {}
+
+    /// `dropEquipment(level)`.
+    fn drop_equipment(&mut self, _level: &mut ServerLevel) {}
+
+    /// `dropAllDeathLoot(level, source)`.
+    fn drop_all_death_loot(&mut self, level: &mut ServerLevel, source: &crate::world::damagesource::DamageSource) {
+        super::living_entity::death::drop_all_death_loot(self.as_dyn_mut(), level, source);
+    }
+
+    /// `dropCustomDeathLoot(level, source, killedByPlayer)`.
+    fn drop_custom_death_loot(&mut self, _level: &mut ServerLevel, _source: &crate::world::damagesource::DamageSource, _killed_by_player: bool) {}
+
+    /// `getLootTable()`: the loot table of the death drops (`None`: no drops).
+    fn get_loot_table(&self) -> Option<mc_core::ident::Identifier> {
+        super::living_entity::death::default_loot_table(self.as_dyn())
+    }
+
+    /// `getLootTableSeed()`.
+    fn get_loot_table_seed(&self) -> i64 {
+        0
+    }
+
+    /// `shouldDropExperience()` / `isAlwaysExperienceDropper()` / `getBaseExperienceReward(level)`.
+    fn should_drop_experience(&self) -> bool {
+        !self.is_baby()
+    }
+    fn is_always_experience_dropper(&self) -> bool {
+        false
+    }
+    fn get_base_experience_reward(&self, _level: &ServerLevel) -> i32 {
+        0
+    }
+
+    /// `shouldDropLoot(level)`.
+    fn should_drop_loot(&self, level: &ServerLevel) -> bool {
+        !self.is_baby() && level.mob_drops()
+    }
+
+    /// `killedEntity(level, victim, source)`: whether the victim's death proceeds (drops).
+    fn killed_entity(&mut self, _level: &mut ServerLevel, _victim: &crate::world::damagesource::DamageEntity, _source: &crate::world::damagesource::DamageSource) -> bool {
+        true
+    }
+
+    /// `awardKillScore(victim, killingBlow)` (`ServerPlayer`: scoreboard + stats).
+    fn award_kill_score(&mut self, _level: &mut ServerLevel, _victim: &crate::world::damagesource::DamageEntity, _source: &crate::world::damagesource::DamageSource) {}
+
     // ==== [Effects] additions (Entity trait methods) ====
     /// `LivingEntity.addEffect(newEffect, source)`.
     fn add_effect(&mut self, level: &mut ServerLevel, effect: super::effect::MobEffectInstance, source: Option<EntityId>) -> bool {

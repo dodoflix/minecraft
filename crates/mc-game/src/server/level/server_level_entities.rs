@@ -117,6 +117,34 @@ impl ServerLevel {
         self.taken_out_players.remove(&id);
         self.entity_manager.put_back(id, entity);
         self.process_entity_events();
+        if let Some(ops) = self.deferred_level_ops.remove(&id)
+            && let Some(mut entity) = self.take_entity(id)
+        {
+            for op in ops {
+                op(self, entity.as_mut());
+            }
+            self.put_back_entity(id, entity);
+        }
+    }
+
+    /// Run `f` on entity `id` now if it is in storage (returns its result); if the entity is taken out (it is the
+    /// one running, e.g. the attacker whose hit kills the victim) `f` runs when it is put back and `None` is returned.
+    pub fn with_entity_or_defer<R: 'static>(&mut self, id: EntityId, f: impl FnOnce(&mut ServerLevel, &mut dyn Entity) -> R + 'static) -> Option<R> {
+        match self.take_entity(id) {
+            Some(mut entity) => {
+                let result = f(self, entity.as_mut());
+                self.put_back_entity(id, entity);
+                Some(result)
+            }
+            None => {
+                if self.entity_manager.has_entity_with_id(id) {
+                    self.deferred_level_ops.entry(id).or_default().push(Box::new(move |level, entity| {
+                        f(level, entity);
+                    }));
+                }
+                None
+            }
+        }
     }
 
     /// Apply pending removal / section changes of an entity that was mutated in place.

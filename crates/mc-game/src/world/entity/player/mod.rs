@@ -5,6 +5,7 @@ pub mod food;
 pub mod game_mode;
 pub mod shoulder;
 pub mod stats;
+pub mod damage;
 pub mod food_data;
 pub mod handle_sync;
 pub mod drop;
