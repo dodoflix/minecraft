@@ -3,6 +3,15 @@ use crate::server::level::ServerLevel;
 use mc_core::phys::Vec3;
 use mc_core::pos::{BlockPos, SectionPos};
 
+/// The `BiConsumer<DynamicGameEventListener, ServerLevel>` actions `ServerLevel.EntityCallbacks` hands to
+/// `Entity.updateDynamicGameEventListener` (`DynamicGameEventListener::add` / `::remove` / `::move`).
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum DynamicListenerAction {
+    Add,
+    Remove,
+    Move,
+}
+
 /// `DynamicGameEventListener`: keeps the registration of a listener that moves (an entity's) in the registry of the
 /// chunk section it is in. The owning entity calls [`add`](Self::add) when it joins the level, [`move_to`](Self::move_to)
 /// whenever its position may have changed section and [`remove`](Self::remove) when it leaves.
@@ -28,6 +37,15 @@ impl DynamicGameEventListener {
     pub fn remove(&mut self, level: &mut ServerLevel, owner: ListenerOwner) {
         if let Some(section) = self.last_section {
             unregister(level, section, owner);
+        }
+    }
+
+    /// Apply the action the level asked the owning entity for (`owner`'s position is `source.getPosition(level)`).
+    pub fn apply(&mut self, action: DynamicListenerAction, level: &mut ServerLevel, owner: ListenerOwner, source: PositionSource, radius: i32, delivery: DeliveryMode, position: Vec3) {
+        match action {
+            DynamicListenerAction::Add => self.add(level, owner, source, radius, delivery, position),
+            DynamicListenerAction::Remove => self.remove(level, owner),
+            DynamicListenerAction::Move => self.move_to(level, owner, source, radius, delivery, position),
         }
     }
 

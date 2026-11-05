@@ -5,6 +5,7 @@ use super::entity_tracker::{Entities, TrackerPlayer};
 use super::ServerLevel;
 use crate::world::entity::{Entity, EntityId, RemovalReason};
 use crate::world::level::entity::EntityLevelEvent;
+use crate::world::level::gameevent::DynamicListenerAction;
 use mc_core::phys::AABB;
 use mc_data::EntityType;
 use std::ops::ControlFlow;
@@ -264,6 +265,7 @@ impl ServerLevel {
                 }
                 let players = self.tracker_players();
                 self.entity_tracker.add_entity(&mut Entities::new(&mut self.entity_manager), &self.chunk_source.chunk_map, &players, id);
+                self.update_dynamic_game_event_listener(id, DynamicListenerAction::Add);
             }
             EntityLevelEvent::TrackingEnd(id) => {
                 if self.players.contains(&id) {
@@ -281,14 +283,36 @@ impl ServerLevel {
                     .and_then(|e| e.as_any().downcast_ref::<crate::world::entity::ServerPlayer>())
                     .map(super::TrackerPlayer::of);
                 self.entity_tracker.remove_entity(&mut Entities::new(&mut self.entity_manager), id, player.as_ref());
+                self.update_dynamic_game_event_listener(id, DynamicListenerAction::Remove);
             }
+            EntityLevelEvent::SectionChange(id) => self.update_dynamic_game_event_listener(id, DynamicListenerAction::Move),
             // tick list is maintained by the manager; the other callbacks have no state of their own yet
             EntityLevelEvent::Created(_)
             | EntityLevelEvent::Destroyed(_)
             | EntityLevelEvent::TickingStart(_)
-            | EntityLevelEvent::TickingEnd(_)
-            | EntityLevelEvent::SectionChange(_) => {}
+            | EntityLevelEvent::TickingEnd(_) => {}
         }
+    }
+
+    /// `entity.updateDynamicGameEventListener(action)` (the entity is taken out of its slot, or out of the removal limbo,
+    /// while it gets the level).
+    fn update_dynamic_game_event_listener(&mut self, id: EntityId, action: DynamicListenerAction) {
+        let Some(mut entity) = self.entity_manager.take(id).or_else(|| self.entity_manager.take_removed(id)) else { return };
+        entity.update_dynamic_game_event_listener(self, action);
+        // a removed entity's slot is gone: `put_back` parks it in the limbo again
+        self.entity_manager.put_back(id, entity);
+    }
+
+    // ==== [WardenMobs] additions ====
+
+    /// `getEntity(uuid).getId()` that also finds an entity that is currently taken out of its slot (it is ticking).
+    pub fn entity_id_by_uuid(&self, uuid: Uuid) -> Option<EntityId> {
+        self.entity_manager.id_by_uuid(uuid)
+    }
+
+    /// `entity.getUUID()` of a tracked entity that is in its slot.
+    pub fn entity_uuid_by_id(&self, id: EntityId) -> Option<Uuid> {
+        self.entity_manager.get_any(id).map(|e| e.uuid())
     }
 
     /// `level.players()` as the tracker reads them: live players from storage, players that are currently taken out

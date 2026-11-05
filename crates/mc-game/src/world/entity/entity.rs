@@ -3581,6 +3581,10 @@ pub trait Entity: Any {
     fn calculate_fall_damage(&self, fall_distance: f64, damage_modifier: f32) -> i32 {
         super::living_entity::damage::calculate_fall_damage(self.as_dyn(), fall_distance, damage_modifier)
     }
+    // ==== [WardenMobs] additions (Entity trait methods) ====
+    /// `Entity.updateDynamicGameEventListener(action)`: run by the level on tracking start (`Add`), tracking end (`Remove`)
+    /// and section change (`Move`) of the entity (entities with a `DynamicGameEventListener`: warden, allay).
+    fn update_dynamic_game_event_listener(&mut self, _level: &mut ServerLevel, _action: crate::world::level::gameevent::DynamicListenerAction) {}
 }
 
 /// `Entity.push(entity)` / `LivingEntity.push(entity)`: separates two overlapping entities (`other` is the entity `this`

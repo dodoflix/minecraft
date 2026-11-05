@@ -57,6 +57,10 @@ pub trait Explosion {
     fn center(&self) -> Vec3;
     fn can_trigger_blocks(&self) -> bool;
     fn should_affect_blocklike_entities(&self) -> bool;
+    /// `explosion instanceof ServerExplosion serverExplosion ? serverExplosion.getDamageSource() : null`.
+    fn server_damage_source(&self) -> Option<&crate::world::damagesource::DamageSource> {
+        None
+    }
 }
 
 /// `Explosion.getIndirectSourceEntity(source)`: a primed TNT's owner, a living source itself, a projectile's living owner.

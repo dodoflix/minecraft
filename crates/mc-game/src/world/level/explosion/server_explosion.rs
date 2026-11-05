@@ -386,6 +386,9 @@ impl Explosion for ServerExplosion<'_> {
     fn should_affect_blocklike_entities(&self) -> bool {
         self.should_affect_blocklike_entities
     }
+    fn server_damage_source(&self) -> Option<&DamageSource> {
+        Some(&self.damage_source)
+    }
 }
 
 /// The entity `id` as a reference: the explicitly passed `source` (which is outside the level) or the level's entity.

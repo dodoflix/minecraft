@@ -407,3 +407,15 @@ pub fn get_last_damage_source(level: &ServerLevel, e: &dyn Entity, damage_source
 pub fn chest_open_count(_level: &ServerLevel, _pos: mc_core::pos::BlockPos) -> i32 {
     0
 }
+
+// ==== [WardenMobs] additions ====
+
+/// `LivingEntity.PLAYER_NOT_WEARING_DISGUISE_ITEM.test(entity)`.
+pub fn player_not_wearing_disguise_item(entity: &dyn Entity) -> bool {
+    if entity.is_player() {
+        let helmet = entity.get_item_by_slot(EquipmentSlot::Head);
+        !mc_data::tags::get::<mc_data::Item>("gaze_disguise_equipment").is_some_and(|t| t.contains(helmet.item()))
+    } else {
+        true
+    }
+}

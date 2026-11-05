@@ -10,6 +10,6 @@ mod listener;
 mod registry;
 pub mod vibrations;
 
-pub use dynamic_listener::DynamicGameEventListener;
+pub use dynamic_listener::{DynamicGameEventListener, DynamicListenerAction};
 pub use listener::*;
 pub use registry::*;

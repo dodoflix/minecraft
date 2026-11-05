@@ -221,7 +221,7 @@ pub fn knockback(entity: &mut dyn Entity, mut power: f64, mut xd: f64, mut zd: f
 }
 
 /// `LivingEntity.resolveMobResponsibleForDamage(source)`.
-fn resolve_mob_responsible_for_damage(entity: &mut dyn Entity, level: &ServerLevel, source: &DamageSource) {
+pub fn resolve_mob_responsible_for_damage(entity: &mut dyn Entity, level: &ServerLevel, source: &DamageSource) {
     let Some(causing) = source.causing_info().filter(|c| c.is_living) else { return };
     if source.is_tag(level, DamageTypeTags::NO_ANGER) {
         return;
@@ -238,7 +238,7 @@ fn resolve_mob_responsible_for_damage(entity: &mut dyn Entity, level: &ServerLev
 }
 
 /// `LivingEntity.resolvePlayerResponsibleForDamage(source)`.
-fn resolve_player_responsible_for_damage(entity: &mut dyn Entity, source: &DamageSource) {
+pub fn resolve_player_responsible_for_damage(entity: &mut dyn Entity, source: &DamageSource) {
     let Some(causing) = source.causing_info() else { return };
     let l = entity.living_mut().expect("living");
     if causing.is_player {
