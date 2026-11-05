@@ -210,6 +210,12 @@ impl LevelTickEnv for Env {
     fn tick_raids(&mut self, _level: &mut ServerLevel) {}
     fn broadcast_game_event_to_all(&mut self, _packet: &mc_protocol::packets::play::ClientboundGameEventPacket) {}
     fn set_game_time(&mut self, _game_time: i64) {}
+    fn perform_prefixed_command(&mut self, _level: &mut ServerLevel, _source: mc_game::commands::CommandSourceStack, command: &str) {
+        panic!("block_scenario: command execution from a ticking level (command blocks) is not wired: `{command}`");
+    }
+    fn command_rules(&self) -> mc_game::server::level::level_commands::CommandRules {
+        Default::default()
+    }
     fn teleport_through_portal(&mut self, _level: &mut ServerLevel, _entity: &mut dyn Entity) {}
 }
 
