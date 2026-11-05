@@ -3482,7 +3482,11 @@ pub trait Entity: Any {
     fn set_heard_bell_time(&mut self, _game_time: i64) {}
     // ==== [Attack] additions (Entity trait methods) ====
     /// `LivingEntity.doHurtTarget(level, target)` (`Mob` overrides: damage, knockback, item effects). The target is out of the level.
-    fn do_hurt_target(&mut self, _level: &mut ServerLevel, target: &mut dyn Entity) -> bool {
+    fn do_hurt_target(&mut self, level: &mut ServerLevel, target: &mut dyn Entity) -> bool {
+        if self.mob().is_some() {
+            // `Mob.doHurtTarget` is inherited by every mob that does not override it
+            return super::living_entity::combat::mob_do_hurt_target(self.as_dyn_mut(), level, target);
+        }
         self.set_last_hurt_mob(&*target);
         false
     }
