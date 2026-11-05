@@ -90,8 +90,7 @@ impl ServerPlayer {
     /// `advancements.flushDirty` are `// SEAM(advancements)`.
     pub fn tick_server_player(&mut self, level: &mut ServerLevel) {
         self.tick_game_mode(level);
-        let ws = &mut self.warden_spawn_tracker;
-        ws.ticks_since_last_warning = ws.ticks_since_last_warning.saturating_add(1);
+        self.warden_spawn_tracker.tick();
         if self.player.living.damage_cooldown_time > 0 {
             self.player.living.damage_cooldown_time -= 1;
         }

@@ -200,6 +200,7 @@ pub mod rotated_pillar_block;
 pub mod sapling_block;
 pub mod scaffolding_block;
 pub mod sculk_block;
+pub mod sculk_catalyst_block;
 pub mod sculk_sensor_block;
 pub mod sculk_shrieker_block;
 pub mod sculk_vein_block;

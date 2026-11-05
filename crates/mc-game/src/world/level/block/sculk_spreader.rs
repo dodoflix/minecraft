@@ -1,10 +1,10 @@
 //! `SculkSpreader`: the charge cursors that spread sculk (world generation `sculk_patch` and the sculk catalyst).
 //!
-//! shortcut: the particle level events of `updateCursors` (`levelEvent(3006, ..)`) are emitted in insertion order of the
-//! charged positions, Java iterates an `Object2IntOpenHashMap`; no consumer reads them outside a server level, make the
-//! order match when a catalyst block entity drives this spreader.
+//! The particle level events of `updateCursors` (`levelEvent(3006, ..)`) are emitted in the iteration order of
+//! vanilla's `Object2IntOpenHashMap<BlockPos>` (`fastutil::Object2IntOpenHashMap` reproduces its table).
 
 use super::sculk_behaviour::{self, SculkBehaviour};
+use crate::server::level::fastutil::Object2IntOpenHashMap;
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::block::impls::{multiface_block, sculk_vein_block};
 use crate::world::level::{BlockGetter, LevelAccessor};
@@ -130,7 +130,7 @@ impl SculkSpreader {
         let mut processed_cursors: Vec<ChargeCursor> = Vec::new();
         // position -> index into `processed_cursors` (`mergeableCursors`)
         let mut mergeable_cursors: HashMap<BlockPos, usize> = HashMap::new();
-        let mut charge_map: indexmap::IndexMap<BlockPos, i32> = indexmap::IndexMap::new();
+        let mut charge_map: Object2IntOpenHashMap<BlockPos> = Object2IntOpenHashMap::new(|pos| pos.hash_code());
 
         for mut cursor in std::mem::take(&mut self.cursors) {
             if !cursor.is_pos_unreasonable(origin_pos) {
@@ -139,8 +139,7 @@ impl SculkSpreader {
                     level.level_event(None, 3006, cursor.get_pos(), 0);
                 } else {
                     let pos = cursor.get_pos();
-                    let entry = charge_map.entry(pos).or_insert(0);
-                    *entry = entry.wrapping_add(cursor.charge);
+                    charge_map.add_to_value(pos, cursor.charge);
                     match mergeable_cursors.get(&pos).copied() {
                         None => {
                             mergeable_cursors.insert(pos, processed_cursors.len());
@@ -162,7 +161,7 @@ impl SculkSpreader {
             }
         }
 
-        for (pos, charge) in charge_map {
+        for (pos, charge) in charge_map.into_entries() {
             let faces = mergeable_cursors.get(&pos).and_then(|i| processed_cursors[*i].get_facing_data());
             if charge > 0
                 && let Some(faces) = faces

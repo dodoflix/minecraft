@@ -5,9 +5,11 @@
 //! which live in take-out storage, so the registries hold *handles* ([`ListenerOwner`]) plus the listener's source
 //! and radius sampled at registration; delivery resolves the owner and calls its [`GameEventListener`].
 
+mod dynamic_listener;
 mod listener;
 mod registry;
 pub mod vibrations;
 
+pub use dynamic_listener::DynamicGameEventListener;
 pub use listener::*;
 pub use registry::*;

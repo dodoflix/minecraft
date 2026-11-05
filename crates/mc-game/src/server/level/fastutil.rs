@@ -531,3 +531,100 @@ mod int_map_tests {
         }
     }
 }
+
+/// Port of the table logic of fastutil `Object2IntOpenHashMap<K>` for maps that only grow (`computeInt` adding to
+/// a count): same hash mix, probing, growth and the backwards iteration order, which is observable when the entries are
+/// processed in order (`SculkSpreader.updateCursors` emits one level event per charged position). `hash` is the key's
+/// Java `hashCode()`.
+pub struct Object2IntOpenHashMap<K> {
+    key: Vec<Option<K>>,
+    value: Vec<i32>,
+    hash: fn(&K) -> i32,
+    mask: usize,
+    n: usize,
+    max_fill: usize,
+    size: usize,
+}
+
+impl<K: Eq> Object2IntOpenHashMap<K> {
+    /// `new Object2IntOpenHashMap<>()` (expected 16 entries, load factor 0.75).
+    pub fn new(hash: fn(&K) -> i32) -> Self {
+        let n = array_size(DEFAULT_INITIAL_SIZE);
+        let mut key = Vec::new();
+        key.resize_with(n + 1, || None);
+        Self { key, value: vec![0; n + 1], hash, mask: n - 1, n, max_fill: max_fill(n), size: 0 }
+    }
+
+    /// `computeInt(k, (k, old) -> (old == null ? 0 : old) + delta)`.
+    pub fn add_to_value(&mut self, k: K, delta: i32) {
+        let mut pos = mix_int(i64::from((self.hash)(&k))) as usize & self.mask;
+        loop {
+            match &self.key[pos] {
+                None => break,
+                Some(existing) if *existing == k => {
+                    self.value[pos] = self.value[pos].wrapping_add(delta);
+                    return;
+                }
+                Some(_) => pos = (pos + 1) & self.mask,
+            }
+        }
+        self.key[pos] = Some(k);
+        self.value[pos] = delta;
+        let old = self.size;
+        self.size += 1;
+        if old >= self.max_fill {
+            self.rehash(array_size(self.size + 1));
+        }
+    }
+
+    fn rehash(&mut self, new_n: usize) {
+        let mask = new_n - 1;
+        let mut new_key: Vec<Option<K>> = Vec::new();
+        new_key.resize_with(new_n + 1, || None);
+        let mut new_value = vec![0; new_n + 1];
+        let mut i = self.n;
+        for _ in 0..self.size {
+            loop {
+                i -= 1;
+                if self.key[i].is_some() {
+                    break;
+                }
+            }
+            let k = self.key[i].take().expect("slot checked above");
+            let mut pos = mix_int(i64::from((self.hash)(&k))) as usize & mask;
+            while new_key[pos].is_some() {
+                pos = (pos + 1) & mask;
+            }
+            new_value[pos] = self.value[i];
+            new_key[pos] = Some(k);
+        }
+        self.key = new_key;
+        self.value = new_value;
+        self.n = new_n;
+        self.mask = mask;
+        self.max_fill = max_fill(new_n);
+    }
+
+    /// The entries in iteration order (table slots from the end).
+    pub fn into_entries(self) -> impl Iterator<Item = (K, i32)> {
+        let Self { key, value, n, .. } = self;
+        key.into_iter().zip(value).take(n).collect::<Vec<_>>().into_iter().rev().filter_map(|(k, v)| k.map(|k| (k, v)))
+    }
+}
+
+#[cfg(test)]
+mod object_map_tests {
+    use super::*;
+
+    #[test]
+    fn sums_per_key_and_survives_rehash() {
+        let mut map = Object2IntOpenHashMap::new(|k: &i32| *k);
+        for k in 0..100 {
+            map.add_to_value(k, 1);
+            map.add_to_value(k, k);
+        }
+        let mut all: Vec<(i32, i32)> = map.into_entries().collect();
+        all.sort_unstable();
+        assert_eq!(all, (0..100).map(|k| (k, k + 1)).collect::<Vec<_>>());
+    }
+}

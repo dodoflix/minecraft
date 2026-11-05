@@ -57,7 +57,8 @@ pub fn die(entity: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSour
         }
     };
     if proceed {
-        entity.game_event(level, GameEvent::ENTITY_DIE);
+        let position = entity.position();
+        level.game_event_from_live_entity(entity, GameEvent::ENTITY_DIE, position);
         entity.drop_all_death_loot(level, source);
         create_wither_rose(entity, level, killer.as_ref());
     }
@@ -143,6 +144,18 @@ fn drop_from_loot_table(entity: &mut dyn Entity, level: &mut ServerLevel, source
     for stack in items {
         crate::world::entity::item::spawn_at_location(level, entity, stack, mc_core::phys::Vec3::ZERO);
     }
+}
+
+/// `LivingEntity.getExperienceReward(level, killer)` (the killer is the entity of `source`).
+pub fn get_experience_reward(entity: &mut dyn Entity, level: &mut ServerLevel, source: Option<&DamageSource>) -> i32 {
+    let base = entity.get_base_experience_reward(level);
+    let victim_id = entity.id();
+    let mut causing = source.and_then(|s| s.causing_snapshot(level));
+    let mut actors = Actors::of(&mut *entity);
+    if let Some(c) = causing.as_mut() {
+        actors.push(&mut ***c);
+    }
+    crate::world::item::enchantment_helper::process_mob_experience(level, &mut actors, source.and_then(DamageSource::get_entity), victim_id, base)
 }
 
 /// `LivingEntity.dropExperience(level, killer)`.

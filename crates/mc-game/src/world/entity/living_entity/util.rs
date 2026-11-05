@@ -104,7 +104,7 @@ pub fn broadcast_entity_event(level: &mut ServerLevel, id: EntityId, event_id: i
 
 /// `Entity.gameEvent(event)`.
 pub fn game_event(level: &mut ServerLevel, entity: &dyn Entity, event: GameEvent) {
-    level.game_event_from_entity(Some(entity.id()), event, entity.base().position());
+    level.game_event_from_entity_ref(entity, event, entity.base().position());
 }
 
 /// `move(MoverType.SELF-style, delta)`: runs `Entity.move`.

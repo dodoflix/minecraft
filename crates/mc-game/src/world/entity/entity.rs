@@ -1644,7 +1644,7 @@ pub trait Entity: Any {
     }
     /// `gameEvent(event)` (source = this entity).
     fn game_event(&self, level: &mut ServerLevel, event: mc_data::GameEvent) {
-        level.game_event_from_entity(Some(self.id()), event, self.base().position());
+        level.game_event_from_entity_ref(self.as_dyn(), event, self.base().position());
     }
     /// `getSwimSound()`.
     fn get_swim_sound(&self) -> mc_data::SoundEvent {

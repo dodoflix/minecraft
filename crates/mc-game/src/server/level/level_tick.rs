@@ -109,6 +109,11 @@ impl ServerLevel {
         self.should_tick_blocks_at(ChunkPos::pack_xz(pos.x() >> 4, pos.z() >> 4))
     }
 
+    /// `isSpawningMonsters()`: `SPAWN_MOBS && SPAWN_MONSTERS` (rules as of the start of this level tick).
+    pub fn is_spawning_monsters(&self) -> bool {
+        self.spawn_mobs() && self.spawn_monsters()
+    }
+
     /// `areEntitiesLoaded(chunkKey)`.
     pub fn are_entities_loaded(&self, chunk_key: i64) -> bool {
         self.entity_manager.are_entities_loaded(chunk_key)
@@ -578,7 +583,12 @@ impl ServerLevel {
         let state = BlockGetter::get_block_state(self, pos);
         let valid = self.chunk_now(cx, cz).and_then(|c| c.block_entities.get(&pos)).is_some_and(|be| be.is_valid_block_state(state));
         if valid {
-            self.with_block_entity(pos, |level, be| be.server_tick(level));
+            match self.chunk_now(cx, cz).and_then(|c| c.block_entities.get(&pos)).and_then(|be| be.level_ticker()) {
+                Some(ticker) => ticker(self, pos),
+                None => {
+                    self.with_block_entity(pos, |level, be| be.server_tick(level));
+                }
+            }
         } else if let Some(be) = self.get_block_entity(pos) {
             log::warn!("Block entity {} @ {} state {} invalid for ticking:", be.get_type().name(), pos.to_short_string(), state);
         }

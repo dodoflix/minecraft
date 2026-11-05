@@ -272,7 +272,8 @@ pub fn killed_entity(player: &mut ServerPlayer, level: &mut ServerLevel, victim:
 
 /// `ServerPlayer.die(source)`.
 pub fn die(player: &mut ServerPlayer, level: &mut ServerLevel, source: &DamageSource) {
-    player.game_event(level, GameEvent::ENTITY_DIE);
+    let position = player.position();
+    level.game_event_from_live_entity(player, GameEvent::ENTITY_DIE, position);
     let show_death_message = level.show_death_messages();
     if show_death_message {
         let tracker = std::mem::take(&mut player.player.living.combat_tracker);

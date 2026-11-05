@@ -358,15 +358,9 @@ impl ServerLevel {
     }
 
     fn game_event_registration(&mut self, pos: BlockPos) -> Option<RegisteredListener> {
-        let chunk = self.chunk_at_mut(pos)?;
-        let be = chunk.block_entities.get_mut(&pos)?;
-        let listener = be.game_event_listener()?;
-        Some(RegisteredListener {
-            owner: ListenerOwner::BlockEntity(pos),
-            source: listener.get_listener_source(),
-            radius: listener.get_listener_radius(),
-            delivery: listener.get_delivery_mode(),
-        })
+        let chunk = self.chunk_at(pos)?;
+        let listener = chunk.block_entities.get(&pos)?.game_event_listener()?;
+        Some(RegisteredListener { owner: ListenerOwner::BlockEntity(pos), source: listener.source, radius: listener.radius, delivery: listener.delivery })
     }
 
     /// `LevelChunk.addGameEventListener(blockEntity, level)`.

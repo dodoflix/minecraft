@@ -1,5 +1,5 @@
 //! `CalibratedSculkSensorBlockEntity`: a sensor entity of its own type (listener radius 16 and the back-signal filter
-//! belong to the vibration user, not ported yet), saved exactly like [`SculkSensorBlockEntity`].
+//! are part of its vibration user, see `vibration::BlockEntityVibration`), saved exactly like [`SculkSensorBlockEntity`].
 
 use super::sculk_sensor_block_entity::SculkSensorBlockEntity;
 use super::{BLOCK_ENTITY_TYPES, BlockEntityRegistration};

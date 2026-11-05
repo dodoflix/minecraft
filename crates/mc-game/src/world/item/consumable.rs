@@ -116,7 +116,7 @@ pub fn on_consume(consumable: &Consumable, level: &mut ServerLevel, user: &mut d
         apply_consume_effect(effect, level, user);
     }
     let event = if consumable.animation == ItemUseAnimation::Drink { GameEvent::DRINK } else { GameEvent::EAT };
-    level.game_event_from_entity(Some(user.id()), event, user.position());
+    level.game_event_from_entity_ref(&*user, event, user.position());
     let infinite = user.player().is_some_and(|p| p.abilities.instabuild);
     stack.consume(1, infinite);
     stack.clone()

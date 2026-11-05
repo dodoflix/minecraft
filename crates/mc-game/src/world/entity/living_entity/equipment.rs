@@ -31,7 +31,7 @@ pub fn on_equip_item(entity: &mut dyn Entity, level: &mut ServerLevel, slot: Equ
         }
         if entity.does_emit_equip_event(slot) {
             let event = if equippable.is_some() { GameEvent::EQUIP } else { GameEvent::UNEQUIP };
-            level.game_event_from_entity(Some(entity.id()), event, entity.base().position());
+            level.game_event_from_entity_ref(&*entity, event, entity.base().position());
         }
     }
 }

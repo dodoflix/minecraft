@@ -35,6 +35,7 @@ pub mod projectile;
 pub mod player;
 pub mod swing;
 pub mod team;
+pub mod spawn_util;
 pub mod synched_data;
 pub mod tag_set;
 pub mod vec_delta_codec;

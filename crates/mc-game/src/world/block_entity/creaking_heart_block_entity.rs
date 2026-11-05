@@ -17,11 +17,17 @@ pub struct CreakingHeartBlockEntity {
     base: BlockEntityData,
     creaking_info: Option<Uuid>,
     ticks_existed: i64,
+    output_signal: i32,
 }
 
 impl CreakingHeartBlockEntity {
     pub fn new(pos: BlockPos, state: BlockState) -> Self {
-        Self { base: BlockEntityData::new(BlockEntityType::CREAKING_HEART, pos, state), creaking_info: None, ticks_existed: 0 }
+        Self { base: BlockEntityData::new(BlockEntityType::CREAKING_HEART, pos, state), creaking_info: None, ticks_existed: 0, output_signal: 0 }
+    }
+
+    /// `getAnalogOutputSignal()`.
+    pub fn get_analog_output_signal(&self) -> i32 {
+        self.output_signal
     }
 
     /// `setCreakingInfo(uuid)`.

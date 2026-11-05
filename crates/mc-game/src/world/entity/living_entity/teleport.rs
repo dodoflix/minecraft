@@ -88,7 +88,7 @@ pub fn apply_teleport_randomly(effect: &TeleportRandomlyConsumeEffect, level: &m
         }
         let old_pos = user.base().position();
         if user.random_teleport(level, xx, yy, zz, true, "consumable_does_not_teleport_to") {
-            level.game_event_from_entity(Some(user.id()), GameEvent::TELEPORT, old_pos);
+            level.game_event_from_entity_ref(&*user, GameEvent::TELEPORT, old_pos);
             let (sound, source) = if user.get_type() == EntityType::FOX {
                 (SoundEvent::ENTITY_FOX_TELEPORT, SoundSource::Neutral)
             } else {

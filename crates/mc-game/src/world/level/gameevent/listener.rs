@@ -6,22 +6,51 @@ use mc_data::GameEvent;
 use mc_data::block::BlockState;
 use uuid::Uuid;
 
+/// What the vibration system reads from `GameEvent.Context.sourceEntity()` (vanilla keeps the entity object; here the
+/// entity may be out of the level's slot while it ticks, so the facts are captured when the context is built, see
+/// `vibrations::capture_source_entity`).
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct SourceEntityInfo {
+    /// `getId()`.
+    pub id: EntityId,
+    /// `getUUID()`.
+    pub uuid: Uuid,
+    /// `instanceof ServerPlayer`.
+    pub is_server_player: bool,
+    /// `isSpectator()`.
+    pub spectator: bool,
+    /// `isSteppingCarefully()`.
+    pub stepping_carefully: bool,
+    /// `dampensVibrations()`.
+    pub dampens_vibrations: bool,
+    /// `SculkShriekerBlockEntity.tryGetPlayer(entity)`: the server player behind the entity.
+    pub player: Option<EntityId>,
+    /// `VibrationInfo.getProjectileOwner(entity)`: the owner of a projectile.
+    pub projectile_owner: Option<Uuid>,
+}
+
 /// `GameEvent.Context`.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub struct GameEventContext {
     pub source_entity: Option<EntityId>,
     pub affected_state: Option<BlockState>,
+    /// Captured facts of `source_entity` (see [`SourceEntityInfo`]); `None` = resolve through the level when needed.
+    pub source_info: Option<SourceEntityInfo>,
 }
 
 impl GameEventContext {
     pub fn of_entity(source_entity: Option<EntityId>) -> Self {
-        Self { source_entity, affected_state: None }
+        Self { source_entity, affected_state: None, source_info: None }
     }
     pub fn of_state(state: Option<BlockState>) -> Self {
-        Self { source_entity: None, affected_state: state }
+        Self { source_entity: None, affected_state: state, source_info: None }
     }
     pub fn of(source_entity: Option<EntityId>, state: Option<BlockState>) -> Self {
-        Self { source_entity, affected_state: state }
+        Self { source_entity, affected_state: state, source_info: None }
+    }
+    /// `Context.of(entity)` with the entity's facts captured.
+    pub fn of_captured(info: SourceEntityInfo) -> Self {
+        Self { source_entity: Some(info.id), affected_state: None, source_info: Some(info) }
     }
 }
 
@@ -66,4 +95,19 @@ pub trait GameEventListener {
     fn get_delivery_mode(&self) -> DeliveryMode {
         DeliveryMode::Unspecified
     }
+}
+
+/// `handleGameEvent` of a block entity listener. Block entities stay in their chunk while they listen (their logic
+/// changes the block, whose neighbours read the block entity again, e.g. comparators reading a sculk sensor), so the
+/// handler is a function of the level and the block entity position instead of a method of the taken-out entity. The
+/// last argument is the source entity itself when it is at hand (`ENTITY_DIE`).
+pub type BlockEntityGameEventHandler = fn(&mut ServerLevel, BlockPos, GameEvent, &GameEventContext, Vec3, Option<&mut dyn crate::world::entity::Entity>) -> bool;
+
+/// `EntityBlock.getListener(level, blockEntity)`: the `GameEventListener` of a block entity.
+#[derive(Clone, Copy)]
+pub struct BlockEntityListener {
+    pub source: PositionSource,
+    pub radius: i32,
+    pub delivery: DeliveryMode,
+    pub handle: BlockEntityGameEventHandler,
 }

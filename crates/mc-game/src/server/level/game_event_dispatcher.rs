@@ -2,7 +2,8 @@
 //! radius covers the event position.
 
 use super::ServerLevel;
-use crate::world::entity::EntityId;
+use crate::world::entity::{Entity, EntityId};
+use crate::world::level::gameevent::vibrations::capture_source_entity;
 use crate::world::level::gameevent::{DeliveryMode, GameEventContext, ListenerOwner, RegisteredListener};
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -20,8 +21,27 @@ impl ServerLevel {
         self.post_game_event(event, position, &GameEventContext::of_entity(source));
     }
 
+    /// `gameEvent(sourceEntity, event, pos)` with the source entity at hand: its facts for the vibration system are
+    /// captured (the entity may be out of the level's slot, e.g. while it ticks).
+    pub fn game_event_from_entity_ref(&mut self, entity: &dyn Entity, event: GameEvent, position: Vec3) {
+        let context = GameEventContext::of_captured(capture_source_entity(self, entity));
+        self.post_game_event(event, position, &context);
+    }
+
+    /// Like [`game_event_from_entity_ref`](Self::game_event_from_entity_ref) for listeners that act on the source entity
+    /// itself (`ENTITY_DIE` listened to by sculk catalysts): the listeners get the entity.
+    pub fn game_event_from_live_entity(&mut self, entity: &mut dyn Entity, event: GameEvent, position: Vec3) {
+        let context = GameEventContext::of_captured(capture_source_entity(self, entity));
+        self.post_game_event_with(event, position, &context, Some(entity));
+    }
+
     /// `GameEventDispatcher.post(event, position, context)`.
     pub fn post_game_event(&mut self, event: GameEvent, position: Vec3, context: &GameEventContext) {
+        self.post_game_event_with(event, position, context, None);
+    }
+
+    /// `post` with the live source entity (see [`game_event_from_live_entity`](Self::game_event_from_live_entity)).
+    pub fn post_game_event_with(&mut self, event: GameEvent, position: Vec3, context: &GameEventContext, mut live: Option<&mut dyn Entity>) {
         let radius = event.data().notification_radius;
         let center = BlockPos::containing_position(&position);
         let section_min_x = (center.x() - radius) >> 4;
@@ -45,7 +65,7 @@ impl ServerLevel {
                         if listener.delivery == DeliveryMode::ByDistance {
                             to_handle_by_distance.push((position.distance_to_sqr(listener_position), listener));
                         } else if self.listener_still_registered(chunk_x, chunk_z, section, listener.owner) {
-                            self.deliver_game_event(listener.owner, event, context, position);
+                            self.deliver_game_event(listener.owner, event, context, position, live.as_deref_mut());
                         }
                     }
                 }
@@ -54,7 +74,7 @@ impl ServerLevel {
         // `Collections.sort` is stable: equal distances keep visiting order.
         to_handle_by_distance.sort_by(|a, b| a.0.total_cmp(&b.0));
         for (_, listener) in to_handle_by_distance {
-            self.deliver_game_event(listener.owner, event, context, position);
+            self.deliver_game_event(listener.owner, event, context, position, live.as_deref_mut());
         }
     }
 
@@ -62,15 +82,15 @@ impl ServerLevel {
         self.chunk_now(chunk_x, chunk_z).and_then(|c| c.game_event_registries.get(&section)).is_some_and(|r| r.contains(owner))
     }
 
-    /// Resolve the owner of a listener (taking it out of its storage) and call `handleGameEvent`.
-    fn deliver_game_event(&mut self, owner: ListenerOwner, event: GameEvent, context: &GameEventContext, position: Vec3) {
+    /// Resolve the owner of a listener and call `handleGameEvent` (entities are taken out of their slot meanwhile, block
+    /// entities stay in their chunk).
+    fn deliver_game_event(&mut self, owner: ListenerOwner, event: GameEvent, context: &GameEventContext, position: Vec3, live: Option<&mut dyn Entity>) {
         match owner {
             ListenerOwner::BlockEntity(pos) => {
-                self.with_block_entity(pos, |level, block_entity| {
-                    if let Some(listener) = block_entity.game_event_listener() {
-                        listener.handle_game_event(level, event, context, position);
-                    }
-                });
+                let handler = self.get_block_entity_immediate(pos).and_then(|block_entity| block_entity.game_event_listener()).map(|listener| listener.handle);
+                if let Some(handle) = handler {
+                    handle(self, pos, event, context, position, live);
+                }
             }
             ListenerOwner::Entity(id) => {
                 self.with_entity(id, |level, entity| {

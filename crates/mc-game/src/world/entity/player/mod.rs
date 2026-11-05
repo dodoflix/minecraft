@@ -20,6 +20,7 @@ pub mod pickup;
 pub mod menu_open;
 pub mod tick;
 pub mod travel;
+pub mod warden_spawn_tracker;
 pub mod server_player;
 pub mod sleep_in_bed;
 

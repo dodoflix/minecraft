@@ -44,6 +44,7 @@ mod sculk_shrieker_block_entity;
 mod the_end_gateway_block_entity;
 mod the_end_portal_block_entity;
 pub mod structure_block_entity;
+pub mod vibration;
 
 pub use comparator_block_entity::ComparatorBlockEntity;
 pub use beacon_block_entity::BeaconBlockEntity;
@@ -181,6 +182,16 @@ pub trait BlockEntity: Any {
         false
     }
     fn server_tick(&mut self, _level: &mut crate::server::level::ServerLevel) {}
+    /// A ticker that works on the level and the position instead of the taken-out block entity: for block entities
+    /// whose tick changes their own block while neighbours read the block entity (sculk sensor, catalyst, shrieker,
+    /// creaking heart). When present it is used instead of [`BlockEntity::server_tick`].
+    fn level_ticker(&self) -> Option<fn(&mut crate::server::level::ServerLevel, BlockPos)> {
+        None
+    }
+    /// The `VibrationSystem.Data` of block entities that implement `VibrationSystem` (sculk sensors, shriekers).
+    fn vibration_data_mut(&mut self) -> Option<&mut crate::world::level::gameevent::vibrations::VibrationData> {
+        None
+    }
     /// `setBlockState(state)`.
     fn set_block_state(&mut self, state: BlockState) {
         self.base_mut().block_state = state;
@@ -197,7 +208,7 @@ pub trait BlockEntity: Any {
     /// was replaced (containers drop their contents here). The entity is out of the chunk while this runs.
     fn pre_remove_side_effects(&mut self, _level: &mut crate::server::level::ServerLevel, _pos: BlockPos, _state: BlockState) {}
     /// `EntityBlock.getListener(level, blockEntity)`: the game event listener of this block entity, if it has one.
-    fn game_event_listener(&mut self) -> Option<&mut dyn crate::world::level::gameevent::GameEventListener> {
+    fn game_event_listener(&self) -> Option<crate::world::level::gameevent::BlockEntityListener> {
         None
     }
     // ==== [Blocks:TechnicalA] hooks ====
