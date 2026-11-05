@@ -300,7 +300,8 @@ pub fn place_new_player(
     player.send(&host.update_recipes_packet());
     send_player_permission_level(host, &handle);
     // `player.getStats().markAllDirty()`: the statistics are loaded (and their file created) with the first access
-    host.list().get_player_stats(&handle);
+    player.stats = host.list().get_player_stats(&handle);
+    player.stats.lock().mark_all_dirty();
     send_initial_recipe_book(&player);
     host.update_entire_scoreboard(&handle);
     host.invalidate_status();

@@ -49,7 +49,7 @@ fn passengers_and_self(level: &ServerLevel, root: EntityId) -> Vec<EntityId> {
 /// back, which applies the removal.
 pub fn remove(server: &mut MinecraftServer, level: &mut ServerLevel, player: &mut ServerPlayer) {
     let Some(handle) = player.handle.clone() else { return };
-    server.player_list.get_player_stats(&handle).increment("minecraft:custom", "minecraft:leave_game", 1);
+    server.player_list.get_player_stats(&handle).lock().increment(crate::stats::stats::Stats::LEAVE_GAME, 1);
     save_player(server, level, player);
     if let Some(vehicle) = player.base().vehicle {
         // root vehicle with exactly one player passenger (this one): it goes down with the player

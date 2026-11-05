@@ -123,6 +123,8 @@ pub struct ServerPlayer {
     /// `RootVehicle` tag read from the saved data (`loadAndSpawnParentVehicle` consumes it).
     pub saved_root_vehicle: Option<CompoundTag>,
     // ==== [Player] additions (ServerPlayer field) ====
+    /// `stats`: the player's statistics (shared with `PlayerList.stats`).
+    pub stats: crate::stats::SharedStats,
     // ==== [Level] additions (ServerPlayer field) ====
     // ==== [LivingCore] additions (ServerPlayer field) ====
     /// The server simulates this player's physics like a locally controlled `LocalPlayer` from `last_client_input` (the
@@ -193,6 +195,7 @@ impl ServerPlayer {
             dimension,
             saved_root_vehicle: None,
             // ==== [Player] additions (ServerPlayer::new initializer) ====
+            stats: crate::stats::SharedStats::new(crate::stats::ServerStatsCounter::detached()),
             // ==== [Level] additions (ServerPlayer::new initializer) ====
             // ==== [LivingCore] additions (ServerPlayer::new initializer) ====
             simulate_local_player: false,
