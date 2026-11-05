@@ -1236,6 +1236,10 @@ pub trait Entity: Any {
     fn remove(&mut self, reason: RemovalReason) {
         self.base_mut().set_removal_reason(reason);
         self.on_removal(reason);
+        // `LivingEntity.remove`: `this.brain.clearMemories()`
+        if let Some(l) = self.living_mut() {
+            l.brain.clear_memories();
+        }
     }
 
     /// `onRemoval(reason)`.
@@ -2787,6 +2791,19 @@ pub trait Entity: Any {
     /// broken stack stop (`stopLocationBasedEffects`: its attribute modifiers are removed, its enchantment effects deactivated).
     fn on_equipped_item_broken(&mut self, level: &mut ServerLevel, broken: &crate::world::item::ItemStack, slot: super::equipment::EquipmentSlot) {
         crate::world::item::enchantment::broken_item::on_equipped_item_broken(self.as_dyn_mut(), level, broken, slot);
+    }
+    // ==== [BrainFramework] additions (Entity trait methods) ====
+    /// `getBrain()` of a living entity (a brain-less `new Brain<>()` unless the mob made one); panics for non-living entities.
+    fn brain(&self) -> &super::ai::brain::Brain {
+        &self.living().expect("brain() on a non-living entity").brain
+    }
+    fn brain_mut(&mut self) -> &mut super::ai::brain::Brain {
+        &mut self.living_mut().expect("brain_mut() on a non-living entity").brain
+    }
+    /// `LivingEntity.makeBrain(packed)`: the default is `new Brain<>()`; mobs with a brain return
+    /// `BRAIN_PROVIDER.make_brain(self, packed)` (plus `registerBrainGoals` etc.).
+    fn make_brain(&mut self, _packed: &super::ai::memory::BrainPacked) -> super::ai::brain::Brain {
+        super::ai::brain::Brain::new()
     }
     // ==== [Loot] additions (Entity trait methods) ====
     /// `this instanceof SlotProvider` (entities whose slots `slot_range` loot sources read).

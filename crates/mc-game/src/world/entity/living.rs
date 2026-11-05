@@ -81,8 +81,8 @@ pub struct LivingEntityData {
     /// `lastHurtByPlayer` / `lastHurtByMob` references (UUIDs, `EntityReference`).
     pub last_hurt_by_player: Option<uuid::Uuid>,
     pub last_hurt_by_mob: Option<uuid::Uuid>,
-    /// `Brain.Packed` as saved (`{memories: {...}}`); brains are modelled by the AI slice.
-    pub brain: CompoundTag,
+    /// `brain` (`getBrain()`); `new Brain<>()` until the mob's constructor / `read_brain` runs `makeBrain`.
+    pub brain: super::ai::brain::Brain,
     // ==== [LivingCore] additions (LivingEntityData field) ====
     /// `lastClimbablePos` (set by `onClimbable()` of this entity's own movement).
     pub last_climbable_pos: Option<BlockPos>,
@@ -175,7 +175,7 @@ impl LivingEntityData {
             last_hurt_mob_timestamp: 0,
             last_hurt_by_player: None,
             last_hurt_by_mob: None,
-            brain: empty_brain(),
+            brain: super::ai::brain::Brain::new(),
             // ==== [LivingCore] additions (LivingEntityData::new initializer) ====
             last_climbable_pos: None,
             discard_friction: false,
@@ -259,12 +259,6 @@ impl LivingEntityData {
     }
 }
 
-fn empty_brain() -> CompoundTag {
-    let mut b = CompoundTag::new();
-    b.put("memories", Tag::Compound(CompoundTag::new()));
-    b
-}
-
 fn put_vec3(out: &mut CompoundTag, key: &str, v: Vec3) {
     let mut list = ListTag::new();
     list.push(Tag::double(v.x));
@@ -285,7 +279,7 @@ pub fn add_additional_save_data(living: &LivingEntityData, absorption_amount: f3
         put_vec3(out, "current_explosion_impact_pos", pos);
     }
     out.put("attributes", living.attributes.pack());
-    out.put("Brain", Tag::Compound(living.brain.clone()));
+    out.put("Brain", Tag::Compound(living.brain.pack().to_nbt()));
     if !living.active_effects.is_empty() {
         let mut list = ListTag::new();
         for e in living.active_effects.values() {
@@ -352,9 +346,7 @@ pub fn read_additional_save_data(living: &mut LivingEntityData, input: &Compound
         }
         None => living.clear_sleeping_pos(),
     }
-    if let Some(b) = input.get_compound("Brain") {
-        living.brain = b.clone();
-    }
+    // `this.brain = this.makeBrain(packed)` needs the whole entity: `ai::brain::read_brain` (called by the mob chain)
     living.last_hurt_by_player = super::entity::read_uuid(input.get("last_hurt_by_player"));
     living.last_hurt_by_player_memory_time = input.get_int_or("last_hurt_by_player_memory_time", 0);
     living.last_hurt_by_mob = super::entity::read_uuid(input.get("last_hurt_by_mob"));

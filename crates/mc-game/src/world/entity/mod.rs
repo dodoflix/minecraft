@@ -55,6 +55,7 @@ pub mod respawn;
 pub mod spawn_config;
 pub mod spawn_placements;
 pub mod spawn_predicates;
+pub mod schedule;
 pub use player::ServerPlayer;
 
 pub type EntityId = i32;
