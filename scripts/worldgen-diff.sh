@@ -24,7 +24,7 @@
 #                            but vanilla's cross-chunk feature writes then depend on thread scheduling: vanilla-vs-vanilla
 #                            differs). Measured: seq + max.bg.threads=1, area away from the spawn => vanilla-vs-vanilla identical
 #   --vanilla-jvm-opts "..." JVM flags for the vanilla server (default "-Dmax.bg.threads=1" = single worldgen worker)
-#   --no-cache               do not reuse/store the cached vanilla world (run/wgdiff-cache)
+#   --no-cache               do not reuse/store the cached vanilla world ($WGDIFF_CACHE, default /home/dodo/Projects/mc-wt/wgdiff-cache)
 #   --port N                 server port (default: a free one)
 #   --timeout S              per-wait timeout in seconds (default 1800)
 #   --compare-args "..."     extra args for worldcmp (it already gets --chunks <the area>: chunks around the area are full but
@@ -46,7 +46,7 @@
 #   FORCED ticket (= `forceload add`), wait until the chunk is ENTITY_TICKING and the chunk map idle for 20 ticks (= the
 #   `if loaded` + `sleep 1` above), finally halt => every level is saved like `save-all flush` + `stop`. Chunk generation
 #   runs on the chunk map's one serial worldgen thread, like vanilla with -Dmax.bg.threads=1. `--order batch` only affects
-#   vanilla. Vanilla worlds are cached under run/wgdiff-cache/<key> (key = every input that changes the vanilla world), so
+#   vanilla. Vanilla worlds are cached under $WGDIFF_CACHE (default /home/dodo/Projects/mc-wt/wgdiff-cache, shared by all worktrees)/<key> (key = every input that changes the vanilla world), so
 #   reruns only regenerate ours; --no-cache forces regeneration.
 #
 # Results & comparison
@@ -222,7 +222,7 @@ run_side() {   # run_side LABEL KIND
   log "side $label: $kind"
   if [[ "$kind" == vanilla ]]; then
     local name="wgdiff-$$-$label" vs="$ROOT/scripts/vanilla-server.sh" sd="$ROOT/run/servers/wgdiff-$$-$label" cache
-    cache="$ROOT/run/wgdiff-cache/$SEED-${DIMS//,/+}-${X1}_${Z1}_${X2}_$Z2-$(printf '%s' "$LEVELTYPE|$GENSET|$DIFFICULTY|$GAMEMODE|$ORDER|$VANILLA_JVM_OPTS" | sha1sum | cut -c1-8)"
+    cache="${WGDIFF_CACHE:-/home/dodo/Projects/mc-wt/wgdiff-cache}/$SEED-${DIMS//,/+}-${X1}_${Z1}_${X2}_$Z2-$(printf '%s' "$LEVELTYPE|$GENSET|$DIFFICULTY|$GAMEMODE|$ORDER|$VANILLA_JVM_OPTS" | sha1sum | cut -c1-8)"
     if [[ "$CACHE" == 1 && -d "$cache/world" ]]; then log "side $label: vanilla world from cache $cache"; cp -a "$cache/world" "$cache/server.properties" "$cache/logs" "$d/"; return; fi
     "$vs" start "$name" --port "$PORT" --seed "$SEED" --level-type "$LEVELTYPE" --view-distance 3 --simulation-distance 3 \
       --gamemode "$GAMEMODE" --difficulty "$DIFFICULTY" --reset -- generate-structures=true max-players=0 \
@@ -236,7 +236,7 @@ run_side() {   # run_side LABEL KIND
     fi
   else
     if [[ -z "$BIN" ]]; then   # always: stays current (incremental)
-      (cd "$ROOT" && CARGO_TARGET_DIR=target/worldgen-diff flock /tmp/mc-build.lock nice -n 10 env CARGO_BUILD_JOBS=6 cargo build -q -p mc-game --example worldgen_area 2>"$d/cargo.log") || { tail -30 "$d/cargo.log" >&2; die "cannot build worldgen_area"; }
+      (cd "$ROOT" && CARGO_TARGET_DIR=target/worldgen-diff ./scripts/cargo-locked.sh build -q -p mc-game --example worldgen_area 2>"$d/cargo.log") || { tail -30 "$d/cargo.log" >&2; die "cannot build worldgen_area"; }
       BIN="$ROOT/target/worldgen-diff/debug/examples/worldgen_area"
     fi
     BIN="$(realpath "$BIN")"; [[ -x "$BIN" ]] || die "worldgen_area binary not found: $BIN"
@@ -260,7 +260,7 @@ run_side "$SIDE_A" A
 run_side "$SIDE_B" B
 [[ "$COMPARE" == 1 ]] || { log "generated; skipped compare"; exit 0; }
 
-[[ -n "${WORLDCMP:-}" ]] || (cd "$ROOT" && CARGO_TARGET_DIR=target/worldcmp flock /tmp/mc-build.lock nice -n 10 env CARGO_BUILD_JOBS=6 cargo build -q -p worldcmp) || die "cannot build worldcmp"   # always: stays current
+[[ -n "${WORLDCMP:-}" ]] || (cd "$ROOT" && CARGO_TARGET_DIR=target/worldcmp ./scripts/cargo-locked.sh build -q -p worldcmp) || die "cannot build worldcmp"   # always: stays current
 WORLDCMP="${WORLDCMP:-$ROOT/target/worldcmp/debug/worldcmp}"
 set +e
 # shellcheck disable=SC2086
