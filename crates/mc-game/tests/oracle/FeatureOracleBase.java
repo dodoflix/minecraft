@@ -219,7 +219,10 @@ public class FeatureOracleBase {
         public long seed;
         public long gameTime;
         public Map<Long, ProtoChunk> chunks = new HashMap<>();
+        /** Optional stub returned by {@code getLevel()} (null = vanilla's null level of this harness). */
+        public net.minecraft.server.level.ServerLevel serverLevel;
 
+        @Override public net.minecraft.server.level.ServerLevel getLevel() { return serverLevel; }
         @Override public int getMinY() { return MIN_Y; }
         @Override public int getHeight() { return HEIGHT; }
         @Override public int getSeaLevel() { return SEA_LEVEL; }
