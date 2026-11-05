@@ -11,7 +11,7 @@ use crate::world::entity::{Entity, EntityId};
 use crate::world::item::{ItemStack, ItemStackExt};
 use crate::world::level::block::{BlockStateExt, behaviour};
 use crate::world::level::collision::{BlockGetterExt, ClipBlock, ClipContext, ClipFluid};
-use crate::world::level::levelgen::feature::tree::java_hash_set::BlockPosHashSet;
+use super::java_hash_set::JavaBlockPosHashSet;
 use crate::world::level::material::FluidStateExt as _;
 use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_core::math::mth;
@@ -163,7 +163,7 @@ impl<'a> ServerExplosion<'a> {
     /// `calculateExplodedPositions()`: the `HashSet<BlockPos>` of the rays in Java iteration order.
     fn calculate_exploded_positions(&self, level: &mut ServerLevel) -> Vec<BlockPos> {
         let calculator = self.damage_calculator.get();
-        let mut to_blow_set = BlockPosHashSet::new();
+        let mut to_blow_set = JavaBlockPosHashSet::new();
         for xx in 0..16 {
             for yy in 0..16 {
                 for zz in 0..16 {
