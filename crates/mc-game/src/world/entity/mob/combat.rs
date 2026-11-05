@@ -115,3 +115,40 @@ pub fn get_team_name(level: &ServerLevel, e: &dyn Entity) -> Option<String> {
     let member = super::ext::team_member_name(level, e)?;
     level.scoreboard().get_players_team(&member).map(|t| t.get_name().to_string())
 }
+
+/// `Mob.lookAt(entity, yMax, xMax)`: turns the mob's own rotation towards `entity` (not the look control).
+pub fn look_at(e: &mut dyn Entity, entity: &dyn Entity, y_max: f32, x_max: f32) {
+    use mc_core::math::mth;
+    let xd = entity.base().x() - e.base().x();
+    let zd = entity.base().z() - e.base().z();
+    let yd = if entity.living().is_some() {
+        entity.base().get_eye_y() - e.base().get_eye_y()
+    } else {
+        let bb = entity.get_bounding_box();
+        (bb.min_y + bb.max_y) / 2.0 - e.base().get_eye_y()
+    };
+    let sd = (xd * xd + zd * zd).sqrt();
+    let y_rot_d = (mth::atan2(zd, xd) * f64::from(180.0_f32) / f64::from(std::f32::consts::PI)) as f32 - 90.0;
+    let x_rot_d = (-(mth::atan2(yd, sd) * f64::from(180.0_f32) / f64::from(std::f32::consts::PI))) as f32;
+    let new_x = rotlerp(e.base().x_rot(), x_rot_d, x_max);
+    e.base_mut().set_x_rot(new_x);
+    let new_y = rotlerp(e.base().y_rot(), y_rot_d, y_max);
+    e.base_mut().set_y_rot(new_y);
+}
+
+/// `Mob.rotlerp(a, b, max)`.
+fn rotlerp(a: f32, b: f32, max: f32) -> f32 {
+    let mut diff = mc_core::math::mth::wrap_degrees_f32(b - a);
+    if diff > max {
+        diff = max;
+    }
+    if diff < -max {
+        diff = -max;
+    }
+    a + diff
+}
+
+/// `isHolding(item)`: main or off hand.
+pub fn is_holding(e: &dyn Entity, item: mc_data::Item) -> bool {
+    e.get_item_by_slot(EquipmentSlot::MainHand).item() == item || e.get_item_by_slot(EquipmentSlot::OffHand).item() == item
+}

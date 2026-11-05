@@ -5,6 +5,7 @@ mod nearest_attackable_target_goal;
 mod non_tame_random_target_goal;
 mod owner_hurt_by_target_goal;
 mod owner_hurt_target_goal;
+mod nearest_attackable_witch_target_goal;
 mod target_goal;
 
 pub use hurt_by_target_goal::{AlertOtherFn, HurtByTargetGoal};
@@ -12,6 +13,7 @@ pub use nearest_attackable_target_goal::{NearestAttackableTargetGoal, SearchArea
 pub use non_tame_random_target_goal::NonTameRandomTargetGoal;
 pub use owner_hurt_by_target_goal::OwnerHurtByTargetGoal;
 pub use owner_hurt_target_goal::OwnerHurtTargetGoal;
+pub use nearest_attackable_witch_target_goal::NearestAttackableWitchTargetGoal;
 pub use target_goal::TargetGoal;
 
 use crate::world::entity::Entity;
