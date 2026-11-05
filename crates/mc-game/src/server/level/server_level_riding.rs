@@ -21,42 +21,65 @@ use mc_data::enums::Pose;
 impl ServerLevel {
     /// `Entity.startRiding(vehicle, force, sendEventAndTriggers)`.
     pub fn start_riding(&mut self, rider: &mut dyn Entity, vehicle_id: EntityId, force: bool, send_event_and_triggers: bool) -> bool {
+        self.start_riding_impl(rider, vehicle_id, None, force, send_event_and_triggers)
+    }
+
+    /// `startRiding` where the vehicle is at hand (taken out of the level, e.g. while its own `interact` runs).
+    pub fn start_riding_held(&mut self, rider: &mut dyn Entity, vehicle: &mut dyn Entity, force: bool, send_event_and_triggers: bool) -> bool {
+        let vehicle_id = vehicle.id();
+        self.start_riding_impl(rider, vehicle_id, Some(vehicle), force, send_event_and_triggers)
+    }
+
+    fn start_riding_impl(&mut self, rider: &mut dyn Entity, vehicle_id: EntityId, mut held_vehicle: Option<&mut dyn Entity>, force: bool, send_event_and_triggers: bool) -> bool {
         if rider.base().vehicle == Some(vehicle_id) {
             return false;
         }
-        let Some(vehicle) = self.entity_manager.get_any(vehicle_id) else { return false };
-        if !vehicle.could_accept_passenger() || !vehicle.get_type().data().serializable {
-            return false;
-        }
-        // a vehicle that (indirectly) rides the rider would make a cycle
-        let mut cur = vehicle.base().vehicle;
-        while let Some(v) = cur {
-            if v == rider.id() {
+        {
+            let vehicle: &dyn Entity = match held_vehicle.as_deref() {
+                Some(v) => v,
+                None => match self.entity_manager.get_any(vehicle_id) {
+                    Some(v) => v,
+                    None => return false,
+                },
+            };
+            if !vehicle.could_accept_passenger() || !vehicle.get_type().data().serializable {
                 return false;
             }
-            cur = self.entity_manager.get_any(v).and_then(|e| e.base().vehicle);
-        }
-        if !(force || (rider.can_ride(vehicle) && vehicle.can_add_passenger(rider.as_dyn()))) {
-            return false;
+            // a vehicle that (indirectly) rides the rider would make a cycle
+            let mut cur = vehicle.base().vehicle;
+            while let Some(v) = cur {
+                if v == rider.id() {
+                    return false;
+                }
+                cur = self.entity_manager.get_any(v).and_then(|e| e.base().vehicle);
+            }
+            if !(force || (rider.can_ride(vehicle) && vehicle.can_add_passenger(rider.as_dyn()))) {
+                return false;
+            }
         }
         if rider.base().is_passenger() {
             self.stop_riding(rider);
         }
         rider.set_pose(Pose::Standing);
         rider.base_mut().vehicle = Some(vehicle_id);
-        let first_is_player = self
-            .entity_manager
-            .get_any(vehicle_id)
-            .and_then(|v| v.base().passengers.first().copied())
-            .and_then(|p| self.entity_manager.get_any(p))
-            .is_some_and(|p| p.is_player());
-        let rider_id = rider.id();
-        let position = {
-            let Some(v) = self.entity_manager.get_any_mut(vehicle_id) else { return false };
-            v.add_passenger(&*rider, first_is_player);
-            v.base().position()
+        let first_passenger = match held_vehicle.as_deref() {
+            Some(v) => v.base().passengers.first().copied(),
+            None => self.entity_manager.get_any(vehicle_id).and_then(|v| v.base().passengers.first().copied()),
         };
-        let _ = rider_id;
+        let first_is_player = first_passenger.and_then(|p| self.entity_manager.get_any(p)).is_some_and(|p| p.is_player());
+        let position = match held_vehicle.as_deref_mut() {
+            Some(v) => {
+                v.add_passenger(&*rider, first_is_player);
+                v.after_add_passenger(rider);
+                v.base().position()
+            }
+            None => {
+                let Some(v) = self.entity_manager.get_any_mut(vehicle_id) else { return false };
+                v.add_passenger(&*rider, first_is_player);
+                v.after_add_passenger(rider);
+                v.base().position()
+            }
+        };
         if send_event_and_triggers {
             self.game_event_from_entity(Some(rider.id()), GameEvent::ENTITY_MOUNT, position);
             // `CriteriaTriggers.START_RIDING_TRIGGER` for the players among the vehicle's indirect passengers is not modelled

@@ -2770,6 +2770,43 @@ pub trait Entity: Any {
     fn ate(&mut self, level: &mut ServerLevel) {
         self.game_event(level, mc_data::GameEvent::EAT);
     }
+    /// `addPassenger(passenger)`'s effect on the new rider (`AbstractHorse`/`Camel`: `passenger.absSnapRotationTo(...)`).
+    fn after_add_passenger(&self, _passenger: &mut dyn Entity) {}
+    /// `this instanceof AbstractHorse` (horses, donkeys, mules, llamas, skeleton/zombie horses).
+    fn as_abstract_horse(&self) -> Option<&dyn super::animal::equine::AbstractHorse> {
+        None
+    }
+    fn as_abstract_horse_mut(&mut self) -> Option<&mut dyn super::animal::equine::AbstractHorse> {
+        None
+    }
+    /// `this instanceof HasCustomInventoryScreen` (`ServerboundPlayerCommandPacket.OPEN_INVENTORY`).
+    fn has_custom_inventory_screen(&self) -> bool {
+        false
+    }
+    /// `HasCustomInventoryScreen.openCustomInventoryScreen(player)`.
+    fn open_custom_inventory_screen(&mut self, _level: &mut ServerLevel, _player: &mut super::ServerPlayer) {}
+    /// `this instanceof PlayerRideableJumping`.
+    fn is_player_rideable_jumping(&self) -> bool {
+        false
+    }
+    /// `PlayerRideableJumping.onPlayerJump(jumpAmount)`.
+    fn on_player_jump(&mut self, _jump_amount: i32) {}
+    /// `PlayerRideableJumping.canJump()`.
+    fn can_jump(&self) -> bool {
+        false
+    }
+    /// `PlayerRideableJumping.handleStartJump(jumpScale)`.
+    fn handle_start_jump(&mut self, _level: &mut ServerLevel, _jump_scale: i32) {}
+    /// `PlayerRideableJumping.handleStopJump()`.
+    fn handle_stop_jump(&mut self) {}
+    /// `Mob.chargeSpeedModifier()` (the speed factor of a mounted spear charge; `ZombieHorse`, `CamelHusk` change it).
+    fn charge_speed_modifier(&self) -> f32 {
+        1.0
+    }
+    /// `WanderingTrader.getDespawnDelay()`; `None` when the entity is not a wandering trader (`TraderLlama`'s leash checks).
+    fn wandering_trader_despawn_delay(&self) -> Option<i32> {
+        None
+    }
     /// `LivingEntity.setJumping(jump)` (`JumpControl.tick`; `Rabbit` plays the jump sound).
     fn set_jumping(&mut self, _level: &mut ServerLevel, jump: bool) {
         if let Some(l) = self.living_mut() {

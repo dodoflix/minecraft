@@ -449,7 +449,7 @@ pub fn calculate_fall_damage(entity: &dyn Entity, fall_distance: f64, damage_mod
 }
 
 /// `LivingEntity.playBlockFallSound()`.
-fn play_block_fall_sound(entity: &mut dyn Entity, level: &mut ServerLevel) {
+pub fn play_block_fall_sound(entity: &mut dyn Entity, level: &mut ServerLevel) {
     use crate::world::level::block::state::BlockStateExt as _;
     use crate::world::level::level_access::BlockGetter as _;
     if entity.base().is_silent() {

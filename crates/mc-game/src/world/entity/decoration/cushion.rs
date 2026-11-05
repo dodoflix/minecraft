@@ -275,7 +275,7 @@ impl Entity for Cushion {
     fn interact(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, _hand: InteractionHand, _location: Vec3) -> InteractionResult {
         if player.is_shift_key_down() || self.base.is_vehicle() {
             InteractionResult::PASS
-        } else if level.start_riding(player, self.base.id, false, true) {
+        } else if level.start_riding_held(player, self, false, true) {
             self.play_sound(level, SoundEvent::ENTITY_CUSHION_SIT, 1.0, 1.0);
             InteractionResult::SUCCESS_SERVER
         } else {
