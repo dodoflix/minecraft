@@ -100,10 +100,15 @@ public class PoiOracle {
             case "gettype": return m.getType(new BlockPos(i(a, 1), i(a, 2), i(a, 3))).map(Holder::getRegisteredName).orElse("none");
             case "village": return String.valueOf(m.sectionsToVillage(SectionPos.of(i(a, 1), i(a, 2), i(a, 3))));
             case "inchunk": return list(m.getInChunk(pred(a[4]), new ChunkPos(i(a, 1), i(a, 2)), occ(a[3])));
-            case "flush": m.flush(new ChunkPos(i(a, 1), i(a, 2))); return "void";
-            case "tick": m.tick(() -> true); return "void";
+            case "flush": m.flush(new ChunkPos(i(a, 1), i(a, 2))); settle(); return "void";
+            case "tick": m.tick(() -> true); settle(); return "void";
             default: throw new IllegalArgumentException(line);
         }
+    }
+
+    /** The IOWorker stores asynchronously and can lose a write submitted while the same chunk is being stored: let it finish. */
+    static void settle() {
+        try { Thread.sleep(50); } catch (InterruptedException e) { throw new RuntimeException(e); }
     }
 
     static int i(String[] a, int k) { return Integer.parseInt(a[k]); }
@@ -174,6 +179,7 @@ public class PoiOracle {
                     System.out.println(line + " => " + run(m, line));
                 }
             }
+            settle();
             m.flushAll();
             m.close();
             SimpleRegionStorage storage = new SimpleRegionStorage(INFO.info, dir, DataFixers.getDataFixer(), true, DataFixTypes.POI_CHUNK);
