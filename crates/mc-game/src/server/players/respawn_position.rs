@@ -1,10 +1,7 @@
 //! `ServerPlayer.setRespawnPosition` / `copyRespawnPosition` and `RespawnAnchorBlock.canSetSpawn`'s attribute read.
 
-use crate::server::level::ServerLevel;
-use crate::world::attribute::AttributeEnv;
 use crate::world::entity::ServerPlayer;
 use crate::world::entity::respawn::RespawnConfig;
-use mc_core::pos::BlockPos;
 use mc_text::Component;
 
 impl ServerPlayer {
@@ -17,14 +14,5 @@ impl ServerPlayer {
             self.send_system_message(Component::translatable("block.minecraft.set_spawn", Vec::new()));
         }
         self.respawn_config = respawn_config;
-    }
-}
-
-impl ServerLevel {
-    /// `environmentAttributes().getValue(EnvironmentAttributes.RESPAWN_ANCHOR_WORKS, pos)` (`canSetSpawn`): a dimension
-    /// constant in vanilla's data.
-    pub fn respawn_anchor_works(&self, _pos: BlockPos) -> bool {
-        let env = AttributeEnv { clock_total_ticks: &|_| 0, rain_level: 0.0, thunder_level: 0.0 };
-        self.tick_state.attributes.get_bool("gameplay/respawn_anchor_works", &env)
     }
 }

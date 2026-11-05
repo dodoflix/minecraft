@@ -17,7 +17,7 @@ impl ServerLevel {
 
     /// `canSleepThroughNights()`: `playersSleepingPercentage <= 100`.
     pub fn can_sleep_through_nights(&self) -> bool {
-        self.tick_state.rules.players_sleeping_percentage <= 100
+        self.players_sleeping_percentage() <= 100
     }
 
     /// `getBedRule(level, pos)` of a bed block (`straw` selects `STRAW_BED_RULE`).
