@@ -183,6 +183,7 @@ fn function_command_feedback_results_and_return_forms() {
 fn macro_functions_and_their_errors() {
     let _s = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
     let (mut server, _pack, _keep) = server_with_pack();
+    server.tick_functions();
 
     let o = run(&mut server, "function fn:macro {a:1,b:\"x y\"}");
     assert_eq!(o.messages, ["Running function fn:macro"]);
@@ -283,15 +284,15 @@ fn reload_picks_up_edited_functions_and_datapack_toggles_them() {
 
     let o = run(&mut server, "datapack list enabled");
     assert!(o.messages[0].starts_with("There are 2 data pack(s) enabled: ") && o.messages[0].contains("[file/fnpack (world)]"), "{:?}", o.messages);
-    assert_eq!(run(&mut server, "datapack disable file/fnpack").messages, ["Disabling data pack [file/fnpack (world)]"]);
-    assert_eq!(run(&mut server, "datapack disable file/fnpack").messages, ["Pack 'file/fnpack' is not enabled!"]);
+    assert_eq!(run(&mut server, "datapack disable \"file/fnpack\"").messages, ["Disabling data pack [file/fnpack (world)]"]);
+    assert_eq!(run(&mut server, "datapack disable \"file/fnpack\"").messages, ["Pack 'file/fnpack' is not enabled!"]);
     assert!(run(&mut server, "function fn:hello").messages[0].contains("fn:hello"));
     assert_eq!(storage(&mut server, "fn:state", "hello"), Some(Tag::Byte(2)));
     run(&mut server, "data remove storage fn:state hello");
     run(&mut server, "function fn:hello");
     assert_eq!(storage(&mut server, "fn:state", "hello"), None, "functions of a disabled pack are gone");
-    assert_eq!(run(&mut server, "datapack enable file/fnpack").messages, ["Enabling data pack [file/fnpack (world)]"]);
-    assert_eq!(run(&mut server, "datapack enable file/fnpack").messages, ["Pack 'file/fnpack' is already enabled!"]);
+    assert_eq!(run(&mut server, "datapack enable \"file/fnpack\"").messages, ["Enabling data pack [file/fnpack (world)]"]);
+    assert_eq!(run(&mut server, "datapack enable \"file/fnpack\"").messages, ["Pack 'file/fnpack' is already enabled!"]);
     run(&mut server, "function fn:hello");
     assert_eq!(storage(&mut server, "fn:state", "hello"), Some(Tag::Byte(2)));
     assert_eq!(run(&mut server, "datapack enable nope").messages, ["Unknown data pack 'nope'"]);

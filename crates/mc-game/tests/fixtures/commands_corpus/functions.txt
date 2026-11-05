@@ -94,23 +94,23 @@ data get storage fn:state loaded
 datapack list
 datapack list enabled
 datapack list available
-datapack disable file/fnpack
-datapack disable file/fnpack
+datapack disable "file/fnpack"
+datapack disable "file/fnpack"
 datapack disable nothere
 !ticks 2
 function fn:hello
-datapack enable file/fnpack
-datapack enable file/fnpack
+datapack enable "file/fnpack"
+datapack enable "file/fnpack"
 datapack enable "file/fnpack" first
-datapack enable file/fnpack last
-datapack enable file/fnpack before vanilla
-datapack enable file/fnpack after vanilla
+datapack enable "file/fnpack" last
+datapack enable "file/fnpack" before vanilla
+datapack enable "file/fnpack" after vanilla
 datapack enable bogus
 datapack enable
 !ticks 2
 function fn:hello
 datapack create
-datapack create bad!name {"text":"x"}
+datapack create "bad!name" {"text":"x"}
 datapack create fnpack {"text":"x"}
 # debug (profiling durations and trace file names are timestamps)
 !ignore Stopped tick profiling
