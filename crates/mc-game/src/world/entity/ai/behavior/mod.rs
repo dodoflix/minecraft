@@ -104,6 +104,8 @@ pub mod look_at_target_sink;
 pub mod move_to_target_sink;
 pub mod one_shot;
 pub mod position_tracker;
+pub mod prepare_ram_nearest_target;
+pub mod ram_target;
 pub mod random_look_around;
 pub mod random_stroll;
 pub mod set_entity_look_target;
