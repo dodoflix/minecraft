@@ -1,5 +1,5 @@
 //! `worldcmp A_DIR B_DIR [--dim overworld,nether,end] [--chunks x1,z1,x2,z2] [--ignore-status-below full]
-//! [--max-listed N] [--report out.txt|out.json]`
+//! [--max-listed N] [--ignore cat[,cat..]] [--report out.txt|out.json]`
 //!
 //! Compares the region files of two worlds chunk by chunk (see `compare.rs` for what is compared / ignored). The text
 //! report always goes to stdout; `--report` additionally writes it to a file (JSON if the name ends in `.json`).
@@ -8,12 +8,12 @@
 use std::path::PathBuf;
 use std::process::ExitCode;
 
-use worldcmp::compare::status_rank;
+use worldcmp::compare::{status_rank, Category};
 use worldcmp::world::{compare_dimension, render_json, render_text, Filter};
 
 fn usage() -> ExitCode {
     eprintln!(
-        "usage: worldcmp A_DIR B_DIR [--dim overworld,nether,end] [--chunks x1,z1,x2,z2] [--ignore-status-below full] [--max-listed N=10] [--report out.txt|out.json]"
+        "usage: worldcmp A_DIR B_DIR [--dim overworld,nether,end] [--chunks x1,z1,x2,z2] [--ignore-status-below full] [--max-listed N=10] [--ignore cat[,cat..]] [--report out.txt|out.json]"
     );
     ExitCode::from(2)
 }
@@ -21,7 +21,7 @@ fn usage() -> ExitCode {
 fn main() -> ExitCode {
     let mut args = std::env::args().skip(1);
     let (mut pos, mut dims, mut report) = (Vec::<String>::new(), vec!["overworld".to_owned(), "the_nether".into(), "the_end".into()], None);
-    let mut f = Filter { chunks: None, min_status: status_rank("full").unwrap_or(0), max_listed: 10 };
+    let mut f = Filter { chunks: None, min_status: status_rank("full").unwrap_or(0), max_listed: 10, ignore: Vec::new() };
     while let Some(a) = args.next() {
         let mut val = || args.next();
         match a.as_str() {
@@ -42,6 +42,10 @@ fn main() -> ExitCode {
             },
             "--max-listed" => match val().and_then(|v| v.parse().ok()) {
                 Some(n) => f.max_listed = n,
+                None => return usage(),
+            },
+            "--ignore" => match val().and_then(|v| v.split(',').map(Category::from_name).collect::<Option<Vec<_>>>()) {
+                Some(c) => f.ignore.extend(c),
                 None => return usage(),
             },
             "--report" => report = val(),

@@ -60,8 +60,10 @@ impl Store {
     }
 }
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Debug)]
 pub struct Filter {
+    /// Categories whose differences are dropped (documented known residuals).
+    pub ignore: Vec<Category>,
     /// Inclusive chunk rectangle `(x1, z1, x2, z2)`.
     pub chunks: Option<(i32, i32, i32, i32)>,
     /// Chunks whose `Status` ranks below this (in either world) are skipped.
@@ -72,6 +74,7 @@ pub struct Filter {
 #[derive(Default, Debug)]
 pub struct DimReport {
     pub dim: String,
+    pub ignored: Vec<&'static str>,
     pub present_a: u64,
     pub present_b: u64,
     pub compared: u64,
@@ -101,7 +104,7 @@ fn rank(c: &CompoundTag) -> usize {
 pub fn compare_dimension(a_world: &Path, b_world: &Path, dim: &str, f: &Filter) -> DimReport {
     let (name, da) = dimension_dir(a_world, dim);
     let (_, db) = dimension_dir(b_world, dim);
-    let mut r = DimReport { dim: name.clone(), ..DimReport::default() };
+    let mut r = DimReport { dim: name.clone(), ignored: f.ignore.iter().map(|c| c.name()).collect(), ..DimReport::default() };
     let (mut ca, mut cb) = (Store::new(da.join("region"), &name, "chunk"), Store::new(db.join("region"), &name, "chunk"));
     let (mut ea, mut eb) = (Store::new(da.join("entities"), &name, "entities"), Store::new(db.join("entities"), &name, "entities"));
     let regions: BTreeSet<(i32, i32)> = ca.regions().union(&cb.regions()).copied().collect();
@@ -137,6 +140,13 @@ pub fn compare_dimension(a_world: &Path, b_world: &Path, dim: &str, f: &Filter) 
                         match (ea.read(pos), eb.read(pos)) {
                             (Ok(x), Ok(y)) => compare_entity_chunks(x.as_ref(), y.as_ref(), &mut d),
                             (x, y) => r.errors.extend([x.err(), y.err()].into_iter().flatten()),
+                        }
+                        d.cats.retain(|c, _| !f.ignore.contains(c));
+                        if f.ignore.contains(&Category::Blocks) {
+                            d.block_hist.clear();
+                        }
+                        if f.ignore.contains(&Category::StructureStarts) {
+                            d.starts.clear();
                         }
                         if d.is_empty() {
                             r.identical += 1;
@@ -179,6 +189,9 @@ pub fn render_text(a: &str, b: &str, dims: &[DimReport], max_chunks_listed: usiz
             r.present_a, r.present_b, r.compared, r.identical, r.differing.len(), r.only_a, r.only_b, r.skipped_status
         )
         .unwrap();
+        if !r.ignored.is_empty() {
+            writeln!(s, "ignored categories: {}", r.ignored.join(", ")).unwrap();
+        }
         for e in &r.errors {
             writeln!(s, "ERROR {e}").unwrap();
         }
@@ -270,8 +283,9 @@ pub fn render_json(a: &str, b: &str, dims: &[DimReport]) -> String {
                     .collect(),
             );
             format!(
-                "{{\"dim\":{},\"present_a\":{},\"present_b\":{},\"compared\":{},\"identical\":{},\"differing\":{},\"only_a\":{},\"only_b\":{},\"skipped_status\":{},\"clean\":{},\"errors\":{},\"category_totals\":{totals},\"structure_start_mismatches\":{starts},\"block_histogram\":{hist},\"differing_chunks\":{chunks}}}",
+                "{{\"dim\":{},\"present_a\":{},\"present_b\":{},\"compared\":{},\"identical\":{},\"differing\":{},\"only_a\":{},\"only_b\":{},\"skipped_status\":{},\"clean\":{},\"ignored\":{},\"errors\":{},\"category_totals\":{totals},\"structure_start_mismatches\":{starts},\"block_histogram\":{hist},\"differing_chunks\":{chunks}}}",
                 js(&r.dim), r.present_a, r.present_b, r.compared, r.identical, r.differing.len(), r.only_a, r.only_b, r.skipped_status, r.is_clean(),
+                arr(r.ignored.iter().map(|e| js(e)).collect()),
                 arr(r.errors.iter().map(|e| js(e)).collect())
             )
         })

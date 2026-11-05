@@ -61,6 +61,10 @@ impl Category {
         Category::Other,
     ];
 
+    pub fn from_name(n: &str) -> Option<Category> {
+        Category::ALL.into_iter().find(|c| c.name() == n)
+    }
+
     pub fn name(self) -> &'static str {
         match self {
             Category::Status => "status",

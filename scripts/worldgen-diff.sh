@@ -2,13 +2,17 @@
 # Differential world-generation harness: generate the same area with the real vanilla server and with OUR server, then
 # compare the two worlds' region files chunk by chunk with `worldcmp` (tools/worldcmp).
 #
-#   scripts/worldgen-diff.sh --seed S --center X,Z --radius R --out DIR [options]
+#   scripts/worldgen-diff.sh SEED DIM CENTER_X CENTER_Z RADIUS_CHUNKS [options]     (DIM = overworld|nether|end|all)
+#   scripts/worldgen-diff.sh --seed S --dims D --center X,Z --radius R [--out DIR] [options]
+#   scripts/worldgen-diff.sh --cases scripts/worldgen-diff-cases.txt [--only REGEX] [options]   (one run per case line)
 #
+#   --cases FILE             run every `seed dim center_x center_z radius [label]` line (# comments); --only REGEX filters
+#                            lines; the exit status is the worst of the runs. Each run goes to run/wgdiff/<seed>-<dim>-<x>_<z>.
 #   --seed S                 level-seed (default 12345)
 #   --dims overworld,nether,end   dimensions to generate (default overworld)
 #   --center X,Z             BLOCK coordinates of the area centre (default 0,0)
 #   --radius R               radius in CHUNKS: the area is (2R+1)^2 chunks around the centre chunk (default 8)
-#   --out DIR                output dir (required); DIR/A/world, DIR/B/world, DIR/report.txt, DIR/report.json
+#   --out DIR                output dir (default run/wgdiff/<seed>-<dims>-<cx>_<cz>); DIR/A/world, DIR/B/world, DIR/report.txt, DIR/report.json
 #   --sides A,B              what runs as side A and B: vanilla|ours (default vanilla,ours). `vanilla,vanilla` is the
 #                            determinism sanity run (harness vs vanilla's own nondeterminism).
 #   --generator-settings S   server.properties generator-settings (flat presets etc.)
@@ -59,10 +63,14 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 die() { echo "worldgen-diff: $*" >&2; exit 2; }
 log() { echo "[worldgen-diff] $*" >&2; }
 
-SEED=12345 DIMS=overworld CENTER=0,0 RADIUS=8 OUT="" SIDES=vanilla,ours GENSET="" LEVELTYPE=minecraft:normal
+ORIG_ARGS=("$@")
+SEED=12345 DIMS=overworld CENTER=0,0 RADIUS=8 OUT="" CASES="" ONLY="" SIDES=vanilla,ours GENSET="" LEVELTYPE=minecraft:normal
 ORDER=batch DIFFICULTY=normal GAMEMODE=survival BIN="${MC_SERVER_BIN:-}" BOTSEC=90 PORT="" TMO=1800 CMPARGS="" COMPARE=1
+if (($# >= 5)) && [[ "$1" != --* ]]; then SEED="$1" DIMS="$2" CENTER="$3,$4" RADIUS="$5"; shift 5; fi
 while (($#)); do
   case "$1" in
+    --cases) CASES="$2"; shift 2;;
+    --only) ONLY="$2"; shift 2;;
     --seed) SEED="$2"; shift 2;;
     --dims) DIMS="$2"; shift 2;;
     --center) CENTER="$2"; shift 2;;
@@ -84,14 +92,28 @@ while (($#)); do
     *) die "unknown option $1";;
   esac
 done
-[[ -n "$OUT" ]] || die "--out DIR is required"
-mkdir -p "$OUT"; OUT="$(cd "$OUT" && pwd)"
+if [[ -n "$CASES" ]]; then   # re-invoke ourselves once per case; extra options (sides, bin, compare-args, ...) are passed on
+  passthru=()
+  for ((i = 1; i <= ${#ORIG_ARGS[@]}; i++)); do
+    case "${ORIG_ARGS[i-1]}" in --cases|--only) i=$((i + 1));; *) passthru+=("${ORIG_ARGS[i-1]}");; esac
+  done
+  rc=0
+  while read -r seed dim x z radius label; do
+    [[ -z "$seed" || "$seed" == \#* ]] && continue
+    [[ -z "$ONLY" || "$seed $dim $x $z $radius $label" =~ $ONLY ]] || continue
+    "$ROOT/scripts/worldgen-diff.sh" "$seed" "$dim" "$x" "$z" "$radius" "${passthru[@]}" || { r=$?; ((r > rc)) && rc=$r; }
+  done < "$CASES"
+  exit "$rc"
+fi
+[[ "$DIMS" == all ]] && DIMS=overworld,nether,end
 [[ "$CENTER" =~ ^-?[0-9]+,-?[0-9]+$ ]] || die "--center must be X,Z (blocks)"
 [[ "$RADIUS" =~ ^[0-9]+$ ]] || die "--radius must be a non-negative integer"
 IFS=, read -r SIDE_A SIDE_B <<<"$SIDES"
 for s in "$SIDE_A" "$SIDE_B"; do [[ "$s" == vanilla || "$s" == ours ]] || die "--sides must be vanilla|ours,vanilla|ours"; done
 [[ -n "$PORT" ]] || PORT="$(python3 -c 'import socket; s=socket.socket(); s.bind(("127.0.0.1",0)); print(s.getsockname()[1])')"
 CX=$(( ${CENTER%,*} >> 4 )) CZ=$(( ${CENTER#*,} >> 4 ))   # arithmetic shift = floorDiv(x, 16)
+[[ -n "$OUT" ]] || OUT="$ROOT/run/wgdiff/$SEED-${DIMS//,/+}-${CX}_$CZ"
+mkdir -p "$OUT"; OUT="$(cd "$OUT" && pwd)"
 X1=$((CX - RADIUS)) X2=$((CX + RADIUS)) Z1=$((CZ - RADIUS)) Z2=$((CZ + RADIUS))
 
 dim_id() { case "$1" in overworld) echo minecraft:overworld;; nether|the_nether) echo minecraft:the_nether;; end|the_end) echo minecraft:the_end;; *:*) echo "$1";; *) die "unknown dimension $1";; esac; }

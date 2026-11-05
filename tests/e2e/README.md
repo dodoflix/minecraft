@@ -62,3 +62,15 @@ Startup to in-world takes ~10–20 s; first run also downloads ~220 MB.
 
 `--keep-client` leaves the client running (`scripts/real-client.sh status|screenshot|key|stop e2e-<pid>`, name is
 printed on start). Server side: `scripts/vanilla-server.sh` logs to `run/servers/NAME/logs/latest.log`.
+
+## World-generation differential (vanilla vs ours)
+
+`scripts/worldgen-diff.sh SEED overworld|nether|end|all CENTER_X CENTER_Z RADIUS_CHUNKS [--out DIR] [--sides vanilla,ours] [--compare-args "--ignore blocks"]`
+generates the same area with the real vanilla server and with our server (forceload + wait for FULL + `save-all flush` + stop),
+then runs `worldcmp` (`tools/worldcmp`: block states, block entities, biomes, heightmaps, structure starts/references,
+post-processing, ticks, entities per chunk; light/UUID/timestamps ignored; exit 1 on any diff, `--ignore <category>` for known
+residuals, `--report x.json` for a machine-readable summary). Output: `DIR/{A,B}/world`, `DIR/report.{txt,json}` (default
+`run/wgdiff/<seed>-<dim>-<cx>_<cz>`). `--sides vanilla,vanilla` is the determinism sanity run. Preset cases:
+`scripts/worldgen-diff.sh --cases scripts/worldgen-diff-cases.txt [--only REGEX]`; new structure locations for a seed:
+`scripts/worldgen-locate.sh SEED...` (real `/locate`). Details/limits: header of `scripts/worldgen-diff.sh`, STATUS.md "FeatDiffHarness".
+Standalone: `cargo run -p worldcmp -- WORLD_A WORLD_B --dim overworld --chunks -4,-4,4,4`.

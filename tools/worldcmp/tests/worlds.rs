@@ -27,7 +27,7 @@ fn chunk(status: &str, x: i32, z: i32, tag: i32) -> CompoundTag {
 }
 
 fn filter(min: &str) -> Filter {
-    Filter { chunks: None, min_status: status_rank(min).unwrap(), max_listed: 10 }
+    Filter { chunks: None, min_status: status_rank(min).unwrap(), max_listed: 10, ignore: vec![] }
 }
 
 #[test]
@@ -78,4 +78,17 @@ fn identical_worlds_are_clean_and_missing_dimension_is_empty() {
     assert!(r.is_clean() && r.compared == 1 && r.identical == 1);
     let r = compare_dimension(a.path(), b.path(), "end", &filter("full"));
     assert!(r.is_clean() && r.compared == 0 && r.dim == "minecraft:the_end");
+}
+
+#[test]
+fn ignored_categories_are_dropped_and_reported() {
+    let (a, b) = (tempfile::tempdir().unwrap(), tempfile::tempdir().unwrap());
+    write(a.path(), "region", 4, 0, &chunk("minecraft:full", 4, 0, 1));
+    write(b.path(), "region", 4, 0, &chunk("minecraft:full", 4, 0, 2)); // DataVersion -> Other
+    let f = Filter { ignore: vec![Category::from_name("other").unwrap()], ..filter("full") };
+    let r = compare_dimension(a.path(), b.path(), "overworld", &f);
+    assert!(r.is_clean() && r.identical == 1);
+    assert!(render_text("A", "B", std::slice::from_ref(&r), 10).contains("ignored categories: other"));
+    assert!(render_json("A", "B", &[r]).contains("\"ignored\":[\"other\"]"));
+    assert!(Category::from_name("nope").is_none());
 }
