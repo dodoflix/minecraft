@@ -31,3 +31,4 @@ pub mod ocean_monument_structure;
 pub mod structure_entities;
 pub mod woodland_mansion_pieces;
 pub mod woodland_mansion_structure;
+pub mod jigsaw_structure;

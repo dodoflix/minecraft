@@ -2,6 +2,7 @@
 //! parsed-start cache of a level.
 
 use super::piece::StructurePieceSerializationContext;
+use super::pools::structure_template_pool::{StructureTemplatePool, TEMPLATE_POOL_REGISTRY, load_template_pools};
 use super::structure::{Structure, decode_direct};
 use super::templatesystem::structure_processor_list::load_processor_lists;
 use super::templatesystem::StructureProcessorList;
@@ -25,6 +26,8 @@ pub const STRUCTURE_REGISTRY: &str = "worldgen/structure";
 pub struct StructureRegistries {
     /// `worldgen/processor_list`.
     pub processor_lists: TypedRegistry<StructureProcessorList>,
+    /// `worldgen/template_pool`.
+    pub template_pools: TypedRegistry<StructureTemplatePool>,
     pub structures: TypedRegistry<dyn Structure>,
     /// `structuresRegistry.stream().collect(groupingBy(step().ordinal()))`: registry order within each step.
     structures_by_step: Vec<Vec<Holder<dyn Structure>>>,
@@ -41,19 +44,21 @@ impl StructureRegistries {
     /// As [`Self::load`] with a shared decode context (the jigsaw structure resolves pools/processor lists through it).
     pub fn load_with(ctx: &DecodeCtx<'_>) -> LoadResult<StructureRegistries> {
         let processor_lists = load_processor_lists(ctx)?;
+        let template_pools = load_template_pools(ctx)?;
         let structures = load_registry(ctx, STRUCTURE_REGISTRY, decode_direct)?;
         ctx.cells.check_all_bound::<dyn Structure>(STRUCTURE_REGISTRY)?;
         let mut structures_by_step = vec![Vec::new(); Decoration::ALL.len()];
         for (_, holder) in structures.iter() {
             structures_by_step[holder.value().step().ordinal()].push(holder.clone());
         }
-        Ok(StructureRegistries { processor_lists, structures, structures_by_step })
+        Ok(StructureRegistries { processor_lists, template_pools, structures, structures_by_step })
     }
 
     /// A registry without structures.
     pub fn empty() -> StructureRegistries {
         StructureRegistries {
             processor_lists: TypedRegistry::new("worldgen/processor_list", indexmap::IndexMap::new()),
+            template_pools: TypedRegistry::new(TEMPLATE_POOL_REGISTRY, indexmap::IndexMap::new()),
             structures: TypedRegistry::new(STRUCTURE_REGISTRY, indexmap::IndexMap::new()),
             structures_by_step: vec![Vec::new(); Decoration::ALL.len()] }
     }
