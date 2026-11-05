@@ -11,7 +11,7 @@ use common::*;
 use mc_core::pos::block_pos::BlockPos;
 use mc_data::{Block, Item};
 use mc_protocol::components::ItemStack;
-use mc_testbot::harness::{OurServer, VanillaServer, repo_root, vanilla_available};
+use mc_testbot::harness::{OurServer, vanilla};
 use mc_testbot::Bot;
 
 impl Console for OurServer {
@@ -79,10 +79,6 @@ async fn restart_and_cross_server_world_compat() {
         eprintln!("skipping: no mc-server binary");
         return;
     };
-    if !vanilla_available() {
-        eprintln!("skipping: no vanilla oracle");
-        return;
-    }
     // 1. restart persistence, bot still connected when `stop` arrives
     let mut ours = OurServer::start(&bin, 12345, "creative").expect("start ours");
     let bot = join("127.0.0.1", ours.port, "Bot").await;
@@ -95,21 +91,23 @@ async fn restart_and_cross_server_world_compat() {
     assert!(ours.stop_and_wait(60), "stop after rejoin");
 
     // 2. vanilla opens the world our server saved
-    let van = VanillaServer::start("persist-van", 12345, "creative", &[]).expect("vanilla");
+    let tmp_a = tempfile::tempdir().expect("temp dir");
+    let van = vanilla(12345, "creative", &[]).dir(tmp_a.path()).start().expect("vanilla");
     van.stop();
-    copy_world(ours.dir(), &van.dir());
-    let van = VanillaServer::start_with("persist-van", 12345, "creative", &[], false).expect("vanilla on our world");
+    copy_world(ours.dir(), tmp_a.path());
+    let van = vanilla(12345, "creative", &[]).dir(tmp_a.path()).start().expect("vanilla on our world");
     verify(van.port, &saved, "ours -> vanilla").await;
     van.stop();
 
     // 3. our server opens the world the vanilla server saved
-    let van = VanillaServer::start("persist-van", 12345, "creative", &[]).expect("vanilla");
+    let tmp_b = tempfile::tempdir().expect("temp dir");
+    let van = vanilla(12345, "creative", &[]).dir(tmp_b.path()).start().expect("vanilla");
     let bot = join("127.0.0.1", van.port, "Bot").await;
     let saved = mutate(&bot, &van).await;
     drop(bot);
     van.stop();
-    assert!(repo_root().join("run/servers/persist-van/world/level.dat").exists());
-    copy_world(&van.dir(), ours.dir());
+    assert!(tmp_b.path().join("world/level.dat").exists());
+    copy_world(van.dir(), ours.dir());
     ours.restart(&bin).expect("restart ours on vanilla world");
     verify(ours.port, &saved, "vanilla -> ours").await;
 }

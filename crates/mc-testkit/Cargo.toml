@@ -1,0 +1,17 @@
+[package]
+name = "mc-testkit"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Test support: a leak-free launcher for the vanilla server and our own server"
+repository.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+libc = "0.2"
+regex = "1"
+tempfile = "3"
+
+[lints]
+workspace = true

@@ -13,7 +13,8 @@
 #             --reset (wipe the whole scratch dir first)  --xmx 2G
 # Trailing `key=value` args override/add any server.properties entry.
 # Env VANILLA_JVM_OPTS: extra JVM flags (e.g. "-Dmax.bg.threads=1").
-# Defaults: online-mode=false, enforce-secure-profile=false, white-list=false, eula accepted, spawn-protection=0.
+# Env MC_ACCEPT_EULA=1 is required to start: it writes eula.txt, i.e. accepts the Minecraft EULA in your name.
+# Defaults: online-mode=false, enforce-secure-profile=false, white-list=false, spawn-protection=0.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -48,6 +49,7 @@ start)
     esac
   done
   ! alive "$name" || die "$name already running (pid $(pid_of "$name"))"
+  [[ "${MC_ACCEPT_EULA:-}" == 1 ]] || die "starting the vanilla server accepts the Minecraft EULA (https://aka.ms/MinecraftEULA) in your name: set MC_ACCEPT_EULA=1 if you accept it"
   ((reset)) && rm -rf "$D"
   mkdir -p "$D"
   echo "eula=true" > "$D/eula.txt"

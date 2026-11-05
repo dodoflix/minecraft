@@ -65,8 +65,23 @@ T2 and T3 start the real vanilla server, which requires accepting the
 
 Rule: no helper or script writes `eula=true` unless `MC_ACCEPT_EULA=1` is set; without it they print the EULA URL
 and exit non-zero. CI sets the variable explicitly for the oracle lane. Enforced by `scripts/check.sh` (planned:
-`eula=true` may appear only inside the guarded helper) and review. Several existing scripts under `scripts/`
-(for example `vanilla-server.sh`) still accept the EULA unconditionally and are being converted.
+`eula=true` may appear only inside the guarded helper) and review. In Rust the guarded helper is `mc-testkit`
+(below); `scripts/vanilla-server.sh` applies the same rule.
+
+### The server helper
+
+Every test that needs a live server starts it through `mc_testkit::Server::vanilla()` (the vanilla JVM) or
+`Server::ours(bin)` (our `mc-server`). There is no second launcher. The crate has no workspace dependencies, so any
+crate can use it as a dev-dependency.
+
+- The returned guard owns the child. Dropping it, also while the test panics, kills the child's whole process group,
+  and the kernel kills the child when the test process dies (`kill -9` included).
+- The port is chosen by the OS and passed to the server; if another process takes it first, the start is retried with
+  a new port. No fixed ports.
+- Readiness is the `Done (` log line plus an answered status ping, with a timeout. No fixed sleeps after start.
+- Each server runs in its own temporary directory (or one the test passes with `.dir(..)`), never in `run/servers/<name>`.
+- A missing `java`, `ref/server.jar` or `MC_ACCEPT_EULA=1` makes `start()` return an error that names the fix; tests
+  `expect` it and fail.
 
 ## 4. Layout
 

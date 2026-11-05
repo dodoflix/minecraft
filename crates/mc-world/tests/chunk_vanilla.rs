@@ -11,23 +11,6 @@ use mc_world::data_layer::DataLayer;
 use mc_world::serial::{LoadedChunk, ReadContext, SerializableChunkData};
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
-use std::process::{Command, Stdio};
-
-fn root() -> PathBuf {
-    Path::new(env!("CARGO_MANIFEST_DIR")).join("../..")
-}
-
-fn vanilla(args: &[&str]) {
-    let log = std::fs::File::create(root().join("run/worldrw-script.log")).unwrap();
-    let st = Command::new(root().join("scripts/vanilla-server.sh"))
-        .args(args)
-        .stdout(Stdio::from(log.try_clone().unwrap()))
-        .stderr(Stdio::from(log))
-        .stdin(Stdio::null())
-        .status()
-        .unwrap();
-    assert!(st.success(), "vanilla-server.sh {args:?} failed, see run/worldrw-script.log");
-}
 
 fn copy_dir(from: &Path, to: &Path) {
     std::fs::create_dir_all(to).unwrap();
@@ -82,37 +65,48 @@ fn freeze_rules(world: &Path) {
 }
 
 /// Starts vanilla on `server/world`, lets it load + save everything, stops it and returns its log.
-fn run_vanilla(name: &str, port: &str) -> String {
-    vanilla(&["start", name, "--port", port, "--difficulty", "normal"]);
-    std::thread::sleep(std::time::Duration::from_secs(20));
-    vanilla(&["cmd", name, "save-all flush"]);
-    std::thread::sleep(std::time::Duration::from_secs(8));
-    vanilla(&["stop", name]);
-    std::fs::read_to_string(root().join("run/servers").join(name).join("logs/latest.log")).unwrap()
+fn run_vanilla(dir: &Path) -> String {
+    let server = mc_testkit::Server::vanilla()
+        .dir(dir)
+        .properties([
+            "online-mode=false",
+            "enforce-secure-profile=false",
+            "white-list=false",
+            "spawn-protection=0",
+            "view-distance=6",
+            "simulation-distance=6",
+            "gamemode=creative",
+            "difficulty=normal",
+        ])
+        .start()
+        .expect("start vanilla");
+    server.cmd("save-all flush");
+    assert!(server.wait_log("Saved the game", 60).is_some(), "vanilla did not finish saving: {}", server.log());
+    server.stop();
+    std::fs::read_to_string(server.log_path()).unwrap()
 }
 
-fn prepare(name: &str, src: &Path) -> PathBuf {
-    let server = root().join("run/servers").join(name);
-    let _ = Command::new(root().join("scripts/vanilla-server.sh")).args(["stop", name]).output();
-    let _ = std::fs::remove_dir_all(&server);
-    std::fs::create_dir_all(&server).unwrap();
-    let world = server.join("world");
+/// A server directory of its own (removed with the returned guard) holding a copy of `src` as `world`.
+fn prepare(src: &Path) -> (tempfile::TempDir, PathBuf) {
+    let server = tempfile::tempdir().unwrap();
+    let world = server.path().join("world");
     copy_dir(src, &world);
     std::fs::remove_dir_all(world.join("logs")).ok();
     freeze_rules(&world);
-    world
+    (server, world)
 }
 
 #[test]
 #[ignore = "starts the real vanilla server twice (~1.5 min)"]
 fn vanilla_accepts_rewritten_world() {
     let src = world_dir();
+    // needs the local, hand-built world (no script creates it); java and the jar are required by the testkit
     if !src.exists() {
         eprintln!("SKIP: {} absent", src.display());
         return;
     }
-    let world_a = prepare("worldrw-orig", &src);
-    let world_b = prepare("worldrw-ours", &src);
+    let (dir_a, world_a) = prepare(&src);
+    let (dir_b, world_b) = prepare(&src);
 
     let factory = factory();
     let all_known = |_: &str| true;
@@ -161,8 +155,8 @@ fn vanilla_accepts_rewritten_world() {
         orig_storage.close().unwrap();
     }
 
-    let _log_a = run_vanilla("worldrw-orig", "25602");
-    let log_b = run_vanilla("worldrw-ours", "25603");
+    let _log_a = run_vanilla(dir_a.path());
+    let log_b = run_vanilla(dir_b.path());
     for line in log_b.lines() {
         assert!(
             !(line.contains("ERROR") || line.contains("Failed to read chunk") || line.contains("Recoverable errors") || line.contains("Exception")),

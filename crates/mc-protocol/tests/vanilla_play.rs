@@ -1,6 +1,7 @@
 //! Real-network play test: an offline bot joins the vanilla server (`ref/server.jar`), stays in play for ~20 s while
 //! the server console moves it to new chunks and triggers a wide range of packets, and every clientbound packet received
-//! must decode (and re-encode to the same bytes); only packets carrying a not-yet-implemented data component may fail. Skipped when java or the jar is missing.
+//! must decode (and re-encode to the same bytes); only packets carrying a not-yet-implemented data component may fail.
+//! Needs java, `ref/server.jar` and `MC_ACCEPT_EULA=1`.
 //! Run with `-- --nocapture` for the per-packet-type counts.
 mod common;
 
@@ -75,7 +76,7 @@ const COMMANDS: &[&str] = &[
 
 #[tokio::test(flavor = "multi_thread")]
 async fn play_state_decodes_everything_vanilla_sends() {
-    let Some(mut server) = start_vanilla(false).await else { return };
+    let server = start_vanilla(false);
     let port = server.port;
     let mut c = connect(port).await;
     handshake(&mut c, port, ClientIntent::Login).await;
@@ -115,7 +116,7 @@ async fn play_state_decodes_everything_vanilla_sends() {
     let mut next_at = Duration::from_secs(3);
     while started.elapsed() < Duration::from_secs(24) {
         if next_command < COMMANDS.len() && started.elapsed() >= next_at {
-            server.command(COMMANDS[next_command]).await;
+            server.cmd(COMMANDS[next_command]);
             next_command += 1;
             next_at += Duration::from_millis(300);
         }

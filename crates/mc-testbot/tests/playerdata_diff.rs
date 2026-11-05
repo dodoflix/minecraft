@@ -7,7 +7,7 @@ use std::time::Duration;
 
 use common::*;
 use mc_nbt::{CompoundTag, Tag};
-use mc_testbot::harness::{OurServer, VanillaServer, vanilla_available};
+use mc_testbot::harness::{OurServer, vanilla};
 
 fn read_dat(dir: &Path) -> CompoundTag {
     let data = dir.join("world/players/data");
@@ -94,12 +94,12 @@ async fn scenario(console: &(dyn Console + Sync), port: u16, walk: bool) {
     bot.disconnect().await;
 }
 
-async fn run_both(walk: bool, name: &str) -> (CompoundTag, CompoundTag) {
+async fn run_both(walk: bool) -> (CompoundTag, CompoundTag) {
     let bin = OurServer::binary().expect("MC_SERVER_BIN");
-    let van = VanillaServer::start(&format!("pd-van-{name}"), 12345, "survival", &[]).expect("vanilla");
+    let van = vanilla(12345, "survival", &[]).start().expect("vanilla");
     scenario(&van, van.port, walk).await;
     van.stop();
-    let vanilla = read_dat(&van.dir());
+    let vanilla = read_dat(van.dir());
     let mut ours = OurServer::start(&bin, 12345, "survival").expect("ours");
     scenario(&ours, ours.port, walk).await;
     assert!(ours.stop_and_wait(60));
@@ -109,13 +109,13 @@ async fn run_both(walk: bool, name: &str) -> (CompoundTag, CompoundTag) {
 
 #[tokio::test(flavor = "multi_thread")]
 async fn playerdata_matches_vanilla() {
-    if OurServer::binary().is_none() || !vanilla_available() {
-        eprintln!("skipping: no mc-server binary or no vanilla oracle");
+    if OurServer::binary().is_none() {
+        eprintln!("skipping: no mc-server binary");
         return;
     }
     let mut report = Vec::new();
     for (walk, name) in [(false, "new"), (true, "walked")] {
-        let (mut v, mut o) = run_both(walk, name).await;
+        let (mut v, mut o) = run_both(walk).await;
         sort_attributes(&mut v);
         sort_attributes(&mut o);
         let mut d = Vec::new();

@@ -1,5 +1,5 @@
 //! Real-network smoke test against the vanilla server (`ref/server.jar`): status ping, offline login
-//! through configuration, and an online-mode encryption handshake. Skipped when java or the jar is missing.
+//! through configuration, and an online-mode encryption handshake. Needs java, `ref/server.jar` and `MC_ACCEPT_EULA=1`.
 //! Run with `-- --nocapture` to see the packet-id log.
 mod common;
 
@@ -12,7 +12,7 @@ use uuid::Uuid;
 
 #[tokio::test(flavor = "multi_thread")]
 async fn status_and_offline_login_to_configuration() {
-    let Some(server) = start_vanilla(false).await else { return };
+    let server = start_vanilla(false);
     let port = server.port;
 
     // ---- status
@@ -94,7 +94,7 @@ async fn status_and_offline_login_to_configuration() {
 
 #[tokio::test(flavor = "multi_thread")]
 async fn online_mode_encryption_handshake() {
-    let Some(server) = start_vanilla(true).await else { return };
+    let server = start_vanilla(true);
     let port = server.port;
     let mut c = connect(port).await;
     handshake(&mut c, port, ClientIntent::Login).await;

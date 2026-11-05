@@ -22,6 +22,7 @@ uuid = "1"
 
 [dev-dependencies]
 tempfile = "3"
+mc-testkit = { path = "../mc-testkit" }
 
 [lints]
 workspace = true

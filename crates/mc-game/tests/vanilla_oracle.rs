@@ -7,10 +7,7 @@
 mod common;
 
 use std::collections::{BTreeMap, HashSet};
-use std::io::{BufRead, BufReader};
 use std::path::{Path, PathBuf};
-use std::process::{Command, Stdio};
-use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
 use mc_core::ident::Identifier;
@@ -28,10 +25,6 @@ fn fixture_dir() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/oracle")
 }
 
-fn jar() -> PathBuf {
-    Path::new(env!("CARGO_MANIFEST_DIR")).join("../../ref/server.jar")
-}
-
 struct Captured {
     /// Raw payloads of `registry_data` / `update_tags` packets in arrival order.
     packets: Vec<Vec<u8>>,
@@ -39,78 +32,36 @@ struct Captured {
 }
 
 /// Run the vanilla server in a scratch dir after `setup(world_dir)`; with `connect` also capture the configuration packets.
-async fn run_vanilla(setup: impl FnOnce(&Path), connect: bool) -> Captured {
-    let dir = std::env::temp_dir().join(format!("mc-game-oracle-{}-{}", std::process::id(), rand_suffix()));
-    std::fs::create_dir_all(&dir).unwrap();
-    std::fs::write(dir.join("eula.txt"), "eula=true\n").unwrap();
-    let port = std::net::TcpListener::bind("127.0.0.1:0").unwrap().local_addr().unwrap().port();
-    std::fs::write(
-        dir.join("server.properties"),
-        format!("online-mode=false\nwhite-list=false\nenforce-whitelist=false\nenforce-secure-profile=false\nserver-port={port}\nserver-ip=127.0.0.1\ngenerate-structures=false\nspawn-protection=0\nmax-tick-time=-1\nview-distance=2\nsimulation-distance=2\nenable-rcon=false\nenable-query=false\nrate-limit=0\n"),
-    )
-    .unwrap();
-    setup(&dir.join("world"));
-    let link = dir.join("oracle-vanilla.jar");
-    std::os::unix::fs::symlink(jar().canonicalize().unwrap(), &link).unwrap();
-    let mut child = Command::new("java")
-        .args(["-Xmx1G", "-jar"])
-        .arg(&link)
-        .arg("nogui")
-        .current_dir(&dir)
-        .stdin(Stdio::piped())
-        .stdout(Stdio::piped())
-        .stderr(Stdio::null())
-        .spawn()
-        .expect("spawn java");
-    let _stdin = child.stdin.take();
-    let log = Arc::new(Mutex::new(Vec::<String>::new()));
-    let (tx, rx) = std::sync::mpsc::channel::<()>();
-    let reader = {
-        let log = log.clone();
-        let stdout = child.stdout.take().unwrap();
-        std::thread::spawn(move || {
-            for line in BufReader::new(stdout).lines().map_while(Result::ok) {
-                let done = line.contains("Done (");
-                log.lock().unwrap().push(line);
-                if done {
-                    let _ = tx.send(());
-                }
-            }
-        })
-    };
+/// Without `connect` the server is expected to fail while starting (broken data pack).
+async fn run_vanilla<F: FnOnce(&Path) + 'static>(setup: F, connect: bool) -> Captured {
+    let builder = mc_testkit::Server::vanilla()
+        .properties([
+            "online-mode=false",
+            "white-list=false",
+            "enforce-whitelist=false",
+            "enforce-secure-profile=false",
+            "generate-structures=false",
+            "spawn-protection=0",
+            "max-tick-time=-1",
+            "view-distance=2",
+            "simulation-distance=2",
+            "enable-rcon=false",
+            "enable-query=false",
+            "rate-limit=0",
+        ])
+        .prepare(move |dir| setup(&dir.join("world")));
     let mut packets = Vec::new();
-    if connect {
-        rx.recv_timeout(Duration::from_secs(180)).expect("vanilla did not finish starting");
-        tokio::time::sleep(Duration::from_secs(3)).await;
-        packets = capture_configuration(port).await;
-        let _ = child.kill();
-    }
-    let _ = child.wait_timeout_or_kill();
-    let _ = reader.join();
-    let _ = std::fs::remove_dir_all(&dir);
-    let log = log.lock().unwrap().clone();
-    Captured { packets, log }
-}
-
-trait WaitOrKill {
-    fn wait_timeout_or_kill(&mut self) -> std::io::Result<()>;
-}
-
-impl WaitOrKill for std::process::Child {
-    fn wait_timeout_or_kill(&mut self) -> std::io::Result<()> {
-        for _ in 0..600 {
-            if self.try_wait()?.is_some() {
-                return Ok(());
-            }
-            std::thread::sleep(Duration::from_millis(100));
-        }
-        self.kill()?;
-        self.wait().map(|_| ())
-    }
-}
-
-fn rand_suffix() -> u64 {
-    std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap().subsec_nanos() as u64
+    let server = if connect {
+        let server = builder.start().expect("start vanilla");
+        packets = capture_configuration(server.port).await;
+        server
+    } else {
+        let server = builder.start_unready().expect("start vanilla");
+        server.wait_exit(Duration::from_secs(60));
+        server
+    };
+    server.kill();
+    Captured { packets, log: server.log().lines().map(str::to_owned).collect() }
 }
 
 macro_rules! send {

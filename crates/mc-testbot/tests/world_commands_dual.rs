@@ -9,7 +9,7 @@ use std::time::Duration;
 
 use common::dual::PROPS;
 use common::join;
-use mc_testbot::harness::{OurServer, VanillaServer, repo_root, vanilla_available};
+use mc_testbot::harness::{OurServer, repo_root};
 use mc_testbot::Bot;
 
 const WATCHED: &[&str] = &[
@@ -131,11 +131,7 @@ async fn run(bot: &Bot, console: &dyn Fn(&str)) -> Vec<String> {
 
 #[tokio::test(flavor = "multi_thread")]
 async fn world_commands_vanilla() {
-    if !vanilla_available() {
-        eprintln!("skipping: vanilla oracle unavailable");
-        return;
-    }
-    let server = VanillaServer::start("tb-wc-dual", 12345, "survival", PROPS).expect("start vanilla");
+    let server = mc_testbot::harness::vanilla(12345, "survival", PROPS).start().expect("start vanilla");
     let bot = join("127.0.0.1", server.port, "Bot").await;
     let lines = run(&bot, &|c| server.cmd(c)).await;
     bot.disconnect().await;

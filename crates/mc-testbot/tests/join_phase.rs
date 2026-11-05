@@ -1,16 +1,12 @@
 use std::sync::{Arc, Mutex};
 
-use mc_testbot::harness::{vanilla_available, VanillaServer};
+use mc_testbot::harness::vanilla;
 use mc_testbot::join::*;
 use mc_testbot::log::PacketLog;
 
 #[tokio::test(flavor = "multi_thread")]
 async fn status_and_configuration_against_vanilla() {
-    if !vanilla_available() {
-        eprintln!("skipping: vanilla oracle unavailable");
-        return;
-    }
-    let server = VanillaServer::start("tb-join", 12345, "creative", &[]).expect("start vanilla");
+    let server = vanilla(12345, "creative", &[]).start().expect("start vanilla");
     let opts = BotOptions::new("127.0.0.1", server.port, "Bot");
     let log = Arc::new(Mutex::new(PacketLog::new()));
     let ping = status_ping(&opts, log.clone()).await.expect("ping");

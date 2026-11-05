@@ -13,7 +13,7 @@ use common::dual::*;
 use common::*;
 use mc_core::pos::block_pos::BlockPos;
 use mc_data::Block;
-use mc_testbot::harness::{OurServer, VanillaServer, repo_root, vanilla_available};
+use mc_testbot::harness::{OurServer, repo_root};
 
 impl Console for OurServer {
     fn cmd(&self, command: &str) {
@@ -163,11 +163,7 @@ async fn run(bot: &Arc<mc_testbot::Bot>, srv: Arc<dyn Console + Send + Sync>) ->
 
 #[tokio::test(flavor = "multi_thread")]
 async fn portal_dual_vanilla() {
-    if !vanilla_available() {
-        eprintln!("skipping: vanilla oracle unavailable");
-        return;
-    }
-    let server = Arc::new(VanillaServer::start("tb-portal", 12345, "survival", PORTAL_PROPS).expect("start vanilla"));
+    let server = Arc::new(mc_testbot::harness::vanilla(12345, "survival", PORTAL_PROPS).start().expect("start vanilla"));
     let bot = join("127.0.0.1", server.port, "Bot").await;
     setup(&bot, &*server).await;
     let results = run(&bot, server.clone()).await;

@@ -58,9 +58,8 @@ async fn join_our_server() {
 
 #[tokio::test(flavor = "multi_thread")]
 async fn join_vanilla_for_comparison() {
-    use mc_testbot::harness::{vanilla_available, VanillaServer};
-    if std::env::var("MC_RECORD_VANILLA").is_err() || !vanilla_available() { return; }
-    let server = VanillaServer::start("tb-record2", 12345, "survival", &[]).expect("start vanilla");
+    if std::env::var("MC_RECORD_VANILLA").is_err() { return; }
+    let server = mc_testbot::harness::vanilla(12345, "survival", &[]).start().expect("start vanilla");
     let opts = BotOptions::new("127.0.0.1", server.port, "Bot");
     let log = Arc::new(Mutex::new(PacketLog::new()));
     let mut conn = open(&opts, log.clone()).await.unwrap();

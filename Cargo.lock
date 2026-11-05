@@ -1178,6 +1178,7 @@ dependencies = [
  "mc-light",
  "mc-nbt",
  "mc-protocol",
+ "mc-testkit",
  "mc-text",
  "mc-world",
  "mc-worldgen",
@@ -1534,6 +1535,7 @@ dependencies = [
  "mc-dfu",
  "mc-nbt",
  "mc-protocol-macros",
+ "mc-testkit",
  "mc-text",
  "rand_core 0.6.4",
  "reqwest",
@@ -1574,15 +1576,26 @@ dependencies = [
  "mc-data",
  "mc-nbt",
  "mc-protocol",
+ "mc-testkit",
  "mc-text",
  "regex",
  "reqwest",
  "serde",
  "serde_json",
  "sha1 0.11.0",
+ "tempfile",
  "thiserror",
  "tokio",
  "uuid",
+]
+
+[[package]]
+name = "mc-testkit"
+version = "0.1.0"
+dependencies = [
+ "libc",
+ "regex",
+ "tempfile",
 ]
 
 [[package]]
@@ -1605,6 +1618,7 @@ dependencies = [
  "mc-core",
  "mc-data",
  "mc-nbt",
+ "mc-testkit",
  "regex",
  "tempfile",
  "twox-hash",

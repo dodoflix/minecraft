@@ -1,6 +1,6 @@
 //! Interop with the REAL vanilla classes (`fixtures/level_storage/VanillaLevelStorage.java`, run through
 //! `scripts/vanilla-java.sh`): vanilla reads the files this module writes, resolves identical paths, and
-//! `session.lock` excludes in both directions. Skips when the vanilla reference / java are unavailable.
+//! `session.lock` excludes in both directions. Needs the vanilla reference (`scripts/setup-ref.sh`) and java.
 
 use std::fs;
 use std::io::{BufRead, BufReader};
@@ -15,10 +15,9 @@ fn root() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("../..")
 }
 
-fn java_available() -> bool {
-    root().join("scripts/vanilla-java.sh").exists()
-        && root().join("ref/bundle").exists()
-        && Command::new("java").arg("-version").output().is_ok()
+fn require_java() {
+    assert!(root().join("scripts/vanilla-java.sh").exists() && root().join("ref/bundle").exists(), "ref/bundle or scripts/vanilla-java.sh missing: run scripts/setup-ref.sh");
+    assert!(Command::new("java").arg("-version").output().is_ok(), "java not found on PATH");
 }
 
 fn oracle() -> PathBuf {
@@ -65,10 +64,7 @@ fn copy_dir(from: &Path, to: &Path) {
 
 #[test]
 fn vanilla_reads_what_we_write() {
-    if !java_available() {
-        eprintln!("skipping: vanilla reference not available");
-        return;
-    }
+    require_java();
     let tmp = tempfile::tempdir().unwrap();
     let saves = tmp.path().join("saves");
     copy_dir(&root().join("crates/mc-world/tests/fixtures/level_storage/world"), &saves.join("world"));
@@ -151,10 +147,7 @@ fn vanilla_reads_what_we_write() {
 
 #[test]
 fn session_lock_excludes_vanilla_and_vice_versa() {
-    if !java_available() {
-        eprintln!("skipping: vanilla reference not available");
-        return;
-    }
+    require_java();
     // Rust holds the lock -> vanilla sees it locked and cannot create it (same message as ours)
     let tmp = tempfile::tempdir().unwrap();
     let held = DirectoryLock::create(tmp.path()).unwrap();
@@ -192,42 +185,18 @@ fn session_lock_excludes_vanilla_and_vice_versa() {
     assert!(!DirectoryLock::is_locked(dir.path()).unwrap());
 }
 
-struct ScriptResult {
-    success: bool,
-    output: String,
-}
-
-/// Output goes through a file: `start` leaves a background java that inherits pipes, so a piped
-/// `Command::output()` would never see EOF.
-fn server_script(args: &[&str]) -> ScriptResult {
-    let log = tempfile::tempfile().unwrap();
-    let status = Command::new(root().join("scripts/vanilla-server.sh"))
-        .args(args)
-        .stdout(log.try_clone().unwrap())
-        .stderr(log.try_clone().unwrap())
-        .status()
-        .expect("run vanilla-server.sh");
-    use std::io::{Read, Seek};
-    let (mut log, mut output) = (log, String::new());
-    log.rewind().unwrap();
-    log.read_to_string(&mut output).unwrap();
-    ScriptResult { success: status.success(), output }
-}
-
 /// The real vanilla server must load a world whose level.dat / saved data were rewritten by this module
-/// (starts `run/servers/lsvanilla` on port 25623; skipped without `run/servers/worldref`).
+/// (runs in a temporary directory; skipped without the local, hand-built `run/servers/worldref`).
 #[test]
 fn vanilla_server_loads_our_level_dat() {
     let worldref = root().join("run/servers/worldref/world");
-    if !java_available() || !worldref.join("level.dat").exists() || !root().join("scripts/vanilla-server.sh").exists() {
+    // needs the local world: no script creates it
+    if !worldref.join("level.dat").exists() {
         eprintln!("skipping: vanilla reference world not available");
         return;
     }
-    const NAME: &str = "lsvanilla";
-    let server_dir = root().join("run/servers").join(NAME);
-    let _ = server_script(&["stop", NAME]);
-    let _ = fs::remove_dir_all(&server_dir);
-    fs::create_dir_all(&server_dir).unwrap();
+    let tmp = tempfile::tempdir().unwrap();
+    let server_dir = tmp.path().to_path_buf();
     let world = server_dir.join("world");
     for sub in ["data", "dimensions", "players", "datapacks"] {
         copy_dir(&worldref.join(sub), &world.join(sub));
@@ -259,25 +228,35 @@ fn vanilla_server_loads_our_level_dat() {
         access.close().unwrap();
     }
 
-    let start = server_script(&["start", NAME, "--port", "25623", "--xmx", "1G"]);
+    let server = mc_testkit::Server::vanilla()
+        .dir(&server_dir)
+        .properties([
+            "online-mode=false",
+            "enforce-secure-profile=false",
+            "white-list=false",
+            "spawn-protection=0",
+            "view-distance=6",
+            "simulation-distance=6",
+            "gamemode=creative",
+            "difficulty=peaceful",
+        ])
+        .start()
+        .expect("start vanilla");
     let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
-        assert!(start.success, "start failed: {}", start.output);
         assert!(DirectoryLock::is_locked(&world).unwrap(), "vanilla server must hold our session.lock");
         assert!(source.create_access("world").is_err());
-        server_script(&["cmd", NAME, "seed"]);
-        let seed = server_script(&["wait", NAME, r"Seed: .*12345"]);
-        assert!(seed.success, "seed line missing: {}", seed.output);
-        server_script(&["cmd", NAME, "time query gametime"]);
-        let time = server_script(&["wait", NAME, r"The game time is [0-9]+ tick"]);
-        let line = time.output;
+        server.cmd("seed");
+        assert!(server.wait_log(r"Seed: .*12345", 30).is_some(), "seed line missing: {}", server.log());
+        server.cmd("time query gametime");
+        let line = server.wait_log(r"The game time is [0-9]+ tick", 30).unwrap_or_else(|| panic!("time line missing: {}", server.log()));
         let ticks: i64 = line.rsplit("The game time is ").next().unwrap().split_whitespace().next().unwrap().parse().unwrap_or_else(|_| panic!("bad time line {line:?}"));
         assert!((5_000_000..5_100_000).contains(&ticks), "game time not kept: {line}");
-        let log = fs::read_to_string(server_dir.join("logs/latest.log")).unwrap();
+        let log = server.log();
         for bad in ["/ERROR]", "Unable to read or access", "Failed to load", "Failed to save", "corrupt"] {
             assert!(!log.contains(bad), "unexpected `{bad}` in vanilla log:\n{log}");
         }
     }));
-    let _ = server_script(&["stop", NAME]);
+    server.stop();
     // what vanilla wrote back must still parse with our code
     if result.is_ok() {
         let access = source.create_access("world").unwrap();
@@ -287,7 +266,6 @@ fn vanilla_server_loads_our_level_dat() {
         assert!(level.extra.is_empty(), "vanilla wrote unexpected level.dat keys: {:?}", level.extra);
         assert_eq!(PrimaryLevelData::parse(&data, SpecialWorldProperty::None).to_tag_at(None, data.get_long("LastPlayed").unwrap()), data);
         drop(access);
-        let _ = fs::remove_dir_all(&server_dir);
     }
     if let Err(e) = result {
         std::panic::resume_unwind(e);

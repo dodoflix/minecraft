@@ -9,7 +9,7 @@ use std::sync::Arc;
 
 use common::dual::*;
 use common::*;
-use mc_testbot::harness::{OurServer, VanillaServer, repo_root, vanilla_available};
+use mc_testbot::harness::{OurServer, repo_root};
 
 impl Console for OurServer {
     fn cmd(&self, command: &str) {
@@ -30,11 +30,7 @@ fn only() -> Option<String> {
 
 #[tokio::test(flavor = "multi_thread")]
 async fn entity_dual_vanilla() {
-    if !vanilla_available() {
-        eprintln!("skipping: vanilla oracle unavailable");
-        return;
-    }
-    let server = Arc::new(VanillaServer::start("tb-dual", 12345, "survival", PROPS).expect("start vanilla"));
+    let server = Arc::new(mc_testbot::harness::vanilla(12345, "survival", PROPS).start().expect("start vanilla"));
     let bot = join("127.0.0.1", server.port, "Bot").await;
     setup(&bot, &*server).await;
     let results = run_all(&bot, server.clone(), only().as_deref()).await;

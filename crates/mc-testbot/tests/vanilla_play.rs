@@ -1,15 +1,10 @@
 //! Acceptance scenarios against the real vanilla server (offline, fixed seed).
 mod common;
 use common::*;
-use mc_testbot::harness::{vanilla_available, VanillaServer};
 
 #[tokio::test(flavor = "multi_thread")]
 async fn bot_plays_on_vanilla() {
-    if !vanilla_available() {
-        eprintln!("skipping: vanilla oracle unavailable");
-        return;
-    }
-    let server = VanillaServer::start("tb-play", 12345, "creative", &[]).expect("start vanilla");
+    let server = mc_testbot::harness::vanilla(12345, "creative", &[]).start().expect("start vanilla");
     let bot = join("127.0.0.1", server.port, "Bot").await;
     server.cmd("op Bot");
     server.wait_log("Made Bot a server operator", 20);

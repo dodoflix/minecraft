@@ -7,7 +7,6 @@ use std::time::Duration;
 use mc_protocol::codec::{Decode, read_varint};
 use mc_protocol::packet::{ConnectionState, PacketFlow, packet_name};
 use mc_protocol::packets::play::{ClientboundBlockEntityDataPacket, ClientboundBlockUpdatePacket, ClientboundLevelEventPacket, ClientboundSectionBlocksUpdatePacket};
-use mc_testbot::harness::{VanillaServer, vanilla_available};
 use mc_testbot::conn::Conn;
 use mc_testbot::join::*;
 use mc_testbot::log::PacketLog;
@@ -48,10 +47,10 @@ fn in_script_area(line: &str) -> bool {
 
 #[tokio::test(flavor = "multi_thread")]
 async fn record_vanilla_setblock() {
-    if std::env::var("MC_RECORD_VANILLA").is_err() || !vanilla_available() {
+    if std::env::var("MC_RECORD_VANILLA").is_err() {
         return;
     }
-    let server = VanillaServer::start("tb-setblock", 12345, "survival", &[]).expect("start vanilla");
+    let server = mc_testbot::harness::vanilla(12345, "survival", &[]).start().expect("start vanilla");
     let opts = BotOptions::new("127.0.0.1", server.port, "Bot");
     let log = Arc::new(Mutex::new(PacketLog::new()));
     let mut conn = open(&opts, log.clone()).await.unwrap();

@@ -81,6 +81,8 @@ jobs:
       - name: Test
         env:
           MC_SERVER_BIN: ${{ github.workspace }}/target/debug/mc-server
+          # Tests start the real vanilla server; running this workflow accepts the Minecraft EULA (docs/testing.md)
+          MC_ACCEPT_EULA: "1"
           TEST_FILTER: ${{ inputs.test_filter || '--workspace' }}
         # mc-core float goldens depend on libm matching Java; a failure only there on CI is a platform issue
         run: cargo test --no-fail-fast $TEST_FILTER -- --test-threads=2

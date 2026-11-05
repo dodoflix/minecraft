@@ -20,12 +20,12 @@ pub trait Console {
     fn wait_log(&self, regex: &str, timeout_s: u32) -> Option<String>;
 }
 
-impl Console for mc_testbot::harness::VanillaServer {
+impl Console for mc_testkit::Server {
     fn cmd(&self, command: &str) {
-        mc_testbot::harness::VanillaServer::cmd(self, command)
+        mc_testkit::Server::cmd(self, command)
     }
     fn wait_log(&self, regex: &str, timeout_s: u32) -> Option<String> {
-        mc_testbot::harness::VanillaServer::wait_log(self, regex, timeout_s)
+        mc_testkit::Server::wait_log(self, regex, timeout_s)
     }
 }
 

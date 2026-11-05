@@ -6,7 +6,7 @@ use std::time::{Duration, Instant};
 use mc_protocol::codec::{Decode, read_varint};
 use mc_protocol::command_tree_diff::{canonical, diff_trees};
 use mc_protocol::packets::play::ClientboundCommandsPacket;
-use mc_testbot::harness::{OurServer, VanillaServer, repo_root};
+use mc_testbot::harness::{OurServer, repo_root};
 use mc_testbot::join::BotOptions;
 use mc_testbot::log::Dir;
 use mc_testbot::Bot;
@@ -153,7 +153,7 @@ impl Norm {
 // ---- servers ----------------------------------------------------------------------------------------------------
 
 enum Srv {
-    Vanilla(VanillaServer),
+    Vanilla(mc_testkit::Server),
     Ours(OurServer),
 }
 
@@ -178,7 +178,7 @@ impl Srv {
     }
     fn dir(&self) -> PathBuf {
         match self {
-            Srv::Vanilla(v) => v.dir(),
+            Srv::Vanilla(v) => v.dir().to_path_buf(),
             Srv::Ours(o) => o.dir().to_path_buf(),
         }
     }
@@ -253,9 +253,9 @@ fn start_server(ours: bool, o: &Opts, tag: &str, datapacks: &[String]) -> Res<Sr
         prepare(&dir)?;
         OurServer::start_in(&o.ours_bin, o.seed, &o.gamemode, &props, Some(dir), o.keep).map(Srv::Ours).map_err(|e| e.to_string())
     } else {
-        let name = format!("cmddiff-{}-{tag}", o.run_id);
-        prepare(&repo_root().join("run/servers").join(&name))?;
-        VanillaServer::start_with(&name, o.seed, &o.gamemode, &props, false).map(Srv::Vanilla).map_err(|e| e.to_string())
+        let dir = repo_root().join("run/servers").join(format!("cmddiff-{}-{tag}", o.run_id));
+        prepare(&dir)?;
+        mc_testbot::harness::vanilla(o.seed, &o.gamemode, &props).dir(dir).start().map(Srv::Vanilla).map_err(|e| e.to_string())
     }
 }
 

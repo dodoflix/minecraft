@@ -61,6 +61,7 @@ crates/
   mc-game             thin facade: re-exports the crates above so `mc_game::...` is the public API; tests, examples
   mc-server           thin binary: CLI args, server.properties, console, JSON-RPC management, starts mc-game
   mc-testbot          headless protocol client (scriptable bot) used by integration/E2E tests
+  mc-testkit          test support: guarded launcher for the vanilla server and our own (no workspace dependencies)
 tools/                tools/extractor (Java data extractor), tools/worldcmp (chunk-by-chunk comparison of two world directories)
 scripts/              helper scripts (setup-ref, vanilla oracle, real client harness, check.sh)
 ```

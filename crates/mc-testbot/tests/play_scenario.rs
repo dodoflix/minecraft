@@ -2,8 +2,6 @@
 //! teleport confirm, chat, commands, keep-alive) against the real vanilla server and against OUR `mc-server`
 //! (`MC_SERVER_BIN`). Packet name sequences and server logs are written to `/tmp/scenario_{vanilla,ours}.{pkts,log}`
 //! for comparison (`MC_SCENARIO=vanilla|ours`).
-use std::io::{BufRead, BufReader, Write};
-use std::process::{Command, Stdio};
 use std::sync::{Arc, Mutex};
 use std::time::{Duration, Instant};
 
@@ -137,36 +135,17 @@ async fn play_scenario() {
     let which = std::env::var("MC_SCENARIO").unwrap_or_default();
     let props = "online-mode=false\nwhite-list=false\nenforce-secure-profile=false\ngenerate-structures=false\nspawn-protection=0\nmax-tick-time=-1\nview-distance=4\nsimulation-distance=4\nenable-rcon=false\nenable-query=false\nrate-limit=0\nlevel-seed=12345\n";
     if which == "vanilla" {
-        use mc_testbot::harness::VanillaServer;
-        let server = VanillaServer::start("tb-scenario", 12345, "survival", &["enforce-secure-profile=false", "spawn-protection=0", "generate-structures=false"]).expect("vanilla");
+        let server = mc_testbot::harness::vanilla(12345, "survival", &["enforce-secure-profile=false", "spawn-protection=0", "generate-structures=false"]).start().expect("vanilla");
         let out = scenario(server.port, |c| server.cmd(c)).await;
         std::fs::write("/tmp/scenario_vanilla.pkts", out).unwrap();
         std::fs::write("/tmp/scenario_vanilla.log", server.log()).unwrap();
         server.stop();
     } else if which == "ours" {
         let bin = std::env::var("MC_SERVER_BIN").expect("MC_SERVER_BIN");
-        let port = mc_testbot::harness::free_port();
-        let dir = std::env::temp_dir().join(format!("mc-scn-{}-{port}", std::process::id()));
-        std::fs::create_dir_all(&dir).unwrap();
-        std::fs::write(dir.join("eula.txt"), "eula=true\n").unwrap();
-        std::fs::write(dir.join("server.properties"), format!("{props}server-port={port}\nserver-ip=127.0.0.1\n")).unwrap();
-        let mut child = Command::new(bin).arg("nogui").current_dir(&dir).stdin(Stdio::piped()).stdout(Stdio::piped()).stderr(Stdio::inherit()).spawn().unwrap();
-        let stdout = child.stdout.take().unwrap();
-        let log = Arc::new(Mutex::new(String::new()));
-        let (tx, rx) = std::sync::mpsc::channel();
-        let l2 = log.clone();
-        std::thread::spawn(move || {
-            for line in BufReader::new(stdout).lines().map_while(Result::ok) {
-                l2.lock().unwrap().push_str(&format!("{line}\n"));
-                if line.contains("Done (") { let _ = tx.send(()); }
-            }
-        });
-        rx.recv_timeout(Duration::from_secs(240)).expect("start");
-        tokio::time::sleep(Duration::from_secs(1)).await;
-        let stdin = Arc::new(Mutex::new(child.stdin.take().unwrap()));
-        let out = scenario(port, |c| { let _ = writeln!(stdin.lock().unwrap(), "{c}"); }).await;
+        let server = mc_testkit::Server::ours(bin).properties(props.lines()).start().expect("start ours");
+        let out = scenario(server.port, |c| server.cmd(c)).await;
         std::fs::write("/tmp/scenario_ours.pkts", out).unwrap();
-        std::fs::write("/tmp/scenario_ours.log", log.lock().unwrap().clone()).unwrap();
-        let _ = child.kill();
+        std::fs::write("/tmp/scenario_ours.log", server.log()).unwrap();
+        server.kill();
     }
 }
