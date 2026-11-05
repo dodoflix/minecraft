@@ -232,6 +232,7 @@ impl MinecraftServer {
         level.gen_env = Some(gen_env);
         level.worldgen_data = Some(factory.worldgen.clone());
         level.registries = self.registries.composite_access().clone();
+        level.refresh_poi_village_tag();
         level.server_state = crate::server::level::LevelServerState {
             scoreboard: self.scoreboard.clone(),
             roster: self.player_list.roster.clone(),
