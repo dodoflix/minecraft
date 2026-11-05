@@ -5,6 +5,7 @@
 //! container by [`ContainerKey`]: the player's inventory, a container local to the menu, or a shared handle (block
 //! entity / ender chest) — resolved on every access through a [`SlotEnv`].
 
+pub mod anvil_menu;
 mod armor_slot;
 mod beacon_menu;
 mod brewing_stand_menu;
@@ -13,8 +14,11 @@ mod container_data;
 mod container_menus;
 mod container_ref;
 mod crafting;
+pub mod enchantment_menu;
+pub mod grindstone_menu;
 mod inventory_menu;
 mod item_click;
+mod item_combiner_menu;
 mod level_access;
 mod menu;
 mod menu_container;
@@ -29,6 +33,7 @@ mod remote_slot;
 mod slot;
 mod synchronizer;
 
+pub use anvil_menu::AnvilMenu;
 pub use armor_slot::*;
 pub use beacon_menu::*;
 pub use brewing_stand_menu::BrewingStandMenu;
@@ -37,7 +42,10 @@ pub use container_data::*;
 pub use container_menus::*;
 pub use container_ref::*;
 pub use crafting::*;
+pub use enchantment_menu::EnchantmentMenu;
+pub use grindstone_menu::GrindstoneMenu;
 pub use inventory_menu::*;
+pub use item_combiner_menu::*;
 pub use level_access::*;
 pub use menu::*;
 pub use menu_container::*;

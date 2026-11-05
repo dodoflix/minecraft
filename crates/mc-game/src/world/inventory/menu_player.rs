@@ -110,6 +110,26 @@ pub trait MenuPlayer {
     fn level(&mut self) -> Option<&mut ServerLevel> {
         None
     }
+    /// `player.experienceLevel`.
+    fn experience_level(&self) -> i32 {
+        0
+    }
+    /// `Player.giveExperienceLevels(amount)`.
+    fn give_experience_levels(&mut self, _amount: i32) {}
+    /// `Player.getEnchantmentSeed()`.
+    fn enchantment_seed(&self) -> i32 {
+        0
+    }
+    /// `Player.onEnchantmentPerformed(stack, cost)` (xp levels, new seed).
+    fn on_enchantment_performed(&mut self, _stack: &ItemStack, _enchantment_cost: i32) {}
+    /// `player.awardStat(Stats.ENCHANT_ITEM)` + `CriteriaTriggers.ENCHANTED_ITEM.trigger(serverPlayer, stack, cost)`.
+    fn on_item_enchanted(&mut self, _stack: &ItemStack, _enchantment_cost: i32) {}
+    /// `player.getRandom().nextFloat()` (the entity's own random, not the level's).
+    fn player_random_next_float(&mut self) -> f32 {
+        0.0
+    }
+    /// `serverPlayer.getTextFilter().processStreamMessage(text)`.
+    fn process_stream_message(&mut self, _text: &str) {}
 }
 
 /// `Inventory.placeItemBackInInventory(stack, shouldSendSetSlotPacket, prediction)`.

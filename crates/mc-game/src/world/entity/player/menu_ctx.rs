@@ -90,6 +90,26 @@ impl MenuPlayer for PlayerCtx<'_> {
     fn ender_chest_mut(&mut self) -> Option<&mut crate::world::inventory::PlayerEnderChestContainer> {
         Some(&mut self.player.player.ender_chest)
     }
+    fn experience_level(&self) -> i32 {
+        self.player.player.experience_level
+    }
+    fn give_experience_levels(&mut self, amount: i32) {
+        self.player.give_experience_levels(self.level, amount);
+    }
+    fn enchantment_seed(&self) -> i32 {
+        self.player.player.enchantment_seed
+    }
+    fn on_enchantment_performed(&mut self, _stack: &ItemStack, enchantment_cost: i32) {
+        self.player.on_enchantment_performed(enchantment_cost);
+    }
+    fn on_item_enchanted(&mut self, _stack: &ItemStack, _enchantment_cost: i32) {
+        self.player.award_stat_once(self.level, crate::stats::stats::Stats::ENCHANT_ITEM);
+        // CriteriaTriggers.ENCHANTED_ITEM.trigger(player, stack, cost): wired with ImAdvancements' trigger API
+    }
+    fn player_random_next_float(&mut self) -> f32 {
+        use crate::world::entity::Entity;
+        self.player.base_mut().random.next_float()
+    }
 }
 
 /// `ServerPlayer.containerSynchronizer` + `containerListener`.
