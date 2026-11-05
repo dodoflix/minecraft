@@ -316,12 +316,12 @@ fn add_conditionals(
         ))))
         .then(literal("biome").then(argument("pos", BlockPosArgument::block_pos()).then(add_conditional(
             execute,
-            argument("biome", ResourceOrTagArgument::resource_or_tag(context, "biome")),
+            argument("biome", ResourceOrTagArgument::resource_or_tag(context, "worldgen/biome")),
             expected,
             |c| {
                 let source = c.get_source();
                 let pos = BlockPosArgument::get_loaded_block_pos(c, "pos")?;
-                let biome = ResourceOrTagArgument::get_resource_or_tag(c, "biome", "biome")?;
+                let biome = ResourceOrTagArgument::get_resource_or_tag(c, "biome", "worldgen/biome")?;
                 Ok(source
                     .with_server(|server| host::biome_key_at(server, source.get_level(), pos))
                     .is_some_and(|key| biome.test(&key)))
