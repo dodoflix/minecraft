@@ -402,14 +402,7 @@ pub fn entity_data_with_selected_item(server: &MinecraftServer, entity: &EntityR
 /// `BlockEntity.saveWithFullMetadata` of the block entity at `pos` (block `DataSource`).
 pub fn block_entity_data(server: &MinecraftServer, dimension: &DimensionKey, pos: BlockPos) -> Option<mc_nbt::CompoundTag> {
     use crate::world::level::BlockGetter;
-    let block_entity = server.level(dimension)?.get_block_entity(pos)?;
-    let mut tag = mc_nbt::CompoundTag::new();
-    block_entity.save_additional(&mut tag);
-    tag.put_string("id", block_entity.get_type().name());
-    tag.put_int("x", pos.x());
-    tag.put_int("y", pos.y());
-    tag.put_int("z", pos.z());
-    Some(tag)
+    Some(server.level(dimension)?.get_block_entity(pos)?.save_with_full_metadata())
 }
 
 /// `CommandStorage.get(id)` (storage `DataSource`).
@@ -670,7 +663,7 @@ pub fn block_entity_load_data(server: &mut MinecraftServer, dimension: &Dimensio
     use crate::world::level::BlockGetter;
     let Some(level) = server.level_mut(dimension) else { return };
     let state = BlockGetter::get_block_state(level, pos);
-    let Some(()) = level.with_block_entity(pos, |_, e| e.load_additional(data)) else { return };
+    let Some(()) = level.with_block_entity(pos, |_, e| e.load_with_components(data)) else { return };
     level.block_entity_changed(pos);
     if !state.is_air() {
         level.update_neighbour_for_output_signal(pos, state.block());

@@ -17,11 +17,13 @@ pub struct BlockEntityData {
     pub pos: BlockPos,
     pub block_state: BlockState,
     pub removed: bool,
+    /// `BlockEntity.components` (`DataComponentMap.EMPTY` until set).
+    pub components: mc_protocol::components::DataComponentMap,
 }
 
 impl BlockEntityData {
     pub fn new(ty: BlockEntityType, pos: BlockPos, block_state: BlockState) -> Self {
-        Self { ty, pos, block_state, removed: false }
+        Self { ty, pos, block_state, removed: false, components: Default::default() }
     }
 }
 
@@ -51,6 +53,28 @@ pub trait BlockEntity: Any {
     fn load_additional(&mut self, _tag: &CompoundTag) {}
     /// `saveAdditional(output)`: write the type-specific part (the common `id`/`x`/`y`/`z` part is added by the caller).
     fn save_additional(&self, _tag: &mut CompoundTag) {}
+    /// `saveWithFullMetadata(registries)`: `saveAdditional`, the `components` map, then `id`, `x`, `y`, `z`.
+    fn save_with_full_metadata(&self) -> CompoundTag {
+        let mut tag = CompoundTag::new();
+        self.save_additional(&mut tag);
+        if let Ok(components) = mc_dfu::encode_nbt(&mc_protocol::components::DataComponentMap::codec(), &self.base().components).into_result() {
+            tag.put("components", components);
+        }
+        tag.put_string("id", self.get_type().name());
+        let pos = self.get_block_pos();
+        tag.put_int("x", pos.x());
+        tag.put_int("y", pos.y());
+        tag.put_int("z", pos.z());
+        tag
+    }
+    /// `loadWithComponents(input)`: `loadAdditional`, then `components` (empty when absent or malformed).
+    fn load_with_components(&mut self, tag: &CompoundTag) {
+        self.load_additional(tag);
+        self.base_mut().components = tag
+            .get("components")
+            .and_then(|t| mc_dfu::parse_nbt(&mc_protocol::components::DataComponentMap::codec(), t).into_result().ok())
+            .unwrap_or_default();
+    }
     /// `applyComponentsFromItemStack(stack)`: block entities that read item components (custom name, container
     /// contents, ...) override this; the default ignores them.
     fn apply_components_from_item_stack(&mut self, _stack: &crate::world::item::ItemStack) {}

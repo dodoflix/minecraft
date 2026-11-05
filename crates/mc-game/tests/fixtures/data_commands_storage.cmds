@@ -1,0 +1,150 @@
+data get storage test:a
+data merge storage test:a {foo:1,bar:[1,2,3],baz:{x:"hello"},s:"abc",d:2.5d,l:[I;1,2,3],b:[B;1,2],f:3.7f}
+data merge storage test:a {foo:1}
+data get storage test:a
+data get storage test:a foo
+data get storage test:a foo 2.5
+data get storage test:a d 10
+data get storage test:a bar
+data get storage test:a bar[1]
+data get storage test:a bar[]
+data get storage test:a baz
+data get storage test:a baz.x
+data get storage test:a baz.x 2
+data get storage test:a s
+data get storage test:a l
+data get storage test:a l[1]
+data get storage test:a b
+data get storage test:a nope
+data get storage test:a bar[5]
+data get storage test:a f 2
+data get storage test:a foo -0.5
+data modify storage test:a bar append value 4
+data modify storage test:a bar prepend value 0
+data modify storage test:a bar insert 2 value 99
+data modify storage test:a bar insert -1 value 7
+data modify storage test:a bar insert 100 value 7
+data get storage test:a bar
+data modify storage test:a foo set value 5
+data modify storage test:a foo set value 5
+data modify storage test:a baz merge value {y:"z",x:"w"}
+data modify storage test:a baz merge value {y:"z",x:"w"}
+data modify storage test:a baz merge value 5
+data modify storage test:a newlist append value {a:1}
+data modify storage test:a newcomp.deep.er set value 1b
+data modify storage test:a copy set from storage test:a baz
+data modify storage test:a copy2 set from storage test:a bar[0]
+data modify storage test:a str set string storage test:a baz.x
+data modify storage test:a str set string storage test:a baz.x 1
+data modify storage test:a str set string storage test:a baz.x 1 3
+data modify storage test:a str set string storage test:a baz.x -2
+data modify storage test:a str set string storage test:a baz.x 0 -1
+data modify storage test:a str set string storage test:a baz.x 3 1
+data modify storage test:a str set string storage test:a baz.x 0 99
+data modify storage test:a str set string storage test:a foo
+data modify storage test:a str set string storage test:a bar
+data modify storage test:a str set string storage test:a d
+data modify storage test:a bar[] set value 1
+data modify storage test:a bar[{}] set value 2
+data modify storage test:a l[] set value 8
+data modify storage test:a l append value 6
+data modify storage test:a l append value "x"
+data modify storage test:a l prepend value 1.5d
+data modify storage test:a b append value 300
+data modify storage test:a foo append value 1
+data modify storage test:a l[0] set value 100
+data modify storage test:a l[0] merge value {a:1}
+data modify storage test:a missing.thing merge value {a:1}
+data modify storage test:a missing2[] append value 1
+data get storage test:a
+data remove storage test:a foo
+data remove storage test:a foo
+data remove storage test:a bar[0]
+data remove storage test:a bar[]
+data remove storage test:a baz.x
+data remove storage test:a l[1]
+data remove storage test:a nope.nope
+data get storage test:a
+data merge storage test:b {}
+data get storage test:b
+data modify storage test:b x set from storage test:a nope
+data modify storage test:b x set from storage test:a newlist[]
+data modify storage test:b x set from storage test:a bar[]
+data modify storage test:b x set from storage test:a
+data get storage test:b
+data modify storage test:b x set value {a:{b:{c:1}}}
+data modify storage test:b x.a.b.c set value 2
+data modify storage test:b x.a.b.c set value 2
+data modify storage test:b x.a.b merge from storage test:a
+data modify storage test:b list set value [{id:1},{id:2,a:1},{id:3}]
+data modify storage test:b list[{id:2}].a set value 5
+data modify storage test:b list[{id:2}].a set value 5
+data modify storage test:b list[{id:9}] set value {id:9}
+data modify storage test:b list[{id:2}] merge value {extra:1b}
+data modify storage test:b list[].t set value 1
+data get storage test:b list[{id:2}]
+data get storage test:b list[-1]
+data get storage test:b list[{id:2}].a
+data get storage test:b {x:{a:{b:{c:2}}}}
+data get storage test:b x{a:{b:{c:2}}}
+data get storage test:b "x".a
+data get storage test:b list[0].id 3.9
+data get storage test:b list[0].id -3.9
+data merge storage test:b {list:[]}
+data get storage test:b list
+data remove storage test:b
+data remove storage test:b x
+data remove storage test:b {x:{}}
+data remove storage test:b x.a
+data remove storage test:b list
+data get storage test:b
+data get storage Test:B
+data get storage bad
+data get storage test:
+data get storage
+data get
+data
+data modify storage test:b x
+data modify storage test:b x set
+data modify storage test:b x set value
+data modify storage test:b x set value {
+data modify storage test:b x set value {a:}
+data modify storage test:b x insert value 1
+data modify storage test:b x insert 1.5 value 1
+data merge storage test:b
+data merge storage test:b 5
+data get storage test:b x[
+data get storage test:b x.
+data get storage test:b x..y
+data get storage test:b a{b
+data modify storage test:c a set value 1
+data modify storage test:c a append value 1
+data modify storage test:c a[0] set value 1
+data modify storage test:c a[{b:1}] set value 1
+data modify storage test:c a[{b:1}].b set value 1
+data get storage test:c
+data modify storage test:c p set value [B;1,2,3]
+data modify storage test:c p[] merge value {a:1}
+data modify storage test:c p[0] merge value {a:1}
+data modify storage test:c p[1] insert 0 value 1
+data modify storage test:c p append value 9
+data modify storage test:c p append value 1.5
+data modify storage test:c p[0] append value 1
+data get storage test:c p
+data modify storage test:c q set value [I;]
+data modify storage test:c q[] set value 3
+data modify storage test:c q[] merge value {a:1}
+data get storage test:c q
+data modify storage test:c r set value [L;1l,2l]
+data modify storage test:c r[0] set value 5
+data modify storage test:c r[1] set value "x"
+data get storage test:c r
+data modify storage test:c big set value 1
+data modify storage test:c big set value 3.9d
+data modify storage test:c big set value 1.0f
+data get storage test:c big 1000000000
+data get storage test:c big 100000000000
+data get storage test:c big -100000000000
+data get storage test:c big 0.001
+data get storage test:c big nan
+data get storage test:c big 1e308
