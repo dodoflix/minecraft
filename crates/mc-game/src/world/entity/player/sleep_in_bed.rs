@@ -117,7 +117,7 @@ impl ServerPlayer {
         self.player.sleep_counter = 0;
         self.award_stat_once(level, abstract_bed_block::get_slept_in_bed_stat_type(bed_state));
         if can_set_spawn {
-            // CriteriaTriggers::SLEPT_IN_BED.trigger(self) once the advancement triggers land
+            // CriteriaTriggers::SLEPT_IN_BED.trigger(level, self): the triggers API is not on main yet
         }
         if !level.can_sleep_through_nights() {
             self.send_overlay_message(Component::translatable("sleep.not_possible", Vec::new()));
