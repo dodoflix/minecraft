@@ -178,15 +178,7 @@ impl ContainerKey {
             ContainerKey::BlockEntity(pos) => notify_be(player, *pos),
             ContainerKey::Entity(id) => {
                 if let Some(level) = player.level() {
-                    level.with_entity(*id, |_, e| {
-                        if let Some(c) = e.as_container_mut() {
-                            if open {
-                                c.start_open(user)
-                            } else {
-                                c.stop_open(user)
-                            }
-                        }
-                    });
+                    level.with_entity(*id, |level, e| e.container_open_close(level, user, open));
                 }
             }
             ContainerKey::PlayerEnderChest => {

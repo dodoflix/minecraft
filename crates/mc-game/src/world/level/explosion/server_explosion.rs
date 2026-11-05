@@ -248,7 +248,7 @@ impl<'a> ServerExplosion<'a> {
 
     /// The reads of `hurtEntities` before an entity is hurt: `None` when the entity is not affected at all.
     fn plan(&self, level: &ServerLevel, entity: &dyn Entity, double_radius: f32) -> Option<EntityPlan> {
-        if entity.ignore_explosion(self) {
+        if entity.ignore_explosion(self) || entity.ignore_explosion_in_level(level, self) {
             return None;
         }
         let calculator = self.damage_calculator.get();

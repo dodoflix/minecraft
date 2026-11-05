@@ -2486,7 +2486,7 @@ pub trait Entity: Any {
             let source = level.damage_sources().generic_kill();
             self.hurt_server(level, &source, f32::MAX);
         } else {
-            self.remove(RemovalReason::Killed);
+            level.remove_held_entity(self.as_dyn_mut(), RemovalReason::Killed);
             level.game_event_from_entity(Some(self.id()), mc_data::GameEvent::ENTITY_DIE, self.position());
         }
     }
@@ -3597,6 +3597,34 @@ pub trait Entity: Any {
     /// `LivingEntity.calculateFallDamage(fallDistance, damageModifier)` (virtual: `Frog`, `Goat`).
     fn calculate_fall_damage(&self, fall_distance: f64, damage_modifier: f32) -> i32 {
         super::living_entity::damage::calculate_fall_damage(self.as_dyn(), fall_distance, damage_modifier)
+    }
+    // ==== [Vehicles] additions (Entity trait methods) ====
+    /// `ignoreExplosion(explosion)` where the level is needed (the `mobGriefing` rule of vehicles).
+    fn ignore_explosion_in_level(&self, _level: &ServerLevel, _explosion: &dyn crate::world::level::explosion::Explosion) -> bool {
+        false
+    }
+    /// `LivingEntity.getDismountPoses()` (players: standing, crouching, swimming).
+    fn get_dismount_poses(&self) -> &'static [mc_data::enums::Pose] {
+        use mc_data::enums::Pose;
+        if self.is_player() { &[Pose::Standing, Pose::Crouching, Pose::Swimming] } else { &[Pose::Standing] }
+    }
+    /// `getDismountLocationForPassenger(passenger)` of vehicles that also set the passenger's pose (boats, minecarts): the
+    /// caller (`LivingEntity.dismountVehicle`) uses this variant.
+    fn get_dismount_location_for_passenger_setting_pose(&self, level: &ServerLevel, passenger: &mut dyn Entity) -> Vec3 {
+        self.get_dismount_location_for_passenger(level, &*passenger)
+    }
+    /// The `ContainerEntity` state of chest vehicles (chest boats, chest/hopper minecarts).
+    fn chest_vehicle(&self) -> Option<&super::vehicle::container_entity::ChestVehicleData> {
+        None
+    }
+    fn chest_vehicle_mut(&mut self) -> Option<&mut super::vehicle::container_entity::ChestVehicleData> {
+        None
+    }
+    /// `Container.startOpen/stopOpen(containerUser)` of the entity's container (chest vehicles also post the container events).
+    fn container_open_close(&mut self, _level: &mut ServerLevel, user: EntityId, open: bool) {
+        if let Some(c) = self.as_container_mut() {
+            if open { c.start_open(user) } else { c.stop_open(user) }
+        }
     }
     // ==== [WardenMobs] additions (Entity trait methods) ====
     /// `Entity.updateDynamicGameEventListener(action)`: run by the level on tracking start (`Add`), tracking end (`Remove`)

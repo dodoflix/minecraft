@@ -78,12 +78,12 @@ pub trait MenuPlayer {
     fn container_interaction_range(&self) -> f64 {
         4.5
     }
-    /// `isWithinEntityInteractionRange(bb, buffer)`.
+    /// `isWithinBlockInteractionRange(pos, buffer)`.
+    fn is_within_block_interaction_range(&self, pos: BlockPos, buffer: f64) -> bool;
+    /// `isWithinEntityInteractionRange(box, buffer)` (level-less test players are always in range).
     fn is_within_entity_interaction_range(&self, _target: &mc_core::phys::AABB, _buffer: f64) -> bool {
         true
     }
-    /// `isWithinBlockInteractionRange(pos, buffer)`.
-    fn is_within_block_interaction_range(&self, pos: BlockPos, buffer: f64) -> bool;
     /// Runs `f` with the real `ServerLevel`/`ServerPlayer` (advancement triggers, stats, xp, ...); no-op for test
     /// players. The player's own menus are detached while a menu runs.
     fn with_server_player(&mut self, _f: &mut dyn FnMut(&mut ServerLevel, &mut crate::world::entity::player::ServerPlayer)) {}

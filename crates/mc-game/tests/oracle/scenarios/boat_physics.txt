@@ -1,0 +1,33 @@
+# AbstractBoat server physics (no rider, so the server simulates: the rider's client would): status IN_AIR -> IN_WATER landing, bobbing
+# in a shallow pool, submerged boat rising (UNDER_WATER), land friction, ice friction, bubble columns up/down, raft + chest boat.
+level flat
+difficulty normal
+level_seed 5
+fill 0 -61 0 4 -61 4 minecraft:water
+fill 10 -63 0 14 -61 4 minecraft:water
+fill 20 -61 0 26 -61 4 minecraft:blue_ice
+fill 30 -61 0 36 -61 4 minecraft:stone
+fill 40 -63 0 44 -61 4 minecraft:water
+block 42 -63 2 minecraft:soul_sand
+block 42 -62 2 minecraft:bubble_column[drag=false]
+block 42 -61 2 minecraft:bubble_column[drag=false]
+fill 46 -63 0 50 -61 4 minecraft:water
+block 48 -63 2 minecraft:magma_block
+block 48 -62 2 minecraft:bubble_column[drag=true]
+block 48 -61 2 minecraft:bubble_column[drag=true]
+fill 0 -61 10 4 -61 14 minecraft:water
+spawn b1 minecraft:oak_boat 2.5 -57 2.5 30 0
+spawn b2 minecraft:oak_boat 12.5 -62.5 2.5 45 0
+spawn b3 minecraft:oak_boat 33.5 -60 2.5 0 0
+velocity b3 0.3 0 0.1
+spawn b4 minecraft:oak_boat 22.5 -60 2.5 0 0
+velocity b4 0.4 0 0.2
+spawn b5 minecraft:oak_boat 42.5 -60.5 2.5 0 0
+entity_seed b5 99
+spawn b6 minecraft:oak_boat 48.5 -60.5 2.5 0 0
+entity_seed b6 7
+spawn b7 minecraft:bamboo_raft 1.5 -57 11.5 0 0
+spawn b8 minecraft:oak_chest_boat 3.5 -58 13.5 90 0
+watch entity:b1 entity:b2 entity:b3 entity:b4 entity:b5 entity:b6 entity:b7 entity:b8
+tick 100
+watch off

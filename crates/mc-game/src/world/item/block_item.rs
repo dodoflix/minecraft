@@ -406,12 +406,17 @@ pub fn bucket_empty_success_item(stack: &ItemStack, player: &ServerPlayer) -> It
 
 /// `Item.getPlayerPOVHitResult(level, player, fluid)`.
 pub fn player_pov_hit_result(level: &ServerLevel, player: &ServerPlayer, source_only: bool) -> BlockHitResult {
+    let fluid = if source_only { crate::world::level::collision::ClipFluid::SourceOnly } else { crate::world::level::collision::ClipFluid::None };
+    player_pov_hit_result_fluid(level, player, fluid)
+}
+
+/// `Item.getPlayerPOVHitResult(level, player, fluid)` with any `ClipContext.Fluid` (`BoatItem`: `ANY`).
+pub fn player_pov_hit_result_fluid(level: &ServerLevel, player: &ServerPlayer, fluid: crate::world::level::collision::ClipFluid) -> BlockHitResult {
     let from = player.base().get_eye_position();
     let (x_rot, y_rot) = (player.base().x_rot(), player.base().y_rot());
     let view = calculate_view_vector(x_rot, y_rot);
     let range = player.player.living.get_attribute_value(mc_data::Attribute::BLOCK_INTERACTION_RANGE);
     let to = from.add_xyz(view.x * range, view.y * range, view.z * range);
-    let fluid = if source_only { crate::world::level::collision::ClipFluid::SourceOnly } else { crate::world::level::collision::ClipFluid::None };
     level.clip(&ClipContext::new(from, to, crate::world::level::collision::ClipBlock::Outline, fluid, crate::world::entity::movement::collision_context(player)))
 }
 

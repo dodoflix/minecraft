@@ -19,6 +19,40 @@ impl PlayerSystems for ServerPlayerSystems {
         crate::world::entity::living_entity::travel::climbable(&mut *ctx.player, &*ctx.level)
     }
 
+    /// `handlePaddleBoat`: `player.getControlledVehicle() instanceof AbstractBoat boat` -> `boat.setPaddleState(left, right)`.
+    fn set_controlled_boat_paddle_state(&self, ctx: &mut PlayCtx, left: bool, right: bool) {
+        use crate::world::entity::Entity;
+        use crate::world::entity::vehicle::boat::abstract_boat::AbstractBoat;
+        let player_id = ctx.player.base_id();
+        let Some(vehicle) = ctx.player.base().vehicle else { return };
+        ctx.level.with_entity(vehicle, |_, e| {
+            if e.get_controlling_passenger() == Some(player_id)
+                && let Some(boat) = e.as_any_mut().downcast_mut::<AbstractBoat>()
+            {
+                boat.set_paddle_state(left, right);
+            }
+        });
+    }
+
+    /// `OPEN_INVENTORY`: `player.getVehicle() instanceof HasCustomInventoryScreen` (chest boats) -> `openCustomInventoryScreen(player)`.
+    fn open_vehicle_inventory(&self, ctx: &mut PlayCtx) {
+        use crate::world::entity::Entity;
+        use crate::world::entity::vehicle::boat::abstract_boat::AbstractBoat;
+        use crate::world::entity::vehicle::container_entity::ChestVehicleMenuProvider;
+        let Some(vehicle) = ctx.player.base().vehicle else { return };
+        let Some((title, position)) = ctx
+            .level
+            .get_entity(vehicle)
+            .filter(|e| e.as_any().downcast_ref::<AbstractBoat>().is_some_and(AbstractBoat::is_chest_boat))
+            .map(|e| (crate::world::damagesource::display_name::entity_display_name(&*ctx.level, e), e.position()))
+        else {
+            return;
+        };
+        ctx.player.open_menu(ctx.level, &ChestVehicleMenuProvider::new(vehicle, title));
+        ctx.level.game_event_from_entity(Some(ctx.player.base_id()), mc_data::GameEvent::CONTAINER_OPEN, position);
+        // SEAM(MobsScope): `PiglinAi.angerNearbyPiglins(level, player, true)`
+    }
+
     /// `Player.tryToStartFallFlying()`.
     fn try_to_start_fall_flying(&self, ctx: &mut PlayCtx) -> bool {
         use crate::world::entity::Entity;

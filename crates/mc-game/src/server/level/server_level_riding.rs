@@ -152,7 +152,7 @@ impl ServerLevel {
             if rider.is_removed() {
                 base.position()
             } else if let Some(v) = vehicle.filter(|v| !v.is_removed() && !self.get_block_state(v.base().block_position()).block().is_in_tag("portals")) {
-                v.get_dismount_location_for_passenger(self, rider.as_dyn())
+                v.get_dismount_location_for_passenger_setting_pose(self, &mut *rider)
             } else {
                 let max_y = base.y().max(vehicle.map_or(base.y(), |v| v.base().y()));
                 let mut target = Vec3::new(base.x(), max_y, base.z());
@@ -228,19 +228,23 @@ impl ServerLevel {
     /// `Entity.remove(reason)` including the riding part of `setRemoved`: a destroyed entity leaves its vehicle and
     /// every passenger leaves it.
     pub fn remove_entity(&mut self, id: EntityId, reason: crate::world::entity::RemovalReason) {
-        self.with_entity(id, |level, e| {
-            if e.base().removal_reason().is_none() {
-                if reason.should_destroy() {
-                    e.before_remove(level, reason);
-                }
-                e.base_mut().set_removal_reason(reason);
-            }
+        self.with_entity(id, |level, e| level.remove_held_entity(e, reason));
+    }
+
+    /// `remove(reason)` of an entity at hand (taken out of the level): the level-dependent override
+    /// ([`Entity::before_remove`]), then `setRemoved`'s riding part, then the entity's own `remove`.
+    pub fn remove_held_entity(&mut self, e: &mut dyn Entity, reason: crate::world::entity::RemovalReason) {
+        if e.base().removal_reason().is_none() {
             if reason.should_destroy() {
-                level.stop_riding(e);
+                e.before_remove(self, reason);
             }
-            level.eject_passengers(e);
-            e.remove(reason);
-        });
+            e.base_mut().set_removal_reason(reason);
+        }
+        if reason.should_destroy() {
+            self.stop_riding(e);
+        }
+        self.eject_passengers(e);
+        e.remove(reason);
     }
 
     /// `ServerLevel.tick`'s per-entity step for an entry of the tick list: `checkDespawn`, the riding checks and

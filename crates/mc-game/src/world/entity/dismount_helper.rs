@@ -102,3 +102,8 @@ pub fn get_dismount_poses(passenger: &dyn crate::world::entity::Entity) -> &'sta
 pub fn get_local_bounds_for_pose(passenger: &dyn crate::world::entity::Entity, pose: mc_data::enums::Pose) -> AABB {
     passenger.get_dimensions(pose).make_bounding_box_vec(Vec3::ZERO)
 }
+
+/// `canDismountTo(level, location, passenger, dismountPose)`.
+pub fn can_dismount_to_pose(level: &ServerLevel, location: Vec3, passenger: &dyn crate::world::entity::Entity, dismount_pose: mc_data::enums::Pose) -> bool {
+    can_dismount_to(level, passenger, &get_local_bounds_for_pose(passenger, dismount_pose).move_vec(location))
+}

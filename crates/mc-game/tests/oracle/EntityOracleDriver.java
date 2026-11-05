@@ -133,6 +133,8 @@ import net.minecraft.util.RandomSource;
  * attack PLAYER REF           ServerboundAttackPacket               swing PLAYER   ServerboundPunchPacket (main hand)
  * client_tick_end PLAYER    ServerboundClientTickEndPacket (re-arms the one position packet per tick; zeroes the known movement without one)
  * mob_attack MOB REF        Mob.doHurtTarget(level, REF); prints "MOBATTACK mob ref -> result"
+ * interact PLAYER REF [main|off] [sneak]   ServerboundInteractPacket (use the entity: board a boat, open a chest boat)
+ * paddle PLAYER LEFT RIGHT   ServerboundPaddleBoatPacket (true|false)
  * drop PLAYER [all]           DROP_ITEM / DROP_ALL_ITEMS            respawn PLAYER   ServerboundClientCommandPacket
  * pcommand PLAYER ACTION [data]   ServerboundPlayerCommandPacket (START_SPRINTING STOP_SPRINTING START_FALL_FLYING STOP_SLEEPING ...)
  * hurt REF DAMAGETYPE AMOUNT [by=REF] [direct=REF] [at=X,Y,Z]    entity.hurtServer(level, source, amount); prints "HURT result"
@@ -569,6 +571,17 @@ public final class EntityOracleDriver {
             // Mob.doHurtTarget(level, target) (the melee attack of a mob; no AI, no attack animation)
             boolean r = ((net.minecraft.world.entity.Mob)ref(a.get(1))).doHurtTarget(v.level, ref(a.get(2)));
             out.println("MOBATTACK " + a.get(1) + " " + a.get(2) + " -> " + r);
+         }
+         case "interact" -> {
+            world();
+            // interact PLAYER REF [main|off] [sneak]: ServerboundInteractPacket at the entity origin
+            boolean sneak = a.get(a.size() - 1).equals("sneak");
+            int handIdx = a.size() > 3 && (a.get(3).equals("main") || a.get(3).equals("off")) ? 3 : -1;
+            player(a.get(1)).connection.handleInteract(new ServerboundInteractPacket(ref(a.get(2)).getId(), handIdx > 0 ? hand(a, 3) : InteractionHand.MAIN_HAND, Vec3.ZERO, sneak));
+         }
+         case "paddle" -> {
+            world();
+            player(a.get(1)).connection.handlePaddleBoat(new ServerboundPaddleBoatPacket(Boolean.parseBoolean(a.get(2)), Boolean.parseBoolean(a.get(3))));
          }
          case "swing" -> {
             world();
@@ -1663,6 +1676,32 @@ public final class EntityOracleDriver {
       } else if (e instanceof net.minecraft.world.entity.item.FallingBlockEntity fb) {
          b.append(" state=").append(BlockStateParser.serialize(fb.getBlockState())).append(" time=").append(fb.time);
          b.append(" hurt=").append(priv(fb, "hurtEntities")).append(" cancel=").append(priv(fb, "cancelDrop")).append(" drop=").append(fb.dropItem);
+      } else if (e instanceof net.minecraft.world.entity.vehicle.boat.AbstractBoat boat) {
+         Class<?> ab = net.minecraft.world.entity.vehicle.boat.AbstractBoat.class;
+         Object status = priv(boat, ab, "status");
+         b.append(" status=").append(status == null ? "-" : status.toString().toLowerCase(Locale.ROOT));
+         b.append(" dmg=").append(f(boat.getDamage())).append(" hurt=").append(boat.getHurtTime()).append('/').append(boat.getHurtDir());
+         b.append(" bubble=").append(priv(boat, ab, "isAboveBubbleColumn")).append('/').append(boat.getEntityData().get((net.minecraft.network.syncher.EntityDataAccessor<Integer>)priv(null, ab, "DATA_ID_BUBBLE_TIME")));
+         b.append(" paddle=").append(boat.getPaddleState(0) ? 1 : 0).append(boat.getPaddleState(1) ? 1 : 0);
+         b.append(" pass=");
+         if (boat.getPassengers().isEmpty()) {
+            b.append('-');
+         }
+         for (int i = 0; i < boat.getPassengers().size(); i++) {
+            b.append(i > 0 ? ";" : "").append(uuidName(boat.getPassengers().get(i).getUUID()));
+         }
+         if (boat instanceof net.minecraft.world.entity.vehicle.boat.AbstractChestBoat cb) {
+            b.append(" items=");
+            int n = 0;
+            for (int i = 0; i < cb.getContainerSize(); i++) {
+               if (!cb.getItem(i).isEmpty()) {
+                  b.append(n++ > 0 ? ";" : "").append(i).append(':').append(item(cb.getItem(i)));
+               }
+            }
+            if (n == 0) {
+               b.append('-');
+            }
+         }
       }
       if (mob && e instanceof Mob m) {
          describeMob(b, m);

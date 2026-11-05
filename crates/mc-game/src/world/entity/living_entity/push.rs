@@ -17,6 +17,11 @@ pub fn living_is_pushable(entity: &dyn Entity, level: &ServerLevel) -> bool {
 /// `EntitySelector.pushableBy(entity)` over `Level.getPushableEntities(entity, box)` (`NO_SPECTATORS`, `isPushable()` and the
 /// scoreboard team collision rules of both entities).
 fn get_pushable_entities(level: &ServerLevel, entity: &dyn Entity) -> Vec<crate::world::entity::EntityId> {
+    pushable_entities_in(level, entity, &entity.base().bounding_box())
+}
+
+/// `EntitySelector.pushableBy(entity)` over `Level.getEntities(entity, box, pushableBy(entity))`.
+pub fn pushable_entities_in(level: &ServerLevel, entity: &dyn Entity, bb: &mc_core::phys::AABB) -> Vec<crate::world::entity::EntityId> {
     use crate::world::scores::CollisionRule;
     let scoreboard = level.scoreboard();
     let own_team = scoreboard.get_player_team(&entity.get_scoreboard_name());
@@ -24,7 +29,7 @@ fn get_pushable_entities(level: &ServerLevel, entity: &dyn Entity) -> Vec<crate:
     if own_rule == CollisionRule::Never {
         return Vec::new();
     }
-    level.get_entities(Some(entity.id()), &entity.base().bounding_box(), |other| {
+    level.get_entities(Some(entity.id()), bb, |other| {
         if other.is_spectator() || !other.is_pushable(level) {
             return false;
         }

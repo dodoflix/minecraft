@@ -51,6 +51,7 @@ pub mod spawn_util;
 pub mod variant;
 pub mod synched_data;
 pub mod tag_set;
+pub mod vehicle;
 pub mod vec_delta_codec;
 
 pub use dimensions::{EntityAttachment, EntityAttachments, EntityDimensions};
