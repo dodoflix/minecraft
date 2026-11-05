@@ -1,5 +1,7 @@
 //! `net.minecraft.world.level.block.RotatedPillarBlock`.
 use super::prelude::*;
+use crate::server::level::ServerLevel;
+use crate::world::item::BlockPlaceContext;
 
 pub struct RotatedPillarBlock;
 
@@ -15,7 +17,15 @@ pub fn rotate_pillar(state: BlockState, rotation: Rotation) -> BlockState {
     }
 }
 
+/// `getStateForPlacement` (also `InfestedRotatedPillarBlock`).
+pub fn get_state_for_placement(block: Block, context: &BlockPlaceContext) -> BlockState {
+    block.default_state().set(props::AXIS, context.get_clicked_face().get_axis())
+}
+
 impl BlockBehaviour for RotatedPillarBlock {
+    fn get_state_for_placement(&self, block: Block, _level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
+        Some(get_state_for_placement(block, context))
+    }
     fn rotate(&self, state: BlockState, rotation: Rotation) -> BlockState {
         rotate_pillar(state, rotation)
     }
