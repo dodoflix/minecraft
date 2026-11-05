@@ -106,9 +106,11 @@ crate can use it as a dev-dependency.
   `mc-game`, `mc-game-core`, `mc-light`, `mc-nbt`, `mc-protocol`, `mc-text`, `mc-world`, `mc-worldgen`; `oracle` in
   `mc-game`, `mc-game-core`, `mc-light`, `mc-protocol`, `mc-server`, `mc-world`. Run one module with
   `cargo test -p mc-game --test golden -- args::`.
-- A third target, `tests/it/main.rs`, holds the T0/T1 tests that need a process of their own because they change
-  process-wide state that the other tests of the crate would see: the captured global log, the working directory,
-  the injected language. It exists in `mc-game`, `mc-game-core` and `mc-text`; a crate adds it only for that reason.
+- A third target, `tests/it/main.rs`, holds T0/T1 tests that need a process of their own because they change
+  process-wide state that every other test of the crate would see (today only `mc-text`: `Language::inject` replaces
+  the translations of the whole process). A crate adds it only for that reason. Tests that capture log lines, or that
+  switch the working directory, stay in `golden`: the log helper keeps the lines per thread and the tests that
+  use the working directory share one lock.
 - Shared helpers go in `mod common;` (or `args_common`, `net_common`, ...) at the target root, with
   `#![allow(dead_code, reason = "...")]` stating why (not every module uses every helper). A helper two targets of one
   crate both need is split so each keeps only what it uses; the few exceptions load one helper file with `#[path]`.
