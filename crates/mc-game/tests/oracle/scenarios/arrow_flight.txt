@@ -1,0 +1,32 @@
+# Arrow flight without entity targets: air drag/gravity, ground and wall landing (shake, in-ground), crit, water inertia, spectral
+# arrow, piercing reset on block hit, in-ground despawn counter. Entity RNG fixed with entity_seed.
+level flat
+difficulty normal
+fill -2 -60 -2 60 -30 10 minecraft:air
+# stone wall at x=20..21
+fill 20 -60 -2 21 -50 10 minecraft:stone
+# water pool, walled (sources only)
+fill 30 -61 -2 36 -57 4 minecraft:stone
+fill 31 -60 -1 35 -57 3 minecraft:water[level=0]
+spawn free minecraft:arrow 0.5 -55 0.5
+entity_seed free 11
+velocity free 1.2 0.4 0.3
+spawn wall minecraft:arrow 5.5 -58 1.5
+entity_seed wall 12
+velocity wall 2.0 0.1 0.0
+spawn crit minecraft:arrow 0.5 -55 3.5 0 0 {crit:1b}
+entity_seed crit 13
+velocity crit 1.6 0.6 0.0
+spawn water minecraft:arrow 33.5 -52 1.5
+entity_seed water 14
+velocity water 0.0 -0.8 0.0
+spawn spec minecraft:spectral_arrow 0.5 -55 6.5
+entity_seed spec 15
+velocity spec 1.0 0.5 -0.2
+spawn pierce minecraft:arrow 5.5 -58 4.5 0 0 {PierceLevel:2b,crit:1b}
+entity_seed pierce 16
+velocity pierce 2.5 0.0 0.0
+spawn old minecraft:arrow 20.5 -59.5 8.5 0 0 {inGround:1b,life:1195s,inBlockState:{id:"minecraft:stone"},shake:3b}
+entity_seed old 17
+watch entities
+tick 70

@@ -1,0 +1,494 @@
+T 1
+E free minecraft:arrow pos=1.7,-54.6,0.8 delta=1.1880000114440918,0.3460000038146973,0.29700000286102296 rot=15.192757,3.5840592 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E wall minecraft:arrow pos=7.5,-57.9,1.5 delta=1.9800000190734863,0.04900000095367432,0.0 rot=17.999998,0.57249683 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E crit minecraft:arrow pos=2.1,-54.4,3.5 delta=1.5840000152587892,0.5440000057220459,0.0 rot=17.999998,4.111215 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E water minecraft:arrow pos=33.5,-52.8,1.5 delta=0.0,-0.8420000076293946,0.0 rot=0.0,-17.999998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E spec minecraft:spectral_arrow pos=1.5,-54.5,6.3 delta=0.9900000095367432,0.4450000047683716,-0.19800000190734865 rot=20.261976,5.2236586 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=8.0,-58.0,4.5 delta=2.475000023841858,-0.05,0.0 rot=17.999998,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=2 pickup=0 shake=0 life=0 dmg=2.0
+E old minecraft:arrow pos=20.5,-59.5,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=2 life=1196 dmg=2.0
+T 2
+E free minecraft:arrow pos=2.888000011444092,-54.25399999618531,1.097000002861023 delta=1.1761200226593018,0.29254000707626354,0.29403000566482546 rot=27.346962,6.022729 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E wall minecraft:arrow pos=9.480000019073486,-57.85099999904632,1.5 delta=1.9602000377655031,-0.001489998588561997,0.0 rot=32.399998,0.7414998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E crit minecraft:arrow pos=3.684000015258789,-53.85599999427795,3.5 delta=1.5681600302124026,0.4885600108528138,0.0 rot=32.399998,7.0798073 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E water minecraft:arrow pos=33.5,-53.64200000762939,1.5 delta=0.0,-0.8835800155830386,0.0 rot=0.0,-32.399998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E spec minecraft:spectral_arrow pos=2.490000009536743,-54.054999995231626,6.101999998092651 delta=0.9801000188827516,0.3905500089645386,-0.19602000377655032 rot=36.471554,8.936178 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=10.475000023841858,-58.05,4.5 delta=2.450250047206879,-0.09950000047683716,0.0 rot=32.399998,-0.23145524 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=2 pickup=0 shake=0 life=0 dmg=2.0
+E old minecraft:arrow pos=20.5,-59.5,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=1 life=1197 dmg=2.0
+T 3
+E free minecraft:arrow pos=4.064120034103394,-53.961459989109045,1.3910300085258485 delta=1.1643588336490633,0.23961460979537985,0.29108970841226584 rot=37.070324,7.531479 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E wall minecraft:arrow pos=11.44020005683899,-57.85248999763488,1.5 delta=1.9405980560817724,-0.051475098616886115,0.0 rot=43.92,0.58450407 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E crit minecraft:arrow pos=5.252160045471191,-53.367439983425136,3.5 delta=1.552478444865418,0.433674415403557,0.0 rot=43.92,9.124717 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E water minecraft:arrow pos=33.5,-54.52558002321243,1.5 delta=0.0,-0.9247442238536839,0.0 rot=0.0,-43.92 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E spec minecraft:spectral_arrow pos=3.4701000284194947,-53.66444998626709,5.905979994316101 delta=0.9702990280408862,0.33664451259946837,-0.19405980560817726 rot=49.439213,11.417473 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=12.925250071048737,-58.149500000476834,4.5 delta=2.4257475701022155,-0.14850500142097472,0.0 rot=43.92,-0.65021884 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=2 pickup=0 shake=0 life=0 dmg=2.0
+E old minecraft:arrow pos=20.5,-59.5,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=1198 dmg=2.0
+T 4
+E free minecraft:arrow pos=5.228478867752457,-53.72184537931366,1.6821197169381144 delta=1.1527152564167638,0.18721846598256903,0.28817881410419094 rot=44.849014,8.283268 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E wall minecraft:arrow pos=13.380798112920761,-57.90396509625177,1.5 delta=1.92119209402794,-0.10096034812162205,0.0 rot=53.135998,0.16369975 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E crit minecraft:arrow pos=6.804638490336609,-52.93376556802158,3.5 delta=1.536953675222352,0.37933767538536295,0.0 rot=53.135998,10.421253 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E water minecraft:arrow pos=33.5,-55.45032424706611,1.5 delta=0.0,-0.9654967904341953,0.0 rot=0.0,-53.135998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E spec minecraft:spectral_arrow pos=4.440399056460381,-53.32780547366762,5.711920188707923 delta=0.96059604701397,0.28327807068396593,-0.192119209402794 rot=59.81334,12.891753 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=15.350997641150952,-58.298005001897806,4.5 delta=2.401490117534925,-0.19701995282301904,0.0 rot=53.135998,-1.2208545 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=2 pickup=0 shake=0 life=0 dmg=2.0
+E old minecraft:arrow pos=20.5,-59.5,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=1199 dmg=2.0
+T 5
+E free minecraft:arrow pos=6.381194124169221,-53.534626913331095,1.9702985310423053 delta=1.1411881148457454,0.13534628310819774,0.28529702871143636 rot=51.071968,8.417471 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E wall minecraft:arrow pos=15.301990206948702,-58.00492544437339,1.5 delta=1.901980191409576,-0.14995074560323873,0.0 rot=60.508797,-0.4706474 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E crit minecraft:arrow pos=8.34159216555896,-52.55442789263621,3.5 delta=1.521584153127661,0.3255443022491553,0.0 rot=60.508797,11.109809 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E water minecraft:arrow pos=33.5,-56.41582103750031,1.5 delta=0.0,-1.0058418317375484,0.0 rot=0.0,-60.508797 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E spec minecraft:spectral_arrow pos=5.400995103474351,-53.044527402983654,5.5198009793051295 delta=0.950990095704788,0.23044529267867647,-0.19019801914095763 rot=68.11264,13.53907 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=17.752487758685877,-58.495024954720826,4.5 delta=2.3774752392619702,-0.24504975517371752,0.0 rot=60.508797,-1.9147038 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=2 pickup=0 shake=0 life=0 dmg=2.0
+T 6
+E free minecraft:arrow pos=7.522382239014966,-53.3992806302229,2.2555955597537416 delta=1.129776244580506,0.0839928215678785,0.2824440611451265 rot=56.050327,8.046684 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E wall minecraft:arrow pos=17.203970398358276,-58.15487618997663,1.5 delta=1.8829604076341768,-0.19845123957724808,0.0 rot=66.407036,-1.2780797 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E crit minecraft:arrow pos=9.863176318686621,-52.228883590387056,3.5 delta=1.5063683261073417,0.2722888623312962,0.0 rot=66.407036,11.303089 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E water minecraft:arrow pos=33.5,-57.421662869237856,1.5 delta=0.0,-0.6535051230236671,0.0 rot=0.0,-66.407036 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E spec minecraft:spectral_arrow pos=6.351985199179139,-52.81408211030498,5.329602960164172 delta=0.9414802038170884,0.1781408419495873,-0.18829604076341772 rot=74.75208,13.50454 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=7 life=0 dmg=2.0
+T 7
+E free minecraft:arrow pos=8.652158483595473,-53.31528780865502,2.5380396208988683 delta=1.1184784929090867,0.03315289415321768,0.2796196232272717 rot=60.033016,7.2623954 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E wall minecraft:arrow pos=19.086930805992452,-58.35332742955388,1.5 delta=1.8641308215151449,-0.2464667290740541,0.0 rot=71.125626,-2.2257428 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E crit minecraft:arrow pos=11.369544644793963,-51.95659472805576,3.5 delta=1.4913046572121162,0.21956597630473218,0.0 rot=71.125626,11.091649 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E water minecraft:arrow pos=33.5,-58.07516799226153,1.5 delta=0.0,-0.44210308939497656,0.0 rot=0.0,-71.125626 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E spec minecraft:spectral_arrow pos=7.293465402996228,-52.635941268355396,5.141306919400754 delta=0.9320654107575724,0.12635943522897486,-0.18641308215151453 rot=80.06364,12.905872 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0
+T 8
+E free minecraft:arrow pos=9.77063697650456,-53.2821349145018,2.81765924412614 delta=1.107293718646638,-0.017178634472143864,0.2768234296616595 rot=63.219166,6.1393366 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=7 life=0 dmg=2.0
+E crit minecraft:arrow pos=12.86084930200608,-51.73702875175103,3.5 delta=1.4763916248621847,0.16737031863562918,0.0 rot=74.9005,10.548409 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E water minecraft:arrow pos=33.5,-58.5172710816565,1.5 delta=0.0,-0.315261864177545,0.0 rot=0.0,-74.9005 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E spec minecraft:spectral_arrow pos=8.2255308137538,-52.50958183312642,4.954893837249239 delta=0.9227447655388652,0.0750958420817426,-0.18454895310777308 rot=84.31289,11.839174 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=5 life=2 dmg=2.0
+T 9
+E free minecraft:arrow pos=10.877930695151198,-53.29931354897395,3.0944826737877995 delta=1.0962207920201474,-0.06700684829125066,0.27405519800503686 rot=65.76808,4.7390094 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0
+E crit minecraft:arrow pos=14.337240926868265,-51.56965843311541,3.5 delta=1.4616277226935306,0.11569661704544064,0.0 rot=77.920395,9.732273 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E water minecraft:arrow pos=33.5,-58.832532945834046,1.5 delta=0.0,-0.23915712602295558,0.0 rot=0.0,-77.920395 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E spec minecraft:spectral_arrow pos=9.148275579292665,-52.434485991044674,4.7703448841414655 delta=0.9135173266834564,0.024344884377094922,-0.18270346533669132 rot=87.712296,10.38387 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=4 life=3 dmg=2.0
+T 10
+E free minecraft:arrow pos=11.974151487171346,-53.3663203972652,3.3685378717928365 delta=1.085258594554322,-0.11633678044736526,0.2713146486385805 rot=67.80722,3.1124735 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=5 life=2 dmg=2.0
+E crit minecraft:arrow pos=15.798868649561795,-51.45396181606996,3.5 delta=1.4470114594057635,0.06453965197835515,0.0 rot=80.33631,8.690985 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.071690071857,1.5 delta=0.0,-0.19349428131572355,0.0 rot=0.0,-80.33631 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E spec minecraft:spectral_arrow pos=10.061792905976121,-52.41014110666758,4.5876414188047745 delta=0.904382162128602,-0.02589856423450512,-0.18087643242572043 rot=90.43182,8.606482 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=3 life=4 dmg=2.0
+T 11
+E free minecraft:arrow pos=13.059410081725668,-53.48265717771256,3.639852520431417 delta=1.0744060189586113,-0.1651734137523656,0.26860150473965283 rot=69.43853,1.3025385 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=4 life=3 dmg=2.0
+E crit minecraft:arrow pos=17.245880108967558,-51.389422164091606,3.5 delta=1.4325413586114826,0.013894256074069675,0.0 rot=82.26905,7.46354 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.26518435317272,1.5 delta=0.0,-0.1660965734026973,0.0 rot=0.0,-82.26905 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E spec minecraft:spectral_arrow pos=10.966175068104723,-52.43603967090208,4.406764986379054 delta=0.8953383491321764,-0.07563957883914803,-0.17906766982643532 rot=92.607445,6.563489 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=2 life=5 dmg=2.0
+T 12
+E free minecraft:arrow pos=14.133816100684278,-53.647830591464924,3.9084540251710695 delta=1.0636619690153595,-0.21352168119005838,0.26591549225383987 rot=70.743576,-0.65453553 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=3 life=4 dmg=2.0
+E crit minecraft:arrow pos=18.678421467579042,-51.37552790801754,3.5 delta=1.4182159586871468,-0.03624468635416507,0.0 rot=83.81524,6.081962 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=1 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.43128092657542,1.5 delta=0.0,-0.14965794800166926,0.0 rot=0.0,-83.81524 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E spec minecraft:spectral_arrow pos=11.8615134172369,-52.511679249741235,4.227697316552619 delta=0.8863849741794665,-0.12488318377211179,-0.17727699483589335 rot=94.34794,4.303666 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=1 life=6 dmg=2.0
+T 13
+E free minecraft:arrow pos=15.197478069699638,-53.86135227265498,4.17436951742491 delta=1.0530253594690768,-0.26138646641445923,0.2632563398672692 rot=71.78761,-2.7276928 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=2 life=5 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=7 life=0 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.580938874577086,1.5 delta=0.0,-0.13979477236912508,0.0 rot=0.0,-85.05219 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E spec minecraft:spectral_arrow pos=12.747898391416367,-52.63656243351335,4.050420321716725 delta=0.8775211328908976,-0.1736343531253695,-0.17550422657817957 rot=95.74033,1.8697579 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=7 dmg=2.0
+T 14
+E free minecraft:arrow pos=16.250503429168717,-54.12273873906944,4.437625857292179 delta=1.0424951159168185,-0.3087726042430902,0.26062377897920463 rot=72.62284,-4.890108 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=1 life=6 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.72073364694621,1.5 delta=0.0,-0.13387686675444216,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E spec minecraft:spectral_arrow pos=13.625419524307265,-52.81019678663872,3.8749160951385457 delta=0.8687459299306823,-0.22189801125002206,-0.1737491859861365 rot=96.85425,-0.70028853 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=8 dmg=2.0
+T 15
+E free minecraft:arrow pos=17.292998545085535,-54.43151134331253,4.698249636271384 delta=1.0320701746996586,-0.35568488114534436,0.25801754367491464 rot=73.29102,-7.118413 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=7 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=5 life=2 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.85461051370065,1.5 delta=0.0,-0.13032612324453852,0.0 rot=0.0,-86.833405 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E spec minecraft:spectral_arrow pos=14.494165454237947,-53.03209479788874,3.701166909152409 delta=0.8600584789163823,-0.2696790332537062,-0.1720116957832765 rot=97.74538,-3.3724744 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=9 dmg=2.0
+T 16
+E free minecraft:arrow pos=18.325068719785193,-54.78719622445787,4.956267179946298 delta=1.0217494827952502,-0.4021280357259663,0.25543737069881256 rot=73.82557,-9.392124 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=8 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=4 life=3 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.984936636945186,1.5 delta=0.0,-0.12819567705394003,0.0 rot=0.0,-87.46672 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E spec minecraft:spectral_arrow pos=15.35422393315433,-53.30177383114245,3.5291552133691324 delta=0.8514579023293753,-0.3169822454930288,-0.1702915804658751 rot=98.45828,-6.116196 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=10 dmg=2.0
+T 17
+E free minecraft:arrow pos=19.346818202580444,-55.18932426018384,5.211704550645111 delta=1.01153199771146,-0.4481067592036984,0.252882999427865 rot=74.253204,-11.693238 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=9 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=3 life=4 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=7 life=0 dmg=2.0
+E spec minecraft:spectral_arrow pos=16.205681835483706,-53.61875607663548,3.3588636329032573 delta=0.8429433314262169,-0.3638124260610767,-0.1685886662852434 rot=99.0286,-8.903902 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=11 dmg=2.0
+T 18
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=7 life=0 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=10 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=2 life=5 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0
+E spec minecraft:spectral_arrow pos=17.048625166909922,-53.98256850269655,3.1902749666180137 delta=0.8345139061508888,-0.4101743052700516,-0.1669027812301778 rot=99.484856,-11.710898 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=12 dmg=2.0
+T 19
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=11 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=1 life=6 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=5 life=2 dmg=2.0
+E spec minecraft:spectral_arrow pos=17.88313907306081,-54.392742807966606,3.023372185387836 delta=0.8261687750479247,-0.4560725661290781,-0.16523375500958498 rot=99.84986,-14.515231 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=13 dmg=2.0
+T 20
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=5 life=2 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=12 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=7 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=4 life=3 dmg=2.0
+E spec minecraft:spectral_arrow pos=18.709307848108736,-54.848815374095686,2.858138430378251 delta=0.8179070951764049,-0.5015118448172342,-0.163581419035281 rot=100.14186,-17.297646 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=14 dmg=2.0
+T 21
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=4 life=3 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=13 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=8 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=3 life=4 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.52721494328514,-55.35032721891292,2.69455701134297 delta=0.8097280320248108,-0.5464967311518515,-0.16194560640496217 rot=100.37546,-20.041466 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=15 dmg=2.0
+T 22
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=3 life=4 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=14 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=9 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=2 life=5 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=7 life=0 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=16 dmg=2.0
+T 23
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=2 life=5 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=15 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=10 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=1 life=6 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=17 dmg=2.0
+T 24
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=1 life=6 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=16 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=11 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=7 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=5 life=2 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=18 dmg=2.0
+T 25
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=7 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=17 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=12 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=8 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=4 life=3 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=19 dmg=2.0
+T 26
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=8 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=18 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=13 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=9 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=3 life=4 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=20 dmg=2.0
+T 27
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=9 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=19 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=14 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=10 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=2 life=5 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=21 dmg=2.0
+T 28
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=10 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=20 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=15 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=11 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=1 life=6 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=22 dmg=2.0
+T 29
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=11 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=21 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=16 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=12 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=7 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=23 dmg=2.0
+T 30
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=12 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=22 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=17 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=13 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=8 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=24 dmg=2.0
+T 31
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=13 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=23 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=18 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=14 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=9 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=25 dmg=2.0
+T 32
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=14 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=24 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=19 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=15 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=10 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=26 dmg=2.0
+T 33
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=15 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=25 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=20 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=16 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=11 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=27 dmg=2.0
+T 34
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=16 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=26 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=21 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=17 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=12 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=28 dmg=2.0
+T 35
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=17 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=27 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=22 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=18 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=13 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=29 dmg=2.0
+T 36
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=18 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=28 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=23 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=19 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=14 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=30 dmg=2.0
+T 37
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=19 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=29 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=24 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=20 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=15 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=31 dmg=2.0
+T 38
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=20 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=30 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=25 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=21 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=16 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=32 dmg=2.0
+T 39
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=21 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=31 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=26 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=22 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=17 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=33 dmg=2.0
+T 40
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=22 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=32 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=27 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=23 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=18 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=34 dmg=2.0
+T 41
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=23 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=33 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=28 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=24 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=19 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=35 dmg=2.0
+T 42
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=24 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=34 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=29 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=25 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=20 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=36 dmg=2.0
+T 43
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=25 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=35 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=30 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=26 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=21 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=37 dmg=2.0
+T 44
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=26 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=36 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=31 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=27 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=22 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=38 dmg=2.0
+T 45
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=27 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=37 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=32 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=28 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=23 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=39 dmg=2.0
+T 46
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=28 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=38 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=33 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=29 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=24 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=40 dmg=2.0
+T 47
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=29 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=39 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=34 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=30 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=25 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=41 dmg=2.0
+T 48
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=30 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=40 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=35 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=31 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=26 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=42 dmg=2.0
+T 49
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=31 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=41 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=36 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=32 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=27 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=43 dmg=2.0
+T 50
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=32 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=42 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=37 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=33 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=28 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=44 dmg=2.0
+T 51
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=33 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=43 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=38 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=34 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=29 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=45 dmg=2.0
+T 52
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=34 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=44 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=39 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=35 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=30 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=46 dmg=2.0
+T 53
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=35 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=45 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=40 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=36 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=31 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=47 dmg=2.0
+T 54
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=36 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=46 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=41 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=37 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=32 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=48 dmg=2.0
+T 55
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=37 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=47 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=42 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=38 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=33 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=49 dmg=2.0
+T 56
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=38 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=48 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=43 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=39 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=34 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=50 dmg=2.0
+T 57
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=39 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=49 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=44 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=40 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=35 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=51 dmg=2.0
+T 58
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=40 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=50 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=45 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=41 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=36 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=52 dmg=2.0
+T 59
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=41 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=51 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=46 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=42 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=37 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=53 dmg=2.0
+T 60
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=42 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=52 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=47 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=43 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=38 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=54 dmg=2.0
+T 61
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=43 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=53 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=48 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=44 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=39 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=55 dmg=2.0
+T 62
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=44 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=54 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=49 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=45 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=40 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=56 dmg=2.0
+T 63
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=45 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=55 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=50 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=46 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=41 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=57 dmg=2.0
+T 64
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=46 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=56 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=51 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=47 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=42 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=58 dmg=2.0
+T 65
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=47 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=57 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=52 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=48 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=43 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=59 dmg=2.0
+T 66
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=48 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=58 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=53 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=49 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=44 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=60 dmg=2.0
+T 67
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=49 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=59 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=54 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=50 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=45 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=61 dmg=2.0
+T 68
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=50 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=60 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=55 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=51 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=46 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=62 dmg=2.0
+T 69
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=51 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=61 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=56 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=52 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=47 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=63 dmg=2.0
+T 70
+E free minecraft:arrow pos=19.949999999254942,-55.4286825586075,5.324999999254942 delta=0.0,0.0,0.0 rot=74.595314,-14.0059185 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=52 dmg=2.0
+E wall minecraft:arrow pos=19.949999999254942,-58.42404920169513,1.5 delta=0.0,0.0,0.0 rot=74.9005,-3.2869399 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=62 dmg=2.0
+E crit minecraft:arrow pos=19.949999999254942,-51.359302875821236,3.5 delta=0.0,0.0,0.0 rot=85.05219,4.572771 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=57 dmg=2.0
+E water minecraft:arrow pos=33.5,-59.94999999925494,1.5 delta=0.0,0.0,0.0 rot=0.0,-87.97337 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=53 dmg=2.0
+E spec minecraft:spectral_arrow pos=19.949999999254942,-55.619416440491094,2.650000000745057 delta=0.0,0.0,0.0 rot=100.56234,-22.732525 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=48 dmg=2.0
+E pierce minecraft:arrow pos=19.949999999254942,-58.67667923806199,4.5 delta=0.0,0.0,0.0 rot=66.407036,-2.7087064 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=64 dmg=2.0

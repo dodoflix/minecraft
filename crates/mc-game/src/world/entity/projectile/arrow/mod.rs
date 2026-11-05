@@ -345,13 +345,14 @@ pub fn tick(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel) {
             let inertia = arrow.get_water_inertia();
             apply_inertia(arrow, inertia);
         }
-        let pi = f64::from(std::f32::consts::PI);
+        // vanilla: `atan2 * 180.0F / (float)Math.PI` constant-folds to `atan2 * (double)(180.0F / (float)Math.PI)`
+        let rad_to_deg = f64::from(180.0f32 / std::f32::consts::PI);
         let y_rot = if !physics_enabled {
-            (mth::atan2(-movement.x, -movement.z) * 180.0 / pi) as f32
+            (mth::atan2(-movement.x, -movement.z) * rad_to_deg) as f32
         } else {
-            (mth::atan2(movement.x, movement.z) * 180.0 / pi) as f32
+            (mth::atan2(movement.x, movement.z) * rad_to_deg) as f32
         };
-        let x_rot = (mth::atan2(movement.y, movement.horizontal_distance()) * 180.0 / pi) as f32;
+        let x_rot = (mth::atan2(movement.y, movement.horizontal_distance()) * rad_to_deg) as f32;
         let new_x = lerp_rotation(arrow.base().x_rot(), x_rot);
         let new_y = lerp_rotation(arrow.base().y_rot(), y_rot);
         arrow.base_mut().set_x_rot(new_x);
@@ -722,7 +723,7 @@ pub fn add_additional_save_data(arrow: &dyn AbstractArrow, out: &mut CompoundTag
     let d = arrow.arrow_data();
     out.put_short("life", d.life as i16);
     if let Some(state) = d.last_state
-        && let Ok(tag) = mc_world::palette::ElementCodec::encode(&mc_world::palette::BlockStateCodec, state)
+        && let Ok(tag) = mc_dfu::encode_nbt(&crate::world::item::enchantment::value_codecs::block_state_codec(), &state).into_result()
     {
         out.put("inBlockState", tag);
     }
@@ -750,7 +751,7 @@ pub fn read_additional_save_data(arrow: &mut dyn AbstractArrow, input: &Compound
     use crate::world::item::load_item_stack;
     super::read_additional_save_data(arrow, input);
     arrow.arrow_data_mut().life = i32::from(input.get_short_or("life", 0));
-    arrow.arrow_data_mut().last_state = input.get("inBlockState").and_then(|t| mc_world::palette::ElementCodec::decode(&mc_world::palette::BlockStateCodec, t).ok());
+    arrow.arrow_data_mut().last_state = input.get("inBlockState").and_then(|t| mc_dfu::parse_nbt(&crate::world::item::enchantment::value_codecs::block_state_codec(), t).into_result().ok());
     arrow.arrow_data_mut().shake_time = i32::from(input.get_byte_or("shake", 0)) & 255;
     arrow.set_in_ground(input.get_boolean_or("inGround", false));
     arrow.arrow_data_mut().base_damage = input.get_double_or("damage", 2.0);

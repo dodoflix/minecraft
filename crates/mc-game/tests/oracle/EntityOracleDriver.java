@@ -1644,6 +1644,14 @@ public final class EntityOracleDriver {
          b.append(" value=").append(o.getValue());
       } else if (e instanceof net.minecraft.world.entity.item.PrimedTnt t) {
          b.append(" fuse=").append(t.getFuse());
+      } else if (e instanceof net.minecraft.world.entity.projectile.arrow.AbstractArrow a) {
+         @SuppressWarnings("unchecked")
+         var inGround = (net.minecraft.network.syncher.EntityDataAccessor<Boolean>)priv(a, net.minecraft.world.entity.projectile.arrow.AbstractArrow.class, "IN_GROUND");
+         b.append(" ground=").append(a.getEntityData().get(inGround) ? 1 : 0);
+         b.append(" crit=").append(a.isCritArrow() ? 1 : 0).append(" pierce=").append(a.getPierceLevel());
+         b.append(" pickup=").append(a.pickup.ordinal()).append(" shake=").append(a.shakeTime);
+         b.append(" life=").append(priv(a, net.minecraft.world.entity.projectile.arrow.AbstractArrow.class, "life"));
+         b.append(" dmg=").append(priv(a, net.minecraft.world.entity.projectile.arrow.AbstractArrow.class, "baseDamage"));
       }
       if (e instanceof ItemEntity ie) {
          b.append(" pickup=").append(priv(ie, "pickupDelay")).append(" health=").append(priv(ie, "health"));
