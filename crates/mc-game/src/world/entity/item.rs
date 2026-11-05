@@ -384,8 +384,7 @@ impl Entity for ItemEntity {
                 stack.set_count(org_count);
                 self.set_item_in_place(stack);
             }
-            // EC_AWARD_STAT: `player.awardStat(Stats.ITEM_PICKED_UP.get(item), orgCount)` once EcPlayer's `award_stat` lands
-            let _ = item;
+            player.award_stat(level, crate::stats::Stat::PickedUp(item), org_count);
             // `player.onItemPickup(this)`: `THROWN_ITEM_PICKED_UP_BY_*` criteria triggers need advancements.
         }
     }

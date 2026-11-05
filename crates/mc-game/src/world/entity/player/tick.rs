@@ -123,7 +123,7 @@ impl ServerPlayer {
 
     /// `trackEnteredOrExitedLavaOnVehicle()`.
     pub fn track_entered_or_exited_lava_on_vehicle(&mut self, level: &ServerLevel) {
-        let in_lava = |id| level.get_entity(id).is_some_and(|v| !v.base().first_tick && v.base().fluid_height[1] > 0.0);
+        let in_lava = |id| level.get_entity(id).is_some_and(|v| v.is_in_lava());
         let vehicle = self.base().vehicle;
         if vehicle.is_some_and(in_lava) && self.entered_lava_on_vehicle_position.is_none() {
             self.entered_lava_on_vehicle_position = Some(self.base().position());
