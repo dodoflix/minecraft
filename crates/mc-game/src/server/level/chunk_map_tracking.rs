@@ -126,9 +126,6 @@ impl ChunkMap {
                 self.player_map.un_ignore_player(id);
             }
             self.update_chunk_tracking(id);
-            if position_changed {
-                self.events.push(ChunkMapEvent::PlayerMovedSection(id));
-            }
         }
     }
 

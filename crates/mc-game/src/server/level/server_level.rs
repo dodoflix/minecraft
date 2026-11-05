@@ -73,6 +73,8 @@ pub struct ServerLevel {
     pub entity_tracker: super::EntityTracker,
     /// Handles to the server-global state (scoreboard, player roster), installed by the server (see `level_server_state.rs`).
     pub server_state: super::LevelServerState,
+    /// Snapshots of the players that are currently taken out of the entity storage (see `tracker_players`).
+    pub(super) taken_out_players: std::collections::HashMap<EntityId, super::TrackerPlayer>,
     /// `registryAccess()`: the server's registries (damage types, enchantments, tags, ...). Empty until the level
     /// factory installs them (`detached` levels stay empty).
     pub registries: crate::registry::RegistryAccess,
@@ -137,6 +139,7 @@ impl ServerLevel {
             players: Vec::new(),
             entity_tracker: Default::default(),
             server_state: Default::default(),
+            taken_out_players: Default::default(),
             registries: Default::default(),
             spawn_protection_hook: None,
             chunk_source,
@@ -263,7 +266,6 @@ impl ServerLevel {
                 self.entity_manager.add_legacy_chunk_entities(entities);
                 self.process_entity_events();
             }
-            ChunkMapEvent::PlayerMovedSection(id) => self.entity_tracker_move_player(id),
         }
     }
 
@@ -412,6 +414,7 @@ impl ServerLevel {
         for id in ids {
             self.chunk_source.chunk_map.update_chunk_tracking(id);
         }
+        self.tick_entity_tracker();
     }
 
     /// `ServerChunkCache.tickChunks()`.

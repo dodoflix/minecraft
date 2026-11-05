@@ -591,6 +591,14 @@ impl PersistentEntitySectionManager {
         self.entities.get_mut(&id).and_then(|s| s.entity.as_deref_mut())
     }
 
+    /// Mutable access to a live entity, or to one that was just removed and waits in limbo for its callbacks.
+    pub fn get_any_or_removed_mut(&mut self, id: EntityId) -> Option<&mut dyn Entity> {
+        if self.entities.get(&id).is_some_and(|s| s.entity.is_some()) {
+            return self.get_any_mut(id);
+        }
+        self.limbo.get_mut(&id).map(|e| e.as_mut())
+    }
+
     pub fn get_by_uuid(&self, uuid: Uuid) -> Option<&dyn Entity> {
         self.visible_by_uuid.get(&uuid).and_then(|&id| self.get_any(id))
     }

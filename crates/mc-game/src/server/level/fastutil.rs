@@ -13,6 +13,12 @@ fn mix(x: i64) -> i32 {
     (h ^ (((h as u64) >> 16) as i64)) as i32
 }
 
+/// `HashCommon.mix(int)`.
+fn mix_int(x: i64) -> i32 {
+    let h = (x as i32).wrapping_mul(0x9E37_79B9u32 as i32);
+    h ^ (((h as u32) >> 16) as i32)
+}
+
 fn next_power_of_two(x: u64) -> u64 {
     if x == 0 { 1 } else { (x - 1).next_power_of_two().max(1) }
 }
@@ -35,6 +41,8 @@ pub struct LongOpenHashMap<V> {
     value: Vec<Option<V>>,
     mask: usize,
     contains_null_key: bool,
+    /// `Int2ObjectOpenHashMap`: keys are ints (hashed with `mix(int)`).
+    int_keys: bool,
     n: usize,
     min_n: usize,
     max_fill: usize,
@@ -57,7 +65,16 @@ impl<V> LongOpenHashMap<V> {
         let n = array_size(expected);
         let mut value = Vec::new();
         value.resize_with(n + 1, || None);
-        Self { key: vec![0; n + 1], value, mask: n - 1, contains_null_key: false, n, min_n: n, max_fill: max_fill(n), size: 0 }
+        Self { key: vec![0; n + 1], value, mask: n - 1, contains_null_key: false, int_keys: false, n, min_n: n, max_fill: max_fill(n), size: 0 }
+    }
+
+    /// `new Int2ObjectOpenHashMap<>()`: same table, int keys.
+    pub fn new_int() -> Self {
+        Self { int_keys: true, ..Self::new() }
+    }
+
+    fn hash(&self, k: i64) -> usize {
+        (if self.int_keys { mix_int(k) } else { mix(k) }) as usize
     }
 
     pub fn len(&self) -> usize {
@@ -72,7 +89,7 @@ impl<V> LongOpenHashMap<V> {
         if k == 0 {
             return if self.contains_null_key { Ok(self.n) } else { Err(self.n) };
         }
-        let mut pos = mix(k) as usize & self.mask;
+        let mut pos = self.hash(k) & self.mask;
         loop {
             let curr = self.key[pos];
             if curr == 0 {
@@ -174,7 +191,7 @@ impl<V> LongOpenHashMap<V> {
                     self.value[last] = None;
                     return;
                 }
-                let slot = mix(c) as usize & self.mask;
+                let slot = self.hash(c) & self.mask;
                 let stays = if last <= pos { last >= slot || slot > pos } else { last >= slot && slot > pos };
                 if stays {
                     curr = c;
@@ -207,7 +224,7 @@ impl<V> LongOpenHashMap<V> {
                     break;
                 }
             }
-            let mut pos = mix(self.key[i]) as usize & mask;
+            let mut pos = self.hash(self.key[i]) & mask;
             while new_key[pos] != 0 {
                 pos = (pos + 1) & mask;
             }
@@ -268,7 +285,7 @@ impl<V> LongOpenHashMap<V> {
                     pos -= 1;
                     if pos < 0 {
                         let k = wrapped[(-pos - 1) as usize];
-                        let mut p = mix(k) as usize & self.mask;
+                        let mut p = self.hash(k) & self.mask;
                         while k != self.key[p] {
                             p = (p + 1) & self.mask;
                         }
@@ -485,5 +502,32 @@ mod short_set_tests {
         let mut all: Vec<i16> = s.iter().collect();
         all.sort_unstable();
         assert_eq!(all, (0..200).map(|k| k * 7).collect::<Vec<i16>>());
+    }
+}
+
+#[cfg(test)]
+mod int_map_tests {
+    use super::*;
+
+    /// Vanilla `Int2ObjectOpenHashMap` (`ChunkMap.entityMap`) iteration order after scripted put/remove sequences
+    /// (generator: `tests/fixtures/Int2ObjectOrderGen.java`).
+    #[test]
+    fn int2object_iteration_order_matches_fastutil() {
+        let golden = include_str!("../../../tests/fixtures/int2object_order.txt");
+        assert_eq!(golden.lines().count(), 40);
+        for line in golden.lines() {
+            let (ops, expected) = line.split_once(" | ").expect("script | order");
+            let mut map = LongOpenHashMap::new_int();
+            for op in ops.split(' ') {
+                let key: i64 = op[1..].parse().unwrap();
+                if op.starts_with('+') {
+                    map.insert(key, ());
+                } else {
+                    map.remove(key);
+                }
+            }
+            let got: Vec<String> = map.keys().iter().map(|k| k.to_string()).collect();
+            assert_eq!(got.join(" "), expected, "script {ops}");
+        }
     }
 }
