@@ -95,6 +95,7 @@ impl Decode for Stat {
 #[derive(Debug, Clone, PartialEq, Eq, Encode, Decode, Packet)]
 #[packet(state = play, flow = clientbound, name = "award_stats")]
 pub struct ClientboundAwardStatsPacket {
+    #[mc(map)]
     pub stats: Vec<(Stat, VarInt)>,
 }
 
@@ -201,7 +202,7 @@ pub struct ClientboundPlayerCombatEnterPacket;
 
 /// `ClientboundPlayerCombatKillPacket`
 #[derive(Debug, Clone, PartialEq, Encode, Decode, Packet)]
-#[packet(state = play, flow = clientbound, name = "player_combat_kill")]
+#[packet(state = play, flow = clientbound, name = "player_combat_kill", skippable)]
 pub struct ClientboundPlayerCombatKillPacket {
     #[mc(var)]
     pub player_id: i32,
@@ -267,7 +268,7 @@ mod nullable_compound {
 
 /// `ClientboundTagQueryPacket`
 #[derive(Debug, Clone, PartialEq, Encode, Decode, Packet)]
-#[packet(state = play, flow = clientbound, name = "tag_query")]
+#[packet(state = play, flow = clientbound, name = "tag_query", skippable)]
 pub struct ClientboundTagQueryPacket {
     #[mc(var)]
     pub transaction_id: i32,

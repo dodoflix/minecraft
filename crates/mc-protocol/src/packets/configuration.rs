@@ -62,10 +62,11 @@ pub struct ClientboundShowDialogPacket {
     pub dialog: crate::dialog::Dialog,
 }
 
-/// `ClientboundUpdateEnabledFeaturesPacket` (a set on the wire: no duplicates expected).
+/// `ClientboundUpdateEnabledFeaturesPacket` (`Set<Identifier>`: `HashSet`, repeated features collapse on decode).
 #[derive(Debug, Clone, PartialEq, Eq, Encode, Decode, Packet)]
 #[packet(state = configuration, flow = clientbound, name = "update_enabled_features")]
 pub struct ClientboundUpdateEnabledFeaturesPacket {
+    #[mc(set)]
     pub features: Vec<Identifier>,
 }
 

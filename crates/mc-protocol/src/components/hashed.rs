@@ -62,12 +62,12 @@ impl HashedPatchMap {
 
 impl Encode for HashedPatchMap {
     fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
-        write_varint(out, self.added_components.len() as i32);
+        crate::codec::write_count(out, self.added_components.len(), 256)?;
         for (k, h) in &self.added_components {
             k.encode(out)?;
             h.encode(out)?;
         }
-        write_varint(out, self.removed_components.len() as i32);
+        crate::codec::write_count(out, self.removed_components.len(), 256)?;
         for k in &self.removed_components {
             k.encode(out)?;
         };

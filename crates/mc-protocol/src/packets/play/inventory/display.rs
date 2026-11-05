@@ -322,15 +322,8 @@ mod item_sets {
         let count = read_count(input, i32::MAX as usize)?;
         let mut sets: Vec<(Identifier, RecipePropertySet)> = Vec::with_capacity(count.min(65536));
         for _ in 0..count {
-            let (key, set) = (
-                Identifier::decode(input)?,
-                RecipePropertySet::decode(input)?,
-            );
-            match sets.iter_mut().find(|(k, _)| *k == key) {
-                Some(e) => e.1 = set,
-                None => sets.push((key, set)),
-            }
+            sets.push((Identifier::decode(input)?, RecipePropertySet::decode(input)?));
         }
-        Ok(sets)
+        Ok(crate::codec::collapse_map(sets))
     }
 }

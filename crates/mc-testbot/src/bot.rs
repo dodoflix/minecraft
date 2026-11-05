@@ -33,11 +33,20 @@ impl Shared {
         self.state.lock().unwrap_or_else(|e| e.into_inner())
     }
 
-    /// Encode, log and queue a packet for the connection task.
+    /// Encode, log and queue a packet for the connection task. A packet the codec refuses (vanilla's
+    /// `EncoderException` while sending) is recorded in the packet log and not sent.
     pub fn send(&self, packet: &ServerboundPlayPacket) {
-        let payload = crate::conn::encode(packet);
-        log_packet(&self.log, Dir::Out, packet, &payload);
-        let _ = self.out.send(payload);
+        match crate::conn::encode(packet) {
+            Ok(payload) => {
+                log_packet(&self.log, Dir::Out, packet, &payload);
+                let _ = self.out.send(payload);
+            }
+            Err(e) => {
+                if let Ok(mut l) = self.log.lock() {
+                    l.record(Dir::Out, "play", packet.id(), crate::conn::short_name(packet.name()), format!("<encode error: {e}>"), &[]);
+                }
+            }
+        }
     }
 
     fn wake(&self) {

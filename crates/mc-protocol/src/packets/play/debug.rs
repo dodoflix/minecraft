@@ -22,7 +22,7 @@ pub struct DebugBeeInfo {
     pub blacklisted_hives: Vec<BlockPos>,
 }
 
-/// `DebugBrainDump` (the `Set<BlockPos>` fields are lists in wire order).
+/// `DebugBrainDump` (the `Set<BlockPos>` fields are `HashSet`s: lists in wire order, repeats collapse on decode).
 #[derive(Debug, Clone, PartialEq, Encode, Decode)]
 pub struct DebugBrainDump {
     pub name: String,
@@ -37,7 +37,9 @@ pub struct DebugBrainDump {
     pub behaviors: Vec<String>,
     pub memories: Vec<String>,
     pub gossips: Vec<String>,
+    #[mc(set)]
     pub pois: Vec<BlockPos>,
+    #[mc(set)]
     pub potential_pois: Vec<BlockPos>,
 }
 
@@ -118,12 +120,47 @@ pub struct DebugPathNode {
     pub f: f32,
 }
 
-/// `Path.DebugData`. Vanilla refuses to *write* a path whose `target_nodes` is empty ("Missing debug data").
+/// `Path.DebugData`. `target_nodes` is a `Set<Target>` (`HashSet`; `Node.equals` compares the block position only, so
+/// a repeated position collapses on decode).
 #[derive(Debug, Clone, PartialEq, Encode, Decode)]
 pub struct DebugPathData {
     pub open_set: Vec<DebugPathNode>,
     pub closed_set: Vec<DebugPathNode>,
+    #[mc(with = target_nodes)]
     pub target_nodes: Vec<DebugPathNode>,
+}
+
+mod target_nodes {
+    use super::*;
+
+    pub fn encode(nodes: &Vec<DebugPathNode>, out: &mut Vec<u8>) -> EncodeResult<()> {
+        nodes.encode(out)
+    }
+    pub fn decode(input: &mut &[u8]) -> DecodeResult<Vec<DebugPathNode>> {
+        let mut unique: Vec<DebugPathNode> = Vec::new();
+        for n in Vec::<DebugPathNode>::decode(input)? {
+            if !unique.iter().any(|u| (u.x, u.y, u.z) == (n.x, n.y, n.z)) {
+                unique.push(n);
+            }
+        }
+        Ok(unique)
+    }
+}
+
+/// `Path.DEBUG_STREAM_CODEC` writes `debugData`, throwing `IllegalStateException("Missing debug data")` when it has
+/// no target nodes.
+mod checked_debug_data {
+    use super::*;
+
+    pub fn encode(data: &DebugPathData, out: &mut Vec<u8>) -> EncodeResult<()> {
+        if data.target_nodes.is_empty() {
+            return Err(crate::codec::EncodeError::msg("java.lang.IllegalStateException: Missing debug data"));
+        }
+        data.encode(out)
+    }
+    pub fn decode(input: &mut &[u8]) -> DecodeResult<DebugPathData> {
+        DebugPathData::decode(input)
+    }
 }
 
 /// `Path.DEBUG_STREAM_CODEC`
@@ -133,6 +170,7 @@ pub struct DebugPath {
     pub next_node_index: i32,
     pub target: BlockPos,
     pub nodes: Vec<DebugPathNode>,
+    #[mc(with = checked_debug_data)]
     pub debug_data: DebugPathData,
 }
 
@@ -457,6 +495,7 @@ pub struct ClientboundDebugSamplePacket {
 #[derive(Debug, Clone, PartialEq, Eq, Encode, Decode, Packet)]
 #[packet(state = play, flow = clientbound, name = "game_rule_values")]
 pub struct ClientboundGameRuleValuesPacket {
+    #[mc(map)]
     pub values: Vec<(Identifier, String)>,
 }
 
@@ -482,7 +521,7 @@ pub struct ClientboundTestInstanceBlockStatus {
 #[derive(Debug, Clone, PartialEq, Eq, Encode, Decode, Packet)]
 #[packet(state = play, flow = serverbound, name = "debug_subscription_request")]
 pub struct ServerboundDebugSubscriptionRequestPacket {
-    #[mc(max = 32)]
+    #[mc(max = 32, set)]
     pub subscriptions: Vec<mc_data::DebugSubscription>,
 }
 

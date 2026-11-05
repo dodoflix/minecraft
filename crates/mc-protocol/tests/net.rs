@@ -333,7 +333,7 @@ fn encoder_packet_too_big() {
     enc.set_compression(256);
     let mut out = vec![1, 2, 3];
     let err = enc.encode(&vec![0; 8_388_609], &mut out).unwrap_err();
-    assert_eq!(err.to_string(), "Packet too big (is 8388609, should be less than 8388608)");
+    assert_eq!(err.to_string(), "java.lang.IllegalArgumentException: Packet too big (is 8388609, should be less than 8388608)");
     assert_eq!(out, [1, 2, 3]);
 }
 

@@ -211,7 +211,7 @@ pub async fn login(conn: &mut Conn, opts: &BotOptions) -> Result<Configured> {
     }
 
     conn.send(&ServerboundConfigurationPacket::CustomPayload(ServerboundCustomPayloadPacket {
-        payload: CustomPayload::brand(&opts.brand),
+        payload: CustomPayload::brand(&opts.brand)?,
     }))
     .await?;
     conn.send(&ServerboundConfigurationPacket::ClientInformation(ServerboundClientInformationPacket {

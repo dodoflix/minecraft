@@ -1,5 +1,4 @@
 //! Connection plumbing: typed packet send/receive with logging, over `mc_protocol::net`.
-use mc_protocol::codec::EncodeResult;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
@@ -18,7 +17,7 @@ pub trait WirePacket: std::fmt::Debug + Sized {
     const STATE: ConnectionState;
     const FLOW: PacketFlow;
     fn decode_payload(payload: &[u8]) -> Result<Self, mc_protocol::codec::DecodeError>;
-    fn encode_payload(&self, out: &mut Vec<u8>);
+    fn encode_payload(&self, out: &mut Vec<u8>) -> mc_protocol::codec::EncodeResult<()>;
     fn packet_id(&self) -> i32;
     fn packet_name(&self) -> &'static str;
 }
@@ -33,9 +32,8 @@ macro_rules! wire_packet {
             fn decode_payload(payload: &[u8]) -> Result<Self, ::mc_protocol::codec::DecodeError> {
                 <$ty>::decode_payload(payload)
             }
-            fn encode_payload(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
-                <$ty>::encode_payload(self, out)?;
-                Ok(())
+            fn encode_payload(&self, out: &mut Vec<u8>) -> ::mc_protocol::codec::EncodeResult<()> {
+                <$ty>::encode_payload(self, out)
             }
             fn packet_id(&self) -> i32 {
                 self.id()
@@ -78,10 +76,10 @@ pub fn log_undecodable(log: &SharedLog, state: ConnectionState, flow: PacketFlow
     }
 }
 
-pub fn encode<P: WirePacket>(p: &P) -> Vec<u8> {
+pub fn encode<P: WirePacket>(p: &P) -> Result<Vec<u8>, BotError> {
     let mut buf = Vec::new();
-    p.encode_payload(&mut buf);
-    buf
+    p.encode_payload(&mut buf)?;
+    Ok(buf)
 }
 
 /// Blocking-style connection used for the handshake/login/configuration phases.
@@ -103,7 +101,7 @@ impl Conn {
     }
 
     pub async fn send<P: WirePacket>(&mut self, p: &P) -> Result<(), BotError> {
-        let payload = encode(p);
+        let payload = encode(p)?;
         log_packet(&self.log, Dir::Out, p, &payload);
         self.writer.write_payload(&payload).await?;
         self.writer.flush().await?;

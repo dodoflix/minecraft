@@ -195,7 +195,7 @@ pub struct ArgumentSignatures {
 
 /// `ClientboundPlayerChatPacket`
 #[derive(Debug, Clone, PartialEq, Encode, Decode, Packet)]
-#[packet(state = play, flow = clientbound, name = "player_chat")]
+#[packet(state = play, flow = clientbound, name = "player_chat", skippable)]
 pub struct ClientboundPlayerChatPacket {
     #[mc(var)]
     pub global_index: i32,
@@ -211,7 +211,7 @@ pub struct ClientboundPlayerChatPacket {
 
 /// `ClientboundDisguisedChatPacket`
 #[derive(Debug, Clone, PartialEq, Encode, Decode, Packet)]
-#[packet(state = play, flow = clientbound, name = "disguised_chat")]
+#[packet(state = play, flow = clientbound, name = "disguised_chat", skippable)]
 pub struct ClientboundDisguisedChatPacket {
     pub message: Component,
     pub chat_type: ChatTypeBound,
@@ -226,7 +226,7 @@ pub struct ClientboundDeleteChatPacket {
 
 /// `ClientboundSystemChatPacket`
 #[derive(Debug, Clone, PartialEq, Encode, Decode, Packet)]
-#[packet(state = play, flow = clientbound, name = "system_chat")]
+#[packet(state = play, flow = clientbound, name = "system_chat", skippable)]
 pub struct ClientboundSystemChatPacket {
     pub content: Component,
     pub overlay: bool,

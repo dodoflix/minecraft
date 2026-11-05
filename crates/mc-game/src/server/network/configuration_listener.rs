@@ -110,7 +110,15 @@ impl ServerConfigurationPacketListenerImpl {
     /// `startConfiguration`.
     pub(super) fn start_configuration(&mut self, server: &mut dyn ServerHandle) -> Result<(), String> {
         let brand = self.hooks.settings().server_mod_name;
-        self.send(ClientboundConfigurationPacket::CustomPayload(ClientboundCustomPayloadPacket { payload: CustomPayload::brand(&brand) }));
+        // `BrandPayload.write` = `writeUtf(brand)`: a brand over 32767 chars fails when the packet is encoded.
+        match CustomPayload::brand(&brand) {
+            Ok(payload) => self.send(ClientboundConfigurationPacket::CustomPayload(ClientboundCustomPayloadPacket { payload })),
+            Err(cause) => self.sender.encode_failed(&mc_protocol::packet::PacketEncodeError {
+                packet_type: "clientbound/minecraft:custom_payload".to_owned(),
+                skippable: false,
+                cause,
+            }),
+        }
         let data = self.configuration.clone();
         if !data.server_links.is_empty() {
             self.send(ClientboundConfigurationPacket::ServerLinks(ClientboundServerLinksPacket { links: data.server_links.clone() }));
@@ -311,8 +319,15 @@ fn send_packet(sender: &ConnectionSender, common: &mut ServerCommonListener, pac
         common.close(get_millis());
     }
     let mut buf = Vec::with_capacity(64);
-    packet.encode_payload(&mut buf);
-    sender.send_payload(buf.into());
+    match packet.encode_payload(&mut buf) {
+        Ok(()) => sender.send_payload(buf),
+        // Only reachable for a body the codec refuses; `ConnectionSender::send` handles the same failure for a typed packet.
+        Err(cause) => sender.encode_failed(&mc_protocol::packet::PacketEncodeError {
+            packet_type: format!("clientbound/{}", packet.name()),
+            skippable: false,
+            cause,
+        }),
+    }
 }
 
 /// Runs the configuration phase on the connection's task until the connection ends or the player is placed (then the

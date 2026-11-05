@@ -24,7 +24,7 @@ struct W(mc_protocol::net::PacketWriter<tokio::net::tcp::OwnedWriteHalf>);
 
 async fn send(conn: &mut W, p: ServerboundPlayPacket) {
     let mut buf = Vec::new();
-    p.encode_payload(&mut buf);
+    p.encode_payload(&mut buf).unwrap();
     if conn.0.write_payload(&buf).await.is_err() || conn.0.flush().await.is_err() {
         eprintln!("send failed: connection closed");
     }

@@ -109,8 +109,8 @@ mod light_layers {
     pub fn encode(layers: &Vec<Vec<u8>>, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, layers.len() as i32);
         for l in layers {
-            l.encode(out)?;
-        };
+            crate::codec::EncodeBounded::encode_bounded(l, out, 2048)?;
+        }
         Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Vec<Vec<u8>>> {
@@ -144,7 +144,7 @@ mod heightmaps {
         for _ in 0..count {
             v.push((HeightmapTypes::decode(input)?, LongArray::decode(input)?.0));
         }
-        Ok(v)
+        Ok(crate::codec::collapse_map(v))
     }
 }
 
@@ -167,7 +167,7 @@ mod clock_updates {
         for _ in 0..count {
             v.push((read_varint(input)?, ClockNetworkState::decode(input)?));
         }
-        Ok(v)
+        Ok(crate::codec::collapse_map(v))
     }
 }
 
@@ -524,6 +524,8 @@ pub struct CommonPlayerSpawnInfo {
 pub struct ClientboundLoginPacket {
     pub player_id: i32,
     pub hardcore: bool,
+    /// `Set<ResourceKey<Level>>` (`HashSet`): repeats collapse on decode.
+    #[mc(set)]
     pub levels: Vec<Identifier>,
     #[mc(var)]
     pub max_players: i32,

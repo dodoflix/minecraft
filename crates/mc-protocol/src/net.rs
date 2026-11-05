@@ -34,7 +34,7 @@ pub enum NetError {
     /// Vanilla `DecoderException` (compression decoder).
     #[error("{0}")]
     Decoder(String),
-    /// Vanilla `EncoderException`/`IllegalArgumentException` (frame prepender, compression encoder).
+    /// Vanilla `EncoderException` (frame prepender; compression encoder: wrapped `IllegalArgumentException`).
     #[error("{0}")]
     Encoder(String),
     #[error(transparent)]
@@ -86,8 +86,9 @@ impl FrameEncoder {
             Some(threshold) => {
                 let len = payload.len();
                 if len > MAXIMUM_UNCOMPRESSED_LENGTH {
+                    // `CompressionEncoder` throws `IllegalArgumentException`, which `MessageToByteEncoder` wraps.
                     return Err(NetError::Encoder(format!(
-                        "Packet too big (is {len}, should be less than {MAXIMUM_UNCOMPRESSED_LENGTH})"
+                        "java.lang.IllegalArgumentException: Packet too big (is {len}, should be less than {MAXIMUM_UNCOMPRESSED_LENGTH})"
                     )));
                 }
                 let body = &mut self.scratch;

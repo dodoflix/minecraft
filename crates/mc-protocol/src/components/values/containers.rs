@@ -58,8 +58,13 @@ pub(crate) fn read_list<T>(
 }
 
 /// `ByteBufCodecs.list(..)` encode.
-pub(crate) fn write_list<T>(out: &mut Vec<u8>, items: &[T], mut f: impl FnMut(&T, &mut Vec<u8>) -> EncodeResult<()>) -> EncodeResult<()> {
-    write_varint(out, items.len() as i32);
+pub(crate) fn write_list<T>(
+    out: &mut Vec<u8>,
+    max: usize,
+    items: &[T],
+    mut f: impl FnMut(&T, &mut Vec<u8>) -> EncodeResult<()>,
+) -> EncodeResult<()> {
+    crate::codec::write_count(out, items.len(), max)?;
     for i in items {
         f(i, out)?;
     }
@@ -412,7 +417,7 @@ impl ItemContainerContents {
 
 impl Encode for ItemContainerContents {
     fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
-        write_list(out, &self.items, |t, o| write_optional(o, t, |t, o| t.encode(o)))
+        write_list(out, 256, &self.items, |t, o| write_optional(o, t, |t, o| t.encode(o)))
     }
 }
 impl Decode for ItemContainerContents {
@@ -536,7 +541,7 @@ impl BundleContents {
 
 impl Encode for BundleContents {
     fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
-        write_list(out, &self.items, |t, o| t.encode(o))?;
+        write_list(out, i32::MAX as usize, &self.items, |t, o| t.encode(o))?;
         Ok(())
     }
 }
@@ -567,7 +572,7 @@ impl ChargedProjectiles {
 
 impl Encode for ChargedProjectiles {
     fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
-        write_list(out, &self.items, |t, o| t.encode(o))?;
+        write_list(out, 1024, &self.items, |t, o| t.encode(o))?;
         Ok(())
     }
 }
@@ -628,7 +633,7 @@ impl BlockItemStateProperties {
 
 impl Encode for BlockItemStateProperties {
     fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
-        write_list(out, &self.properties, |(k, v), o| {
+        write_list(out, i32::MAX as usize, &self.properties, |(k, v), o| {
             write_utf(o, k, MAX_STRING_LENGTH)?;
             write_utf(o, v, MAX_STRING_LENGTH)
         })
@@ -893,7 +898,7 @@ impl Bees {
 
 impl Encode for Bees {
     fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
-        write_list(out, &self.bees, |b, o| b.encode(o))
+        write_list(out, i32::MAX as usize, &self.bees, |b, o| b.encode(o))
     }
 }
 impl Decode for Bees {

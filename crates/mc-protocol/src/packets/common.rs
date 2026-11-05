@@ -226,7 +226,7 @@ impl Decode for TagNetworkPayload {
         for _ in 0..count {
             tags.push((Identifier::decode(input)?, Vec::<i32>::decode_var(input)?));
         }
-        Ok(Self { tags })
+        Ok(Self { tags: crate::codec::collapse_map(tags) })
     }
 }
 
@@ -257,7 +257,11 @@ pub struct ReportDetails(pub Vec<(String, String)>);
 
 impl Encode for ReportDetails {
     fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
-        self.0.encode(out)?;
+        crate::codec::write_count(out, self.0.len(), 32)?;
+        for (k, v) in &self.0 {
+            crate::codec::write_utf(out, k, 128)?;
+            crate::codec::write_utf(out, v, 4096)?;
+        }
         Ok(())
     }
 }
@@ -268,7 +272,7 @@ impl Decode for ReportDetails {
         for _ in 0..count {
             v.push((read_utf(input, 128)?, read_utf(input, 4096)?));
         }
-        Ok(Self(v))
+        Ok(Self(crate::codec::collapse_map(v)))
     }
 }
 
@@ -407,6 +411,7 @@ macro_rules! common_packets {
         #[derive(Debug, Clone, PartialEq, Eq, $crate::Encode, $crate::Decode, $crate::Packet)]
         #[packet(state = $state, flow = clientbound, name = "update_tags")]
         pub struct ClientboundUpdateTagsPacket {
+            #[mc(map)]
             pub tags: Vec<(::mc_core::ident::Identifier, $crate::packets::common::TagNetworkPayload)>,
         }
 

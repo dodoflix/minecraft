@@ -8,7 +8,7 @@ use crate::world::entity::player::ServerPlayer;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_data::SoundEvent;
-use mc_protocol::codec::write_varint;
+use crate::server::network::connection::Payload;
 use mc_protocol::packet::Packet;
 use mc_protocol::packets::play::{
     ClientboundBlockDestructionPacket, ClientboundBlockEventPacket, ClientboundLevelEventPacket, ClientboundSoundEntityPacket,
@@ -17,11 +17,8 @@ use mc_protocol::packets::play::{
 use std::sync::Arc;
 
 /// Encode a packet once (`VarInt id + body`) for a broadcast.
-pub fn encode_packet<P: Packet>(packet: &P) -> Arc<[u8]> {
-    let mut buf = Vec::with_capacity(64);
-    write_varint(&mut buf, P::ID);
-    packet.encode(&mut buf);
-    buf.into()
+pub fn encode_packet<P: Packet>(packet: &P) -> Payload {
+    Payload::encode(packet)
 }
 
 /// `SoundEvent.getRange(volume)`.
@@ -55,10 +52,12 @@ impl ServerLevel {
     /// `PlayerList.broadcast(except, x, y, z, range, dimension, packet)`: every player of this level but `except`
     /// within `range` blocks (squared distance below `range * range`) gets the packet.
     pub fn broadcast_nearby<P: Packet>(&self, except: Option<EntityId>, x: f64, y: f64, z: f64, range: f64, packet: &P) {
-        let mut payload: Option<Arc<[u8]>> = None;
+        let mut payload: Option<Payload> = None;
         if let Some(log) = &self.tick_state.broadcast_log {
-            let bytes = payload.get_or_insert_with(|| encode_packet(packet)).clone();
-            log.lock().push(BroadcastRecord { except: except.is_some(), x, y, z, range, payload: bytes });
+            // a packet that failed to encode has no bytes to record
+            if let Payload::Encoded(bytes) = payload.get_or_insert_with(|| encode_packet(packet)).clone() {
+                log.lock().push(BroadcastRecord { except: except.is_some(), x, y, z, range, payload: bytes });
+            }
         }
         for &id in &self.players {
             if Some(id) == except {

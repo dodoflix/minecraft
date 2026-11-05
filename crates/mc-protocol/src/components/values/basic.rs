@@ -172,10 +172,10 @@ impl ItemLore {
 
 impl Encode for ItemLore {
     fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
-        write_varint(out, self.lines.len() as i32);
+        crate::codec::write_count(out, self.lines.len(), Self::MAX_LINES)?;
         for l in &self.lines {
             encode_component(l, out)?;
-        };
+        }
         Ok(())
     }
 }

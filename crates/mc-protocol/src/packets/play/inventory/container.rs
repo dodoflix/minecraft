@@ -146,7 +146,10 @@ mod edit_book_pages {
     use super::*;
 
     pub fn encode(pages: &[String], out: &mut Vec<u8>) -> EncodeResult<()> {
-        pages.encode(out)?;
+        crate::codec::write_count(out, pages.len(), 100)?;
+        for p in pages {
+            crate::codec::write_utf(out, p, 1024)?;
+        }
         Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Vec<String>> {

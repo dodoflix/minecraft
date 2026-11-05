@@ -333,12 +333,12 @@ impl Dialog {
 /// `Dialog.CONTEXT_FREE_STREAM_CODEC` (`ByteBufCodecs.fromCodecTrusted(DIRECT_CODEC)`); also the direct branch of
 /// `Dialog.STREAM_CODEC` (`fromCodecWithRegistriesTrusted`): the dialog as a network NBT root, read with an unlimited quota.
 ///
-/// Encoding panics when the dialog cannot be encoded (vanilla throws `EncoderException`).
+/// Encoding fails (`EncoderException`) when the dialog cannot be encoded.
 impl Encode for Dialog {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> crate::codec::EncodeResult<()> {
         match mc_dfu::encode_nbt(&Self::direct_codec(), self) {
             DataResult::Success(tag) => encode_tag(&tag, out),
-            e => panic!("Failed to encode: {} {self:?}", e.error_message().unwrap_or_default()),
+            e => Err(crate::codec::EncodeError(format!("Failed to encode: {} {self:?}", e.error_message().unwrap_or_default()))),
         }
     }
 }

@@ -1,4 +1,4 @@
-use mc_protocol::codec::DecodeError;
+use mc_protocol::codec::{DecodeError, EncodeError};
 use mc_protocol::net::NetError;
 
 #[derive(Debug, thiserror::Error)]
@@ -9,6 +9,9 @@ pub enum BotError {
     Net(#[from] NetError),
     #[error("decode: {0}")]
     Decode(#[from] DecodeError),
+    /// A packet the bot refuses to send (vanilla's `EncoderException` while sending).
+    #[error("encode: {0}")]
+    Encode(#[from] EncodeError),
     /// The server closed the connection without a reason.
     #[error("connection closed")]
     Closed,

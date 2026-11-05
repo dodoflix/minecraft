@@ -180,7 +180,7 @@ impl WritableBookContent {
 
 impl Encode for WritableBookContent {
     fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
-        write_list(out, &self.pages, |p, o| p.encode_stream(o, |s, o| write_utf(o, s, 1024)))
+        write_list(out, 100, &self.pages, |p, o| p.encode_stream(o, |s, o| write_utf(o, s, 1024)))
     }
 }
 impl Decode for WritableBookContent {
@@ -242,7 +242,7 @@ impl Encode for WrittenBookContent {
         self.title.encode_stream(out, |s, o| write_utf(o, s, 32))?;
         write_utf(out, &self.author, MAX_STRING_LENGTH)?;
         write_varint(out, self.generation);
-        write_list(out, &self.pages, |p, o| p.encode_stream(o, encode_component))?;
+        write_list(out, i32::MAX as usize, &self.pages, |p, o| p.encode_stream(o, encode_component))?;
         self.resolved.encode(out)?;
         Ok(())
     }
@@ -315,7 +315,7 @@ impl FireworkExplosion {
 }
 
 fn write_colors(v: &[i32], out: &mut Vec<u8>) -> EncodeResult<()> {
-    write_list(out, v, |c, o| c.encode(o))
+    write_list(out, i32::MAX as usize, v, |c, o| c.encode(o))
 }
 fn read_colors(input: &mut &[u8]) -> DecodeResult<Vec<i32>> {
     read_list(input, i32::MAX as usize, i32::decode)
@@ -366,7 +366,7 @@ impl Fireworks {
 impl Encode for Fireworks {
     fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.flight_duration);
-        write_list(out, &self.explosions, |e, o| e.encode(o))?;
+        write_list(out, 256, &self.explosions, |e, o| e.encode(o))?;
         Ok(())
     }
 }
@@ -445,7 +445,7 @@ impl BannerPatternLayers {
 
 impl Encode for BannerPatternLayers {
     fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
-        write_list(out, &self.layers, |l, o| {
+        write_list(out, i32::MAX as usize, &self.layers, |l, o| {
             BannerPattern::encode_holder(&l.pattern, o)?;
             l.color.encode(o)
         })

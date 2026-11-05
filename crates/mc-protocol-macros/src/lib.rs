@@ -3,13 +3,17 @@
 //! Field attributes (`#[mc(...)]`):
 //! * `var` – encode with `VarEncode` (VarInt for `i32`, VarLong for `i64`, also `Vec<i32>`, `Option<i32>`, …)
 //! * `max = N` – decode with `DecodeBounded` / encode with `EncodeBounded` (string length in UTF-16 units / collection size)
+//! * `decode_max = N` – only the decode limit (vanilla `readUtf(N)` paired with an unlimited `writeUtf`)
+//! * `map` / `set` – after decoding, collapse duplicates like the Java `Map.put` / `Set.add` of `ByteBufCodecs.map` /
+//!   `collection` (`collapse_map` / `collapse_set`); the field is a `Vec<(K, V)>` / `Vec<T>` in wire order
 //! * `with = path` – `path::encode(&T, &mut Vec<u8>) -> Result<(), EncodeError>` and `path::decode(&mut &[u8]) -> Result<T, DecodeError>`
 //!
 //! Enum attributes: `#[mc(repr = "varint" | "u8" | "i8" | "u16" | "i16" | "i32" | "i64")]` (default `varint`),
 //! `#[mc(error = "Unknown thing: {}")]`; variant attribute `#[mc(id = N)]` (default: previous id + 1, starting at 0).
 //! Variants may carry fields, which follow the id.
 //!
-//! `#[derive(Packet)]` takes `#[packet(state = configuration, flow = clientbound, name = "keep_alive")]`.
+//! `#[derive(Packet)]` takes `#[packet(state = configuration, flow = clientbound, name = "keep_alive")]`, plus the
+//! optional flag `skippable` (vanilla `Packet.isSkippable()`: an encode failure drops the packet instead of kicking).
 
 use proc_macro::TokenStream;
 use proc_macro2::{Span, TokenStream as TokenStream2};
@@ -29,7 +33,10 @@ fn krate() -> TokenStream2 {
 struct FieldAttrs {
     var: bool,
     max: Option<TokenStream2>,
+    decode_max: Option<TokenStream2>,
     with: Option<syn::Path>,
+    /// `Some("map" | "set")`.
+    collapse: Option<&'static str>,
 }
 
 fn field_attrs(f: &Field) -> Result<FieldAttrs> {
@@ -41,6 +48,13 @@ fn field_attrs(f: &Field) -> Result<FieldAttrs> {
             } else if m.path.is_ident("max") {
                 let e: syn::Expr = m.value()?.parse()?;
                 out.max = Some(quote!(#e));
+            } else if m.path.is_ident("decode_max") {
+                let e: syn::Expr = m.value()?.parse()?;
+                out.decode_max = Some(quote!(#e));
+            } else if m.path.is_ident("map") {
+                out.collapse = Some("map");
+            } else if m.path.is_ident("set") {
+                out.collapse = Some("set");
             } else if m.path.is_ident("with") {
                 out.with = Some(m.value()?.parse()?);
             } else {
@@ -70,14 +84,19 @@ fn decode_expr(f: &Field) -> Result<TokenStream2> {
     let k = krate();
     let a = field_attrs(f)?;
     let ty = &f.ty;
-    Ok(if let Some(w) = a.with {
+    let decoded = if let Some(w) = a.with {
         quote!(#w::decode(input)?)
     } else if a.var {
         quote!(<#ty as #k::codec::VarEncode>::decode_var(input)?)
-    } else if let Some(max) = a.max {
+    } else if let Some(max) = a.max.or(a.decode_max) {
         quote!(<#ty as #k::codec::DecodeBounded>::decode_bounded(input, #max)?)
     } else {
         quote!(<#ty as #k::codec::Decode>::decode(input)?)
+    };
+    Ok(match a.collapse {
+        Some("map") => quote!(#k::codec::collapse_map(#decoded)),
+        Some(_) => quote!(#k::codec::collapse_set(#decoded)),
+        None => decoded,
     })
 }
 
@@ -302,6 +321,7 @@ pub fn derive_packet(input: TokenStream) -> TokenStream {
 fn expand_packet(input: &DeriveInput) -> Result<TokenStream2> {
     let k = krate();
     let (mut state, mut flow, mut pname) = (None::<Ident>, None::<Ident>, None::<LitStr>);
+    let mut skippable = false;
     for attr in input.attrs.iter().filter(|a| a.path().is_ident("packet")) {
         attr.parse_nested_meta(|m| {
             if m.path.is_ident("state") {
@@ -310,6 +330,8 @@ fn expand_packet(input: &DeriveInput) -> Result<TokenStream2> {
                 flow = Some(m.value()?.parse()?);
             } else if m.path.is_ident("name") {
                 pname = Some(m.value()?.parse()?);
+            } else if m.path.is_ident("skippable") {
+                skippable = true;
             } else {
                 return Err(m.error("unknown packet attribute"));
             }
@@ -329,6 +351,7 @@ fn expand_packet(input: &DeriveInput) -> Result<TokenStream2> {
             const NAME: &'static str = #full;
             const STATE: #k::packet::ConnectionState = #k::packet::ConnectionState::#state_v;
             const FLOW: #k::packet::PacketFlow = #k::packet::PacketFlow::#flow_v;
+            const SKIPPABLE: bool = #skippable;
         }
     })
 }

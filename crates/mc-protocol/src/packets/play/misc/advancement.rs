@@ -99,6 +99,7 @@ pub struct CriterionProgress {
 /// `AdvancementProgress.STREAM_CODEC`: criterion name -> progress, in the map's iteration order.
 #[derive(Debug, Clone, PartialEq, Eq, Default, Encode, Decode)]
 pub struct AdvancementProgress {
+    #[mc(map)]
     pub criteria: Vec<(String, CriterionProgress)>,
 }
 
@@ -110,13 +111,16 @@ pub struct PositionedAdvancement {
     pub y: f32,
 }
 
-/// `ClientboundUpdateAdvancementsPacket`: `removed` is a set and `progress` a map in vanilla; both keep their wire order.
+/// `ClientboundUpdateAdvancementsPacket`: `removed` is a `LinkedHashSet` and `progress` a `HashMap` in vanilla; both keep
+/// their wire order and collapse repeats on decode.
 #[derive(Debug, Clone, PartialEq, Encode, Decode, Packet)]
 #[packet(state = play, flow = clientbound, name = "update_advancements")]
 pub struct ClientboundUpdateAdvancementsPacket {
     pub should_reset: bool,
     pub added: Vec<PositionedAdvancement>,
+    #[mc(set)]
     pub removed: Vec<Identifier>,
+    #[mc(map)]
     pub progress: Vec<(Identifier, AdvancementProgress)>,
     pub show_advancements: bool,
 }

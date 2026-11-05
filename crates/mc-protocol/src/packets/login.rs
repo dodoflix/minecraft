@@ -24,7 +24,8 @@ pub struct ClientboundCustomQueryPacket {
 #[derive(Debug, Clone, PartialEq, Eq, Encode, Decode, Packet)]
 #[packet(state = login, flow = clientbound, name = "hello")]
 pub struct ClientboundHelloPacket {
-    #[mc(max = 20)]
+    // vanilla: `readUtf(20)` but `writeUtf(serverId)` (default limit)
+    #[mc(decode_max = 20)]
     pub server_id: String,
     pub public_key: Vec<u8>,
     pub challenge: Vec<u8>,

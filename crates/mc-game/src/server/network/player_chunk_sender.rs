@@ -7,6 +7,7 @@
 //! [`ChunkSendSink`]; both see the same state (game thread only, the mutex is uncontended).
 
 use super::ConnectionSender;
+use super::connection::Payload;
 use crate::util::long_open_hash_set::LongOpenHashSet;
 use mc_core::pos::ChunkPos;
 use mc_protocol::packets::play::{ClientboundChunkBatchFinishedPacket, ClientboundLevelChunkWithLightPacket, ClientboundChunkBatchStartPacket, ClientboundForgetLevelChunkPacket};
@@ -22,7 +23,7 @@ const MAX_UNACKNOWLEDGED_BATCHES: i32 = 10;
 /// `new ClientboundLevelChunkWithLightPacket(chunk, level.getLightEngine(), null, null)`.
 pub trait ChunkPacketSource {
     /// Encoded packet payload (`VarInt id + body`) of the chunk at `pos` if it is sendable (vanilla: `getChunkToSend != null`).
-    fn chunk_packet(&mut self, pos: ChunkPos) -> Option<Arc<[u8]>>;
+    fn chunk_packet(&mut self, pos: ChunkPos) -> Option<Payload>;
     /// `level.debugSynchronizers().startTrackingChunk(player, pos)` after a chunk was sent.
     fn start_tracking_chunk(&mut self, _pos: ChunkPos) {}
 }
@@ -131,13 +132,10 @@ pub struct LevelChunkSource<'a> {
 }
 
 impl ChunkPacketSource for LevelChunkSource<'_> {
-    fn chunk_packet(&mut self, pos: ChunkPos) -> Option<Arc<[u8]>> {
+    fn chunk_packet(&mut self, pos: ChunkPos) -> Option<Payload> {
         let chunk = self.level.chunk_source.chunk_map.get_chunk_to_send(pos.pack())?;
         let packet = level_chunk_with_light_packet(self.level, chunk);
-        let mut buf = Vec::with_capacity(4096);
-        mc_protocol::codec::write_varint(&mut buf, <ClientboundLevelChunkWithLightPacket as mc_protocol::packet::Packet>::ID);
-        mc_protocol::Encode::encode(&packet, &mut buf);
-        Some(buf.into())
+        Some(Payload::encode(&packet))
     }
 }
 
@@ -181,10 +179,10 @@ pub fn level_chunk_with_light_packet(level: &crate::server::level::ServerLevel, 
 
 impl Inner {
     /// `collectChunksToSend(chunkMap, playerPos)`.
-    fn collect_chunks_to_send(&mut self, player_pos: ChunkPos, source: &mut impl ChunkPacketSource) -> Vec<(ChunkPos, Arc<[u8]>)> {
+    fn collect_chunks_to_send(&mut self, player_pos: ChunkPos, source: &mut impl ChunkPacketSource) -> Vec<(ChunkPos, Payload)> {
         let max_batch_size = mc_core::math::mth::floor_f32(self.batch_quota);
         let dist = |packed: i64| player_pos.distance_squared_long(packed);
-        let chunks: Vec<(ChunkPos, Arc<[u8]>)> = if !self.memory_connection && self.pending_chunks.len() as i64 > i64::from(max_batch_size) {
+        let chunks: Vec<(ChunkPos, Payload)> = if !self.memory_connection && self.pending_chunks.len() as i64 > i64::from(max_batch_size) {
             let selected = least(max_batch_size.max(0) as usize, self.pending_chunks.iter(), |a, b| dist(*a).cmp(&dist(*b)));
             selected
                 .into_iter()
@@ -194,7 +192,7 @@ impl Inner {
                 })
                 .collect()
         } else {
-            let mut all: Vec<(ChunkPos, Arc<[u8]>)> = self
+            let mut all: Vec<(ChunkPos, Payload)> = self
                 .pending_chunks
                 .iter()
                 .filter_map(|packed| {
@@ -302,7 +300,7 @@ mod tests {
 
     struct Src;
     impl ChunkPacketSource for Src {
-        fn chunk_packet(&mut self, pos: ChunkPos) -> Option<Arc<[u8]>> {
+        fn chunk_packet(&mut self, pos: ChunkPos) -> Option<Payload> {
             Some(vec![0x2c, pos.x as u8, pos.z as u8].into())
         }
     }

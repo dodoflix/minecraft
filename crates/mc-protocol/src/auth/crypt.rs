@@ -4,7 +4,7 @@ use rsa::pkcs8::{DecodePrivateKey, DecodePublicKey, EncodePublicKey};
 use rsa::{Pkcs1v15Encrypt, RsaPrivateKey, RsaPublicKey, traits::PublicKeyParts};
 use sha1::{Digest, Sha1};
 
-use crate::codec::{Decode, DecodeError, DecodeResult, Encode, write_varint};
+use crate::codec::{Decode, DecodeError, DecodeResult, Encode};
 
 /// Largest key (DER bytes) vanilla accepts on the wire: `ByteBufCodecs.MAX_PUBLIC_KEY_LENGTH`.
 const MAX_PUBLIC_KEY_LENGTH: usize = 512;
@@ -117,9 +117,8 @@ pub fn generate_secret() -> [u8; 16] {
 
 impl Encode for PublicKey {
     fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
-        write_varint(out, self.der.len() as i32);
-        out.extend_from_slice(&self.der);
-        Ok(())
+        // `ByteBufCodecs.PUBLIC_KEY = byteArray(512).map(.., Key::getEncoded)`
+        <u8 as Encode>::encode_vec_bounded(&self.der, out, MAX_PUBLIC_KEY_LENGTH)
     }
 }
 

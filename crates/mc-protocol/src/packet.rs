@@ -47,6 +47,44 @@ pub trait Packet: Encode + Decode {
     const NAME: &'static str;
     const STATE: ConnectionState;
     const FLOW: PacketFlow;
+    /// Vanilla `Packet.isSkippable()`: a failure while encoding drops the packet instead of disconnecting.
+    const SKIPPABLE: bool = false;
+}
+
+/// Why a packet could not be encoded, in the terms of vanilla's `IdDispatchCodec` + `PacketEncoder`.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct PacketEncodeError {
+    /// `<flow>/<resource name>`, vanilla's `PacketType.toString()`.
+    pub packet_type: String,
+    pub skippable: bool,
+    /// The `EncoderException` thrown by the codec (the cause of the wrapper).
+    pub cause: crate::codec::EncodeError,
+}
+
+impl PacketEncodeError {
+    /// `Throwable.toString()` of the exception that reaches `Connection.exceptionCaught`: the
+    /// `EncoderException("Failed to encode packet '<type>'", cause)` wrapper of `IdDispatchCodec.encode`.
+    pub fn exception_text(&self) -> String {
+        format!("io.netty.handler.codec.EncoderException: Failed to encode packet '{}'", self.packet_type)
+    }
+}
+
+impl std::fmt::Display for PacketEncodeError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "Failed to encode packet '{}': {}", self.packet_type, self.cause)
+    }
+}
+
+impl std::error::Error for PacketEncodeError {}
+
+/// `IdDispatchCodec.encode`: `VarInt id` + body of `packet` as one unframed payload.
+pub fn encode_packet<P: Packet>(packet: &P) -> Result<Vec<u8>, PacketEncodeError> {
+    let mut buf = Vec::with_capacity(64);
+    crate::codec::write_varint(&mut buf, P::ID);
+    match packet.encode(&mut buf) {
+        Ok(()) => Ok(buf),
+        Err(cause) => Err(PacketEncodeError { packet_type: format!("{}/{}", P::FLOW.id(), P::NAME), skippable: P::SKIPPABLE, cause }),
+    }
 }
 
 /// Every `(id, resource name)` of a state/direction, sorted by id.

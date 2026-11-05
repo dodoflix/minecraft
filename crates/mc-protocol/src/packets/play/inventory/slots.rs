@@ -70,8 +70,8 @@ mod changed_slots {
     use super::*;
 
     pub fn encode(slots: &[(i16, HashedStack)], out: &mut Vec<u8>) -> EncodeResult<()> {
-        slots.encode(out)?;
-        Ok(())
+        crate::codec::write_count(out, slots.len(), 128)?;
+        <(i16, HashedStack)>::encode_slice(slots, out)
     }
     /// `ByteBufCodecs.map(Int2ObjectOpenHashMap::new, .., 128)`: a repeated key replaces the earlier value.
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Vec<(i16, HashedStack)>> {
@@ -88,13 +88,9 @@ mod changed_slots {
         }
         let mut slots: Vec<(i16, HashedStack)> = Vec::with_capacity(count as usize);
         for _ in 0..count {
-            let (slot, stack) = (i16::decode(input)?, HashedStack::decode(input)?);
-            match slots.iter_mut().find(|(s, _)| *s == slot) {
-                Some(e) => e.1 = stack,
-                None => slots.push((slot, stack)),
-            }
+            slots.push((i16::decode(input)?, HashedStack::decode(input)?));
         }
-        Ok(slots)
+        Ok(crate::codec::collapse_map(slots))
     }
 }
 

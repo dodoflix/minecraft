@@ -282,11 +282,12 @@ impl MerchantOffers {
     }
 
     /// `MerchantOffers.STREAM_CODEC.encode`: a var-int count, then every offer.
-    pub fn encode_stream(&self, out: &mut Vec<u8>) {
+    pub fn encode_stream(&self, out: &mut Vec<u8>) -> mc_protocol::codec::EncodeResult<()> {
         mc_protocol::codec::write_varint(out, self.0.len() as i32);
         for o in &self.0 {
-            o.to_wire().encode(out);
+            o.to_wire().encode(out)?;
         }
+        Ok(())
     }
 
     /// `MerchantOffers.STREAM_CODEC.decode`.

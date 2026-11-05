@@ -5,7 +5,7 @@ use uuid::Uuid;
 
 use super::{
     read_varint, take, take_array, write_count, write_utf, write_varint, Decode, DecodeBounded, DecodeError, DecodeResult,
-    Encode, EncodeBounded,
+    Encode, EncodeBounded, EncodeError,
 };
 
 /// `ByteBufCodecs.either`: `true` = left.
@@ -363,6 +363,10 @@ impl<T: Encode, const MAX: usize> Encode for LengthPrefixed<T, MAX> {
     fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         let mut inner = Vec::new();
         self.0.encode(&mut inner)?;
+        if inner.len() > MAX {
+            // sic: vanilla's message has two spaces before "larger"
+            return Err(EncodeError(format!("Buffer size {} is  larger than allowed limit of {MAX}", inner.len())));
+        }
         write_varint(out, inner.len() as i32);
         out.extend_from_slice(&inner);
         Ok(())

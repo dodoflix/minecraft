@@ -23,15 +23,11 @@ const TOLERANCE_LEVEL_POSITION: f64 = 7.6293945E-6f32 as f64;
 pub const FORCED_POS_UPDATE_PERIOD: i32 = 60;
 const FORCED_TELEPORT_PERIOD: i32 = 400;
 
-/// A packet as `VarInt id + body`, ready for `ConnectionSender::send_payload`.
-pub type Payload = Arc<[u8]>;
+pub use crate::server::network::connection::Payload;
 
-/// Encode a packet like `ConnectionSender::send`.
+/// Encode a packet like `ConnectionSender::send` (a failure is delivered to every recipient like vanilla's).
 pub fn encode_payload<P: Packet>(packet: &P) -> Payload {
-    let mut buf = Vec::with_capacity(64);
-    write_varint(&mut buf, P::ID);
-    packet.encode(&mut buf);
-    buf.into()
+    Payload::encode(packet)
 }
 
 /// `ClientboundBundlePacket`: delimiter, the packets, delimiter.

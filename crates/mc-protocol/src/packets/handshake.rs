@@ -17,7 +17,8 @@ pub enum ClientIntent {
 pub struct ClientIntentionPacket {
     #[mc(var)]
     pub protocol_version: i32,
-    #[mc(max = 255)]
+    // vanilla: `readUtf(255)` but `writeUtf(hostName)` (default limit)
+    #[mc(decode_max = 255)]
     pub host_name: String,
     pub port: u16,
     pub intention: ClientIntent,

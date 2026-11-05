@@ -8,9 +8,8 @@
 //! reconfiguration tasks.
 
 use super::common_listener::CommonListenerCookie;
-use mc_protocol::codec::{Encode, write_varint};
 use mc_protocol::net::{FrameDecoder, FrameEncoder, NetError};
-use mc_protocol::packet::{ConnectionState, Packet};
+use mc_protocol::packet::{ConnectionState, Packet, PacketEncodeError, encode_packet};
 use mc_protocol::packets::{configuration, login, play};
 use mc_text::Component;
 use parking_lot::Mutex;
@@ -38,6 +37,36 @@ pub struct DisconnectionDetails {
 impl DisconnectionDetails {
     pub fn new(reason: Component) -> Self {
         Self { reason, report: None, bug_report_link: None }
+    }
+}
+
+/// A packet encoded once (`VarInt id + body`) for any number of connections — or the `EncoderException` vanilla's
+/// `PacketEncoder` would raise on every connection it is sent to.
+#[derive(Clone, Debug)]
+pub enum Payload {
+    Encoded(Arc<[u8]>),
+    Failed(Arc<PacketEncodeError>),
+}
+
+impl Payload {
+    /// `IdDispatchCodec.encode`, once; an encoder failure is kept so each recipient reacts to it like vanilla.
+    pub fn encode<P: Packet>(packet: &P) -> Self {
+        match encode_packet(packet) {
+            Ok(bytes) => Self::Encoded(bytes.into()),
+            Err(e) => Self::Failed(Arc::new(e)),
+        }
+    }
+}
+
+impl From<Arc<[u8]>> for Payload {
+    fn from(bytes: Arc<[u8]>) -> Self {
+        Self::Encoded(bytes)
+    }
+}
+
+impl From<Vec<u8>> for Payload {
+    fn from(bytes: Vec<u8>) -> Self {
+        Self::Encoded(bytes.into())
     }
 }
 
@@ -257,37 +286,42 @@ impl ConnectionSender {
     }
 
     /// `Connection.send(packet)`: encodes `VarInt id + body` and queues it. A closed connection drops the packet.
-    /// A packet whose encoder refuses its data (mc-protocol encoders panic where vanilla throws an
-    /// `EncoderException`) disconnects only this connection, like vanilla's `exceptionCaught`.
+    /// A packet the encoder refuses (vanilla's `EncoderException`) affects only this connection, see
+    /// [`ConnectionSender::encode_failed`].
     pub fn send<P: Packet>(&self, packet: &P) {
-        if let Some(payload) = self.encode_guarded(packet) {
-            self.send_payload(payload);
-        }
+        self.send_payload(Payload::encode(packet));
     }
 
     /// `Connection.send(packet, null, flush)`.
     pub fn send_flush<P: Packet>(&self, packet: &P, flush: bool) {
-        if let Some(payload) = self.encode_guarded(packet) {
-            let _ = self.tx.send(if flush { Outbound::Payload(payload) } else { Outbound::Write(payload) });
-        }
-    }
-
-    /// Encodes `packet` (`VarInt id + body`); on an encoder failure logs it, kicks this connection with vanilla's
-    /// `Internal Exception: io.netty.handler.codec.EncoderException: Failed to encode packet ...` and returns `None`.
-    pub fn encode_guarded<P: Packet>(&self, packet: &P) -> Option<Arc<[u8]>> {
-        match try_encode_payload(packet) {
-            Ok(payload) => Some(payload),
-            Err(message) => {
-                log::error!("Failed to encode packet 'clientbound/{}': {message}", P::NAME);
-                let cause = format!("io.netty.handler.codec.EncoderException: Failed to encode packet 'clientbound/{}'", P::NAME);
-                self.disconnect(generic_reason(format!("Internal Exception: {cause}")));
-                None
+        match Payload::encode(packet) {
+            Payload::Encoded(payload) => {
+                let _ = self.tx.send(if flush { Outbound::Payload(payload) } else { Outbound::Write(payload) });
             }
+            Payload::Failed(e) => self.encode_failed(&e),
         }
     }
 
-    pub fn send_payload(&self, payload: Arc<[u8]>) {
-        let _ = self.tx.send(Outbound::Payload(payload));
+    /// Queues an already encoded packet; an encoder failure is handled like in [`ConnectionSender::send`].
+    pub fn send_payload(&self, payload: impl Into<Payload>) {
+        match payload.into() {
+            Payload::Encoded(bytes) => {
+                let _ = self.tx.send(Outbound::Payload(bytes));
+            }
+            Payload::Failed(e) => self.encode_failed(&e),
+        }
+    }
+
+    /// `PacketEncoder.encode`'s catch + `Connection.exceptionCaught`: the failure is logged; a skippable packet
+    /// (`SkipPacketEncoderException`) is just dropped, any other kicks this connection with
+    /// `Internal Exception: io.netty.handler.codec.EncoderException: Failed to encode packet '<type>'`.
+    pub fn encode_failed(&self, error: &PacketEncodeError) {
+        log::error!("Error sending packet {}: {}", error.packet_type, error.cause);
+        if error.skippable {
+            log::debug!("Skipping packet due to errors: {error}");
+        } else {
+            self.disconnect(generic_reason(format!("Internal Exception: {}", error.exception_text())));
+        }
     }
 
     /// `Connection.flushChannel`.
@@ -351,23 +385,6 @@ impl ConnectionSender {
     }
 }
 
-/// Encodes `VarInt id + body`, turning an encoder panic into its message.
-pub fn try_encode_payload<P: Packet>(packet: &P) -> Result<Arc<[u8]>, String> {
-    std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
-        let mut buf = Vec::with_capacity(64);
-        write_varint(&mut buf, P::ID);
-        packet.encode(&mut buf);
-        Arc::<[u8]>::from(buf)
-    }))
-    .map_err(|payload| {
-        payload
-            .downcast_ref::<String>()
-            .cloned()
-            .or_else(|| payload.downcast_ref::<&str>().map(|s| (*s).to_owned()))
-            .unwrap_or_else(|| "encoder panicked".to_owned())
-    })
-}
-
 /// `Util.getMillis()`.
 pub fn get_millis() -> i64 {
     crate::server::shared::get_nanos() / 1_000_000
@@ -375,23 +392,15 @@ pub fn get_millis() -> i64 {
 
 /// The disconnect packet of `state` (`VarInt id + body`), if that protocol has one.
 fn disconnect_payload(state: ConnectionState, reason: &Component) -> Option<Vec<u8>> {
-    let mut buf = Vec::new();
+    // A reason that cannot be encoded is vanilla's double fault: the connection closes without a disconnect packet.
     match state {
-        ConnectionState::Handshake | ConnectionState::Status => return None,
+        ConnectionState::Handshake | ConnectionState::Status => None,
         ConnectionState::Login => {
-            write_varint(&mut buf, login::ClientboundLoginDisconnectPacket::ID);
-            login::ClientboundLoginDisconnectPacket { reason: mc_protocol::codec::JsonComponent(reason.clone()) }.encode(&mut buf);
+            encode_packet(&login::ClientboundLoginDisconnectPacket { reason: mc_protocol::codec::JsonComponent(reason.clone()) }).ok()
         }
-        ConnectionState::Configuration => {
-            write_varint(&mut buf, configuration::ClientboundDisconnectPacket::ID);
-            configuration::ClientboundDisconnectPacket { reason: reason.clone() }.encode(&mut buf);
-        }
-        ConnectionState::Play => {
-            write_varint(&mut buf, play::ClientboundDisconnectPacket::ID);
-            play::ClientboundDisconnectPacket { reason: reason.clone() }.encode(&mut buf);
-        }
+        ConnectionState::Configuration => encode_packet(&configuration::ClientboundDisconnectPacket { reason: reason.clone() }).ok(),
+        ConnectionState::Play => encode_packet(&play::ClientboundDisconnectPacket { reason: reason.clone() }).ok(),
     }
-    Some(buf)
 }
 
 /// The writer task: owns the write half, frames/compresses/encrypts queued payloads in batches.

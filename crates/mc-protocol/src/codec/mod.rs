@@ -167,6 +167,30 @@ pub fn to_bytes<T: Encode + ?Sized>(v: &T) -> EncodeResult<Vec<u8>> {
     Ok(out)
 }
 
+/// `ByteBufCodecs.map` builds a Java `Map` with `put`: a repeated key keeps its first position and takes the last
+/// value. (The Java map's iteration order is its own hash order; a client cannot tell, and we keep the wire order.)
+pub fn collapse_map<K: PartialEq, V>(entries: Vec<(K, V)>) -> Vec<(K, V)> {
+    let mut out: Vec<(K, V)> = Vec::with_capacity(entries.len());
+    for (k, v) in entries {
+        match out.iter_mut().find(|(have, _)| *have == k) {
+            Some(slot) => slot.1 = v,
+            None => out.push((k, v)),
+        }
+    }
+    out
+}
+
+/// `ByteBufCodecs.collection` into a Java `Set`: `add` ignores a repeated element, so the first occurrence stays.
+pub fn collapse_set<T: PartialEq>(items: Vec<T>) -> Vec<T> {
+    let mut out: Vec<T> = Vec::with_capacity(items.len());
+    for i in items {
+        if !out.contains(&i) {
+            out.push(i);
+        }
+    }
+    out
+}
+
 /// Decode a value from `bytes`, requiring that all bytes are consumed.
 pub fn from_bytes<T: Decode>(mut bytes: &[u8]) -> DecodeResult<T> {
     let v = T::decode(&mut bytes)?;
