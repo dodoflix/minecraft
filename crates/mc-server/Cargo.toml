@@ -8,3 +8,7 @@ license.workspace = true
 mc-game = { path = "../mc-game" }
 mc-world = { path = "../mc-world" }
 log = "0.4"
+
+[dev-dependencies]
+mc-nbt = { path = "../mc-nbt" }
+tempfile = "3"
