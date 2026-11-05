@@ -5,8 +5,10 @@
 name: ci
 
 on:
-  push:
-    branches: [main]
+  # main moves every few seconds, so per-push runs were almost all cancelled; a scheduled full run of main's tip
+  # gives one complete, comparable result every 2 hours.
+  schedule:
+    - cron: "17 */2 * * *"
   workflow_dispatch:
     inputs:
       test_filter:
