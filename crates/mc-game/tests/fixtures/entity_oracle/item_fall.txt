@@ -1,0 +1,500 @@
+T 1
+E a minecraft:item pos=0.5,-50.04,0.5 delta=0.0,-0.03920000076293945,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=1
+E b minecraft:item pos=3.6,-57.84,0.45 delta=0.09800000190734864,0.1568000030517578,-0.04900000095367432 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=1
+E c minecraft:item pos=11.8,-60.0,0.5 delta=0.2881200134754181,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=1
+E w minecraft:item pos=21.5,-52.04,0.5 delta=0.0,-0.03920000076293945,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=1
+T 2
+E a minecraft:item pos=0.5,-50.11920000076294,0.5 delta=0.0,-0.0776160022583008,0.0 rot=0.0,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=2
+E b minecraft:item pos=3.698000001907349,-57.723199996948246,0.40099999904632566 delta=0.09604000373840337,0.11446400521850592,-0.04802000186920168 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=2
+E c minecraft:item pos=12.088120013475418,-60.0,0.5 delta=0.27671047388358366,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=2
+E w minecraft:item pos=21.5,-52.11920000076294,0.5 delta=0.0,-0.0776160022583008,0.0 rot=0.0,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=2
+T 3
+E a minecraft:item pos=0.5,-50.23681600302124,0.5 delta=0.0,-0.115263684456482,0.0 rot=0.0,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=3
+E b minecraft:item pos=3.794040005645752,-57.64873599172974,0.35297999717712397 delta=0.094119205495453,0.07297472653442398,-0.0470596027477265 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=3
+E c minecraft:item pos=12.364830487359002,-60.0,0.5 delta=0.2657527515470915,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=3
+E w minecraft:item pos=21.5,-52.23681600302124,0.5 delta=0.0,-0.115263684456482,0.0 rot=0.0,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=3
+T 4
+E a minecraft:item pos=0.5,-50.39207968747772,0.5 delta=0.0,-0.15215841372877212,0.0 rot=0.0,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=4
+E b minecraft:item pos=3.8881592111412053,-57.61576126519531,0.30592039442939745 delta=0.09223682318072532,0.0323152326326785,-0.04611841159036266 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=4
+E c minecraft:item pos=12.630583238906095,-60.0,0.5 delta=0.25522895452292477,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=4
+E w minecraft:item pos=21.5,-52.39207968747772,0.5 delta=0.0,-0.15215841372877212,0.0 rot=0.0,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=4
+T 5
+E a minecraft:item pos=0.5,-50.58423810120649,0.5 delta=0.0,-0.18831524911932757,0.0 rot=0.0,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=5
+E b minecraft:item pos=3.9803960343219305,-57.62344603256263,0.2598019828390348 delta=0.0903920884763886,-0.0075310721665503766,-0.0451960442381943 rot=90.0,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=5
+E c minecraft:item pos=12.88581219342902,-60.0,0.5 delta=0.24512189938820653,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=5
+E w minecraft:item pos=21.5,-52.58423810120649,0.5 delta=0.0,-0.18831524911932757,0.0 rot=0.0,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=5
+T 6
+E a minecraft:item pos=0.5,-50.812553350325814,0.5 delta=0.0,-0.22374894849170882,0.0 rot=0.0,0.0 og=0 fall=0.812553346157074 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=6
+E b minecraft:item pos=4.070788122798319,-57.67097710472918,0.21460593860084048 delta=0.0885842484309531,-0.04658045162980263,-0.04429212421547655 rot=90.0,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=6
+E c minecraft:item pos=13.130934092817226,-60.0,0.5 delta=0.2354150831828338,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=6
+E w minecraft:item pos=21.5,-52.812553350325814,0.5 delta=0.0,-0.22374894849170882,0.0 rot=0.0,0.0 og=0 fall=0.812553346157074 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=6
+T 7
+E a minecraft:item pos=0.5,-51.076302298817524,0.5 delta=0.0,-0.2584739745524866,0.0 rot=0.0,0.0 og=0 fall=1.0763022899627686 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=7
+E b minecraft:item pos=4.1593723712292725,-57.75755755635898,0.17031381438536394 delta=0.08681256515194449,-0.08484884424859764,-0.043406282575972246 rot=90.0,0.0 og=0 fall=0.1417962945997715 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=7
+E c minecraft:item pos=13.36634917600006,-60.0,0.5 delta=0.2260926564631825,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=7
+E w minecraft:item pos=21.5,-53.076302298817524,0.5 delta=0.0,-0.2584739745524866,0.0 rot=0.0,0.0 og=0 fall=1.0763022899627686 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=7
+T 8
+E a minecraft:item pos=0.5,-51.37477627337001,0.5 delta=0.0,-0.2925045007543761,0.0 rot=0.0,0.0 og=0 fall=1.3747762739658356 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=8
+E b minecraft:item pos=4.246184936381217,-57.88240640060758,0.12690753180939168 delta=0.08507631550472387,-0.1223518697449284,-0.04253815775236194 rot=90.0,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=8
+E c minecraft:item pos=13.592441832463242,-60.0,0.5 delta=0.21713939742288405,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=8
+E w minecraft:item pos=21.5,-53.37477627337001,0.5 delta=0.0,-0.2925045007543761,0.0 rot=0.0,0.0 og=0 fall=1.3747762739658356 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=8
+T 9
+E a minecraft:item pos=0.5,-51.707280774124385,0.5 delta=0.0,-0.32585441708130863,0.0 rot=0.0,0.0 og=0 fall=1.7072807848453522 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=9
+E b minecraft:item pos=4.331261251885941,-58.04475827035251,0.08436937405702974 delta=0.08337479081733133,-0.159104835446646,-0.041687395408665666 rot=90.0,0.0 og=0 fall=0.4289970137178898 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=9
+E c minecraft:item pos=13.809581229886126,-60.0,0.5 delta=0.20854068703841838,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=9
+E w minecraft:item pos=21.5,-53.707280774124385,0.5 delta=0.0,-0.32585441708130863,0.0 rot=0.0,0.0 og=0 fall=1.7072807848453522 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=9
+T 10
+E a minecraft:item pos=0.5,-52.073135191205694,0.5 delta=0.0,-0.35853733571780166,0.0 rot=0.0,0.0 og=0 fall=2.073135197162628 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=10
+E b minecraft:item pos=4.414636042703273,-58.24386310579916,0.04268197864836407 delta=0.08170729659123263,-0.19512274253533643,-0.040853648295616316 rot=90.0,0.0 og=0 fall=0.6281018443405628 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=10
+E c minecraft:item pos=14.018121916924544,-60.0,0.5 delta=0.20028248519894018,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=10
+E w minecraft:item pos=21.5,-54.073135191205694,0.5 delta=0.0,-0.35853733571780166,0.0 rot=0.0,0.0 og=0 fall=2.073135197162628 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=10
+T 11
+E a minecraft:item pos=0.5,-52.4716725269235,0.5 delta=0.0,-0.39056659660494203,0.0 rot=0.0,0.0 og=0 fall=2.471672534942627 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=11
+E b minecraft:item pos=4.496343339294505,-58.478985848334496,0.0018283303527477576 delta=0.08007315221785098,-0.23042029216924012,-0.04003657610892549 rot=90.0,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=11
+E c minecraft:item pos=14.218404402123484,-60.0,0.5 delta=0.1923513077813629,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=11
+E w minecraft:item pos=21.5,-54.4716725269235,0.5 delta=0.0,-0.39056659660494203,0.0 rot=0.0,0.0 og=0 fall=2.471672534942627 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=11
+T 12
+E a minecraft:item pos=0.5,-52.90223912352844,0.5 delta=0.0,-0.42195527288524926,0.0 rot=0.0,0.0 og=0 fall=2.902239143848419 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=12
+E b minecraft:item pos=4.576416491512356,-58.74940614050374,-0.03820824575617773 delta=0.07847169070076813,-0.26501189148371307,-0.03923584535038407 rot=90.0,0.0 og=0 fall=1.1336448676884174 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=12
+E c minecraft:item pos=14.410755709904848,-60.0,0.5 delta=0.18473420463326856,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=12
+E w minecraft:item pos=21.5,-54.90223912352844,0.5 delta=0.0,-0.42195527288524926,0.0 rot=0.0,0.0 og=0 fall=2.902239143848419 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=12
+T 13
+E a minecraft:item pos=0.5,-53.36419439641369,0.5 delta=0.0,-0.45271617623864185,0.0 rot=0.0,0.0 og=0 fall=3.3641944229602814 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=13
+E b minecraft:item pos=4.654888182213124,-59.05441803198745,-0.07744409110656181 delta=0.0769022583834815,-0.2989116594716789,-0.03845112919174075 rot=90.0,0.0 og=0 fall=1.4386567659676075 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=13
+E c minecraft:item pos=14.595489914538117,-60.0,0.5 delta=0.17741873842769326,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=13
+E w minecraft:item pos=21.5,-55.36419439641369,0.5 delta=0.0,-0.45271617623864185,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=13
+T 14
+E a minecraft:item pos=0.5,-53.85691057265233,0.5 delta=0.0,-0.48286186211168425,0.0 rot=0.0,0.0 og=0 fall=3.8569105863571167 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=14
+E b minecraft:item pos=4.731790440596606,-59.39332969145913,-0.11589522029830256 delta=0.07536421468260604,-0.3321334327464722,-0.03768210734130302 rot=90.0,0.0 og=0 fall=1.77756841853261 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=14
+E c minecraft:item pos=14.77290865296581,-60.0,0.5 delta=0.1703929643552622,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=14
+E w minecraft:item pos=21.5,-55.81641057262858,0.5 delta=0.0,-0.44317186131593433,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=14
+T 15
+E a minecraft:item pos=0.5,-54.379772434764014,0.5 delta=0.0,-0.5124046348422492,0.0 rot=0.0,0.0 og=0 fall=4.379772424697876 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=15
+E b minecraft:item pos=4.807154655279212,-59.7654631242056,-0.15357732763960558 delta=0.07385693182641223,-0.3646907711894247,-0.036928465913206115 rot=90.0,0.0 og=0 fall=2.149701852351427 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=15
+E c minecraft:item pos=14.943301617321072,-60.0,0.5 delta=0.16364541062051524,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=15
+E w minecraft:item pos=21.5,-56.25908243392076,0.5 delta=0.0,-0.4338184325096376,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=15
+T 16
+E a minecraft:item pos=0.5,-54.93217706960626,0.5 delta=0.0,-0.5413565526816865,0.0 rot=0.0,0.0 og=0 fall=4.9321770668029785 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=16
+E b minecraft:item pos=4.8810115871056245,-60.0,-0.1905057935528117 delta=0.043427880280928845,0.0,-0.021713940140464422 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=16
+E c minecraft:item pos=15.106947027941589,-60.0,0.5 delta=0.15716505971057726,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=16
+E w minecraft:item pos=21.5,-56.69240086640665,0.5 delta=0.0,-0.42465207210106426,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=16
+T 17
+E a minecraft:item pos=0.5,-55.513533622287945,0.5 delta=0.0,-0.5697294327165491,0.0 rot=0.0,0.0 og=0 fall=5.513533592224121 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=17
+E b minecraft:item pos=4.924439467386553,-60.0,-0.21221973369327612 delta=0.025535596172981512,0.0,-0.012767798086490756 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=17
+E c minecraft:item pos=15.264112087652165,-60.0,0.5 delta=0.15094133040558802,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=17
+E w minecraft:item pos=21.5,-57.11655293848396,0.5 delta=0.0,-0.41566903872582794,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=17
+T 18
+E a minecraft:item pos=0.5,-56.12326305500449,0.5 delta=0.0,-0.5975348556918841,0.0 rot=0.0,0.0 og=0 fall=6.123263001441956 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=18
+E b minecraft:item pos=4.949975063559535,-60.0,-0.22498753177976688 delta=0.015014932059576947,0.0,-0.007507466029788474 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=18
+E c minecraft:item pos=15.415053418057754,-60.0,0.5 delta=0.14496406050151853,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=18
+E w minecraft:item pos=21.5,-57.531721977186045,0.5 delta=0.0,-0.4068656658467586,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=18
+T 19
+E a minecraft:item pos=0.5,-56.760797910696375,0.5 delta=0.0,-0.6247841707380588,0.0 rot=0.0,0.0 og=0 fall=6.76079785823822 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=19
+E b minecraft:item pos=4.964989995619112,-60.0,-0.23249499780955535 delta=0.008828780938831259,0.0,-0.0044143904694156294 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=19
+E c minecraft:item pos=15.560017478559272,-60.0,0.5 delta=0.1392234902171628,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=19
+E w minecraft:item pos=21.5,-57.938087643009055,0.5 delta=0.0,-0.39823836025735965,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=19
+T 20
+E a minecraft:item pos=0.5,-57.425582081434435,0.5 delta=0.0,-0.6514885000030495,0.0 rot=0.0,0.0 og=0 fall=7.425582051277161 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=20
+E b minecraft:item pos=4.973818776557943,-60.0,-0.23690938827897098 delta=0.005191323714059241,0.0,-0.0025956618570296204 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=20
+E c minecraft:item pos=15.699240968776435,-60.0,0.5 delta=0.13371024625821226,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=20
+E w minecraft:item pos=21.5,-58.335826003242666,0.5 delta=0.0,-0.3897836006151959,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=20
+T 21
+E a minecraft:item pos=0.5,-58.11707058143748,0.5 delta=0.0,-0.677658743192085,0.0 rot=0.0,0.0 og=0 fall=8.11707055568695 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=21
+E b minecraft:item pos=4.979010100272002,-60.0,-0.2395050501360006 delta=0.0030524986508184233,0.0,-0.0015262493254092117 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=21
+E c minecraft:item pos=15.832951215034647,-60.0,0.5 delta=0.12841532651239196,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=21
+E w minecraft:item pos=21.5,-58.72510960383411,0.5 delta=0.0,-0.3814979360046137,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=21
+T 22
+E a minecraft:item pos=0.5,-58.83472932462956,0.5 delta=0.0,-0.7033055820164975,0.0 rot=0.0,0.0 og=0 fall=8.834729313850403 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=22
+E b minecraft:item pos=4.982062598922821,-60.0,-0.2410312994614098 delta=0.001794869387168786,0.0,-8.97434693584393E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=22
+E c minecraft:item pos=15.96136654154704,-60.0,0.5 delta=0.10933008535066861,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=22
+E w minecraft:item pos=21.5,-59.10610753981498,0.5 delta=0.0,-0.3733779845282066,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=22
+T 23
+E a minecraft:item pos=0.5,-59.57803490664606,0.5 delta=0.0,-0.7284394845535964,0.0 rot=0.0,0.0 og=0 fall=9.5780348777771 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=23
+E b minecraft:item pos=4.982062598922821,-60.0,-0.2410312994614098 delta=0.001794869387168786,-0.04,-8.97434693584393E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=23
+E c minecraft:item pos=16.05574332695334,-59.99949999997625,0.5 delta=0.07848925149826878,4.900000328104948E-4,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=23
+E w minecraft:item pos=21.5,-59.478985524319434,0.5 delta=0.0,-0.36542043192645185,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=23
+T 24
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=24
+E b minecraft:item pos=4.982062598922821,-60.0,-0.2410312994614098 delta=0.001794869387168786,-0.08,-8.97434693584393E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=24
+E c minecraft:item pos=16.119587686551643,-59.99850999991969,0.5 delta=0.048567473624071975,9.702000743107886E-4,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=24
+E w minecraft:item pos=21.5,-59.84390595622214,0.5 delta=0.0,-0.3576220302249539,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=24
+T 25
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=25
+E b minecraft:item pos=4.982062598922821,-60.0,-0.2410312994614098 delta=0.001794869387168786,-0.12,-8.97434693584393E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=25
+E c minecraft:item pos=16.153809485769134,-59.99703979982163,0.5 delta=0.019537363885871552,0.0014407961241401654,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=25
+E w minecraft:item pos=21.5,-60.20102798642334,0.5 delta=0.0,-0.34997959640874327,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=25
+T 26
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=26
+E b minecraft:item pos=4.983857468309989,-60.0,-0.2419287341549942 delta=0.001055383305781938,0.0,-5.27691652890969E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=26
+E c minecraft:item pos=16.159291476068955,-59.99509900367374,0.5 delta=-0.008627649401614507,0.001901980261948862,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=26
+E w minecraft:item pos=21.5,-60.550507582808336,0.5 delta=0.0,-0.34249001112308897,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=26
+T 27
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=27
+E b minecraft:item pos=4.983857468309989,-60.0,-0.2419287341549942 delta=0.001055383305781938,-0.04,-5.27691652890969E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=27
+E c minecraft:item pos=16.13689010294556,-59.99269702338804,0.5 delta=-0.03595334608819688,0.002353940725797774,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=27
+E w minecraft:item pos=21.5,-60.89249759390768,0.5 delta=0.0,-0.3351502174002952,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=27
+T 28
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=28
+E b minecraft:item pos=4.983857468309989,-60.0,-0.2419287341549942 delta=0.001055383305781938,-0.08,-5.27691652890969E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=28
+E c minecraft:item pos=16.087436289841854,-59.989843082638494,0.5 delta=-0.062464737784889625,0.0027968619889901696,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=28
+E w minecraft:item pos=21.5,-61.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=28
+T 29
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=29
+E b minecraft:item pos=4.983857468309989,-60.0,-0.2419287341549942 delta=0.001055383305781938,-0.12,-5.27691652890969E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=29
+E c minecraft:item pos=16.011736198705588,-59.986546220625755,0.5 delta=-0.08818609075740465,0.0032309248353667697,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=29
+E w minecraft:item pos=21.5,-61.0,0.5 delta=0.0,5.000000237487257E-4,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=29
+T 30
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=30
+E b minecraft:item pos=4.984912851615771,-60.0,-0.24245642580788515 delta=6.205654462022806E-4,0.0,-3.102827231011403E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=30
+E c minecraft:item pos=15.910571967881236,-59.98281529576664,0.5 delta=-0.11314094813742062,0.00365630643309493,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=30
+E w minecraft:item pos=21.5,-61.0,0.5 delta=0.0,0.0010000000474974513,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=30
+T 31
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=31
+E b minecraft:item pos=4.984912851615771,-60.0,-0.24245642580788515 delta=6.205654462022806E-4,-0.04,-3.102827231011403E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=31
+E c minecraft:item pos=15.784702428012679,-59.9786589893098,0.5 delta=-0.1373521514719568,0.004073180406982037,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=31
+E w minecraft:item pos=21.5,-61.0,0.5 delta=0.0,0.001500000071246177,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=31
+T 32
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=32
+E b minecraft:item pos=4.984912851615771,-60.0,-0.24245642580788515 delta=6.205654462022806E-4,-0.08,-3.102827231011403E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=32
+E c minecraft:item pos=15.634863796612034,-59.97408580887907,0.5 delta=-0.16084186163057607,0.004481716909342641,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=32
+E w minecraft:item pos=21.5,-60.997999999905005,0.5 delta=0.0,0.001960000131241979,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=32
+T 33
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=33
+E b minecraft:item pos=4.984912851615771,-60.0,-0.24245642580788515 delta=6.205654462022806E-4,-0.12,-3.102827231011403E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=33
+E c minecraft:item pos=15.461770351930342,-59.96910409194598,0.5 delta=-0.18363157908955385,0.00488208268944825,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=33
+E w minecraft:item pos=21.5,-60.995539999750015,0.5 delta=0.0,0.00241080019881167,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=33
+T 34
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=34
+E b minecraft:item pos=4.985533417061974,-60.0,-0.24276670853098628 delta=3.6489251905961535E-4,0.0,-1.8244625952980767E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=34
+E c minecraft:item pos=15.266115086746922,-59.96372200923278,0.5 delta=-0.20574216361157957,0.0052744411615881165,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=34
+E w minecraft:item pos=21.5,-60.99262919952746,0.5 delta=0.0,0.0028525842736282963,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=34
+T 35
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=35
+E b minecraft:item pos=4.985533417061974,-60.0,-0.24276670853098628 delta=3.6489251905961535E-4,-0.04,-1.8244625952980767E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=35
+E c minecraft:item pos=15.048570342675834,-59.957947568047445,0.5 delta=-0.22719385333900333,0.005658952471768831,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=35
+E w minecraft:item pos=21.5,-60.98927661523008,0.5 delta=0.0,0.0032855326753749524,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=35
+T 36
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=36
+E b minecraft:item pos=4.985533417061974,-60.0,-0.24276670853098628 delta=3.6489251905961535E-4,-0.08,-1.8244625952980767E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=36
+E c minecraft:item pos=14.809788425570018,-59.951788615551926,0.5 delta=-0.24800628331810445,0.006035773563079902,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=36
+E w minecraft:item pos=21.5,-60.985491082530956,0.5 delta=0.0,0.0037098221173445106,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=36
+T 37
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=37
+E b minecraft:item pos=4.985533417061974,-60.0,-0.24276670853098628 delta=3.6489251905961535E-4,-0.12,-1.8244625952980767E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=37
+E c minecraft:item pos=14.550402202586408,-59.9452528419651,0.5 delta=-0.2681985034713374,0.006405058239752043,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=37
+E w minecraft:item pos=21.5,-60.98128126038986,0.5 delta=0.0,0.004125625778567356,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=37
+T 38
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=38
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=2.145568227823485E-4,0.0,-1.0727841139117424E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=38
+E c minecraft:item pos=14.271025681458529,-59.9383477837016,0.5 delta=-0.2877889960340054,0.006766957229934287,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=38
+E w minecraft:item pos=21.5,-60.976655634587544,0.5 delta=0.0,0.004533113374496571,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=38
+T 39
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=39
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=2.145568227823485E-4,-0.04,-1.0727841139117424E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=39
+E c minecraft:item pos=13.97225457250678,-59.93108082644792,0.5 delta=-0.30679569247132116,0.007121618247215563,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=39
+E w minecraft:item pos=21.5,-60.971622521189296,0.5 delta=0.0,0.00493245122627941,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=39
+T 40
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=40
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=2.145568227823485E-4,-0.08,-1.0727841139117424E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=40
+E c minecraft:item pos=13.654666833900825,-59.92345920817695,0.5 delta=-0.3252359898913404,0.007469186050915835,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=40
+E w minecraft:item pos=21.5,-60.966190069939266,0.5 delta=0.0,0.005323802328643358,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=40
+T 41
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=41
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=2.145568227823485E-4,-0.12,-1.0727841139117424E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=41
+E c minecraft:item pos=13.318823200673192,-59.91549002210228,0.5 delta=-0.3431267669687898,0.007809802505171431,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=41
+E w minecraft:item pos=21.5,-60.96036626758687,0.5 delta=0.0,0.005707326416424457,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=41
+T 42
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=42
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.2615942448229546E-4,0.0,-6.307971224114773E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=42
+E c minecraft:item pos=12.965267697968264,-59.90718021957336,0.5 delta=-0.36048439939436566,0.008143606636838658,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=42
+E w minecraft:item pos=21.5,-60.954158941146694,0.5 delta=0.0,0.006083180029765075,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=42
+T 43
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=43
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.2615942448229546E-4,-0.04,-6.307971224114773E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=43
+E c minecraft:item pos=12.59452813899648,-59.89853661291278,0.5 delta=-0.3773247748636438,0.00847073469223935,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=43
+E w minecraft:item pos=21.5,-60.947575761093184,0.5 delta=0.0,0.006451516578007719,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=43
+T 44
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=44
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.2615942448229546E-4,-0.08,-6.307971224114773E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=44
+E c minecraft:item pos=12.203203364132836,-59.93006587822054,0.5 delta=-0.3974982868302987,-0.03089868060297845,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=44
+E w minecraft:item pos=21.5,-60.940624244491424,0.5 delta=0.0,0.006812486402310972,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=44
+T 45
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=45
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.2615942448229546E-4,-0.12,-6.307971224114773E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=45
+E c minecraft:item pos=11.791705077302538,-60.0,0.5 delta=-0.3952029731555237,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=45
+E w minecraft:item pos=21.5,-60.933311758065365,0.5 delta=0.0,0.007166236837013114,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=45
+T 46
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=46
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=7.41817490551199E-5,0.0,-3.709087452755995E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=46
+E c minecraft:item pos=11.396502104147014,-60.0,0.5 delta=-0.37955295317031595,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=46
+E w minecraft:item pos=21.5,-60.9256455212046,0.5 delta=0.0,0.007512912269768466,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=46
+T 47
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=47
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=7.41817490551199E-5,-0.04,-3.709087452755995E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=47
+E c minecraft:item pos=11.016949150976698,-60.0,0.5 delta=-0.36452267327355387,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=47
+E w minecraft:item pos=21.5,-60.917632608911084,0.5 delta=0.0,0.007852654200481021,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=47
+T 48
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=48
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=7.41817490551199E-5,-0.08,-3.709087452755995E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=48
+E c minecraft:item pos=10.652426477703145,-60.0,0.5 delta=-0.3500875917855725,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=48
+E w minecraft:item pos=21.5,-60.90927995468685,0.5 delta=0.0,0.008185601299059387,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=48
+T 49
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=49
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=7.41817490551199E-5,-0.12,-3.709087452755995E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=49
+E c minecraft:item pos=10.302338885917573,-60.0,0.5 delta=-0.3362241388761194,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=49
+E w minecraft:item pos=21.5,-60.90059435336404,0.5 delta=0.0,0.008511889462016649,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=49
+T 50
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=50
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=4.361887283061469E-5,0.0,-2.1809436415307345E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=50
+E c minecraft:item pos=9.966114747041454,-60.0,0.5 delta=-0.1976998135393544,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=50
+E w minecraft:item pos=21.5,-60.89158246387828,0.5 delta=0.0,0.008831651867938217,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=50
+T 51
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=51
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=4.361887283061469E-5,-0.04,-2.1809436415307345E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=51
+E c minecraft:item pos=9.768414933502099,-60.0,0.5 delta=-0.11624750205069692,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=51
+E w minecraft:item pos=21.5,-60.882250811986594,0.5 delta=0.0,0.009145019031840338,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=51
+T 52
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=52
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=4.361887283061469E-5,-0.08,-2.1809436415307345E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=52
+E c minecraft:item pos=9.652167431451401,-60.0,0.5 delta=-0.06835353807926972,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=52
+E w minecraft:item pos=21.5,-60.872605792931004,0.5 delta=0.0,0.009452118858441421,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=52
+T 53
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=53
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=4.361887283061469E-5,-0.12,-2.1809436415307345E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=53
+E c minecraft:item pos=9.583813893372131,-60.0,0.5 delta=-0.04019188443220544,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=53
+E w minecraft:item pos=21.5,-60.862653674048815,0.5 delta=0.0,0.009753076694367948,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=53
+T 54
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=54
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=2.564789980348976E-5,0.0,-1.282394990174488E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=54
+E c minecraft:item pos=9.543622008939925,-60.0,0.5 delta=-0.02363283042259481,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=54
+E w minecraft:item pos=21.5,-60.8524005973307,0.5 delta=0.0,0.01004801537931626,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=54
+T 55
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=55
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=2.564789980348976E-5,-0.04,-1.282394990174488E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=55
+E c minecraft:item pos=9.51998917851733,-60.0,0.5 delta=-0.013896105685843199,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=55
+E w minecraft:item pos=21.5,-60.84185258192763,0.5 delta=0.0,0.010337055296191113,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=55
+T 56
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=56
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=2.564789980348976E-5,-0.08,-1.282394990174488E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=56
+E c minecraft:item pos=9.506093072831487,-60.0,0.5 delta=-0.008170910964922064,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=56
+E w minecraft:item pos=21.5,-60.83101552660769,0.5 delta=0.0,0.010620314420241469,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=56
+T 57
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=57
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=2.564789980348976E-5,-0.12,-1.282394990174488E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=57
+E c minecraft:item pos=9.497922161866564,-60.0,0.5 delta=-0.0048044961305022255,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=57
+E w minecraft:item pos=21.5,-60.8198952121637,0.5 delta=0.0,0.010897908367213556,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=57
+T 58
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=58
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.5080966600956065E-5,0.0,-7.540483300478032E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=58
+E c minecraft:item pos=9.493117665736062,-60.0,0.5 delta=-0.0028250440088146314,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=58
+E w minecraft:item pos=21.5,-60.80849730377274,0.5 delta=0.0,0.011169950440540886,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=58
+T 59
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=59
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.5080966600956065E-5,-0.04,-7.540483300478032E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=59
+E c minecraft:item pos=9.493117665736062,-60.0,0.5 delta=-0.0028250440088146314,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=59
+E w minecraft:item pos=21.5,-60.79682735330845,0.5 delta=0.0,0.01143655167759046,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=59
+T 60
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=60
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.5080966600956065E-5,-0.08,-7.540483300478032E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=60
+E c minecraft:item pos=9.493117665736062,-60.0,0.5 delta=-0.0028250440088146314,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=60
+E w minecraft:item pos=21.5,-60.78489080160711,0.5 delta=0.0,0.011697820894984058,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=60
+T 61
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=61
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.5080966600956065E-5,-0.12,-7.540483300478032E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=61
+E c minecraft:item pos=9.490292621727248,-60.0,0.5 delta=-0.0016611260442216619,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=61
+E w minecraft:item pos=21.5,-60.772692980688376,0.5 delta=0.0,0.0119538647330131,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=61
+T 62
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=62
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=8.867609253066657E-6,0.0,-4.433804626533329E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=62
+E c minecraft:item pos=9.490292621727248,-60.0,0.5 delta=-0.0016611260442216619,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=62
+E w minecraft:item pos=21.5,-60.76023911593161,0.5 delta=0.0,0.012204787699165208,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=62
+T 63
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=63
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=8.867609253066657E-6,-0.04,-4.433804626533329E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=63
+E c minecraft:item pos=9.490292621727248,-60.0,0.5 delta=-0.0016611260442216619,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=63
+E w minecraft:item pos=21.5,-60.747534328208694,0.5 delta=0.0,0.01245069221078025,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=63
+T 64
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=64
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=8.867609253066657E-6,-0.08,-4.433804626533329E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=64
+E c minecraft:item pos=9.490292621727248,-60.0,0.5 delta=-0.0016611260442216619,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=64
+E w minecraft:item pos=21.5,-60.73458363597417,0.5 delta=0.0,0.012691678636853247,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=64
+T 65
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=65
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=8.867609253066657E-6,-0.12,-4.433804626533329E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=65
+E c minecraft:item pos=9.488631495683025,-60.0,0.5 delta=-9.767422122210784E-4,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=65
+E w minecraft:item pos=21.5,-60.721391957313564,0.5 delta=0.0,0.012927845339001235,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=65
+T 66
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=66
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=5.214154765125488E-6,0.0,-2.607077382562744E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=66
+E c minecraft:item pos=9.488631495683025,-60.0,0.5 delta=-9.767422122210784E-4,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=66
+E w minecraft:item pos=21.5,-60.707964111950815,0.5 delta=0.0,0.013159288711610788,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=66
+T 67
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=67
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=5.214154765125488E-6,-0.04,-2.607077382562744E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=67
+E c minecraft:item pos=9.488631495683025,-60.0,0.5 delta=-9.767422122210784E-4,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=67
+E w minecraft:item pos=21.5,-60.694304823215454,0.5 delta=0.0,0.013386103221182579,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=67
+T 68
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=68
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=5.214154765125488E-6,-0.08,-2.607077382562744E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=68
+E c minecraft:item pos=9.488631495683025,-60.0,0.5 delta=-9.767422122210784E-4,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=68
+E w minecraft:item pos=21.5,-60.680418719970525,0.5 delta=0.0,0.01360838144488908,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=68
+T 69
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=69
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=5.214154765125488E-6,-0.12,-2.607077382562744E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=69
+E c minecraft:item pos=9.487654753470805,-60.0,0.5 delta=-5.743244785386197E-4,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=69
+E w minecraft:item pos=21.5,-60.66631033850189,0.5 delta=0.0,0.01382621410836107,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=69
+T 70
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=70
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=3.065923310195327E-6,0.0,-1.5329616550976634E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=70
+E c minecraft:item pos=9.487654753470805,-60.0,0.5 delta=-5.743244785386197E-4,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=70
+E w minecraft:item pos=21.5,-60.651984124369775,0.5 delta=0.0,0.014039690122718449,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=70
+T 71
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=71
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=3.065923310195327E-6,-0.04,-1.5329616550976634E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=71
+E c minecraft:item pos=9.487654753470805,-60.0,0.5 delta=-5.743244785386197E-4,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=71
+E w minecraft:item pos=21.5,-60.637444434223305,0.5 delta=0.0,0.014248896620860412,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=71
+T 72
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=72
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=3.065923310195327E-6,-0.08,-1.5329616550976634E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=72
+E c minecraft:item pos=9.487654753470805,-60.0,0.5 delta=-5.743244785386197E-4,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=72
+E w minecraft:item pos=21.5,-60.62269553757869,0.5 delta=0.0,0.014453918993029833,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=72
+T 73
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=73
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=3.065923310195327E-6,-0.12,-1.5329616550976634E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=73
+E c minecraft:item pos=9.487080428992266,-60.0,0.5 delta=-3.377028273392557E-4,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=73
+E w minecraft:item pos=21.5,-60.60774161856192,0.5 delta=0.0,0.014654840921666358,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=73
+T 74
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=74
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.8027630876761758E-6,0.0,-9.013815438380879E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=74
+E c minecraft:item pos=9.487080428992266,-60.0,0.5 delta=-3.377028273392557E-4,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=74
+E w minecraft:item pos=21.5,-60.5925867776165,0.5 delta=0.0,0.014851744415562433,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=74
+T 75
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=75
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.8027630876761758E-6,-0.04,-9.013815438380879E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=75
+E c minecraft:item pos=9.487080428992266,-60.0,0.5 delta=-3.377028273392557E-4,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=75
+E w minecraft:item pos=21.5,-60.57723503317719,0.5 delta=0.0,0.015044709843336224,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=75
+T 76
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=76
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.8027630876761758E-6,-0.08,-9.013815438380879E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=76
+E c minecraft:item pos=9.487080428992266,-60.0,0.5 delta=-3.377028273392557E-4,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=76
+E w minecraft:item pos=21.5,-60.5616903233101,0.5 delta=0.0,0.015233815966235062,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=76
+T 77
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=77
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.8027630876761758E-6,-0.12,-9.013815438380879E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=77
+E c minecraft:item pos=9.486742726164927,-60.0,0.5 delta=-1.9856928244311016E-4,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=77
+E w minecraft:item pos=21.5,-60.54595650732012,0.5 delta=0.0,0.015419139970282837,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=77
+T 78
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=78
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.0600248021470203E-6,0.0,-5.300124010735102E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=78
+E c minecraft:item pos=9.486742726164927,-60.0,0.5 delta=-1.9856928244311016E-4,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=78
+E w minecraft:item pos=21.5,-60.53003736732609,0.5 delta=0.0,0.015600757497784432,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=78
+T 79
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=79
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.0600248021470203E-6,-0.04,-5.300124010735102E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=79
+E c minecraft:item pos=9.486742726164927,-60.0,0.5 delta=-1.9856928244311016E-4,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=79
+E w minecraft:item pos=21.5,-60.51393660980455,0.5 delta=0.0,0.01577874267820007,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=79
+T 80
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=80
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.0600248021470203E-6,-0.08,-5.300124010735102E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=80
+E c minecraft:item pos=9.486742726164927,-60.0,0.5 delta=-1.9856928244311016E-4,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=80
+E w minecraft:item pos=21.5,-60.4976578671026,0.5 delta=0.0,0.015953168158402198,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=80
+T 81
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=81
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.0600248021470203E-6,-0.12,-5.300124010735102E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=81
+E c minecraft:item pos=9.486742726164927,-60.0,0.5 delta=-1.1675874981751511E-4,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=81
+E w minecraft:item pos=21.5,-60.48120469892045,0.5 delta=0.0,0.016124105132327184,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=81
+T 82
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=82
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=6.232946463393905E-7,0.0,-3.1164732316969526E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=82
+E c minecraft:item pos=9.486742726164927,-60.0,0.5 delta=-1.1675874981751511E-4,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=82
+E w minecraft:item pos=21.5,-60.464580593764374,0.5 delta=0.0,0.016291623370034033,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=82
+T 83
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=83
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=6.232946463393905E-7,-0.04,-3.1164732316969526E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=83
+E c minecraft:item pos=9.486742726164927,-60.0,0.5 delta=-1.1675874981751511E-4,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=83
+E w minecraft:item pos=21.5,-60.44778897037059,0.5 delta=0.0,0.016455791246181902,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=83
+T 84
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=84
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=6.232946463393905E-7,-0.08,-3.1164732316969526E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=84
+E c minecraft:item pos=9.486742726164927,-60.0,0.5 delta=-1.1675874981751511E-4,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=84
+E w minecraft:item pos=21.5,-60.43083317910066,0.5 delta=0.0,0.016616675767938068,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=84
+T 85
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=85
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=6.232946463393905E-7,-0.12,-3.1164732316969526E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=85
+E c minecraft:item pos=9.486742726164927,-60.0,0.5 delta=-6.865415179638778E-5,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=85
+E w minecraft:item pos=21.5,-60.413716503308976,0.5 delta=0.0,0.01677434260232774,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=85
+T 86
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=86
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=3.6649728890160756E-7,0.0,-1.8324864445080378E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=86
+E c minecraft:item pos=9.486742726164927,-60.0,0.5 delta=-6.865415179638778E-5,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=86
+E w minecraft:item pos=21.5,-60.3964421606829,0.5 delta=0.0,0.016928856103036877,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=86
+T 87
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=87
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=3.6649728890160756E-7,-0.04,-1.8324864445080378E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=87
+E c minecraft:item pos=9.486742726164927,-60.0,0.5 delta=-6.865415179638778E-5,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=87
+E w minecraft:item pos=21.5,-60.37901330455612,0.5 delta=0.0,0.01708027933667894,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=87
+T 88
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=88
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=3.6649728890160756E-7,-0.08,-1.8324864445080378E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=88
+E c minecraft:item pos=9.486742726164927,-60.0,0.5 delta=-6.865415179638778E-5,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=88
+E w minecraft:item pos=21.5,-60.36143302519569,0.5 delta=0.0,0.01722867410853633,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=88
+T 89
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=89
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=3.6649728890160756E-7,-0.12,-1.8324864445080378E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=89
+E c minecraft:item pos=9.486742726164927,-60.0,0.5 delta=-4.0368645315645494E-5,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=89
+E w minecraft:item pos=21.5,-60.3437043510634,0.5 delta=0.0,0.017374100987786977,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=89
+T 90
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=90
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=2.1550042754432643E-7,0.0,-1.0775021377216322E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=90
+E c minecraft:item pos=9.486742726164927,-60.0,0.5 delta=-4.0368645315645494E-5,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=90
+E w minecraft:item pos=21.5,-60.325830250051865,0.5 delta=0.0,0.01751661933222641,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=90
+T 91
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=91
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=2.1550042754432643E-7,-0.04,-1.0775021377216322E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=91
+E c minecraft:item pos=9.486742726164927,-60.0,0.5 delta=-4.0368645315645494E-5,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=91
+E w minecraft:item pos=21.5,-60.30781363069589,0.5 delta=0.0,0.017656287312495376,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=91
+T 92
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=92
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=2.1550042754432643E-7,-0.08,-1.0775021377216322E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=92
+E c minecraft:item pos=9.486742726164927,-60.0,0.5 delta=-4.0368645315645494E-5,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=92
+E w minecraft:item pos=21.5,-60.28965734335964,0.5 delta=0.0,0.017793161935822917,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=92
+T 93
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=93
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=2.1550042754432643E-7,-0.12,-1.0775021377216322E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=93
+E c minecraft:item pos=9.486742726164927,-60.0,0.5 delta=-2.3736765832509043E-5,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=93
+E w minecraft:item pos=21.5,-60.271364181400074,0.5 delta=0.0,0.017927299069294585,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=93
+T 94
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=94
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.2671426413813176E-7,0.0,-6.335713206906588E-8 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=94
+E c minecraft:item pos=9.486742726164927,-60.0,0.5 delta=-2.3736765832509043E-5,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=94
+E w minecraft:item pos=21.5,-60.25293688230703,0.5 delta=0.0,0.018058753462655282,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=94
+T 95
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=95
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.2671426413813176E-7,-0.04,-6.335713206906588E-8 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=95
+E c minecraft:item pos=9.486742726164927,-60.0,0.5 delta=-2.3736765832509043E-5,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=95
+E w minecraft:item pos=21.5,-60.23437812882063,0.5 delta=0.0,0.01818757877065606,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=95
+T 96
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=96
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.2671426413813176E-7,-0.08,-6.335713206906588E-8 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=96
+E c minecraft:item pos=9.486742726164927,-60.0,0.5 delta=-2.3736765832509043E-5,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=96
+E w minecraft:item pos=21.5,-60.215690550026224,0.5 delta=0.0,0.018313827574953968,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=96
+T 97
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=97
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.2671426413813176E-7,-0.12,-6.335713206906588E-8 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=97
+E c minecraft:item pos=9.486742726164927,-60.0,0.5 delta=-1.3957219713018241E-5,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=97
+E w minecraft:item pos=21.5,-60.19687672242752,0.5 delta=0.0,0.01843755140557392,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=97
+T 98
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=98
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=7.450799480555811E-8,0.0,-3.7253997402779055E-8 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=98
+E c minecraft:item pos=9.486742726164927,-60.0,0.5 delta=-1.3957219713018241E-5,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=98
+E w minecraft:item pos=21.5,-60.177939170998194,0.5 delta=0.0,0.018558800761941323,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=98
+T 99
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=99
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=7.450799480555811E-8,-0.04,-3.7253997402779055E-8 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=99
+E c minecraft:item pos=9.486742726164927,-60.0,0.5 delta=-1.3957219713018241E-5,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=99
+E w minecraft:item pos=21.5,-60.1588803702125,0.5 delta=0.0,0.018677625133494025,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=99
+T 100
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=100
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=7.450799480555811E-8,-0.08,-3.7253997402779055E-8 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=100
+E c minecraft:item pos=9.486742726164927,-60.0,0.5 delta=-1.3957219713018241E-5,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=100
+E w minecraft:item pos=21.5,-60.13970274505526,0.5 delta=0.0,0.018794073019882066,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=100

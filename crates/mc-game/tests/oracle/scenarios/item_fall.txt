@@ -1,0 +1,14 @@
+# ItemEntity trajectories: fall + bounce + ground friction on grass, slippery ice, water and lava.
+level flat
+fill 10 -61 -2 16 -61 2 minecraft:packed_ice
+fill 20 -61 -2 22 -56 2 minecraft:water[level=0]
+spawn_item a minecraft:diamond 0.5 -50 0.5 0 0 0
+snap a 0.5 -50 0.5 0 0
+spawn_item b minecraft:diamond 3.5 -58 0.5 0.1 0.2 -0.05
+snap b 3.5 -58 0.5 90 0
+spawn_item c minecraft:diamond 11.5 -60 0.5 0.3 0 0
+snap c 11.5 -60 0.5 0 0
+spawn_item w minecraft:diamond 21.5 -52 0.5 0 0 0
+snap w 21.5 -52 0.5 0 0
+watch entity:a entity:b entity:c entity:w
+tick 100
