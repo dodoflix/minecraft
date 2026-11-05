@@ -879,14 +879,7 @@ pub fn teleportation_scale(server: &MinecraftServer, from: &DimensionKey, to: &D
 
 /// `level.dimensionType().coordinateScale()`.
 fn coordinate_scale(server: &MinecraftServer, dimension: &DimensionKey) -> f64 {
-    use crate::registry::typed::dimension_type::DimensionType;
-    use crate::registry::typed::level_stem::{DimensionTypeSource, LevelStem};
-    let access = server.registries.composite_access();
-    let Some(stem) = access.get::<LevelStem>(crate::registry::keys::LEVEL_STEM, dimension) else { return 1.0 };
-    match &stem.dimension_type {
-        DimensionTypeSource::Inline(inline) => inline.coordinate_scale,
-        DimensionTypeSource::Reference(id) => access.get::<DimensionType>(crate::registry::keys::DIMENSION_TYPE, id).map_or(1.0, |t| t.coordinate_scale),
-    }
+    server.registries.composite_access().level_stem(dimension).map_or(1.0, |stem| stem.dimension_type.value().coordinate_scale)
 }
 
 /// `ExecuteCommand.isChunkLoaded`: the chunk is entity-ticking and its entities are loaded.
