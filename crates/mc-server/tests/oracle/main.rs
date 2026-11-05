@@ -1,12 +1,14 @@
 //! Oracle tests (T2): scripted clients against the real vanilla server and our `mc-server` binary; one module per topic.
 //! Run with `MC_ACCEPT_EULA=1 cargo test -p mc-server --test oracle -- --ignored`.
 
+#[path = "../../../mc-game/tests/golden/net_common/mod.rs"]
+mod net_support;
+
 mod common;
 mod entity_dual;
 mod join_ours;
 mod join_ours_state;
 mod join_phase;
-mod net_support;
 mod network_vanilla_diff;
 mod ours_play;
 mod persistence;
