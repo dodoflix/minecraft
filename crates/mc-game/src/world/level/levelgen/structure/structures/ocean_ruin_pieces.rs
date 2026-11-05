@@ -226,7 +226,7 @@ fn make_settings(rotation: Rotation, integrity: f32, biome_type: OceanRuinType) 
         .set_mirror(Mirror::None)
         .add_processor(Arc::new(BlockRotProcessor::new(None, integrity)))
         .add_processor(STRUCTURE_AND_AIR.clone())
-        .add_processor(suspicious_block_processor.clone());
+        .add_processor(Arc::clone(suspicious_block_processor));
     settings
 }
 

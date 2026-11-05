@@ -14,5 +14,7 @@ pub mod nether_fossil_pieces;
 pub mod nether_fossil_structure;
 pub mod ocean_ruin_pieces;
 pub mod ocean_ruin_structure;
+pub mod ruined_portal_piece;
+pub mod ruined_portal_structure;
 pub mod shipwreck_pieces;
 pub mod shipwreck_structure;
