@@ -305,8 +305,6 @@ struct CountAndSize {
 
 struct Recording {
     id: i64,
-    #[allow(dead_code)]
-    name: String,
     destination: PathBuf,
     events_path: PathBuf,
     events: BufWriter<File>,
@@ -595,7 +593,6 @@ impl JfrProfiler {
         log::info!("Started flight recorder profiling id({id}):name({name}) - will dump to {} on exit or stop command", destination.display());
         *slot = Some(Recording {
             id,
-            name,
             destination,
             events_path,
             events,

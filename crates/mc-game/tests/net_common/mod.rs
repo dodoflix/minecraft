@@ -1,6 +1,6 @@
 //! Shared harness for the network integration tests: a mock server behind `NetworkHooks`, a game-thread loop, and
 //! client helpers built on `mc_protocol::net`.
-#![allow(dead_code)]
+#![allow(dead_code, reason = "each test binary uses a subset of the shared helpers")]
 
 use indexmap::IndexMap;
 use mc_core::ident::Identifier;

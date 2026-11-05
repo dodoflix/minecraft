@@ -1,4 +1,4 @@
-#![allow(dead_code)]
+#![allow(dead_code, reason = "each test binary uses a subset of the shared helpers")]
 use serde_json::Value;
 use std::path::PathBuf;
 

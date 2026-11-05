@@ -1,5 +1,5 @@
 //! Shared helpers for the chunk-level tests against `run/servers/worldref`.
-#![allow(dead_code)]
+#![allow(dead_code, reason = "each test binary uses a subset of the shared helpers")]
 
 use mc_core::ident::Identifier;
 use mc_core::pos::ChunkPos;

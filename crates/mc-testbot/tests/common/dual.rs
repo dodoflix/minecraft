@@ -1,4 +1,4 @@
-#![allow(dead_code)]
+#![allow(dead_code, reason = "each test binary uses a subset of the shared helpers")]
 //! Dual-server survival scenarios: the SAME bot script against the real vanilla server (observations committed as
 //! `tests/fixtures/entity_dual/*.txt`, regenerate with `ENTITY_DUAL_UPDATE=1 cargo test -p mc-testbot --test entity_dual
 //! entity_dual_vanilla`) and OUR server (`entity_dual_ours` diffs its observations against those fixtures and writes

@@ -1,5 +1,5 @@
 //! Shared helpers: run the world-load pipeline against a world directory and capture log output.
-#![allow(dead_code)]
+#![allow(dead_code, reason = "each test binary uses a subset of the shared helpers")]
 
 use std::path::Path;
 use std::sync::Mutex;

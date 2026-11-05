@@ -1,6 +1,6 @@
 //! Shared helpers for the `region_*` integration tests: repo paths, a vanilla-java runner, SHA-256
 //! and a dump of region files in the same line format as `fixtures/region/RegionTool.java dump`.
-#![allow(dead_code)]
+#![allow(dead_code, reason = "each test binary uses a subset of the shared helpers")]
 
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_core::ident::Identifier;

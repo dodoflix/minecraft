@@ -14,7 +14,6 @@ pub mod registry_context;
 pub mod packet;
 
 /// Packet id constants per `(state, flow)`, generated from vanilla's `packets.json`.
-#[allow(dead_code)]
 pub mod ids {
     include!(concat!(env!("OUT_DIR"), "/ids.rs"));
 }

@@ -1,7 +1,7 @@
 //! Helpers shared by the play-packet golden tests: load `tests/fixtures/play/<name>.golden`
 //! (`label:hex` lines from vanilla's `GameProtocols` codecs, hex = VarInt packet id + body), compare encodings
 //! byte for byte and decode the vanilla bytes back.
-#![allow(dead_code)]
+#![allow(dead_code, reason = "each test binary uses a subset of the shared helpers")]
 use std::cell::RefCell;
 use std::collections::{HashMap, HashSet};
 use std::fmt::Debug;

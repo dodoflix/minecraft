@@ -1,4 +1,4 @@
-#![allow(dead_code)]
+#![allow(dead_code, reason = "each test binary uses a subset of the shared helpers")]
 //! Scenario suite shared by the vanilla and (later) our-server integration tests.
 use std::time::Duration;
 
@@ -8,7 +8,7 @@ use mc_core::direction::Direction;
 use mc_core::pos::block_pos::BlockPos;
 use mc_data::{Block, Item};
 use mc_protocol::components::ItemStack;
-use mc_protocol::packets::play::{ContainerInput, InteractionHand};
+use mc_protocol::packets::play::InteractionHand;
 use mc_testbot::join::BotOptions;
 use mc_testbot::{Bot, BotError};
 
@@ -139,7 +139,6 @@ pub async fn inventory_move(bot: &Bot, name: &str) {
         .unwrap_or_else(|e| panic!("server did not accept the move: {e}\n{}", bot.log_tail(40)));
     assert!(fb.contains("minecraft:stone"), "{fb}");
     bot.close_container();
-    let _ = ContainerInput::Pickup;
 }
 
 /// Run one scenario on its own task so a failure does not hide the others; prints PASS/FAIL.

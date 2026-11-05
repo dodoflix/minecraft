@@ -1,5 +1,5 @@
 //! Spawns the real vanilla server (`ref/server.jar`) on a random port in a temp dir and offers raw-connection helpers.
-#![allow(dead_code)]
+#![allow(dead_code, reason = "each test binary uses a subset of the shared helpers")]
 use std::path::{Path, PathBuf};
 use std::process::Stdio;
 use std::time::Duration;
@@ -78,7 +78,7 @@ pub async fn start_vanilla(online_mode: bool) -> Option<VanillaServer> {
     .unwrap_or(false);
     assert!(ready, "vanilla server did not finish starting");
     // keep draining so the child never blocks on a full pipe
-    tokio::spawn(async move { while let Ok(Some(l)) = lines.next_line().await { let _ = l; } });
+    tokio::spawn(async move { while let Ok(Some(_)) = lines.next_line().await {} });
     // The listener accepts at "Done", but the server thread is still finishing startup work and drops early connections.
     tokio::time::sleep(Duration::from_secs(3)).await;
     Some(VanillaServer { child, port, _dir: dir, stdin })

@@ -26,7 +26,7 @@ const EXTERNAL_STREAM_FLAG: u8 = 128;
 const EXTERNAL_CHUNK_THRESHOLD: usize = 256;
 
 pub struct RegionFile {
-    #[allow(dead_code)]
+    #[expect(dead_code, reason = "mirrors vanilla's RegionFile.info")]
     info: RegionStorageInfo,
     path: PathBuf,
     file: File,

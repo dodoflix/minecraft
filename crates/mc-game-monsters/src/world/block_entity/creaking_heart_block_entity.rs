@@ -32,9 +32,6 @@ use mc_protocol::packets::play::level::ClientboundBlockEntityDataPacket;
 use uuid::Uuid;
 
 const PLAYER_DETECTION_RANGE: f64 = 32.0;
-/// `CREAKING_ROAMING_RADIUS`.
-#[allow(dead_code)]
-pub const CREAKING_ROAMING_RADIUS: i32 = 32;
 const DISTANCE_CREAKING_TOO_FAR: f64 = 34.0;
 const SPAWN_RANGE_XZ: i32 = 16;
 const SPAWN_RANGE_Y: i32 = 8;
