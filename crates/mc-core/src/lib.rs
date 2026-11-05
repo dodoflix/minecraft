@@ -3,6 +3,7 @@ pub mod bits;
 pub mod bounding_box;
 pub mod direction;
 pub mod ident;
+pub mod java_collections;
 pub mod math;
 pub mod mirror;
 pub mod phys;

@@ -623,78 +623,6 @@ impl BlockItemStateProperties {
     }
 }
 
-fn java_string_hash(s: &str) -> i32 {
-    s.encode_utf16()
-        .fold(0i32, |h, c| h.wrapping_mul(31).wrapping_add(i32::from(c)))
-}
-
-/// fastutil `Object2ObjectOpenHashMap<String, String>` (load factor 0.75): the iteration order of a map filled by
-/// `put` in wire order, which is what vanilla encodes after a network decode.
-struct OpenHashMap {
-    key: Vec<Option<(String, String)>>,
-    mask: usize,
-    max_fill: usize,
-    size: usize,
-}
-
-impl OpenHashMap {
-    fn array_size(expected: usize) -> usize {
-        ((expected as f32 / 0.75f32).ceil() as u64)
-            .next_power_of_two()
-            .max(2) as usize
-    }
-    fn max_fill(n: usize) -> usize {
-        ((n as f32 * 0.75f32).ceil() as usize).min(n - 1)
-    }
-    fn new(expected: usize) -> Self {
-        let n = Self::array_size(expected);
-        OpenHashMap {
-            key: vec![None; n],
-            mask: n - 1,
-            max_fill: Self::max_fill(n),
-            size: 0,
-        }
-    }
-    fn mix(key: &str) -> usize {
-        let h = (java_string_hash(key) as u32).wrapping_mul(0x9E37_79B9);
-        (h ^ (h >> 16)) as usize
-    }
-    fn put(&mut self, k: String, v: String) {
-        let mut pos = Self::mix(&k) & self.mask;
-        while let Some((ek, ev)) = &mut self.key[pos] {
-            if *ek == k {
-                *ev = v;
-                return;
-            }
-            pos = (pos + 1) & self.mask;
-        }
-        self.key[pos] = Some((k, v));
-        let old = self.size;
-        self.size += 1;
-        if old >= self.max_fill {
-            self.rehash(Self::array_size(self.size + 1));
-        }
-    }
-    fn rehash(&mut self, new_n: usize) {
-        let mask = new_n - 1;
-        let mut new_key: Vec<Option<(String, String)>> = vec![None; new_n];
-        for entry in self.key.iter_mut().rev().filter_map(Option::take) {
-            let mut pos = Self::mix(&entry.0) & mask;
-            while new_key[pos].is_some() {
-                pos = (pos + 1) & mask;
-            }
-            new_key[pos] = Some(entry);
-        }
-        self.key = new_key;
-        self.mask = mask;
-        self.max_fill = Self::max_fill(new_n);
-    }
-    /// Iteration order: table slots from the end.
-    fn into_entries(self) -> Vec<(String, String)> {
-        self.key.into_iter().rev().flatten().collect()
-    }
-}
-
 impl Encode for BlockItemStateProperties {
     fn encode(&self, out: &mut Vec<u8>) {
         write_list(out, &self.properties, |(k, v), o| {
@@ -706,7 +634,8 @@ impl Encode for BlockItemStateProperties {
 impl Decode for BlockItemStateProperties {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
         let count = read_count(input, i32::MAX as usize)?;
-        let mut map = OpenHashMap::new(count.min(65536));
+        // `ByteBufCodecs.map(Object2ObjectOpenHashMap::new, ..)`: the vanilla map iterates in fastutil table order
+        let mut map = mc_core::java_collections::FastOpenHashMap::new(count.min(65536), |k: &String| mc_core::math::java::java_string_hash(k));
         for _ in 0..count {
             let k = read_utf(input, MAX_STRING_LENGTH)?;
             let v = read_utf(input, MAX_STRING_LENGTH)?;

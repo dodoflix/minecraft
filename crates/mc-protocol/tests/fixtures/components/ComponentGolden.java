@@ -143,6 +143,7 @@ public class ComponentGolden {
          }
       }
       DataComponentPatch fp = p;
+      if (wireVariants) mutations.add(wire(b -> DataComponentPatch.STREAM_CODEC.encode(b, fp)));
       return "OK\tjson=" + enc(DataComponentPatch.CODEC, jsonOps, p, true) + "\tsnbt=" + enc(DataComponentPatch.CODEC, nbtOps, p, false)
          + "\twire=" + wire(b -> DataComponentPatch.STREAM_CODEC.encode(b, fp))
          + "\twiredelim=" + wire(b -> DataComponentPatch.DELIMITED_STREAM_CODEC.encode(b, fp)) + "\tleft=" + left;
@@ -168,6 +169,7 @@ public class ComponentGolden {
          }
       }
       ItemStack fs = s;
+      if (wireVariants) mutations.add(wire(b -> ItemStack.OPTIONAL_STREAM_CODEC.encode(b, fs)));
       HashedPatchMap.HashGenerator gen = c -> c.encodeValue(hashOps).getOrThrow().asInt();
       String valid;
       DataResult<ItemStack> v = ItemStack.validateStrict(s);
@@ -179,6 +181,47 @@ public class ComponentGolden {
          + "\tpatch=" + wire(b -> DataComponentPatch.STREAM_CODEC.encode(b, fs.getComponentsPatch()))
          + "\thashed=" + wire(b -> HashedStack.STREAM_CODEC.encode(b, HashedStack.create(fs, gen)))
          + "\tmaxstack=" + (s.isEmpty() ? 0 : s.getMaxStackSize()) + "\t" + valid + "\tleft=" + left;
+   }
+
+   /**
+    * Kind `click`: payload `{"c":containerId,"s":stateId,"slot":n,"button":b,"input":"PICKUP","changed":[[slot,stack],...],"carried":stack}`
+    * (stacks in `ItemStack.OPTIONAL_CODEC` JSON). Output: `wire` = vanilla `ServerboundContainerClickPacket` bytes (changed slots in
+    * `Int2ObjectOpenHashMap` order, component hashes in `IdentityHashMap` order), `matches` = the server-side `HashedStack.matches`
+    * of every decoded hashed stack against the original stack (changed slots in slot order, then carried), `matchesmut` = against a
+    * different stack.
+    */
+   static String click(String payload) throws Exception {
+      com.google.gson.JsonObject o = StrictJsonParser.parse(payload).getAsJsonObject();
+      HashedPatchMap.HashGenerator gen = c -> c.encodeValue(hashOps).getOrThrow().asInt();
+      it.unimi.dsi.fastutil.ints.Int2ObjectMap<HashedStack> changed = new it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap<>();
+      java.util.TreeMap<Integer, ItemStack> stacks = new java.util.TreeMap<>();
+      for (JsonElement e : o.getAsJsonArray("changed")) {
+         int slot = e.getAsJsonArray().get(0).getAsInt();
+         ItemStack st = ItemStack.OPTIONAL_CODEC.parse(jsonOps, e.getAsJsonArray().get(1)).getOrThrow();
+         stacks.put(slot, st);
+         changed.put(slot, HashedStack.create(st, gen));
+      }
+      ItemStack carried = ItemStack.OPTIONAL_CODEC.parse(jsonOps, o.get("carried")).getOrThrow();
+      net.minecraft.network.protocol.game.ServerboundContainerClickPacket p = new net.minecraft.network.protocol.game.ServerboundContainerClickPacket(
+         o.get("c").getAsInt(), o.get("s").getAsInt(), (short)o.get("slot").getAsInt(), (byte)o.get("button").getAsInt(),
+         net.minecraft.world.inventory.ContainerInput.valueOf(o.get("input").getAsString()), changed, HashedStack.create(carried, gen)
+      );
+      RegistryFriendlyByteBuf b = new RegistryFriendlyByteBuf(Unpooled.buffer(), access);
+      net.minecraft.network.protocol.game.ServerboundContainerClickPacket.STREAM_CODEC.encode(b, p);
+      byte[] bytes = new byte[b.readableBytes()];
+      b.readBytes(bytes);
+      net.minecraft.network.protocol.game.ServerboundContainerClickPacket d =
+         net.minecraft.network.protocol.game.ServerboundContainerClickPacket.STREAM_CODEC.decode(buf(bytes));
+      ItemStack other = new ItemStack(net.minecraft.world.item.Items.DIAMOND, 3);
+      StringBuilder m = new StringBuilder(), mm = new StringBuilder();
+      for (var en : stacks.entrySet()) {
+         HashedStack h = d.changedSlots().get((int)en.getKey());
+         m.append(m.length() > 0 ? "," : "").append(h != null && h.matches(en.getValue(), gen));
+         mm.append(mm.length() > 0 ? "," : "").append(h != null && h.matches(other, gen));
+      }
+      m.append(m.length() > 0 ? "," : "").append(d.carriedItem().matches(carried, gen));
+      mm.append(mm.length() > 0 ? "," : "").append(d.carriedItem().matches(other, gen));
+      return "OK\twire=" + hex(bytes) + "\tmatches=" + m + "\tmatchesmut=" + mm;
    }
 
    /** `DataComponents.ENCODER_CACHE` returns the first encoding of an equal value (Map equality ignores order), so a record's output
@@ -196,10 +239,24 @@ public class ComponentGolden {
       }
    }
 
+   /** Kinds `mstack-*` / `mpatch-*` behave like `stack-*` / `patch-*` and additionally append `stack-wire` / `patch-wire` records
+    *  of the vanilla encoding of the parsed value (plus truncated/mutated variants): the wire order of identity-hashed maps is
+    *  whatever this JVM run produced, which our decoder must accept. */
+   static boolean wireVariants = false;
+   /** Kinds `ojson` / `osnbt`: like `json` / `snbt`, but only the unmutated vanilla wire encoding is replayed as a `wire` record (no
+    *  truncated/byte-flipped variants): used where a mutated predicate wire can name one predicate JSON key twice, and which of the
+    *  two vanilla then prints depends on its identity-ordered `HashMap`. */
+   static boolean origOnly = false;
+
    static String process(String kind, String name, String payload) {
       clearEncoderCache();
+      wireVariants = kind.startsWith("mstack") || kind.startsWith("mpatch");
+      if (wireVariants) kind = kind.substring(1);
+      origOnly = kind.equals("ojson") || kind.equals("osnbt");
+      if (origOnly) kind = kind.substring(1);
       try {
          if (kind.startsWith("stack") || kind.startsWith("ostack")) return stack(kind, payload);
+         if (kind.equals("click")) return click(payload);
          if (kind.startsWith("patch")) return patch(kind, payload);
          return component(kind, name, payload, true);
       } catch (Throwable t) {
@@ -244,14 +301,16 @@ public class ComponentGolden {
          if (f.length < 3) continue;
          mutations.clear();
          String r = process(f[0], f[1], f[2]);
+         boolean wv = wireVariants;
+         if (wv || origOnly) f[0] = f[0].substring(1);
          if (!hasLoneSurrogate(r)) out.append(f[0]).append('\t').append(f[1]).append('\t').append(f[2]).append('\t').append(r).append('\n');
          if (!mutations.isEmpty()) {
             byte[] orig = unhex(mutations.get(0));
             List<byte[]> variants = new ArrayList<>();
-            if (!f[0].equals("wire")) variants.add(orig);
-            if (orig.length > 1) variants.add(Arrays.copyOf(orig, orig.length - 1));
-            if (orig.length > 2) variants.add(Arrays.copyOf(orig, orig.length / 2));
-            for (int i = 0; i < 4 && orig.length > 0; i++) {
+            if (!f[0].equals("wire") && !f[0].endsWith("-wire")) variants.add(orig);
+            if (orig.length > 1 && !origOnly) variants.add(Arrays.copyOf(orig, orig.length - 1));
+            if (orig.length > 2 && !origOnly) variants.add(Arrays.copyOf(orig, orig.length / 2));
+            for (int i = 0; i < 4 && orig.length > 0 && !origOnly; i++) {
                byte[] m = orig.clone();
                m[rnd.nextInt(m.length)] = (byte)rnd.nextInt(256);
                variants.add(m);
@@ -261,12 +320,14 @@ public class ComponentGolden {
                mutations.clear();
                String rr;
                clearEncoderCache();
+               wireVariants = false;
+               String wk = wv ? (f[0].startsWith("patch") ? "patch-wire" : "stack-wire") : "wire";
                try {
-                  rr = component("wire", f[1], hv, false);
+                  rr = wv ? (wk.equals("patch-wire") ? patch(wk, hv) : stack(wk, hv)) : component("wire", f[1], hv, false);
                } catch (Throwable t) {
                   rr = "ERR\t" + String.valueOf(t.getMessage()).replace('\t', ' ').replace('\n', ' ');
                }
-               if (!hasLoneSurrogate(rr)) out.append("wire\t").append(f[1]).append('\t').append(hv).append('\t').append(rr).append('\n');
+               if (!hasLoneSurrogate(rr)) out.append(wk).append('\t').append(f[1]).append('\t').append(hv).append('\t').append(rr).append('\n');
             }
          }
       }

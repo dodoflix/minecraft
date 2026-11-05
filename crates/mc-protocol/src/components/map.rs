@@ -647,12 +647,21 @@ impl DataComponentExactPredicate {
     /// `DataComponentExactPredicate.CODEC`: `{"minecraft:x": value}` (persistent components only).
     pub fn codec() -> Codec<DataComponentExactPredicate> {
         static C: LazyLock<Codec<DataComponentExactPredicate>> = LazyLock::new(|| {
-            mc_dfu::extra::dispatched_map(&persistent_type_codec(), |t| DataResult::success(def(*t).codec_or_throw().clone())).xmap(
+            mc_dfu::extra::dispatched_map(&persistent_type_codec(), |t| DataResult::success(def(*t).codec_or_throw().clone())).flat_comap_map(
                 |entries: Vec<(DataComponentType, Value)>| DataComponentExactPredicate {
                     expected: entries.into_iter().map(|(id, value)| TypedDataComponent { id, value }).collect(),
                 },
                 |p: &DataComponentExactPredicate| {
-                    p.expected.iter().filter(|e| !def(e.id).is_transient()).map(|e| (e.id, e.value.clone())).collect()
+                    // `Collectors.toMap` throws on a repeated component type (a list decoded from the wire may repeat one)
+                    let entries: Vec<(DataComponentType, Value)> =
+                        p.expected.iter().filter(|e| !def(e.id).is_transient()).map(|e| (e.id, e.value.clone())).collect();
+                    match entries.iter().enumerate().find(|(i, (k, _))| entries[..*i].iter().any(|(k2, _)| k2 == k)) {
+                        Some((_, (k, _))) => {
+                            let m = format!("Duplicate key {}", k.name());
+                            DataResult::error(move || m.clone())
+                        }
+                        None => DataResult::success(entries),
+                    }
                 },
             )
         });

@@ -4,6 +4,7 @@
 use std::collections::HashSet;
 
 use mc_core::ident::Identifier;
+use mc_core::java_collections::{hash_map_ordered, HASH_MAP_DEFAULT_CAPACITY};
 use mc_nbt::Tag;
 
 use super::access::{LayeredRegistryAccess, RegistryAccess};
@@ -63,7 +64,8 @@ impl NetworkPayload {
 }
 
 /// `serializeTagsToNetwork(registries)`: the tags of the networkable dynamic registries and of every static registry
-/// (registries without tags are left out). Ordered by registry key, tags by identifier.
+/// (registries without tags are left out). Registries ordered by key (vanilla: identity-hash order of the `ResourceKey`s,
+/// random per run), tags in `HashMap<Identifier, _>` iteration order.
 pub fn serialize_tags_to_network(registries: &LayeredRegistryAccess<RegistryLayer>) -> Vec<(String, NetworkPayload)> {
     let networked = registries.get_access_from(RegistryLayer::World);
     let mut keys: Vec<String> = networked.registries().filter(|r| is_networkable(r.key())).map(|r| r.key().to_owned()).collect();
@@ -72,7 +74,10 @@ pub fn serialize_tags_to_network(registries: &LayeredRegistryAccess<RegistryLaye
     let mut collect = |access: &RegistryAccess, key: &str, result: &mut Vec<(String, NetworkPayload)>| {
         if let Some(registry) = access.registry(key) {
             let mut tags: Vec<(Identifier, Vec<u32>)> = registry.tags().map(|(id, ids)| (id.clone(), ids.to_vec())).collect();
+            // `Map<Identifier, IntList>` is a `HashMap`: bucket order of the identifier hash. Vanilla fills it from an
+            // `IdentityHashMap<TagKey>` (random per run), so ties inside a bucket are random there; ours: by identifier.
             tags.sort_by(|a, b| a.0.cmp(&b.0));
+            let tags = hash_map_ordered(tags, |(id, _)| id.java_hash_code(), HASH_MAP_DEFAULT_CAPACITY);
             if !tags.is_empty() && seen.insert(key.to_owned()) {
                 result.push((key.to_owned(), NetworkPayload { tags }));
             }

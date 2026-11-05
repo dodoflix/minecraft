@@ -265,7 +265,8 @@ impl CompoundTag {
         let mut out = CompoundTag::new();
         let n = self.len();
         if n > 0 {
-            let t = (n as f32 / 0.75f32 + 1.0f32) as u32;
+            // `HashMap.putMapEntries` (JDK 19+): `ceil(size / 0.75)` rounded up to a power of two
+            let t = (n as f64 / 0.75f64).ceil() as u32;
             out.cap = t.max(1).next_power_of_two();
         }
         for (k, v) in self.iter_java_order() {

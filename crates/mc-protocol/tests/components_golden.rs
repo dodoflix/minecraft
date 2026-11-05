@@ -3,7 +3,7 @@
 //! (`ComponentGolden.java`, corpus in `fixtures/components/corpus/*.txt`).
 
 use mc_data::DataComponentType;
-use mc_dfu::{Dyn, DataResult, HASH, JSON, NBT};
+use mc_dfu::{DataResult, Dyn, HASH, JSON, NBT};
 use mc_protocol::codec::{Decode, Encode};
 use mc_protocol::components::hashed::{component_hash, HashedStack};
 use mc_protocol::components::map::{DataComponentPatch, TypedDataComponent};
@@ -169,9 +169,59 @@ fn stack_record(kind: &str, payload: &str) -> Result<String, String> {
     ))
 }
 
+/// Kind `click` (see `ComponentGolden.click`): the packet a client builds for the stacks of `payload`, and what the server's
+/// `HashedStack.matches` says about each decoded hashed stack.
+fn click_record(payload: &str) -> Result<String, String> {
+    use mc_protocol::packets::play::{ContainerInput, ServerboundContainerClickPacket};
+    let d = Dyn::from_json_str(payload)?;
+    let num = |v: &Dyn| match v {
+        Dyn::JsonNum(t) => t.parse::<i64>().unwrap_or(0) as i32,
+        _ => 0,
+    };
+    let int = |k: &str| d.map_get(k).map(num).ok_or(format!("missing {k}"));
+    let stack = |v: &Dyn| ItemStack::optional_codec().parse(&JSON, v).into_result();
+    let hasher = |c: &TypedDataComponent| component_hash(c);
+    let input = match d.map_get("input").and_then(Dyn::as_str) {
+        Some("PICKUP") => ContainerInput::Pickup,
+        Some("QUICK_MOVE") => ContainerInput::QuickMove,
+        Some("SWAP") => ContainerInput::Swap,
+        Some("CLONE") => ContainerInput::Clone,
+        Some("THROW") => ContainerInput::Throw,
+        Some("QUICK_CRAFT") => ContainerInput::QuickCraft,
+        Some("PICKUP_ALL") => ContainerInput::PickupAll,
+        _ => return Err("input".into()),
+    };
+    let Some(Dyn::List(changed)) = d.map_get("changed") else { return Err("changed".into()) };
+    let mut stacks: Vec<(i16, ItemStack)> = Vec::new();
+    for e in changed {
+        let Dyn::List(pair) = e else { return Err("pair".into()) };
+        stacks.push((num(&pair[0]) as i16, stack(&pair[1])?));
+    }
+    stacks.sort_by_key(|(s, _)| *s);
+    let carried = stack(d.map_get("carried").ok_or("carried")?)?;
+    let packet = ServerboundContainerClickPacket {
+        container_id: int("c")?,
+        state_id: int("s")?,
+        slot_num: int("slot")? as i16,
+        button_num: int("button")? as i8,
+        container_input: input,
+        changed_slots: stacks.iter().map(|(s, st)| (*s, HashedStack::create(st, &hasher))).collect(),
+        carried_item: HashedStack::create(&carried, &hasher),
+    };
+    let other = ItemStack::with_count(mc_data::Item::DIAMOND, 3);
+    let mut m: Vec<bool> = packet.changed_slots.iter().zip(&stacks).map(|((_, h), (_, st))| h.matches(st, &hasher)).collect();
+    m.push(packet.carried_item.matches(&carried, &hasher));
+    let mut mm: Vec<bool> = packet.changed_slots.iter().map(|(_, h)| h.matches(&other, &hasher)).collect();
+    mm.push(packet.carried_item.matches(&other, &hasher));
+    let list = |v: &[bool]| v.iter().map(|b| b.to_string()).collect::<Vec<_>>().join(",");
+    Ok(format!("OK\twire={}\tmatches={}\tmatchesmut={}", wire(|o| packet.encode(o)), list(&m), list(&mm)))
+}
+
 fn run(kind: &str, name: &str, payload: &str) -> String {
     let r = catch_unwind(AssertUnwindSafe(|| {
-        if kind.starts_with("stack") || kind.starts_with("ostack") {
+        if kind == "click" {
+            click_record(payload)
+        } else if kind.starts_with("stack") || kind.starts_with("ostack") {
             stack_record(kind, payload)
         } else if kind.starts_with("patch") {
             patch_record(kind, payload)
@@ -183,6 +233,101 @@ fn run(kind: &str, name: &str, payload: &str) -> String {
         Ok(Ok(s)) => s,
         Ok(Err(_)) | Err(_) => "ERR".into(),
     }
+}
+
+// ---- order-insensitive comparison for identity-hashed maps ---------------------------------------------------------------
+//
+// Vanilla iterates `ItemEnchantments` (`Object2IntOpenHashMap<Holder>`), decoded predicate maps (`HashMap<Type>`), the
+// client-side `HashedPatchMap` (`IdentityHashMap<DataComponentType>`) and `DataComponentExactPredicate`'s JSON encoding
+// (`Collectors.toMap`) in `Object.hashCode()` order, which differs from JVM run to run (STATUS.md "Hash-order findings").
+// Their golden fields are compared as sets: JSON/SNBT with unordered maps, wire bytes by decoding both sides.
+
+/// Fields of `file` whose vanilla output order is JVM-run dependent (`hashed` is client-side and always unordered).
+fn relaxed_fields(file: &str) -> &'static [&'static str] {
+    match file {
+        "90-hash-order-identity.txt" => &["json", "snbt", "osnbt", "wire", "wireu", "wiredelim", "patch", "hashed"],
+        "93-hash-order-click.txt" => &["wire"],
+        "91-hash-order-exactpred.txt" => &["json", "snbt", "osnbt", "hashed"],
+        _ => &["hashed"],
+    }
+}
+
+fn sorted_dyn(d: Dyn) -> Dyn {
+    match d {
+        Dyn::Map(mut m) => {
+            let mut m: Vec<(Dyn, Dyn)> = m.drain(..).map(|(k, v)| (k, sorted_dyn(v))).collect();
+            m.sort_by_key(|(k, _)| format!("{k:?}"));
+            Dyn::Map(m)
+        }
+        Dyn::List(l) => Dyn::List(l.into_iter().map(sorted_dyn).collect()),
+        o => o,
+    }
+}
+
+/// Both fields describe the same value up to the order of unordered maps.
+fn semantic_eq(kind: &str, name: &str, key: &str, a: &str, b: &str) -> bool {
+    match key {
+        "json" => match (Dyn::from_json_str(a), Dyn::from_json_str(b)) {
+            (Ok(x), Ok(y)) => sorted_dyn(x) == sorted_dyn(y),
+            _ => false,
+        },
+        "snbt" | "osnbt" => match (mc_nbt::snbt::parse(a), mc_nbt::snbt::parse(b)) {
+            (Ok(x), Ok(y)) => x == y,
+            _ => false,
+        },
+        _ => {
+            if a.len() != b.len() || !a.bytes().all(|c| c.is_ascii_hexdigit()) || !b.bytes().all(|c| c.is_ascii_hexdigit()) {
+                return false;
+            }
+            let (ba, bb) = (unhex(a), unhex(b));
+            let (mut sa, mut sb) = (&ba[..], &bb[..]);
+            let is_stack = kind.starts_with("stack") || kind.starts_with("ostack");
+            let is_patch = kind.starts_with("patch");
+            let same = |x: Option<bool>| x == Some(true) && sa.is_empty() == sb.is_empty();
+            match key {
+                "hashed" => HashedStack::decode(&mut sa).ok() == HashedStack::decode(&mut sb).ok() && same(Some(true)),
+                "patch" => same(DataComponentPatch::decode(&mut sa).ok().zip(DataComponentPatch::decode(&mut sb).ok()).map(|(x, y)| x == y)),
+                "wiredelim" => same(
+                    DataComponentPatch::decode_delimited(&mut sa).ok().zip(DataComponentPatch::decode_delimited(&mut sb).ok()).map(|(x, y)| x == y),
+                ),
+                "wireu" => same(ItemStack::decode_optional_untrusted(&mut sa).ok().zip(ItemStack::decode_optional_untrusted(&mut sb).ok()).map(|(x, y)| x == y)),
+                "wire" if kind == "click" => {
+                    use mc_protocol::packets::play::ServerboundContainerClickPacket as P;
+                    let sorted = |mut p: P| {
+                        p.changed_slots.sort_by_key(|(s, _)| *s);
+                        p
+                    };
+                    same(P::decode(&mut sa).ok().zip(P::decode(&mut sb).ok()).map(|(x, y)| sorted(x) == sorted(y)))
+                }
+                "wire" if is_patch => same(DataComponentPatch::decode(&mut sa).ok().zip(DataComponentPatch::decode(&mut sb).ok()).map(|(x, y)| x == y)),
+                "wire" if is_stack => same(ItemStack::decode(&mut sa).ok().zip(ItemStack::decode(&mut sb).ok()).map(|(x, y)| x == y)),
+                "wire" => {
+                    let Some(def) = DataComponentType::by_name(name).and_then(try_def) else { return false };
+                    same(def.decode_network(&mut sa).ok().zip(def.decode_network(&mut sb).ok()).map(|(x, y)| x == y))
+                }
+                _ => false,
+            }
+        }
+    }
+}
+
+/// `got` equals `expected` field by field; fields in `relaxed` (and `hashed`) only up to hash order.
+fn records_match(file: &str, kind: &str, name: &str, expected: &str, got: &str) -> bool {
+    if expected == got {
+        return true;
+    }
+    let relaxed = relaxed_fields(file);
+    let (e, g): (Vec<&str>, Vec<&str>) = (expected.split('\t').collect(), got.split('\t').collect());
+    if e.len() != g.len() || e[0] != "OK" || g[0] != "OK" {
+        return false;
+    }
+    e.iter().zip(&g).all(|(x, y)| {
+        x == y
+            || match (x.split_once('='), y.split_once('=')) {
+                (Some((kx, vx)), Some((ky, vy))) => kx == ky && relaxed.contains(&kx) && semantic_eq(kind, name, kx, vx, vy),
+                _ => false,
+            }
+    })
 }
 
 fn golden_files() -> Vec<std::path::PathBuf> {
@@ -221,7 +366,8 @@ fn components_golden() {
             total += 1;
             let expected = if f[3].starts_with("ERR") { "ERR" } else { f[3] };
             let got = run(f[0], f[1], f[2]);
-            if got != expected {
+            let file = path.file_name().unwrap().to_str().unwrap();
+            if !records_match(file, f[0], f[1], expected, &got) {
                 failures.push(format!("[{}] {}\t{}\t{}\n   expected {expected}\n   got      {got}", path.file_name().unwrap().to_str().unwrap(), f[0], f[1], f[2]));
             }
         }
