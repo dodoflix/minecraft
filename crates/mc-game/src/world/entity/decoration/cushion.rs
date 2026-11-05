@@ -33,7 +33,7 @@ const DEFAULT_COLOR: DyeColor = DyeColor::White;
 
 /// `DyeColor` of the synched data (`EntityDataSerializers.DYE_COLOR`) from the component enum (same ids).
 fn to_data(color: DyeColor) -> DataDyeColor {
-    DataDyeColor::from_id(color.id()).unwrap_or(DataDyeColor::White)
+    DataDyeColor::by_id(color.id())
 }
 
 fn from_data(color: DataDyeColor) -> DyeColor {
