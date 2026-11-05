@@ -8,6 +8,7 @@ use mc_data::fluid::Fluid;
 pub struct EnderChestBlock;
 
 impl BlockBehaviour for EnderChestBlock {
+    crate::simple_waterlogged!();
     fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
         let replaced_fluid_state = level.get_fluid_state(context.get_clicked_pos());
         Some(block.default_state().set(props::HORIZONTAL_FACING, context.get_horizontal_direction().get_opposite()).set(props::WATERLOGGED, replaced_fluid_state.fluid() == Fluid::WATER))

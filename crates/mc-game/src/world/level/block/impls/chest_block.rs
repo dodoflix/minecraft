@@ -181,6 +181,7 @@ pub fn chest_sounds(block: Block) -> Option<(SoundEvent, SoundEvent)> {
 }
 
 impl BlockBehaviour for ChestBlock {
+    crate::simple_waterlogged!();
     fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
         let mut ty = ChestType::Single;
         let mut facing_direction = context.get_horizontal_direction().get_opposite();
