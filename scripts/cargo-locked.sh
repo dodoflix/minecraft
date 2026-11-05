@@ -31,6 +31,46 @@ with_slot() {
   done
 }
 
+# check/clippy may run on an ephemeral cloud builder (scripts/builders/): each live builder has lanes; a lane is held by
+# flock for the whole remote run. Waiters register in /tmp/mc-queue so the autoscaler can see the backlog.
+BUILDERS_DIR="$(dirname "$(readlink -f "$0")")/builders"
+with_slot_or_remote() { # cargo args...
+  mkdir -p /tmp/mc-queue /tmp/mc-builders; local qf="/tmp/mc-queue/$$"; : > "$qf"
+  trap 'rm -f "$qf"' RETURN
+  while :; do
+    for reg in /tmp/mc-builders/*.ip; do
+      [ -e "$reg" ] || continue
+      local name ip; name=$(basename "$reg" .ip); ip=$(cat "$reg")
+      for lane in $(seq 1 "${BUILDER_LANES:-3}"); do
+        exec {fd}>"/tmp/mc-remote.$name.$lane"
+        if flock -n "$fd"; then
+          rm -f "$qf"; touch "/tmp/mc-builders/$name.last"
+          local rc=0
+          "$BUILDERS_DIR/remote-cargo.sh" "$ip" "$lane" "$@" 2>&1 | sed -u "s#/w/src/#$PWD/#g" || rc=${PIPESTATUS[0]}
+          touch "/tmp/mc-builders/$name.last"; exec {fd}>&-
+          [ "$rc" = 255 ] || return $rc   # 255 = ssh/transport failure: fall back to local below
+          echo "[cargo-locked] builder $name unreachable, falling back to local" >&2
+          with_slot cargo "$@"; return $?
+        fi
+        exec {fd}>&-
+      done
+    done
+    local avail_kb; avail_kb=$(awk '/MemAvailable/{a=$2} /SwapFree/{s=$2} END{print a+s}' /proc/meminfo)
+    if [ "$avail_kb" -ge $(( ${MC_MIN_FREE_GB:-8} * 1048576 )) ]; then
+      for i in $(seq 1 "$SLOTS"); do
+        exec {fd}>"/tmp/mc-build.lock.$i"
+        if flock -n "$fd"; then
+          rm -f "$qf"; local rc=0
+          nice -n 10 cargo "$@" || rc=$?
+          exec {fd}>&-; return $rc
+        fi
+        exec {fd}>&-
+      done
+    fi
+    sleep 2
+  done
+}
+
 case "${1:-}" in
   test|bench)
     # Compile under a slot (--no-run goes before any `--` test-binary args), then run without holding it.
@@ -48,7 +88,7 @@ case "${1:-}" in
   check|clippy)
     # Check-only incremental caches are small (metadata); rechecks after a rebase drop from ~8 min to <1 min.
     export CARGO_INCREMENTAL=1
-    with_slot cargo "$@"
+    if [ -n "${MC_MERGE_SLOT:-}" ]; then with_slot cargo "$@"; else with_slot_or_remote "$@"; fi
     ;;
   *)
     with_slot cargo "$@"
