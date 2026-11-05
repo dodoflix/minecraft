@@ -13,6 +13,7 @@ pub mod end_island_feature;
 pub mod end_platform_feature;
 pub mod end_podium_feature;
 pub mod end_spike_feature;
+pub mod fossil_feature;
 pub mod geode_feature;
 pub mod large_dripstone_feature;
 pub mod monster_room_feature;
@@ -20,6 +21,7 @@ pub mod speleothem_cluster_feature;
 pub mod speleothem_feature;
 pub mod speleothem_utils;
 pub mod spike_feature;
+pub mod template_feature;
 
 use super::codec::{LoadResult, TypeEntry, decode_dispatch};
 use super::env::GenEnv;
