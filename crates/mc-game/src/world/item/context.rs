@@ -18,6 +18,8 @@ pub struct ContextPlayer {
     pub y_rot: f32,
     pub x_rot: f32,
     pub secondary_use_active: bool,
+    /// `Player.canUseGameMasterBlocks()`.
+    pub can_use_game_master_blocks: bool,
 }
 
 #[derive(Clone, Debug)]

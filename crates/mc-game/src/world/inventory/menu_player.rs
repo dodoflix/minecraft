@@ -38,6 +38,10 @@ pub trait MenuPlayer {
     fn is_removed_not_changing_dimension(&self) -> bool {
         false
     }
+    /// `Player.mayBuild()` (`abilities.mayBuild`).
+    fn may_build(&self) -> bool {
+        true
+    }
     /// `isAlive()`.
     fn is_alive(&self) -> bool {
         true

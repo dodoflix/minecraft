@@ -340,7 +340,7 @@ impl ServerPlayer {
     }
 
     pub fn context_player(&self) -> ContextPlayer {
-        ContextPlayer { entity_id: self.base_id(), y_rot: self.base().y_rot(), x_rot: self.base().x_rot(), secondary_use_active: self.is_shift_key_down() }
+        ContextPlayer { entity_id: self.base_id(), y_rot: self.base().y_rot(), x_rot: self.base().x_rot(), secondary_use_active: self.is_shift_key_down(), can_use_game_master_blocks: self.can_use_game_master_blocks() }
     }
 
     /// `ServerPlayerGameMode.useItem(player, level, stack, hand)`.

@@ -105,6 +105,7 @@ mod conduit_block_entity;
 mod creaking_heart_block_entity;
 mod daylight_detector_block_entity;
 mod dispenser_block_entity;
+pub mod lectern_block_entity;
 mod dropper_block_entity;
 pub mod hopper_block_entity;
 mod piston_moving_block_entity;
