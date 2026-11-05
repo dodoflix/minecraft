@@ -166,7 +166,19 @@ fn placement_chains_match_vanilla() {
             }
         }
     }
-    assert!(failures.is_empty(), "{} of {compared} placement chains differ (first 20):\n{}", failures.len(), failures.iter().take(20).cloned().collect::<Vec<_>>().join("\n"));
+    if let Some(path) = std::env::var_os("PLACEMENT_GOLDEN_DUMP") {
+        std::fs::write(path, failures.join("\n")).expect("dump failures");
+    }
+    let mut names: Vec<&str> = failures.iter().map(|f| f.split(' ').next().unwrap()).collect();
+    names.dedup();
+    assert!(
+        failures.is_empty(),
+        "{} of {compared} placement chains differ, in {} features ({}):\n{}",
+        failures.len(),
+        names.len(),
+        names.join(" "),
+        failures.iter().take(20).cloned().collect::<Vec<_>>().join("\n")
+    );
     assert_eq!(compared + skipped, 273 * 6 * 2 * 6);
     assert!(nonempty > 3000, "only {nonempty} chains produced positions: the test does not exercise the modifiers");
     eprintln!("{compared} chains compared ({nonempty} with positions), {skipped} skipped (vanilla threw)");
