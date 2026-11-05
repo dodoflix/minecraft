@@ -216,6 +216,7 @@ impl LevelTickEnv for Env {
     fn tick_raids(&mut self, _level: &mut ServerLevel) {}
     fn broadcast_game_event_to_all(&mut self, _packet: &mc_protocol::packets::play::ClientboundGameEventPacket) {}
     fn set_game_time(&mut self, _game_time: i64) {}
+    fn teleport_through_portal(&mut self, _level: &mut ServerLevel, _entity: &mut dyn Entity) {}
 }
 
 struct Options_ {
@@ -316,7 +317,6 @@ impl Scenario {
             assert!(start.elapsed() < Duration::from_secs(120), "chunks did not reach entity ticking");
             std::thread::sleep(Duration::from_millis(1));
         }
-        level.tick_state.random = mc_core::random::create_new();
         use mc_core::random::RandomSource;
         level.tick_state.random.set_seed(self.opts_seed() ^ 0x5DEECE66D);
         self.level = Some(level);
