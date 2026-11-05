@@ -13,6 +13,11 @@ use mc_game::world::item::ItemStack;
 use mc_game::world::level::LevelAccessor;
 use mc_data::Item;
 
+thread_local! {
+    /// Next pinned entity id (tests run on their own threads).
+    static NEXT_ID: std::cell::Cell<i32> = std::cell::Cell::new(std::env::var("ITEM_ID_BASE").ok().and_then(|v| v.parse().ok()).unwrap_or(1001));
+}
+
 /// The flat world of the oracle: grass at y=-61 (the player stands at y=-60).
 fn registries() -> mc_game::registry::RegistryAccess {
     static ACCESS: std::sync::OnceLock<mc_game::registry::RegistryAccess> = std::sync::OnceLock::new();
@@ -48,9 +53,18 @@ fn fill(level: &mut ServerLevel, (x1, y1, z1): (i32, i32, i32), (x2, y2, z2): (i
 }
 
 /// `spawn_item REF STACK X Y Z vx vy vz` + `snap REF X Y Z yaw pitch`.
+///
+/// Entity ids are not printed by the oracle, but a resting item moves only every `(tickCount + id) % 4`th tick: the ids of
+/// the scenario are pinned to `1001 + spawn index` (only `id % 4` matters; 1001 reproduces the vanilla oracle).
 fn spawn_item(level: &mut ServerLevel, stack: ItemStack, pos: (f64, f64, f64), motion: (f64, f64, f64), yaw: f32) -> EntityId {
-    let mut e = ItemEntity::with_stack_and_motion(level, pos.0, pos.1, pos.2, stack, motion.0, motion.1, motion.2);
+    let id = NEXT_ID.with(|n| {
+        n.set(n.get() + 1);
+        n.get() - 1
+    });
+    let mut e = ItemEntity::new(mc_data::EntityType::ITEM, id);
     e.set_pos(pos.0, pos.1, pos.2);
+    e.set_item(stack);
+    e.base_mut().set_delta_movement_xyz(motion.0, motion.1, motion.2);
     e.set_rot(yaw, 0.0);
     let id = e.id();
     level.add_fresh_entity(Box::new(e));
