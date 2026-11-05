@@ -5,7 +5,7 @@ use super::vault::{VaultConfig, VaultServerData, VaultSharedData, VaultStateExt}
 use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec, set_changed};
 use crate::server::level::ServerLevel;
 use crate::stats::Stat;
-use crate::world::entity::ServerPlayer;
+use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::item::{ItemStack, ItemStackExt};
 use crate::world::level::BlockGetter;
 use crate::world::level::storage::loot::loading::get_loot_table;

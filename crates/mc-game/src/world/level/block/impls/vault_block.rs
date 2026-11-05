@@ -41,7 +41,7 @@ impl BlockBehaviour for VaultBlock {
     }
 
     fn get_state_for_placement(&self, block: Block, _level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
-        Some(block.default_state().set(props::HORIZONTAL_FACING, context.get_horizontal_direction().opposite()))
+        Some(block.default_state().set(props::HORIZONTAL_FACING, context.get_horizontal_direction().get_opposite()))
     }
 
     fn rotate(&self, state: BlockState, rotation: Rotation) -> BlockState {

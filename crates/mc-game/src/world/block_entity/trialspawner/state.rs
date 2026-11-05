@@ -3,7 +3,8 @@
 use super::trial_spawner::{TrialSpawner, play_block_sound};
 use crate::server::level::ServerLevel;
 use crate::world::entity::{Entity, EntityId};
-use crate::world::level::BlockGetter;
+use crate::world::level::block::BlockStateExt;
+use crate::world::level::{BlockGetter, LevelAccessor};
 use crate::world::level::collision::{BlockGetterExt, ClipBlock, ClipContext, ClipFluid, CollisionContext};
 use mc_core::direction::Direction;
 use mc_core::phys::Vec3;
@@ -126,7 +127,8 @@ impl TrialSpawnerStateExt for TrialSpawnerState {
                     if let Some(table) = ts.data.ejecting_loot_table.clone() {
                         ts.eject_reward(level, spawner_pos, &table);
                     }
-                    if let Some(first) = ts.data.detected_players.iter().next().copied() {
+                    let first = ts.data.detected_players.iter().next().copied();
+                    if let Some(first) = first {
                         ts.data.detected_players.remove(&first);
                     }
                     self

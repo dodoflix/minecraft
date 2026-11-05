@@ -6,7 +6,9 @@
 //! the caller to store back once its `LootParams` (which borrow the level) are dropped.
 
 use crate::server::level::ServerLevel;
+use crate::world::entity::Entity;
 use crate::world::item::ItemStack;
+use crate::world::level::LevelAccessor;
 use crate::world::level::storage::loot::{LootParams, LootTable};
 use mc_core::direction::Direction;
 use mc_core::phys::Vec3;

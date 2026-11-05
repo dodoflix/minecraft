@@ -306,7 +306,7 @@ impl TrialSpawner {
         };
         if !drops.is_empty() {
             for item in drops {
-                crate::world::level::block::helpers::spawn_item(level, item, 2, mc_core::direction::Direction::Up, Vec3::at_bottom_center_of(&pos).relative(mc_core::direction::Direction::Up, 1.2));
+                crate::world::block_entity::loot_roll::spawn_item(level, item, 2, mc_core::direction::Direction::Up, Vec3::at_bottom_center_of(&pos).relative(mc_core::direction::Direction::Up, 1.2));
             }
             level.level_event(None, 3014, pos, 0);
         }
@@ -400,7 +400,7 @@ fn low_resolution_position(level: &ServerLevel, pos: BlockPos) -> i64 {
         mc_core::math::mth::floor_f32(pos.y() as f32 / 20.0),
         mc_core::math::mth::floor_f32(pos.z() as f32 / 30.0),
     );
-    level.seed.wrapping_add(low.as_long())
+    level.server_state.loot.world_seed.wrapping_add(low.as_long())
 }
 
 /// The sounds the state machine plays (`SoundSource.BLOCKS`, volume 1, pitch 1).

@@ -73,7 +73,7 @@ impl<E> WeightedList<E> {
 impl<E: Clone + Send + Sync + 'static> WeightedList<E> {
     /// `WeightedList.codec(elementCodec)`: a list of `{data, weight}`.
     pub fn codec(element: &Codec<E>) -> Codec<WeightedList<E>> {
-        let weighted = record!(Weighted { value: element.field_of("data"), weight: NON_NEGATIVE_INT.field_of("weight") }).codec();
+        let weighted = record!(Weighted<E> { value: element.field_of("data"), weight: NON_NEGATIVE_INT.field_of("weight") }).codec();
         weighted.list_of().flat_xmap(
             |items| match WeightedList::of(items) {
                 Some(list) => DataResult::success(list),
