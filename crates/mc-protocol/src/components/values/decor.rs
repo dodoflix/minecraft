@@ -699,6 +699,16 @@ pub struct JukeboxSong {
 }
 
 impl JukeboxSong {
+    /// `JukeboxSong.DIRECT_CODEC`.
+    pub fn direct_codec() -> Codec<JukeboxSong> {
+        record!(JukeboxSong {
+            sound_event: SoundEvent::holder_codec().field_of("sound_event"),
+            description: component_codec().field_of("description"),
+            length_in_seconds: POSITIVE_FLOAT.field_of("length_in_seconds"),
+            comparator_output: extra_int_range(0, 15).field_of("comparator_output"),
+        })
+        .codec()
+    }
     /// `JukeboxSong.CODEC` (`RegistryCodecs.holder(key)`: references only).
     pub fn codec() -> Codec<Holder<JukeboxSong>> {
         holder::holder_fixed_codec(JUKEBOX_SONG_REG)

@@ -183,6 +183,10 @@ impl ServerLevel {
     pub fn play_sound_from_entity_at(&mut self, except: Option<EntityId>, source_entity: EntityId, position: Vec3, sound: SoundEvent, source: SoundSource, volume: f32, pitch: f32) {
         use mc_core::random::RandomSource;
         let seed = self.tick_state.sound_seed_generator.next_long();
+    /// `playSeededSound(except, sourceEntity, ...)` for a source entity that is not in the level's entity storage right now
+    /// (a player handled by the listener is taken out of it): `position` is the entity's position.
+    #[allow(clippy::too_many_arguments)]
+    pub fn play_seeded_sound_from_entity_at(&self, except: Option<EntityId>, source_entity: EntityId, position: Vec3, sound: SoundEvent, source: SoundSource, volume: f32, pitch: f32, seed: i64) {
         let except = except.filter(|id| self.is_player_id(*id));
         self.broadcast_nearby(
             except,

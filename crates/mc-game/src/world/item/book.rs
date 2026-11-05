@@ -13,6 +13,7 @@ use crate::world::container::Container;
 use crate::world::entity::ServerPlayer;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::server::level::ServerLevel;
+use crate::stats::Stat;
 use linkme::distributed_slice;
 use mc_data::{DataComponentType, Item};
 use mc_protocol::components::{Filterable, WRITABLE_BOOK_CONTENT, WRITTEN_BOOK_CONTENT, WritableBookContent, WrittenBookContent};
@@ -24,9 +25,10 @@ use mc_text::util::encodes_longer_than;
 struct BookItem;
 
 impl ItemBehaviour for BookItem {
-    fn use_item(&self, _level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
+    fn use_item(&self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
         player.pending_open_book = Some(hand);
-        // `player.awardStat(Stats.ITEM_USED.get(this))`
+        let item = player.get_item_in_hand(hand).item();
+        player.award_stat_once(level, Stat::Used(item));
         InteractionResult::SUCCESS
     }
 }

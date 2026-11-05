@@ -3,6 +3,7 @@
 use super::{InteractionHand, InteractionResult, ItemBehaviour, ItemStack, PlainItem};
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
+use crate::stats::Stat;
 use crate::world::entity::{Entity, ServerPlayer};
 use mc_data::SoundEvent;
 use mc_protocol::components::{BASE_COLOR, ItemUseAnimation};
@@ -37,7 +38,8 @@ impl ItemBehaviour for SpyglassItem {
 
     fn use_item(&self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
         player_play_sound(level, player, SoundEvent::ITEM_SPYGLASS_USE, 1.0, 1.0);
-        // `player.awardStat(Stats.ITEM_USED.get(this))`
+        let item = player.get_item_in_hand(hand).item();
+        player.award_stat_once(level, Stat::Used(item));
         // `ItemUtils.startUsingInstantly`
         player.start_using_item(level, hand);
         InteractionResult::CONSUME
