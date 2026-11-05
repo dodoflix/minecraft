@@ -1,7 +1,9 @@
 //! `net.minecraft.world.level.block.CaveVinesPlantBlock` (extends `GrowingPlantBodyBlock`).
-use super::growing_plant_block::{self, GrowingPlant};
-use super::growing_plant_body_block::{self, GrowingPlantBody};
+use super::growing_plant_block::GrowingPlant;
+use super::growing_plant_body_block::{GrowingPlantBody, growing_plant_body_behaviour};
 use super::prelude::*;
+use crate::server::level::ServerLevel;
+use crate::world::level::block::bonemeal::BonemealSource;
 
 pub struct CaveVinesPlantBlock;
 
@@ -26,12 +28,16 @@ impl GrowingPlantBody for CaveVinesPlantBlock {
 }
 
 impl BlockBehaviour for CaveVinesPlantBlock {
-    fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
-        growing_plant_block::can_survive(self, level, pos)
+    growing_plant_body_behaviour!(custom_bonemeal_and_clone);
+    fn get_clone_item_stack(&self, _state: BlockState, _level: &ServerLevel, _pos: BlockPos, _include_data: bool) -> crate::world::item::ItemStack {
+        super::cave_vines::glow_berries()
     }
-    update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
-        growing_plant_body_block::update_shape(self, state, level, pos, direction, neighbour_state)
-    });
+    fn is_valid_bonemeal_target(&self, _level: &dyn LevelReader, _pos: BlockPos, state: BlockState, _source: BonemealSource) -> bool {
+        !state.get(props::BERRIES)
+    }
+    fn perform_bonemeal(&self, level: &mut ServerLevel, pos: BlockPos, state: BlockState, _source: BonemealSource) {
+        level.set_block_flags(pos, state.set(props::BERRIES, true), 2);
+    }
 }
 
 register_block_class!("CaveVinesPlantBlock", |_| Box::new(CaveVinesPlantBlock));

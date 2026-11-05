@@ -81,6 +81,7 @@ pub mod campfire_block;
 pub mod candle_block;
 pub mod candle_cake_block;
 pub mod carpet_block;
+pub mod cave_vines;
 pub mod cave_vines_block;
 pub mod cave_vines_plant_block;
 pub mod ceiling_hanging_sign_block;
