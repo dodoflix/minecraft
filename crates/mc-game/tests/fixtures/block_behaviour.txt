@@ -1,0 +1,8 @@
+[00:17:21] [main/INFO]: [STDERR]: java.lang.UnsupportedOperationException: stub: public abstract net.minecraft.core.RegistryAccess net.minecraft.world.level.LevelReader.registryAccess()
+[00:17:21] [main/INFO]: [STDERR]: 	at BlockBehaviourOracle.dflt(BlockBehaviourOracle.java:67)
+[00:17:21] [main/INFO]: [STDERR]: 	at BlockBehaviourOracle$Level.invoke(BlockBehaviourOracle.java:118)
+[00:17:21] [main/INFO]: [STDERR]: 	at jdk.proxy3/jdk.proxy3.$Proxy20.registryAccess(Unknown Source)
+[00:17:21] [main/INFO]: [STDERR]: 	at net.minecraft.world.level.block.AttachedStemBlock.updateShape(AttachedStemBlock.java:53)
+[00:17:21] [main/INFO]: [STDERR]: 	at net.minecraft.world.level.block.state.BlockBehaviour$BlockStateBase.updateShape(BlockBehaviour.java:1201)
+[00:17:21] [main/INFO]: [STDERR]: 	at BlockBehaviourOracle.evalState(BlockBehaviourOracle.java:147)
+[00:17:21] [main/INFO]: [STDERR]: 	at BlockBehaviourOracle.main(BlockBehaviourOracle.java:190)
