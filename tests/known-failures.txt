@@ -61,7 +61,7 @@ mc-game tests/golden/main.rs mob_spine_golden::chicken_egg_matches_vanilla
 mc-game tests/golden/main.rs mob_spine_golden::chicken_tempt_matches_vanilla
 mc-game tests/golden/main.rs network_login_config::invalid_usernames_and_protocol_errors_disconnect_with_vanilla_text
 mc-server tests/oracle/main.rs network_vanilla_diff::transcripts_equal_the_real_vanilla_server
-mc-game tests/it/main.rs packs::disabled_missing_and_feature_packs
+mc-game tests/golden/main.rs packs::disabled_missing_and_feature_packs
 mc-game tests/golden/main.rs poi_golden::poi_manager_matches_vanilla
 mc-game tests/golden/main.rs structure_template_golden::place_in_world_matches_vanilla
 mc-game tests/golden/main.rs tnt_golden::primed_tnt_chain_matches_vanilla
