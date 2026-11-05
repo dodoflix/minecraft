@@ -106,9 +106,10 @@ push your branch (`git push -q origin <name>`; branch force-push only after your
 **Disk:** after your branch is merged and you're done, delete your worktree's build cache
 (`rm -rf /home/dodo/Projects/mc-wt/<name>/target`); `/home` filled up once with stale per-worktree targets.
 **Machine memory (hard rule):** systemd-oomd killed the whole session twice (RAM+swap >90%) when many mc-game builds ran
-at once. Helper agents are not limited, but every cargo build/test/check, by every agent, goes through ONE
-machine-wide lock and low priority: `flock /tmp/mc-build.lock nice -n 10 env CARGO_BUILD_JOBS=6 cargo …`; edit/read
-while waiting. At most one vanilla JVM server + one real client running at a time per agent.
+at once. Helper agents are not limited, but every cargo invocation by every agent goes through
+`scripts/cargo-locked.sh <subcommand> …` (e.g. `scripts/cargo-locked.sh test -p mc-game --test foo`): compilation takes
+one of `MC_BUILD_SLOTS` (default 2) machine-wide slots at low priority; test execution runs outside the slot. Never call
+`cargo` directly. At most one vanilla JVM server + one real client running at a time per agent.
 
 **Commits use Conventional Commits**: `<type>(<scope>): <summary>` with type in
 `feat|fix|refactor|perf|test|docs|build|chore`, scope = crate without the `mc-` prefix or area
