@@ -36,17 +36,21 @@ pub fn enchantment_tick_effects(_level: &mut ServerLevel, _entity: &mut dyn Enti
 /// SEAM(EcEnchant): `EnchantmentHelper.runLocationChangedEffects(level, entity)`.
 pub fn run_location_changed_effects(_level: &mut ServerLevel, _entity: &mut dyn Entity) {}
 
-/// SEAM(EcEffects): `tickEffects()`.
-pub fn tick_effects(_level: &mut ServerLevel, _entity: &mut dyn Entity) {}
+pub fn tick_effects(level: &mut ServerLevel, entity: &mut dyn Entity) {
+    super::effects::tick_effects(entity, level);
+}
 
-/// SEAM(EcEffects): `triggerOnDeathMobEffects(level, reason)`.
-pub fn trigger_on_death_mob_effects(_level: &mut ServerLevel, _entity: &mut dyn Entity, _reason: RemovalReason) {}
+pub fn trigger_on_death_mob_effects(level: &mut ServerLevel, entity: &mut dyn Entity, reason: RemovalReason) {
+    super::effects::trigger_on_death_mob_effects(entity, level, reason);
+}
 
-/// SEAM(EcEffects): `detectEquipmentUpdates()`.
-pub fn detect_equipment_updates(_level: &mut ServerLevel, _entity: &mut dyn Entity) {}
+pub fn detect_equipment_updates(level: &mut ServerLevel, entity: &mut dyn Entity) {
+    super::equipment_changes::detect_equipment_updates(entity, level);
+}
 
-/// SEAM(EcEffects): `refreshDirtyAttributes()`.
-pub fn refresh_dirty_attributes(_level: &mut ServerLevel, _entity: &mut dyn Entity) {}
+pub fn refresh_dirty_attributes(level: &mut ServerLevel, entity: &mut dyn Entity) {
+    super::effects::refresh_dirty_attributes(entity, level);
+}
 
 /// SEAM(EcDamage): `getCombatTracker().recheckStatus()`.
 pub fn combat_tracker_recheck_status(_level: &mut ServerLevel, _entity: &mut dyn Entity) {}
