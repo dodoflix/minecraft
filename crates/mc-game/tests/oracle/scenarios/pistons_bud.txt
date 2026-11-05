@@ -1,0 +1,30 @@
+# Quasi-connectivity (BUD): a piston is powered by a source above the block above it; it only notices after a block update.
+level flat
+preload 2
+watch events blocks:3,3,3,6,8,6 blocks:13,3,3,16,8,6 blocks:23,3,3,26,8,6 be:4,6,4
+fill 0 2 0 30 2 8 minecraft:stone
+block 4 4 4 minecraft:piston[facing=east,extended=false]
+block 4 6 4 minecraft:redstone_block
+tick 3
+block 4 5 4 minecraft:glass
+tick 6
+block 4 6 4 minecraft:air
+tick 3
+block 4 5 4 minecraft:air
+tick 6
+block 14 4 4 minecraft:sticky_piston[facing=east,extended=false]
+block 15 4 4 minecraft:stone
+block 15 5 4 minecraft:redstone_block
+tick 3
+block 14 5 4 minecraft:glass
+tick 8
+block 15 5 4 minecraft:air
+tick 2
+block 14 5 4 minecraft:air
+tick 8
+block 24 4 4 minecraft:piston[facing=up,extended=false]
+block 24 5 4 minecraft:stone
+block 24 3 4 minecraft:redstone_block
+tick 6
+block 24 3 4 minecraft:air
+tick 6

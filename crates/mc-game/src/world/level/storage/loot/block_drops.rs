@@ -18,9 +18,11 @@ use crate::world::level::block::{BlockStateExt, behaviour, helpers};
 
 /// `BlockBehaviour.BlockStateBase.getDrops(params)` (`BlockBehaviour.getDrops`): the loot table of the state's block with
 /// `BLOCK_STATE` added to `params`; blocks without a loot table drop nothing.
-pub fn state_get_drops(state: BlockState, builder: LootParamsBuilder) -> Vec<ItemStack> {
-    let Some(key) = state.block().data().loot_table else { return Vec::new() };
+pub fn state_get_drops(state: BlockState, pos: BlockPos, builder: LootParamsBuilder) -> Vec<ItemStack> {
     let level = builder.level();
+    // `MovingPistonBlock.getDrops`: the moved state's drops
+    let state = behaviour(state.block()).get_drops_state(state, level, pos);
+    let Some(key) = state.block().data().loot_table else { return Vec::new() };
     let params = builder.block_state(state).create(&LootContextParamSets::BLOCK);
     let Some(id) = Identifier::try_parse(key) else { return Vec::new() };
     get_loot_table(&level.registries, &id).get_random_items(&params)
@@ -29,7 +31,7 @@ pub fn state_get_drops(state: BlockState, builder: LootParamsBuilder) -> Vec<Ite
 /// `Block.getDrops(state, level, pos, blockEntity)` (empty tool).
 pub fn get_drops(level: &ServerLevel, state: BlockState, pos: BlockPos, block_entity: Option<&dyn BlockEntity>) -> Vec<ItemStack> {
     let params = LootParams::builder(level).origin(Vec3::at_center_of(&pos)).tool(&ItemStack::empty()).block_entity(block_entity);
-    state_get_drops(state, params)
+    state_get_drops(state, pos, params)
 }
 
 /// `Block.getDrops(state, level, pos, blockEntity, breaker, tool)`.
@@ -42,7 +44,7 @@ pub fn block_drops(
     tool: &ItemStack,
 ) -> Vec<ItemStack> {
     let params = LootParams::builder(level).origin(Vec3::at_center_of(&pos)).tool(tool).optional_this_entity(breaker).block_entity(block_entity);
-    state_get_drops(state, params)
+    state_get_drops(state, pos, params)
 }
 
 /// The drops of a block destroyed by an explosion (`ServerExplosion.destroyBlocks`): `ORIGIN` at the block's center, an
@@ -61,7 +63,7 @@ pub fn block_drops_explosion(
         .block_entity(block_entity)
         .optional_this_entity(this_entity)
         .optional_explosion_radius(explosion_radius);
-    state_get_drops(state, params)
+    state_get_drops(state, pos, params)
 }
 
 /// `Block.dropResources(state, level, pos, blockEntity, breaker, tool)`: pops every drop, then `spawnAfterBreak`.

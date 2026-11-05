@@ -1,9 +1,52 @@
-//! `net.minecraft.world.level.block.MovingPistonBlock` (`piston` package).
+//! `net.minecraft.world.level.block.MovingPistonBlock` (`piston` package): the block entity block of a block in transit.
 use super::prelude::*;
+use crate::server::level::ServerLevel;
+use crate::world::block_entity::{PistonMovingBlockEntity, moving_piston_collision_shape};
+use crate::world::entity::ServerPlayer;
+use crate::world::item::{InteractionResult, ItemStack};
+use crate::world::level::collision::CollisionContext;
+use mc_core::phys::BlockHitResult;
+use mc_core::phys::shapes::VoxelShape;
 
 pub struct MovingPistonBlock;
 
 impl BlockBehaviour for MovingPistonBlock {
+    fn destroy(&self, level: &mut dyn LevelAccessor, pos: BlockPos, state: BlockState) {
+        let relative = pos.relative(state.get(props::FACING).get_opposite());
+        let block_state = level.get_block_state(relative);
+        if helpers::is_instance_of(block_state, "PistonBaseBlock") && block_state.get(props::EXTENDED) {
+            level.remove_block(relative, false);
+        }
+    }
+
+    fn use_without_item(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, _player: &mut ServerPlayer, _hit: &BlockHitResult) -> InteractionResult {
+        if level.get_block_entity_immediate(pos).is_none() {
+            level.remove_block(pos, false);
+            InteractionResult::CONSUME
+        } else {
+            InteractionResult::PASS
+        }
+    }
+
+    /// `getDrops`: the drops of the moved block (nothing without a block entity).
+    fn get_drops_state(&self, state: BlockState, level: &dyn BlockGetter, pos: BlockPos) -> BlockState {
+        match level.get_block_entity(pos).and_then(|be| be.as_any().downcast_ref::<PistonMovingBlockEntity>()) {
+            Some(entity) => entity.get_moved_state(),
+            None => {
+                let _ = state;
+                helpers::air()
+            }
+        }
+    }
+
+    fn get_collision_shape(&self, _state: BlockState, level: &dyn BlockGetter, pos: BlockPos, _context: &CollisionContext) -> VoxelShape {
+        moving_piston_collision_shape(level, pos)
+    }
+
+    fn get_clone_item_stack(&self, _state: BlockState, _level: &ServerLevel, _pos: BlockPos, _include_data: bool) -> ItemStack {
+        ItemStack::empty()
+    }
+
     fn rotate(&self, state: BlockState, rotation: Rotation) -> BlockState {
         helpers::rotate_facing(state, props::FACING, rotation)
     }

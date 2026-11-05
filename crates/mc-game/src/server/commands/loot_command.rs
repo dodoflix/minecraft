@@ -391,7 +391,7 @@ fn drop_block_loot(c: &CommandContext<CommandSourceStack>, pos: BlockPos, tool: 
         };
         let this_entity = source.get_entity().and_then(|e| level.get_entity(e.id));
         let builder = LootParams::builder(level).origin(Vec3::at_center_of(&pos)).block_entity(block_entity).optional_this_entity(this_entity).tool(&tool);
-        Ok((key, state_get_drops(state, builder)))
+        Ok((key, state_get_drops(state, pos, builder)))
     })?;
     let mut used = Tracker::create();
     output(c, &drops, &mut used)?;

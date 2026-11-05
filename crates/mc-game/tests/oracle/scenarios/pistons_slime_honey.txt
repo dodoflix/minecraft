@@ -1,0 +1,48 @@
+# Slime and honey: sticking sideways, slime and honey not sticking to each other, chains, retract with sticky piston.
+level flat
+preload 3
+watch events blocks:2,2,2,12,8,8 blocks:2,2,12,12,8,18 blocks:2,2,22,12,8,28 blocks:2,2,32,12,8,38 blocks:2,2,42,12,8,48
+fill 2 2 2 12 2 8 minecraft:stone
+block 4 4 5 minecraft:piston[facing=east,extended=false]
+block 5 4 5 minecraft:slime_block
+block 5 4 4 minecraft:stone
+block 5 5 5 minecraft:glass
+block 5 3 5 minecraft:honey_block
+block 5 3 4 minecraft:cobblestone
+block 6 4 5 minecraft:stone
+fill 2 2 12 12 2 18 minecraft:stone
+block 4 4 15 minecraft:piston[facing=east,extended=false]
+block 5 4 15 minecraft:honey_block
+block 6 4 15 minecraft:slime_block
+block 5 4 14 minecraft:dirt
+block 6 4 14 minecraft:dirt
+block 5 4 16 minecraft:dirt
+block 6 4 16 minecraft:dirt
+fill 2 2 22 12 2 28 minecraft:stone
+block 4 4 25 minecraft:sticky_piston[facing=east,extended=false]
+block 6 4 25 minecraft:slime_block
+block 6 4 24 minecraft:stone
+block 6 4 26 minecraft:stone
+block 6 5 25 minecraft:stone
+block 7 4 25 minecraft:slime_block
+block 7 5 25 minecraft:stone
+fill 2 2 32 12 2 38 minecraft:stone
+block 4 4 35 minecraft:piston[facing=east,extended=false]
+fill 5 3 34 5 5 36 minecraft:slime_block
+fill 6 3 34 6 5 36 minecraft:slime_block
+fill 7 3 34 7 4 36 minecraft:stone
+fill 2 2 42 12 2 48 minecraft:stone
+block 4 4 45 minecraft:piston[facing=east,extended=false]
+fill 5 3 44 6 5 46 minecraft:slime_block
+block 4 5 5 minecraft:redstone_block
+block 4 5 15 minecraft:redstone_block
+block 4 5 25 minecraft:redstone_block
+block 4 5 35 minecraft:redstone_block
+block 4 5 45 minecraft:redstone_block
+tick 6
+block 4 5 5 minecraft:air
+block 4 5 15 minecraft:air
+block 4 5 25 minecraft:air
+block 4 5 35 minecraft:air
+block 4 5 45 minecraft:air
+tick 6

@@ -11,6 +11,7 @@ pub mod rail_state;
 pub mod pattern;
 pub mod pattern_blocks;
 pub mod rotation_segment;
+pub mod piston;
 pub mod sculk_behaviour;
 pub mod segmentable_block;
 pub mod side_chain_part_block;

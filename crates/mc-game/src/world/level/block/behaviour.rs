@@ -412,6 +412,14 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     }
     /// `AbstractCauldronBlock.receiveStalactiteDrip(state, level, pos, fluid)`.
     fn receive_stalactite_drip(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _fluid: Fluid) {}
+
+    // ==== [Blocks:Pistons] ====
+    /// The state whose loot table `BlockBehaviour.getDrops` uses: `state` itself except `MovingPistonBlock` (the drops
+    /// of the block entity's moved state, nothing without a block entity). Consumed by `helpers::drop_resources`.
+    fn get_drops_state(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos) -> BlockState {
+        state
+    }
+    // ==== [/Blocks:Pistons] ====
 }
 
 /// Vanilla's base behavior (every method default).

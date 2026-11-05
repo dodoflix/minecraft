@@ -40,6 +40,7 @@ mod daylight_detector_block_entity;
 mod dispenser_block_entity;
 mod dropper_block_entity;
 pub mod hopper_block_entity;
+mod piston_moving_block_entity;
 mod potent_sulfur_block_entity;
 pub mod randomizable_container;
 mod sculk_catalyst_block_entity;
@@ -72,6 +73,7 @@ pub use command_block_entity::CommandBlockEntity;
 pub use jigsaw_block_entity::JigsawBlockEntity;
 pub use dispenser_block_entity::DispenserBlockEntity;
 pub use hopper_block_entity::{HopperBlockEntity, Hopper};
+pub use piston_moving_block_entity::{MovingPistonInfo, PistonMovingBlockEntity, moving_piston_collision_shape};
 pub use potent_sulfur_block_entity::PotentSulfurBlockEntity;
 pub use sculk_catalyst_block_entity::SculkCatalystBlockEntity;
 pub use sculk_sensor_block_entity::SculkSensorBlockEntity;
@@ -325,6 +327,10 @@ pub fn create_block_entity(ty: BlockEntityType, pos: BlockPos, state: BlockState
 /// `EntityBlock.newBlockEntity(pos, state)` for a block entity block: the registered implementation of the block entity
 /// type that is valid for the state's block (`None` while that type has no implementation).
 pub fn new_block_entity(pos: BlockPos, state: BlockState) -> Option<Box<dyn BlockEntity>> {
+    // `MovingPistonBlock.newBlockEntity` returns null: the entity is attached by `setBlockEntity` (`PistonBaseBlock`)
+    if state.block() == mc_data::Block::MOVING_PISTON {
+        return None;
+    }
     static BY_BLOCK: std::sync::OnceLock<std::collections::HashMap<mc_data::Block, BlockEntityType>> = std::sync::OnceLock::new();
     let map = BY_BLOCK.get_or_init(|| {
         let mut map = std::collections::HashMap::new();

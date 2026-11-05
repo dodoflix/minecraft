@@ -1,0 +1,30 @@
+# Piston extend/retract in all six directions (stone in front of the head), state + moving piston block entities every tick.
+level flat
+preload 2
+watch events blocks:4,1,4,5,5,4 be:4,4,4 be:4,3,4 be:4,2,4 blocks:12,3,4,13,7,4 be:12,4,4 be:12,5,4 be:12,6,4 blocks:20,4,1,20,5,5 be:20,4,4 be:20,4,3 be:20,4,2 blocks:28,4,3,28,5,7 be:28,4,4 be:28,4,5 be:28,4,6 blocks:33,4,4,37,5,4 be:36,4,4 be:35,4,4 be:34,4,4 blocks:43,4,4,47,5,4 be:44,4,4 be:45,4,4 be:46,4,4
+block 4 4 4 minecraft:piston[facing=down,extended=false]
+block 4 3 4 minecraft:stone
+block 12 4 4 minecraft:piston[facing=up,extended=false]
+block 12 5 4 minecraft:stone
+block 20 4 4 minecraft:piston[facing=north,extended=false]
+block 20 4 3 minecraft:stone
+block 28 4 4 minecraft:piston[facing=south,extended=false]
+block 28 4 5 minecraft:stone
+block 36 4 4 minecraft:piston[facing=west,extended=false]
+block 35 4 4 minecraft:stone
+block 44 4 4 minecraft:piston[facing=east,extended=false]
+block 45 4 4 minecraft:stone
+block 5 4 4 minecraft:redstone_block
+block 13 4 4 minecraft:redstone_block
+block 20 5 4 minecraft:redstone_block
+block 28 5 4 minecraft:redstone_block
+block 36 5 4 minecraft:redstone_block
+block 44 5 4 minecraft:redstone_block
+tick 6
+block 5 4 4 minecraft:air
+block 13 4 4 minecraft:air
+block 20 5 4 minecraft:air
+block 28 5 4 minecraft:air
+block 36 5 4 minecraft:air
+block 44 5 4 minecraft:air
+tick 6

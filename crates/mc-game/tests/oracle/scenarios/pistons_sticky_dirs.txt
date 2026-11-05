@@ -1,0 +1,55 @@
+# Sticky pistons in all six directions: push, retract and pull; second row: unpowered one tick after extending (block event 2).
+level flat
+preload 2
+watch events blocks:4,1,4,5,5,4 be:4,4,4 be:4,3,4 be:4,2,4 blocks:4,1,16,5,5,16 be:4,4,16 be:4,3,16 be:4,2,16 blocks:12,3,4,13,7,4 be:12,4,4 be:12,5,4 be:12,6,4 blocks:12,3,16,13,7,16 be:12,4,16 be:12,5,16 be:12,6,16 blocks:20,4,1,20,5,5 be:20,4,4 be:20,4,3 be:20,4,2 blocks:20,4,13,20,5,17 be:20,4,16 be:20,4,15 be:20,4,14 blocks:28,4,3,28,5,7 be:28,4,4 be:28,4,5 be:28,4,6 blocks:28,4,15,28,5,19 be:28,4,16 be:28,4,17 be:28,4,18 blocks:33,4,4,37,5,4 be:36,4,4 be:35,4,4 be:34,4,4 blocks:33,4,16,37,5,16 be:36,4,16 be:35,4,16 be:34,4,16 blocks:43,4,4,47,5,4 be:44,4,4 be:45,4,4 be:46,4,4 blocks:43,4,16,47,5,16 be:44,4,16 be:45,4,16 be:46,4,16
+block 4 4 4 minecraft:sticky_piston[facing=down,extended=false]
+block 4 3 4 minecraft:stone
+block 4 4 16 minecraft:sticky_piston[facing=down,extended=false]
+block 4 3 16 minecraft:stone
+block 12 4 4 minecraft:sticky_piston[facing=up,extended=false]
+block 12 5 4 minecraft:stone
+block 12 4 16 minecraft:sticky_piston[facing=up,extended=false]
+block 12 5 16 minecraft:stone
+block 20 4 4 minecraft:sticky_piston[facing=north,extended=false]
+block 20 4 3 minecraft:stone
+block 20 4 16 minecraft:sticky_piston[facing=north,extended=false]
+block 20 4 15 minecraft:stone
+block 28 4 4 minecraft:sticky_piston[facing=south,extended=false]
+block 28 4 5 minecraft:stone
+block 28 4 16 minecraft:sticky_piston[facing=south,extended=false]
+block 28 4 17 minecraft:stone
+block 36 4 4 minecraft:sticky_piston[facing=west,extended=false]
+block 35 4 4 minecraft:stone
+block 36 4 16 minecraft:sticky_piston[facing=west,extended=false]
+block 35 4 16 minecraft:stone
+block 44 4 4 minecraft:sticky_piston[facing=east,extended=false]
+block 45 4 4 minecraft:stone
+block 44 4 16 minecraft:sticky_piston[facing=east,extended=false]
+block 45 4 16 minecraft:stone
+block 5 4 4 minecraft:redstone_block
+block 5 4 16 minecraft:redstone_block
+block 13 4 4 minecraft:redstone_block
+block 13 4 16 minecraft:redstone_block
+block 20 5 4 minecraft:redstone_block
+block 20 5 16 minecraft:redstone_block
+block 28 5 4 minecraft:redstone_block
+block 28 5 16 minecraft:redstone_block
+block 36 5 4 minecraft:redstone_block
+block 36 5 16 minecraft:redstone_block
+block 44 5 4 minecraft:redstone_block
+block 44 5 16 minecraft:redstone_block
+tick 1
+block 5 4 16 minecraft:air
+block 13 4 16 minecraft:air
+block 20 5 16 minecraft:air
+block 28 5 16 minecraft:air
+block 36 5 16 minecraft:air
+block 44 5 16 minecraft:air
+tick 5
+block 5 4 4 minecraft:air
+block 13 4 4 minecraft:air
+block 20 5 4 minecraft:air
+block 28 5 4 minecraft:air
+block 36 5 4 minecraft:air
+block 44 5 4 minecraft:air
+tick 6

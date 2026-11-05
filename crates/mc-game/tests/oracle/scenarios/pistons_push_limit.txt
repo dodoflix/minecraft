@@ -1,0 +1,33 @@
+# Push limit 12: lanes of 12 and 13 stone blocks, with a popped block (flower) at the end of a line, and a sticky pull of a long line.
+level flat
+preload 2
+watch events blocks:3,3,4,19,5,4 blocks:3,3,8,19,5,8 blocks:3,3,12,19,5,12 blocks:3,3,16,19,5,16 blocks:3,3,20,19,5,20
+block 4 4 4 minecraft:piston[facing=east,extended=false]
+fill 5 4 4 16 4 4 minecraft:stone
+fill 3 3 4 19 3 4 minecraft:stone
+block 4 4 8 minecraft:piston[facing=east,extended=false]
+fill 5 4 8 17 4 8 minecraft:stone
+fill 3 3 8 19 3 8 minecraft:stone
+block 4 4 12 minecraft:piston[facing=east,extended=false]
+fill 5 4 12 15 4 12 minecraft:stone
+fill 3 3 12 19 3 12 minecraft:stone
+block 4 4 16 minecraft:piston[facing=east,extended=false]
+fill 5 4 16 16 4 16 minecraft:stone
+fill 3 3 16 19 3 16 minecraft:stone
+block 17 4 16 minecraft:poppy
+block 4 4 20 minecraft:piston[facing=east,extended=false]
+fill 5 4 20 17 4 20 minecraft:stone
+fill 3 3 20 19 3 20 minecraft:stone
+block 18 4 20 minecraft:poppy
+block 4 5 4 minecraft:redstone_block
+block 4 5 8 minecraft:redstone_block
+block 4 5 12 minecraft:redstone_block
+block 4 5 16 minecraft:redstone_block
+block 4 5 20 minecraft:redstone_block
+tick 6
+block 4 5 4 minecraft:air
+block 4 5 8 minecraft:air
+block 4 5 12 minecraft:air
+block 4 5 16 minecraft:air
+block 4 5 20 minecraft:air
+tick 6
