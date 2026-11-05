@@ -102,7 +102,7 @@ main, runs `cargo check --workspace --tests` (incremental), then under the merge
 dedicated slot and fast-forwards + pushes main (serialized, no retries/livelock). Resolve rebase conflicts keeping both sides' intent. Never merge by hand (a
 hand merge broke main once), never force-push/reset main, never discard others' work.
 
-**Backup:** remote `origin` = private GitHub repo `dodoflix/minecraft`. After merging to main run
+**Backup:** remote `origin` = public GitHub repo `dodoflix/minecraft`. After merging to main run
 `flock /tmp/mc-merge.lock git -C /home/dodo/Projects/minecraft push -q origin main`; after WIP/checkpoint commits
 push your branch (`git push -q origin <name>`; branch force-push only after your own rebase, never main).
 **Disk:** after your branch is merged and you're done, delete your worktree's build cache
@@ -114,6 +114,13 @@ compilation takes one of `MC_BUILD_SLOTS` (default 4) machine-wide slots at low 
 the slot. Never call `cargo` directly. JVMs are throttled automatically: `~/.local/bin/java` → `scripts/java-slot.sh`
 gives project JVMs (vanilla servers, oracle programs, real client = 2 slots) one of `MC_JVM_SLOTS` (default 3) slots for
 their whole lifetime — so always stop vanilla servers/clients you start, or you block everyone.
+
+**CI (GitHub Actions, public repo, free):** `.github/workflows/ci.yml` builds + tests the whole workspace (with Java and
+a cached `ref/`) on every push to main, and on demand for any branch:
+`gh workflow run ci.yml -R dodoflix/minecraft --ref <branch> [-f test_filter='-p mc-game --test foo']`, then
+`gh run list -R dodoflix/minecraft --branch <branch> --limit 1` + `gh run watch <id> -R dodoflix/minecraft --exit-status`.
+Use CI for full suites and long vanilla-oracle tests; use local `cargo-locked.sh` for fast compile iteration. If main's
+CI turns red, the author of the breaking commit fixes it first.
 
 **Commits use Conventional Commits**: `<type>(<scope>): <summary>` with type in
 `feat|fix|refactor|perf|test|docs|build|chore`, scope = crate without the `mc-` prefix or area
