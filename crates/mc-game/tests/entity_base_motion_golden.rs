@@ -48,12 +48,12 @@ fn replay(scenario: &str) -> Vec<String> {
     level.registries = registries();
     // `level flat`: grass at y=-61 (bedrock and dirt below are irrelevant for these scenarios)
     for x in -48..=64 {
-        for z in -16..=16 {
+        for z in -16..=48 {
             level.set_block(BlockPos::new(x, -61, z), Block::GRASS_BLOCK.default_state(), 3, 512);
         }
     }
     for cx in -4..=4 {
-        for cz in -2..=2 {
+        for cz in -2..=4 {
             level.entity_manager.update_chunk_status(mc_core::pos::ChunkPos::new(cx, cz), mc_game::world::level::entity::Visibility::Ticking);
         }
     }
@@ -135,4 +135,9 @@ fn compare_scenario(name: &str) {
 #[test]
 fn item_motion_matches_vanilla() {
     compare_scenario("item_motion");
+}
+
+#[test]
+fn item_collisions_match_vanilla() {
+    compare_scenario("item_collide");
 }
