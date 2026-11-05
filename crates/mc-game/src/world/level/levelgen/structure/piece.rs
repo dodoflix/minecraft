@@ -252,8 +252,8 @@ pub fn reorient(level: &dyn BlockGetter, block_pos: BlockPos, block_state: Block
 /// `RandomizableContainer.setLootTable(table, seed)` on the raw block entity NBT the level holds at `pos`
 /// (`LootTable`, and `LootTableSeed` only when non-zero: `trySaveLootTable`). Returns whether a block entity exists.
 pub fn set_loot_table(level: &mut dyn WorldGenLevel, pos: BlockPos, loot_table: &str, seed: i64) -> bool {
-    // `level.getBlockEntity(pos)`: a `DUMMY` entry becomes the block's fresh block entity
-    let Some(mut tag) = super::super::block_entity_data::get_block_entity_nbt(level, pos) else { return false };
+    let Some(existing) = level.get_block_entity_nbt(pos) else { return false };
+    let mut tag = existing.clone();
     tag.remove("Items");
     tag.put_string("LootTable", loot_table);
     if seed != 0 {
@@ -272,8 +272,7 @@ pub fn create_chest_at(level: &mut dyn WorldGenLevel, chunk_bb: &BoundingBox, ra
     if chunk_bb.is_inside(&pos) && level.get_block_state(pos).block() != Block::CHEST {
         let state = block_state.unwrap_or_else(|| reorient(level, pos, Block::CHEST.default_state()));
         level.set_block_flags(pos, state, 2);
-        let seed = random.next_long();
-        set_loot_table(level, pos, loot_table, seed);
+        set_block_entity_loot_table(level, random, pos, loot_table);
         true
     } else {
         false
@@ -651,18 +650,7 @@ pub trait StructurePiece: Any + Send + Sync {
     /// `createChest(level, chunkBB, random, pos, lootTable, blockState)`.
     #[allow(clippy::too_many_arguments)]
     fn create_chest_at(&self, level: &mut dyn WorldGenLevel, chunk_bb: &BoundingBox, random: &mut dyn RandomSource, pos: BlockPos, loot_table: &str, block_state: Option<BlockState>) -> bool {
-<<<<<<< HEAD
-        if chunk_bb.is_inside(&pos) && level.get_block_state(pos).block() != Block::CHEST {
-            let state = block_state.unwrap_or_else(|| reorient(level, pos, Block::CHEST.default_state()));
-            level.set_block_flags(pos, state, 2);
-            set_block_entity_loot_table(level, random, pos, loot_table);
-            true
-        } else {
-            false
-        }
-=======
         create_chest_at(level, chunk_bb, random, pos, loot_table, block_state)
->>>>>>> 9d2417f (feat(game): end city and woodland mansion structures, monument/mansion/end city golden (wip))
     }
 
     /// `createDispenser(level, chunkBB, random, x, y, z, facing, lootTable)`.
