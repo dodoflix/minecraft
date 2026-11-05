@@ -58,7 +58,7 @@ pub fn tick(entity: &mut dyn Entity, level: &mut ServerLevel) {
     if entity.base().tick_count % 20 == 0 {
         super::combat::recheck_status(entity, level);
     }
-    if l(entity).is_sleeping() && (!entity.can_interact_with_level() || !super::sleeping::check_bed_exists(entity, level)) {
+    if entity.is_sleeping() && (!entity.can_interact_with_level() || !super::sleeping::check_bed_exists(entity, level)) {
         super::sleeping::stop_sleeping(entity, level);
     }
     if !entity.is_removed() {
@@ -111,7 +111,7 @@ pub fn tick(entity: &mut dyn Entity, level: &mut ServerLevel) {
     } else {
         lm(entity).fall_fly_ticks = 0;
     }
-    if l(entity).is_sleeping() {
+    if entity.is_sleeping() {
         entity.set_x_rot(0.0);
     }
     super::effects::refresh_dirty_attributes(entity, level);

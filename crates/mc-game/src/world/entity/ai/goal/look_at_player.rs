@@ -20,12 +20,12 @@ pub enum LookAtType {
 pub struct LookAtPlayerGoal {
     /// `lookAt` (protected: `LookAtTradingPlayerGoal` assigns it).
     pub look_at: Option<EntityId>,
-    look_distance: f32,
-    look_time: i32,
-    probability: f32,
+    pub look_distance: f32,
+    pub look_time: i32,
+    pub probability: f32,
     only_horizontal: bool,
-    look_at_type: LookAtType,
-    look_at_context: TargetingConditions,
+    pub look_at_type: LookAtType,
+    pub look_at_context: TargetingConditions,
     /// `setFlags(...)` (`LOOK`; `InteractGoal` adds `MOVE`).
     flags: GoalFlags,
 }

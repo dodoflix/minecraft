@@ -57,6 +57,13 @@ impl AvoidEntityGoal {
         }
     }
 
+    /// The `predicateOnAvoidEntity` lambda captures the mob (`Fox`: `!this.trusts(entity) && !this.isDefending()`): evaluated
+    /// after the plain selector with the mob as `source`.
+    pub fn with_source_selector(mut self, selector: crate::world::entity::ai::targeting::SourceTargetSelector) -> Self {
+        self.avoid_entity_targeting = self.avoid_entity_targeting.source_selector(Some(selector));
+        self
+    }
+
     /// `canUse()`.
     pub fn can_use_impl(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let max_dist = f64::from(self.max_dist);

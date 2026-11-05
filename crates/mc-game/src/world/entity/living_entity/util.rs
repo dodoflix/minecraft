@@ -167,7 +167,7 @@ pub fn is_in_wall(entity: &dyn Entity, level: &ServerLevel) -> bool {
     use crate::world::level::block::state::BlockStateExt;
     use mc_core::phys::AABB;
     use mc_core::phys::shapes::{BooleanOp, Shapes};
-    if entity.living().is_some_and(|l| l.is_sleeping()) || entity.base().no_physics {
+    if entity.is_sleeping() || entity.base().no_physics {
         return false;
     }
     let check_width = f64::from(entity.base().dimensions.width * 0.8);

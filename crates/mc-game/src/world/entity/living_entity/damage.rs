@@ -75,7 +75,7 @@ pub fn hurt_server(entity: &mut dyn Entity, level: &mut ServerLevel, source: &Da
     if source.is_tag(level, DamageTypeTags::IS_FIRE) && entity.living().is_some_and(|l| l.active_effects.contains_key(&MobEffect::FIRE_RESISTANCE)) {
         return false;
     }
-    if entity.living().is_some_and(|l| l.is_sleeping()) {
+    if entity.is_sleeping() {
         stop_sleeping(entity, level);
     }
     entity.living_mut().expect("living").no_action_time = 0;

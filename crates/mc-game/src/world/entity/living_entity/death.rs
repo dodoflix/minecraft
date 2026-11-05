@@ -40,7 +40,7 @@ pub fn die(entity: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSour
         let (v, s) = (victim.clone(), source.clone());
         level.with_entity_or_defer(killer.id, move |level, killer_entity| killer_entity.award_kill_score(level, &v, &s));
     }
-    if entity.living().is_some_and(|l| l.is_sleeping()) {
+    if entity.is_sleeping() {
         super::sleeping::stop_sleeping(entity, level);
     }
     super::blocking::stop_using_item(entity, level);

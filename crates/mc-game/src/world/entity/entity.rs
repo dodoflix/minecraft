@@ -3626,6 +3626,15 @@ pub trait Entity: Any {
             if open { c.start_open(user) } else { c.stop_open(user) }
         }
     }
+    // ==== [FoxPanda] additions (Entity trait methods) ====
+    /// `LivingEntity.isSleeping()` (virtual: `Fox` keeps it in a synched flag instead of the sleeping position).
+    fn is_sleeping(&self) -> bool {
+        self.living().is_some_and(|l| l.is_sleeping())
+    }
+    /// `Mob.isAggressive()` (virtual: `Panda` reads its gene).
+    fn is_aggressive(&self) -> bool {
+        self.mob().is_some_and(|m| m.is_aggressive())
+    }
     // ==== [WardenMobs] additions (Entity trait methods) ====
     /// `Entity.updateDynamicGameEventListener(action)`: run by the level on tracking start (`Add`), tracking end (`Remove`)
     /// and section change (`Move`) of the entity (entities with a `DynamicGameEventListener`: warden, allay).
@@ -3662,7 +3671,7 @@ pub fn check_fall_damage_base(this: &mut dyn Entity, level: &mut ServerLevel, ya
 /// collides with); the `super.push(entity)` of overriding classes.
 pub fn push_entity_base<E: Entity + ?Sized>(this: &mut E, level: &ServerLevel, other: &mut dyn Entity) {
     // `LivingEntity.push`: sleeping entities do not take part
-    if this.living().is_some_and(|l| l.is_sleeping()) || this.is_passenger_of_same_vehicle(level, other.as_dyn()) {
+    if this.is_sleeping() || this.is_passenger_of_same_vehicle(level, other.as_dyn()) {
         return;
     }
     if other.base().no_physics || this.base().no_physics {
