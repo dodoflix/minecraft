@@ -7,7 +7,7 @@
 use crate::server::level::ServerLevel;
 use crate::world::entity::mob::ext;
 use crate::world::entity::synched_data::{EntityDataAccessor, serializer};
-use crate::world::entity::{Entity, EntityId};
+use crate::world::entity::Entity;
 use mc_nbt::CompoundTag;
 use mc_world::level_storage::Difficulty;
 use uuid::Uuid;
@@ -183,6 +183,3 @@ pub fn stop_being_angry(e: &mut dyn Entity, level: &ServerLevel) {
     e.set_target(level, None);
     set_persistent_anger_end_time(e, -1);
 }
-
-#[allow(dead_code)]
-fn _unused(_: EntityId) {}

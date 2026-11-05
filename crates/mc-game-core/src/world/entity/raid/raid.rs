@@ -12,7 +12,7 @@ use super::raid_boss_bar::RaidBossBar as ServerBossEvent;
 use super::raid_world;
 use crate::server::players::PlayerHandle;
 use crate::stats::stats::Stats;
-use crate::util::codec::{self, DataResult, DecodeResult, Partial};
+use crate::util::codec::{self, DataResult, DecodeResult};
 use crate::util::java_hash_order::JavaHashCapacity;
 use crate::world::entity::effect::MobEffectInstance;
 use crate::world::entity::equipment::EquipmentSlot;
@@ -1027,9 +1027,6 @@ fn decode_uuid(tag: &Tag) -> DataResult<Uuid> {
         _ => Err("Expected an int array of 4".to_string()),
     }
 }
-
-#[allow(dead_code)]
-fn _partial_marker(_: Partial<()>) {}
 
 #[cfg(test)]
 mod tests {

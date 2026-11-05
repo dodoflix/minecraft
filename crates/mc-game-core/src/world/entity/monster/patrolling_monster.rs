@@ -7,7 +7,7 @@ use crate::world::difficulty_instance::DifficultyInstance;
 use crate::world::entity::ai::goal::{Flag, Goal, GoalFlags};
 use crate::world::entity::mob::navigation;
 use crate::world::entity::raid::raid::Raid;
-use crate::world::entity::raid::raider::{self, RaiderData};
+use crate::world::entity::raid::raider::RaiderData;
 use crate::world::entity::spawn_group_data::SpawnGroupData;
 use crate::world::entity::{Entity, equipment::EquipmentSlot};
 use crate::world::level::server_level_accessor::ServerLevelAccessor;
@@ -208,9 +208,4 @@ impl Goal for LongDistancePatrolGoal {
     fn flags(&self) -> GoalFlags {
         GoalFlags::of(&[Flag::Move])
     }
-}
-
-#[allow(dead_code)]
-fn _raider_marker() {
-    let _ = raider::is_celebrating;
 }

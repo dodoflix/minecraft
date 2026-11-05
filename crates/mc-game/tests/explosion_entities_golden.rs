@@ -225,8 +225,6 @@ fn replay(name: &str) -> Vec<String> {
 /// Keep only the lines (and fields) the replay models.
 fn check(name: &str) {
     let fixture = Fixture::load(name);
-    let keep = |l: &&str| l.starts_with("P ") || l.starts_with("HURT ");
-    let _ = keep;
     let opts = Options {
         ignore_kinds: vec!["I", "PKT", "C", "#", "B", "EFFECT", "DIG", "T", "E"],
         ignore_fields: vec!["pos", "delta", "rot", "og", "fall", "fire", "air", "pose", "gm", "fx", "xp", "sel", "main"],

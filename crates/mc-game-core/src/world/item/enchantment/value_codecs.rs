@@ -614,8 +614,7 @@ fn with_gen_ctx<R>(f: impl FnOnce(&crate::world::level::levelgen::registries::De
     })
 }
 
-fn vec3i_offset_schema(max: i32, required: bool) -> Schema {
-    let _ = required;
+fn vec3i_offset_schema(max: i32, _required: bool) -> Schema {
     Schema::custom(move |v, _| {
         let list = v.as_array().ok_or_else(|| format!("Not a list: {v}"))?;
         let ints: Vec<i32> = list
@@ -686,13 +685,12 @@ fn vertical_anchor_schema() -> Schema {
 }
 
 fn block_predicate_schema() -> Schema {
-    use crate::registry::codec::{FieldKind as K, req};
+    use crate::registry::codec::req;
     fn resolve(name: &str) -> Option<Schema> {
         let block_set = |registry: &'static str| Schema::HolderSet { registry, always_list: false };
-        let tag_key = Schema::custom(|v, ctx| {
+        let tag_key = Schema::custom(|v, _ctx| {
             let s = v.as_str().ok_or_else(|| format!("Not a string: {v}"))?;
             let id = Identifier::read(s)?;
-            let _ = ctx;
             Ok(Tag::String(id.to_string()))
         });
         let offset = || offset_field();
@@ -717,7 +715,6 @@ fn block_predicate_schema() -> Schema {
             _ => return None,
         })
     }
-    let _ = K::Required;
     Schema::Dispatch { key: "type", resolve }
 }
 
@@ -732,7 +729,7 @@ pub struct BlockPredicateRef {
 pub fn block_predicate_codec() -> Codec<BlockPredicateRef> {
     Codec::from_fns(
         |ops, input: &BlockPredicateRef, _prefix| DataResult::success(mc_dfu::NBT.convert_to(ops, &Dyn::from(&input.nbt))),
-        |ops, input| {
+        |_ops, input| {
             let json = match dyn_to_json(input) {
                 Ok(j) => j,
                 Err(e) => return DataResult::error(move || e.clone()),
@@ -743,7 +740,6 @@ pub fn block_predicate_codec() -> Codec<BlockPredicateRef> {
             };
             match with_gen_ctx(|ctx| blockpredicates::decode(&json, ctx)) {
                 Ok(predicate) => {
-                    let _ = ops;
                     DataResult::success((BlockPredicateRef { predicate, nbt }, input.clone()))
                 }
                 Err(e) => {
@@ -764,13 +760,12 @@ pub struct BlockStateProviderRef {
 
 fn block_state_provider_schema() -> Schema {
     // `Codec.xor(BlockState.FULL_CODEC, TYPED_CODEC)`: an object with `id` is a state, with `type` a typed provider.
-    Schema::custom(|v, ctx| {
+    Schema::custom(|v, _ctx| {
         let o = v.as_object().ok_or_else(|| format!("Not a map: {v}"))?;
         if o.contains_key("id") {
             parse_block_state_json(v).map(|s| block_state_tag(s, false))
         } else {
             // typed providers other than `simple` keep the JSON-to-NBT narrowing (see Known gaps)
-            let _ = ctx;
             Ok(crate::registry::codec::json_to_nbt(v))
         }
     })

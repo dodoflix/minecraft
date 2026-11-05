@@ -331,11 +331,10 @@ impl Entity for AreaEffectCloud {
 
     fn refresh_dimensions(&mut self) {
         let p = self.base.position();
-        let old_dim = self.base.dimensions.clone();
+        let _old_dim = self.base.dimensions.clone();
         let new_dim = self.get_dimensions(Pose::Standing);
         self.base.eye_height = new_dim.eye_height;
         self.base.dimensions = new_dim;
-        let _ = old_dim;
         self.reapply_position();
         self.set_pos(p.x, p.y, p.z);
     }

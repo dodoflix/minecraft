@@ -222,7 +222,7 @@ impl ChunkMap {
         let mut holder = self.holders.pending_unloads.shift_remove(&key).expect("present");
         let pos = holder.get_pos();
         if holder.latest_chunk_status().is_some() {
-            let saved = match &mut holder.slot {
+            let _saved = match &mut holder.slot {
                 ChunkSlot::Level(chunk) => {
                     chunk.data.set_loaded(false);
                     self.save_slot(pos, &mut holder.slot)
@@ -230,7 +230,6 @@ impl ChunkMap {
                 slot @ ChunkSlot::Proto(_) => self.save_slot(pos, slot),
                 _ => false,
             };
-            let _ = saved;
             if let ChunkSlot::Level(chunk) = std::mem::take(&mut holder.slot) {
                 self.events.push(ChunkMapEvent::Unload(chunk));
             }

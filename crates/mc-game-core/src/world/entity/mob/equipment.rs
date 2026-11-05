@@ -10,7 +10,7 @@ use crate::world::difficulty_instance::DifficultyInstance;
 use crate::world::entity::equipment::{EquipmentSlot, EquipmentSlotType};
 use crate::world::entity::equipment_table::EquipmentTable;
 use crate::world::entity::item::ItemEntity;
-use crate::world::entity::living_entity::util::{l, lm};
+use crate::world::entity::living_entity::util::lm;
 use crate::world::entity::{Entity, EntityId};
 use crate::world::item::ItemStack;
 use crate::world::item::enchantment::actors::Actors;
@@ -389,11 +389,6 @@ pub fn equip(e: &mut dyn Entity, level: &mut ServerLevel, table: &EquipmentTable
             inserted.push(slot);
         }
     }
-}
-
-#[allow(dead_code)]
-fn _unused(_: &mut dyn Entity) {
-    let _ = l;
 }
 
 /// `getBaseExperienceReward(level)`: `Animal`: `1 + nextInt(3)`; `Mob`: `xpReward` plus 1-3 per worn equipment.

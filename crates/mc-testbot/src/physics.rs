@@ -648,7 +648,6 @@ impl PlayerBody {
         let affected_by_fluids = !self.abilities.flying;
         self.in_water = touch_w;
         self.in_lava = touch_l && !touch_w || (touch_l && fh_l > 0.0);
-        let _ = fh_l;
         let fluid_jump_threshold = if self.eye_height() < 0.4 { 0.0 } else { 0.4 };
         if self.jumping && affected_by_fluids {
             let fluid_h = if self.in_lava { fluid_height(world, &bb, FluidKind::Lava).1 } else { fh_w };

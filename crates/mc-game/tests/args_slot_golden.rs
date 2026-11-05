@@ -9,8 +9,8 @@ fn slot_matches_vanilla() {
     args_common::replay_with(
         "slot",
         include_str!("fixtures/args/slot_golden.txt"),
-        |ctx| { let _ = ctx; Arc::new(slot_arguments::SlotArgument::slot()) },
-        |v, src| { let _ = src; v.downcast_ref::<i32>().expect("slot").to_string() },
+        |_ctx| { Arc::new(slot_arguments::SlotArgument::slot()) },
+        |v, _src| { v.downcast_ref::<i32>().expect("slot").to_string() },
         None,
     );
 }

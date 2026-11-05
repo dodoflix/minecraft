@@ -140,7 +140,6 @@ fn light_task_order_matches_vanilla_dispatcher() {
     let (mut pumps, mut checks) = (0, 0);
     let mut fail = Vec::new();
     let mut barrier_pos: HashMap<u64, ChunkPos> = HashMap::new();
-    let mut expected_done: Vec<String> = Vec::new();
     for (lineno, line) in text.lines().enumerate() {
         let f: Vec<&str> = line.split(' ').collect();
         let ctx = || format!("line {} `{}`", lineno + 1, line);
@@ -198,7 +197,7 @@ fn light_task_order_matches_vanilla_dispatcher() {
             }
             "DONE" => {
                 checks += 1;
-                expected_done = f[1..].iter().filter(|t| !t.is_empty()).map(|t| t.to_string()).collect();
+                let expected_done: Vec<String> = f[1..].iter().filter(|t| !t.is_empty()).map(|t| t.to_string()).collect();
                 if s.done != expected_done {
                     fail.push(format!("[{}] {}: completion order {:?} != {:?}", s.name, ctx(), s.done, expected_done));
                 }
@@ -224,7 +223,6 @@ fn light_task_order_matches_vanilla_dispatcher() {
         }
         let _ = s.n;
     }
-    let _ = expected_done;
     assert!(ended);
     eprintln!("{pumps} pumps, {checks} checks, {} failures", fail.len());
     for m in fail.iter().take(40) {

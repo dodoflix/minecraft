@@ -772,8 +772,7 @@ impl Gen {
             .enumerate()
             .map(|(i, r)| {
                 assert_eq!(int(r, "id") as usize, i);
-                let (ty, default) = if s(r, "type") == "BOOL" { ("Bool", format!("GameRuleValue::Bool({})", flag(r, "default"))) } else { ("Int", format!("GameRuleValue::Int({})", int(r, "default"))) };
-                let _ = ty;
+                let (_ty, default) = if s(r, "type") == "BOOL" { ("Bool", format!("GameRuleValue::Bool({})", flag(r, "default"))) } else { ("Int", format!("GameRuleValue::Int({})", int(r, "default"))) };
                 format!(
                     "GameRuleData {{ default: {default}, min: {}, max: {}, category: {} }}",
                     opt(r.get("min").map(|v| v.as_i64().unwrap().to_string())),

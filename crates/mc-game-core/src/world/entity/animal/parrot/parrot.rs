@@ -27,7 +27,7 @@ use crate::world::level::server_level_accessor::ServerLevelAccessor;
 use crate::world::level::{BlockGetter as _, LevelReader as _};
 use linkme::distributed_slice;
 use mc_core::math::mth;
-use mc_core::phys::{AABB, Vec3};
+use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::Block;
@@ -515,6 +515,3 @@ crate::register_spawn_placement!(EntityType::PARROT, check_parrot_spawn_rules);
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static PARROT: EntityRegistration = EntityRegistration { entity_type: EntityType::PARROT, create: |ty, id, registries| Box::new(Parrot::new(ty, id, registries)) };
-
-#[allow(dead_code)]
-fn _unused(_: AABB) {}

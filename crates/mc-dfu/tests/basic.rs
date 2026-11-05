@@ -1,5 +1,4 @@
 use mc_dfu::*;
-use mc_nbt::Tag;
 
 #[derive(Clone, Debug, PartialEq)]
 struct Foo {
@@ -37,7 +36,6 @@ fn decode_errors() {
     assert!(parse_json(&foo(), r#"{"a":"nope"}"#).is_error());
     // 1.5 truncates like Number.intValue
     assert_eq!(parse_json(&foo(), r#"{"a":1.9}"#).into_result().unwrap().a, 1);
-    let _ = Tag::End;
 }
 
 #[test]

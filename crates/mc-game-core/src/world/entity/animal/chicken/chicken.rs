@@ -13,7 +13,6 @@ use crate::world::entity::ai::goal::{BreedGoal, FloatGoal, FollowParentGoal, Loo
 use crate::world::entity::ai::navigation::StandardPathNavigation;
 use crate::world::entity::dimensions::{EntityAttachments, EntityDimensions};
 use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use crate::world::entity::living_entity::util::l;
 use crate::world::entity::mob::{self, MobData, MobKind};
 use crate::world::entity::spawn_group_data::SpawnGroupData;
 use crate::world::entity::variant::{self, SpawnContext};
@@ -169,9 +168,8 @@ impl Entity for Chicken {
         Some("minecraft:chicken")
     }
 
-    fn get_dimensions(&self, pose: Pose) -> EntityDimensions {
+    fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
         if self.is_baby() { baby_dimensions() } else { {
-            let _ = pose;
             EntityDimensions::of_type(self.mob.living.entity.entity_type)
         } }
     }
@@ -331,8 +329,3 @@ impl Entity for Chicken {
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static CHICKEN: EntityRegistration = EntityRegistration { entity_type: EntityType::CHICKEN, create: |ty, id, registries| Box::new(Chicken::new(ty, id, registries)) };
-
-#[allow(dead_code)]
-fn _unused(e: &dyn Entity) {
-    let _ = l(e);
-}

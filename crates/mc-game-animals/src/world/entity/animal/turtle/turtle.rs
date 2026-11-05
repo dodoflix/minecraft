@@ -14,7 +14,6 @@ use crate::world::entity::ai::util::default_random_pos;
 use crate::world::entity::dimensions::{EntityAttachments, EntityDimensions};
 use crate::world::entity::experience_orb::ExperienceOrb;
 use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use crate::world::entity::living_entity::util::l;
 use crate::world::entity::mob::{self, MobData, MobKind, ageable, animal, ext, navigation};
 use crate::world::entity::spawn_group_data::SpawnGroupData;
 use crate::world::entity::spawn_predicates;
@@ -765,8 +764,3 @@ crate::register_spawn_placement!(EntityType::TURTLE, check_turtle_spawn_rules);
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static TURTLE: EntityRegistration = EntityRegistration { entity_type: EntityType::TURTLE, create: |ty, id, registries| Box::new(Turtle::new(ty, id, registries)) };
-
-#[allow(dead_code)]
-fn _unused(_: &dyn Entity) {
-    let _ = l;
-}

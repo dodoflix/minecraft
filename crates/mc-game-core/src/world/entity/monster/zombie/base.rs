@@ -6,11 +6,11 @@ use super::{
 use crate::server::level::ServerLevel;
 use crate::world::damagesource::{DamageEntity, DamageSource};
 use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::goal::{Goal, LookAtPlayerGoal, RandomLookAroundGoal};
+use crate::world::entity::ai::goal::{LookAtPlayerGoal, RandomLookAroundGoal};
 use crate::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::factory::{self, EntitySpawnRequest};
-use crate::world::entity::living_entity::util::{l, lm};
+use crate::world::entity::living_entity::util::lm;
 use crate::world::entity::mob;
 use crate::world::entity::spawn_group_data::SpawnGroupData;
 use crate::world::entity::{Entity, EntityId};
@@ -19,7 +19,6 @@ use crate::world::level::server_level_accessor::ServerLevelAccessor;
 use crate::impl_spawn_group_data;
 use mc_core::ident::Identifier;
 use mc_core::math::mth;
-use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::enums::EntitySpawnReason;
@@ -515,9 +514,4 @@ pub fn entity_update_swimming(zombie: &mut Zombie, level: &ServerLevel) {
             && BlockGetter::get_fluid_state(level, zombie.base().block_position()).is_tag("water");
         zombie.set_swimming(swimming);
     }
-}
-
-#[allow(dead_code)]
-fn _unused(_: &dyn Goal, _: Vec3, _: &mut dyn Entity) {
-    let _ = l;
 }

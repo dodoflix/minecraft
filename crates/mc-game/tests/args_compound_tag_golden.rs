@@ -9,8 +9,8 @@ fn compound_tag_matches_vanilla() {
     args_common::replay_with(
         "compound_tag",
         include_str!("fixtures/args/compound_tag_golden.txt"),
-        |ctx| { let _ = ctx; Arc::new(CompoundTagArgument::compound_tag()) },
-        |v, src| { let _ = src; mc_nbt::Tag::Compound(v.downcast_ref::<mc_nbt::CompoundTag>().expect("compound").clone()).to_string() },
+        |_ctx| { Arc::new(CompoundTagArgument::compound_tag()) },
+        |v, _src| { mc_nbt::Tag::Compound(v.downcast_ref::<mc_nbt::CompoundTag>().expect("compound").clone()).to_string() },
         None,
     );
 }

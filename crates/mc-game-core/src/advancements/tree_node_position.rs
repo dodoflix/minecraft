@@ -197,7 +197,7 @@ impl Layout<'_> {
 /// `TreeNodePosition.run(root)`: stores the final `x`/`y` in the tree's nodes.
 pub fn run(tree: &mut AdvancementTree, root: NodeId) {
     assert!(tree.node(root).advancement().display.is_some(), "Can't position children of an invisible root!");
-    let (layout, root_pos) = {
+    let (layout, _root_pos) = {
         let mut layout = Layout { tree, p: Vec::new() };
         let root_pos = layout.create(root, None, None, 1, 0);
         layout.first_walk(root_pos);
@@ -207,7 +207,6 @@ pub fn run(tree: &mut AdvancementTree, root: NodeId) {
         }
         (layout.p, root_pos)
     };
-    let _ = root_pos;
     for pos in &layout {
         tree.set_location(pos.node, pos.x as f32, pos.y);
     }

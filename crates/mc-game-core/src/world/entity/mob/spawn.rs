@@ -9,7 +9,6 @@ use crate::world::entity::living_entity::util::{l, lm};
 use crate::world::entity::spawn_group_data::SpawnGroupData;
 use crate::world::entity::Entity;
 use crate::world::level::server_level_accessor::ServerLevelAccessor;
-use crate::world::level::{BlockGetter, LevelReader};
 use mc_core::ident::Identifier;
 use mc_data::Attribute;
 use mc_data::enums::EntitySpawnReason;
@@ -146,6 +145,3 @@ pub fn pathfinder_check_spawn_rules(e: &dyn Entity, level: &dyn ServerLevelAcces
 pub fn is_persistence_required(m: &MobData) -> bool {
     m.persistence_required
 }
-
-#[allow(dead_code)]
-fn _unused(_: &dyn BlockGetter, _: &dyn LevelReader) {}

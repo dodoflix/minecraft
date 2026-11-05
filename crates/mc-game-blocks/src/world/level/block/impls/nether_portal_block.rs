@@ -30,9 +30,8 @@ impl BlockBehaviour for NetherPortalBlock {
             state
         }
     });
-    fn random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
+    fn random_tick(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         use mc_world::level_storage::Difficulty;
-        let _ = state;
         if level.is_spawning_monsters() && level.difficulty() != Difficulty::Peaceful && level.attribute_bool(crate::world::attribute::attributes::NETHER_PORTAL_SPAWNS_PIGLINS, pos) && {
             let difficulty_id = level.difficulty().get_id();
             level.random().next_int_bounded(2000) < difficulty_id

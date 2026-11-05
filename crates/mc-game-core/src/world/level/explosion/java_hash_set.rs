@@ -232,7 +232,7 @@ impl JavaBlockPosHashSet {
     }
 
     /// `TreeNode.putTreeVal`: false when the key exists.
-    fn put_tree_val(&mut self, index: usize, first: usize, h: i32, k: BlockPos) -> bool {
+    fn put_tree_val(&mut self, _index: usize, first: usize, h: i32, k: BlockPos) -> bool {
         let mut root = first;
         while self.nodes[root].parent != NIL {
             root = self.nodes[root].parent;
@@ -263,7 +263,6 @@ impl JavaBlockPosHashSet {
                 }
                 let new_root = self.balance_insertion(root, x);
                 self.move_root_to_front(new_root);
-                let _ = index;
                 return true;
             }
         }

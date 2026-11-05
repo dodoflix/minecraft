@@ -10,7 +10,7 @@ use crate::registry_context as ctx;
 use mc_core::ident::Identifier;
 use mc_data::registry::RegistryId;
 use mc_dfu::extra::IDENTIFIER;
-use mc_dfu::{Codec, DataResult, Dyn, Either};
+use mc_dfu::{Codec, DataResult, Either};
 
 /// Uninhabited direct value of registries that only accept references (`RegistryFixedCodec`).
 #[derive(Clone, Debug, PartialEq)]
@@ -250,6 +250,3 @@ pub fn decode_holder_set<T>(registry: &str, input: &mut &[u8]) -> DecodeResult<H
     }
     Ok(HolderSet::Direct(v))
 }
-
-#[allow(unused)]
-fn _keep(_: Dyn) {}

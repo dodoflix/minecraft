@@ -38,11 +38,10 @@ use crate::world::entity::player::ServerPlayer;
 use crate::world::entity::schedule::Activity;
 use crate::world::entity::spawn_group_data::SpawnGroupData;
 use crate::world::entity::{Entity, EntityId};
-use crate::world::item::trading::{self, Merchant, MerchantOffer, MerchantOffers};
+use crate::world::item::trading::{Merchant, MerchantOffer, MerchantOffers};
 use crate::world::item::{InteractionHand, InteractionResult, ItemStack};
 use crate::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
-use mc_core::ident::Identifier;
 use mc_core::math::mth;
 use mc_core::phys::AABB;
 use mc_core::pos::BlockPos;
@@ -741,9 +740,8 @@ impl Merchant for Villager {
         self.villager_xp
     }
 
-    fn override_xp(&mut self, xp: i32) {
+    fn override_xp(&mut self, _xp: i32) {
         // `Villager` does not override `overrideXp` (the base class ignores it; the xp is added by `rewardTradeXp`)
-        let _ = xp;
     }
 
     fn show_progress_bar(&self) -> bool {
@@ -802,12 +800,11 @@ impl Entity for Villager {
             self.request_special_prices_update(level);
         }
         Brain::tick(level, self);
-        if let Some(traded) = self.last_traded_player.take() {
+        if let Some(_traded) = self.last_traded_player.take() {
             let uuid = self.last_traded_player_uuid.take();
             if let Some(uuid) = uuid {
                 self.on_reputation_event_from(level, ReputationEventType::TRADE, uuid);
             }
-            let _ = traded;
             level.broadcast_entity_event(self.id(), 14);
         }
         if !self.mob.is_no_ai() && self.base_mut().random.next_int_bounded(100) == 0 {
@@ -1066,6 +1063,3 @@ impl Entity for Villager {
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static VILLAGER: EntityRegistration = EntityRegistration { entity_type: EntityType::VILLAGER, create: |ty, id, registries| Box::new(Villager::new(ty, id, registries)) };
-
-#[allow(dead_code)]
-fn _unused(_: &Identifier, _: ItemStack, _: trading::MerchantOffers) {}

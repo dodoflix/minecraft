@@ -55,8 +55,7 @@ fn init_idle_activity() -> ActivityData {
     )
 }
 
-fn init_fight_activity(body: &dyn Entity) -> ActivityData {
-    let _ = body;
+fn init_fight_activity(_body: &dyn Entity) -> ActivityData {
     let mut positives_left = 0i32;
     ActivityData::create_pairs_with_conditions(
         Activity::FIGHT,

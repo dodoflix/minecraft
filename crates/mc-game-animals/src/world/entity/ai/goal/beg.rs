@@ -5,7 +5,7 @@ use crate::server::level::ServerLevel;
 use crate::world::entity::ai::targeting::TargetingConditions;
 use crate::world::entity::animal::wolf::Wolf;
 use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::mob::{self, ext};
+use crate::world::entity::mob::ext;
 use crate::world::entity::{Entity, EntityId};
 use crate::world::item::ItemStack;
 use mc_core::random::RandomSource;
@@ -80,9 +80,4 @@ impl Goal for BegGoal {
     fn flags(&self) -> GoalFlags {
         GoalFlags::of(&[Flag::Look])
     }
-}
-
-#[allow(dead_code)]
-fn _unused() {
-    let _ = mob::set_zza;
 }

@@ -5,7 +5,6 @@ use std::collections::BTreeMap;
 
 use mc_core::ident::Identifier;
 use mc_game::registry::keys;
-use mc_game::server::registry_layer::RegistryLayer;
 use mc_world::level_storage::{DataPackConfig, FeatureFlagSet, WorldDataConfiguration};
 
 fn repo_root() -> std::path::PathBuf {
@@ -40,7 +39,6 @@ fn default_world_loads_all_registries_and_tags() {
     assert!(access.biome(&Identifier::parse("minecraft:plains").unwrap()).is_some());
     assert!(access.damage_type(&Identifier::parse("minecraft:in_fire").unwrap()).is_some());
     assert!(access.chat_type(&Identifier::parse("minecraft:chat").unwrap()).is_some());
-    let _ = RegistryLayer::World;
 
     // static tags equal the extractor's resolved tags
     let expected: BTreeMap<String, BTreeMap<String, Vec<String>>> =

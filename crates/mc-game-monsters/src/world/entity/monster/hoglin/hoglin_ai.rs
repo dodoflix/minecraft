@@ -278,6 +278,3 @@ pub fn is_pacified(body: &dyn Entity) -> bool {
 fn is_adult(e: &dyn Entity) -> bool {
     !e.is_baby()
 }
-
-#[allow(dead_code)]
-fn _unused(_: &mut dyn RandomSource) {}

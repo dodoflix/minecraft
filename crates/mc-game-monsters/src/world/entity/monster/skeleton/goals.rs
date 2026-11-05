@@ -13,7 +13,6 @@ use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
 use mc_data::{Item, MobEffect, SoundEvent};
-use mc_protocol::packets::play::level::SoundSource;
 use mc_world::level_storage::Difficulty;
 
 /// `ItemStack.is(tag)` for an item tag.
@@ -188,7 +187,6 @@ pub fn shear_bogged(skeleton: &mut AbstractSkeleton, level: &mut ServerLevel, pl
     let tool = player.get_item_in_hand(hand);
     // level.playSound(null, this, BOGGED_SHEAR, soundSource, 1.0F, 1.0F)
     skeleton.play_sound(level, SoundEvent::ENTITY_BOGGED_SHEAR, 1.0, 1.0);
-    let _ = SoundSource::Players;
     drop_from_shearing_loot_table(skeleton, level, &tool);
     skeleton.set_sheared(true);
     level.game_event_from_entity_ref(&*player, mc_data::GameEvent::SHEAR, skeleton.position());

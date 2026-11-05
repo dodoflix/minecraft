@@ -55,10 +55,7 @@ impl VillagerMakeLove {
         let mut child = child?;
         ageable::set_age_in_level(source, level, 6000);
         ageable::set_age_in_level(target, level, 6000);
-        let mut baby_age = -24000;
-        ageable::set_age(child.as_mut(), baby_age);
-        baby_age = 0;
-        let _ = baby_age;
+        ageable::set_age(child.as_mut(), -24000);
         let (x, y, z) = (source.base().x(), source.base().y(), source.base().z());
         child.snap_to(x, y, z, 0.0, 0.0);
         let id = child.id();

@@ -2,7 +2,7 @@
 //! ravagers. A concrete raider embeds [`RaiderData`], exposes it through `Entity::raider()`/`raider_mut()` and calls the
 //! functions of this module as its `super` calls (see [`raider_entity!`](crate::raider_entity)).
 
-use super::raid::{MAX_NO_ACTION_TIME as _, Raid, RaiderToken};
+use super::raid::{Raid, RaiderToken};
 use super::raids;
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
@@ -24,7 +24,7 @@ use mc_core::pos::BlockPos;
 use crate::world::level::pathfinder::Path;
 use mc_core::random::RandomSource;
 use mc_data::enums::EntitySpawnReason;
-use mc_data::{Attribute, EntityType, SoundEvent};
+use mc_data::{Attribute, EntityType};
 use mc_nbt::CompoundTag;
 use mc_protocol::packets::play::ClientboundTakeItemEntityPacket;
 use std::collections::HashMap;
@@ -689,6 +689,3 @@ impl Goal for RaiderMoveThroughVillageGoal {
         GoalFlags::of(&[Flag::Move])
     }
 }
-
-#[allow(dead_code)]
-fn _unused(_: SoundEvent) {}

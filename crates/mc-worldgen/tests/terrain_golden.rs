@@ -30,7 +30,7 @@ fn for_each_state(mut check: impl FnMut(&str, i64, &NoiseBasedChunkGenerator, &A
 
 fn with_noise_chunk<R>(
     generator: &NoiseBasedChunkGenerator,
-    setting: &str,
+    _setting: &str,
     rs: &Arc<RandomState>,
     seed: i64,
     chunk: &mc_world::chunk::ProtoChunk,
@@ -47,7 +47,6 @@ fn with_noise_chunk<R>(
         possible_biomes: None,
         carver_biome_cache: None,
     };
-    let _ = setting;
     let noise_settings = generator.settings().noise.clamp_to_height_accessor(chunk.get_height_accessor_for_generation());
     let mut noise_chunk = generator.create_noise_chunk(chunk.pos(), &ctx, noise_settings);
     f(&mut noise_chunk)
@@ -198,7 +197,6 @@ fn origin_matches_vanilla() {
         }
     });
     report("getOrigin", checked, &bad);
-    let _ = BlockPos::ZERO;
 }
 
 #[test]

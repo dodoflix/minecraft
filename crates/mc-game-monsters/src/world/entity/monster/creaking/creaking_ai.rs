@@ -24,9 +24,8 @@ impl Behavior for CreakingSwim {
     fn check_extra_start_conditions(&mut self, level: &mut ServerLevel, body: &mut dyn Entity) -> bool {
         can_move(body) && self.0.check_extra_start_conditions(level, body)
     }
-    fn can_still_use(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, timestamp: i64) -> bool {
+    fn can_still_use(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, _timestamp: i64) -> bool {
         // `Swim.canStillUse` is the (overridden) `checkExtraStartConditions`
-        let _ = timestamp;
         self.check_extra_start_conditions(level, body)
     }
     fn tick(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, timestamp: i64) {

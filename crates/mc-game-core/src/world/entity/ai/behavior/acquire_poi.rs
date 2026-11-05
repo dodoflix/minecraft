@@ -39,7 +39,7 @@ pub fn create_validated(
     let mut next_scheduled_start: i64 = 0;
     let mut batch_cache: HashMap<i64, JitteredLinearRetry> = HashMap::new();
     let mut i = BehaviorBuilder::instance();
-    let to_acquire = i.absent(&memory_to_acquire);
+    let _to_acquire = i.absent(&memory_to_acquire);
     let mut acquire_poi = i.create(move |c| {
         if only_if_adult && c.body().is_baby() {
             return false;
@@ -95,7 +95,6 @@ pub fn create_validated(
                 }
             }
         }
-        let _ = &to_acquire;
         true
     });
     if memory_to_acquire == memory_to_validate {

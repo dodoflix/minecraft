@@ -180,10 +180,6 @@ pub fn component_codec() -> Codec<Component> {
     )
 }
 
-/// `Tag` value of a text component for stream use is `Component: Encode + Decode` (see `codec::text`).
-#[allow(dead_code)]
-fn _tag_marker(_: Tag) {}
-
 // ---- sound events ------------------------------------------------------------------------------------------------
 
 /// `SoundEvent` (a registered or inline sound): `location` + optional fixed range.

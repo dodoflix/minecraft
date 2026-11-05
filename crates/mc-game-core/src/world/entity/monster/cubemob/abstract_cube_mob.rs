@@ -510,13 +510,12 @@ pub fn before_remove<T: CubeMob + ?Sized>(this: &mut T, level: &mut ServerLevel,
         // and the `afterConversion` callback, so it is made first
         let yaw = this.base_mut().random.next_float() * 360.0;
         let pos = this.base().position();
-        mob::convert::convert_to(this.as_dyn_mut(), level, ty, &params, EntitySpawnReason::Triggered, |cube_mob, level| {
+        mob::convert::convert_to(this.as_dyn_mut(), level, ty, &params, EntitySpawnReason::Triggered, |cube_mob, _level| {
             cube_mut(cube_mob).set_size(half_size, true);
             cube_mob.snap_to(pos.x + f64::from(xd), pos.y + 0.5, pos.z + f64::from(zd), yaw, 0.0);
             if babies {
                 mob::ageable::set_baby(cube_mob, true);
             }
-            let _ = level;
         });
     }
 }

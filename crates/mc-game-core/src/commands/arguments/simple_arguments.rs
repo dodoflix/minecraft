@@ -2,7 +2,7 @@
 //! `UuidArgument`, `DimensionArgument`, `GameModeArgument`, `SwingAnimationArgument`, `TeamColorArgument`,
 //! `HeightmapTypeArgument`, `TemplateMirrorArgument`, `TemplateRotationArgument`.
 
-use super::coordinates::{ERROR_EXPECTED_DOUBLE, WorldCoordinate};
+use super::coordinates::WorldCoordinate;
 use super::string_representable_argument::string_representable_argument;
 use crate::commands::message::{dynamic_translatable, message, simple_translatable};
 use crate::commands::shared_suggestion_provider::{suggest, suggest_resource};
@@ -520,11 +520,6 @@ impl ArgumentType<CommandSourceStack> for UuidArgument {
     fn describe(&self) -> String {
         "UuidArgument".to_owned()
     }
-}
-
-#[allow(dead_code)]
-fn _unused() {
-    let _ = ERROR_EXPECTED_DOUBLE.create();
 }
 
 crate::register_argument_type!(AngleArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::Angle);

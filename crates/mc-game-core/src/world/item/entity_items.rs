@@ -4,7 +4,6 @@
 use super::{BlockPlaceContext, InteractionResult, ItemBehaviour, ItemStack, UseOnContext};
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
-use crate::world::entity::decoration::armor_stand::ArmorStand;
 use crate::world::entity::decoration::cushion::Cushion;
 use crate::world::entity::decoration::hanging::Hanging;
 use crate::world::entity::decoration::item_frame::ItemFrame;
@@ -13,7 +12,7 @@ use crate::world::entity::dimensions::EntityDimensions;
 use crate::world::entity::spawn_config::{apply_default_stack_config, create_at};
 use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::level::block::BlockStateExt;
-use crate::world::level::collision::{CollisionGetter, CollisionContext};
+use crate::world::level::collision::CollisionGetter;
 use crate::world::level::BlockGetter;
 use mc_core::direction::Direction;
 use mc_core::math::mth;
@@ -58,11 +57,10 @@ impl ItemBehaviour for ArmorStandItem {
             let y_rot = mth::floor_f32((mth::wrap_degrees_f32(context.get_rotation() - 180.0) + 22.5) / 45.0) as f32 * 45.0;
             let p = entity.base().position();
             entity.snap_to(p.x, p.y, p.z, y_rot, 0.0);
-            let entity_id = entity.id();
+            let _entity_id = entity.id();
             level.add_fresh_entity_with_passengers(vec![entity]);
             level.play_sound_at(None, p.x, p.y, p.z, SoundEvent::ENTITY_ARMOR_STAND_PLACE, SoundSource::Blocks, 0.75, 0.8);
             level.game_event_from_entity(Some(player.id()), GameEvent::ENTITY_PLACE, p);
-            let _ = entity_id;
             context.item_stack.shrink(1);
             InteractionResult::SUCCESS
         } else {
@@ -224,6 +222,3 @@ impl ItemBehaviour for CushionItem {
 fn get_spawn_aabb(ty: EntityType, pos: Vec3) -> AABB {
     EntityDimensions::of_type(ty).scale(ty.data().spawn_dimensions_scale).make_bounding_box_vec(pos)
 }
-
-#[allow(dead_code)]
-fn _context(_: CollisionContext) {}

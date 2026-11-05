@@ -12,7 +12,7 @@ use tokio::sync::{mpsc, watch, Notify};
 use tokio::task::JoinHandle;
 use tokio::time::{interval, Instant, MissedTickBehavior};
 
-use crate::conn::{log_packet, log_undecodable, short_name, Conn, SharedLog, WirePacket};
+use crate::conn::{log_packet, log_undecodable, Conn, SharedLog, WirePacket};
 use crate::error::{BotError, Result};
 use crate::join::{self, BotOptions};
 use crate::log::{Dir, PacketLog};
@@ -727,6 +727,5 @@ async fn reconfigure_phase(
     } else {
         st.phase = Phase::Joining;
     }
-    let _ = short_name;
     Ok(())
 }

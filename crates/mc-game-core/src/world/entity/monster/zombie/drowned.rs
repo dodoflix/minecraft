@@ -55,13 +55,6 @@ fn data(zombie: &Zombie) -> &DrownedData {
     }
 }
 
-fn data_mut(zombie: &mut Zombie) -> &mut DrownedData {
-    match &mut zombie.kind {
-        ZombieKind::Drowned(d) => d,
-        _ => unreachable!("not a drowned"),
-    }
-}
-
 /// The body of the `Drowned` constructor after `Zombie`'s.
 pub fn init(zombie: &mut Zombie) {
     zombie.mob.move_control = Some(Box::new(DrownedMoveControl { base: MoveControlBase::default() }));
@@ -358,12 +351,6 @@ impl MoveControl for DrownedMoveControl {
             crate::world::entity::ai::control::move_control::base_tick(&mut self.base, mob, level);
         }
     }
-}
-
-#[allow(dead_code)]
-fn _unused(zombie: &Zombie) {
-    let _ = (data(zombie), l);
-    let _ = data_mut;
 }
 
 /// `LivingEntity.startUsingItem(MAIN_HAND)` for a mob (the equipment packet and the use vibration are player-only).

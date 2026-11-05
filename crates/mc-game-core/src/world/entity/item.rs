@@ -433,9 +433,8 @@ fn is_mob(ty: EntityType, is_living: bool, is_player: bool) -> bool {
 
 /// `Entity.moveTowardsClosestSpace(x, y, z)`.
 pub fn move_towards_closest_space(entity: &mut dyn Entity, level: &ServerLevel, x: f64, y: f64, z: f64) {
-    use crate::world::damagesource::DamageSource;
+    
 use crate::world::level::{BlockGetter, LevelAccessor};
-use mc_data::GameEvent;
     let pos = BlockPos::containing(x, y, z);
     let delta = Vec3::new(x - f64::from(pos.x()), y - f64::from(pos.y()), z - f64::from(pos.z()));
     let mut closest_direction = Direction::Up;
@@ -455,8 +454,7 @@ use mc_data::GameEvent;
     let speed = entity.base_mut().random.next_float() * 0.2 + 0.1;
     let step = closest_direction.get_axis_direction().get_step() as f32;
     let scaled = entity.base().delta_movement().scale(0.75);
-    let (s, speed) = (f64::from(step * speed), ());
-    let _ = speed;
+    let (s, _speed) = (f64::from(step * speed), ());
     match closest_direction.get_axis() {
         Axis::X => entity.base_mut().set_delta_movement_xyz(s, scaled.y, scaled.z),
         Axis::Y => entity.base_mut().set_delta_movement_xyz(scaled.x, s, scaled.z),

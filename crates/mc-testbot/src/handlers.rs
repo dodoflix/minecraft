@@ -88,14 +88,13 @@ impl State {
                 }
             }
             P::SetEntityData(p) => {
-                let own = p.id == self.entity_id;
+                let _own = p.id == self.entity_id;
                 let e = self.entities.entry(p.id).or_insert_with(|| {
                     TrackedEntity::new(p.id, uuid::Uuid::nil(), EntityType::PLAYER, Vec3::ZERO)
                 });
                 for v in p.packed_items {
                     e.data.insert(v.id, v.value);
                 }
-                let _ = own;
             }
             P::SetPassengers(p) => {
                 for e in self.entities.values_mut() {

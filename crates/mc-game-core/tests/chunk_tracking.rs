@@ -90,8 +90,7 @@ fn player_loads_ticks_and_unloads_chunks() {
     view.for_each(|p| {
         expected.insert(p.pack());
     });
-    run_until(&mut level, "all tracked chunks to be ready to send", |l| {
-        let _ = l;
+    run_until(&mut level, "all tracked chunks to be ready to send", |_l| {
         state.lock().unwrap().pending.len() >= expected.len()
     });
     assert_eq!(state.lock().unwrap().pending, expected);

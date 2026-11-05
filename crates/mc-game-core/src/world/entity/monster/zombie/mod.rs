@@ -382,11 +382,10 @@ impl Entity for Zombie {
         }
     }
 
-    fn remove_when_far_away(&self, distance_to_closest_player: f64) -> bool {
+    fn remove_when_far_away(&self, _distance_to_closest_player: f64) -> bool {
         match self.kind {
             ZombieKind::ZombieVillager(_) => zombie_villager::remove_when_far_away(self),
             _ => {
-                let _ = distance_to_closest_player;
                 true
             }
         }

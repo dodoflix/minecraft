@@ -11,7 +11,6 @@ mod common;
 use std::collections::BTreeMap;
 
 use mc_core::ident::Identifier;
-use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
 use mc_data::Item;
 use mc_data::enums::GameType;
@@ -22,7 +21,6 @@ use mc_game::world::entity::plain::PlainEntity;
 use mc_game::world::entity::{Entity, ServerPlayer};
 use mc_game::world::item::ItemStack;
 use mc_game::world::item::enchantment::actors::Actors;
-use mc_game::world::item::enchantment::enchantment::Enchantment;
 use mc_game::world::item::enchantment::enchantment_effect_components::EffectComponent;
 use mc_game::world::item::enchantment::enchantment_tags;
 use mc_game::world::item::enchantment_helper as eh;
@@ -45,8 +43,7 @@ fn bits(f: f32) -> String {
     (f.to_bits() as i32).to_string()
 }
 
-fn player(name: &str, n: i32, level: &ServerLevel) -> ServerPlayer {
-    let _ = level;
+fn player(name: &str, n: i32, _level: &ServerLevel) -> ServerPlayer {
     let profile = GameProfile { id: uuid::Uuid::from_u128(n as u128), name: name.into(), properties: vec![] };
     let mut p = ServerPlayer::new(n, Identifier::parse("minecraft:overworld").unwrap(), profile, Default::default());
     p.set_game_mode_for_player(GameType::Survival, None);
@@ -192,14 +189,12 @@ fn enchantment_helper_equals_vanilla() {
                     .map(|tag| tag.trim_start_matches("minecraft:"))
                     .collect();
                 tags.sort();
-                let _ = Enchantment::are_compatible;
                 check("HAS", &format!("HAS {}", t[1]), format!("{} | {}", comps.join(","), tags.join(",")), line.splitn(3, ' ').nth(2).unwrap_or(""));
             }
             "" => {}
             other => panic!("unknown section {other}"),
         }
     }
-    let _ = Vec3::ZERO;
     eprintln!("compared: {counts:?}");
     if !mismatches.is_empty() {
         for (kind, list) in &mismatches {

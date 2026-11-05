@@ -3,7 +3,6 @@
 //! and ordering is vanilla's `ServerGamePacketListenerImpl`.
 
 use super::{PlayCtx, seam};
-use crate::server::level::ServerLevel;
 use crate::world::level::BlockGetter;
 use crate::world::entity::{Entity, MoverType};
 use mc_core::math::mth;
@@ -11,9 +10,7 @@ use mc_core::phys::shapes::{BooleanOp, Shapes};
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;
 use mc_protocol::packets::play::{
-    ClientboundBlockChangedAckPacket, ClientboundBlockUpdatePacket, ClientboundMoveVehiclePacket, ClientboundPlayerPositionPacket, PositionAndRotation,
-    PositionMoveRotation,
-    Relatives, ServerboundAcceptTeleportationPacket, ServerboundMovePlayerPosPacket, ServerboundMovePlayerPosRotPacket, ServerboundMovePlayerRotPacket,
+    ClientboundBlockChangedAckPacket, ClientboundBlockUpdatePacket, ClientboundMoveVehiclePacket, PositionAndRotation, ServerboundAcceptTeleportationPacket, ServerboundMovePlayerPosPacket, ServerboundMovePlayerPosRotPacket, ServerboundMovePlayerRotPacket,
     ServerboundMovePlayerStatusOnlyPacket, ServerboundMoveVehiclePacket, ServerboundPlayerLoadedPacket,
 };
 use mc_text::Component;
@@ -304,9 +301,7 @@ impl PlayCtx<'_> {
         vehicle.r#move(&mut *self.level, MoverType::Player, Vec3::new(x_dist, y_dist, z_dist));
         let now_pos = vehicle.position();
         x_dist = target_x - now_pos.x;
-        y_dist = target_y - now_pos.y;
         // vanilla: `if (yDist > -0.5 || yDist < 0.5)` is always true
-        let _ = y_dist;
         y_dist = 0.0;
         z_dist = target_z - now_pos.z;
         moved_dist = x_dist * x_dist + y_dist * y_dist + z_dist * z_dist;
@@ -507,7 +502,6 @@ impl PlayCtx<'_> {
         self.player.r#move(&mut *self.level, MoverType::Player, Vec3::new(x_dist, y_dist, z_dist));
         let now_pos = self.player.position();
         x_dist = target_x - now_pos.x;
-        y_dist = target_y - now_pos.y;
         // vanilla: `if (yDist > -0.5 || yDist < 0.5)` is always true
         y_dist = 0.0;
         z_dist = target_z - now_pos.z;

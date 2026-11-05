@@ -8,7 +8,6 @@ use crate::world::entity::Entity;
 use crate::world::entity::ai::memory::EntityRef;
 use crate::world::entity::ai::memory::memory_module_type::{INTERACTION_TARGET, LOOK_TARGET};
 use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::mob;
 use crate::world::entity::npc::villager::villager_mut;
 use crate::world::item::trading::Merchant;
 use crate::world::item::ItemStack;
@@ -134,9 +133,4 @@ impl Behavior for ShowTradesToPlayer {
         clear_held_item(level, body);
         self.player_item_stack = None;
     }
-}
-
-#[allow(dead_code)]
-fn _unused() {
-    let _ = mob::MOB_FLAG_NO_AI;
 }

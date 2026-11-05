@@ -5,7 +5,7 @@
 //! (`vehicle`, `passengers`) are ids resolved through the level.
 
 use super::dimensions::{EntityAttachment, EntityAttachments, EntityDimensions};
-use super::synched_data::{EntityDataAccessor, SynchedEntityData, SynchedEntityDataBuilder, serializer};
+use super::synched_data::{SynchedEntityData, SynchedEntityDataBuilder};
 use super::tag_set::JavaStringSet;
 use super::vec_delta_codec::VecDeltaCodec;
 use super::{EntityId, MoverType, RemovalReason};
@@ -1672,7 +1672,7 @@ pub trait Entity: Any {
     }
     /// `isFree(xa, ya, za)`.
     fn is_free(&self, level: &ServerLevel, xa: f64, ya: f64, za: f64) -> bool {
-        use crate::world::level::collision::{BlockGetterExt, CollisionGetter};
+        use crate::world::level::collision::CollisionGetter;
         let bx = self.base().bounding_box().move_(xa, ya, za);
         level.no_collision(Some(self.id()), Some(&super::movement::collision_context(self.as_dyn())), &bx) && !super::movement::contains_any_liquid(level, &bx)
     }
@@ -2628,8 +2628,7 @@ pub trait Entity: Any {
     fn is_always_experience_dropper(&self) -> bool {
         false
     }
-    fn get_base_experience_reward(&mut self, level: &ServerLevel) -> i32 {
-        let _ = level;
+    fn get_base_experience_reward(&mut self, _level: &ServerLevel) -> i32 {
         super::mob::equipment::get_base_experience_reward(self.as_dyn_mut())
     }
 
@@ -3380,8 +3379,7 @@ pub trait Entity: Any {
     }
     /// `TamableAnimal.setTame(isTame, includeSideEffects)` (virtual: `Cat` reassesses its goals). `level` is given when the
     /// caller has one (running goals can then be stopped).
-    fn set_tame(&mut self, level: Option<&mut ServerLevel>, is_tame: bool, include_side_effects: bool) {
-        let _ = level;
+    fn set_tame(&mut self, _level: Option<&mut ServerLevel>, is_tame: bool, include_side_effects: bool) {
         super::mob::tamable::set_tame(self.as_dyn_mut(), is_tame, include_side_effects);
     }
     /// `canBeLeashed()` for classes whose answer depends on level state (`Wolf`: not while angry); callers use this one.
@@ -4078,10 +4076,6 @@ pub fn common_tick<E: Entity + ?Sized>(entity: &mut E) {
     b.set_old_pos_and_rot();
     b.tick_count = b.tick_count.wrapping_add(1);
 }
-
-/// Silence unused warnings for items used by sibling modules.
-#[allow(dead_code)]
-fn _uses(_: EntityAttachment) {}
 
 /// `EquipmentSlot` -> the wire enum (`STREAM_CODEC` writes the slot id).
 pub fn protocol_slot(slot: super::equipment::EquipmentSlot) -> mc_protocol::packets::play::EquipmentSlot {

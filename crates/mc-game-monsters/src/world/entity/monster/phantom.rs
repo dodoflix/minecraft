@@ -425,8 +425,7 @@ impl Goal for PhantomSweepAttackGoal {
         let Some((tx, ty, tz, target_bb)) = level.get_entity(target).map(|t| (t.base().x(), t.base().get_y_progress(0.5), t.base().z(), t.base().bounding_box())) else { return };
         phantom_mut(mob).move_target_point = Vec3::new(tx, ty, tz);
         if mob.base().bounding_box().inflate(f64::from(0.2f32), f64::from(0.2f32), f64::from(0.2f32)).intersects_aabb(&target_bb) {
-            let hit_target = level.with_entity(target, |level, t| mob.do_hurt_target(level, t));
-            let _ = hit_target;
+            let _ = level.with_entity(target, |level, t| mob.do_hurt_target(level, t));
             phantom_mut(mob).attack_phase = AttackPhase::Circle;
             if !mob.base().is_silent() {
                 level.level_event_impl(None, 1039, mob.block_position(), 0);

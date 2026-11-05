@@ -1,6 +1,6 @@
 //! `PathfinderMob`: walk target value, panic state, leash following.
 
-use super::{MobKind, ext, leashable, navigation};
+use super::{MobKind, leashable, navigation};
 use crate::server::level::ServerLevel;
 use crate::world::entity::ai::goal::Flag;
 use crate::world::entity::{Entity, EntityId};
@@ -65,9 +65,4 @@ pub fn when_leashed_to(e: &mut dyn Entity, level: &mut ServerLevel, holder: Enti
         }
     }
     leashable::when_leashed_to(e, level, holder);
-}
-
-#[allow(dead_code)]
-fn _unused(_: &dyn Entity) {
-    let _ = ext::is_creative_player;
 }

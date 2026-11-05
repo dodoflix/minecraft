@@ -63,7 +63,9 @@ impl LongJump {
             return true;
         }
         let Some(attack_target) = breeze.brain().get_memory(&ATTACK_TARGET).map(|r| r.0) else { return false };
-        let Some(target_position) = level.get_entity(attack_target).map(|t| t.position()) else { return false };
+        if level.get_entity(attack_target).is_none() {
+            return false;
+        }
         if out_of_aggro_range(level, breeze, attack_target) {
             breeze.brain_mut().erase_memory(&ATTACK_TARGET);
             return false;
@@ -71,7 +73,6 @@ impl LongJump {
         if too_close_for_jump(level, breeze, attack_target) || !can_jump_from_current_position(level, breeze) {
             return false;
         }
-        let _ = target_position;
         let behind = {
             let target = level.get_entity(attack_target).expect("resolved above");
             breeze_util::random_point_behind_target(target, &mut breeze.base_mut().random)

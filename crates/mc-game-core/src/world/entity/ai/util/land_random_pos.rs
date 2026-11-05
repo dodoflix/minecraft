@@ -89,6 +89,3 @@ pub fn generate_random_pos_toward_direction(mob: &mut dyn Entity, level: &mut Se
     let pos = random_pos::generate_random_pos_toward_direction(mob, horizontal_dist, direction);
     (!gu::is_outside_limits(level, pos) && !gu::is_restricted(restrict, mob, pos) && !gu::is_not_stable(mob, level, pos)).then_some(pos)
 }
-
-#[allow(dead_code)]
-fn _unused(_: &mut dyn RandomSource) {}

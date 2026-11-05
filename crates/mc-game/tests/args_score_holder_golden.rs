@@ -9,8 +9,8 @@ fn score_holder_matches_vanilla() {
     args_common::replay_with(
         "score_holder",
         include_str!("fixtures/args/score_holder_golden.txt"),
-        |ctx| { let _ = ctx; Arc::new(ScoreHolderArgument::score_holder()) },
-        |v, src| { let _ = src; args_common::render_score_holder(v.downcast_ref::<scores::ScoreHolderResult>().expect("result"), &args_common::render_source()) },
+        |_ctx| { Arc::new(ScoreHolderArgument::score_holder()) },
+        |v, _src| { args_common::render_score_holder(v.downcast_ref::<scores::ScoreHolderResult>().expect("result"), &args_common::render_source()) },
         Some(scores::suggest_score_holders()),
     );
 }

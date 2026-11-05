@@ -191,6 +191,3 @@ fn setblock_and_fill_packets_match_vanilla() {
     }
     level.close();
 }
-
-#[allow(dead_code)]
-fn _uses(_: &dyn Entity) {}

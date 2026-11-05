@@ -228,8 +228,7 @@ impl MerchantMenu {
 
     /// `MerchantContainer.updateSellItem()` over offers the caller already holds (the merchant itself is out of the level, so
     /// `with_merchant` cannot reach it); returns the result item the caller passes to `notifyTradeUpdated`.
-    pub fn update_sell_item_with_offers(&mut self, player: &mut dyn MenuPlayer, offers: &mut super::super::item::trading::MerchantOffers) -> Option<ItemStack> {
-        let _ = &player;
+    pub fn update_sell_item_with_offers(&mut self, _player: &mut dyn MenuPlayer, offers: &mut super::super::item::trading::MerchantOffers) -> Option<ItemStack> {
         let container = self.container();
         container.active_offer = None;
         let (buy_a, buy_b) = if container.items[0].is_empty() { (container.items[1].clone(), ItemStack::empty()) } else { (container.items[0].clone(), container.items[1].clone()) };

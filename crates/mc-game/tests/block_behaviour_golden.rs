@@ -4,7 +4,6 @@
 //! the pools and the hashing). One 64-bit hash per block is compared with `tests/fixtures/block_behaviour.txt`.
 //! Debugging a mismatch: `BLOCK_BEHAVIOUR_VERBOSE=<block> cargo test ... -- --nocapture` prints the per-state detail in
 //! the format of `scripts/golden-block-behaviour.sh verbose <block>`.
-use mc_core::direction::Direction;
 use mc_core::mirror::Mirror;
 use mc_core::pos::BlockPos;
 use mc_core::random::{LegacyRandomSource, RandomSource};
@@ -198,7 +197,6 @@ fn eval_state(stub: &mut Stub, s: BlockState, verbose: &mut Option<String>) -> u
 
 #[test]
 fn block_behaviour_matches_vanilla() {
-    let _ = Direction::ALL;
     let fixture = include_str!("fixtures/block_behaviour.txt");
     let expected: HashMap<&str, &str> = fixture.lines().filter(|l| !l.starts_with('S')).filter_map(|l| l.split_once(' ')).collect();
     let mut global = Vec::new();

@@ -12,7 +12,6 @@ use crate::world::entity::ai::navigation::StandardPathNavigation;
 use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use crate::world::entity::mob::{self, MobData, MobKind};
 use crate::world::entity::{Entity, EntityId};
-use crate::world::level::LevelAccessor;
 use crate::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
@@ -137,6 +136,3 @@ register_spawn_placement!(EntityType::GLOW_SQUID, check_glow_squid_spawn_rules);
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static GLOW_SQUID: EntityRegistration = EntityRegistration { entity_type: EntityType::GLOW_SQUID, create: |ty, id, _registries| Box::new(GlowSquid::new(ty, id)) };
-
-#[allow(dead_code)]
-fn _unused(_: &dyn LevelAccessor) {}

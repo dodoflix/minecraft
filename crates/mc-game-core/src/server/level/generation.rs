@@ -3,7 +3,6 @@
 //! light engine) and completing the per-status futures.
 
 use super::chunk_holder::{ChunkHolder, ChunkSlot, FutureState, Waiter};
-use super::chunk_level;
 use mc_light::LightCompletion;
 use super::chunk_map::{ChunkMap, MainTask};
 use super::chunk_status_tasks::{BatchResult, GenBatch, GenJob, runs_on_worldgen_thread};
@@ -156,7 +155,7 @@ impl ChunkMap {
     }
 
     fn schedule_next_layer(&mut self, id: u64) {
-        let (scheduled, target, needs_generation) = {
+        let (scheduled, _target, needs_generation) = {
             let t = &self.tasks[&id];
             (t.scheduled_status, t.target_status, t.needs_generation)
         };
@@ -168,7 +167,6 @@ impl ChunkMap {
             }
             Some(s) => ChunkStatus::ALL[s.index() as usize + 1],
         };
-        let _ = target;
         let needs_generation = self.tasks[&id].needs_generation;
         self.schedule_layer(id, status_to_schedule, needs_generation);
         self.tasks.get_mut(&id).expect("task").scheduled_status = Some(status_to_schedule);
@@ -497,9 +495,4 @@ impl ChunkMap {
         }
         self.process_ready();
     }
-}
-
-/// `ChunkMap.generator()` access for callers that only know the level's chunk map.
-pub fn _assert_chunk_level_linked() -> i32 {
-    chunk_level::max_level()
 }

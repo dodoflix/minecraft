@@ -126,7 +126,7 @@ impl<S: Clone + 'static> CommandDispatcher<S> {
     ) -> ParseResults<S> {
         let mut errors: Vec<(Arc<CommandNode<S>>, CommandSyntaxException)> = Vec::new();
         let mut potentials: Vec<ParseResults<S>> = Vec::new();
-        let cursor = original_reader.get_cursor();
+        let _cursor = original_reader.get_cursor();
 
         for child in node.get_relevant_nodes(original_reader) {
             if !child.can_use(context_so_far.get_source()) {
@@ -174,7 +174,6 @@ impl<S: Clone + 'static> CommandDispatcher<S> {
                 potentials.push(ParseResults::new(context, reader, Vec::new()));
             }
         }
-        let _ = cursor;
 
         if potentials.is_empty() {
             return ParseResults::new(context_so_far, original_reader.clone(), errors);

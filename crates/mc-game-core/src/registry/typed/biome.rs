@@ -55,12 +55,11 @@ pub struct Biome {
 
 fn color_schema() -> Schema {
     // `ExtraCodecs.STRING_RGB_COLOR`
-    Schema::custom(|v, ctx| {
+    Schema::custom(|v, _ctx| {
         let tag = match v {
             Value::String(_) | Value::Number(_) | Value::Array(_) => parse_rgb(v).map(|c| Tag::String(format!("#{:06x}", c as u32 & 0xFF_FFFF)))?,
             other => return Err(format!("Not a string: {other}")),
         };
-        let _ = ctx;
         Ok(tag)
     })
 }

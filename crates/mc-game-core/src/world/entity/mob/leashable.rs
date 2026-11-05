@@ -6,7 +6,7 @@ use crate::server::level::server_entity::encode_payload;
 use crate::world::entity::{Entity, EntityId};
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
-use mc_data::{GameEvent, Item, SoundEvent};
+use mc_data::{Item, SoundEvent};
 use mc_nbt::{CompoundTag, Tag};
 use mc_protocol::packets::play::ClientboundSetEntityLinkPacket;
 use mc_protocol::packets::play::level::SoundSource;
@@ -430,11 +430,6 @@ pub fn leashable_in_area(level: &ServerLevel, pos: Vec3, test: impl Fn(&dyn Enti
 pub fn leashable_leashed_to(level: &ServerLevel, holder: &dyn Entity) -> Vec<EntityId> {
     let holder_id = holder.id();
     leashable_in_area(level, holder.base().bounding_box().get_center(), |l| get_leash_holder(l) == Some(holder_id))
-}
-
-#[allow(dead_code)]
-fn _unused() {
-    let _ = GameEvent::SHEAR;
 }
 
 /// `Leashable.whenLeashedTo(leashHolder)` (`leashHolder.notifyLeashHolder(this)`).

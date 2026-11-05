@@ -28,8 +28,7 @@ pub fn create(speed_modifier: f32) -> OneShot {
         }
         let body_pos = c.body().block_position();
         let closest = c.level.poi_manager().find_closest(&|p| p.is(PoiTypes::HOME), body_pos, 48, Occupancy::Any);
-        let Some(closest) = closest.filter(|p| p.dist_sqr(&body_pos) > OK_DISTANCE_SQR) else { return false };
-        let _ = closest;
+        let Some(_closest) = closest.filter(|p| p.dist_sqr(&body_pos) > OK_DISTANCE_SQR) else { return false };
         let mut tried_count = 0;
         last_update = c.level.game_time() + i64::from(c.level.random().next_int_bounded(20));
         let candidates = c.level.poi_manager().find_all_with_type(&|p| p.is(PoiTypes::HOME), &|_| true, body_pos, 48, Occupancy::Any);

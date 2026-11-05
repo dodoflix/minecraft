@@ -234,7 +234,7 @@ impl LogDiff {
                 DiffOp::OnlyB(j) => {
                     let _ = writeln!(s, "+ only in B: {}", self.b[*j].line());
                 }
-                DiffOp::Changed(i, j, field, x, y) => {
+                DiffOp::Changed(i, _j, field, x, y) => {
                     let _ = writeln!(
                         s,
                         "~ {} {}/{} [{field}]\n    A: {x}\n    B: {y}",
@@ -242,7 +242,6 @@ impl LogDiff {
                         self.a[*i].state,
                         self.a[*i].name
                     );
-                    let _ = j;
                 }
             }
         }

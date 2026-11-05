@@ -11,11 +11,10 @@ use crate::world::entity::ai::memory::WalkTarget;
 use crate::world::entity::ai::memory::memory_module_type::{LOOK_TARGET, SECONDARY_JOB_SITE, WALK_TARGET};
 use crate::world::entity::npc::villager::villager_mut;
 use crate::world::item::ItemStack;
-use crate::world::level::block::BlockStateExt;
 use crate::world::level::block::impls::crop_block;
 use crate::world::level::{BlockGetter, LevelAccessor as _};
 use mc_core::pos::BlockPos;
-use mc_data::block::{Block, BlockState};
+use mc_data::block::Block;
 use mc_data::{GameEvent, Item, SoundEvent, VillagerProfession};
 use mc_protocol::packets::play::level::SoundSource;
 
@@ -145,6 +144,3 @@ impl Behavior for HarvestFarmland {
         self.time_worked_so_far < HARVEST_DURATION
     }
 }
-
-#[allow(dead_code)]
-fn _unused(_: BlockState) {}

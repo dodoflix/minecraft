@@ -1003,6 +1003,3 @@ fn copy_operation_codec() -> Codec<CopyOperation> {
 fn id_only_loot_table_codec() -> Codec<Identifier> {
     crate::world::level::storage::loot::holder::registry_ref_codec(keys::LOOT_TABLE)
 }
-
-#[allow(unused)]
-fn _unused(_: &Option<CompoundTag>) {}

@@ -9,7 +9,7 @@ use crate::server::level::ServerLevel;
 use crate::world::damagesource::{DamageSource, DamageTypeTags};
 use crate::world::difficulty_instance::DifficultyInstance;
 use crate::world::entity::ai::goal::target::{
-    HurtByTargetGoal, NearestAttackableTargetGoal, NonTameRandomTargetGoal, OwnerHurtByTargetGoal, OwnerHurtTargetGoal, TargetType, class_of_type, class_of_types,
+    HurtByTargetGoal, NearestAttackableTargetGoal, NonTameRandomTargetGoal, OwnerHurtByTargetGoal, OwnerHurtTargetGoal, TargetType, class_of_types,
 };
 use crate::world::entity::ai::goal::{
     AvoidEntityGoal, BegGoal, BreedGoal, FloatGoal, FollowOwnerGoal, Goal, GoalFlags, LeapAtTargetGoal, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal, ResetUniversalAngerTargetGoal,
@@ -59,10 +59,6 @@ const DEFAULT_COLLAR_COLOR: DyeColor = DyeColor::Red;
 /// `PREY_SELECTOR`: sheep, rabbits and foxes.
 pub fn prey_selector(target: &dyn Entity, _level: &ServerLevel) -> bool {
     matches!(target.get_type(), EntityType::SHEEP | EntityType::RABBIT | EntityType::FOX)
-}
-
-fn _class_of_type_unused() {
-    let _ = class_of_type;
 }
 
 /// `BABY_DIMENSIONS`.

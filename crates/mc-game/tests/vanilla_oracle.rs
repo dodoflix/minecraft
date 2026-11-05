@@ -356,7 +356,6 @@ fn broken_pack_fails_like_vanilla() {
     // the first lines of the full report are the same shape as vanilla's
     let details = failure.full_details();
     assert!(details.starts_with("> Errors in registry minecraft:chat_type:\n>> Errors in element test:missing_field:\njava.lang.IllegalStateException: Failed to parse test:missing_field from pack file/broken\nCaused by: "));
-    let _ = Tag::End;
 }
 
 /// Path of the first difference between two NBT trees (debugging aid for the typed registries).

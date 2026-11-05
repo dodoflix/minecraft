@@ -477,7 +477,6 @@ impl MoveControl for GuardianMoveControl {
             mob.set_speed(0.0);
             guardian_mut(mob).set_moving(false);
         }
-        let _ = level;
     }
 }
 

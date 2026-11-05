@@ -3,7 +3,7 @@
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use crate::world::entity::mob::navigation;
-use crate::world::level::{BlockGetter, LevelHeight};
+use crate::world::level::BlockGetter;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 
@@ -54,6 +54,3 @@ pub fn has_malus(mob: &mut dyn Entity, level: &ServerLevel, pos: BlockPos) -> bo
 pub fn is_solid(level: &ServerLevel, pos: BlockPos) -> bool {
     level.get_block_state(pos).is_solid()
 }
-
-#[allow(dead_code)]
-fn _height(_: LevelHeight) {}

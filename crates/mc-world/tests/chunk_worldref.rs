@@ -5,7 +5,6 @@ mod chunk_common;
 
 use chunk_common::*;
 use mc_nbt::Tag;
-use mc_world::chunk::LevelChunk;
 use mc_world::data_layer::DataLayer;
 use mc_world::serial::{LoadedChunk, ReadContext, SerializableChunkData};
 use std::collections::HashMap;
@@ -60,5 +59,4 @@ fn chunks_roundtrip_through_the_data_model() {
     }
     eprintln!("round-tripped {chunks} chunks {by_type:?}");
     assert!(chunks > 0);
-    let _ = LevelChunk::empty;
 }

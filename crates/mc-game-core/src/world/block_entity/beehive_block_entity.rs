@@ -186,12 +186,11 @@ impl BeehiveBlockEntity {
         let pos = self.get_block_pos();
         let saved_flower_pos = self.saved_flower_pos;
         let mut spawned = Vec::new();
-        let changed = self.remove_released(|occupant| release_occupant(level, pos, state, occupant, Some(&mut spawned), status, saved_flower_pos));
+        let _changed = self.remove_released(|occupant| release_occupant(level, pos, state, occupant, Some(&mut spawned), status, saved_flower_pos));
         if !spawned.is_empty() {
             // `super.setChanged()`
             set_changed(level, pos, self.get_block_state());
         }
-        let _ = changed;
         spawned
     }
 

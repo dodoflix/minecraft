@@ -191,8 +191,7 @@ pub fn entity_scores_match(server: &MinecraftServer, entity: &dyn Entity, expect
 /// (`criteria: None` = the advancement `done == value`).
 /// No advancement data is loaded yet (`ServerAdvancementManager` is empty): a known advancement cannot be found, and
 /// vanilla's `getOrStartProgress` is skipped for unknown ones (`advancement == null` -> no match).
-pub fn advancements_match(server: &MinecraftServer, entity: &dyn Entity, expected: &[(mc_core::ident::Identifier, AdvancementExpectation)]) -> bool {
-    let _ = server;
+pub fn advancements_match(_server: &MinecraftServer, entity: &dyn Entity, expected: &[(mc_core::ident::Identifier, AdvancementExpectation)]) -> bool {
     entity.as_any().downcast_ref::<crate::world::entity::ServerPlayer>().is_some() && expected.is_empty()
 }
 
@@ -212,8 +211,7 @@ pub fn loot_predicate_matches(server: &MinecraftServer, dimension: &DimensionKey
 
 /// The `SelectedItem` the `nbt` option adds for players (`ItemStack.CODEC` of the selected hotbar item).
 /// SEAM(items).
-pub fn player_selected_item_nbt(entity: &dyn Entity) -> Option<mc_nbt::Tag> {
-    let _ = entity;
+pub fn player_selected_item_nbt(_entity: &dyn Entity) -> Option<mc_nbt::Tag> {
     None
 }
 
@@ -702,8 +700,7 @@ pub fn advancement_get(server: &MinecraftServer, id: &Identifier) -> Option<Adva
 
 /// `server.getAdvancements().getAllAdvancements()`.
 /// SEAM(advancements).
-pub fn advancement_all(server: &MinecraftServer) -> Vec<AdvancementRef> {
-    let _ = server;
+pub fn advancement_all(_server: &MinecraftServer) -> Vec<AdvancementRef> {
     Vec::new()
 }
 

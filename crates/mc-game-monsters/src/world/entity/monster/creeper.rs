@@ -7,7 +7,7 @@ use crate::server::level::level_explode::Explode;
 use crate::world::damagesource::{DamageEntity, DamageSource};
 use mc_core::ident::Identifier;
 use crate::world::entity::ServerPlayer;
-use crate::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType, class_of_type};
+use crate::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType};
 use crate::world::entity::ai::goal::{AvoidEntityGoal, FloatGoal, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal, SwellGoal, WaterAvoidingRandomStrollGoal};
 use crate::world::entity::area_effect_cloud::AreaEffectCloud;
 use crate::world::entity::ai::navigation::StandardPathNavigation;
@@ -20,7 +20,6 @@ use crate::world::item::{InteractionHand, InteractionResult, ItemStackExt as _, 
 use crate::world::level::explosion::ExplosionInteraction;
 use linkme::distributed_slice;
 use mc_core::math::mth;
-use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::{EntityType, GameEvent, Item, SoundEvent};
 use mc_nbt::CompoundTag;
@@ -74,7 +73,6 @@ impl Creeper {
         let targets = &mut self.mob.target_selector;
         targets.add_goal(1, Box::new(NearestAttackableTargetGoal::new(TargetType::Player, true)));
         targets.add_goal(2, Box::new(HurtByTargetGoal::new(Vec::new())));
-        let _ = class_of_type;
     }
 
     /// `isPowered()`.
@@ -133,11 +131,10 @@ impl Creeper {
 impl Entity for Creeper {
     crate::mob_entity_accessors!(mob);
 
-    fn get_max_fall_distance(&self, level: &ServerLevel) -> i32 {
+    fn get_max_fall_distance(&self, _level: &ServerLevel) -> i32 {
         if self.get_target().is_none() {
             mob::tick::comfortable_fall_distance(0.0)
         } else {
-            let _ = level;
             mob::tick::comfortable_fall_distance(self.get_health() - 1.0)
         }
     }
@@ -273,6 +270,3 @@ impl Entity for Creeper {
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static CREEPER: EntityRegistration = EntityRegistration { entity_type: EntityType::CREEPER, create: |ty, id, registries| Box::new(Creeper::new(ty, id, registries)) };
-
-#[allow(dead_code)]
-fn _unused(_: BlockPos) {}

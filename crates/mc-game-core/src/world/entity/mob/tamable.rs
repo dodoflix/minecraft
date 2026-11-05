@@ -101,7 +101,6 @@ pub fn is_owned_by(e: &dyn Entity, level: &ServerLevel, entity: &dyn Entity) -> 
 pub fn tame(e: &mut dyn Entity, level: &mut ServerLevel, player: &ServerPlayer) {
     e.set_tame(Some(&mut *level), true, true);
     set_owner(e, Some(player));
-    let _ = level;
     ext::trigger_tame_animal(level, player.id(), &*e);
 }
 

@@ -27,9 +27,8 @@ use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::Block;
 use mc_data::enums::{EntitySpawnReason, Pose};
-use mc_data::{EntityType, Item, ParticleType, SoundEvent};
+use mc_data::{EntityType, Item, SoundEvent};
 use mc_nbt::CompoundTag;
-use mc_protocol::packets::play::ParticleOptions;
 use std::any::Any;
 use std::sync::Arc;
 
@@ -302,6 +301,3 @@ crate::register_spawn_placement!(EntityType::OCELOT, check_ocelot_spawn_rules);
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static OCELOT: EntityRegistration = EntityRegistration { entity_type: EntityType::OCELOT, create: |ty, id, registries| Box::new(Ocelot::new(ty, id, registries)) };
-
-#[allow(dead_code)]
-fn _unused(_: ParticleType, _: ParticleOptions, _: EntityId) {}

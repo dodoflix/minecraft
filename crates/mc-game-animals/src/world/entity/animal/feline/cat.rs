@@ -14,7 +14,7 @@ use crate::world::entity::ai::goal::{
     AvoidEntityGoal, BreedGoal, FloatGoal, FollowOwnerGoal, Goal, GoalFlags, LeapAtTargetGoal, LookAtPlayerGoal, MoveToBlock, MoveToBlockData, SitWhenOrderedToGoal,
     TamableAnimalPanicGoal, TemptGoal, WaterAvoidingRandomStrollGoal,
 };
-use crate::world::entity::ai::goal::{Flag, reduced_tick_delay};
+use crate::world::entity::ai::goal::Flag;
 use crate::world::entity::ai::goal::target::{NonTameRandomTargetGoal, TargetType};
 use crate::world::entity::ai::navigation::StandardPathNavigation;
 use crate::world::entity::animal::turtle;
@@ -817,8 +817,3 @@ impl Entity for Cat {
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static CAT: EntityRegistration = EntityRegistration { entity_type: EntityType::CAT, create: |ty, id, registries| Box::new(Cat::new(ty, id, registries)) };
-
-#[allow(dead_code)]
-fn _unused(_: i32) {
-    let _ = reduced_tick_delay;
-}

@@ -38,8 +38,7 @@ impl BlockBehaviour for DispenserBlock {
         Some(block.default_state().set(props::FACING, context.get_nearest_looking_direction().get_opposite()))
     }
 
-    fn neighbor_changed(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, block: Block, _orientation: Option<Orientation>, _moved_by_piston: bool) {
-        let _ = block;
+    fn neighbor_changed(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _block: Block, _orientation: Option<Orientation>, _moved_by_piston: bool) {
         let should_trigger = has_neighbor_signal(level, pos) || has_neighbor_signal(level, pos.above());
         let is_triggered = state.get(props::TRIGGERED);
         if should_trigger && !is_triggered {

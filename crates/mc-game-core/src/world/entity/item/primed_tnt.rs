@@ -10,7 +10,6 @@ use crate::world::level::LevelAccessor;
 use crate::world::level::explosion::{Explosion, ExplosionDamageCalculator, ExplosionInteraction, default_block_explosion_resistance};
 use linkme::distributed_slice;
 use mc_core::math::mth;
-use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::EntityType;
@@ -215,6 +214,3 @@ impl Entity for PrimedTnt {
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static PRIMED_TNT_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::TNT, create: |ty, id, _registries| Box::new(PrimedTnt::new(ty, id)) };
-
-#[allow(dead_code)]
-fn _unused(_: Vec3) {}

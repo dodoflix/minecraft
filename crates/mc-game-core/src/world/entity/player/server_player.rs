@@ -467,14 +467,13 @@ impl Entity for ServerPlayer {
         }
     }
     /// `ServerPlayer.teleportTo(x, y, z)`: a client teleport (`Relative.DELTA | ROTATION`).
-    fn teleport_to(&mut self, level: &mut crate::server::level::ServerLevel, x: f64, y: f64, z: f64) {
+    fn teleport_to(&mut self, _level: &mut crate::server::level::ServerLevel, x: f64, y: f64, z: f64) {
         use mc_protocol::packets::play::{PositionMoveRotation, Relatives};
         if self.listener.is_none() {
             let (yr, xr) = (self.base().y_rot(), self.base().x_rot());
             self.snap_to(x, y, z, yr, xr);
             return;
         }
-        let _ = level;
         self.connection_teleport_pmr(
             PositionMoveRotation { position: Vec3::new(x, y, z), delta_movement: Vec3::ZERO, y_rot: 0.0, x_rot: 0.0 },
             Relatives::DELTA.union(Relatives::ROTATION),

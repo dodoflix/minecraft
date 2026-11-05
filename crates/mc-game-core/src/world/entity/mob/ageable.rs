@@ -1,16 +1,13 @@
 //! `AgeableMob`: age, forced age, baby flag, age lock, `AgeableMobGroupData` finalize.
 
 use super::spawn::AgeableMobGroupData;
-use super::{AGE_LOCKED, DATA_BABY_ID, MobData};
+use super::{AGE_LOCKED, DATA_BABY_ID};
 use crate::server::level::ServerLevel;
 use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::living_entity::util::l;
 use crate::world::entity::spawn_group_data::SpawnGroupData;
 use crate::world::entity::Entity;
 use crate::world::item::InteractionResult;
 use crate::world::level::server_level_accessor::ServerLevelAccessor;
-use mc_core::math::mth;
-use mc_core::phys::Vec3;
 use mc_data::enums::EntitySpawnReason;
 use mc_data::{EntityType, Item, ParticleType, SoundEvent};
 use mc_nbt::CompoundTag;
@@ -247,9 +244,4 @@ pub fn read_additional_save_data(e: &mut dyn Entity, input: &CompoundTag) {
         adm(e).forced_age = input.get_int_or("ForcedAge", 0);
         set_age_locked(e, input.get_boolean_or("AgeLocked", false));
     }
-}
-
-#[allow(dead_code)]
-fn _unused(_: &MobData, _: Vec3) {
-    let _ = (l, mth::PI);
 }

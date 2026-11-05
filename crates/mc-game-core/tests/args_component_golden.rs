@@ -12,8 +12,8 @@ fn component_matches_vanilla() {
     args_common::replay_with(
         "component",
         include_str!("../../mc-game/tests/fixtures/args/component_golden.txt"),
-        |ctx| { let _ = ctx; Arc::new(ComponentArgument::text_component()) },
-        |v, src| { let _ = src; args_common::canon_json(&v.downcast_ref::<mc_text::Component>().expect("component").to_json().expect("json")) },
+        |_ctx| { Arc::new(ComponentArgument::text_component()) },
+        |v, _src| { args_common::canon_json(&v.downcast_ref::<mc_text::Component>().expect("component").to_json().expect("json")) },
         None,
     );
 }

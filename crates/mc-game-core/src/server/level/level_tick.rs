@@ -408,8 +408,7 @@ impl ServerLevel {
     }
 
     fn biome_id_at(&self, pos: BlockPos) -> Option<mc_world::palette::BiomeId> {
-        let registry = self.tick_state.biomes.as_ref()?;
-        let _ = registry;
+        let _registry = self.tick_state.biomes.as_ref()?;
         let missing = std::cell::Cell::new(false);
         let total = |qx: i32, qy: i32, qz: i32| match self.chunk_now(qx >> 2, qz >> 2) {
             Some(c) => c.data.access.get_noise_biome(qx, qy, qz),

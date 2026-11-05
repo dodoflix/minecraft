@@ -2,7 +2,7 @@
 //! `GameMasterBlockItem`, `PlaceOnWaterBlockItem`, `ScaffoldingBlockItem`, `SolidBucketItem`): placing blocks.
 
 use super::{
-    BlockPlaceContext, InteractionHand, InteractionResult, ItemBehaviour, ItemStack, ItemStackExt, PlainItem, UseOnContext, consumable, item_is_enabled,
+    BlockPlaceContext, InteractionHand, InteractionResult, ItemBehaviour, ItemStack, ItemStackExt, PlainItem, UseOnContext, consumable,
 };
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
@@ -193,12 +193,11 @@ impl BlockItem {
     }
 
     /// `updatePlacementContext(context)`.
-    fn update_placement_context(&self, ctx: &BlockPlaceContext, level: &mut ServerLevel, player: Option<&mut ServerPlayer>) -> Option<BlockPlaceContext> {
+    fn update_placement_context(&self, ctx: &BlockPlaceContext, level: &mut ServerLevel, _player: Option<&mut ServerPlayer>) -> Option<BlockPlaceContext> {
         match self.kind {
             Kind::Scaffolding => {
                 // `ScaffoldingBlock.getDistance` (the scaffolding block's stability distance) is not ported yet:
                 // behaves like the non-scaffolding path for a freshly clicked position, which is the common case.
-                let _ = player;
                 let pos = ctx.get_clicked_pos();
                 let replaced = level.get_block_state(pos);
                 if replaced.block() != self.block { Some(ctx.clone()) } else { None }

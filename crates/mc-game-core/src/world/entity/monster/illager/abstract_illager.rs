@@ -3,7 +3,6 @@
 
 use crate::server::level::ServerLevel;
 use crate::world::entity::mob;
-use crate::world::entity::raid::raider;
 use crate::world::entity::Entity;
 use mc_data::EntityType;
 
@@ -50,9 +49,4 @@ fn team_of(level: &ServerLevel, e: &dyn Entity) -> Option<String> {
 /// `isHolding`-style helper used by the pillager/illusioner arm poses: `getArmPose()` of the abstract class.
 pub fn default_arm_pose() -> IllagerArmPose {
     IllagerArmPose::Crossed
-}
-
-#[allow(dead_code)]
-fn _raider_marker(e: &dyn Entity) -> bool {
-    raider::is_celebrating(e)
 }

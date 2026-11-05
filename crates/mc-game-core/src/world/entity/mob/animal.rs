@@ -6,7 +6,6 @@ use super::ext;
 use crate::server::level::ServerLevel;
 use crate::stats::stats::Stats;
 use crate::world::entity::experience_orb::ExperienceOrb;
-use crate::world::entity::living_entity::util::{l, lm};
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
 use crate::world::item::{InteractionHand, InteractionResult};
 use crate::world::level::LevelReader;
@@ -193,10 +192,4 @@ pub fn read_additional_save_data(e: &mut dyn Entity, input: &CompoundTag) {
     let a = anm(e);
     a.in_love = input.get_int_or("InLove", 0);
     a.love_cause = crate::world::entity::entity::read_uuid(input.get("LoveCause"));
-}
-
-#[allow(dead_code)]
-fn _unused(e: &dyn Entity) {
-    let _ = l(e);
-    let _ = lm;
 }

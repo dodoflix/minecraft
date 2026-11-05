@@ -477,9 +477,8 @@ impl Entity for Warden {
         was_hurt
     }
 
-    fn get_dimensions(&self, pose: Pose) -> EntityDimensions {
+    fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
         let dimensions = EntityDimensions::of_type(self.get_type());
-        let _ = pose;
         if self.is_digging_or_emerging() { EntityDimensions::fixed(dimensions.width, 1.0) } else { dimensions }
     }
 

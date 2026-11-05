@@ -104,7 +104,7 @@ fn synthetic_list(count: usize, children_per_node: usize) -> (ParameterList<usiz
 fn rtree_searches_match_vanilla() {
     let lines = fixture();
     let registries = registries();
-    let biomes = BiomeRegistry::load(&registries).expect("biomes load");
+    let _ = BiomeRegistry::load(&registries).expect("biomes load");
     let mut lists: HashMap<(String, usize), ParameterList<usize>> = HashMap::new();
     let mut checked = 0usize;
     for line in lines.iter().filter(|l| l.starts_with("Q ")) {
@@ -138,7 +138,6 @@ fn rtree_searches_match_vanilla() {
         checked += 1;
     }
     assert!(checked > 20000);
-    let _ = biomes;
 }
 
 #[test]

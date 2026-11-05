@@ -284,8 +284,7 @@ fn provider_of(level: &ServerLevel, holder: &Holder<crate::world::item::enchantm
     }
 }
 
-fn set_block_properties(e: &SetBlockProperties, level: &mut ServerLevel, actors: &mut Actors<'_>, entity: EntityId, position: Vec3) {
-    let _ = actors;
+fn set_block_properties(e: &SetBlockProperties, level: &mut ServerLevel, _actors: &mut Actors<'_>, entity: EntityId, position: Vec3) {
     let pos = BlockPos::containing_position(&position).offset(e.offset.x, e.offset.y, e.offset.z);
     let state = level.get_block_state(pos);
     let modified = apply_block_item_state_properties(&e.properties, state);

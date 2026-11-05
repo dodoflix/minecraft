@@ -12,8 +12,8 @@ fn nbt_tag_matches_vanilla() {
     args_common::replay_with(
         "nbt_tag",
         include_str!("../../mc-game/tests/fixtures/args/nbt_tag_golden.txt"),
-        |ctx| { let _ = ctx; Arc::new(NbtTagArgument::nbt_tag()) },
-        |v, src| { let _ = src; v.downcast_ref::<mc_nbt::Tag>().expect("tag").to_string() },
+        |_ctx| { Arc::new(NbtTagArgument::nbt_tag()) },
+        |v, _src| { v.downcast_ref::<mc_nbt::Tag>().expect("tag").to_string() },
         None,
     );
 }

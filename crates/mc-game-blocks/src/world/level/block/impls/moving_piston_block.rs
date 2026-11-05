@@ -29,11 +29,10 @@ impl BlockBehaviour for MovingPistonBlock {
     }
 
     /// `getDrops`: the drops of the moved block (nothing without a block entity).
-    fn get_drops_state(&self, state: BlockState, level: &dyn BlockGetter, pos: BlockPos) -> BlockState {
+    fn get_drops_state(&self, _state: BlockState, level: &dyn BlockGetter, pos: BlockPos) -> BlockState {
         match level.get_block_entity(pos).and_then(|be| be.as_any().downcast_ref::<PistonMovingBlockEntity>()) {
             Some(entity) => entity.get_moved_state(),
             None => {
-                let _ = state;
                 helpers::air()
             }
         }

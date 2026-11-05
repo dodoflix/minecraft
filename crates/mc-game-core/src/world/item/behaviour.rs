@@ -66,9 +66,8 @@ pub trait ItemBehaviour: Send + Sync + 'static {
     fn inventory_tick(&self, _stack: &mut ItemStack, _level: &mut ServerLevel, _owner: &mut dyn Entity, _slot: Option<EquipmentSlot>) {}
 
     /// `Item.mineBlock(stack, level, state, pos, owner)`: tool durability.
-    fn mine_block(&self, stack: &mut ItemStack, level: &mut ServerLevel, state: BlockState, pos: BlockPos, owner: &mut ServerPlayer) -> bool {
+    fn mine_block(&self, stack: &mut ItemStack, level: &mut ServerLevel, state: BlockState, _pos: BlockPos, owner: &mut ServerPlayer) -> bool {
         let Some(tool) = stack.get(&TOOL).cloned() else { return false };
-        let _ = pos;
         if state.get_destroy_speed() != 0.0 && tool.damage_per_block > 0 {
             super::hurt_and_break(stack, tool.damage_per_block, level, owner, EquipmentSlot::MainHand);
         }

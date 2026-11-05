@@ -494,8 +494,7 @@ impl ChunkMap {
         let holder = self.holders.holder_mut(key).expect("holder");
         if was_accessible && !is_accessible {
             holder.full_chunk_future = PromotionFuture::Unloaded;
-            let w = std::mem::take(&mut holder.promotion_waiters);
-            let _ = w;
+            let _w = std::mem::take(&mut holder.promotion_waiters);
         }
         let was_ticking = old_full.is_or_after(FullChunkStatus::BlockTicking);
         let is_ticking = new_full.is_or_after(FullChunkStatus::BlockTicking);
@@ -730,11 +729,10 @@ impl ChunkMap {
 
     /// Wake everything whose future completed.
     pub(crate) fn process_ready(&mut self) {
-        while let Some((key, waiter)) = self.ready.pop_front() {
+        while let Some((_key, waiter)) = self.ready.pop_front() {
             match waiter {
                 Waiter::Task(id) => self.queue_task_slice(id),
                 Waiter::Promotion(center, kind) => {
-                    let _ = key;
                     self.evaluate_promotion(center, kind);
                 }
             }

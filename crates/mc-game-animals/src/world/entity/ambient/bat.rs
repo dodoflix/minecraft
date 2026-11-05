@@ -6,7 +6,7 @@ use crate::world::damagesource::DamageSource;
 use crate::world::entity::ai::navigation::StandardPathNavigation;
 use crate::world::entity::ai::targeting::TargetingConditions;
 use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::living_entity::util::{l, lm};
+use crate::world::entity::living_entity::util::lm;
 use crate::world::entity::mob::{self, MobData, MobKind};
 use crate::world::entity::{Entity, EntityId, MovementEmission};
 use crate::world::level::block::BlockStateExt as _;
@@ -247,8 +247,3 @@ crate::register_spawn_placement!(EntityType::BAT, check_bat_spawn_rules);
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static BAT: EntityRegistration = EntityRegistration { entity_type: EntityType::BAT, create: |ty, id, _registries| Box::new(Bat::new(ty, id)) };
-
-#[allow(dead_code)]
-fn _unused(e: &dyn Entity) {
-    let _ = l(e);
-}

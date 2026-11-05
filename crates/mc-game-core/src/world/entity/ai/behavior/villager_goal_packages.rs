@@ -28,7 +28,6 @@ use mc_data::enums::MobCategory;
 use mc_data::{EntityType, VillagerProfession};
 use std::sync::Arc;
 
-const STROLL_SPEED_MODIFIER: f32 = 0.4;
 pub const INTERACT_DIST_SQR: i32 = 5;
 pub const INTERACT_WALKUP_DIST: i32 = 2;
 pub const INTERACT_SPEED_MODIFIER: f32 = 0.5;
@@ -316,9 +315,4 @@ fn raid_exists_and_active(level: &mut ServerLevel, body: &dyn Entity) -> bool {
 /// `raidExistsAndNotVictory(level, body)`.
 fn raid_exists_and_not_victory(level: &mut ServerLevel, body: &dyn Entity) -> bool {
     level.get_raid_at(body.block_position()).is_some_and(|raid| raid.is_victory())
-}
-
-#[allow(dead_code)]
-fn _unused() {
-    let _ = (harvest_farmland::SPEED_MODIFIER, STROLL_SPEED_MODIFIER, BlockPos::ZERO);
 }

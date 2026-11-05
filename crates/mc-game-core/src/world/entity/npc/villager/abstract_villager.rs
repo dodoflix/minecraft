@@ -12,7 +12,7 @@ use crate::world::entity::{Entity, EntityId};
 use crate::world::item::trading::{self, MerchantOffers};
 use crate::world::level::pathfinder::PathType;
 use mc_core::ident::Identifier;
-use mc_nbt::{CompoundTag, Tag};
+use mc_nbt::CompoundTag;
 
 define_accessor!(pub DATA_UNHAPPY_COUNTER: Int = AbstractVillager);
 
@@ -79,6 +79,3 @@ pub fn add_offers_from_trade_set(level: &ServerLevel, merchant: &dyn Entity, off
 pub fn reset_ambient_sound_time(e: &mut dyn Entity) {
     mob::tick::reset_ambient_sound_time(e);
 }
-
-#[allow(dead_code)]
-fn _unused(_: Tag) {}

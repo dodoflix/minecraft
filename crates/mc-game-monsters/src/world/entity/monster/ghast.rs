@@ -25,7 +25,7 @@ use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use linkme::distributed_slice;
 use mc_core::direction::Direction;
 use mc_core::math::mth;
-use mc_core::phys::{AABB, Vec3};
+use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::enums::EntitySpawnReason;
@@ -516,6 +516,3 @@ impl Goal for RandomFloatAroundGoal {
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static GHAST: EntityRegistration = EntityRegistration { entity_type: EntityType::GHAST, create: |ty, id, registries| Box::new(Ghast::new(ty, id, registries)) };
-
-#[allow(dead_code)]
-fn _unused(_: AABB, _: EntityId) {}

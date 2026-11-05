@@ -12,8 +12,8 @@ fn style_matches_vanilla() {
     args_common::replay_with(
         "style",
         include_str!("../../mc-game/tests/fixtures/args/style_golden.txt"),
-        |ctx| { let _ = ctx; Arc::new(StyleArgument::style()) },
-        |v, src| { let _ = src; args_common::canon_json(&v.downcast_ref::<mc_text::Style>().expect("style").to_json().expect("json")) },
+        |_ctx| { Arc::new(StyleArgument::style()) },
+        |v, _src| { args_common::canon_json(&v.downcast_ref::<mc_text::Style>().expect("style").to_json().expect("json")) },
         None,
     );
 }
