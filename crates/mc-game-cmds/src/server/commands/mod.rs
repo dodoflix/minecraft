@@ -1,0 +1,187 @@
+// bridge: remove after branch migration (docs/crate-split.md#removal)
+//! `mc-game-cmds`: re-exports the lower crate's module tree and adds this crate's modules.
+
+pub use parent::server::commands::*;
+pub mod item;
+
+mod advancement_commands;
+
+pub mod arg_provider;
+
+mod attribute_command;
+
+mod ban_ip_commands;
+
+mod ban_list_commands;
+
+mod ban_player_commands;
+
+pub mod boss_bar_commands;
+
+mod clear_inventory_commands;
+
+pub mod command_response_tracker;
+
+mod compute_command;
+
+mod damage_command;
+
+mod clone_commands;
+
+pub mod data;
+
+pub mod data_commands;
+
+mod data_pack_command;
+
+mod debug_command;
+
+mod default_game_mode_commands;
+
+mod deop_commands;
+
+mod dialog_command;
+
+mod difficulty_command;
+
+mod effect_commands;
+
+mod emote_commands;
+
+mod enchant_command;
+
+mod experience_command;
+
+mod fetch_profile_command;
+
+pub mod execute_command;
+
+pub mod function_command;
+
+mod fill_biome_command;
+
+mod fill_command;
+
+mod force_load_command;
+
+mod game_mode_command;
+
+mod game_rule_command;
+
+mod give_command;
+
+mod help_command;
+
+pub mod item_commands;
+
+mod jfr_command;
+
+mod kick_command;
+
+mod kill_command;
+
+mod list_players_command;
+
+mod look_at;
+
+mod loot_command;
+
+pub mod loot_context_sources;
+
+mod locate_command;
+
+mod msg_command;
+
+mod op_command;
+
+mod pardon_command;
+
+mod pardon_ip_command;
+
+mod particle_command;
+
+mod perf_command;
+
+mod play_sound_command;
+
+mod post_effect_command;
+
+mod random_command;
+
+mod recipe_command;
+
+pub mod reload_command;
+
+mod return_command;
+
+mod ride_command;
+
+mod rotate_command;
+
+mod save_all_command;
+
+mod save_off_command;
+
+mod save_on_command;
+
+mod say_command;
+
+mod schedule_command;
+
+mod score_tracker;
+
+mod scoreboard_command;
+
+mod seed_command;
+
+mod set_block_command;
+
+mod set_player_idle_timeout_command;
+
+mod set_spawn_command;
+
+mod set_world_spawn_command;
+
+mod spectate_command;
+
+mod spread_players_command;
+
+mod stop_command;
+
+mod stop_sound_command;
+
+pub mod stopwatch_command;
+
+pub mod summon_command;
+
+mod swing_command;
+
+mod tag_command;
+
+mod team_command;
+
+mod team_msg_command;
+
+mod teleport_command;
+
+mod tell_raw_command;
+
+mod tick_command;
+
+mod time_command;
+
+mod title_command;
+
+mod transfer_command;
+
+mod trigger_command;
+
+mod version_command;
+
+mod waypoint_command;
+
+mod weather_command;
+
+mod whitelist_command;
+
+mod world_border_command;

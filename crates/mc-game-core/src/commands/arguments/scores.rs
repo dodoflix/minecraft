@@ -62,7 +62,7 @@ impl ScoreHolder {
     }
 
     /// `Entity` as a score holder (`getScoreboardName`: the profile name of a player, else the UUID).
-    pub(crate) fn of_entity(server: &crate::server::MinecraftServer, entity_ref: &EntityRef) -> Option<ScoreHolder> {
+    pub fn of_entity(server: &crate::server::MinecraftServer, entity_ref: &EntityRef) -> Option<ScoreHolder> {
         let entity = host::get_entity(server, entity_ref)?;
         let name = match host::player_name_and_id(entity) {
             Some(n) => n.name,

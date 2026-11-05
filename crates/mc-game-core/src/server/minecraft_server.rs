@@ -122,9 +122,9 @@ pub struct MinecraftServer {
     /// `getCommandStorage()` (`CommandStorage` over `saved_data`: `/data ... storage`).
     pub command_storage: crate::world::level::saveddata::command_storage::CommandStorage,
     pub(super) game_rules_type: SavedDataType<GameRules>,
-    pub(super) saved_types: SavedDataTypes,
+    pub saved_types: SavedDataTypes,
     /// `randomSequences` shared with the levels' loot evaluation; copied into `saved_data` when saving.
-    pub(super) loot_random_sequences: Arc<parking_lot::Mutex<crate::world::level::saveddata::random_sequences::RandomSequences>>,
+    pub loot_random_sequences: Arc<parking_lot::Mutex<crate::world::level::saveddata::random_sequences::RandomSequences>>,
     /// `metricsRecorder` & co: what `/perf` records.
     pub(super) metrics_recording: super::metrics_recording::MetricsRecording,
     pub registries: LayeredRegistryAccess<RegistryLayer>,

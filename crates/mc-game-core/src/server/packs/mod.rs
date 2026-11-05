@@ -81,6 +81,6 @@ pub struct PackSelectionConfig {
 }
 
 /// `Throwable` as Log4j prints it without stack frames: `class: message`.
-pub(crate) fn throwable(class: &str, message: &str) -> String {
+pub fn throwable(class: &str, message: &str) -> String {
     format!("{class}: {message}")
 }
