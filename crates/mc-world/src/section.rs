@@ -190,4 +190,25 @@ impl LevelChunkSection {
         }
         self.biomes = new_biomes;
     }
+
+    /// [`Self::fill_biomes_from_noise`] for a resolver that reads the biome currently stored at the queried cell
+    /// (`chunk.getNoiseBiome(..)` inside `/fillbiome`'s resolver: the old container is replaced only afterwards).
+    pub fn fill_biomes_from_noise_with_current(
+        &mut self,
+        mut resolver: impl FnMut(i32, i32, i32, BiomeId) -> BiomeId,
+        quart_min_x: i32,
+        quart_min_y: i32,
+        quart_min_z: i32,
+    ) {
+        let mut new_biomes = self.biomes.recreate();
+        for x in 0..4 {
+            for y in 0..4 {
+                for z in 0..4 {
+                    let current = self.biomes.get(x, y, z);
+                    new_biomes.get_and_set(x, y, z, resolver(quart_min_x + x, quart_min_y + y, quart_min_z + z, current));
+                }
+            }
+        }
+        self.biomes = new_biomes;
+    }
 }

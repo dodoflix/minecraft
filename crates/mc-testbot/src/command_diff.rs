@@ -240,8 +240,13 @@ fn copy_dir(src: &Path, dst: &Path) -> std::io::Result<()> {
 
 fn start_server(ours: bool, o: &Opts, tag: &str, datapacks: &[String]) -> Res<Srv> {
     let level = format!("level-type={}", o.level_type);
-    let mut props: Vec<&str> = PROPS.to_vec();
+    // `MC_CMDDIFF_STRUCTURES=1`: structures on (for `/locate structure` corpora).
+    let structures = std::env::var_os("MC_CMDDIFF_STRUCTURES").is_some();
+    let mut props: Vec<&str> = PROPS.iter().copied().filter(|p| !(structures && p.starts_with("generate-structures="))).collect();
     props.push(&level);
+    if structures {
+        props.push("generate-structures=true");
+    }
     let prepare = |dir: &Path| prepare_dir(dir, datapacks).map_err(|e| format!("prepare {}: {e}", dir.display()));
     if ours {
         let dir = repo_root().join("run/cmd-diff").join(&o.run_id).join(tag).join("ours");

@@ -49,8 +49,6 @@ impl BlockInput {
     }
 
     /// `place(level, pos, flags)`: `setBlock` with the defined properties applied, then the block entity NBT.
-    ///
-    /// Gap: `loadWithComponents` also reads `components` of the tag; only `load_additional` is applied.
     pub fn place(&self, level: &mut crate::server::level::ServerLevel, pos: mc_core::pos::BlockPos, flags: u32) -> bool {
         use crate::world::level::LevelAccessor;
         let mut state = if flags & 16 != 0 {
@@ -65,12 +63,10 @@ impl BlockInput {
         let mut affected = level.set_block(pos, state, flags, 512);
         if let Some(tag) = &self.tag {
             let changed = level.with_block_entity(pos, |_, entity| {
-                let mut before = CompoundTag::new();
-                entity.save_additional(&mut before);
-                entity.load_additional(tag);
-                let mut after = CompoundTag::new();
-                entity.save_additional(&mut after);
-                after != before
+                // `saveWithoutMetadata` before/after: the metadata (`id`, `x`, `y`, `z`) cannot differ.
+                let before = entity.save_with_full_metadata();
+                entity.load_with_components(tag);
+                entity.save_with_full_metadata() != before
             });
             if changed == Some(true) {
                 affected = true;

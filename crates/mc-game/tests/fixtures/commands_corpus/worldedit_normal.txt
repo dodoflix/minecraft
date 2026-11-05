@@ -1,0 +1,39 @@
+# /locate on a normal (noise) world, seed 12345; run with: --level-type normal (structures on)
+!wait 8000
+!ignore Can.t keep up|standing on air|Can.t spawn entity
+locate biome minecraft:plains
+locate biome minecraft:forest
+locate biome minecraft:desert
+locate biome minecraft:ocean
+locate biome minecraft:deep_dark
+locate biome minecraft:cherry_grove
+locate biome minecraft:lush_caves
+locate biome #minecraft:is_ocean
+locate biome #minecraft:is_forest
+locate biome minecraft:the_void
+locate biome minecraft:nether_wastes
+locate structure minecraft:village_plains
+locate structure minecraft:village_desert
+locate structure minecraft:stronghold
+locate structure minecraft:ancient_city
+locate structure minecraft:mansion
+locate structure minecraft:monument
+locate structure minecraft:mineshaft
+locate structure minecraft:buried_treasure
+locate structure minecraft:shipwreck
+locate structure minecraft:pillager_outpost
+locate structure minecraft:trial_chambers
+locate structure #minecraft:village
+locate structure #minecraft:ruined_portal
+locate structure #minecraft:on_treasure_maps
+locate structure #minecraft:eye_of_ender_located
+locate structure minecraft:fortress
+locate structure minecraft:nothing
+@bot locate structure minecraft:village_plains
+@bot locate biome minecraft:forest
+tp @a 1000 100 -2000
+locate biome minecraft:forest
+locate structure minecraft:village_plains
+locate structure #minecraft:village
+locate poi minecraft:librarian
+locate poi #minecraft:acquirable_job_site

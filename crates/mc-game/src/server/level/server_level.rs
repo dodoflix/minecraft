@@ -439,6 +439,15 @@ impl ServerLevel {
         self.chunk_source.add_ticket_with_radius(ty, pos, radius);
     }
 
+    /// `setChunkForced(chunkX, chunkZ, forced)`: whether the forced state changed; a newly forced chunk is loaded.
+    pub fn set_chunk_forced(&mut self, chunk_x: i32, chunk_z: i32, forced: bool) -> bool {
+        let updated = self.chunk_source.update_chunk_forced(ChunkPos::new(chunk_x, chunk_z), forced);
+        if forced && updated {
+            self.chunk_blocking_mut(chunk_x, chunk_z);
+        }
+        updated
+    }
+
     // ------------------------------------------------------------------ ticking
 
     /// `ServerChunkCache.tick(haveTime, tickChunks = false)` (levels that only run chunk loading).

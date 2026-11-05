@@ -46,6 +46,23 @@ impl BlockPredicate {
     pub fn requires_nbt(&self) -> bool {
         self.nbt().is_some()
     }
+
+    /// `BlockPredicate.test(BlockInWorld)` / `TagPredicate.test`: the state part, then (when the predicate carries NBT)
+    /// the block entity at `pos` must exist and partially match `saveWithFullMetadata`.
+    pub fn test(&self, level: &crate::server::level::ServerLevel, pos: mc_core::pos::BlockPos) -> bool {
+        use crate::world::level::BlockGetter;
+        if !self.matches_state(level.get_block_state(pos)) {
+            return false;
+        }
+        let Some(nbt) = self.nbt() else { return true };
+        level.get_block_entity(pos).is_some_and(|entity| {
+            mc_nbt::nbt_utils::compare_nbt(
+                Some(&mc_nbt::Tag::Compound(nbt.clone())),
+                Some(&mc_nbt::Tag::Compound(entity.save_with_full_metadata())),
+                true,
+            )
+        })
+    }
 }
 
 /// `BlockPredicateArgument`.

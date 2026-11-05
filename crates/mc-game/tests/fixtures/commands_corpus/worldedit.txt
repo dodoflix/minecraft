@@ -1,0 +1,204 @@
+# /fill /fillbiome /clone /forceload /locate (flat world, seed 12345, no structures)
+!wait 8000
+!ignore Can.t keep up|standing on air|Can.t spawn entity
+!ignore advancement
+# ---- fill ----
+fill 0 -60 0 3 -58 3 minecraft:stone
+fill 0 -60 0 3 -58 3 minecraft:stone
+fill 0 -60 0 3 -58 3 minecraft:stone replace
+fill 0 -60 0 3 -58 3 minecraft:dirt replace minecraft:stone
+fill 0 -60 0 3 -58 3 minecraft:glass hollow
+fill 0 -60 0 3 -58 3 minecraft:air outline
+fill 0 -60 0 3 -58 3 minecraft:stone keep
+fill 0 -60 0 3 -58 3 minecraft:gold_block destroy
+fill 0 -60 0 3 -58 3 minecraft:stone strict
+fill 0 -60 0 3 -58 3 minecraft:dirt replace #minecraft:base_stone_overworld
+fill 0 -60 0 3 -58 3 minecraft:glass replace minecraft:stone hollow
+fill 0 -60 0 3 -58 3 minecraft:glass replace minecraft:stone outline
+fill 0 -60 0 3 -58 3 minecraft:glass replace minecraft:stone destroy
+fill 0 -60 0 3 -58 3 minecraft:glass replace minecraft:stone strict
+fill 0 -60 0 3 -58 3 minecraft:oak_stairs[facing=east,half=top]
+fill 0 -60 0 3 -58 3 minecraft:oak_stairs[facing=east,half=top] replace minecraft:oak_stairs[facing=east]
+fill 0 -60 0 3 -58 3 minecraft:air
+fill 0 -60 0 3 -58 3 minecraft:air
+fill 0 -60 0 1 -60 1 minecraft:dispenser[facing=north]{Items:[{Slot:0b,id:"minecraft:stone",count:1}]}
+data get block 0 -60 0
+data get block 1 -60 1
+fill 0 -60 0 1 -60 1 minecraft:dispenser[facing=north]{Items:[{Slot:0b,id:"minecraft:stone",count:1}]}
+fill 0 -60 0 1 -60 1 minecraft:dispenser replace minecraft:dispenser{Items:[{Slot:0b,id:"minecraft:stone",count:1}]}
+fill 0 -60 0 1 -60 1 minecraft:dispenser replace minecraft:dispenser{Items:[{Slot:0b,id:"minecraft:dirt",count:1}]}
+fill 0 -60 0 1 -60 1 minecraft:air destroy
+data get block 0 -60 0
+fill 0 -60 0 7 10 7 minecraft:hopper
+fill 0 -64 0 40 300 40 minecraft:stone
+fill 0 0 0 100000 0 0 minecraft:stone
+fill 1000000 0 0 1000001 0 0 minecraft:stone
+fill 0 -60 0 1000000 -60 0 minecraft:stone
+fill 0 400 0 3 401 3 minecraft:stone
+fill 0 -80 0 3 -70 3 minecraft:stone
+fill 0 -60 0 31 -60 0 minecraft:stone
+fill 0 -60 0 3 -58 3 minecraft:notablock
+fill 0 -60 0 3 -58 3 minecraft:stone replace minecraft:notablock
+fill 0 -60 0 3 -58 3 minecraft:stone sideways
+fill 0 -60 0 3 -58
+fill ~ ~ ~ ~ ~ ~ minecraft:stone
+fill 0 -60 0 5 -60 0 minecraft:sand
+fill 0 -60 0 5 -60 0 minecraft:air destroy
+fill 0 -61 0 5 -60 0 minecraft:water
+fill 0 -61 0 5 -60 0 minecraft:grass_block
+fill 0 -59 0 5 -59 0 minecraft:redstone_lamp
+fill 0 -58 0 5 -58 0 minecraft:redstone_block
+fill 0 -58 0 5 -58 0 minecraft:redstone_block strict
+fill 0 -59 0 5 -59 0 minecraft:air
+fill 0 -58 0 5 -58 0 minecraft:air
+@bot fill ~ ~ ~ ~2 ~2 ~2 minecraft:glass
+@bot fill ~ ~ ~ ~2 ~2 ~2 minecraft:glass
+@bot0 fill ~ ~ ~ ~2 ~2 ~2 minecraft:glass
+# ---- clone ----
+fill 10 -60 10 12 -58 12 minecraft:stone
+setblock 11 -59 11 minecraft:dispenser[facing=east]{Items:[{Slot:3b,id:"minecraft:diamond",count:2}]}
+setblock 10 -58 10 minecraft:oak_stairs[facing=north]
+setblock 12 -58 12 minecraft:torch
+clone 10 -60 10 12 -58 12 20 -60 20
+data get block 21 -59 21
+clone 10 -60 10 12 -58 12 20 -60 20
+clone 10 -60 10 12 -58 12 20 -60 20 replace normal
+clone 10 -60 10 12 -58 12 20 -60 20 masked
+clone 10 -60 10 12 -58 12 20 -60 20 masked force
+clone 10 -60 10 12 -58 12 20 -60 20 filtered minecraft:stone
+clone 10 -60 10 12 -58 12 20 -60 20 filtered minecraft:stone move
+clone 10 -60 10 12 -58 12 20 -60 20 filtered #minecraft:stairs force
+clone 10 -60 10 12 -58 12 20 -60 20 filtered minecraft:dispenser{Items:[{Slot:3b,id:"minecraft:diamond",count:2}]}
+clone 10 -60 10 12 -58 12 11 -60 11
+clone 10 -60 10 12 -58 12 11 -60 11 replace force
+clone 10 -60 10 12 -58 12 11 -60 11 replace move
+clone 10 -60 10 12 -58 12 11 -60 11 replace normal
+clone 20 -60 20 22 -58 22 30 -60 30 strict
+clone 20 -60 20 22 -58 22 30 -60 30 strict move
+clone 20 -60 20 22 -58 22 30 -60 30 masked strict
+clone 20 -60 20 22 -58 22 30 -60 30 strict masked
+execute if blocks 20 -60 20 22 -58 22 30 -60 30 all
+execute if blocks 20 -60 20 22 -58 22 40 -60 40 all
+data get block 31 -59 31
+clone 0 -60 0 100 100 100 200 0 200
+clone 0 -60 0 300 -50 300 200 0 200
+clone 0 -60 0 31 -60 0 1000000 0 0
+clone 1000000 0 0 1000001 0 0 0 0 0
+clone 0 -64 0 40 300 40 100 -64 100
+clone 10 -60 10 12 -58 12 20 -60 20 from
+clone 10 -60 10 12 -58 12 20 -60 20 replace sideways
+clone from minecraft:overworld 10 -60 10 12 -58 12 to minecraft:overworld 50 -60 50
+clone from minecraft:overworld 10 -60 10 12 -58 12 50 -60 50 masked
+clone from minecraft:overworld 10 -60 10 12 -58 12 to minecraft:overworld 50 -60 50 masked
+clone 10 -60 10 12 -58 12 to minecraft:overworld 60 -60 60 filtered minecraft:stone force
+clone from minecraft:the_nether 10 -60 10 12 -58 12 50 -60 50
+clone 10 -60 10 12 -58 12 to minecraft:the_nether 50 -60 50
+clone from minecraft:overworld 10 -60 10 12 -58 12 to minecraft:the_nether 50 0 50 move
+clone from minecraft:foo 10 -60 10 12 -58 12 50 -60 50
+clone 10 -60 10 12 -58 12 to minecraft:foo 50 -60 50
+clone 12 -58 12 10 -60 10 70 -60 70
+clone 10 -60 10 12 -58 12 ~ ~ ~
+@bot clone ~ ~-1 ~ ~2 ~ ~2 ~10 ~-1 ~10
+@bot0 clone 10 -60 10 12 -58 12 20 -60 20
+# ---- forceload ----
+forceload query
+forceload add 0 0
+forceload add 0 0
+forceload query
+forceload query 0 0
+forceload query 100 100
+forceload query 15 15
+forceload add 32 32 64 64
+forceload query
+forceload add 32 32 64 64
+forceload remove 0 0
+forceload remove 0 0
+forceload query
+forceload remove 32 32 64 64
+forceload remove 32 32 64 64
+forceload query
+forceload add -30000001 0
+forceload add 0 -30000001
+forceload add 30000000 0
+forceload add 29999999 0
+forceload remove 29999999 0
+forceload add 0 0 10000 10000
+forceload add 0 0 255 15
+forceload add 0 0 271 15
+forceload query
+forceload remove 0 0 271 15
+forceload add 16 16 -16 -16
+forceload query
+forceload query -16 -16
+forceload remove all
+forceload query
+forceload remove all
+forceload add ~ ~
+forceload add ~5 ~
+forceload query ~ ~
+forceload remove all
+forceload
+forceload add
+forceload add 0
+forceload add a b
+forceload query 0 0 0
+@bot forceload add ~ ~
+@bot forceload query
+@bot forceload remove all
+@bot0 forceload query
+# ---- fillbiome ----
+fillbiome 0 -60 0 15 -50 15 minecraft:desert
+fillbiome 0 -60 0 15 -50 15 minecraft:desert
+fillbiome 0 -60 0 15 -50 15 minecraft:plains replace minecraft:desert
+fillbiome 0 -60 0 15 -50 15 minecraft:plains replace minecraft:desert
+fillbiome 0 -60 0 15 -50 15 minecraft:desert replace #minecraft:is_forest
+fillbiome 0 -60 0 15 -50 15 minecraft:desert replace #minecraft:is_overworld
+fillbiome 0 -60 0 15 -50 15 minecraft:plains replace #minecraft:is_overworld
+fillbiome 0 -60 0 3 -60 3 minecraft:plains
+fillbiome 1 -59 1 2 -58 2 minecraft:badlands
+fillbiome 0 -60 0 100000 0 0 minecraft:plains
+fillbiome 0 -60 0 1000000 0 0 minecraft:plains
+fillbiome 1000000 0 0 1000001 0 0 minecraft:plains
+fillbiome 0 -60 0 3 -60 3 minecraft:notabiome
+fillbiome 0 -60 0 3 -60 3 minecraft:plains replace minecraft:notabiome
+fillbiome 0 -60 0 3 -60 3 minecraft:plains replace #minecraft:nosuchtag
+fillbiome 0 -60 0 3 -60 3 minecraft:plains replace
+fillbiome 0 -60 0 3 -60 3 minecraft:plains sideways
+fillbiome 0 400 0 3 401 3 minecraft:plains
+fillbiome 0 -64 0 63 319 63 minecraft:plains
+fillbiome 0 -64 0 31 100 31 minecraft:plains
+fillbiome 0 -64 0 31 -50 31 minecraft:mushroom_fields
+fillbiome 0 -64 0 31 -50 31 minecraft:mushroom_fields
+fillbiome ~ ~ ~ ~8 ~8 ~8 minecraft:jungle
+@bot fillbiome ~ ~ ~ ~8 ~8 ~8 minecraft:jungle
+@bot fillbiome ~ ~ ~ ~8 ~8 ~8 minecraft:jungle
+@bot0 fillbiome ~ ~ ~ ~8 ~8 ~8 minecraft:jungle
+save-all flush
+# ---- locate ----
+locate biome minecraft:plains
+locate biome minecraft:mushroom_fields
+locate biome minecraft:desert
+locate biome minecraft:badlands
+locate biome #minecraft:is_overworld
+locate biome #minecraft:is_forest
+locate biome #minecraft:nosuchtag
+locate biome minecraft:notabiome
+locate biome minecraft:jungle
+@bot locate biome minecraft:plains
+@bot locate biome #minecraft:is_overworld
+@bot0 locate biome minecraft:plains
+locate structure minecraft:village_plains
+locate structure #minecraft:village
+locate structure #minecraft:nosuchtag
+locate structure minecraft:notastructure
+locate structure foo:bar
+locate structure
+locate structure minecraft:stronghold
+locate poi minecraft:librarian
+locate poi #minecraft:acquirable_job_site
+locate poi minecraft:nothing
+locate poi #minecraft:nosuchtag
+locate poi minecraft:nether_portal
+@bot locate poi minecraft:librarian
+locate
+locate sideways

@@ -42,6 +42,7 @@ pub mod server_level_worldgen;
 pub use server_level_entities::next_detached_entity_id;
 mod server_level_spawn;
 pub mod gen_live_state;
+mod server_level_locate;
 pub mod server_entity;
 pub use server_entity::{ServerEntity, UpdateInterval};
 pub mod level_server_state;

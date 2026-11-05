@@ -432,6 +432,25 @@ impl ChunkAccess {
         }
     }
 
+    /// [`Self::fill_biomes_from_noise`] with a resolver that also gets the biome currently stored at the cell.
+    pub fn fill_biomes_from_noise_with_current(
+        &mut self,
+        height_for_generation: LevelHeight,
+        mut resolver: impl FnMut(i32, i32, i32, BiomeId) -> BiomeId,
+    ) {
+        let quart_min_x = quart_pos::from_block(self.pos.get_min_block_x());
+        let quart_min_z = quart_pos::from_block(self.pos.get_min_block_z());
+        for section_y in height_for_generation.min_section_y()..=height_for_generation.max_section_y() {
+            let index = self.level_height.section_index_from_section_y(section_y) as usize;
+            self.sections[index].fill_biomes_from_noise_with_current(
+                &mut resolver,
+                quart_min_x,
+                quart_pos::from_section(section_y),
+                quart_min_z,
+            );
+        }
+    }
+
     /// `collectBiomesInPalette(output)`.
     pub fn collect_biomes_in_palette(&self, mut output: impl FnMut(BiomeId)) {
         for section in &self.sections {
