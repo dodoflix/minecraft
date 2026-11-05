@@ -1,7 +1,8 @@
 //! `RecipeCommand`.
 use super::command_response_tracker::{CommandResponseTracker, ElementType, display_name};
 use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::{EntityArgument, ResourceKeyArgument};
+use crate::commands::arguments::EntityArgument;
+use crate::commands::arguments::resource_arguments::ResourceKeyArgument;
 use crate::commands::host;
 use crate::commands::message::simple_translatable;
 use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};

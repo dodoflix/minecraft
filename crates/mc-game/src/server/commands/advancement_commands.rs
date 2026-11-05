@@ -1,7 +1,8 @@
 //! `AdvancementCommands`.
 use super::command_response_tracker::{CommandResponseTracker, ElementType, display_name};
 use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::{EntityArgument, ResourceKeyArgument};
+use crate::commands::arguments::EntityArgument;
+use crate::commands::arguments::resource_arguments::ResourceKeyArgument;
 use crate::commands::host::{self, AdvancementRef};
 use crate::commands::message::message;
 use crate::commands::shared_suggestion_provider::suggest;
