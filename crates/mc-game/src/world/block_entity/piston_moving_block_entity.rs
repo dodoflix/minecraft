@@ -367,11 +367,22 @@ fn fix_entity_within_piston_base(level: &mut ServerLevel, pos: BlockPos, entity:
     }
 }
 
+/// `input.read("blockState", BlockState.CODEC).orElse(AIR)`: bare block id or `{id, properties}`.
+fn read_moved_state(tag: &CompoundTag) -> BlockState {
+    use crate::world::level::levelgen::structure::templatesystem::structure_template::read_block_state;
+    if let Some(name) = tag.get_string("blockState") {
+        let mut compound = CompoundTag::new();
+        compound.put_string("id", name);
+        return read_block_state(&compound);
+    }
+    tag.get_compound("blockState").map(read_block_state).unwrap_or_else(helpers::air)
+}
+
 impl BlockEntity for PistonMovingBlockEntity {
     block_entity_base!();
 
     fn load_additional(&mut self, tag: &CompoundTag) {
-        self.moved_state = tag.get_compound("blockState").map(crate::world::level::levelgen::structure::templatesystem::structure_template::read_block_state).unwrap_or_else(helpers::air);
+        self.moved_state = read_moved_state(tag);
         self.direction = tag.get_byte("facing").map_or(Direction::Down, |facing| Direction::from_3d_data_value(i32::from(facing)));
         self.progress = tag.get_float_or("progress", 0.0);
         self.progress_o = self.progress;
@@ -380,7 +391,12 @@ impl BlockEntity for PistonMovingBlockEntity {
     }
 
     fn save_additional(&self, tag: &mut CompoundTag) {
-        tag.put("blockState", crate::world::level::levelgen::structure::templatesystem::structure_template::write_block_state(self.moved_state));
+        // `BlockState.CODEC`: the default state is written as the bare block id
+        if self.moved_state == self.moved_state.block().default_state() {
+            tag.put_string("blockState", self.moved_state.block().name());
+        } else {
+            tag.put("blockState", crate::world::level::levelgen::structure::templatesystem::structure_template::write_block_state(self.moved_state));
+        }
         tag.put_byte("facing", self.direction.get_3d_data_value() as i8);
         tag.put_float("progress", self.progress_o);
         tag.put_boolean("extending", self.extending);
