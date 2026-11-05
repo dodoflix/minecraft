@@ -103,8 +103,6 @@ pub fn swing_for_attack(e: &mut dyn Entity, level: &mut ServerLevel, hand: Inter
 }
 
 /// `mob.doHurtTarget(level, target)`: the target is taken out of the level while the attack runs.
-/// SEAM(EC2Attack): becomes `level.with_entity(target, |level, t| e.do_hurt_target(level, t))` when `Entity::do_hurt_target` /
-/// `mob_do_hurt_target` land on main.
 pub fn do_hurt_target(e: &mut dyn Entity, level: &mut ServerLevel, target: EntityId) -> bool {
     level.with_entity(target, |level, t| e.do_hurt_target(level, t)).unwrap_or(false)
 }
@@ -151,4 +149,14 @@ fn rotlerp(a: f32, b: f32, max: f32) -> f32 {
 /// `isHolding(item)`: main or off hand.
 pub fn is_holding(e: &dyn Entity, item: mc_data::Item) -> bool {
     e.get_item_by_slot(EquipmentSlot::MainHand).item() == item || e.get_item_by_slot(EquipmentSlot::OffHand).item() == item
+}
+/// `getRootVehicle() instanceof Mob vehicleMob ? vehicleMob.chargeSpeedModifier() : 1.0F` (the root vehicle of an unmounted
+/// mob is the mob itself).
+pub fn root_charge_speed_modifier(mob: &dyn Entity, level: &ServerLevel) -> f32 {
+    let root = mob.get_root_vehicle(level);
+    if root == mob.id() {
+        mob.charge_speed_modifier()
+    } else {
+        level.get_entity(root).filter(|e| e.mob().is_some()).map_or(1.0, |e| e.charge_speed_modifier())
+    }
 }
