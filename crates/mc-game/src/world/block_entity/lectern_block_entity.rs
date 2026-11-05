@@ -77,6 +77,44 @@ impl LecternBlockEntity {
         set_changed(level, self.base.pos, self.base.block_state);
     }
 
+    /// `resolveBook(book, player)`: resolves the components of a written book (`WrittenBookContent.resolveForItem`) with
+    /// a game-master source at the lectern. Vanilla only does it for a block entity that has a level; here the server
+    /// must be installed (`enter_server`), which block use from a player packet guarantees, while chunk loading (no
+    /// level yet in vanilla either) does not resolve.
+    pub fn resolve_book(&self, level: &ServerLevel, player: Option<&crate::world::entity::ServerPlayer>, book: &mut ItemStack) {
+        use crate::commands::command_source::null_source;
+        use crate::commands::command_source_stack::{CommandEntity, CommandSourceStack};
+        use crate::commands::component_utils::ResolutionContext;
+        use crate::server::permissions::{LevelBasedPermissionSet, PermissionSet};
+        use crate::world::entity::Entity;
+        use mc_core::phys::{Vec2, Vec3};
+        if !crate::commands::server_access::has_server() {
+            return;
+        }
+        let permissions: PermissionSet = LevelBasedPermissionSet::GAMEMASTER.into();
+        let position = Vec3::at_center_of(&self.base.pos);
+        let source = match player {
+            Some(player) => CommandSourceStack::for_entity(
+                null_source(),
+                position,
+                Vec2::ZERO,
+                level.dimension.clone(),
+                permissions,
+                CommandEntity {
+                    id: player.id(),
+                    uuid: player.uuid(),
+                    is_player: true,
+                    display_name: player.get_display_name(),
+                    plain_text_name: player.get_plain_text_name(),
+                    eye_height: player.player.living.entity.eye_height,
+                    player: player.handle.clone(),
+                },
+            ),
+            None => CommandSourceStack::named(null_source(), position, Vec2::ZERO, level.dimension.clone(), permissions, mc_text::Component::literal("Lectern")),
+        };
+        crate::world::item::resolve_for_item(book, &ResolutionContext::create(&source));
+    }
+
     /// `getPage()`.
     pub fn get_page(&self) -> i32 {
         self.page

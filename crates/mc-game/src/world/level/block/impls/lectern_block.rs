@@ -40,6 +40,8 @@ fn place_book(player: &mut ServerPlayer, hand: InteractionHand, level: &mut Serv
     player.set_item_in_hand(hand, held);
     let placed = level.with_block_entity(pos, |level, be| match be.as_any_mut().downcast_mut::<LecternBlockEntity>() {
         Some(lectern) => {
+            let mut book = book;
+            lectern.resolve_book(level, Some(&*player), &mut book);
             lectern.set_book(level, book);
             true
         }

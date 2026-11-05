@@ -105,7 +105,9 @@ impl ItemSystems for ItemPlayerSystems {
             inside: hit.inside,
             world_border_hit: hit.world_border_hit,
         };
-        ctx.player.use_item_on(ctx.level, hand, &hit)
+        // block use code resolves components (written books on a lectern) through the installed server
+        let (player, level) = (&mut *ctx.player, &mut *ctx.level);
+        crate::commands::server_access::enter_server(&mut *ctx.server, || player.use_item_on(level, hand, &hit))
     }
 
     fn use_item(&self, ctx: &mut PlayCtx, hand: InteractionHand) -> InteractionResult {
