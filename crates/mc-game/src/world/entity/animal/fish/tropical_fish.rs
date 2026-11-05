@@ -1,5 +1,8 @@
 //! `net.minecraft.world.entity.animal.fish.TropicalFish`.
 
+use mc_core::random::RandomSource as _;
+use crate::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
+use crate::world::level::material::FluidStateExt as _;
 use super::abstract_fish::{self, AbstractFish, abstract_fish_bucketable, abstract_fish_entity};
 use super::abstract_schooling_fish::{self, FollowFlockLeaderGoal, SchoolData, SchoolSpawnGroupData, SchoolingFish};
 use crate::define_accessor;

@@ -4,6 +4,9 @@
 //! Concrete classes call these from their `Entity` impl; [`water_creature_entity!`] writes the overrides both Java base
 //! classes make.
 
+use mc_core::random::RandomSource as _;
+use crate::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
+use crate::world::level::material::FluidStateExt as _;
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use crate::world::entity::living_entity::util::hurt;

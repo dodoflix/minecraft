@@ -1,6 +1,9 @@
 //! `net.minecraft.world.entity.animal.dolphin.Dolphin` with its private goals (`DolphinSwimToTreasureGoal`,
 //! `DolphinSwimWithPlayerGoal`, `MoveToItemGoal`, `PlayWithItemsGoal`).
 
+use mc_core::random::RandomSource as _;
+use crate::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
+use crate::world::level::material::FluidStateExt as _;
 use crate::define_accessor;
 use crate::registry::keys;
 use crate::server::level::ServerLevel;

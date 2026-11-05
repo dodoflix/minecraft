@@ -1,5 +1,8 @@
 //! `DolphinJumpGoal` (+ the abstract `JumpGoal` flags).
 
+use mc_core::random::RandomSource as _;
+use crate::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
+use crate::world::level::material::FluidStateExt as _;
 use super::{Flag, Goal, GoalFlags, reduced_tick_delay};
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;

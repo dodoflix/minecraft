@@ -4,6 +4,9 @@
 //! (`Arc<AtomicI32>`) so followers can `leader.addFollower()` / `removeFollower()` without mutable access to another
 //! entity (the leader may be taken out of the level or not yet added while `finalizeSpawn` runs).
 
+use mc_core::random::RandomSource as _;
+use crate::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
+use crate::world::level::material::FluidStateExt as _;
 use super::abstract_fish::AbstractFish;
 use crate::impl_spawn_group_data;
 use crate::server::level::ServerLevel;

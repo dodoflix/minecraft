@@ -3,6 +3,9 @@
 //! `GlowSquid extends Squid`: both embed [`SquidData`] (the fields of the Java `Squid` class) and share the behavior
 //! through the free functions of this module; [`as_squid_data`] is the `instanceof Squid` of the goals.
 
+use mc_core::random::RandomSource as _;
+use crate::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
+use crate::world::level::material::FluidStateExt as _;
 use crate::server::level::ServerLevel;
 use crate::world::damagesource::DamageSource;
 use crate::world::entity::ai::goal::{Goal, GoalFlags, reduced_tick_delay};

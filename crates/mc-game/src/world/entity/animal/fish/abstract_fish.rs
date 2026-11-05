@@ -4,6 +4,9 @@
 //! A concrete fish embeds `MobData`, implements [`AbstractFish`] and writes `abstract_fish_entity!()` inside its
 //! `impl Entity` block (which expands to every override `AbstractFish` makes), adding its own overrides after it.
 
+use mc_core::random::RandomSource as _;
+use crate::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
+use crate::world::level::material::FluidStateExt as _;
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
 use crate::world::entity::ai::control::move_control::{MoveControl, MoveControlBase, Operation};
@@ -27,6 +30,8 @@ pub trait AbstractFish: Entity {
     fn can_random_swim(&self, _level: &ServerLevel) -> bool {
         true
     }
+    /// What a subclass adds after `AbstractFish.aiStep()` (`Pufferfish` touches nearby mobs).
+    fn after_ai_step(&mut self, _level: &mut ServerLevel) {}
     /// `getFlopSound()`.
     fn get_flop_sound(&self) -> SoundEvent;
     /// `getBucketItemStack()`.
@@ -228,6 +233,7 @@ macro_rules! abstract_fish_entity {
         fn ai_step(&mut self, level: &mut crate::server::level::ServerLevel) {
             let flop = crate::world::entity::animal::fish::abstract_fish::AbstractFish::get_flop_sound(self);
             crate::world::entity::animal::fish::abstract_fish::ai_step(self, level, flop);
+            crate::world::entity::animal::fish::abstract_fish::AbstractFish::after_ai_step(self, level);
         }
         fn get_swim_sound(&self) -> mc_data::SoundEvent {
             mc_data::SoundEvent::ENTITY_FISH_SWIM

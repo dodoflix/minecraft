@@ -106,6 +106,18 @@ impl Pufferfish {
 }
 
 impl AbstractFish for Pufferfish {
+    fn after_ai_step(&mut self, level: &mut ServerLevel) {
+        if self.is_alive() && self.get_puff_state() > 0 {
+            let bb = self.base().bounding_box().inflate(0.3, 0.3, 0.3);
+            let targets = level.get_entities_of_class(&bb, |e| e.mob().is_some(), |e| TARGETING_CONDITIONS.test(level, Some(&*self), e));
+            for target in targets {
+                if level.get_entity(target).is_some_and(|m| m.is_alive()) {
+                    self.touch(level, target);
+                }
+            }
+        }
+    }
+
     fn get_flop_sound(&self) -> SoundEvent {
         SoundEvent::ENTITY_PUFFER_FISH_FLOP
     }
@@ -146,20 +158,6 @@ impl Entity for Pufferfish {
             }
         }
         mob::tick::tick(self, level);
-    }
-
-    fn ai_step(&mut self, level: &mut ServerLevel) {
-        let flop = AbstractFish::get_flop_sound(self);
-        abstract_fish::ai_step(self, level, flop);
-        if self.is_alive() && self.get_puff_state() > 0 {
-            let bb = self.base().bounding_box().inflate(0.3, 0.3, 0.3);
-            let targets = level.get_entities_of_class(&bb, |e| e.mob().is_some(), |e| TARGETING_CONDITIONS.test(level, Some(&*self), e));
-            for target in targets {
-                if level.get_entity(target).is_some_and(|m| m.is_alive()) {
-                    self.touch(level, target);
-                }
-            }
-        }
     }
 
     fn player_touch(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer) {

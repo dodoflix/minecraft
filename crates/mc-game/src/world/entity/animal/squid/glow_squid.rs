@@ -1,5 +1,8 @@
 //! `net.minecraft.world.entity.animal.squid.GlowSquid`.
 
+use mc_core::random::RandomSource as _;
+use crate::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
+use crate::world::level::material::FluidStateExt as _;
 use super::squid::{self, SquidData, SquidLike, squid_entity};
 use crate::define_accessor;
 use crate::register_spawn_placement;
