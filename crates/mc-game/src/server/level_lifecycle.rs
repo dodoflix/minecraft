@@ -256,12 +256,7 @@ impl MinecraftServer {
     pub fn build_attribute_system_for(&self, dimension: &DimensionKey, extra_timelines: &[Identifier]) -> crate::world::attribute::EnvironmentAttributeSystem {
         let access = self.registries.composite_access();
         let stem = access.level_stem(dimension).unwrap_or_else(|| panic!("Unknown dimension {dimension}"));
-        let dimension_type: Arc<DimensionType> = match &stem.dimension_type {
-            DimensionTypeSource::Inline(inline) => inline.clone(),
-            DimensionTypeSource::Reference(id) => Arc::new(
-                access.get::<DimensionType>(keys::DIMENSION_TYPE, id).cloned().unwrap_or_else(|| panic!("Unknown dimension type {id} of dimension {dimension}")),
-            ),
-        };
+        let dimension_type: Arc<DimensionType> = stem.dimension_type.value().clone();
         let biomes = self.level(dimension).and_then(|level| level.tick_state.biomes.clone()).unwrap_or_else(|| panic!("The level {dimension} has no biomes"));
         let can_have_weather = self.level(dimension).is_some_and(|level| level.tick_state.can_have_weather);
         self.build_attribute_system_with(&dimension_type, &biomes, can_have_weather, extra_timelines)
