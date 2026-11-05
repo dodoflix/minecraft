@@ -189,7 +189,7 @@ impl EntitySubPredicateImpl for PlayerPredicate {
         C.clone()
     }
 
-    fn matches(&self, entity: &dyn Entity, level: &ServerLevel, _position: Option<Vec3>) -> bool {
+    fn matches<'a>(&self, entity: &'a dyn Entity, level: &'a ServerLevel, _position: Option<Vec3>, lent: &[&'a dyn Entity]) -> bool {
         let Some(player) = entity.as_any().downcast_ref::<ServerPlayer>() else { return false };
         if !self.level.matches(player.player.experience_level)
             || !self.food.matches(&player.player.food_data)
@@ -211,7 +211,7 @@ impl EntitySubPredicateImpl for PlayerPredicate {
             let to = Vec3::new(from.x + view.x * range, from.y + view.y * range, from.z + view.z * range);
             let area = AABB::from_corners(from, to).inflate_scalar(1.0);
             let Some(target) = get_entity_hit_result(level, entity, from, to, &area, 0.0).and_then(|id| level.get_entity(id)) else { return false };
-            if !looking_at.matches(level, Some(entity.position()), target) || !has_line_of_sight(level, entity, target) {
+            if !looking_at.matches_lent(level, Some(entity.position()), target, lent) || !has_line_of_sight(level, entity, target) {
                 return false;
             }
         }

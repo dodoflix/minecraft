@@ -29,13 +29,13 @@ impl EntitySubPredicateImpl for LightningBoltPredicate {
         C.clone()
     }
 
-    fn matches(&self, entity: &dyn Entity, level: &ServerLevel, position: Option<Vec3>) -> bool {
+    fn matches<'a>(&self, entity: &'a dyn Entity, level: &'a ServerLevel, position: Option<Vec3>, lent: &[&'a dyn Entity]) -> bool {
         let Some(bolt) = entity.lightning_bolt_state() else { return false };
         self.blocks_set_on_fire.matches(bolt.blocks_set_on_fire)
             && self
                 .entity_struck
                 .as_ref()
-                .is_none_or(|struck| bolt.hit_entities.iter().any(|&id| struck.matches_nullable(level, position, level.get_entity(id))))
+                .is_none_or(|struck| bolt.hit_entities.iter().any(|&id| struck.matches_nullable_lent(level, position, super::support::resolve(level, lent, id), lent)))
     }
 }
 
@@ -52,7 +52,7 @@ impl EntitySubPredicateImpl for FishingHookPredicate {
         C.clone()
     }
 
-    fn matches(&self, entity: &dyn Entity, _level: &ServerLevel, _position: Option<Vec3>) -> bool {
+    fn matches<'a>(&self, entity: &'a dyn Entity, _level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
         match self.in_open_water {
             None => true,
             Some(want) => entity.fishing_hook_open_water() == Some(want),
@@ -73,7 +73,7 @@ impl EntitySubPredicateImpl for CubeMobPredicate {
         C.clone()
     }
 
-    fn matches(&self, entity: &dyn Entity, _level: &ServerLevel, _position: Option<Vec3>) -> bool {
+    fn matches<'a>(&self, entity: &'a dyn Entity, _level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
         entity.cube_mob_size().is_some_and(|size| self.size.matches(size))
     }
 }
@@ -97,7 +97,7 @@ impl EntitySubPredicateImpl for RaiderPredicate {
         C.clone()
     }
 
-    fn matches(&self, entity: &dyn Entity, _level: &ServerLevel, _position: Option<Vec3>) -> bool {
+    fn matches<'a>(&self, entity: &'a dyn Entity, _level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
         entity.raider_state() == Some((self.has_raid, self.is_captain))
     }
 }
@@ -115,7 +115,7 @@ impl EntitySubPredicateImpl for SheepPredicate {
         C.clone()
     }
 
-    fn matches(&self, entity: &dyn Entity, _level: &ServerLevel, _position: Option<Vec3>) -> bool {
+    fn matches<'a>(&self, entity: &'a dyn Entity, _level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
         entity.sheep_sheared().is_some_and(|sheared| self.sheared.is_none_or(|want| sheared == want))
     }
 }

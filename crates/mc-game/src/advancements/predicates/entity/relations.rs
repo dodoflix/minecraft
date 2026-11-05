@@ -18,8 +18,8 @@ impl EntitySubPredicateImpl for VehiclePredicate {
         EntityPredicate::lazy_codec().xmap(|vehicle| VehiclePredicate { vehicle }, |p: &VehiclePredicate| p.vehicle.clone())
     }
 
-    fn matches(&self, entity: &dyn Entity, level: &ServerLevel, position: Option<Vec3>) -> bool {
-        self.vehicle.matches_nullable(level, position, support::get_vehicle(level, entity))
+    fn matches<'a>(&self, entity: &'a dyn Entity, level: &'a ServerLevel, position: Option<Vec3>, lent: &[&'a dyn Entity]) -> bool {
+        self.vehicle.matches_nullable_lent(level, position, support::get_vehicle(level, lent, entity), lent)
     }
 }
 
@@ -34,8 +34,8 @@ impl EntitySubPredicateImpl for PassengerPredicate {
         EntityPredicate::lazy_codec().xmap(|passenger| PassengerPredicate { passenger }, |p: &PassengerPredicate| p.passenger.clone())
     }
 
-    fn matches(&self, entity: &dyn Entity, level: &ServerLevel, position: Option<Vec3>) -> bool {
-        entity.base().passengers.iter().any(|&id| self.passenger.matches_nullable(level, position, level.get_entity(id)))
+    fn matches<'a>(&self, entity: &'a dyn Entity, level: &'a ServerLevel, position: Option<Vec3>, lent: &[&'a dyn Entity]) -> bool {
+        entity.base().passengers.iter().any(|&id| self.passenger.matches_nullable_lent(level, position, support::resolve(level, lent, id), lent))
     }
 }
 
@@ -50,7 +50,7 @@ impl EntitySubPredicateImpl for TargetedEntityPredicate {
         EntityPredicate::lazy_codec().xmap(|targeted_entity| TargetedEntityPredicate { targeted_entity }, |p: &TargetedEntityPredicate| p.targeted_entity.clone())
     }
 
-    fn matches(&self, entity: &dyn Entity, level: &ServerLevel, position: Option<Vec3>) -> bool {
-        self.targeted_entity.matches_nullable(level, position, entity.get_target().and_then(|id| level.get_entity(id)))
+    fn matches<'a>(&self, entity: &'a dyn Entity, level: &'a ServerLevel, position: Option<Vec3>, lent: &[&'a dyn Entity]) -> bool {
+        self.targeted_entity.matches_nullable_lent(level, position, entity.get_target().and_then(|id| support::resolve(level, lent, id)), lent)
     }
 }

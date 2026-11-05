@@ -84,9 +84,14 @@ pub fn is_fall_flying(entity: &dyn Entity) -> bool {
     entity.living().is_some_and(|l| l.is_fall_flying())
 }
 
+/// The entity with `id`: one of the `lent` entities (running entities are not in the level's storage) or the level's.
+pub fn resolve<'a>(level: &'a ServerLevel, lent: &[&'a dyn Entity], id: EntityId) -> Option<&'a dyn Entity> {
+    lent.iter().copied().find(|e| e.id() == id).or_else(|| level.get_entity(id))
+}
+
 /// `Entity.getVehicle()`.
-pub fn get_vehicle<'a>(level: &'a ServerLevel, entity: &dyn Entity) -> Option<&'a dyn Entity> {
-    entity.base().vehicle.and_then(|id| level.get_entity(id))
+pub fn get_vehicle<'a>(level: &'a ServerLevel, lent: &[&'a dyn Entity], entity: &dyn Entity) -> Option<&'a dyn Entity> {
+    entity.base().vehicle.and_then(|id| resolve(level, lent, id))
 }
 
 /// `Entity.getKnownMovement()` (`ServerPlayer` overrides it with the last client movement).
@@ -94,7 +99,7 @@ pub fn get_vehicle<'a>(level: &'a ServerLevel, entity: &dyn Entity) -> Option<&'
 // level can hand out the running entity.
 pub fn get_known_movement(level: &ServerLevel, entity: &dyn Entity) -> Vec3 {
     if let Some(player) = entity.as_any().downcast_ref::<ServerPlayer>() {
-        return match get_vehicle(level, entity) {
+        return match get_vehicle(level, &[], entity) {
             Some(vehicle) if vehicle.get_controlling_passenger() != Some(entity.id()) => get_known_movement(level, vehicle),
             _ => player.last_known_client_movement,
         };
