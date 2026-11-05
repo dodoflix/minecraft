@@ -388,9 +388,13 @@ impl Entity for ServerPlayer {
         out.put_boolean("seenCredits", self.seen_credits);
         put_vec3(out, "entered_nether_pos", self.entered_nether_position);
         put_vec3(out, "last_explosion_impact_pos", self.current_explosion_impact_pos);
-        if let Some(book) = &self.recipe_book {
-            out.put("recipeBook", book.clone());
-        }
+        // `recipeBook.pack()`: always written; an unknown book packs as the empty default
+        out.put(
+            "recipeBook",
+            self.recipe_book.clone().unwrap_or_else(|| {
+                Tag::Compound(CompoundTag::new().with("recipes", ListTag::new()).with("toBeDisplayed", ListTag::new()))
+            }),
+        );
         if let Some(r) = &self.respawn_config {
             out.put("respawn", r.encode());
         }

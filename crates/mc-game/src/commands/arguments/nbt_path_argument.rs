@@ -49,7 +49,7 @@ type Path = Vec<Step>;
 #[derive(Clone, Debug)]
 enum Entry {
     At(Path),
-    Dead,
+    Dead(Tag),
 }
 
 fn resolve_mut<'a>(root: &'a mut Tag, path: &[Step]) -> Option<&'a mut Tag> {
@@ -244,7 +244,7 @@ impl Node {
         match self {
             Node::AllElements => match parent {
                 Tag::List(l) => out.extend((0..l.len()).map(|i| child(Step::Index(i)))),
-                _ => out.extend((0..collection_size(parent).unwrap_or(0)).map(|_| Entry::Dead)),
+                _ => out.extend((0..collection_size(parent).unwrap_or(0)).map(|i| Entry::Dead(collection_get(parent, i)))),
             },
             Node::CompoundChild(name) => {
                 if let Tag::Compound(c) = parent
@@ -257,7 +257,7 @@ impl Node {
                 if let Some(size) = collection_size(parent)
                     && let Some(i) = actual_index(*index, size)
                 {
-                    out.push(if matches!(parent, Tag::List(_)) { child(Step::Index(i)) } else { Entry::Dead });
+                    out.push(if matches!(parent, Tag::List(_)) { child(Step::Index(i)) } else { Entry::Dead(collection_get(parent, i)) });
                 }
             }
             Node::MatchElement(pattern) => {
@@ -303,10 +303,10 @@ impl Node {
                         // `list.addTag(0, result)` adds only when the supplied tag is numeric.
                         let result = child_supplier();
                         if collection_add(parent, 0, result).unwrap_or(false) {
-                            out.push(Entry::Dead);
+                            out.push(Entry::Dead(collection_get(parent, 0)));
                         }
                     } else {
-                        out.extend((0..collection_size(parent).unwrap_or(0)).map(|_| Entry::Dead));
+                        out.extend((0..collection_size(parent).unwrap_or(0)).map(|i| Entry::Dead(collection_get(parent, i))));
                     }
                 }
                 _ => {}
@@ -597,8 +597,29 @@ impl NbtPath {
         let entries = self.get_or_create_last_level(tag, new_tag_value)?;
         Ok(entries.into_iter().filter_map(|e| match e {
             Entry::At(path) => resolve_mut(tag, &path).map(|t| t.clone()),
-            Entry::Dead => None,
+            Entry::Dead(value) => Some(value),
         }).collect())
+    }
+
+    /// `getOrCreate(tag, newTagValue)` for callers that mutate the matched tags in place: runs `f` on each of them
+    /// (vanilla returns references into the tree). Elements of numeric arrays have no identity: `f` sees a copy.
+    pub fn get_or_create_mut(
+        &self,
+        tag: &mut Tag,
+        new_tag_value: &dyn Fn() -> Tag,
+        f: &mut dyn FnMut(&mut Tag) -> Result<(), CommandSyntaxException>,
+    ) -> Result<(), CommandSyntaxException> {
+        for entry in self.get_or_create_last_level(tag, new_tag_value)? {
+            match entry {
+                Entry::At(path) => {
+                    if let Some(t) = resolve_mut(tag, &path) {
+                        f(t)?;
+                    }
+                }
+                Entry::Dead(mut value) => f(&mut value)?,
+            }
+        }
+        Ok(())
     }
 
     fn get_or_create_last_level(&self, tag: &mut Tag, new_tag_value: &dyn Fn() -> Tag) -> Result<Vec<Entry>, CommandSyntaxException> {
@@ -667,8 +688,9 @@ impl NbtPath {
         let mut modified_count = 0;
         let mut used_first = false;
         for entry in entries {
-            let Entry::At(path) = entry else {
-                return Err(ERROR_EXPECTED_LIST.create(Tag::Byte(0).to_string()));
+            let path = match entry {
+                Entry::At(path) => path,
+                Entry::Dead(value) => return Err(ERROR_EXPECTED_LIST.create(value.to_string())),
             };
             let Some(target_tag) = resolve_mut(root, &path) else { continue };
             let Some(size) = collection_size(target_tag) else {

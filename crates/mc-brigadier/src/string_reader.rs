@@ -52,7 +52,8 @@ impl StringReader {
     }
 
     fn unit(&self, index: usize) -> u16 {
-        self.data.units[index]
+        // `String.charAt`'s `StringIndexOutOfBoundsException` text (shown by `Could not parse command: ...`)
+        *self.data.units.get(index).unwrap_or_else(|| panic!("Index {index} out of bounds for length {}", self.data.units.len()))
     }
 
     fn slice(&self, start: usize, end: usize) -> String {

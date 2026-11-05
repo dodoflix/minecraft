@@ -105,6 +105,8 @@ pub struct MinecraftServer {
     pub(super) world_gen_settings_dirty: bool,
     /// `savedDataStorage`: the root `data/` folder (game rules, weather, clocks, random sequences, ...).
     pub saved_data: SavedDataManager,
+    /// `getCommandStorage()` (`CommandStorage` over `saved_data`: `/data ... storage`).
+    pub command_storage: crate::world::level::saveddata::command_storage::CommandStorage,
     pub(super) game_rules_type: SavedDataType<GameRules>,
     pub(super) saved_types: SavedDataTypes,
     pub registries: LayeredRegistryAccess<RegistryLayer>,
@@ -218,6 +220,7 @@ impl MinecraftServer {
             world_gen_settings: init.world_gen_settings,
             world_gen_settings_dirty: true,
             saved_data,
+            command_storage: Default::default(),
             game_rules_type,
             saved_types: SavedDataTypes::new(),
             registries,

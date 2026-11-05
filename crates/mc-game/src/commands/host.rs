@@ -392,7 +392,7 @@ pub fn entity_data_with_selected_item(server: &MinecraftServer, entity: &EntityR
     let mut output = mc_nbt::CompoundTag::new();
     let level = server.level(&entity.dimension);
     let lookup = |id| level.and_then(|l| l.get_entity(id));
-    crate::world::entity::entity::save_without_id(e, &mut output, &lookup);
+    e.save_without_id(&mut output, &lookup);
     if let Some(selected) = player_selected_item_nbt(e) {
         output.put("SelectedItem", selected);
     }
@@ -414,7 +414,7 @@ pub fn block_entity_data(server: &MinecraftServer, dimension: &DimensionKey, pos
 
 /// `CommandStorage.get(id)` (storage `DataSource`).
 pub fn command_storage_get(server: &mut MinecraftServer, id: &Identifier) -> mc_nbt::CompoundTag {
-    crate::world::level::saveddata::command_storage::CommandStorage::new().get(&mut server.saved_data, id)
+    server.command_storage.get(&mut server.saved_data, id)
 }
 
 /// `ScoreHolder` of an entity (`getScoreboardName`).
@@ -630,4 +630,50 @@ pub fn give_item(server: &mut MinecraftServer, player: &EntityRef, prototype: &m
             }
         }
     });
+}
+
+// ---- DataCommands seams (`/data`: `EntityDataAccessor`, `BlockDataAccessor`, `StorageDataAccessor`) ----
+
+/// `CommandStorage.set(id, contents)`.
+pub fn command_storage_set(server: &mut MinecraftServer, id: &Identifier, contents: mc_nbt::CompoundTag) {
+    server.command_storage.set(&mut server.saved_data, id, contents);
+}
+
+/// `CommandStorage.keys()`.
+pub fn command_storage_keys(server: &mut MinecraftServer) -> Vec<Identifier> {
+    server.command_storage.keys(&mut server.saved_data)
+}
+
+/// `EntityDataAccessor.setData` of a non-player: `entity.load(input)`, then `setUUID(old uuid)` and
+/// `postDataManipulated()`. `Err` is vanilla's `IllegalStateException` of `Entity.load` (non-finite position/rotation).
+pub fn entity_load_data(server: &mut MinecraftServer, entity: &EntityRef, data: &mc_nbt::CompoundTag) -> Result<(), String> {
+    let Some(level) = server.level_mut(&entity.dimension) else { return Ok(()) };
+    level
+        .with_entity(entity.id, |_, e| {
+            let uuid = e.uuid();
+            let result = e.load(data);
+            e.base_mut().uuid = uuid;
+            e.post_data_manipulated();
+            result
+        })
+        .unwrap_or(Ok(()))
+}
+
+/// `level.getBlockEntity(pos) != null` (`LevelChunk.getBlockEntity(pos)`: `CHECK` creation).
+pub fn block_entity_exists(server: &mut MinecraftServer, dimension: &DimensionKey, pos: BlockPos) -> bool {
+    use crate::server::level::level_chunk_ops::EntityCreationType;
+    server.level_mut(dimension).is_some_and(|l| l.is_in_valid_bounds(pos) && l.get_block_entity_creating(pos, EntityCreationType::Check))
+}
+
+/// `BlockDataAccessor.setData`: `entity.loadWithComponents(input)`, `setChanged()`, `sendBlockUpdated(pos, state, state, 3)`.
+pub fn block_entity_load_data(server: &mut MinecraftServer, dimension: &DimensionKey, pos: BlockPos, data: &mc_nbt::CompoundTag) {
+    use crate::world::level::BlockGetter;
+    let Some(level) = server.level_mut(dimension) else { return };
+    let state = BlockGetter::get_block_state(level, pos);
+    let Some(()) = level.with_block_entity(pos, |_, e| e.load_additional(data)) else { return };
+    level.block_entity_changed(pos);
+    if !state.is_air() {
+        level.update_neighbour_for_output_signal(pos, state.block());
+    }
+    level.send_block_updated(pos, state, state, 3);
 }

@@ -3,6 +3,8 @@
 
 use super::food_data::FoodTickRules;
 use super::menu_ctx::{PlayerCtx, ServerPlayerMenuInit};
+use crate::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
+use mc_core::ident::Identifier;
 use super::ServerPlayer;
 use crate::server::level::ServerLevel;
 use crate::world::entity::movement;
@@ -42,6 +44,37 @@ impl ServerPlayer {
         target.distance_to_sqr(self.base().get_eye_position()) < range * range
     }
 
+    /// `ServerPlayer.updatePlayerAttributes()`: creative interaction range bonuses and the crouching waypoint modifier.
+    /// Calling `getAttribute` also instantiates the three attributes in the map (they are saved with the player).
+    fn update_player_attributes(&mut self) {
+        use mc_data::Attribute;
+        use mc_data::enums::Pose;
+        let creative = self.is_creative();
+        let crouching = self.base().get_pose() == Pose::Crouching;
+        let modifier = |path: &str, amount: f64, operation: AttributeModifierOperation| AttributeModifier {
+            id: Identifier::new("minecraft", path).expect("valid id"),
+            amount,
+            operation,
+        };
+        let attributes = &mut self.player.living.attributes;
+        let mut update = |attribute: Attribute, modifier: AttributeModifier, active: bool| {
+            if let Some(instance) = attributes.get_instance(attribute) {
+                if active {
+                    instance.add_or_update_transient_modifier(modifier);
+                } else {
+                    instance.remove_modifier(&modifier.id);
+                }
+            }
+        };
+        update(Attribute::BLOCK_INTERACTION_RANGE, modifier("creative_mode_block_range", 0.5, AttributeModifierOperation::AddValue), creative);
+        update(Attribute::ENTITY_INTERACTION_RANGE, modifier("creative_mode_entity_range", 2.0, AttributeModifierOperation::AddValue), creative);
+        update(
+            Attribute::WAYPOINT_TRANSMIT_RANGE,
+            modifier("waypoint_transmit_range_crouch", -1.0, AttributeModifierOperation::AddMultipliedTotal),
+            crouching,
+        );
+    }
+
     /// `ServerPlayer.tick()`: game mode tick, damage cooldown, menu broadcast (camera/advancement parts omitted).
     pub fn tick_server_player(&mut self, level: &mut ServerLevel) {
         self.game_mode.game_ticks += 1;
@@ -51,6 +84,7 @@ impl ServerPlayer {
             self.player.living.damage_cooldown_time -= 1;
         }
         self.broadcast_menu_changes(level);
+        self.update_player_attributes();
     }
 
     /// `Player.tick()` + `LivingEntity.tick()`/`Entity.tick()` bases that run on the server for players.
