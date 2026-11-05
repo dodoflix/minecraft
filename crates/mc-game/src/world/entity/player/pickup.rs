@@ -22,9 +22,26 @@ impl ServerPlayer {
     }
 }
 
-/// `ExperienceOrb.repairPlayerItems(player, amount)`.
-pub fn repair_player_items(_level: &mut ServerLevel, _player: &mut ServerPlayer, amount: i32) -> i32 {
-    // SEAM(EcEnchant): `EnchantmentHelper.getRandomItemWith(REPAIR_WITH_XP, player, ItemStack::isDamaged)` +
-    // `modifyDurabilityToRepairFromXp`; without them no item has a mending effect, so nothing is repaired.
-    amount
+/// `ExperienceOrb.repairPlayerItems(player, amount)`: mending. Returns the experience that is left over.
+pub fn repair_player_items(level: &mut ServerLevel, player: &mut ServerPlayer, amount: i32) -> i32 {
+    use crate::world::item::enchantment::actors::Actors;
+    use crate::world::item::enchantment::enchantment_effect_components::EffectComponent;
+    use crate::world::item::enchantment_helper::{get_random_item_with, modify_durability_to_repair_from_xp};
+    let player_id = player.base_id();
+    let selected = get_random_item_with(level, &mut Actors::of(player), EffectComponent::repair_with_xp, player_id, |s| s.is_damaged());
+    let Some(selected) = selected else { return amount };
+    let to_repair_from_xp = modify_durability_to_repair_from_xp(level, &selected.item_stack, amount);
+    let damage = selected.item_stack.get_damage_value();
+    let repair = to_repair_from_xp.min(damage);
+    // `itemStack.setDamageValue(...)` on the live stack of the slot
+    if let Some(stack) = selected.in_slot.and_then(|slot| player.item_by_slot_mut(slot)) {
+        stack.set_damage_value(damage - repair);
+    }
+    if repair > 0 {
+        let remaining = amount.wrapping_sub(repair.wrapping_mul(amount) / to_repair_from_xp);
+        if remaining > 0 {
+            return repair_player_items(level, player, remaining);
+        }
+    }
+    0
 }
