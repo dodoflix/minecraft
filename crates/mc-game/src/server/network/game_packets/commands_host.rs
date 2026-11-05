@@ -36,7 +36,7 @@ impl CommandSource for PlayerCommandSource {
 
 impl PlayCtx<'_> {
     /// `player.createCommandSourceStack()`.
-    pub(super) fn create_command_source_stack(&mut self) -> Option<CommandSourceStack> {
+    pub(crate) fn create_command_source_stack(&mut self) -> Option<CommandSourceStack> {
         let handle = self.player.handle.clone()?;
         let accepts_success = self.server.game_rule(crate::world::level::gamerules::GameRules::SEND_COMMAND_FEEDBACK);
         let id = self.player.name_and_id();

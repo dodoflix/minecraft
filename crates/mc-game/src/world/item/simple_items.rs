@@ -18,5 +18,4 @@ impl ItemBehaviour for FixedUse {
     }
 }
 
-register_item_class!("SpyglassItem", |_| Box::new(FixedUse { duration: 1200, animation: ItemUseAnimation::Spyglass }));
 register_item_class!("BrushItem", |_| Box::new(FixedUse { duration: 200, animation: ItemUseAnimation::Brush }));

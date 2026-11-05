@@ -71,6 +71,14 @@ impl ItemStack {
     pub fn with_count(item: Item, count: i32) -> ItemStack {
         ItemStack { item, count, components: PatchedDataComponentMap::new(item_prototype(item).clone()) }
     }
+    /// `transmuteCopy(newItem)`: same count and components patch on another item (`EMPTY` for an empty stack).
+    pub fn transmute_copy(&self, new_item: Item) -> ItemStack {
+        self.transmute_copy_with_count(new_item, self.count())
+    }
+    /// `transmuteCopy(newItem, newCount)`.
+    pub fn transmute_copy_with_count(&self, new_item: Item, new_count: i32) -> ItemStack {
+        if self.is_empty() { Self::empty() } else { Self::with_patch(new_item, new_count, &self.get_components_patch()) }
+    }
     /// `new ItemStack(item, count, patch)`.
     pub fn with_patch(item: Item, count: i32, patch: &DataComponentPatch) -> ItemStack {
         ItemStack { item, count, components: PatchedDataComponentMap::from_patch(item_prototype(item).clone(), patch) }

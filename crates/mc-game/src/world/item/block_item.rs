@@ -109,6 +109,8 @@ enum Kind {
 pub struct BlockItem {
     block: Block,
     kind: Kind,
+    /// `PlayerHeadItem`: its `descriptionId` (the name becomes `<id>.named` for a profile with a name).
+    player_head: Option<&'static str>,
 }
 
 /// `Block.isEnabled(enabledFeatures)`.
@@ -129,11 +131,16 @@ impl BlockItem {
             },
             None => Kind::Plain,
         };
-        Self { block, kind }
+        Self { block, kind, player_head: None }
     }
 
     fn with_kind(item: Item, kind: Kind) -> Self {
-        Self { block: item.block().expect("BlockItem without block"), kind }
+        Self { block: item.block().expect("BlockItem without block"), kind, player_head: None }
+    }
+
+    fn player_head(mut self, description_id: &'static str) -> Self {
+        self.player_head = Some(description_id);
+        self
     }
 
     pub fn get_block(&self) -> Block {
@@ -361,6 +368,22 @@ impl ItemBehaviour for BlockItem {
         consumable::base_use(level, player, hand)
     }
 
+    /// `PlayerHeadItem.getName`.
+    fn get_name(&self, stack: &ItemStack) -> mc_text::Component {
+        let name = self.player_head.and_then(|id| {
+            let profile = stack.get(&mc_protocol::components::PROFILE)?;
+            let name = match &profile.contents {
+                mc_protocol::codec::Either::Left(game_profile) => Some(game_profile.name.clone()),
+                mc_protocol::codec::Either::Right(partial) => partial.name.clone(),
+            }?;
+            Some((id, name))
+        });
+        match name {
+            Some((id, name)) => mc_text::Component::translatable(format!("{id}.named"), vec![name.into()]),
+            None => PlainItem.get_name(stack),
+        }
+    }
+
     fn can_fit_inside_container_items(&self) -> bool {
         !self.block.data().name.ends_with("shulker_box")
     }
@@ -404,6 +427,7 @@ pub fn calculate_view_vector(x_rot: f32, y_rot: f32) -> mc_core::phys::Vec3 {
 
 register_item_class!("BlockItem", |item| Box::new(BlockItem::for_item(item)));
 register_item_class!("StandingAndWallBlockItem", |item| Box::new(BlockItem::for_item(item)));
+register_item_class!("PlayerHeadItem", |item| Box::new(BlockItem::for_item(item).player_head(item.data().description_id)));
 register_item_class!("DoubleHighBlockItem", |item| Box::new(BlockItem::with_kind(item, Kind::DoubleHigh)));
 register_item_class!("GameMasterBlockItem", |item| Box::new(BlockItem::with_kind(item, Kind::GameMaster)));
 register_item_class!("PlaceOnWaterBlockItem", |item| Box::new(BlockItem::with_kind(item, Kind::PlaceOnWater)));

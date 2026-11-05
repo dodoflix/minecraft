@@ -115,6 +115,9 @@ pub struct ServerPlayer {
     /// Set when digging was refused by spawn protection (`sendSpawnProtectionMessage(pos)` is the listener's).
     /// Stacks `Player.drop` produced; the item-entity slice turns them into entities.
     pub pending_drops: Vec<(crate::world::item::ItemStack, bool)>,
+    /// `openItemGui(stack, hand)` raised by `WritableBookItem`/`WrittenBookItem.use`; the listener (`ItemSystems::use_item`)
+    /// resolves the book and sends `ClientboundOpenBookPacket` right after (it needs the server, which items do not see).
+    pub pending_open_book: Option<crate::world::item::InteractionHand>,
     /// `Dimension` read from the saved tag (the level a player is placed in on login).
     pub saved_dimension: Option<Identifier>,
     /// `level().dimension()`: the dimension of the level this player is in (`Dimension` tag on save).
@@ -191,6 +194,7 @@ impl ServerPlayer {
             container_counter: 0,
             won_game: false,
             pending_drops: Vec::new(),
+            pending_open_book: None,
             saved_dimension: None,
             dimension,
             saved_root_vehicle: None,

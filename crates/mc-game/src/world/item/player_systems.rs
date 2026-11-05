@@ -107,7 +107,9 @@ impl ItemSystems for ItemPlayerSystems {
     }
 
     fn use_item(&self, ctx: &mut PlayCtx, hand: InteractionHand) -> InteractionResult {
-        ctx.player.use_item(ctx.level, hand)
+        let result = ctx.player.use_item(ctx.level, hand);
+        super::flush_open_item_gui(ctx);
+        result
     }
 }
 
@@ -117,7 +119,7 @@ static ITEM_PLAYER_SYSTEMS: &dyn ItemSystems = &ItemPlayerSystems;
 struct MenuHandlers;
 
 /// Runs `f` on the player's current menu with the player context (`PlayerCtx` implements `MenuPlayer`).
-fn with_current_menu<R>(ctx: &mut PlayCtx, f: impl FnOnce(&mut dyn AbstractContainerMenu, &mut PlayerCtx) -> R) -> R {
+pub(super) fn with_current_menu<R>(ctx: &mut PlayCtx, f: impl FnOnce(&mut dyn AbstractContainerMenu, &mut PlayerCtx) -> R) -> R {
     let mut pctx = PlayerCtx { player: &mut *ctx.player, level: &mut *ctx.level };
     PlayerMenus::with_current(&mut pctx, |c| &mut c.player.player.menus, f)
 }
