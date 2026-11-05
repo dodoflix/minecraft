@@ -121,8 +121,8 @@ fn poi_manager_matches_vanilla() {
         let mut theirs = SimpleRegionStorage::new(info(), vanilla_dir.path(), true);
         for (x, z, expected) in &chunks {
             let tag = ours.read(&ChunkPos::new(*x, *z)).unwrap().expect("chunk written");
-            assert_eq!(hex(&mc_nbt::io::to_bytes(&tag)), *expected, "scenario {seed}: poi chunk {x},{z}");
-            let vanilla_tag = mc_nbt::io::read(&mut &unhex(expected)[..], &mut mc_nbt::NbtAccounter::unlimited()).unwrap();
+            assert_eq!(hex(&mc_nbt::nbt_io::to_bytes(&tag)), *expected, "scenario {seed}: poi chunk {x},{z}");
+            let vanilla_tag = mc_nbt::nbt_io::read(&mut &unhex(expected)[..], &mut mc_nbt::NbtAccounter::unlimited_heap()).unwrap();
             theirs.write(&ChunkPos::new(*x, *z), Some(vanilla_tag));
         }
         ours.close().unwrap();
