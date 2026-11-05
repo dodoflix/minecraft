@@ -129,9 +129,8 @@ fn placement_chains_match_vanilla() {
     run_chains(false);
 }
 
-/// The chains with a `would_survive` predicate: need `canSurvive` of the sapling/plant block classes (not ported yet).
+/// The chains with a `would_survive` predicate (`canSurvive` of the sapling/plant block classes).
 #[test]
-#[ignore = "needs the concrete block classes (WorldgenBlocks): would_survive uses canSurvive"]
 fn placement_chains_with_would_survive_match_vanilla() {
     run_chains(true);
 }
@@ -161,12 +160,12 @@ fn run_chains(can_survive: bool) {
             let line = lines.next().unwrap();
             let f: Vec<&str> = line.split(' ').collect();
             let (name, mode, oi) = (f[0], f[1], f[2].parse::<usize>().unwrap());
-            if f[3] == "EXC" {
-                skipped += 1;
-                continue;
-            }
             let feature = &features[name];
             if feature.needs_can_survive != can_survive {
+                continue;
+            }
+            if f[3] == "EXC" {
+                skipped += 1;
                 continue;
             }
             let origin = origins[oi];

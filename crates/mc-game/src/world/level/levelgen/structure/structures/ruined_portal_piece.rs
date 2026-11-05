@@ -2,6 +2,7 @@
 //! leaves, the age/lava/blackstone processors).
 
 use crate::world::level::block::BlockStateExt as _;
+use crate::world::level::block::impls::vine_block;
 use crate::world::level::levelgen::codec::BlockSet;
 use crate::world::level::levelgen::env::GenEnv;
 use crate::world::level::levelgen::structure::manager::StructureManager;
@@ -27,7 +28,6 @@ use crate::world::level::levelgen::structure::templatesystem::{StructurePlaceSet
 use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
 use crate::world::level::shapes::is_face_full;
 use mc_core::bounding_box::BoundingBox;
-use mc_core::direction::Direction;
 use mc_core::ident::Identifier;
 use mc_core::mirror::Mirror;
 use mc_core::pos::{BlockPos, ChunkPos};
@@ -337,16 +337,8 @@ impl RuinedPortalPiece {
             let neighbour_pos = pos.relative(direction);
             let neighour_state = level.get_block_state(neighbour_pos);
             if neighour_state.is_air() && is_face_full(&state.get_collision_shape(&*level, pos), direction) {
-                // `VineBlock.getPropertyForFace(opposite)`
-                let vine = Block::VINE.default_state();
-                let vine = match direction.get_opposite() {
-                    Direction::North => vine.set(props::NORTH, true),
-                    Direction::East => vine.set(props::EAST, true),
-                    Direction::South => vine.set(props::SOUTH, true),
-                    Direction::West => vine.set(props::WEST, true),
-                    _ => vine.set(props::UP, true),
-                };
-                level.set_block_and_update(neighbour_pos, vine);
+                let vine_dir = vine_block::get_property_for_face(direction.get_opposite());
+                level.set_block_and_update(neighbour_pos, Block::VINE.default_state().set(vine_dir, true));
             }
         }
     }
