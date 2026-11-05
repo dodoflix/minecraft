@@ -542,12 +542,61 @@ pub enum ResourceOrId {
 pub struct ResourceOrIdParser {
     registry_key: Identifier,
     element_lookup: Option<Arc<dyn RegistryView>>,
+    context: CommandBuildContext,
+}
+
+/// `RegistryOps` reference checks of an inline definition against the command build context's registries.
+struct BuildContextLookup<'a>(&'a CommandBuildContext);
+
+impl BuildContextLookup<'_> {
+    fn view(&self, registry: &str) -> Option<Arc<dyn RegistryView>> {
+        let key = if registry.contains(':') { registry.to_owned() } else { format!("minecraft:{registry}") };
+        self.0.lookup(&key)
+    }
+}
+
+impl crate::registry::codec::RegistryLookup for BuildContextLookup<'_> {
+    fn contains(&self, registry: &str, id: &Identifier) -> crate::registry::codec::Lookup {
+        use crate::registry::codec::Lookup;
+        match self.view(registry) {
+            None => Lookup::NoRegistry,
+            Some(view) if view.contains(id) => Lookup::Yes,
+            Some(_) => Lookup::No,
+        }
+    }
+
+    fn tag_exists(&self, registry: &str, tag: &Identifier) -> crate::registry::codec::Lookup {
+        use crate::registry::codec::Lookup;
+        match self.view(registry) {
+            None => Lookup::NoRegistry,
+            Some(view) if view.has_tag(tag) => Lookup::Yes,
+            Some(_) => Lookup::No,
+        }
+    }
+}
+
+/// `codec.parse(createSerializationContext(ops), value)` of the registries whose elements are code-defined (loot data);
+/// other registries are not checked while parsing.
+fn check_inline(context: &CommandBuildContext, registry: &str, tag: &Tag) -> Result<(), String> {
+    use crate::world::level::storage::loot::holder::with_decode_context;
+    fn run<T: 'static>(codec: mc_dfu::Codec<T>, tag: &Tag) -> Result<(), String> {
+        mc_dfu::parse_nbt(&codec, tag).into_result().map(|_| ())
+    }
+    let lookup = BuildContextLookup(context);
+    let decode = crate::registry::codec::RegistryDecodeContext::new(&lookup);
+    with_decode_context(&decode, || match registry {
+        "minecraft:loot_table" => run(crate::world::level::storage::loot::table::loot_table_direct_codec(), tag),
+        "minecraft:item_modifier" => run(crate::world::level::storage::loot::functions::function_codec(), tag),
+        "minecraft:predicate" => run(crate::world::level::storage::loot::predicates::condition_codec(), tag),
+        "minecraft:slot_source" => run(crate::world::item::slot::slot_source_codec(), tag),
+        _ => Ok(()),
+    })
 }
 
 impl ResourceOrIdParser {
     pub fn new(context: &CommandBuildContext, registry: &str) -> Self {
         let registry_key = registry_id(registry);
-        Self { element_lookup: context.lookup(&registry_key.to_string()), registry_key }
+        Self { element_lookup: context.lookup(&registry_key.to_string()), registry_key, context: context.clone() }
     }
 
     pub fn parse(&self, reader: &mut StringReader) -> Result<ResourceOrId, CommandSyntaxException> {
@@ -570,7 +619,11 @@ impl ResourceOrIdParser {
                     Err(ERROR_NO_SUCH_ELEMENT.create_with_context(reader, key.id.to_string(), key.registry.to_string()))
                 }
             }
-            (ResourceOrId::Inline(_), Some(_)) => Ok(contents),
+            (ResourceOrId::Inline(tag), Some(_)) => {
+                check_inline(&self.context, &self.registry_key.to_string(), tag)
+                    .map_err(|msg| ERROR_FAILED_TO_PARSE.create_with_context(reader, msg))?;
+                Ok(contents)
+            }
         }
     }
 }
