@@ -3,7 +3,12 @@
 //! `ProjectileData`, implements [`Projectile`] + [`AbstractHurtingProjectile`] and puts
 //! `impl_projectile_entity!(hurting)` into its `impl Entity` (its `hurtServer` is vanilla's `return false`).
 
+pub mod dragon_fireball;
+pub mod fireball;
+pub mod large_fireball;
+pub mod small_fireball;
 pub mod windcharge;
+pub mod wither_skull;
 
 use super::util::{get_hit_result_on_move_vector_clip, rotate_towards_movement};
 use super::{HitResult, HitType, Projectile, hit_target_or_deflect_self};

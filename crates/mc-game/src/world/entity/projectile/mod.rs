@@ -8,8 +8,11 @@
 
 pub mod arrow;
 pub mod deflection;
+pub mod evoker_fangs;
 pub mod firework_rocket;
 pub mod hurting;
+pub mod llama_spit;
+pub mod shulker_bullet;
 pub mod spawn;
 pub mod throwable;
 pub mod throwableitemprojectile;

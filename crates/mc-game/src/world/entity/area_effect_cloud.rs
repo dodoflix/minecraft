@@ -415,6 +415,10 @@ fn particle_to_nbt(particle: &ParticleOptions) -> Option<Tag> {
             tag.put_string("type", particle_type.name());
             tag.put_int("color", *color);
         }
+        ParticleOptions::Power { particle_type, power } => {
+            tag.put_string("type", particle_type.name());
+            tag.put_float("power", *power);
+        }
         ParticleOptions::Block { particle_type, state } => {
             tag.put_string("type", particle_type.name());
             tag.put("block_state", Tag::Compound(crate::world::level::levelgen::structure::templatesystem::structure_template::write_block_state(*state)));
@@ -432,6 +436,9 @@ fn particle_from_nbt(tag: &Tag) -> Option<ParticleOptions> {
     let ty = mc_data::ParticleType::by_name(tag.get_string("type")?)?;
     if let Some(color) = tag.get("color").and_then(|t| t.as_number()) {
         return Some(ParticleOptions::Color { particle_type: ty, color: color.int_value() });
+    }
+    if ty == mc_data::ParticleType::DRAGON_BREATH {
+        return Some(ParticleOptions::Power { particle_type: ty, power: tag.get_float_or("power", 1.0) });
     }
     if let Some(state) = tag.get_compound("block_state") {
         let state = crate::world::level::levelgen::structure::templatesystem::structure_template::read_block_state(state);
