@@ -2795,10 +2795,6 @@ pub trait Entity: Any {
     fn attackable(&self) -> bool {
         true
     }
-    /// `LivingEntity.isAffectedByPotions()`.
-    fn is_affected_by_potions(&self) -> bool {
-        true
-    }
     /// `getPistonPushReaction()`.
     fn get_piston_push_reaction(&self) -> mc_data::enums::PushReaction {
         mc_data::enums::PushReaction::PushPull
