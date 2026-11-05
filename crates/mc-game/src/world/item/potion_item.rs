@@ -93,6 +93,10 @@ pub struct TippedArrowItem {
 }
 
 impl ItemBehaviour for TippedArrowItem {
+    fn as_projectile_item(&self) -> Option<&dyn super::ProjectileItem> {
+        Some(&super::arrow_item::ARROW_PROJECTILE)
+    }
+
     fn get_name(&self, stack: &ItemStack) -> Component {
         potion_name(self.description_id, stack)
     }

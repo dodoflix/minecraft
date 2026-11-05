@@ -235,9 +235,7 @@ impl ProjectileWeapon for CrossbowItem {
             // `new FireworkRocketEntity(level, projectile, shooter, x, shooter.getEyeY() - 0.15F, z, true)`
             let (x, z) = (shooter.base().x(), shooter.base().z());
             let y = shooter.base().get_eye_y() - f64::from(0.15f32);
-            // PENDING ImThrowables: FireworkRocketEntity::new_shot_by(level, projectile, shooter, x, y, z, true)
-            let _ = (x, y, z);
-            unreachable!("crossbow firework: waiting for FireworkRocketEntity")
+            crate::world::entity::projectile::firework_rocket::FireworkRocketEntity::new_shot_by(level, projectile, shooter, x, y, z, true)
         } else {
             let mut entity = create_arrow_projectile(level, shooter, held_item, projectile, is_crit);
             set_crossbow_hit_sound(&mut *entity);

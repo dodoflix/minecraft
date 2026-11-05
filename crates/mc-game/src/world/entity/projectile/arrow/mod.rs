@@ -345,14 +345,12 @@ pub fn tick(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel) {
             let inertia = arrow.get_water_inertia();
             apply_inertia(arrow, inertia);
         }
-        // vanilla: `atan2 * 180.0F / (float)Math.PI` constant-folds to `atan2 * (double)(180.0F / (float)Math.PI)`
-        let rad_to_deg = f64::from(180.0f32 / std::f32::consts::PI);
         let y_rot = if !physics_enabled {
-            (mth::atan2(-movement.x, -movement.z) * rad_to_deg) as f32
+            (mth::atan2(-movement.x, -movement.z) * super::RAD_TO_DEG) as f32
         } else {
-            (mth::atan2(movement.x, movement.z) * rad_to_deg) as f32
+            (mth::atan2(movement.x, movement.z) * super::RAD_TO_DEG) as f32
         };
-        let x_rot = (mth::atan2(movement.y, movement.horizontal_distance()) * rad_to_deg) as f32;
+        let x_rot = (mth::atan2(movement.y, movement.horizontal_distance()) * super::RAD_TO_DEG) as f32;
         let new_x = lerp_rotation(arrow.base().x_rot(), x_rot);
         let new_y = lerp_rotation(arrow.base().y_rot(), y_rot);
         arrow.base_mut().set_x_rot(new_x);
