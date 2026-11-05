@@ -81,7 +81,8 @@ pub struct JigsawBlockInfo {
     pub pos: BlockPos,
     pub state: BlockState,
     pub joint_type: JointType,
-    pub name: Identifier,
+    /// `@Nullable` (`FeaturePoolElement` passes `null`); [`JigsawBlockInfo::parse`] always yields `Some`.
+    pub name: Option<Identifier>,
     /// `ResourceKey<StructureTemplatePool>` (`Pools.EMPTY` when absent).
     pub pool: Identifier,
     pub target: Identifier,
@@ -107,7 +108,7 @@ impl JigsawBlockInfo {
             pos: info.pos,
             state: info.state,
             joint_type: get_joint_type(nbt, info.state),
-            name: read_identifier(nbt, "name").unwrap_or_else(empty_id),
+            name: Some(read_identifier(nbt, "name").unwrap_or_else(empty_id)),
             pool: read_identifier(nbt, "pool").unwrap_or_else(empty_id),
             target: read_identifier(nbt, "target").unwrap_or_else(empty_id),
             placement_priority: nbt.get_int_or("placement_priority", 0),
