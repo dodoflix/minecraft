@@ -1,7 +1,7 @@
 //! `net.minecraft.world.entity.projectile.ProjectileUtil` (hit results). `getWeaponHoldingHand` / `getMobArrow` belong
 //! to the arrow classes.
 
-use super::{EntityHitResult, HitResult};
+use super::{EntityHitResult, HitResult, RAD_TO_DEG};
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use crate::world::entity::movement::collision_context;
@@ -232,9 +232,8 @@ pub fn rotate_towards_movement(projectile: &mut dyn Entity, rotation_speed: f32)
     let movement = b.delta_movement();
     if movement.length_sqr() != 0.0 {
         let sd = movement.horizontal_distance();
-        let pi = f64::from(std::f32::consts::PI);
-        b.set_y_rot((mth::atan2(movement.z, movement.x) * 180.0 / pi) as f32 + 90.0);
-        b.set_x_rot((mth::atan2(sd, movement.y) * 180.0 / pi) as f32 - 90.0);
+            b.set_y_rot((mth::atan2(movement.z, movement.x) * RAD_TO_DEG) as f32 + 90.0);
+        b.set_x_rot((mth::atan2(sd, movement.y) * RAD_TO_DEG) as f32 - 90.0);
         while b.x_rot() - b.x_rot_o < -180.0 {
             b.x_rot_o -= 360.0;
         }
