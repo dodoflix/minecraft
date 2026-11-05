@@ -1,9 +1,6 @@
 //! `LivingEntity.randomTeleport` / `checkPositionAndTeleport` and `TeleportRandomlyConsumeEffect` (chorus fruit).
 
 use super::util::lm;
-use crate::registry::keys;
-use crate::registry::typed::dimension_type::DimensionType;
-use crate::registry::typed::level_stem::{DimensionTypeSource, LevelStem};
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use crate::world::entity::movement::contains_any_liquid;
@@ -20,16 +17,7 @@ use mc_protocol::packets::play::SoundSource;
 
 /// `Level.getLogicalHeight()` of the level's dimension type (the level height when no `LevelStem` is registered).
 pub fn get_logical_height(level: &ServerLevel) -> i32 {
-    let access = &level.registries;
-    let from_stem = || {
-        let stems = access.registry(keys::LEVEL_STEM)?;
-        let id = stems.id_of(&level.dimension)?;
-        let stem = stems.entry(id)?.value.clone()?.downcast::<LevelStem>().ok()?;
-        match &stem.dimension_type {
-            DimensionTypeSource::Reference(type_id) => access.get::<DimensionType>(keys::DIMENSION_TYPE, type_id).map(|t| t.logical_height),
-            DimensionTypeSource::Inline(t) => Some(t.logical_height),
-        }
-    };
+    let from_stem = || Some(level.registries.level_stem(&level.dimension)?.dimension_type.value().logical_height);
     from_stem().unwrap_or_else(|| level.level_height().height)
 }
 
