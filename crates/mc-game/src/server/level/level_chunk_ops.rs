@@ -66,7 +66,10 @@ impl ServerLevel {
         let moved_by_piston = flags & UPDATE_MOVE_BY_PISTON != 0;
         let side_effects = flags & UPDATE_SKIP_BLOCK_ENTITY_SIDEEFFECTS == 0;
         if block_changed && old_state.has_block_entity() && !state.should_changed_state_keep_block_entity(old_state) {
-            if side_effects && let Some(mut block_entity) = self.take_block_entity(pos) {
+            if let Some(taken) = self.tick_state.taken_block_entities.iter_mut().rev().find(|t| t.pos == pos) {
+                // the block entity is out of its chunk running its own code: it is dropped when that code returns
+                taken.removed = true;
+            } else if side_effects && let Some(mut block_entity) = self.take_block_entity(pos) {
                 block_entity.pre_remove_side_effects(self, pos, old_state);
                 self.put_back_block_entity(pos, block_entity);
             }
@@ -83,7 +86,13 @@ impl ServerLevel {
         if flags & UPDATE_SKIP_ON_PLACE == 0 {
             state.on_place(self, pos, old_state, moved_by_piston);
         }
-        if state.has_block_entity() && BlockGetter::get_block_state(self, pos).block() == new_block {
+        if let Some(taken) = self.tick_state.taken_block_entities.iter_mut().rev().find(|t| t.pos == pos) {
+            // `setBlock` from inside the block entity's own code (brewing stand `HAS_BOTTLE`, furnace `LIT`, ...): the live
+            // block entity keeps living, it just learns its new state when it is put back
+            if !taken.removed && state.has_block_entity() {
+                taken.new_state = Some(state);
+            }
+        } else if state.has_block_entity() && BlockGetter::get_block_state(self, pos).block() == new_block {
             let mut present = self.get_block_entity_creating(pos, EntityCreationType::Check);
             if present {
                 let valid = self.get_block_entity(pos).is_some_and(|be| be.is_valid_block_state(state));
@@ -121,18 +130,32 @@ impl ServerLevel {
         self.chunk_at_mut(pos)?.block_entities.remove(&pos)
     }
 
-    /// Put a taken block entity back unless it was replaced in the meantime.
+    /// Put a taken block entity back unless it was replaced or removed (`setRemoved`) in the meantime.
     pub fn put_back_block_entity(&mut self, pos: BlockPos, block_entity: Box<dyn BlockEntity>) {
+        if block_entity.is_removed() {
+            return;
+        }
         if let Some(chunk) = self.chunk_at_mut(pos) {
             chunk.block_entities.entry(pos).or_insert(block_entity);
         }
     }
 
-    /// Run `f` with the block entity at `pos` taken out (it can use the level freely), then put it back.
+    /// Run `f` with the block entity at `pos` taken out (it can use the level freely), then put it back. `setBlock` on `pos`
+    /// from inside `f` keeps this block entity (see `TakenBlockEntity`).
     pub fn with_block_entity<R>(&mut self, pos: BlockPos, f: impl FnOnce(&mut ServerLevel, &mut dyn BlockEntity) -> R) -> Option<R> {
         let mut block_entity = self.take_block_entity(pos)?;
+        self.tick_state.taken_block_entities.push(super::level_tick_state::TakenBlockEntity { pos, new_state: None, removed: false });
         let result = f(self, block_entity.as_mut());
-        self.put_back_block_entity(pos, block_entity);
+        if let Some(taken) = self.tick_state.taken_block_entities.pop() {
+            if taken.removed {
+                block_entity.set_removed();
+            } else {
+                if let Some(state) = taken.new_state {
+                    block_entity.set_block_state(state);
+                }
+                self.put_back_block_entity(pos, block_entity);
+            }
+        }
         Some(result)
     }
 

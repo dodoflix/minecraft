@@ -16,6 +16,7 @@ pub mod slot;
 mod player_systems;
 mod potion_item;
 mod stack_ext;
+pub mod throwable;
 mod use_item;
 pub mod tool;
 

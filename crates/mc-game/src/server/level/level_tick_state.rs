@@ -82,6 +82,16 @@ pub struct TickContainers {
 
 pub type SharedTickContainers = Arc<Mutex<TickContainers>>;
 
+/// A block entity that is out of its chunk while its code runs (`with_block_entity`): `setBlock` calls on its position
+/// from inside that code must neither create a second block entity nor lose this one.
+pub struct TakenBlockEntity {
+    pub pos: BlockPos,
+    /// The state `setBlock` put at `pos` while the block entity was out (same block): applied on put-back.
+    pub new_state: Option<mc_data::block::BlockState>,
+    /// `setBlock` replaced the block (or removed the block entity): it must not be put back.
+    pub removed: bool,
+}
+
 pub struct LevelTickState {
     /// `neighborUpdater`.
     pub neighbor_updater: CollectingNeighborUpdater,
@@ -136,6 +146,8 @@ pub struct LevelTickState {
     pub thunder_level: f32,
     /// Entities whose `PortalProcessor` decided to teleport this tick (see `world::entity::portal`).
     pub pending_portal_teleports: Vec<crate::world::entity::EntityId>,
+    /// Block entities currently taken out of their chunk by `ServerLevel::with_block_entity` (innermost last).
+    pub taken_block_entities: Vec<TakenBlockEntity>,
 }
 
 impl LevelTickState {
@@ -170,6 +182,7 @@ impl LevelTickState {
             o_thunder_level: 0.0,
             thunder_level: 0.0,
             pending_portal_teleports: Vec::new(),
+            taken_block_entities: Vec::new(),
         }
     }
 }
