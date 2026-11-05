@@ -484,6 +484,10 @@ impl Entity for ServerPlayer {
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:player")
     }
+    /// `Player.getScoreboardName()`: the profile name.
+    fn get_scoreboard_name(&self) -> String {
+        self.player.game_profile.name.clone()
+    }
     // ==== [Effects] additions (Entity impl) ====
     /// `ServerPlayer.updateInvisibilityStatus()`: spectators are invisible and show no effect particles.
     fn update_invisibility_status(&mut self) {

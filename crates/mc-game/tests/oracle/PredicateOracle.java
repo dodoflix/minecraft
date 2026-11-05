@@ -36,7 +36,7 @@ import net.minecraft.world.phys.Vec3;
  * -- state setters (besides the driver commands) --
  * onground REF BOOL | pose REF POSE | sprint REF BOOL | swimming REF BOOL | fallflying REF BOOL | flying PLAYER BOOL
  * tickcount REF N | ride PASSENGER VEHICLE | target MOB TARGET | team_join REF TEAM | pinput PLAYER flags | known_movement PLAYER X Y Z
- * recipe PLAYER ID
+ * recipe PLAYER ID | ominous_banner MOB
  * -- evaluations (output: "R id true|false|ERR", "J id canonical-json" when the JSON decoded) --
  * pred_entity ID SUBJECT ORIGIN JSON            ORIGIN: none | x,y,z | @REF (the position of REF)
  * pred_location ID X Y Z JSON
@@ -134,6 +134,11 @@ public final class PredicateOracle {
             d.world();
             d.v.command("team add " + a.get(2));
             d.v.command("team join " + a.get(2) + " " + d.ref(a.get(1)).getScoreboardName());
+         }
+         case "ominous_banner" -> {
+            d.world();
+            var e = (LivingEntity)d.ref(a.get(1));
+            e.setItemSlot(net.minecraft.world.entity.EquipmentSlot.HEAD, net.minecraft.world.entity.raid.Raid.getOminousBannerInstance(d.v.server.registryAccess().lookupOrThrow(Registries.BANNER_PATTERN)));
          }
          case "pinput" -> {
             Set<String> fl = new HashSet<>(Arrays.asList(a.get(2).split(",")));
