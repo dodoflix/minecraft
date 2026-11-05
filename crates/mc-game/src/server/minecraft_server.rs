@@ -756,7 +756,7 @@ impl MinecraftServer {
 
     /// `autoSave`.
     fn auto_save(&mut self) {
-        self.ticks_until_autosave = self.compute_next_autosave_interval();
+        self.ticks_until_autosave = self.compute_next_autosave_interval(self.tick_rate_manager.tickrate(), self.tick_rate_manager.is_sprinting());
         log::debug!("Autosave started");
         crate::util::profiling::push("save");
         self.save_everything(true, false, false);
@@ -764,18 +764,14 @@ impl MinecraftServer {
         log::debug!("Autosave finished");
     }
 
-    fn compute_next_autosave_interval(&self) -> i32 {
-        let ticks_per_second = if self.tick_rate_manager.is_sprinting() {
-            tick_pacing::sprint_ticks_per_second(self.get_average_tick_time_nanos())
-        } else {
-            self.tick_rate_manager.tickrate()
-        };
+    fn compute_next_autosave_interval(&self, tickrate: f32, sprinting: bool) -> i32 {
+        let ticks_per_second = if sprinting { tick_pacing::sprint_ticks_per_second(self.get_average_tick_time_nanos()) } else { tickrate };
         tick_pacing::compute_next_autosave_interval(ticks_per_second)
     }
 
     /// `onTickRateChanged`.
-    pub fn on_tick_rate_changed(&mut self) {
-        let new_autosave_interval = self.compute_next_autosave_interval();
+    pub fn on_tick_rate_changed(&mut self, tickrate: f32, sprinting: bool) {
+        let new_autosave_interval = self.compute_next_autosave_interval(tickrate, sprinting);
         if new_autosave_interval < self.ticks_until_autosave {
             self.ticks_until_autosave = new_autosave_interval;
         }

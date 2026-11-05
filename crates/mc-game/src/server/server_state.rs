@@ -243,22 +243,19 @@ impl TickRateHost for MinecraftServer {
         self.player_list.broadcast_all(&packets::ClientboundTickingStepPacket { tick_steps: frozen_ticks_to_run });
     }
 
-    fn on_tick_rate_changed(&mut self) {
-        MinecraftServer::on_tick_rate_changed(self);
+    fn on_tick_rate_changed(&mut self, tickrate: f32, sprinting: bool) {
+        MinecraftServer::on_tick_rate_changed(self, tickrate, sprinting);
     }
 
     fn send_sprint_report(&mut self, ticks_per_second: i32, milliseconds_per_tick: String) {
-        // `createCommandSourceStack().sendSuccess(.., true)`: the console log line and every operator.
-        let message = mc_text::Component::translatable(
-            "commands.tick.sprint.report",
-            vec![ticks_per_second.into(), milliseconds_per_tick.into()],
-        );
+        // `createCommandSourceStack().sendSuccess(.., true)`: the server logs the message (`sendSystemMessage`), then
+        // `broadcastToAdmins` wraps it in `chat.type.admin` for the operators.
+        let message = mc_text::Component::translatable("commands.tick.sprint.report", vec![ticks_per_second.into(), milliseconds_per_tick.into()]);
         log::info!("System chat: {}", message.get_string());
-        for player in self.player_list.get_players() {
-            if self.player_list.is_op(&player.name_and_id()) {
-                player.send_system_message(&message, false);
-            }
-        }
+        let broadcast = mc_text::Component::translatable("chat.type.admin", vec![mc_text::Component::literal("Server").into(), message.into()])
+            .with_formats(&[mc_text::ChatFormatting::Gray, mc_text::ChatFormatting::Italic]);
+        let overworld = crate::server::world_dimensions::overworld_key();
+        crate::commands::host::broadcast_to_admins(self, crate::commands::CommandSourceKind::Server, &overworld, &broadcast);
     }
 }
 

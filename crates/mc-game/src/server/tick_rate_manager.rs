@@ -18,8 +18,9 @@ pub trait TickRateHost {
     fn broadcast_ticking_state(&mut self, tick_rate: f32, is_frozen: bool);
     /// `playerList.broadcastAll(ClientboundTickingStepPacket.from(this))`.
     fn broadcast_ticking_step(&mut self, frozen_ticks_to_run: i32);
-    /// `server.onTickRateChanged()`.
-    fn on_tick_rate_changed(&mut self);
+    /// `server.onTickRateChanged()`; the manager is taken out of the server while it runs, so its (already updated)
+    /// tick rate and sprint state come as arguments.
+    fn on_tick_rate_changed(&mut self, tickrate: f32, sprinting: bool);
     /// `server.createCommandSourceStack().sendSuccess(() -> translatable("commands.tick.sprint.report", ticksPerSecond,
     /// millisecondsPerTick), true)`.
     fn send_sprint_report(&mut self, ticks_per_second: i32, milliseconds_per_tick: String);
@@ -161,7 +162,7 @@ impl ServerTickRateManager {
     pub fn set_tick_rate(&mut self, rate: f32, host: &mut dyn TickRateHost) {
         self.tickrate = max_f32(rate, MIN_TICKRATE);
         self.nanoseconds_per_tick = (NANOSECONDS_PER_SECOND as f64 / f64::from(self.tickrate)) as i64;
-        host.on_tick_rate_changed();
+        host.on_tick_rate_changed(self.tickrate, self.is_sprinting());
         self.update_state_to_clients(host);
     }
 
@@ -219,7 +220,7 @@ impl ServerTickRateManager {
         host.send_sprint_report(ticks_per_second, milliseconds_per_tick);
         self.remaining_sprint_ticks = 0;
         self.set_frozen(self.previous_is_frozen, host);
-        host.on_tick_rate_changed();
+        host.on_tick_rate_changed(self.tickrate, self.is_sprinting());
     }
 
     /// `checkShouldSprintThisTick`.
@@ -256,7 +257,7 @@ mod tests {
         fn broadcast_ticking_step(&mut self, frozen_ticks_to_run: i32) {
             self.events.push(format!("step {frozen_ticks_to_run}"));
         }
-        fn on_tick_rate_changed(&mut self) {
+        fn on_tick_rate_changed(&mut self, _tickrate: f32, _sprinting: bool) {
             self.events.push("changed".into());
         }
         fn send_sprint_report(&mut self, tps: i32, mspt: String) {

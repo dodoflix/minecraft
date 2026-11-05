@@ -21,6 +21,7 @@ pub mod menu_open;
 pub mod recipes;
 pub mod post_effects;
 pub mod tick;
+pub mod respawn_position;
 pub mod travel;
 pub mod warden_spawn_tracker;
 pub mod server_player;
