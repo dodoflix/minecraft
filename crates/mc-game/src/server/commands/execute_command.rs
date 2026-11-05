@@ -314,7 +314,7 @@ fn add_conditionals(
                 let source = c.get_source();
                 let pos = BlockPosArgument::get_loaded_block_pos(c, "pos")?;
                 let predicate = BlockPredicateArgument::get_block_predicate(c, "block");
-                Ok(source.with_server(|server| server.level(source.get_level()).is_some_and(|level| block_predicate_test(&predicate, level, pos))))
+                Ok(source.with_server(|server| server.level(source.get_level()).is_some_and(|level| predicate.test(level, pos))))
             },
         ))))
         .then(literal("biome").then(argument("pos", BlockPosArgument::block_pos()).then(add_conditional(
@@ -793,18 +793,4 @@ pub fn schedule_function_conditions_and_test(
 /// `ERROR_FUNCTION_CONDITION_INSTANTATION_FAILURE.create(function.id(), e.messageComponent())`.
 fn instantiation_failure(id: &mc_core::ident::Identifier, e: &FunctionInstantiationException) -> CommandSyntaxException {
     ERROR_FUNCTION_CONDITION_INSTANTATION_FAILURE.create(id.to_string(), e.message_component.clone())
-}
-
-/// `BlockPredicate.test(new BlockInWorld(level, pos, true))`: the state part, then (when the predicate carries NBT)
-/// the block entity at `pos` must exist and partially match `saveWithFullMetadata`.
-fn block_predicate_test(predicate: &crate::commands::arguments::blocks::BlockPredicate, level: &crate::server::level::ServerLevel, pos: BlockPos) -> bool {
-    use crate::world::block_entity::BlockEntity;
-    use crate::world::level::BlockGetter;
-    if !predicate.matches_state(level.get_block_state(pos)) {
-        return false;
-    }
-    let Some(nbt) = predicate.nbt() else { return true };
-    level
-        .get_block_entity(pos)
-        .is_some_and(|entity| mc_nbt::nbt_utils::compare_nbt(Some(&Tag::Compound(nbt.clone())), Some(&Tag::Compound(entity.save_with_full_metadata())), true))
 }
