@@ -14,6 +14,7 @@ use crate::world::entity::mob::{self, MobData, MobKind};
 use crate::world::entity::spawn_group_data::SpawnGroupData;
 use crate::world::entity::{Entity, EntityId};
 use crate::world::item::{InteractionHand, InteractionResult, ItemStack, hurt_and_break};
+use crate::world::level::LevelAccessor as _;
 use crate::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
@@ -142,7 +143,8 @@ pub fn get_mixed_color(level: &mut ServerLevel, color1: DyeColor, color2: DyeCol
 
 /// `DyeColor.findColorMixInRecipes(level, color1, color2)`: the first crafting recipe mixing a dye item of each colour.
 fn find_color_mix_in_recipes(level: &ServerLevel, color1: DyeColor, color2: DyeColor) -> Option<DyeColor> {
-    use crate::world::item::crafting::{CraftingInput, RecipeType};
+    use crate::world::item::crafting::CraftingInput;
+    use mc_data::RecipeType;
     use mc_protocol::components::DYE;
     let items_of = |color: DyeColor| Item::iter().filter(|item| ItemStack::new(*item).get(&DYE) == Some(&color)).collect::<Vec<_>>();
     let dye1_items = items_of(color1);

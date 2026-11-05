@@ -5,7 +5,7 @@ use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use crate::world::entity::mob::{ageable, navigation};
 use crate::world::level::block::state::BlockStateExt;
-use crate::world::level::level_access::BlockGetter;
+use crate::world::level::level_access::{BlockGetter, LevelAccessor};
 use mc_core::random::RandomSource;
 use mc_data::block::Block;
 
