@@ -1,6 +1,7 @@
 //! A player joining an empty (void) level: player tickets, throttled loading, generation through the pyramid on the
 //! worker thread, promotion to ticking, chunk tracking callbacks and unloading after the player leaves.
 
+extern crate mc_game_core as mc_game;
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
 use mc_core::pos::ChunkPos;

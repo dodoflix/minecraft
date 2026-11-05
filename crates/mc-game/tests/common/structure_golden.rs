@@ -116,7 +116,7 @@ fn snbt_string<'a>(line: &'a str, key: &str, last: bool) -> Option<&'a str> {
 /// Runs the whole fixture; panics listing every difference.
 /// `structure_of(i)` is the structure the oracle generated start number `i` (fixture order) with.
 pub fn run_fixture<'a>(fixture_name: &str, structure_of: &dyn Fn(usize) -> &'a Holder<dyn Structure>) -> Stats {
-    let path = std::env::var("FIXTURE").unwrap_or_else(|_| format!("{}/tests/fixtures/{fixture_name}", env!("CARGO_MANIFEST_DIR")));
+    let path = std::env::var("FIXTURE").unwrap_or_else(|_| format!("{}/../mc-game/tests/fixtures/{fixture_name}", env!("CARGO_MANIFEST_DIR")));
     let fixture = std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("fixture {path}: {e}"));
     let mut lines = fixture.lines().peekable();
     let mut stats = Stats::default();

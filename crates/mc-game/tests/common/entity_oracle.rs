@@ -27,12 +27,12 @@ use std::path::PathBuf;
 
 /// Directory of the committed fixtures.
 pub fn fixture_dir() -> PathBuf {
-    PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/entity_oracle")
+    PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../mc-game/tests/fixtures/entity_oracle")
 }
 
 /// Directory of the scenario scripts (inputs of the Java driver; the Rust replay of a scenario may parse the same text).
 pub fn scenario_dir() -> PathBuf {
-    PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/oracle/scenarios")
+    PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../mc-game/tests/oracle/scenarios")
 }
 
 #[derive(Debug, Clone, Default)]

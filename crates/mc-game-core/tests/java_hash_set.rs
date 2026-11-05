@@ -1,13 +1,14 @@
 //! `tree::java_hash_set::BlockPosHashSet` iterates in the order of `java.util.HashSet<BlockPos>` (golden:
 //! `tests/oracle/JavaHashSetOracle.java`).
 
+extern crate mc_game_core as mc_game;
 use mc_core::pos::BlockPos;
 use mc_core::random::{LegacyRandomSource, RandomSource};
 use mc_game::world::level::levelgen::feature::tree::java_hash_set::BlockPosHashSet;
 
 #[test]
 fn iteration_order_matches_java() {
-    let golden = include_str!("fixtures/java_hash_set.txt");
+    let golden = include_str!("../../mc-game/tests/fixtures/java_hash_set.txt");
     let mut r = LegacyRandomSource::new(12345);
     let sizes = [1, 5, 12, 13, 14, 25, 50, 97, 100, 300, 800, 2000];
     let mut lines = golden.lines();

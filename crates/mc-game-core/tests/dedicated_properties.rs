@@ -2,6 +2,7 @@
 //! Fixtures: `tests/fixtures/dedicated/{default_out,edited_in,edited_out}.properties` (see `README` in STATUS.md for
 //! how they were produced).
 
+extern crate mc_game_core as mc_game;
 use mc_game::server::dedicated::java_properties::Properties;
 use mc_game::server::dedicated::properties::DedicatedServerProperties;
 
@@ -21,13 +22,13 @@ fn ours(input: &str) -> String {
 
 #[test]
 fn default_file_matches_vanilla() {
-    let expected = include_str!("fixtures/dedicated/default_out.properties");
+    let expected = include_str!("../../mc-game/tests/fixtures/dedicated/default_out.properties");
     assert_eq!(normalize(&ours("")), normalize(expected));
 }
 
 #[test]
 fn edited_file_is_rewritten_like_vanilla() {
-    let input = include_str!("fixtures/dedicated/edited_in.properties");
-    let expected = include_str!("fixtures/dedicated/edited_out.properties");
+    let input = include_str!("../../mc-game/tests/fixtures/dedicated/edited_in.properties");
+    let expected = include_str!("../../mc-game/tests/fixtures/dedicated/edited_out.properties");
     assert_eq!(normalize(&ours(input)), normalize(expected));
 }

@@ -1,6 +1,7 @@
 //! JSON-RPC management protocol: request handling against an in-memory `ManagementApi`, and a real websocket
 //! round trip (authentication, request/response, notification broadcast).
 
+extern crate mc_game_core as mc_game;
 use std::sync::Arc;
 
 use mc_game::server::jsonrpc::api::*;
@@ -390,7 +391,7 @@ fn tls_websocket_with_pkcs12_keystore() {
     use tokio_tungstenite::tungstenite::client::IntoClientRequest;
     use tokio_tungstenite::tungstenite::Message;
 
-    let keystore = concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/dedicated/keystore.p12");
+    let keystore = concat!(env!("CARGO_MANIFEST_DIR"), "/../mc-game/tests/fixtures/dedicated/keystore.p12");
     assert!(create_tls_acceptor(keystore, "wrong").is_err());
     assert!(create_tls_acceptor("", "changeit").err().unwrap().contains("keystore is not configured"));
     assert!(create_tls_acceptor("/nonexistent.p12", "changeit").err().unwrap().contains("does not exist"));

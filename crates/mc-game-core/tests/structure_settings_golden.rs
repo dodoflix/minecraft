@@ -2,6 +2,7 @@
 //! `oracle/StructureSettingsOracle.java` over `fixtures/structure_settings_cases.in` (every vanilla structure + edge
 //! cases).
 
+extern crate mc_game_core as mc_game;
 use mc_game::world::level::levelgen::codec::Fields;
 use mc_game::world::level::levelgen::registries::{Cells, DecodeCtx, load_vanilla_data};
 use mc_game::world::level::levelgen::structure::structure::{BoundingBoxType, StructureSettings};
@@ -51,7 +52,7 @@ fn structure_settings_match_vanilla() {
     let source: Arc<dyn WorldgenDataSource> = Arc::new(FsDataSource::new(std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../ref/src/data")));
     let cells = Cells::new(source);
     let ctx = DecodeCtx { worldgen: &worldgen, biomes: &biomes, cells: &cells };
-    let golden = include_str!("fixtures/structure_settings_cases.golden");
+    let golden = include_str!("../../mc-game/tests/fixtures/structure_settings_cases.golden");
     let mut wrong = Vec::new();
     let mut total = 0;
     for line in golden.lines() {

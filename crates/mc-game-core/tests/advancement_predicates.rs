@@ -1,6 +1,7 @@
 //! `advancements::predicates`: codec round trips and `matches` smoke tests over our own entities (the differential
 //! test against the vanilla classes is `advancement_predicates_golden.rs`).
 
+extern crate mc_game_core as mc_game;
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
 use mc_game::advancements::predicates::{DamageSourcePredicate, EntityPredicate, LocationPredicate};

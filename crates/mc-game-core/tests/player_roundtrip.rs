@@ -1,6 +1,7 @@
 //! A player file written by the real vanilla server is loaded into a `ServerPlayer` and saved again; the NBT must
 //! equal the original (the vehicle/`Dimension` parts are supplied by the level in a real run).
 
+extern crate mc_game_core as mc_game;
 use mc_core::ident::Identifier;
 use mc_game::world::entity::ServerPlayer;
 use mc_game::world::entity::entity::{self, Entity};
@@ -26,7 +27,7 @@ fn diff(a: &CompoundTag, b: &CompoundTag) -> String {
 
 #[test]
 fn vanilla_player_file_round_trips() {
-    let bytes = std::fs::read(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/playerdata/vanilla_steve.dat")).unwrap();
+    let bytes = std::fs::read(concat!(env!("CARGO_MANIFEST_DIR"), "/../mc-game/tests/fixtures/playerdata/vanilla_steve.dat")).unwrap();
     let original = mc_nbt::compress::read_compressed(&bytes, &mut mc_nbt::NbtAccounter::unlimited_heap()).unwrap();
     let uuid = entity::read_uuid(original.get("UUID")).expect("uuid");
     let mut player = ServerPlayer::new(1, Identifier::parse("minecraft:overworld").unwrap(), GameProfile { id: uuid, name: "Steve".into(), properties: vec![] }, Default::default());

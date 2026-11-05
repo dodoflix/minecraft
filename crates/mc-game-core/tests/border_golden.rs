@@ -1,5 +1,6 @@
 //! `WorldBorder` against the real class (`fixtures/BorderGolden.java` replays `fixtures/border_ops.txt`).
 
+extern crate mc_game_core as mc_game;
 use mc_core::phys::AABB;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_game::world::level::saveddata::SavedData;
@@ -59,8 +60,8 @@ fn line(b: &WorldBorder) -> String {
 
 #[test]
 fn replay_matches_vanilla() {
-    let ops = include_str!("fixtures/border_ops.txt");
-    let golden = include_str!("fixtures/border.golden");
+    let ops = include_str!("../../mc-game/tests/fixtures/border_ops.txt");
+    let golden = include_str!("../../mc-game/tests/fixtures/border.golden");
     let mut b = WorldBorder::default();
     let mut n = 0;
     for (op, expected) in ops.lines().zip(golden.lines()) {

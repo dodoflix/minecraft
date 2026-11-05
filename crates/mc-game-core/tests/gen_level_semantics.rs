@@ -2,6 +2,8 @@
 //! two literals are captured from the vanilla server classes by `GenLevelOracle`'s runs: `Util.logAndPauseIfInIde` output),
 //! the crash on unavailable chunks, and read-only snapshot chunks (`ImposterProtoChunk(allowWrites = false)`).
 
+extern crate mc_game_core as mc_game;
+#[path = "../../mc-game/tests/common/mod.rs"]
 mod common;
 
 use common::feature_harness::*;

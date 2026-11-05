@@ -3,6 +3,7 @@
 //! the stat types themselves is the identity hash of vanilla's `StatType` objects, i.e. random per run), and the order of
 //! the entries of the `ClientboundAwardStatsPacket` built from the dirty set.
 
+extern crate mc_game_core as mc_game;
 use mc_game::stats::stat::{build_name, by_names};
 use mc_game::stats::{ServerStatsCounter, stats::Stats};
 use mc_core::ident::Identifier;
@@ -42,7 +43,7 @@ fn canonical_sorted(json: &Value) -> Value {
 
 #[test]
 fn matches_vanilla() {
-    let text = include_str!("fixtures/stats_golden.txt");
+    let text = include_str!("../../mc-game/tests/fixtures/stats_golden.txt");
     let mut lines = text.lines().peekable();
     let mut cases = 0;
     while let Some(header) = lines.next() {

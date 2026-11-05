@@ -1,12 +1,13 @@
 //! `PlayerList.BAN_DATE_FORMAT` (`yyyy-MM-dd 'at' HH:mm:ss z`) against `SimpleDateFormat(.., Locale.ROOT)` in several
 //! default time zones (`fixtures/BanDateGolden.java`). One test function: it changes the process time zone.
 
+extern crate mc_game_core as mc_game;
 use mc_game::server::players::player_list::format_ban_date;
 
 #[test]
 fn ban_date_format_matches_java_in_every_zone() {
     let mut checked = 0;
-    for line in include_str!("fixtures/ban_date_golden.txt").lines() {
+    for line in include_str!("../../mc-game/tests/fixtures/ban_date_golden.txt").lines() {
         let mut parts = line.splitn(3, '|');
         let (zone, epoch, expected) = (parts.next().unwrap(), parts.next().unwrap(), parts.next().unwrap());
         // Java's tz data names the zero-offset-but-+1h London of 1970 "GMT"; glibc knows it as BST (+01:00)

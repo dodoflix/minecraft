@@ -3,6 +3,7 @@
 //! `mc-testbot/tests/record_setblock.rs`), against our level mutation + chunk change broadcast driven with the same
 //! operations (the commands' own logic is replayed here: `SetBlockCommand` / `FillCommand` + `Level.setBlock` flags).
 
+extern crate mc_game_core as mc_game;
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
 use mc_core::pos::{BlockPos, ChunkPos};

@@ -2,6 +2,7 @@
 //! `ban-ip` console commands (offline mode; `fixtures/dedicated/lists/generate.sh`) vs ours for the same operations.
 //! Timestamps are masked (they depend on the run and the local time zone).
 
+extern crate mc_game_core as mc_game;
 use std::sync::Arc;
 
 use mc_game::server::notifications::EmptyNotificationService;
@@ -55,7 +56,7 @@ fn read(path: &std::path::Path) -> String {
 #[test]
 fn lists_match_vanilla_files() {
     let dir = tempfile::tempdir().unwrap();
-    let fixtures = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/dedicated/lists");
+    let fixtures = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../mc-game/tests/fixtures/dedicated/lists");
     let notifications = Arc::new(EmptyNotificationService);
 
     let mut ops = ServerOpList::new(dir.path().join("ops.json"), notifications.clone());
@@ -86,7 +87,7 @@ fn lists_match_vanilla_files() {
 #[test]
 fn reload_and_resave_is_stable() {
     let dir = tempfile::tempdir().unwrap();
-    let fixtures = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/dedicated/lists");
+    let fixtures = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../mc-game/tests/fixtures/dedicated/lists");
     let notifications = Arc::new(EmptyNotificationService);
     for file in ["ops.json", "whitelist.json", "banned-players.json", "banned-ips.json", "usercache.json"] {
         std::fs::copy(fixtures.join(file), dir.path().join(file)).unwrap();

@@ -1,11 +1,12 @@
 //! `Entity.calculateViewVector` against the real vanilla class (generator: `tests/fixtures/EntityBaseGolden.java`,
 //! `scripts/vanilla-java.sh crates/mc-game/tests/fixtures/EntityBaseGolden.java > tests/fixtures/entity_base/view_vector.txt`).
 
+extern crate mc_game_core as mc_game;
 use mc_game::world::entity::entity::calculate_view_vector;
 
 #[test]
 fn view_vector_matches_vanilla() {
-    let text = include_str!("fixtures/entity_base/view_vector.txt");
+    let text = include_str!("../../mc-game/tests/fixtures/entity_base/view_vector.txt");
     let mut n = 0;
     for line in text.lines() {
         let f: Vec<&str> = line.split(' ').collect();

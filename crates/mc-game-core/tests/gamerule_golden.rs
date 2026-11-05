@@ -1,12 +1,13 @@
 //! `GameRules`/`GameRuleMap` against the real vanilla classes (`fixtures/GameRuleGolden.java` -> `gamerule.golden`).
 
+extern crate mc_game_core as mc_game;
 use std::collections::BTreeMap;
 
 use mc_game::world::level::gamerules::{AnyGameRule, GameRuleMap, GameRuleType, GameRuleValue, GameRules};
 use mc_world::level_storage::FeatureFlagSet;
 
 fn golden() -> Vec<Vec<String>> {
-    include_str!("fixtures/gamerule.golden").lines().map(|l| l.split('\t').map(str::to_string).collect()).collect()
+    include_str!("../../mc-game/tests/fixtures/gamerule.golden").lines().map(|l| l.split('\t').map(str::to_string).collect()).collect()
 }
 
 fn java_value(v: GameRuleValue) -> String {

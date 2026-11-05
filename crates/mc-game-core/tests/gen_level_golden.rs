@@ -3,6 +3,8 @@
 //! operation is replayed and its result compared with the `=` line, then the dump of all chunks (blocks, block entity NBT,
 //! heightmaps, post-processing, ticks, entities, region random) is compared line by line.
 
+extern crate mc_game_core as mc_game;
+#[path = "../../mc-game/tests/common/mod.rs"]
 mod common;
 
 use common::feature_harness::*;
@@ -78,7 +80,7 @@ fn exec(level: &mut mc_game::world::level::levelgen::gen_level::GenLevel<'_>, op
 
 #[test]
 fn gen_level_matches_vanilla_region() {
-    let fixture = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/gen_level.txt")).expect("fixture present");
+    let fixture = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/../mc-game/tests/fixtures/gen_level.txt")).expect("fixture present");
     let mut lines = fixture.lines().peekable();
     let (mut scenarios, mut ops, mut dump_lines) = (0, 0, 0);
     let mut failures: Vec<String> = Vec::new();

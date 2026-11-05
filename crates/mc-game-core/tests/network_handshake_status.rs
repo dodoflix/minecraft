@@ -1,4 +1,6 @@
 //! Handshake + status + legacy ping against our listener (mock server hooks).
+extern crate mc_game_core as mc_game;
+#[path = "../../mc-game/tests/net_common/mod.rs"]
 mod net_common;
 use net_common as common;
 

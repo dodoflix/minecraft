@@ -1,6 +1,7 @@
 //! Every entity of the vanilla world `run/servers/worldref` (entities region files of all dimensions) is loaded
 //! through `EntityType::create`/`Entity.load` and saved again; the NBT must equal the original.
 
+extern crate mc_game_core as mc_game;
 use mc_core::ident::Identifier;
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_game::server::level::ServerLevel;

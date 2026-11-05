@@ -1,5 +1,6 @@
 //! Replays `tests/fixtures/chat_golden.jsonl` (generator: `ChatGolden.java`, real vanilla classes) against `server::chat`.
 
+extern crate mc_game_core as mc_game;
 use mc_core::ident::Identifier;
 use mc_game::server::chat::chat_type::{self, Bound};
 use mc_game::server::chat::last_seen_messages::{LastSeenMessagesTracker, LastSeenMessagesValidator};
@@ -15,7 +16,7 @@ use std::sync::Arc;
 use uuid::Uuid;
 
 fn lines(kind: &str) -> Vec<Value> {
-    let text = include_str!("fixtures/chat_golden.jsonl");
+    let text = include_str!("../../mc-game/tests/fixtures/chat_golden.jsonl");
     text.lines().map(|l| serde_json::from_str::<Value>(l).unwrap()).filter(|v| v["t"] == kind).collect()
 }
 

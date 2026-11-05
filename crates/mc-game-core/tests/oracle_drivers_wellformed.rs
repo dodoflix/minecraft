@@ -1,6 +1,7 @@
 //! Cheap guard for the Java oracle drivers: a duplicate `case "cmd" ->` label in `EntityOracleDriver.java` (two helpers adding the same
 //! command) makes `scripts/entity-oracle.sh` fail to compile for EVERY scenario. This test needs no JVM; `scripts/check-oracle-java.sh` is the
 //! full `javac` check.
+extern crate mc_game_core as mc_game;
 use std::collections::BTreeMap;
 
 fn duplicate_cases(source: &str) -> Vec<String> {
@@ -44,7 +45,7 @@ fn duplicate_cases(source: &str) -> Vec<String> {
 
 #[test]
 fn entity_oracle_driver_has_no_duplicate_command_labels() {
-    let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/oracle/EntityOracleDriver.java");
+    let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../mc-game/tests/oracle/EntityOracleDriver.java");
     let source = std::fs::read_to_string(path).unwrap();
     let dups = duplicate_cases(&source);
     assert!(dups.is_empty(), "EntityOracleDriver.java: {dups:#?}");

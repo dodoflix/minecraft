@@ -1,5 +1,6 @@
 //! Codecs of the saved-data types against the real classes (`fixtures/SavedDataGolden.java` -> `saved_data.golden`).
 
+extern crate mc_game_core as mc_game;
 use std::collections::HashMap;
 
 use mc_core::ident::Identifier;
@@ -11,7 +12,7 @@ use mc_game::util::timer_queue::{FunctionCallback, FunctionHost, FunctionTagCall
 use mc_nbt::Tag;
 
 fn golden() -> HashMap<String, String> {
-    include_str!("fixtures/saved_data.golden").lines().map(|l| l.split_once('\t').unwrap()).map(|(k, v)| (k.to_string(), v.to_string())).collect()
+    include_str!("../../mc-game/tests/fixtures/saved_data.golden").lines().map(|l| l.split_once('\t').unwrap()).map(|(k, v)| (k.to_string(), v.to_string())).collect()
 }
 
 fn snbt(g: &HashMap<String, String>, k: &str) -> Tag {

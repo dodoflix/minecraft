@@ -1,6 +1,7 @@
 //! Vanilla-written saved data files (`run/servers/worldref`, a real 26.3 server world): decode -> re-encode through
 //! our types gives tag-equal data (skipped when the reference world is absent).
 
+extern crate mc_game_core as mc_game;
 use std::path::PathBuf;
 
 use mc_core::ident::Identifier;

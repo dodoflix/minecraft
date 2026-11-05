@@ -1,5 +1,6 @@
 //! `ScoreboardSaveData` format vs the real classes (`fixtures/ScoreboardGolden.java`).
 
+extern crate mc_game_core as mc_game;
 use mc_game::world::scores::scoreboard_save_data::{ScoreboardSaveData, ScoreboardSaveDataPacked};
 use mc_game::world::scores::score::for_name_only;
 use mc_game::world::scores::{CollisionRule, DisplaySlot, NumberFormat, ObjectiveCriteria, RenderType, Scoreboard, TeamColor, Visibility};
@@ -91,7 +92,7 @@ fn build() -> Scoreboard {
 }
 
 fn read(name: &str) -> Tag {
-    let text = std::fs::read_to_string(format!("{}/tests/fixtures/{name}", env!("CARGO_MANIFEST_DIR"))).unwrap();
+    let text = std::fs::read_to_string(format!("{}/../mc-game/tests/fixtures/{name}", env!("CARGO_MANIFEST_DIR"))).unwrap();
     mc_nbt::snbt::parse(text.trim()).unwrap()
 }
 
@@ -101,7 +102,7 @@ fn our_scoreboard_encodes_like_vanilla() {
     assert_eq!(canon(&ours), canon(&read("scoreboard.golden")));
     // the file the Java side re-reads; `MC_UPDATE_FIXTURES=1` rewrites it (then rerun ScoreboardGolden.java)
     if std::env::var_os("MC_UPDATE_FIXTURES").is_some() {
-        std::fs::write(format!("{}/tests/fixtures/scoreboard_in.snbt", env!("CARGO_MANIFEST_DIR")), format!("{ours}\n")).unwrap();
+        std::fs::write(format!("{}/../mc-game/tests/fixtures/scoreboard_in.snbt", env!("CARGO_MANIFEST_DIR")), format!("{ours}\n")).unwrap();
     }
     assert_eq!(canon(&ours), canon(&read("scoreboard_in.snbt")));
 }

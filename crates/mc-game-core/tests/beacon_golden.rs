@@ -1,12 +1,13 @@
 //! `BeaconBlockEntity.validateEffects` and the `BeaconMenu` effect encoding against the vanilla classes
 //! (`fixtures/BeaconGolden.java`; the Java side maps a vanilla `NullPointerException` to "invalid").
 
+extern crate mc_game_core as mc_game;
 use mc_data::MobEffect;
 use mc_game::world::inventory::{decode_effect, encode_effect, validate_effects};
 
 #[test]
 fn validate_effects_matches_vanilla() {
-    let text = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/beacon_golden.txt")).expect("fixture");
+    let text = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/../mc-game/tests/fixtures/beacon_golden.txt")).expect("fixture");
     let mut n = 0;
     for line in text.lines() {
         let f: Vec<&str> = line.split(' ').collect();

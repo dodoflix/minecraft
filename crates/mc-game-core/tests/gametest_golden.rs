@@ -1,5 +1,6 @@
 //! Pure geometry of the game test framework against vanilla (`fixtures/GameTestGolden.java`).
 
+extern crate mc_game_core as mc_game;
 use mc_core::pos::{BlockPos, Vec3i};
 use mc_core::rotation::Rotation;
 use mc_game::gametest::structure_utils::{
@@ -8,7 +9,7 @@ use mc_game::gametest::structure_utils::{
 
 #[test]
 fn structure_geometry_equals_vanilla() {
-    let golden = include_str!("fixtures/gametest_golden.txt");
+    let golden = include_str!("../../mc-game/tests/fixtures/gametest_golden.txt");
     let mut checked = 0;
     for line in golden.lines() {
         let words: Vec<&str> = line.split(' ').collect();

@@ -1,6 +1,7 @@
 //! Differential test against the real vanilla `DistanceManager` trackers + `TicketStorage` + fastutil hash iteration
 //! order (`tests/fixtures/chunkmap/DistanceGolden.java`).
 
+extern crate mc_game_core as mc_game;
 use mc_core::pos::{ChunkPos, SectionPos};
 use mc_game::server::level::chunk_level;
 use mc_game::server::level::distance_manager::{DistanceHost, DistanceManager};
@@ -52,7 +53,7 @@ fn parse_key_list(line: &str) -> Vec<String> {
 
 #[test]
 fn distance_manager_matches_vanilla() {
-    let golden = include_str!("fixtures/chunkmap/distance_golden.txt");
+    let golden = include_str!("../../mc-game/tests/fixtures/chunkmap/distance_golden.txt");
     let types = [
         TicketType::PLAYER_SPAWN,
         TicketType::DRAGON,

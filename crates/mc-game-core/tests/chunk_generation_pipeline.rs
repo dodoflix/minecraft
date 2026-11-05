@@ -3,6 +3,7 @@
 //! step's region (read/write radius), and an exception in a step crashes the server with vanilla's report
 //! (`ChunkMap.applyStep` / `GenerationChunkHolder.applyStep` -> `relayDelayCrash`).
 
+extern crate mc_game_core as mc_game;
 use mc_core::ident::Identifier;
 use mc_core::pos::ChunkPos;
 use mc_game::crash_report::ReportedException;

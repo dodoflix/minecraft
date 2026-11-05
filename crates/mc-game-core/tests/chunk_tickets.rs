@@ -1,5 +1,6 @@
 //! Forced chunks persist through the `chunk_tickets` saved data and keep chunks loaded after a restart.
 
+extern crate mc_game_core as mc_game;
 use mc_core::ident::Identifier;
 use mc_core::pos::ChunkPos;
 use mc_game::server::level::world_gen::{ChunkGeneratorBackend, WorldGenRegion};

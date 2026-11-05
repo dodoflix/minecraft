@@ -1,4 +1,5 @@
 //! `setBlock` flag semantics and neighbor/shape update order on a real (void) level.
+extern crate mc_game_core as mc_game;
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;

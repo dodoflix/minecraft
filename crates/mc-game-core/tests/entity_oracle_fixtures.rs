@@ -1,5 +1,7 @@
 //! Sanity of the committed entity-oracle fixtures (vanilla output of `scripts/entity-oracle.sh`) and of the comparator in
 //! `common/entity_oracle.rs`. Does not touch mc-game gameplay code.
+extern crate mc_game_core as mc_game;
+#[path = "../../mc-game/tests/common/mod.rs"]
 mod common;
 use common::entity_oracle::*;
 

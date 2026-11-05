@@ -13,7 +13,7 @@ use std::path::PathBuf;
 use std::sync::Arc;
 
 pub fn fixture() -> String {
-    let path = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/decoration/decoration.txt.gz");
+    let path = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../mc-game/tests/fixtures/decoration/decoration.txt.gz");
     let mut text = String::new();
     GzDecoder::new(std::fs::File::open(&path).unwrap_or_else(|e| panic!("{}: {e}", path.display()))).read_to_string(&mut text).unwrap();
     text

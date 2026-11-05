@@ -4,6 +4,7 @@
 //! ranges, defaults), compared as canonical text.
 //! Regenerate: `scripts/entity-oracle.sh crates/mc-game/tests/oracle/AttributeOracle.java > crates/mc-game/tests/fixtures/attribute_oracle.txt`.
 
+extern crate mc_game_core as mc_game;
 use std::collections::HashMap;
 use std::sync::Arc;
 
@@ -84,7 +85,7 @@ fn format(value: &AttrValue) -> String {
 
 #[test]
 fn environment_attributes_match_vanilla() {
-    let fixture = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/attribute_oracle.txt")).unwrap();
+    let fixture = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/../mc-game/tests/fixtures/attribute_oracle.txt")).unwrap();
     // biome ids = order of first appearance; probes per dimension: (x, z) -> (idx, full biome, noise biome)
     let mut biome_ids: HashMap<String, u32> = HashMap::new();
     let mut probes: HashMap<String, Vec<(i32, i32, String, String)>> = HashMap::new();

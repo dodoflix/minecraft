@@ -3,6 +3,7 @@
 //! `MobEffectInstance` update/tick/scale/compare/NBT scripts and `AttributeInstance` scripts (value bits after every
 //! operation, modifier order, per-operation hash order).
 
+extern crate mc_game_core as mc_game;
 use mc_core::ident::Identifier;
 use mc_data::{Attribute, EntityType, MobEffect};
 use mc_game::world::effect::MobEffectExt;
@@ -12,7 +13,7 @@ use mc_game::world::entity::effect::MobEffectInstance;
 use mc_nbt::Tag;
 use mc_protocol::packets::play::ParticleOptions;
 
-const GOLDEN: &str = include_str!("fixtures/effects_golden.txt");
+const GOLDEN: &str = include_str!("../../mc-game/tests/fixtures/effects_golden.txt");
 
 fn effect(name: &str) -> MobEffect {
     MobEffect::by_name(name).unwrap_or_else(|| panic!("effect {name}"))

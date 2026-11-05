@@ -1,6 +1,7 @@
 //! Loads the vanilla world `run/servers/worldref` through `ServerLevel`/`ChunkMap` (loading pyramid, worker threads,
 //! light seam), compares the loaded chunks with the NBT on disk and round-trips saved chunks. Skips when the world is absent.
 
+extern crate mc_game_core as mc_game;
 use mc_core::ident::Identifier;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_game::server::level::{ChunkMap, ServerLevel, ServerLevelParams, Ticket, TicketType};

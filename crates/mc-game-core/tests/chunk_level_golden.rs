@@ -1,6 +1,7 @@
 //! Differential tests against vanilla for `ChunkLevel`, both `ChunkPyramid`s, the `TicketStorage` codec and
 //! `ChunkTrackingView` (`tests/fixtures/chunkmap/ChunkLevelGolden.java`).
 
+extern crate mc_game_core as mc_game;
 use mc_core::pos::ChunkPos;
 use mc_game::server::level::chunk_level;
 use mc_game::server::level::{ChunkTrackingView, FullChunkStatus};
@@ -9,7 +10,7 @@ use mc_game::world::level::ticket_storage::TicketStorage;
 use mc_nbt::snbt;
 use mc_world::status::ChunkStatus;
 
-const GOLDEN: &str = include_str!("fixtures/chunkmap/chunk_level_golden.txt");
+const GOLDEN: &str = include_str!("../../mc-game/tests/fixtures/chunkmap/chunk_level_golden.txt");
 
 fn status_name(s: ChunkStatus) -> String {
     format!("minecraft:{}", s.path())

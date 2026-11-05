@@ -2,6 +2,7 @@
 //! command in its header): `MobCategory` constants, the `SpawnPlacements` table, `PotentialCalculator` charge sums and the
 //! `MobSpawnSettings` of every vanilla biome (decoded through the biome registry's `BiomeSpawnTable`).
 
+extern crate mc_game_core as mc_game;
 use mc_core::pos::BlockPos;
 use mc_core::random::{LegacyRandomSource, RandomSource};
 use mc_data::EntityType;
@@ -16,7 +17,7 @@ use mc_worldgen::data::{FsDataSource, WorldgenRegistries};
 use std::path::PathBuf;
 use std::sync::Arc;
 
-const GOLDEN: &str = include_str!("fixtures/spawn_framework_golden.txt");
+const GOLDEN: &str = include_str!("../../mc-game/tests/fixtures/spawn_framework_golden.txt");
 
 fn section<'a>(prefix: &'a str) -> impl Iterator<Item = &'a str> {
     GOLDEN.lines().filter(move |l| l.starts_with(prefix))
