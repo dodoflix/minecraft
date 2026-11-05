@@ -8,7 +8,7 @@ use mc_brigadier::CommandSyntaxException;
 use mc_nbt::{CompoundTag, Tag};
 use mc_text::Component;
 
-pub trait DataAccessor {
+pub trait DataAccessor: Send + Sync {
     fn set_data(&self, source: &CommandSourceStack, tag: CompoundTag) -> Result<(), CommandSyntaxException>;
 
     fn get_data(&self, source: &CommandSourceStack) -> Result<CompoundTag, CommandSyntaxException>;

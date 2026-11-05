@@ -300,6 +300,12 @@ impl ServerLevel {
         Some(self.tick_state.biomes.as_ref()?.get(id))
     }
 
+    /// `getBiome(pos).unwrapKey()`: the registry key of the fuzzy block-resolution biome.
+    pub fn get_biome_key(&self, pos: BlockPos) -> Option<mc_core::ident::Identifier> {
+        let registry = self.tick_state.biomes.as_ref()?;
+        Some(registry.key(self.get_biome_id(pos)?).clone())
+    }
+
     /// `getBiome(pos)` as the registry id of the biome (`None` while a needed chunk is missing).
     pub fn get_biome_id(&self, pos: BlockPos) -> Option<mc_world::palette::BiomeId> {
         self.tick_state.biomes.as_ref()?;

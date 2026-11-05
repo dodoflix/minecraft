@@ -24,6 +24,7 @@ mod emote_commands;
 mod enchant_command;
 mod experience_command;
 mod fetch_profile_command;
+pub mod execute_command;
 pub mod function_command;
 mod fill_biome_command;
 mod fill_command;

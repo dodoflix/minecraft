@@ -844,3 +844,131 @@ pub fn enchantment_full_name(level: &crate::server::level::ServerLevel, enchantm
     }
     result
 }
+
+// ==== ExecuteCommand seams ====
+
+/// The facts `CommandSourceStack.withEntity(entity)` needs from the live `entity`.
+pub fn command_entity(server: &MinecraftServer, entity: &EntityRef) -> Option<super::CommandEntity> {
+    let e = get_entity(server, entity)?;
+    Some(super::CommandEntity {
+        id: entity.id,
+        uuid: e.uuid(),
+        is_player: e.is_player(),
+        display_name: entity_display_name(server, e),
+        plain_text_name: entity_plain_text_name(e),
+        eye_height: e.base().eye_height,
+        player: if e.is_player() { player_handle(server, entity) } else { None },
+    })
+}
+
+/// `entity.position()`.
+pub fn entity_position(server: &MinecraftServer, entity: &EntityRef) -> Option<mc_core::phys::Vec3> {
+    Some(get_entity(server, entity)?.position())
+}
+
+/// `entity.getRotationVector()`: `(xRot, yRot)`.
+pub fn entity_rotation_vector(server: &MinecraftServer, entity: &EntityRef) -> Option<mc_core::phys::Vec2> {
+    let base = get_entity(server, entity)?.base();
+    Some(mc_core::phys::Vec2::new(base.x_rot(), base.y_rot()))
+}
+
+/// `DimensionType.getTeleportationScale(from, to)` of the two levels' dimension types.
+pub fn teleportation_scale(server: &MinecraftServer, from: &DimensionKey, to: &DimensionKey) -> f64 {
+    coordinate_scale(server, from) / coordinate_scale(server, to)
+}
+
+/// `level.dimensionType().coordinateScale()`.
+fn coordinate_scale(server: &MinecraftServer, dimension: &DimensionKey) -> f64 {
+    use crate::registry::typed::dimension_type::DimensionType;
+    use crate::registry::typed::level_stem::{DimensionTypeSource, LevelStem};
+    let access = server.registries.composite_access();
+    let Some(stem) = access.get::<LevelStem>(crate::registry::keys::LEVEL_STEM, dimension) else { return 1.0 };
+    match &stem.dimension_type {
+        DimensionTypeSource::Inline(inline) => inline.coordinate_scale,
+        DimensionTypeSource::Reference(id) => access.get::<DimensionType>(crate::registry::keys::DIMENSION_TYPE, id).map_or(1.0, |t| t.coordinate_scale),
+    }
+}
+
+/// `ExecuteCommand.isChunkLoaded`: the chunk is entity-ticking and its entities are loaded.
+pub fn is_chunk_entity_ticking(server: &MinecraftServer, dimension: &DimensionKey, pos: BlockPos) -> bool {
+    use crate::server::level::FullChunkStatus;
+    use mc_core::pos::ChunkPos;
+    let Some(level) = server.level(dimension) else { return false };
+    let (x, z) = (pos.x() >> 4, pos.z() >> 4);
+    let key = ChunkPos::pack_xz(x, z);
+    level.chunk_source.get_chunk_now(x, z).is_some()
+        && level.chunk_source.chunk_map.get_visible_chunk_if_present(key).is_some_and(|h| h.get_full_status() == FullChunkStatus::EntityTicking)
+        && level.are_entities_loaded(key)
+}
+
+/// `level.getHeight(type, x, z)`.
+pub fn level_height(server: &MinecraftServer, dimension: &DimensionKey, ty: mc_world::heightmap::HeightmapType, x: i32, z: i32) -> Option<i32> {
+    use crate::world::level::LevelReader;
+    Some(server.level(dimension)?.get_height_at(ty, x, z))
+}
+
+/// `level.getBiome(pos).unwrapKey()`.
+pub fn biome_key_at(server: &MinecraftServer, dimension: &DimensionKey, pos: BlockPos) -> Option<Identifier> {
+    server.level(dimension)?.get_biome_key(pos)
+}
+
+/// The relations of `/execute on`.
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub enum EntityRelation {
+    Owner,
+    Leasher,
+    Target,
+    Attacker,
+    Vehicle,
+    Controller,
+    Origin,
+    Passengers,
+}
+
+/// The entities `relation` leads to from `entity`, before the `!isRemoved()` filter `/execute on` applies:
+/// `OwnableEntity.getOwner`, `Leashable.getLeashHolder`, `Targeting.getTarget`, `Attackable.getLastAttacker`,
+/// `getVehicle`, `getControllingPassenger`, `TraceableEntity.getOwner`, `getPassengers`.
+/// SEAM(MobsScope/EntitiesCore2): `Owner`, `Leasher`, `Target`, `Attacker`, `Origin` need the mob/projectile types that
+/// own those references (tameable owner, leash holder, mob target, last hurt-by mob, projectile/TNT owner); they
+/// resolve to nothing until those entity classes exist and expose them through this function.
+pub fn entity_relation(server: &MinecraftServer, entity: &EntityRef, relation: EntityRelation) -> Vec<EntityRef> {
+    let Some(e) = get_entity(server, entity) else { return Vec::new() };
+    let in_same_level = |id: EntityId| EntityRef { dimension: entity.dimension.clone(), id };
+    let live = |refs: Vec<EntityId>| -> Vec<EntityRef> {
+        refs.into_iter().filter(|&id| get_entity(server, &in_same_level(id)).is_some_and(|o| !o.is_removed())).map(in_same_level).collect()
+    };
+    match relation {
+        EntityRelation::Vehicle => live(e.base().vehicle.into_iter().collect()),
+        EntityRelation::Controller => live(e.get_controlling_passenger().into_iter().collect()),
+        EntityRelation::Passengers => live(e.base().passengers.clone()),
+        EntityRelation::Owner | EntityRelation::Leasher | EntityRelation::Target | EntityRelation::Attacker | EntityRelation::Origin => Vec::new(),
+    }
+}
+
+/// The live entity a stack's [`CommandEntity`](super::CommandEntity) stands for (`source.getEntity()`): looked up in
+/// `preferred` (the stack's level) first, then by UUID in every level (a stack may run `in` another dimension).
+pub fn entity_ref_of(server: &MinecraftServer, entity: &super::CommandEntity, preferred: &DimensionKey) -> Option<EntityRef> {
+    if server.level(preferred).and_then(|l| l.get_entity(entity.id)).is_some_and(|e| e.uuid() == entity.uuid) {
+        return Some(EntityRef { dimension: preferred.clone(), id: entity.id });
+    }
+    server.level_keys().into_iter().find_map(|dimension| {
+        let found = server.level(&dimension)?.get_entity_by_uuid(entity.uuid)?;
+        Some(EntityRef { dimension, id: found.id() })
+    })
+}
+
+/// `ExecuteCommand.checkCustomPredicate`: evaluates the loot predicate with `LootContextParams.ORIGIN = origin`,
+/// `THIS_ENTITY = entity` in `LootContextParamSets.COMMAND` (a reference that is not loaded, or an inline predicate
+/// that does not decode, cannot test true).
+/// SEAM(EntitiesCore2): `LootItemCondition`/`LootParams`/`LootContext` live on the `EntitiesCore` branch (not on main
+/// yet); there are no loot predicates to evaluate on this tree, like [`loot_predicate_matches`].
+pub fn loot_predicate_test(
+    server: &MinecraftServer,
+    dimension: &DimensionKey,
+    origin: mc_core::phys::Vec3,
+    entity: Option<&EntityRef>,
+    predicate: &super::arguments::resource_arguments::ResourceOrId,
+) -> bool {
+    let _ = (server, dimension, origin, entity, predicate);
+    false
+}
