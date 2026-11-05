@@ -57,6 +57,14 @@ pub trait LevelReader: BlockGetter {
     /// `getRawBrightness(pos, skyDarkening)`.
     fn get_raw_brightness(&self, pos: BlockPos, sky_darkening: i32) -> i32;
     fn can_see_sky(&self, pos: BlockPos) -> bool;
+    /// `getMaxLocalRawBrightness(pos)`.
+    fn get_max_local_raw_brightness(&self, pos: BlockPos) -> i32 {
+        self.get_max_local_raw_brightness_with(pos, self.get_sky_darken())
+    }
+    /// `getMaxLocalRawBrightness(pos, skyDarkening)`.
+    fn get_max_local_raw_brightness_with(&self, pos: BlockPos, sky_darkening: i32) -> i32 {
+        if pos.x() >= -30_000_000 && pos.z() >= -30_000_000 && pos.x() < 30_000_000 && pos.z() < 30_000_000 { self.get_raw_brightness(pos, sky_darkening) } else { 15 }
+    }
     fn is_empty_block(&self, pos: BlockPos) -> bool {
         self.get_block_state(pos).is_air()
     }
