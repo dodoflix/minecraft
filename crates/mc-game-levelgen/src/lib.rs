@@ -2,3 +2,5 @@
 //! `mc-game-levelgen`: re-exports the lower crate's module tree and adds this crate's modules.
 
 pub use parent::*;
+pub mod server;
+pub mod world;

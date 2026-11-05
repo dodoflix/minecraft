@@ -10,17 +10,7 @@ use mc_data::block::BlockState;
 use serde_json::Value;
 use std::sync::Arc;
 
-pub mod copy_properties_provider;
-pub mod dual_noise_provider;
-pub mod noise_based_state_provider;
-pub mod noise_provider;
-pub mod noise_threshold_provider;
-pub mod random_block_provider;
-pub mod randomized_int_state_provider;
-pub mod rotated_block_provider;
-pub mod rule_based_state_provider;
 pub mod simple_state_provider;
-pub mod weighted_state_provider;
 
 pub use simple_state_provider::SimpleStateProvider;
 

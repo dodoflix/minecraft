@@ -10,15 +10,10 @@ pub mod locate;
 pub mod manager;
 pub mod piece;
 pub mod pieces;
-pub mod pool_element_structure_piece;
 pub mod pools;
 pub mod registries;
-pub mod scattered_feature_piece;
-pub mod single_piece_structure;
 pub mod structure;
 pub mod structure_start;
-pub mod structures;
-pub mod template_structure_piece;
 pub mod templatesystem;
 
 pub use manager::StructureManager;
