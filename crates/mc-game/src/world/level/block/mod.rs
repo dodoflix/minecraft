@@ -2,6 +2,7 @@
 //! extension, `Block` helpers, concrete block classes.
 mod behaviour;
 pub mod bonemeal;
+pub mod hatch_spawns;
 pub mod helpers;
 pub mod impls;
 pub mod sculk_behaviour;

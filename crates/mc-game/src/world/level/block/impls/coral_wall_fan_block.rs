@@ -1,11 +1,27 @@
 //! `net.minecraft.world.level.block.CoralWallFanBlock` (extends `BaseCoralWallFanBlock`).
-use super::base_coral_plant_type_block as base;
+use super::base_coral_plant_type_block::{self as base, dead_block};
 use super::base_coral_wall_fan_block as wall_fan;
 use super::prelude::*;
+use crate::server::level::ServerLevel;
+use crate::world::item::BlockPlaceContext;
 
-pub struct CoralWallFanBlock;
+pub struct CoralWallFanBlock {
+    dead_block: Block,
+}
 
 impl BlockBehaviour for CoralWallFanBlock {
+    fn on_place(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _old_state: BlockState, _moved_by_piston: bool) {
+        base::try_schedule_die_tick(state, level, pos);
+    }
+    fn tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
+        if !base::scan_for_water(state, &*level, pos) {
+            let dead = self.dead_block.default_state().set(props::WATERLOGGED, false).set(props::HORIZONTAL_FACING, state.get(props::HORIZONTAL_FACING));
+            level.set_block_flags(pos, dead, 2);
+        }
+    }
+    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
+        wall_fan::get_state_for_placement(block, level, context)
+    }
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         wall_fan::can_survive(state, level, pos)
     }
@@ -28,4 +44,4 @@ impl BlockBehaviour for CoralWallFanBlock {
     }
 }
 
-register_block_class!("CoralWallFanBlock", |_| Box::new(CoralWallFanBlock));
+register_block_class!("CoralWallFanBlock", |block| Box::new(CoralWallFanBlock { dead_block: dead_block(block) }));

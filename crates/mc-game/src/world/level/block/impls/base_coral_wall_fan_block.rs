@@ -1,5 +1,8 @@
 //! `net.minecraft.world.level.block.BaseCoralWallFanBlock` (extends `BaseCoralFanBlock`).
+use super::base_coral_plant_type_block as base;
 use super::prelude::*;
+use crate::server::level::ServerLevel;
+use crate::world::item::BlockPlaceContext;
 
 pub struct BaseCoralWallFanBlock;
 
@@ -18,7 +21,25 @@ pub fn update_shape(state: BlockState, level: &mut dyn LevelAccessor, pos: Block
     if direction_to_neighbour.get_opposite() == state.get(props::HORIZONTAL_FACING) && !state.can_survive(&*level, pos) { air() } else { state }
 }
 
+/// `BaseCoralWallFanBlock.getStateForPlacement`.
+pub fn get_state_for_placement(block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
+    let mut state = base::get_state_for_placement(block, level, context);
+    let pos = context.get_clicked_pos();
+    for direction in context.get_nearest_looking_directions() {
+        if direction.get_axis().is_horizontal() {
+            state = state.set(props::HORIZONTAL_FACING, direction.get_opposite());
+            if state.can_survive(&*level, pos) {
+                return Some(state);
+            }
+        }
+    }
+    None
+}
+
 impl BlockBehaviour for BaseCoralWallFanBlock {
+    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
+        get_state_for_placement(block, level, context)
+    }
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         can_survive(state, level, pos)
     }
