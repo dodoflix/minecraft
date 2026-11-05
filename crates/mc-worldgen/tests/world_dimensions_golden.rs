@@ -73,10 +73,7 @@ fn bake_line(
         SpecialWorldProperty::Flat => "FLAT",
         SpecialWorldProperty::Debug => "DEBUG",
     };
-    // serde_json maps iterate sorted (vanilla keeps the JSON's key order): `levels` is compared as a sorted set
-    let mut levels = world.levels();
-    levels.sort_by_key(ToString::to_string);
-    let levels: String = levels.iter().map(|k| format!("{k},")).collect();
+    let levels: String = world.levels().iter().map(|k| format!("{k},")).collect();
     let mut line = format!(
         "BAKE {name} OK special={special} lifecycle={} levels={levels} debug={} entries=",
         lifecycle(complete.lifecycle),
@@ -101,15 +98,6 @@ fn bake_line(
     line
 }
 
-fn sort_levels(line: &str) -> String {
-    let Some((head, tail)) = line.split_once(" levels=") else { return line.to_string() };
-    let (levels, rest) = tail.split_once(' ').unwrap();
-    let mut levels: Vec<&str> = levels.split(',').filter(|l| !l.is_empty()).collect();
-    levels.sort_unstable();
-    let levels: String = levels.iter().map(|l| format!("{l},")).collect();
-    format!("{head} levels={levels} {rest}")
-}
-
 #[test]
 fn world_dimensions_bake_matches_vanilla() {
     let registries = Arc::new(WorldgenRegistries::new(Arc::new(McDataSource)));
@@ -124,7 +112,7 @@ fn world_dimensions_bake_matches_vanilla() {
         let base: Option<Value> = (base != "none").then(|| serde_json::from_str(base).unwrap());
         let want = lines.next().unwrap();
         let input: Value = serde_json::from_str(input).unwrap();
-        assert_eq!(bake_line(name, &input, base.as_ref(), &registries, &biomes), sort_levels(want), "{name}");
+        assert_eq!(bake_line(name, &input, base.as_ref(), &registries, &biomes), want, "{name}");
         cases += 1;
     }
     assert_eq!(cases, 49);
