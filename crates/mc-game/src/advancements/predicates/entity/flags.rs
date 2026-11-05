@@ -71,7 +71,7 @@ impl EntitySubPredicateImpl for EntityFlagsPredicate {
         C.clone()
     }
 
-    fn matches(&self, entity: &dyn Entity, _level: &ServerLevel, _position: Option<Vec3>) -> bool {
+    fn matches<'a>(&self, entity: &'a dyn Entity, _level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
         self.matches_entity(entity)
     }
 }

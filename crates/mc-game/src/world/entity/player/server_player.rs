@@ -482,6 +482,10 @@ impl Entity for ServerPlayer {
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:player")
     }
+    /// `getStats().getValue(statType.get(stat))`.
+    fn get_stat_value(&self, stat_type: &mc_core::ident::Identifier, stat: &mc_core::ident::Identifier) -> i32 {
+        crate::stats::stat::by_names(stat_type, stat).map_or(0, |s| self.stats.lock().get_value(&s))
+    }
     /// `Player.isSwimming()`.
     fn is_swimming(&self) -> bool {
         !self.player.abilities.flying && !self.is_spectator() && self.player.living.entity.get_shared_flag(crate::world::entity::entity::FLAG_SWIMMING)

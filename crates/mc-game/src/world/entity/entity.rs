@@ -2678,8 +2678,7 @@ pub trait Entity: Any {
     fn lightning_bolt_state(&self) -> Option<crate::advancements::predicates::entity::support::LightningBoltState> {
         None
     }
-    /// `ServerPlayer.getStats().getValue(statType.get(stat))` for the stat type / stat registry ids. SEAM(stats): the
-    /// player statistics slice implements it for `ServerPlayer`.
+    /// `ServerPlayer.getStats().getValue(statType.get(stat))` for the stat type / stat registry ids (0 for non-players).
     fn get_stat_value(&self, _stat_type: &mc_core::ident::Identifier, _stat: &mc_core::ident::Identifier) -> i32 {
         0
     }

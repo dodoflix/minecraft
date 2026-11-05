@@ -75,7 +75,7 @@ impl EntitySubPredicateImpl for MovementPredicate {
         C.clone()
     }
 
-    fn matches(&self, entity: &dyn Entity, level: &ServerLevel, _position: Option<Vec3>) -> bool {
+    fn matches<'a>(&self, entity: &'a dyn Entity, level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
         let m = support::get_known_movement(level, entity);
         let velocity = Vec3::new(m.x * 20.0, m.y * 20.0, m.z * 20.0);
         self.matches_values(velocity.x, velocity.y, velocity.z, entity.base().fall_distance)
