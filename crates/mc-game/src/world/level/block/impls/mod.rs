@@ -245,6 +245,8 @@ pub mod tall_flower_block;
 pub mod tall_grass_block;
 pub mod tall_seagrass_block;
 pub mod target_block;
+pub mod test_block;
+pub mod test_instance_block;
 pub mod trap_door_block;
 pub mod turtle_egg_block;
 pub mod tnt_block;

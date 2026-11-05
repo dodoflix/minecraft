@@ -124,6 +124,11 @@ impl ServerLevel {
         self.are_entities_loaded(key) && self.chunk_source.is_position_ticking(key, self.should_tick_blocks_at(key))
     }
 
+    /// `areEntitiesActuallyLoadedAndTicking(pos)`.
+    pub fn are_entities_actually_loaded_and_ticking(&self, pos: ChunkPos) -> bool {
+        self.entity_manager.is_ticking(pos) && self.entity_manager.are_entities_loaded(pos.pack())
+    }
+
     // ------------------------------------------------------------------------------------------------ weather
 
     /// `canHaveWeather()`.

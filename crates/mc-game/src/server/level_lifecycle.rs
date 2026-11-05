@@ -260,6 +260,13 @@ impl MinecraftServer {
     /// `EnvironmentAttributeSystem.builder().addDefaultLayers(level)` for a dimension type: its constant attributes, its
     /// timelines (the `timelines` holder set resolved against the timeline registry) and the weather layers.
     fn build_attribute_system(&self, dimension_type: &DimensionType, biomes: &mc_worldgen::biome::BiomeRegistry) -> crate::world::attribute::EnvironmentAttributeSystem {
+    fn build_attribute_system(&self, dimension_type: &DimensionType) -> crate::world::attribute::EnvironmentAttributeSystem {
+        self.build_attribute_system_with(dimension_type, &[])
+    }
+
+    /// `builder().addDefaultLayers(level)` followed by `addTimelineLayer(timeline, clockManager)` for each of `extra_timelines`
+    /// (the `timeline_attributes` game test environment).
+    fn build_attribute_system_with(&self, dimension_type: &DimensionType, extra_timelines: &[Identifier]) -> crate::world::attribute::EnvironmentAttributeSystem {
         use crate::registry::typed::HolderSetRef;
         use crate::world::attribute::Timeline;
         let access = self.registries.composite_access();
@@ -273,12 +280,29 @@ impl MinecraftServer {
                 ids.iter().filter_map(|id| registry.entry_by_key(id)).filter_map(|entry| Timeline::from_json(&entry.json)).collect()
             }
         };
+        let mut timelines = timelines;
+        if let Some(registry) = access.registry(keys::TIMELINE) {
+            timelines.extend(extra_timelines.iter().filter_map(|id| registry.entry_by_key(id)).filter_map(|entry| Timeline::from_json(&entry.json)));
+        }
         let can_have_weather = dimension_type.has_sky_light && !dimension_type.has_ceiling;
         let mut biome_attributes: Vec<Option<&serde_json::Value>> = vec![None; biomes.len()];
         for id in biomes.ids() {
             biome_attributes[id.0 as usize] = biomes.get(id).attributes.as_ref();
         }
         crate::world::attribute::EnvironmentAttributeSystem::build(&dimension_type.attributes, &biome_attributes, &timelines, can_have_weather, self.clock_manager().totals())
+    }
+
+    /// The environment attribute system of `dimension` with `extra_timelines` layered on top of its default layers.
+    pub fn build_attribute_system_for(&self, dimension: &DimensionKey, extra_timelines: &[Identifier]) -> crate::world::attribute::EnvironmentAttributeSystem {
+        let access = self.registries.composite_access();
+        let stem = access.level_stem(dimension).unwrap_or_else(|| panic!("Unknown dimension {dimension}"));
+        let dimension_type: Arc<DimensionType> = match &stem.dimension_type {
+            DimensionTypeSource::Inline(inline) => inline.clone(),
+            DimensionTypeSource::Reference(id) => Arc::new(
+                access.get::<DimensionType>(keys::DIMENSION_TYPE, id).cloned().unwrap_or_else(|| panic!("Unknown dimension type {id} of dimension {dimension}")),
+            ),
+        };
+        self.build_attribute_system_with(&dimension_type, extra_timelines)
     }
 
     /// `createLevels`.
@@ -484,6 +508,9 @@ impl MinecraftServer {
         pop_push("players");
         self.player_list.tick();
         pop_push("server gui refresh");
+        if self.tick_rate_manager.runs_normally() {
+            crate::gametest::game_test_ticker::tick(self);
+        }
         self.run_tickables();
         pop_push("send chunks");
         crate::server::network::game_listener::send_next_chunks_all(self);

@@ -6,6 +6,7 @@
 pub mod advancements;
 pub mod commands;
 pub mod crash_report;
+pub mod gametest;
 pub mod registry;
 pub mod server;
 pub mod util;
