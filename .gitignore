@@ -22,3 +22,6 @@ crash-reports/
 *.swp
 *~
 .DS_Store
+
+# vanilla package net.minecraft.world.entity.ai.goal.target
+!crates/mc-game/src/world/entity/ai/goal/target/
