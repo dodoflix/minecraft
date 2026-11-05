@@ -10,9 +10,12 @@ use crate::world::level::levelgen::codec::TypeEntry;
 use mc_brigadier::StringReader;
 use mc_core::pos::BlockPos;
 use mc_data::block::Block;
-use std::sync::Arc;
+use std::sync::{Arc, LazyLock};
 
 pub struct JigsawReplacementProcessor;
+
+/// `JigsawReplacementProcessor.INSTANCE`.
+pub static INSTANCE: LazyLock<Arc<dyn StructureProcessor>> = LazyLock::new(|| Arc::new(JigsawReplacementProcessor));
 
 impl StructureProcessor for JigsawReplacementProcessor {
     fn process_block(
@@ -58,4 +61,4 @@ fn parse_final_state(text: &str) -> Result<mc_data::block::BlockState, String> {
 }
 
 #[linkme::distributed_slice(STRUCTURE_PROCESSOR_TYPES)]
-static TYPE: TypeEntry<dyn StructureProcessor> = TypeEntry { name: "jigsaw_replacement", decode: |_, _| Ok(Arc::new(JigsawReplacementProcessor)) };
+static TYPE: TypeEntry<dyn StructureProcessor> = TypeEntry { name: "jigsaw_replacement", decode: |_, _| Ok(INSTANCE.clone()) };

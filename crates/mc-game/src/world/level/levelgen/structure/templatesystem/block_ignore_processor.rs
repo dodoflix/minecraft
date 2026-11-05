@@ -7,7 +7,7 @@ use crate::world::level::LevelReader;
 use crate::world::level::levelgen::codec::*;
 use mc_core::pos::BlockPos;
 use mc_data::block::Block;
-use std::sync::Arc;
+use std::sync::{Arc, LazyLock};
 
 pub struct BlockIgnoreProcessor {
     to_ignore: Vec<Block>,
@@ -18,6 +18,17 @@ impl BlockIgnoreProcessor {
         BlockIgnoreProcessor { to_ignore }
     }
 }
+
+fn shared(blocks: &[&str]) -> Arc<dyn StructureProcessor> {
+    Arc::new(BlockIgnoreProcessor::new(blocks.iter().map(|b| Block::by_name(b).expect("vanilla block")).collect()))
+}
+
+/// `BlockIgnoreProcessor.STRUCTURE_BLOCK` (one shared instance, so `popProcessor` can find it by identity).
+pub static STRUCTURE_BLOCK: LazyLock<Arc<dyn StructureProcessor>> = LazyLock::new(|| shared(&["minecraft:structure_block"]));
+/// `BlockIgnoreProcessor.AIR`.
+pub static AIR: LazyLock<Arc<dyn StructureProcessor>> = LazyLock::new(|| shared(&["minecraft:air"]));
+/// `BlockIgnoreProcessor.STRUCTURE_AND_AIR`.
+pub static STRUCTURE_AND_AIR: LazyLock<Arc<dyn StructureProcessor>> = LazyLock::new(|| shared(&["minecraft:air", "minecraft:structure_block"]));
 
 impl StructureProcessor for BlockIgnoreProcessor {
     fn process_block(
