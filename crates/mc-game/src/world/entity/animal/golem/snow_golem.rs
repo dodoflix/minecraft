@@ -15,7 +15,7 @@ use crate::world::entity::projectile::throwableitemprojectile::snowball::Snowbal
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
 use crate::world::item::{hurt_and_break, InteractionHand, InteractionResult, ItemStack};
 use crate::world::level::gameevent::GameEventContext;
-use crate::world::level::BlockGetter as _;
+use crate::world::level::{BlockGetter as _, LevelAccessor as _};
 use crate::world::level::block::BlockStateExt as _;
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
