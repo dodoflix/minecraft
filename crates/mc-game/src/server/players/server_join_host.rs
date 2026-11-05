@@ -7,7 +7,8 @@ use super::name_and_id::NameAndId;
 use super::player_handle::PlayerHandle;
 use super::player_list::PlayerList;
 use crate::registry::keys;
-use crate::registry::typed::level_stem::{DimensionTypeSource, LevelStem};
+use crate::server::world_dimensions::LevelStem;
+use mc_worldgen::world_preset::Holder;
 use crate::server::MinecraftServer;
 use crate::server::level::ServerLevel;
 use crate::server::permissions::LevelBasedPermissionSet;
@@ -56,8 +57,8 @@ impl MinecraftServer {
         let Some(id) = stems.id_of(dimension) else { return 0 };
         let Some(stem) = stems.entry(id).and_then(|e| e.value.clone()).and_then(|v| v.downcast::<LevelStem>().ok()) else { return 0 };
         match &stem.dimension_type {
-            DimensionTypeSource::Reference(type_id) => access.registry(keys::DIMENSION_TYPE).and_then(|r| r.id_of(type_id)).map_or(0, |i| i as i32),
-            DimensionTypeSource::Inline(_) => 0,
+            Holder::Reference(type_id, _) => access.registry(keys::DIMENSION_TYPE).and_then(|r| r.id_of(type_id)).map_or(0, |i| i as i32),
+            Holder::Direct(_) => 0,
         }
     }
 }

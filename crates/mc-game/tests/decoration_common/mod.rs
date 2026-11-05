@@ -48,7 +48,7 @@ pub fn generators(text: &str) -> Generators {
             json!({"type": "minecraft:flat", "settings": serde_json::from_str::<serde_json::Value>(flat).unwrap()})
         };
         let generator = level_generator_from_json(&generator_json, &registries, &biomes).unwrap_or_else(|e| panic!("{name}: {e}"));
-        generators.push((name.to_owned(), Arc::from(generator.into_boxed())));
+        generators.push((name.to_owned(), generator.chunk_generator()));
     }
     assert_eq!(generators.len(), 9);
     Generators { registries, biomes, generators }

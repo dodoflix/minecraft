@@ -16,7 +16,7 @@ use crate::server::packs::ServerPacksSource;
 use crate::server::players::mojang_profile_lookup::MojangProfileLookup;
 use crate::server::players::name_resolver::{CachedProfileResolver, CachedUserNameToIdResolver, NoProfileLookup, ProfileLookup};
 use crate::server::shared::ServerShared;
-use crate::server::world_dimensions::WorldDimensions;
+use crate::server::world_dimensions::{DimensionDecoder, WorldDimensions};
 use crate::server::world_loader::{DataLoadContext, DataLoadOutput, PackConfig, WorldLoadError, WorldStem, load};
 use crate::server::MinecraftServer;
 use mc_nbt::CompoundTag;
@@ -24,7 +24,7 @@ use mc_world::level_storage::{
     DifficultySettings, FeatureFlagSet, GameType, LevelResource, LevelSettings, LevelStorageSource, PrimaryLevelData, WorldDataConfiguration,
     WorldGenSettings, WorldOptions, get_data_version, requires_file_fixing,
 };
-use mc_worldgen::biome::BiomeRegistry;
+use mc_worldgen::flat::FlatLevelGeneratorSettings;
 use serde_json::Value;
 use std::path::PathBuf;
 use std::sync::Arc;
@@ -239,31 +239,35 @@ fn world_data_supplier(
     properties: &DedicatedServerProperties,
     options: &ServerOptions,
 ) -> DataLoadOutput<WorldDataAndGenSettings> {
+    let decoder = DimensionDecoder::new(&context.datapack_world_registries).unwrap_or_else(|e| panic!("{e}"));
     let datapack_dimensions: Option<&Registry> = context.datapack_dimensions.registry(keys::LEVEL_STEM).map(|r| r.as_ref());
     let (data, gen_settings, dimensions) = match level_data_tag {
         Some(tag) => {
             let result = LevelStorageSource::get_level_data_and_dimensions(access, tag, context.data_configuration.clone())
                 .unwrap_or_else(|e| panic!("{e}"));
-            let gen_settings = match result.world_gen_settings {
-                Ok(settings) => settings,
-                Err(e) => {
-                    log::error!("Unable to read or access the world gen settings file!\n{e}");
-                    let dims = create_normal_world_dimensions(context);
-                    WorldGenSettings { options: random_world_options(), dimensions: dims.to_stored() }
-                }
-            };
-            let dimensions = WorldDimensions::from_stored(&gen_settings.dimensions).unwrap_or_else(|e| panic!("{e}"));
+            // `WorldGenSettings.CODEC` decodes the stems too: any failure falls back to the data pack's dimensions
+            let stored = result.world_gen_settings.map_err(|e| e.to_string()).and_then(|settings| {
+                let dimensions = WorldDimensions::from_stored(&decoder, &settings.dimensions)?;
+                Ok((WorldGenSettings { options: settings.options, dimensions: dimensions.to_stored() }, dimensions))
+            });
+            let (gen_settings, dimensions) = stored.unwrap_or_else(|e| {
+                log::error!("Unable to read or access the world gen settings file! Falling back to the default settings with a random world seed. {e}");
+                let dimensions = datapack_dimensions
+                    .map(|registry| WorldDimensions::from_registry(&decoder, registry).unwrap_or_else(|e| panic!("{e}")))
+                    .expect("the datapack dimensions registry is loaded");
+                (WorldGenSettings { options: random_world_options(), dimensions: dimensions.to_stored() }, dimensions)
+            });
             (result.world_data, gen_settings, dimensions)
         }
         None => {
             log::info!("No existing world data, creating new world");
-            create_new_world_data(context, properties, options.demo, options.bonus_chest)
+            create_new_world_data(&decoder, context, properties, options.demo, options.bonus_chest)
         }
     };
-    let (final_dimensions, special) = dimensions.bake(datapack_dimensions).unwrap_or_else(|e| panic!("{e}"));
+    let complete = dimensions.bake(&decoder, datapack_dimensions).unwrap_or_else(|e| panic!("{e}"));
     let mut data = data;
-    data.special_world_property = special;
-    DataLoadOutput { cookie: WorldDataAndGenSettings { data, gen_settings }, final_dimensions }
+    data.special_world_property = complete.special_world_property;
+    DataLoadOutput { cookie: WorldDataAndGenSettings { data, gen_settings }, final_dimensions: complete.dimensions }
 }
 
 fn random_world_options() -> WorldOptions {
@@ -272,26 +276,33 @@ fn random_world_options() -> WorldOptions {
 }
 
 /// `WorldPresets.createNormalWorldDimensions`.
-fn create_normal_world_dimensions(context: &DataLoadContext) -> WorldDimensions {
-    preset_dimensions(context, "minecraft:normal").unwrap_or_else(|| panic!("Invalid datapack contents: can't find default preset"))
+fn create_normal_world_dimensions(decoder: &DimensionDecoder, context: &DataLoadContext) -> WorldDimensions {
+    preset_dimensions(decoder, context, "minecraft:normal").unwrap_or_else(|| panic!("Invalid datapack contents: can't find default preset"))
 }
 
-fn preset_dimensions(context: &DataLoadContext, id: &str) -> Option<WorldDimensions> {
+fn preset_dimensions(decoder: &DimensionDecoder, context: &DataLoadContext, id: &str) -> Option<WorldDimensions> {
     let id = mc_core::ident::Identifier::try_parse(id)?;
     let registry = context.datapack_world_registries.registry(keys::WORLD_PRESET)?;
     let entry = registry.entry_by_key(&id)?;
-    WorldDimensions::from_preset_json(&entry.json).ok()
+    match WorldDimensions::from_preset_json(decoder, &entry.json) {
+        Ok(dimensions) => Some(dimensions),
+        Err(e) => {
+            log::error!("Failed to decode the world preset {id}: {e}");
+            None
+        }
+    }
 }
 
 /// `Main.createNewWorldData`.
 fn create_new_world_data(
+    decoder: &DimensionDecoder,
     context: &DataLoadContext,
     properties: &DedicatedServerProperties,
     demo_mode: bool,
     bonus_chest: bool,
 ) -> (PrimaryLevelData, WorldGenSettings, WorldDimensions) {
     let (level_settings, world_options, dimensions) = if demo_mode {
-        (demo_settings(context.data_configuration.clone()), demo_world_options(), create_normal_world_dimensions(context))
+        (demo_settings(context.data_configuration.clone()), demo_world_options(), create_normal_world_dimensions(decoder, context))
     } else {
         let level_settings = LevelSettings {
             level_name: properties.level_name.clone(),
@@ -304,7 +315,7 @@ fn create_new_world_data(
         if bonus_chest {
             world_options.generate_bonus_chest = true;
         }
-        (level_settings, world_options, create_dimensions(context, properties))
+        (level_settings, world_options, create_dimensions(decoder, context, properties))
     };
     let special = dimensions.special_world_property();
     let data = PrimaryLevelData::new(level_settings, special);
@@ -314,25 +325,30 @@ fn create_new_world_data(
 
 /// `DedicatedServerProperties.WorldDimensionData.create`: the `level-type` preset; for the flat preset the overworld
 /// generator is replaced by one built from `generator-settings`.
-fn create_dimensions(context: &DataLoadContext, properties: &DedicatedServerProperties) -> WorldDimensions {
+fn create_dimensions(decoder: &DimensionDecoder, context: &DataLoadContext, properties: &DedicatedServerProperties) -> WorldDimensions {
     let data = &properties.world_dimension_data;
     let default_id = "minecraft:normal";
     let key = data.world_preset_key();
-    let (preset_id, mut dimensions) = match key.as_ref().and_then(|k| preset_dimensions(context, &k.to_string()).map(|d| (k.to_string(), d))) {
+    let (preset_id, mut dimensions) = match key.as_ref().and_then(|k| preset_dimensions(decoder, context, &k.to_string()).map(|d| (k.to_string(), d))) {
         Some(found) => found,
         None => {
             log::warn!("Failed to parse level-type {}, defaulting to {default_id}", data.level_type);
-            (default_id.to_owned(), create_normal_world_dimensions(context))
+            (default_id.to_owned(), create_normal_world_dimensions(decoder, context))
         }
     };
     if preset_id == "minecraft:flat" {
-        let worldgen = Arc::new(context.datapack_world_registries.worldgen_registries());
         let settings_json: Value = serde_json::from_str(&crate::server::players::gson::JsonElement::Object(data.generator_settings.clone()).to_compact_string()).unwrap_or(Value::Null);
-        let parsed = BiomeRegistry::load(&worldgen)
-            .map_err(|e| e.to_string())
-            .and_then(|biomes| mc_worldgen::flat::FlatLevelGeneratorSettings::from_json(&settings_json, &worldgen, &biomes).map_err(|e| e.to_string()));
-        match parsed {
-            Ok(_) => dimensions.replace_overworld_generator(serde_json::json!({"type": "minecraft:flat", "settings": settings_json})),
+        // `resultOrPartial(LOGGER::error)`: a decoding error is logged, and settings that only failed `validateHeight` are still used
+        match FlatLevelGeneratorSettings::from_json_partial(&settings_json, &decoder.worldgen, &decoder.biomes) {
+            Ok((settings, height_error)) => {
+                if let Some(e) = height_error {
+                    log::error!("{e}");
+                }
+                match decoder.flat_generator(settings, &settings_json).and_then(|(generator, tag)| dimensions.replace_overworld_generator(decoder, generator, tag)) {
+                    Ok(()) => {}
+                    Err(e) => log::error!("{e}"),
+                }
+            }
             Err(e) => log::error!("{e}"),
         }
     }

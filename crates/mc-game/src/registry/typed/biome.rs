@@ -131,6 +131,21 @@ fn convert(json: &Value, ctx: &RegistryDecodeContext, direct: bool) -> Result<Ta
     Ok(Tag::Compound(nbt))
 }
 
+/// `Biome.DIRECT_CODEC` `parse` + `encodeStart` (the inline holder form).
+fn encode_direct(json: &Value, ctx: &RegistryDecodeContext) -> Result<Tag, String> {
+    convert(json, ctx, true)
+}
+
+/// `Biome.CODEC` (`RegistryCodecs.holder(BIOME, DIRECT_CODEC)`): a reference or an inline definition.
+pub fn holder_schema() -> Schema {
+    Schema::HolderOrDirect { registry: keys::BIOME, direct: encode_direct }
+}
+
+/// `Biome.LIST_CODEC` (`RegistryCodecs.holderSet(BIOME, DIRECT_CODEC)`).
+pub fn holder_set_schema() -> Schema {
+    Schema::HolderSetOrDirect { registry: keys::BIOME, always_list: false, direct: encode_direct }
+}
+
 impl Biome {
     /// `DIRECT_CODEC` decode.
     pub fn from_json(json: &Value, ctx: &RegistryDecodeContext) -> Result<Biome, String> {

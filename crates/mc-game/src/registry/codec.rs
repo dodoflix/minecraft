@@ -112,6 +112,9 @@ pub fn default(name: &'static str, schema: Schema, default: Value) -> Field {
 /// `parse` + `encodeStart` of a hand-written codec.
 pub type CustomCodec = std::sync::Arc<dyn Fn(&Value, &RegistryDecodeContext) -> Result<Tag, String> + Send + Sync>;
 
+/// The element codec of an inline holder (`DIRECT_CODEC`): `parse` + `encodeStart`.
+pub type DirectCodec = fn(&Value, &RegistryDecodeContext) -> Result<Tag, String>;
+
 /// A codec description, see the module docs.
 #[derive(Clone)]
 pub enum Schema {
@@ -135,6 +138,11 @@ pub enum Schema {
     Holder(&'static str),
     /// `RegistryCodecs.homogeneousList` / `holderSet`; `always_list` is `HolderSetCodec`'s `alwaysUseList`.
     HolderSet { registry: &'static str, always_list: bool },
+    /// `RegistryFileCodec` with inline definitions allowed (`RegistryCodecs.holder(key, DIRECT_CODEC)`): a reference, or
+    /// anything else decoded by `direct` (the element codec's `parse` + `encodeStart`).
+    HolderOrDirect { registry: &'static str, direct: DirectCodec },
+    /// `RegistryCodecs.holderSet(key, DIRECT_CODEC)`: like [`Schema::HolderSet`] with inline elements.
+    HolderSetOrDirect { registry: &'static str, always_list: bool, direct: DirectCodec },
     List(Box<Schema>),
     /// A list with at least one element (`ExtraCodecs.nonEmptyList`).
     NonEmptyList(Box<Schema>),
@@ -302,7 +310,12 @@ impl Schema {
                 }
                 _ => Err("Inline definitions not allowed here".to_owned()),
             },
-            Schema::HolderSet { registry, always_list } => convert_holder_set(registry, *always_list, v, ctx),
+            Schema::HolderOrDirect { registry, direct } => match v {
+                Value::String(_) => Schema::Holder(registry).convert(v, ctx),
+                _ => direct(v, ctx),
+            },
+            Schema::HolderSet { registry, always_list } => convert_holder_set(registry, *always_list, None, v, ctx),
+            Schema::HolderSetOrDirect { registry, always_list, direct } => convert_holder_set(registry, *always_list, Some(*direct), v, ctx),
             Schema::List(item) => convert_list(item, v, ctx, false),
             Schema::NonEmptyList(item) => convert_list(item, v, ctx, true),
             Schema::Record(fields) => convert_record(fields, v, ctx).map(Tag::Compound),
@@ -357,8 +370,11 @@ fn convert_list(item: &Schema, v: &Value, ctx: &RegistryDecodeContext, non_empty
 }
 
 /// `HolderSetCodec`: `"#tag"`, a single id (compact form) or a list of ids; direct sets re-encode compactly unless `always_list`.
-fn convert_holder_set(registry: &str, always_list: bool, v: &Value, ctx: &RegistryDecodeContext) -> Result<Tag, String> {
+fn convert_holder_set(registry: &str, always_list: bool, direct: Option<DirectCodec>, v: &Value, ctx: &RegistryDecodeContext) -> Result<Tag, String> {
     let holder = |e: &Value| -> Result<Tag, String> {
+        if let (Some(direct), false) = (direct, e.is_string()) {
+            return direct(e, ctx);
+        }
         let s = e.as_str().ok_or_else(|| format!("Not a string: {}", compact(e)))?;
         let id = Identifier::read(s)?;
         ctx.check_holder(registry, &id)?;

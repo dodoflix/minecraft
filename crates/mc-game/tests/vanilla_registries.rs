@@ -97,7 +97,7 @@ fn vanilla_data_pack_registries_match_vanilla() {
         let sizes: Vec<usize> = parts.map(|s| s.parse().unwrap()).collect();
         assert_eq!(sizes.len(), steps);
         let generator = level_generator_from_json(&preset["dimensions"][format!("minecraft:{dimension}")]["generator"], &worldgen, &biomes).unwrap();
-        let per_step = sort_features_per_step(generator.into_boxed().as_ref(), &biomes).unwrap();
+        let per_step = sort_features_per_step(generator.as_chunk_generator(), &biomes).unwrap();
         assert_eq!(per_step.iter().map(Vec::len).collect::<Vec<_>>(), sizes, "{dimension} feature counts per step");
         sorted += 1;
     }

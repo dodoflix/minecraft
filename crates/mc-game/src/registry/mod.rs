@@ -63,7 +63,7 @@ pub fn build_updated_lookups(registries: &RegistryAccess, pending: &[PendingTags
     }))
 }
 
-use typed::{biome::Biome, chat_type::ChatType, damage_type::DamageType, dimension_type::DimensionType, level_stem::LevelStem};
+use typed::{biome::Biome, chat_type::ChatType, damage_type::DamageType, dimension_type::DimensionType};
 
 impl RegistryAccess {
     /// Typed `dimension_type` entry (`registryAccess.lookupOrThrow(DIMENSION_TYPE).getValue(id)`).
@@ -102,8 +102,8 @@ impl RegistryAccess {
         let _ = mc_protocol::registry_context::set(context);
     }
 
-    /// Typed `dimension` (level stem) entry.
-    pub fn level_stem(&self, id: &Identifier) -> Option<&LevelStem> {
-        self.get::<LevelStem>(keys::LEVEL_STEM, id)
+    /// Typed `dimension` (level stem) entry of a baked `dimension` registry.
+    pub fn level_stem(&self, id: &Identifier) -> Option<&crate::server::world_dimensions::LevelStem> {
+        self.get::<crate::server::world_dimensions::LevelStem>(keys::LEVEL_STEM, id)
     }
 }

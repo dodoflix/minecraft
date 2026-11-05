@@ -11,10 +11,30 @@ use mc_core::ident::Identifier;
 use mc_worldgen::biome::BiomeRegistry;
 use mc_worldgen::data::{McDataSource, WorldgenRegistries};
 use mc_worldgen::flat::settings::StructureSetHolderSet;
+use mc_worldgen::data::LoadError;
+use mc_worldgen::densityfunction::codec::LoadResult;
 use mc_worldgen::world_preset::{
-    DimensionTypeRef, LevelGenerator, SpecialWorldProperty, WorldPreset, world_presets,
+    DimensionTypes, Holder, LevelGenerator, SpecialWorldProperty, WorldPreset, world_presets,
 };
 use serde_json::Value;
+
+/// `dimension_type` as raw JSON: the typed `DimensionType` lives in the game crate (its codec is tested there).
+struct RawTypes(Arc<WorldgenRegistries>);
+
+impl DimensionTypes for RawTypes {
+    type Value = Value;
+
+    fn reference(&self, id: &Identifier) -> LoadResult<Arc<Value>> {
+        self.0
+            .raw("dimension_type", id)
+            .map(Arc::new)
+            .ok_or_else(|| LoadError::new(format!("Failed to get element {id}")))
+    }
+
+    fn direct(&self, json: &Value) -> LoadResult<Arc<Value>> {
+        Ok(Arc::new(json.clone()))
+    }
+}
 
 fn fixture() -> String {
     let path = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/flat/world_presets.txt.gz");
@@ -41,6 +61,7 @@ fn rle(values: &[String]) -> String {
 fn world_presets_match_vanilla() {
     let registries = Arc::new(WorldgenRegistries::new(Arc::new(McDataSource)));
     let biomes = Arc::new(BiomeRegistry::load(&registries).unwrap());
+    let types = RawTypes(registries.clone());
     let text = fixture();
     let mut checked = 0;
     let mut presets = std::collections::BTreeSet::new();
@@ -52,14 +73,14 @@ fn world_presets_match_vanilla() {
         let preset_id = Identifier::parse(preset).unwrap();
         let dim_id = Identifier::parse(dim).unwrap();
         presets.insert(preset.to_string());
-        let loaded = world_presets::load(&registries, &biomes, &preset_id).unwrap();
+        let loaded = world_presets::load(&registries, &biomes, &types, &preset_id).unwrap();
         let stem = loaded.create_world_dimensions();
         let stem = stem.get(&dim_id).unwrap_or_else(|| panic!("{preset} {dim} missing")).clone();
 
         let type_part = tail.split(" generator=").next().unwrap().strip_prefix("type=").unwrap();
         match &stem.dimension_type {
-            DimensionTypeRef::Named(id) => assert_eq!(id.to_string(), type_part, "{preset} {dim}"),
-            DimensionTypeRef::Inline(_) => assert_eq!("<inline>", type_part),
+            Holder::Reference(id, _) => assert_eq!(id.to_string(), type_part, "{preset} {dim}"),
+            Holder::Direct(_) => assert_eq!("<inline>", type_part),
         }
         let generator_name = tail.split(" generator=").nth(1).unwrap().split(' ').next().unwrap();
         assert_eq!(stem.generator.type_name().to_string(), generator_name, "{preset} {dim}");
@@ -134,22 +155,23 @@ fn world_presets_match_vanilla() {
 fn preset_helpers() {
     let registries = Arc::new(WorldgenRegistries::new(Arc::new(McDataSource)));
     let biomes = Arc::new(BiomeRegistry::load(&registries).unwrap());
-    let normal = world_presets::create_normal_world_dimensions(&registries, &biomes).unwrap();
+    let types = RawTypes(registries.clone());
+    let normal = world_presets::create_normal_world_dimensions(&registries, &biomes, &types).unwrap();
     assert_eq!(normal.special_world_property(), SpecialWorldProperty::None);
     assert!(!normal.is_debug());
     let keys: Vec<String> = normal.dimensions().iter().map(|(k, _)| k.to_string()).collect();
     assert_eq!(keys, ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]);
     assert_eq!(world_presets::from_settings(&normal).unwrap().to_string(), "minecraft:normal");
-    let debug = world_presets::load(&registries, &biomes, &Identifier::parse("minecraft:debug_all_block_states").unwrap())
+    let debug = world_presets::load(&registries, &biomes, &types, &Identifier::parse("minecraft:debug_all_block_states").unwrap())
         .unwrap()
         .create_world_dimensions();
     assert!(debug.is_debug());
     assert_eq!(debug.special_world_property(), SpecialWorldProperty::Debug);
-    let flat = world_presets::load(&registries, &biomes, &Identifier::parse("minecraft:flat").unwrap())
+    let flat = world_presets::load(&registries, &biomes, &types, &Identifier::parse("minecraft:flat").unwrap())
         .unwrap()
         .create_world_dimensions();
     assert_eq!(flat.special_world_property(), SpecialWorldProperty::Flat);
-    let amplified: Arc<WorldPreset> =
-        world_presets::load(&registries, &biomes, &Identifier::parse("minecraft:amplified").unwrap()).unwrap();
+    let amplified: Arc<WorldPreset<Value>> =
+        world_presets::load(&registries, &biomes, &types, &Identifier::parse("minecraft:amplified").unwrap()).unwrap();
     assert!(amplified.overworld().is_some());
 }

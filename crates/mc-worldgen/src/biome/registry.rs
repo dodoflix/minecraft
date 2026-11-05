@@ -2,7 +2,7 @@
 //! registry holding every `worldgen/biome` entry in vanilla's (dedicated server) id order.
 
 use std::collections::HashMap;
-use std::sync::{Arc, LazyLock};
+use std::sync::{Arc, LazyLock, Mutex};
 
 use serde_json::Value;
 
@@ -12,7 +12,7 @@ use mc_core::random::{LegacyRandomSource, WorldgenRandom};
 use mc_data::block::BlockState;
 use mc_world::palette::BiomeId;
 
-use crate::data::{LoadError, WorldgenRegistries};
+use crate::data::{LoadError, WorldgenDataSource, WorldgenRegistries};
 use crate::densityfunction::codec::{Fields, LoadResult, parse_bool, parse_f32, parse_identifier, parse_list, parse_str};
 use crate::synth::{Noise, NoiseStack, SimplexNoise};
 
@@ -158,6 +158,26 @@ impl BiomeGenerationSettings {
         &self.features
     }
 
+    /// The `RegistryOps` element lookups of an inline biome: every referenced carver and placed feature must exist.
+    fn check_references(&self, source: &dyn WorldgenDataSource) -> LoadResult<()> {
+        let missing = |registry: &str, id: &Identifier| {
+            LoadError::new(format!("Failed to get element {id} from registry minecraft:{registry}"))
+        };
+        for carver in &self.carvers {
+            if source.get(CARVER_TAG_DIR, carver).is_none() {
+                return Err(missing(CARVER_TAG_DIR, carver));
+            }
+        }
+        for feature in self.features.iter().flatten() {
+            if let PlacedFeatureRef::Named(id) = feature
+                && source.get(PLACED_FEATURE_TAG_DIR, id).is_none()
+            {
+                return Err(missing(PLACED_FEATURE_TAG_DIR, id));
+            }
+        }
+        Ok(())
+    }
+
     /// `BiomeGenerationSettings.CODEC` (carvers: id | `#tag` | list; features: list of those).
     fn from_json(biome: &Value) -> LoadResult<BiomeGenerationSettings> {
         let fields = Fields::new(biome)?;
@@ -296,15 +316,54 @@ impl Biome {
     }
 }
 
+/// `BiomeId`s of inline (`Holder.Direct`) biomes start here: they are no registry entries, so they never collide
+/// with registry ids (vanilla's `IdMap` gives a direct holder the id -1 and cannot serialize it by name either).
+const INLINE_BIOME_BASE: u32 = 1 << 30;
+
+/// Every inline biome definition decoded so far, deduplicated by its JSON. Direct holders live as long as the
+/// generator/levels using them, so the entries are leaked (`&'static`) and ids stay valid across registry instances.
+static INLINE_BIOMES: Mutex<Vec<(Value, &'static Biome)>> = Mutex::new(Vec::new());
+
+/// What [`BiomeRegistry::key`] reports for an inline biome: never a registry entry, so no tag or id check matches it.
+static INLINE_BIOME_KEY: LazyLock<Identifier> =
+    LazyLock::new(|| Identifier::with_default_namespace("__inline_biome__").expect("valid id"));
+
+/// `Biome.DIRECT_CODEC` as a `Holder.Direct`: the id of the (deduplicated) inline definition.
+fn inline_biome_id(value: &Value, source: &dyn WorldgenDataSource) -> LoadResult<BiomeId> {
+    let biome = Biome::from_json(value)?;
+    biome.generation_settings.check_references(source)?;
+    let mut inline = INLINE_BIOMES.lock().unwrap_or_else(|e| e.into_inner());
+    let index = match inline.iter().position(|(json, _)| json == value) {
+        Some(index) => index,
+        None => {
+            inline.push((value.clone(), Box::leak(Box::new(biome))));
+            inline.len() - 1
+        }
+    };
+    Ok(BiomeId(INLINE_BIOME_BASE + index as u32))
+}
+
+fn inline_biome(id: BiomeId) -> &'static Biome {
+    let inline = INLINE_BIOMES.lock().unwrap_or_else(|e| e.into_inner());
+    inline[(id.0 - INLINE_BIOME_BASE) as usize].1
+}
+
 /// The biome registry as the dedicated server builds it from the vanilla data pack: entries are
 /// registered in `worldgen/biome` resource-listing order, which is the byte order of the identifiers, so
 /// `BiomeId(i)` is the i-th identifier in sorted order (67 entries in 26.3, `minecraft:badlands` = 0 ...
 /// `minecraft:wooded_badlands` = 66).
-#[derive(Debug)]
 pub struct BiomeRegistry {
     biomes: Vec<Biome>,
     keys: Vec<Identifier>,
     ids: HashMap<Identifier, BiomeId>,
+    /// The data the biomes were loaded from: carver / placed feature references of inline biomes resolve against it.
+    source: Arc<dyn WorldgenDataSource>,
+}
+
+impl std::fmt::Debug for BiomeRegistry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("BiomeRegistry").field("keys", &self.keys).finish()
+    }
 }
 
 impl BiomeRegistry {
@@ -324,7 +383,7 @@ impl BiomeRegistry {
             .enumerate()
             .map(|(i, key)| (key.clone(), BiomeId(i as u32)))
             .collect();
-        Ok(BiomeRegistry { biomes, keys, ids })
+        Ok(BiomeRegistry { biomes, keys, ids, source: registries.source().clone() })
     }
 
     pub fn len(&self) -> usize {
@@ -333,6 +392,11 @@ impl BiomeRegistry {
 
     pub fn is_empty(&self) -> bool {
         self.biomes.is_empty()
+    }
+
+    /// Whether `id` is an inline (`Holder.Direct`) biome instead of a registry entry.
+    pub fn is_inline(id: BiomeId) -> bool {
+        id.0 >= INLINE_BIOME_BASE
     }
 
     /// `getId(key)` as an id.
@@ -345,14 +409,15 @@ impl BiomeRegistry {
         self.id_of(&Identifier::try_parse(name)?)
     }
 
-    /// `getKey(biome)`. Panics on an id outside the registry.
+    /// `getKey(biome)`; an inline biome has no key and reports a name no registry entry has. Panics on an id outside
+    /// the registry.
     pub fn key(&self, id: BiomeId) -> &Identifier {
-        &self.keys[id.0 as usize]
+        if Self::is_inline(id) { &INLINE_BIOME_KEY } else { &self.keys[id.0 as usize] }
     }
 
     /// `byId(id)`. Panics on an id outside the registry.
     pub fn get(&self, id: BiomeId) -> &Biome {
-        &self.biomes[id.0 as usize]
+        if Self::is_inline(id) { inline_biome(id) } else { &self.biomes[id.0 as usize] }
     }
 
     /// All ids in registry order.
@@ -365,8 +430,12 @@ impl BiomeRegistry {
         self.keys.iter().map(|k| k.to_string()).collect()
     }
 
-    /// `Biome.CODEC` as a reference: a registered biome id (inline biome definitions are not registry ids).
+    /// `Biome.CODEC` (`RegistryFileCodec`): a registered biome id, or an inline `Biome.DIRECT_CODEC` definition (any
+    /// non-string value, like vanilla's "not a resource key" fallback).
     pub fn holder_from_json(&self, value: &Value) -> LoadResult<BiomeId> {
+        if !value.is_string() {
+            return inline_biome_id(value, self.source.as_ref());
+        }
         let id = parse_identifier(value)?;
         self.id_of(&id)
             .ok_or_else(|| LoadError::new(format!("Failed to get element {id}")))
@@ -389,9 +458,9 @@ impl BiomeRegistry {
                     })
                     .collect()
             }
-            Value::String(_) => Ok(vec![self.holder_from_json(value)?]),
             Value::Array(_) => parse_list(value, |e| self.holder_from_json(e)),
-            _ => Err(LoadError::new("expected biome id, tag or list")),
+            // `ExtraCodecs.compactListCodec`: a lone holder (id or inline definition) is a list of one
+            _ => Ok(vec![self.holder_from_json(value)?]),
         }
     }
 }

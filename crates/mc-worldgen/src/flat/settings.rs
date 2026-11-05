@@ -117,6 +117,20 @@ impl FlatLevelGeneratorSettings {
         registries: &WorldgenRegistries,
         biomes: &BiomeRegistry,
     ) -> LoadResult<FlatLevelGeneratorSettings> {
+        match Self::from_json_partial(value, registries, biomes)? {
+            (settings, None) => Ok(settings),
+            (_, Some(error)) => Err(error),
+        }
+    }
+
+    /// The codec's `DataResult` with its partial result: settings whose layers are too tall fail `validateHeight`
+    /// with `DataResult.error(msg, settings)`, which `resultOrPartial` (the dedicated server's `generator-settings`)
+    /// still uses.
+    pub fn from_json_partial(
+        value: &Value,
+        registries: &WorldgenRegistries,
+        biomes: &BiomeRegistry,
+    ) -> LoadResult<(FlatLevelGeneratorSettings, Option<LoadError>)> {
         let fields = Fields::new(value)?;
         // `lenientOptionalFieldOf`: an invalid value is the same as an absent one.
         let structure_overrides = fields
@@ -147,8 +161,8 @@ impl FlatLevelGeneratorSettings {
         }
         settings.layers_info.extend(layers);
         settings.update_layers();
-        settings.validate_height()?;
-        Ok(settings)
+        let height_error = settings.validate_height().err();
+        Ok((settings, height_error))
     }
 
     /// `validateHeight`: the (wrapping, like `IntStream.sum`) layer height sum must fit the dimension.
@@ -333,12 +347,8 @@ pub fn create_lakes_list(registries: &WorldgenRegistries) -> LoadResult<Vec<Iden
         .collect()
 }
 
-/// `Biome.CODEC.lenientOptionalFieldOf("biome")`: a missing, malformed or unregistered biome is `None`.
-/// An inline biome definition (object) is valid in vanilla but cannot be represented by a registry id here.
+/// `Biome.CODEC.lenientOptionalFieldOf("biome")`: a missing or undecodable biome (unknown id, bad inline definition) is
+/// `None`; an inline definition is a `Holder.Direct`.
 fn decode_lenient_biome(value: &Value, biomes: &BiomeRegistry) -> LoadResult<Option<BiomeId>> {
-    match value.get("biome") {
-        Some(Value::Object(_)) => Err(LoadError::new("inline biome definitions are not supported").at("biome")),
-        Some(Value::String(s)) => Ok(Identifier::read(s).ok().and_then(|id| biomes.id_of(&id))),
-        _ => Ok(None),
-    }
+    Ok(value.get("biome").and_then(|biome| biomes.holder_from_json(biome).ok()))
 }

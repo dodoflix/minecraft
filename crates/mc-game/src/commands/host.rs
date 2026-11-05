@@ -454,11 +454,11 @@ pub fn timelines_of_clock(server: &MinecraftServer, clock: &Identifier) -> Vec<I
 
 /// `DimensionType` registered name of `dimension` (`Holder.getRegisteredName`: `[unregistered]` for inline types).
 pub fn dimension_type_name(server: &MinecraftServer, dimension: &DimensionKey) -> String {
-    use crate::registry::typed::level_stem::{DimensionTypeSource, LevelStem};
-    match server.registries.composite_access().get::<LevelStem>(crate::registry::keys::LEVEL_STEM, dimension) {
+    use mc_worldgen::world_preset::Holder;
+    match server.registries.composite_access().level_stem(dimension) {
         Some(stem) => match &stem.dimension_type {
-            DimensionTypeSource::Reference(id) => id.to_string(),
-            DimensionTypeSource::Inline(_) => "[unregistered]".to_owned(),
+            Holder::Reference(id, _) => id.to_string(),
+            Holder::Direct(_) => "[unregistered]".to_owned(),
         },
         None => "[unregistered]".to_owned(),
     }

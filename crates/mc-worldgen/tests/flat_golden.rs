@@ -77,6 +77,9 @@ fn states_of(states: &[Option<BlockState>]) -> Vec<String> {
 }
 
 fn biome_key(id: BiomeId) -> String {
+    if BiomeRegistry::is_inline(id) {
+        return "<inline>".to_string();
+    }
     env().biomes.key(id).to_string()
 }
 

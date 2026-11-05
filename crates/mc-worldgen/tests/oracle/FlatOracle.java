@@ -1,6 +1,9 @@
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.JsonOps;
+import com.mojang.serialization.Lifecycle;
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -11,11 +14,14 @@ import java.util.TreeMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.MappedRegistry;
+import net.minecraft.core.RegistrationInfo;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.LevelHeightAccessor;
@@ -32,6 +38,7 @@ import net.minecraft.world.level.chunk.UpgradeData;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.DebugLevelSource;
 import net.minecraft.world.level.levelgen.FlatLevelSource;
+import net.minecraft.world.level.levelgen.WorldDimensions;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
 import net.minecraft.world.level.levelgen.flat.FlatLayerInfo;
@@ -44,7 +51,8 @@ import net.minecraft.world.level.levelgen.presets.WorldPreset;
 /**
  * Goldens for flat/debug generators and world presets.
  *   java -cp tools/extractor/build:$(scripts/vanilla-cp.sh) crates/mc-worldgen/tests/oracle/FlatOracle.java <outdir>
- * Writes <outdir>/flat.txt, <outdir>/debug.txt, <outdir>/debug_grid.txt, <outdir>/world_presets.txt.
+ * Writes <outdir>/flat.txt, <outdir>/debug.txt, <outdir>/debug_grid.txt, <outdir>/world_presets.txt and
+ * <outdir>/world_dimensions.txt (WorldDimensions codec + bake over crafted dimension sets).
  * The Rust test (tests/flat_golden.rs) re-derives the same lines and compares them verbatim.
  */
 public class FlatOracle {
@@ -205,6 +213,63 @@ public class FlatOracle {
       return sb.toString();
    }
 
+   static JsonObject biomeJson(String name) {
+      Holder<Biome> h = access.lookupOrThrow(Registries.BIOME).getOrThrow(ResourceKey.create(Registries.BIOME, Identifier.withDefaultNamespace(name)));
+      return Biome.DIRECT_CODEC.encodeStart(ops, h.value()).result().orElseThrow().getAsJsonObject();
+   }
+
+   static String flatWith(String biomeField, String extra) {
+      return "{\"layers\":[{\"block\":\"minecraft:bedrock\",\"height\":1},{\"block\":\"minecraft:dirt\",\"height\":2},{\"block\":\"minecraft:snow\",\"height\":1}],\"biome\":" + biomeField + extra + "}";
+   }
+
+   /** Inline (Holder.Direct) biomes in the flat `biome` field: accepted ones, malformed ones (lenient -> plains). */
+   static List<String> inlineBiomeCases() {
+      List<String> cases = new ArrayList<>();
+      JsonObject plains = biomeJson("plains");
+      JsonObject desert = biomeJson("desert");
+      JsonObject theVoid = biomeJson("the_void");
+      JsonObject frozen = biomeJson("frozen_ocean");
+      cases.add(flatWith(plains.toString(), ""));
+      cases.add(flatWith(desert.toString(), ",\"features\":true,\"lakes\":true"));
+      cases.add(flatWith(theVoid.toString(), ",\"features\":true"));
+      cases.add(flatWith(frozen.toString(), ",\"features\":true,\"lakes\":false"));
+      JsonObject warmer = plains.deepCopy();
+      warmer.addProperty("temperature", 1.25);
+      warmer.addProperty("downfall", 0.0);
+      cases.add(flatWith(warmer.toString(), ",\"features\":true"));
+      JsonObject extraKey = plains.deepCopy();
+      extraKey.addProperty("unknown_key", 5);
+      cases.add(flatWith(extraKey.toString(), ""));
+      JsonObject noTemperature = plains.deepCopy();
+      noTemperature.remove("temperature");
+      cases.add(flatWith(noTemperature.toString(), ",\"features\":true"));
+      JsonObject noEffects = plains.deepCopy();
+      noEffects.remove("effects");
+      cases.add(flatWith(noEffects.toString(), ""));
+      JsonObject badFeatures = plains.deepCopy();
+      badFeatures.add("features", new JsonArray());
+      cases.add(flatWith(badFeatures.toString(), ""));
+      JsonObject badCarver = plains.deepCopy();
+      badCarver.addProperty("carvers", "minecraft:nope");
+      cases.add(flatWith(badCarver.toString(), ""));
+      JsonObject modifierNone = plains.deepCopy();
+      modifierNone.addProperty("temperature_modifier", "none");
+      cases.add(flatWith(modifierNone.toString(), ""));
+      JsonObject modifierBad = plains.deepCopy();
+      modifierBad.addProperty("temperature_modifier", "hot");
+      cases.add(flatWith(modifierBad.toString(), ""));
+      cases.add(flatWith("{}", ""));
+      cases.add(flatWith("[]", ""));
+      cases.add(flatWith("null", ""));
+      cases.add(flatWith("true", ""));
+      cases.add(flatWith("\"minecraft:plains\"", ",\"features\":true,\"lakes\":true"));
+      cases.add(flatWith("\"bad id\"", ""));
+      cases.add(flatWith("\"#minecraft:is_ocean\"", ""));
+      // an inline biome next to a structure override list and the full encode of the preset cases
+      cases.add(flatWith(desert.toString(), ",\"structure_overrides\":[\"minecraft:villages\"],\"features\":true"));
+      return cases;
+   }
+
    static FlatLevelGeneratorSettings parse(String json) {
       JsonElement e = JsonParser.parseString(json);
       return FlatLevelGeneratorSettings.CODEC.parse(ops, e).result().orElse(null);
@@ -301,6 +366,9 @@ public class FlatOracle {
       try (PrintWriter out = new PrintWriter(dir + "/flat.txt")) {
          int i = 0;
          for (String json : CUSTOM) {
+            flatCase(out, "custom" + i++, json, parse(json));
+         }
+         for (String json : inlineBiomeCases()) {
             flatCase(out, "custom" + i++, json, parse(json));
          }
          Registry<FlatLevelGeneratorPreset> presets = access.lookupOrThrow(Registries.FLAT_LEVEL_GENERATOR_PRESET);
@@ -409,6 +477,10 @@ public class FlatOracle {
          out.println("TERRAIN " + chunkDump(chunk, -64, 384));
       }
 
+      try (PrintWriter out = new PrintWriter(dir + "/world_dimensions.txt")) {
+         worldDimensionCases(out);
+      }
+
       // ---- world presets
       try (PrintWriter out = new PrintWriter(dir + "/world_presets.txt")) {
          Registry<WorldPreset> presets = access.lookupOrThrow(Registries.WORLD_PRESET);
@@ -423,6 +495,236 @@ public class FlatOracle {
             dumpDims(out, "BOOTSTRAP_DIM ", key, lookup.lookupOrThrow(Registries.WORLD_PRESET).getOrThrow(net.minecraft.resources.ResourceKey.create(Registries.WORLD_PRESET, key)).value(), lookup.createSerializationContext(JsonOps.INSTANCE));
          }
       }
+   }
+
+   static JsonObject stemsOf(WorldPreset preset) {
+      JsonObject stems = new JsonObject();
+      for (var entry : preset.createWorldDimensions().dimensions().entrySet()) {
+         stems.add(entry.getKey().identifier().toString(), LevelStem.CODEC.encodeStart(ops, entry.getValue()).result().orElseThrow());
+      }
+      return stems;
+   }
+
+   static JsonObject presetStems(String name) {
+      Registry<WorldPreset> presets = access.lookupOrThrow(Registries.WORLD_PRESET);
+      return stemsOf(presets.getValue(Identifier.withDefaultNamespace(name)));
+   }
+
+   static JsonObject dims(JsonObject stems) {
+      JsonObject root = new JsonObject();
+      root.add("dimensions", stems);
+      return root;
+   }
+
+   static String gen(ChunkGenerator g) {
+      return g.getTypeNameForDataFixer().orElseThrow().toString();
+   }
+
+   static String possible(ChunkGenerator g) {
+      List<Holder<Biome>> biomes = List.copyOf(g.getBiomeSource().possibleBiomes());
+      long inline = biomes.stream().filter(b -> b.unwrapKey().isEmpty()).count();
+      return biomes.size() + "/" + inline;
+   }
+
+   static JsonObject withoutKey(JsonObject stems, String key) {
+      JsonObject copy = stems.deepCopy();
+      copy.remove(key);
+      return copy;
+   }
+
+   /** One `WorldDimensions.CODEC` decode + `bake(base)` case: the input, the base registry and what vanilla made of them. */
+   static void worldDimensionCase(PrintWriter out, String name, JsonObject worldDimensions, JsonObject baseStems) {
+      out.println("WD_INPUT " + name + " " + worldDimensions);
+      out.println("WD_BASE " + name + " " + (baseStems == null ? "none" : baseStems.toString()));
+      try {
+         WorldDimensions world = WorldDimensions.CODEC.codec().parse(ops, worldDimensions).getOrThrow();
+         MappedRegistry<LevelStem> base = new MappedRegistry<>(Registries.LEVEL_STEM, Lifecycle.stable());
+         if (baseStems != null) {
+            for (var entry : baseStems.entrySet()) {
+               LevelStem stem = LevelStem.CODEC.parse(ops, entry.getValue()).getOrThrow();
+               base.register(ResourceKey.create(Registries.LEVEL_STEM, Identifier.parse(entry.getKey())), stem, RegistrationInfo.BUILT_IN);
+            }
+         }
+         base.freeze();
+         WorldDimensions.Complete complete = world.bake(base);
+         StringBuilder sb = new StringBuilder("BAKE " + name + " OK special=" + complete.specialWorldProperty() + " lifecycle=" + complete.lifecycle() + " levels=");
+         for (var level : world.levels()) {
+            sb.append(level.identifier()).append(',');
+         }
+         sb.append(" debug=").append(world.isDebug()).append(" entries=");
+         complete.dimensions().listElements().forEach(h -> {
+            LevelStem stem = h.value();
+            RegistrationInfo info = complete.dimensions().registrationInfo(h.key()).orElseThrow();
+            sb.append(h.key().identifier()).append('/').append(info.lifecycle()).append('/').append(info.knownPackInfo().isPresent())
+               .append('/').append(stem.type().unwrapKey().map(k -> k.identifier().toString()).orElse("<inline>"))
+               .append('/').append(gen(stem.generator())).append('/').append(possible(stem.generator())).append(';');
+         });
+         out.println(sb);
+      } catch (Throwable t) {
+         out.println("BAKE " + name + " ERR");
+         if (System.getenv("ORACLE_DEBUG") != null) { System.err.println(name + ": " + t); }
+      }
+   }
+
+   static void worldDimensionCases(PrintWriter out) {
+      Registry<WorldPreset> presets = access.lookupOrThrow(Registries.WORLD_PRESET);
+      List<Identifier> keys = new ArrayList<>(presets.keySet());
+      keys.sort((a, b) -> a.toString().compareTo(b.toString()));
+      for (Identifier key : keys) {
+         worldDimensionCase(out, "preset:" + key, dims(stemsOf(presets.getValue(key))), null);
+      }
+      JsonObject normal = presetStems("normal");
+      JsonObject flat = presetStems("flat");
+      String ow = "minecraft:overworld";
+      String nether = "minecraft:the_nether";
+      String end = "minecraft:the_end";
+      JsonObject typeNetherJson = null;
+      try {
+         typeNetherJson = net.minecraft.world.level.dimension.DimensionType.DIRECT_CODEC.encodeStart(ops,
+            access.lookupOrThrow(Registries.DIMENSION_TYPE).getValue(Identifier.withDefaultNamespace("the_nether"))).result().orElseThrow().getAsJsonObject();
+      } catch (Exception e) {
+         throw new RuntimeException(e);
+      }
+      worldDimensionCase(out, "normal_no_base", dims(normal), null);
+      worldDimensionCase(out, "normal_same_base", dims(normal), normal);
+      worldDimensionCase(out, "ow_only", dims(withoutKey(withoutKey(normal, nether), end)), null);
+      worldDimensionCase(out, "no_overworld", dims(withoutKey(normal, ow)), null);
+      worldDimensionCase(out, "empty", dims(new JsonObject()), null);
+      worldDimensionCase(out, "no_dimensions_key", new JsonObject(), null);
+      JsonObject extra = normal.deepCopy();
+      extra.add("foo:bar", normal.get(nether).deepCopy());
+      worldDimensionCase(out, "extra_dimension", dims(extra), null);
+      JsonObject extraTwo = normal.deepCopy();
+      extraTwo.add("foo:a", normal.get(nether).deepCopy());
+      extraTwo.add("foo:b", normal.get(end).deepCopy());
+      worldDimensionCase(out, "extra_two_dimensions", dims(extraTwo), null);
+      JsonObject badKey = normal.deepCopy();
+      badKey.add("Bad Key", normal.get(nether).deepCopy());
+      worldDimensionCase(out, "bad_dimension_key", dims(badKey), null);
+      // reordered input: builtin order must win
+      JsonObject reordered = new JsonObject();
+      reordered.add(end, normal.get(end).deepCopy());
+      reordered.add("foo:a", normal.get(nether).deepCopy());
+      reordered.add(nether, normal.get(nether).deepCopy());
+      reordered.add(ow, normal.get(ow).deepCopy());
+      worldDimensionCase(out, "reordered", dims(reordered), null);
+
+      // overworld variants
+      JsonObject m = normal.deepCopy();
+      m.getAsJsonObject(ow).addProperty("type", "minecraft:the_nether");
+      worldDimensionCase(out, "ow_type_nether", dims(m), null);
+      m = normal.deepCopy();
+      m.getAsJsonObject(ow).addProperty("type", "minecraft:overworld_caves");
+      worldDimensionCase(out, "ow_type_caves", dims(m), null);
+      m = normal.deepCopy();
+      m.getAsJsonObject(ow).addProperty("type", "minecraft:nope");
+      worldDimensionCase(out, "ow_type_unknown", dims(m), null);
+      m = normal.deepCopy();
+      m.getAsJsonObject(ow).add("type", typeNetherJson.deepCopy());
+      worldDimensionCase(out, "ow_type_inline", dims(m), null);
+      m = normal.deepCopy();
+      JsonObject biomeSource = new JsonObject();
+      biomeSource.addProperty("type", "minecraft:multi_noise");
+      biomeSource.addProperty("preset", "minecraft:nether");
+      m.getAsJsonObject(ow).getAsJsonObject("generator").add("biome_source", biomeSource);
+      worldDimensionCase(out, "ow_multi_noise_nether_preset", dims(m), null);
+      m = normal.deepCopy();
+      biomeSource = JsonParser.parseString("{\"type\":\"minecraft:multi_noise\",\"biomes\":[{\"biome\":\"minecraft:plains\",\"parameters\":{\"temperature\":0,\"humidity\":0,\"continentalness\":0,\"erosion\":0,\"weirdness\":0,\"depth\":0,\"offset\":0}}]}").getAsJsonObject();
+      m.getAsJsonObject(ow).getAsJsonObject("generator").add("biome_source", biomeSource);
+      worldDimensionCase(out, "ow_multi_noise_inline_list", dims(m), null);
+      m = normal.deepCopy();
+      biomeSource = JsonParser.parseString("{\"type\":\"minecraft:fixed\",\"biome\":\"minecraft:plains\"}").getAsJsonObject();
+      m.getAsJsonObject(ow).getAsJsonObject("generator").add("biome_source", biomeSource);
+      worldDimensionCase(out, "ow_fixed_source", dims(m), null);
+      m = normal.deepCopy();
+      biomeSource = new JsonObject();
+      biomeSource.addProperty("type", "minecraft:fixed");
+      biomeSource.add("biome", biomeJson("desert"));
+      m.getAsJsonObject(ow).getAsJsonObject("generator").add("biome_source", biomeSource);
+      worldDimensionCase(out, "ow_fixed_inline_biome", dims(m), null);
+      m = normal.deepCopy();
+      biomeSource = new JsonObject();
+      biomeSource.addProperty("type", "minecraft:fixed");
+      biomeSource.add("biome", new JsonObject());
+      m.getAsJsonObject(ow).getAsJsonObject("generator").add("biome_source", biomeSource);
+      worldDimensionCase(out, "ow_fixed_inline_biome_bad", dims(m), null);
+      m = normal.deepCopy();
+      biomeSource = JsonParser.parseString("{\"type\":\"minecraft:checkerboard\",\"biomes\":[\"minecraft:plains\"],\"scale\":3}").getAsJsonObject();
+      JsonArray cb = new JsonArray();
+      cb.add(biomeJson("desert"));
+      cb.add(JsonParser.parseString("\"minecraft:plains\""));
+      biomeSource.add("biomes", cb);
+      m.getAsJsonObject(ow).getAsJsonObject("generator").add("biome_source", biomeSource);
+      worldDimensionCase(out, "ow_checkerboard_inline_biome", dims(m), null);
+      m = normal.deepCopy();
+      m.getAsJsonObject(ow).getAsJsonObject("generator").add("settings",
+         net.minecraft.world.level.levelgen.NoiseGeneratorSettings.DIRECT_CODEC.encodeStart(ops,
+            access.lookupOrThrow(Registries.NOISE_SETTINGS).getValue(Identifier.withDefaultNamespace("overworld"))).result().orElseThrow());
+      worldDimensionCase(out, "ow_inline_noise_settings", dims(m), null);
+      m = normal.deepCopy();
+      m.getAsJsonObject(ow).add("generator", JsonParser.parseString("{\"type\":\"minecraft:debug\"}"));
+      worldDimensionCase(out, "ow_debug", dims(m), null);
+      m = normal.deepCopy();
+      m.getAsJsonObject(ow).add("generator", JsonParser.parseString("{\"type\":\"minecraft:nope\"}"));
+      worldDimensionCase(out, "ow_generator_unknown", dims(m), null);
+
+      // nether / end variants
+      m = normal.deepCopy();
+      m.getAsJsonObject(nether).getAsJsonObject("generator").addProperty("settings", "minecraft:overworld");
+      worldDimensionCase(out, "nether_overworld_settings", dims(m), null);
+      m = normal.deepCopy();
+      m.getAsJsonObject(nether).getAsJsonObject("generator").add("settings",
+         net.minecraft.world.level.levelgen.NoiseGeneratorSettings.DIRECT_CODEC.encodeStart(ops,
+            access.lookupOrThrow(Registries.NOISE_SETTINGS).getValue(Identifier.withDefaultNamespace("nether"))).result().orElseThrow());
+      worldDimensionCase(out, "nether_inline_settings", dims(m), null);
+      m = normal.deepCopy();
+      biomeSource = new JsonObject();
+      biomeSource.addProperty("type", "minecraft:multi_noise");
+      biomeSource.addProperty("preset", "minecraft:overworld");
+      m.getAsJsonObject(nether).getAsJsonObject("generator").add("biome_source", biomeSource);
+      worldDimensionCase(out, "nether_overworld_preset", dims(m), null);
+      m = normal.deepCopy();
+      m.getAsJsonObject(nether).add("type", typeNetherJson.deepCopy());
+      worldDimensionCase(out, "nether_type_inline", dims(m), null);
+      m = normal.deepCopy();
+      m.getAsJsonObject(nether).addProperty("type", "minecraft:the_end");
+      worldDimensionCase(out, "nether_type_end", dims(m), null);
+      m = normal.deepCopy();
+      m.getAsJsonObject(end).add("generator", normal.getAsJsonObject(ow).getAsJsonObject("generator").deepCopy());
+      worldDimensionCase(out, "end_overworld_generator", dims(m), null);
+      m = normal.deepCopy();
+      m.getAsJsonObject(end).getAsJsonObject("generator").add("biome_source", JsonParser.parseString("{\"type\":\"minecraft:fixed\",\"biome\":\"minecraft:the_end\"}"));
+      worldDimensionCase(out, "end_fixed_source", dims(m), null);
+      m = normal.deepCopy();
+      m.getAsJsonObject(end).getAsJsonObject("generator").addProperty("settings", "minecraft:nether");
+      worldDimensionCase(out, "end_nether_settings", dims(m), null);
+      m = normal.deepCopy();
+      m.getAsJsonObject(end).add("generator", flat.getAsJsonObject(ow).getAsJsonObject("generator").deepCopy());
+      worldDimensionCase(out, "end_flat", dims(m), null);
+      m = normal.deepCopy();
+      m.getAsJsonObject(nether).add("generator", JsonParser.parseString("{\"type\":\"minecraft:debug\"}"));
+      worldDimensionCase(out, "nether_debug", dims(m), null);
+
+      // base registries
+      worldDimensionCase(out, "base_overrides_dims", dims(flat), normal);
+      worldDimensionCase(out, "base_flat_overworld", dims(normal), flat);
+      worldDimensionCase(out, "base_overworld_only", dims(normal), withoutKey(withoutKey(normal, nether), end));
+      worldDimensionCase(out, "base_nether_only", dims(withoutKey(withoutKey(normal, nether), end)), withoutKey(withoutKey(normal, ow), end));
+      worldDimensionCase(out, "base_end_only_dims_ow", dims(withoutKey(withoutKey(normal, nether), end)), withoutKey(withoutKey(normal, ow), nether));
+      JsonObject baseExtra = normal.deepCopy();
+      baseExtra.add("foo:a", normal.get(nether).deepCopy());
+      JsonObject dimsExtra = normal.deepCopy();
+      dimsExtra.add("foo:b", normal.get(end).deepCopy());
+      worldDimensionCase(out, "base_extra_dims_extra", dims(dimsExtra), baseExtra);
+      JsonObject dimsSame = normal.deepCopy();
+      dimsSame.add("foo:a", normal.get(end).deepCopy());
+      worldDimensionCase(out, "base_extra_dims_same_key", dims(dimsSame), baseExtra);
+      JsonObject baseCustom = new JsonObject();
+      baseCustom.add("foo:a", normal.get(nether).deepCopy());
+      worldDimensionCase(out, "base_custom_only", dims(withoutKey(withoutKey(normal, nether), end)), baseCustom);
+      m = normal.deepCopy();
+      m.getAsJsonObject(nether).addProperty("type", "minecraft:overworld");
+      worldDimensionCase(out, "base_unstable_nether", dims(normal), m);
    }
 
    static void dumpDims(PrintWriter out, String prefix, Identifier key, WorldPreset preset, com.mojang.serialization.DynamicOps<JsonElement> ops) throws Exception {

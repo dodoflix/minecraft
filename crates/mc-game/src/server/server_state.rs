@@ -173,14 +173,8 @@ impl MinecraftServer {
 
     /// `DimensionType.defaultClock()` of `dimension`.
     pub(crate) fn default_clock_of(&self, dimension: &DimensionKey) -> Option<Identifier> {
-        use crate::registry::typed::dimension_type::DimensionType;
-        use crate::registry::typed::level_stem::{DimensionTypeSource, LevelStem};
-        let access = self.registries.composite_access();
-        let stem = access.get::<LevelStem>(keys::LEVEL_STEM, dimension)?;
-        match &stem.dimension_type {
-            DimensionTypeSource::Inline(inline) => inline.default_clock.clone(),
-            DimensionTypeSource::Reference(id) => access.get::<DimensionType>(keys::DIMENSION_TYPE, id)?.default_clock.clone(),
-        }
+        let stem = self.registries.composite_access().level_stem(dimension)?;
+        stem.dimension_type.value().default_clock.clone()
     }
 
     // ------------------------------------------------------------------ tick rate manager host

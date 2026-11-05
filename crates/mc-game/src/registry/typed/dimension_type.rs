@@ -102,6 +102,11 @@ impl DimensionType {
     pub fn from_json(json: &Value, ctx: &RegistryDecodeContext) -> Result<DimensionType, String> {
         decode_checked(json, ctx, false).map(|(d, _)| d)
     }
+
+    /// `DIRECT_CODEC` decode and re-encode (`encodeStart(NbtOps)`): the type and its canonical NBT.
+    pub fn from_json_with_nbt(json: &Value, ctx: &RegistryDecodeContext) -> Result<(DimensionType, Tag), String> {
+        decode_checked(json, ctx, false)
+    }
 }
 
 fn record() -> Schema {

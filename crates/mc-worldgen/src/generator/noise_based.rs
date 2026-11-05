@@ -58,7 +58,9 @@ impl NoiseBasedChunkGenerator {
         let global_fluid_picker = create_fluid_picker(&settings)?;
         let material_rule = MaterialRule::from_json(&settings.material_rule, &registries, &biomes)?;
         let mut carvers = HashMap::new();
-        for biome in biomes.ids() {
+        // the registry's biomes, and the inline (`Holder.Direct`) ones the biome source uses
+        let inline = biome_source.possible_biomes().iter().copied().filter(|b| BiomeRegistry::is_inline(*b));
+        for biome in biomes.ids().chain(inline) {
             for id in biomes.get(biome).generation_settings().get_carvers() {
                 if !carvers.contains_key(id) {
                     carvers.insert(id.clone(), carver::load_carver(&registries, id)?);
@@ -75,6 +77,11 @@ impl NoiseBasedChunkGenerator {
             default_block,
             carvers,
         })
+    }
+
+    /// The biome source as the shared handle the generator was created with.
+    pub fn biome_source_arc(&self) -> &Arc<dyn BiomeSource> {
+        &self.biome_source
     }
 
     /// `generatorSettings()`.

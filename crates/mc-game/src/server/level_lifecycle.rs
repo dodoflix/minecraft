@@ -7,11 +7,10 @@ use super::level_load_listener::Stage;
 use super::level_tick_env::ServerTickEnv;
 use super::shared::get_nanos;
 use super::tick_pacing::{self, PREPARE_LEVELS_DEFAULT_DELAY_NANOS};
-use super::world_dimensions::overworld_key;
+use super::world_dimensions::{LevelStem, overworld_key};
 use crate::crash_report::{CrashReport, ReportedException};
 use crate::registry::keys;
 use crate::registry::typed::dimension_type::DimensionType;
-use crate::registry::typed::level_stem::{DimensionTypeSource, LevelStem};
 use crate::server::level::chunk_load_counter::ChunkLoadCounter;
 use crate::server::level::level_data::{DerivedLevelData, PrimaryServerLevelData, ServerLevelData};
 use crate::server::level::worldgen_adapter::NoiseWorldGenerator;
@@ -22,10 +21,10 @@ use mc_core::ident::Identifier;
 use mc_world::chunk::LevelHeight;
 use mc_world::level_storage::{Difficulty, GameType, RespawnData};
 use mc_world::palette::PalettedContainerFactory;
-use mc_worldgen::biome::{BiomeManager, BiomeRegistry, biome_source_from_json};
+use mc_worldgen::biome::{BiomeManager, BiomeRegistry};
 use mc_worldgen::data::WorldgenRegistries;
-use mc_worldgen::flat::{FlatLevelGeneratorSettings, FlatLevelSource};
-use mc_worldgen::generator::{ChunkGenerator, NoiseBasedChunkGenerator};
+use mc_worldgen::generator::ChunkGenerator;
+use mc_worldgen::world_preset::LevelGenerator;
 use mc_worldgen::noise_settings::NoiseGeneratorSettings;
 use mc_worldgen::random_state::RandomState;
 use crate::registry::data_loader::RegistryWorldgenSource;
@@ -39,7 +38,7 @@ use crate::world::level::levelgen::structure::registries::{StartCache, Structure
 use crate::world::level::levelgen::structure::templatesystem::StructureTemplateManager;
 use crate::server::packs::{MultiPackResourceManager, PackType, ResourceManager};
 use mc_world::level_storage::LevelResource;
-use mc_worldgen::biome::{BiomeSource, FixedBiomeSource};
+use mc_worldgen::biome::BiomeSource;
 use mc_worldgen::flat::settings::StructureSetHolderSet;
 use std::panic::{self, AssertUnwindSafe};
 use std::sync::Arc;
@@ -67,50 +66,18 @@ struct BuiltGenerator {
     flat_structure_overrides: Option<Option<StructureSetHolderSet>>,
 }
 
-fn build_generator(generator: &serde_json::Value, factory: &LevelFactory) -> Result<BuiltGenerator, String> {
-    let ty = generator.get("type").and_then(|t| t.as_str()).unwrap_or_default();
+/// The chunk generator the typed stem was baked with, plus what its level is created from.
+fn built_generator(generator: &LevelGenerator, factory: &LevelFactory) -> Result<BuiltGenerator, String> {
     let overworld_settings = || -> Result<Arc<NoiseGeneratorSettings>, String> {
         let id = Identifier::with_default_namespace("overworld").expect("valid id");
         factory.worldgen.noise_settings(&id).map(Arc::new).map_err(|e| e.to_string())
     };
-    match ty {
-        "minecraft:noise" => {
-            let source_json = generator.get("biome_source").ok_or("No key biome_source")?;
-            let source = biome_source_from_json(source_json, &factory.worldgen, &factory.biomes).map_err(|e| e.to_string())?;
-            let settings = match generator.get("settings") {
-                Some(serde_json::Value::String(id)) => {
-                    let id = Identifier::try_parse(id).ok_or_else(|| format!("Not a valid resource location: {id}"))?;
-                    Arc::new(factory.worldgen.noise_settings(&id).map_err(|e| e.to_string())?)
-                }
-                Some(inline) => Arc::new(NoiseGeneratorSettings::from_json(inline, &factory.worldgen).map_err(|e| e.to_string())?),
-                None => return Err("No key settings".to_owned()),
-            };
-            let noise = NoiseBasedChunkGenerator::new(source.clone(), settings.clone(), factory.worldgen.clone(), factory.biomes.clone()).map_err(|e| e.to_string())?;
-            Ok(BuiltGenerator { generator: Arc::new(noise), noise_settings: settings, biome_source: source, flat_structure_overrides: None })
-        }
-        "minecraft:flat" => {
-            let settings_json = generator.get("settings").ok_or("No key settings")?;
-            let settings = FlatLevelGeneratorSettings::from_json(settings_json, &factory.worldgen, &factory.biomes).map_err(|e| e.to_string())?;
-            let overrides = settings.structure_overrides().cloned();
-            let biome_source: Arc<dyn BiomeSource> = Arc::new(FixedBiomeSource::new(settings.get_biome()));
-            Ok(BuiltGenerator {
-                generator: Arc::new(FlatLevelSource::new(settings, factory.biomes.clone())),
-                noise_settings: overworld_settings()?,
-                biome_source,
-                flat_structure_overrides: Some(overrides),
-            })
-        }
-        "minecraft:debug" => {
-            let plains = mc_worldgen::flat::settings::get_default_biome(&factory.biomes).map_err(|e| e.to_string())?;
-            Ok(BuiltGenerator {
-                generator: Arc::new(mc_worldgen::debug_level_source::DebugLevelSource::new(plains, factory.biomes.clone())),
-                noise_settings: overworld_settings()?,
-                biome_source: Arc::new(FixedBiomeSource::new(plains)),
-                flat_structure_overrides: None,
-            })
-        }
-        other => Err(format!("Unknown registry key in minecraft:chunk_generator: {other}")),
-    }
+    let (noise_settings, flat_structure_overrides) = match generator {
+        LevelGenerator::Noise(noise) => (noise.generator.settings().clone(), None),
+        LevelGenerator::Flat(flat) => (overworld_settings()?, Some(flat.settings().structure_overrides().cloned())),
+        LevelGenerator::Debug(_) => (overworld_settings()?, None),
+    };
+    Ok(BuiltGenerator { generator: generator.chunk_generator(), noise_settings, biome_source: generator.biome_source(), flat_structure_overrides })
 }
 
 impl MinecraftServer {
@@ -151,22 +118,14 @@ impl MinecraftServer {
     /// `new ServerLevel(...)` for one `LevelStem`.
     fn create_level(&self, factory: &LevelFactory, dimension: &DimensionKey, stem: &LevelStem, is_debug: bool) -> ServerLevel {
         let access = self.registries.composite_access();
-        let dimension_type: Arc<DimensionType> = match &stem.dimension_type {
-            DimensionTypeSource::Inline(inline) => inline.clone(),
-            DimensionTypeSource::Reference(id) => Arc::new(
-                access
-                    .get::<DimensionType>(keys::DIMENSION_TYPE, id)
-                    .cloned()
-                    .unwrap_or_else(|| panic!("Unknown dimension type {id} of dimension {dimension}")),
-            ),
-        };
+        let dimension_type: Arc<DimensionType> = stem.dimension_type.value().clone();
         let seed = self.world_gen_settings.options.seed;
         let BuiltGenerator { generator: chunk_generator, noise_settings, biome_source, flat_structure_overrides } =
-            build_generator(&stem.generator, factory).unwrap_or_else(|e| panic!("Failed to create the chunk generator of {dimension}: {e}"));
+            built_generator(&stem.generator, factory).unwrap_or_else(|e| panic!("Failed to create the chunk generator of {dimension}: {e}"));
         let random_state = Arc::new(RandomState::create(factory.worldgen.clone(), seed, &noise_settings));
         let sea_level = chunk_generator.get_sea_level();
         let level_height = LevelHeight { min_y: dimension_type.min_y, height: dimension_type.height };
-        let backend = Arc::new(NoiseWorldGenerator::new(chunk_generator.clone(), random_state.clone(), seed, Identifier::try_parse(stem.generator_type())));
+        let backend = Arc::new(NoiseWorldGenerator::new(chunk_generator.clone(), random_state.clone(), seed, Some(stem.generator.type_name())));
         let (registries, structures) = &factory.gen_registries;
         // `ChunkGenerator.createState(..)`
         let structure_state = create_structure_state(
