@@ -26,6 +26,9 @@ use std::time::{Duration, Instant};
 
 use tempfile::TempDir;
 
+mod worldref;
+pub use worldref::worldref;
+
 /// Time for `Done (` and the first answered status ping, cold JVM on a loaded machine included.
 const READY_TIMEOUT: Duration = Duration::from_secs(180);
 /// Time a clean `stop` may take before the process group is killed.
