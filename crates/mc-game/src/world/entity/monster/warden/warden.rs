@@ -315,6 +315,22 @@ impl Entity for Warden {
         false
     }
 
+    fn get_sound_source(&self) -> mc_protocol::packets::play::SoundSource {
+        mob::monster::SOUND_SOURCE
+    }
+
+    fn get_swim_sound(&self) -> SoundEvent {
+        mob::monster::SWIM_SOUND
+    }
+
+    fn get_swim_splash_sound(&self) -> SoundEvent {
+        mob::monster::SWIM_SPLASH_SOUND
+    }
+
+    fn get_fall_sounds(&self) -> (SoundEvent, SoundEvent) {
+        mob::monster::FALL_SOUNDS
+    }
+
     fn get_seconds_to_disable_blocking(&self) -> f32 {
         5.0
     }

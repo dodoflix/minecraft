@@ -21,6 +21,7 @@ pub mod hoglin;
 pub mod piglin;
 pub mod zoglin;
 // [WardenMobs]
+pub mod breeze;
 pub mod creaking;
 pub mod warden;
 
