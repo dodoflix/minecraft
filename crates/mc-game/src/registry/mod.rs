@@ -84,6 +84,24 @@ impl RegistryAccess {
         self.get::<ChatType>(keys::CHAT_TYPE, id)
     }
 
+    /// Typed `dialog` entry.
+    pub fn dialog(&self, id: &Identifier) -> Option<&mc_protocol::dialog::Dialog> {
+        self.get::<mc_protocol::dialog::Dialog>(keys::DIALOG, id)
+    }
+
+    /// Installs the process-wide `mc_protocol::registry_context` (protocol ids and tags of the data-driven registries that
+    /// packet/NBT/JSON codecs resolve by name) from this access. Fixed once per process, like the registries themselves
+    /// (vanilla's `RegistryAccess` is frozen after startup); a context installed earlier is kept.
+    pub fn install_protocol_context(&self) {
+        let mut context = mc_protocol::registry_context::RegistryContext::new();
+        for registry in self.registries().filter(|r| r.is_dynamic()) {
+            context = context.with_registry(registry.key(), registry.names());
+        }
+        let access = self.clone();
+        let context = context.with_tag_lookup(Box::new(move |registry, tag| access.tag(registry, tag).is_some()));
+        let _ = mc_protocol::registry_context::set(context);
+    }
+
     /// Typed `dimension` (level stem) entry.
     pub fn level_stem(&self, id: &Identifier) -> Option<&LevelStem> {
         self.get::<LevelStem>(keys::LEVEL_STEM, id)
