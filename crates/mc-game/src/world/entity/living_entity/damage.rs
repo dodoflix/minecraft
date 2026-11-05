@@ -419,7 +419,7 @@ pub fn cause_fall_damage(entity: &mut dyn Entity, level: &mut ServerLevel, fall_
     }
 
     let damaged = crate::world::entity::entity::cause_fall_damage_base(entity, level, effective_fall_distance, damage_modifier, source);
-    let dmg = calculate_fall_damage(entity, effective_fall_distance, damage_modifier);
+    let dmg = entity.calculate_fall_damage(effective_fall_distance, damage_modifier);
     if dmg > 0 {
         reset_current_impulse_context(entity);
         let sound = fall_damage_sound(entity, dmg);

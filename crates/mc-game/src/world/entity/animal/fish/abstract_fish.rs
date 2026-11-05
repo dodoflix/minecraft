@@ -251,7 +251,7 @@ macro_rules! abstract_fish_entity {
             player: &mut crate::world::entity::ServerPlayer,
             hand: crate::world::item::InteractionHand,
         ) -> crate::world::item::InteractionResult {
-            match crate::world::entity::bucketable::bucket_mob_pickup(level, player, hand, self.id()) {
+            match crate::world::entity::bucketable::bucket_mob_pickup_in_place(level, player, hand, self) {
                 Some(result) => result,
                 None => crate::world::entity::mob::interact::mob_interact(self, level, player, hand),
             }

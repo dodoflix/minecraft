@@ -3,6 +3,7 @@
 
 // pub mod bee; // needs GoalsB + PoiManager
 
+pub mod axolotl;
 pub mod chicken;
 pub mod cow;
 pub mod dolphin;

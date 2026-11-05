@@ -3567,6 +3567,20 @@ pub trait Entity: Any {
     }
     /// `onAttack()` (`Player`: resets the attack strength ticker).
     fn on_attack(&mut self) {}
+    // ==== [Amphibians] additions (Entity trait methods) ====
+    /// `Animal.spawnChildFromBreeding(level, partner)` (virtual: `Frog` and `Sniffer` override it).
+    fn spawn_child_from_breeding(&mut self, level: &mut ServerLevel, partner: EntityId) {
+        super::mob::animal::spawn_child_from_breeding_super(self.as_dyn_mut(), level, partner);
+    }
+    /// `Animal.usePlayerItem(player, hand, itemStack)` (virtual: `Axolotl` and `AbstractNautilus` swap a fish bucket for a
+    /// water bucket); the default consumes one item and applies the `use_remainder`.
+    fn use_player_item(&mut self, level: &mut ServerLevel, player: &mut super::ServerPlayer, hand: crate::world::item::InteractionHand) {
+        super::mob::interact::use_player_item(level, player, hand);
+    }
+    /// `LivingEntity.calculateFallDamage(fallDistance, damageModifier)` (virtual: `Frog`, `Goat`).
+    fn calculate_fall_damage(&self, fall_distance: f64, damage_modifier: f32) -> i32 {
+        super::living_entity::damage::calculate_fall_damage(self.as_dyn(), fall_distance, damage_modifier)
+    }
 }
 
 /// `Entity.push(entity)` / `LivingEntity.push(entity)`: separates two overlapping entities (`other` is the entity `this`

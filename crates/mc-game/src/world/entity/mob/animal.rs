@@ -128,13 +128,13 @@ pub fn mob_interact(e: &mut dyn Entity, level: &mut ServerLevel, player: &mut Se
     if e.is_food(&item_stack) {
         let age = ageable::get_age(e);
         if age == 0 && e.can_fall_in_love() {
-            super::interact::use_player_item(level, player, hand);
+            e.use_player_item(level, player, hand);
             set_in_love(e, level, Some(&*player));
             e.play_eating_sound(level);
             return Some(InteractionResult::SUCCESS_SERVER);
         }
         if e.can_age_up() {
-            super::interact::use_player_item(level, player, hand);
+            e.use_player_item(level, player, hand);
             ageable::age_up(e, level, ageable::get_speed_up_seconds_when_feeding(-age), true);
             e.play_eating_sound(level);
             return Some(InteractionResult::SUCCESS);
@@ -143,8 +143,13 @@ pub fn mob_interact(e: &mut dyn Entity, level: &mut ServerLevel, player: &mut Se
     None
 }
 
-/// `spawnChildFromBreeding(level, partner)`.
+/// `spawnChildFromBreeding(level, partner)`: the virtual call (`Frog` and `Sniffer` override it).
 pub fn spawn_child_from_breeding(e: &mut dyn Entity, level: &mut ServerLevel, partner: EntityId) {
+    e.spawn_child_from_breeding(level, partner);
+}
+
+/// `Animal.spawnChildFromBreeding(level, partner)` (the `super` call of the overrides).
+pub fn spawn_child_from_breeding_super(e: &mut dyn Entity, level: &mut ServerLevel, partner: EntityId) {
     let Some(mut offspring) = e.get_breed_offspring(level, partner) else { return };
     ageable::set_baby(&mut *offspring, true);
     let p = e.position();
