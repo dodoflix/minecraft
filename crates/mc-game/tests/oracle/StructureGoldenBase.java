@@ -76,6 +76,7 @@ public class StructureGoldenBase {
     static class StubLevel extends net.minecraft.server.level.ServerLevel {
         StubLevel() { super(null, null, null, null, null, null, false, 0L, null, false); }
         @Override public net.minecraft.world.flag.FeatureFlagSet enabledFeatures() { return net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS; }
+        @Override public int getNextEntityId() { return 0; }
         @Override public net.minecraft.core.RegistryAccess registryAccess() { return FeatureOracleBase.ACCESS; }
     }
 
