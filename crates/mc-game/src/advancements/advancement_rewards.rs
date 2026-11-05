@@ -5,18 +5,20 @@ use std::sync::{Arc, OnceLock};
 use mc_core::ident::Identifier;
 use mc_dfu::extra::IDENTIFIER;
 use mc_dfu::{Codec, INT};
-use mc_protocol::components::component_codec as _;
+use mc_core::random::RandomSource;
+use mc_protocol::packets::play::SoundSource;
 
 use crate::registry::keys;
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use crate::world::entity::player::ServerPlayer;
-use crate::world::inventory::Prediction;
+use crate::world::entity::player::item_use::SWING_ANIMATION_DEFAULT;
+use crate::world::item::InteractionHand;
 use crate::world::level::storage::loot::codec_ext::OptionalDefaultWith;
 use crate::world::level::storage::loot::holder::{HolderSet, holder_set_codec};
 use crate::world::level::storage::loot::parameters::LootContextParamSets;
 use crate::world::level::storage::loot::table::{LootTable, loot_table_direct_codec};
-use crate::world::level::storage::loot::{LootParams, LootTable as _};
+use crate::world::level::storage::loot::LootParams;
 
 /// What rewards need from subsystems that own their state outside the level (recipes: `ServerRecipeBook`, functions:
 /// `ServerFunctionManager`). Installed once by the owner (`set_reward_hooks`).
@@ -68,7 +70,7 @@ impl AdvancementRewards {
     /// `grant(player)`.
     pub fn grant(&self, level: &mut ServerLevel, player: &mut ServerPlayer) {
         player.give_experience_points(level, self.experience);
-        let tables: Vec<Arc<LootTable>> = self.loot.values(level.registries.as_ref());
+        let tables: Vec<Arc<LootTable>> = self.loot.values(&level.registries);
         let mut changes = false;
         for table in tables {
             let items = {
@@ -78,20 +80,30 @@ impl AdvancementRewards {
                     .create(&LootContextParamSets::ADVANCEMENT_REWARD);
                 table.get_random_items(&params)
             };
-            for stack in items {
-                if player.add_item(stack.clone()) {
+            for mut stack in items {
+                let infinite = player.player.abilities.instabuild;
+                if player.player.inventory.add(&mut stack, infinite) {
                     let (x, y, z) = (player.base().x(), player.base().y(), player.base().z());
                     let random = &mut player.base_mut().random;
                     let pitch = ((random.next_float() - random.next_float()) * 0.7f32 + 1.0f32) * 2.0f32;
-                    level.play_sound_at(None, x, y, z, mc_data::SoundEvent::ENTITY_ITEM_PICKUP, mc_data::SoundSource::Players, 0.2, pitch);
+                    level.play_sound_at(None, x, y, z, mc_data::SoundEvent::ENTITY_ITEM_PICKUP, SoundSource::Players, 0.2, pitch);
                     changes = true;
                 } else {
-                    player.drop_reward_item(level, stack);
+                    // `player.drop(itemStack, false, Prediction.SERVER_ONLY)`, then the entity is made immediately collectable
+                    if stack.is_empty() {
+                        continue;
+                    }
+                    player.swing(level, InteractionHand::MainHand, SWING_ANIMATION_DEFAULT, true);
+                    if let Some(mut drop) = player.create_item_stack_to_drop(level, stack, false, false) {
+                        drop.set_no_pick_up_delay();
+                        drop.set_target(Some(player.uuid()));
+                        level.add_fresh_entity(Box::new(drop));
+                    }
                 }
             }
         }
         if changes {
-            player.broadcast_container_changes();
+            player.broadcast_menu_changes(level);
         }
         if let Some(hooks) = REWARD_HOOKS.get() {
             if !self.recipes.is_empty() {

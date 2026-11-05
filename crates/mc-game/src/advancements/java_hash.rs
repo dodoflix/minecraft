@@ -24,12 +24,14 @@ impl JavaHash for Identifier {
     }
 }
 
+#[derive(Clone)]
 struct Node<K, V> {
     hash: i32,
     key: K,
     value: V,
 }
 
+#[derive(Clone)]
 pub struct JavaHashMap<K, V> {
     table: Vec<Vec<Node<K, V>>>,
     size: usize,
@@ -177,6 +179,7 @@ impl<K: JavaHash, V> JavaHashMap<K, V> {
 }
 
 /// `HashSet<K>`.
+#[derive(Clone)]
 pub struct JavaHashSet<K>(JavaHashMap<K, ()>);
 
 impl<K> Default for JavaHashSet<K> {
