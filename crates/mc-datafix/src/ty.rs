@@ -1334,7 +1334,7 @@ fn encode_passthrough(ops: &Ops, input: &Dynamic, prefix: Dyn) -> DataResult<Dyn
     if input.value.is_empty_value() {
         return DataResult::success(prefix);
     }
-    let casted = input.convert(ops);
+    let casted = input.convert_value(ops);
     if prefix.is_empty_value() {
         return DataResult::success(casted);
     }
