@@ -5,7 +5,7 @@
 # java use passes straight through. The real client counts as 2 slots. systemd-oomd killed the session twice when too
 # many builds/JVMs overlapped.
 REAL_JAVA="${MC_REAL_JAVA:-/usr/lib/jvm/default/bin/java}"
-SLOTS="${MC_JVM_SLOTS:-3}"
+SLOTS="${MC_JVM_SLOTS:-2}"
 
 case "$*" in
   */Projects/minecraft/*|*/Projects/mc-wt/*|*mc-wt*|*server.jar*) ;;

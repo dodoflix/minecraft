@@ -73,24 +73,31 @@ with_slot_or_remote() { # cargo args...
 
 case "${1:-}" in
   test|bench)
-    # Prefer running the WHOLE test command (build + run) on a builder test lane (1..MC_REMOTE_TEST_LANES, default 4:
-    # tests start JVMs). Tests configured through MC_* env vars (e.g. MC_SERVER_BIN paths) stay local.
+    # Run the WHOLE test command (build + run, incl. its JVMs) on a builder test lane (1..MC_REMOTE_TEST_LANES). Waiters
+    # register in /tmp/mc-queue so the autoscaler adds builders; local fallback only after MC_REMOTE_WAIT_S without any
+    # free lane (default 15 min) or when the command is configured through MC_* env vars (paths into this worktree).
     if ! env | grep -qE '^MC_(SERVER_BIN|RECORD|SEED|SCENARIO|GOLDEN|CMDDIFF|TEXT)'; then
-      for reg in /tmp/mc-builders/*.ip; do
-        [ -e "$reg" ] || continue
-        name=$(basename "$reg" .ip)
-        for lane in $(seq 1 "${MC_REMOTE_TEST_LANES:-4}"); do
-          exec {tfd}>"/tmp/mc-remote.$name.$lane"
-          if flock -n "$tfd"; then
-            touch "/tmp/mc-builders/$name.last"; rc=0
-            "$BUILDERS_DIR/remote-cargo.sh" "$(cat "$reg")" "$lane" "$@" 2>&1 | sed -u "s#/w/src/#$PWD/#g" || rc=${PIPESTATUS[0]}
-            touch "/tmp/mc-builders/$name.last"; exec {tfd}>&-
-            [ "$rc" = 255 ] || exit $rc
-            break 2
-          fi
-          exec {tfd}>&-
+      mkdir -p /tmp/mc-queue /tmp/mc-builders; qf="/tmp/mc-queue/$$"; : > "$qf"; trap 'rm -f "$qf"' EXIT
+      deadline=$(( $(date +%s) + ${MC_REMOTE_WAIT_S:-900} ))
+      while [ "$(date +%s)" -lt "$deadline" ]; do
+        for reg in /tmp/mc-builders/*.ip; do
+          [ -e "$reg" ] || continue
+          name=$(basename "$reg" .ip)
+          for lane in $(seq 1 "${MC_REMOTE_TEST_LANES:-4}"); do
+            exec {tfd}>"/tmp/mc-remote.$name.$lane"
+            if flock -n "$tfd"; then
+              rm -f "$qf"; touch "/tmp/mc-builders/$name.last"; rc=0
+              "$BUILDERS_DIR/remote-cargo.sh" "$(cat "$reg")" "$lane" "$@" 2>&1 | sed -u "s#/w/src/#$PWD/#g" || rc=${PIPESTATUS[0]}
+              touch "/tmp/mc-builders/$name.last"; exec {tfd}>&-
+              [ "$rc" = 255 ] || exit $rc
+              break 3
+            fi
+            exec {tfd}>&-
+          done
         done
+        sleep 3
       done
+      rm -f "$qf"
     fi
     # Local: compile under a slot (--no-run goes before any `--` test-binary args), then run without holding it.
     pre=(); post=(); seen=0
