@@ -62,7 +62,7 @@ impl PlayerSystems for ServerPlayerSystems {
         if *dimension != ctx.level.dimension {
             let (old, id, target) = (ctx.level.dimension.clone(), ctx.player.base_id(), dimension.clone());
             ctx.lis().deferred_tasks.push(Box::new(move |server| {
-                let transition = crate::server::players::dimension_change::TeleportTransition::new(target, mc_core::phys::Vec3::new(x, y, z), mc_core::phys::Vec3::ZERO, y_rot, x_rot);
+                let transition = crate::server::players::dimension_change::TeleportTransition::new(target, mc_core::phys::Vec3::new(x, y, z), mc_core::phys::Vec3::ZERO, y_rot, x_rot, crate::server::players::dimension_change::PostTeleportTransition::DO_NOTHING);
                 crate::server::players::dimension_change::teleport_player(server, &old, id, &transition);
             }));
             return;

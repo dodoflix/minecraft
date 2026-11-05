@@ -436,9 +436,3 @@ impl ServerLevel {
     }
 }
 
-impl ServerLevel {
-    /// `MinecraftServer.isUnderSpawnProtection(level, pos, player)`.
-    pub fn is_under_spawn_protection(&self, player: &crate::world::entity::ServerPlayer, pos: mc_core::pos::BlockPos) -> bool {
-        let _ = (player, pos); false
-    }
-}

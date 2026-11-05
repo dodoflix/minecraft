@@ -239,7 +239,6 @@ impl MinecraftServer {
             spawn_protection: Default::default(),
             rules: self.game_rules_ref().live(),
         };
-        level.gen_env = Some(gen_env);
         level.has_ceiling = dimension_type.has_ceiling;
         level.tick_state.tick_time = is_overworld;
         level.tick_state.can_have_weather = dimension_type.has_sky_light && !dimension_type.has_ceiling;

@@ -43,7 +43,7 @@ fn can_be_charged(state: State) -> bool {
 
 /// `RespawnAnchorBlock.canSetSpawn(level, pos)`.
 pub fn can_set_spawn(level: &ServerLevel, pos: BlockPos) -> bool {
-    level.respawn_anchor_works(pos)
+    level.attribute_bool(crate::world::attribute::attributes::RESPAWN_ANCHOR_WORKS, pos)
 }
 
 /// `RespawnAnchorBlock.charge(sourceEntity, level, pos, state)`.

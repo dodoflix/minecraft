@@ -3,7 +3,7 @@ use super::prelude::*;
 use crate::server::MinecraftServer;
 use crate::server::level::ServerLevel;
 use crate::server::players::dimension_change::{PostTeleportTransition, TeleportTransition};
-use crate::world::block_entity::the_end_gateway_block_entity::TheEndGatewayBlockEntity;
+use crate::world::block_entity::TheEndGatewayBlockEntity;
 use crate::world::entity::Entity;
 use crate::world::entity::inside_block_effects::InsideBlockEffectApplier;
 use crate::world::entity::portal::Portal;
