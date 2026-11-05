@@ -23,7 +23,11 @@ fn function_system_tree_matches_vanilla() {
         let (_, level, _, hex) = (it.next().unwrap(), it.next().unwrap(), it.next().unwrap(), it.next().unwrap());
         let bytes: Vec<u8> = (0..hex.len()).step_by(2).map(|i| u8::from_str_radix(&hex[i..i + 2], 16).unwrap()).collect();
         let permissions = PermissionSet::from(LevelBasedPermissionSet::for_level(PermissionLevel::by_id(level.parse().unwrap())));
-        let root = command_tree::usable_root(&subset_root, &CommandSourceStack::compilation_context(permissions));
+        // like the generator: only the listed top-level commands are copied, but `redirect root` still maps to the new root
+        let root = mc_brigadier::CommandNode::<CommandSourceStack>::new_root();
+        let mut converted = std::collections::HashMap::new();
+        converted.insert(std::sync::Arc::as_ptr(commands.get_dispatcher().get_root()) as usize, root.clone());
+        command_tree::fill_usable_commands(&subset_root, &root, &CommandSourceStack::compilation_context(permissions), &mut converted);
         let mut out = Vec::new();
         command_tree::commands_packet(&root).encode(&mut out);
         let ours = ClientboundCommandsPacket::decode(&mut out.as_slice()).unwrap();
