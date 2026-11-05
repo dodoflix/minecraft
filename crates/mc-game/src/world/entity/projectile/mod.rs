@@ -8,8 +8,11 @@
 
 pub mod arrow;
 pub mod deflection;
+pub mod firework_rocket;
 pub mod hurting;
 pub mod spawn;
+pub mod throwable;
+pub mod throwableitemprojectile;
 pub mod util;
 
 use super::{Entity, EntityId};
@@ -25,6 +28,10 @@ use mc_protocol::components::AdventureModePredicate;
 use uuid::Uuid;
 
 pub use deflection::{Deflector, ProjectileDeflection};
+
+/// The vanilla bytecode multiplies the angle by `(double)(180.0F / (float)Math.PI)` (a float constant), not by 180 and
+/// then divides by `(float)Math.PI` as the decompiled source reads (oracle: axis-aligned shots give 17.999998, not 18).
+pub const RAD_TO_DEG: f64 = (180.0f32 / std::f32::consts::PI) as f64;
 
 /// `EntityHitResult`.
 #[derive(Clone, Copy, Debug)]
@@ -279,6 +286,31 @@ macro_rules! impl_projectile_entity {
         }
     };
     (@base) => {
+        $crate::impl_projectile_entity!(@core);
+        fn hurt_knockback_direction(&self) -> Option<$crate::world::damagesource::HurtKnockbackDirection> {
+            let (x, z) = $crate::world::entity::projectile::Projectile::calculate_horizontal_hurt_knockback_direction(self);
+            Some($crate::world::damagesource::HurtKnockbackDirection::DeltaMovement { x, z })
+        }
+    };
+    // Projectiles whose knockback points from the projectile to the hurt entity (`AbstractThrownPotion`,
+    // `FireworkRocketEntity`).
+    (away) => {
+        $crate::impl_projectile_entity!(@core);
+        $crate::impl_projectile_entity!(@hurt);
+        fn is_pickable(&self) -> bool {
+            $crate::world::entity::projectile::is_pickable(self.get_type())
+        }
+        fn on_above_bubble_column(&mut self, level: &mut $crate::server::level::ServerLevel, drag_down: bool, pos: mc_core::pos::BlockPos) {
+            $crate::world::entity::projectile::on_above_bubble_column(self, level, drag_down, pos);
+        }
+        fn on_inside_bubble_column(&mut self, _level: &mut $crate::server::level::ServerLevel, drag_down: bool) {
+            $crate::world::entity::projectile::on_inside_bubble_column(self, drag_down);
+        }
+        fn hurt_knockback_direction(&self) -> Option<$crate::world::damagesource::HurtKnockbackDirection> {
+            Some($crate::world::damagesource::HurtKnockbackDirection::AwayFromProjectile)
+        }
+    };
+    (@core) => {
         fn as_projectile(&self) -> Option<&dyn $crate::world::entity::projectile::Projectile> {
             Some(self)
         }
@@ -300,10 +332,6 @@ macro_rules! impl_projectile_entity {
         }
         fn may_interact(&self, level: &$crate::server::level::ServerLevel, pos: mc_core::pos::BlockPos) -> bool {
             $crate::world::entity::projectile::Projectile::may_interact_projectile(self, level, pos)
-        }
-        fn hurt_knockback_direction(&self) -> Option<$crate::world::damagesource::HurtKnockbackDirection> {
-            let (x, z) = $crate::world::entity::projectile::Projectile::calculate_horizontal_hurt_knockback_direction(self);
-            Some($crate::world::damagesource::HurtKnockbackDirection::DeltaMovement { x, z })
         }
         fn get_dimension_changing_delay(&self, _level: &$crate::server::level::ServerLevel) -> i32 {
             2
@@ -379,9 +407,8 @@ pub fn shoot_base(projectile: &mut dyn Projectile, xd: f64, yd: f64, zd: f64, po
     b.set_delta_movement(movement);
     b.needs_sync = true;
     let sd = movement.horizontal_distance();
-    let pi = f64::from(std::f32::consts::PI);
-    b.set_y_rot((mth::atan2(movement.x, movement.z) * 180.0 / pi) as f32);
-    b.set_x_rot((mth::atan2(movement.y, sd) * 180.0 / pi) as f32);
+    b.set_y_rot((mth::atan2(movement.x, movement.z) * RAD_TO_DEG) as f32);
+    b.set_x_rot((mth::atan2(movement.y, sd) * RAD_TO_DEG) as f32);
     b.y_rot_o = b.y_rot();
     b.x_rot_o = b.x_rot();
 }
@@ -491,9 +518,8 @@ pub fn update_rotation(projectile: &mut dyn Projectile) {
     let b = projectile.base_mut();
     let movement = b.delta_movement();
     let sd = movement.horizontal_distance();
-    let pi = f64::from(std::f32::consts::PI);
-    let x = lerp_rotation(b.x_rot_o, (mth::atan2(movement.y, sd) * 180.0 / pi) as f32);
-    let y = lerp_rotation(b.y_rot_o, (mth::atan2(movement.x, movement.z) * 180.0 / pi) as f32);
+    let x = lerp_rotation(b.x_rot_o, (mth::atan2(movement.y, sd) * RAD_TO_DEG) as f32);
+    let y = lerp_rotation(b.y_rot_o, (mth::atan2(movement.x, movement.z) * RAD_TO_DEG) as f32);
     b.set_x_rot(x);
     b.set_y_rot(y);
 }

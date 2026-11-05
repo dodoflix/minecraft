@@ -1,7 +1,7 @@
 //! The static spawn helpers of `Projectile`: `spawnProjectileFromRotation`, `spawnProjectileUsingShoot`,
 //! `spawnProjectile` and `applyOnProjectileSpawned`.
 
-use super::{Projectile, shoot, shoot_from_rotation};
+use super::{Projectile, shoot_from_rotation};
 use crate::server::level::ServerLevel;
 use crate::world::entity::{Entity, EntityId};
 use crate::world::item::ItemStack;
@@ -45,7 +45,7 @@ pub fn spawn_projectile_from_rotation(
 
 /// `Projectile.spawnProjectileUsingShoot(projectile, level, itemStack, targetX, targetY, targetZ, pow, uncertainty)`.
 pub fn spawn_projectile_using_shoot(level: &mut ServerLevel, projectile: Box<dyn Entity>, item_stack: &ItemStack, target_x: f64, target_y: f64, target_z: f64, pow: f32, uncertainty: f32) -> Option<EntityId> {
-    spawn_projectile(level, projectile, item_stack, |p| shoot(p, target_x, target_y, target_z, pow, uncertainty))
+    spawn_projectile(level, projectile, item_stack, |p| p.shoot(target_x, target_y, target_z, pow, uncertainty))
 }
 
 /// `Projectile.applyOnProjectileSpawned(level, pickupItemStack)` for the projectile `id` that is in the level.

@@ -175,6 +175,25 @@ impl ServerLevel {
         );
     }
 
+    // ==== [ImThrowables] additions ====
+
+    /// `playSound(except, sourceEntity, sound, source, volume, pitch)` for an entity that is out of the level's storage
+    /// (`position` is its position): draws the seed like `playSound`, sends the `ClientboundSoundEntityPacket`.
+    #[allow(clippy::too_many_arguments)]
+    pub fn play_sound_from_entity_at(&mut self, except: Option<EntityId>, source_entity: EntityId, position: Vec3, sound: SoundEvent, source: SoundSource, volume: f32, pitch: f32) {
+        use mc_core::random::RandomSource;
+        let seed = self.tick_state.sound_seed_generator.next_long();
+        let except = except.filter(|id| self.is_player_id(*id));
+        self.broadcast_nearby(
+            except,
+            position.x,
+            position.y,
+            position.z,
+            sound_range(sound, volume),
+            &ClientboundSoundEntityPacket { sound: SoundEventHolder::Reference(sound), source, id: source_entity, volume, pitch, seed },
+        );
+    }
+
     /// `destroyBlockProgress(id, pos, progress)`.
     pub fn destroy_block_progress(&self, id: i32, pos: BlockPos, progress: i32) {
         for &player_id in &self.players {

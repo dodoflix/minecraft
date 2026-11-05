@@ -7,7 +7,7 @@
 use super::{ItemStack, behaviour};
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
-use crate::world::entity::projectile::{self, Projectile};
+use crate::world::entity::projectile::Projectile;
 use mc_core::direction::Direction;
 use mc_core::phys::Vec3;
 use mc_data::Item;
@@ -63,7 +63,7 @@ pub trait ProjectileItem: Send + Sync {
 
     /// `shoot(projectile, xd, yd, zd, pow, uncertainty)`.
     fn shoot(&self, projectile: &mut dyn Projectile, xd: f64, yd: f64, zd: f64, pow: f32, uncertainty: f32) {
-        projectile::shoot(projectile, xd, yd, zd, pow, uncertainty);
+        projectile.shoot(xd, yd, zd, pow, uncertainty);
     }
 }
 

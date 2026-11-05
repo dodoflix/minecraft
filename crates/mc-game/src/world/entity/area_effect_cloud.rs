@@ -117,6 +117,26 @@ impl AreaEffectCloud {
         self.potion_duration_scale = scale;
     }
 
+    // ==== [ImThrowables] additions ====
+
+    /// `applyComponentsFromItemStack(stack)`: `Entity` takes the custom name and data, the cloud the potion contents
+    /// and the duration scale.
+    pub fn apply_components_from_item_stack(&mut self, stack: &crate::world::item::ItemStack) {
+        use mc_protocol::components::{CUSTOM_DATA, CUSTOM_NAME, POTION_CONTENTS, POTION_DURATION_SCALE};
+        if let Some(name) = stack.get(&CUSTOM_NAME) {
+            self.base.set_custom_name(Some(name.clone()));
+        }
+        if let Some(data) = stack.get(&CUSTOM_DATA) {
+            self.base.custom_data = data.tag().clone();
+        }
+        if let Some(contents) = stack.get(&POTION_CONTENTS) {
+            self.set_potion_contents(contents.clone());
+        }
+        if let Some(scale) = stack.get(&POTION_DURATION_SCALE) {
+            self.potion_duration_scale = *scale;
+        }
+    }
+
     /// `updateParticle()`.
     fn update_particle(&mut self) {
         let particle = match &self.custom_particle {
