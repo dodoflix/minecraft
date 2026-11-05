@@ -61,5 +61,6 @@ pub use ticket::{Ticket, TicketType};
 pub mod server_player_game_mode;
 mod server_level_riding;
 mod server_level_particles;
+mod server_level_waypoints;
 mod server_level_entity_base;
 mod level_fire_bed;

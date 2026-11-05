@@ -38,6 +38,8 @@ pub struct LivingEntityData {
     pub equipment: EntityEquipment,
     pub active_effects: IndexMap<MobEffect, MobEffectInstance>,
     pub effects_dirty: bool,
+    /// `locatorBarIcon`
+    pub locator_bar_icon: crate::world::waypoints::Icon,
     pub remove_arrow_time: i32,
     pub remove_stinger_time: i32,
     pub hurt_time: i32,
@@ -135,6 +137,7 @@ impl LivingEntityData {
             equipment: EntityEquipment::new(),
             active_effects: IndexMap::new(),
             effects_dirty: true,
+            locator_bar_icon: Default::default(),
             remove_arrow_time: 0,
             remove_stinger_time: 0,
             hurt_time: 0,
@@ -280,6 +283,11 @@ pub fn add_additional_save_data(living: &LivingEntityData, absorption_amount: f3
     }
     out.put("attributes", living.attributes.pack());
     out.put("Brain", Tag::Compound(living.brain.pack().to_nbt()));
+    if living.locator_bar_icon.has_data() {
+        if let Ok(tag) = mc_dfu::encode_nbt(&crate::world::waypoints::Icon::codec(), &living.locator_bar_icon).into_result() {
+            out.put("locator_bar_icon", tag);
+        }
+    }
     if !living.active_effects.is_empty() {
         let mut list = ListTag::new();
         for e in living.active_effects.values() {
@@ -324,6 +332,10 @@ pub fn read_additional_save_data(living: &mut LivingEntityData, input: &Compound
     if let Some(list) = input.get_list("attributes") {
         living.attributes.apply(list);
     }
+    living.locator_bar_icon = input
+        .get("locator_bar_icon")
+        .and_then(|tag| mc_dfu::parse_nbt(&crate::world::waypoints::Icon::codec(), tag).into_result().ok())
+        .unwrap_or_default();
     living.active_effects.clear();
     if let Some(list) = input.get_list("active_effects") {
         for tag in list.iter() {

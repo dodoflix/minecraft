@@ -19,6 +19,7 @@ pub mod movement_stats;
 pub mod pickup;
 pub mod menu_open;
 pub mod recipes;
+pub mod post_effects;
 pub mod tick;
 pub mod travel;
 pub mod warden_spawn_tracker;

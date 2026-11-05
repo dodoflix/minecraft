@@ -8,10 +8,12 @@ use crate::packets::common::id_enum;
 use crate::{Decode, Encode, Packet};
 
 mod particle;
+mod particle_codec;
 mod profile;
 mod serializers;
 
 pub use particle::*;
+pub use particle_codec::{block_state_codec, ARGB_COLOR_CODEC};
 pub use profile::*;
 pub use serializers::*;
 

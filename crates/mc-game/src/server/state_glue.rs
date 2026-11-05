@@ -127,8 +127,16 @@ impl MinecraftServer {
         for output in outputs {
             match output {
                 ScoreboardOutput::Broadcast(packet) => send_scoreboard_packet(&self.player_list, &packet),
-                // `level.getWaypointManager().remakeConnections(player)`: the waypoint managers are not modelled.
-                ScoreboardOutput::RemakeWaypointConnections(_) => {}
+                // `ServerScoreboard.updatePlayerWaypoint`: the player's level remakes the connections of that player
+                ScoreboardOutput::RemakeWaypointConnections(names) => {
+                    for name in names {
+                        if let Some(player) = crate::commands::host::player_by_name(self, &name)
+                            && let Some(level) = self.level_mut(&player.dimension)
+                        {
+                            level.waypoint_remake_connections(player.id);
+                        }
+                    }
+                }
             }
         }
     }

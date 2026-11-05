@@ -128,6 +128,7 @@ impl ServerLevel {
         self.taken_out_players.remove(&id);
         self.entity_manager.put_back(id, entity);
         self.process_entity_events();
+        self.process_waypoint_state(id);
         if let Some(ops) = self.deferred_level_ops.remove(&id)
             && let Some(mut entity) = self.take_entity(id)
         {
@@ -162,6 +163,7 @@ impl ServerLevel {
     pub fn sync_entity(&mut self, id: EntityId) {
         self.entity_manager.sync_entity(id);
         self.process_entity_events();
+        self.process_waypoint_state(id);
     }
 
     /// Take `id` out, run `f` with the level (the entity is absent from lookups), put it back.
@@ -210,7 +212,17 @@ impl ServerLevel {
                 break;
             }
             for event in events {
+                let waypoint_event = match &event {
+                    EntityLevelEvent::TrackingStart(id) => Some((*id, true)),
+                    EntityLevelEvent::TrackingEnd(id) | EntityLevelEvent::Destroyed(id) => Some((*id, false)),
+                    _ => None,
+                };
                 self.handle_entity_event(event);
+                match waypoint_event {
+                    Some((id, true)) => self.waypoint_tracking_start(id),
+                    Some((id, false)) => self.waypoint_tracking_end(id),
+                    None => {}
+                }
             }
         }
         self.entity_manager.clear_limbo();

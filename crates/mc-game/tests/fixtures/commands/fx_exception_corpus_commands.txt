@@ -1,0 +1,61 @@
+particle
+particle foo
+particle minecraft:nope
+particle minecraft:flame x
+particle minecraft:flame 0 0 0 0 0 0 -1 1
+particle minecraft:flame 0 0 0 0 0 0 1 -1
+particle minecraft:flame 0 0 0 0 0 0 1 1 foo
+particle minecraft:flame 0 0 0 0 0 0 1 1 normal @e[
+particle minecraft:flame ~ ~
+particle minecraft:flame 0 0 0 0 0 0 1
+particle dust{color:5,scale:9.0f} ~ ~ ~
+particle dust{color:5} ~ ~ ~
+particle dust{color:5,scale:1.0f
+particle block{block_state:"nope"} ~ ~ ~
+particle minecraft:flame{foo
+playsound
+playsound foo bar
+playsound foo master @
+playsound foo master @a ~ ~
+playsound foo master @a ~ ~ ~ -1
+playsound foo master @a ~ ~ ~ 1 3
+playsound foo master @a ~ ~ ~ 1 -1
+playsound foo master @a ~ ~ ~ 1 1 2
+playsound foo master @a ~ ~ ~ 1 1 -1
+playsound foo master @a ~ ~ ~ 1 1 1 1
+playsound Foo
+playsound foo:bar:baz
+stopsound
+stopsound @a foo
+stopsound @a master foo:Bar
+stopsound @a *
+stopsound @a * Bad
+posteffect
+posteffect add
+posteffect add @a
+posteffect add @a Bad
+posteffect clear
+posteffect list
+posteffect list @a x
+posteffect remove @a
+posteffect bogus
+dialog
+dialog show
+dialog show @a
+dialog show @a {type:
+dialog clear
+dialog clear @x
+waypoint
+waypoint modify
+waypoint modify @s
+waypoint modify @s color
+waypoint modify @s color bogus
+waypoint modify @s color hex
+waypoint modify @s color hex zzzzzz
+waypoint modify @s color hex 12345
+waypoint modify @s color reset x
+waypoint modify @s style
+waypoint modify @s style set
+waypoint modify @s style set Bad
+waypoint modify @s style reset x
+waypoint list x

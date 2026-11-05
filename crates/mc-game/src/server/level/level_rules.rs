@@ -94,6 +94,7 @@ level_rules! {
     keep_inventory: bool = KEEP_INVENTORY,
     lava_source_conversion: bool = LAVA_SOURCE_CONVERSION,
     limited_crafting: bool = LIMITED_CRAFTING,
+    locator_bar: bool = LOCATOR_BAR,
     max_entity_cramming: i32 = MAX_ENTITY_CRAMMING,
     max_snow_accumulation_height: i32 = MAX_SNOW_ACCUMULATION_HEIGHT,
     mob_drops: bool = MOB_DROPS,

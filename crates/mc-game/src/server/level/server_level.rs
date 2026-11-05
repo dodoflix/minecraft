@@ -95,6 +95,8 @@ pub struct ServerLevel {
     /// Server clock inputs of `getCurrentDifficultyAt` while a command places worldgen content
     /// (see [`server_level_worldgen::with_worldgen_level`](super::server_level_worldgen::with_worldgen_level)).
     pub worldgen_clock: Option<super::server_level_worldgen::WorldGenClock>,
+    /// `waypointManager`
+    pub waypoint_manager: crate::server::waypoints::ServerWaypointManager,
     // ==== [Damage] additions (ServerLevel field) ====
     /// Operations on entities that were taken out (running) when they were requested: run when put back
     /// (`ServerLevel::with_entity_or_defer`).
@@ -167,6 +169,7 @@ impl ServerLevel {
             gen_env: None,
             worldgen_data: None,
             worldgen_clock: None,
+            waypoint_manager: Default::default(),
             // ==== [Damage] additions (ServerLevel::new initializer) ====
             deferred_level_ops: Default::default(),
             // ==== [PathfinderCore] additions (ServerLevel::new initializer) ====

@@ -220,7 +220,11 @@ impl MinecraftServer {
             let packet = self.create_clock_full_sync_packet();
             self.player_list.broadcast_all(&packet);
         }
-        // `LOCATOR_BAR`: the waypoint managers belong to the levels (not available yet).
+        else if rule == GameRules::LOCATOR_BAR.erase() {
+            for level in self.all_levels_mut() {
+                level.waypoint_locator_bar_changed(enabled);
+            }
+        }
     }
 }
 

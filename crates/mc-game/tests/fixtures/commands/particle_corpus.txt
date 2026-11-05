@@ -1,0 +1,88 @@
+flame	OK	27	0
+minecraft:flame	OK	27	0
+minecraft:flame{}	OK	27	0
+nonexistent	ERR	Unknown particle: minecraft:nonexistent at position 11: ...onexistent<--[HERE]
+foo:bar	ERR	Unknown particle: foo:bar at position 7: foo:bar<--[HERE]
+Flame	ERR	Unknown particle: minecraft: at position 0: <--[HERE]
+minecraft:	ERR	Unknown particle: minecraft: at position 10: minecraft:<--[HERE]
+:	ERR	Unknown particle: minecraft: at position 1: :<--[HERE]
+minecraft:flame trailing	OK	27	9
+dust	ERR	Can't parse particle options: No key scale in MapLike[{}]; No key color in MapLike[{}]
+dust{color:16711680,scale:1.0f}	OK	1500ff00003f800000	0
+dust{color:[1.0f,0.0f,0.0f],scale:1.0f}	OK	15ffff00003f800000	0
+dust{color:[1.0f,0.0f],scale:1.0f}	ERR	Can't parse particle options: Failed to parse either. First: Not a number; Second: Input is not a list of 3 elements
+dust{color:16711680,scale:5.0f}	ERR	Can't parse particle options: Value must be within range [0.01;4.0]: 5.0
+dust{color:16711680,scale:0.0f}	ERR	Can't parse particle options: Value must be within range [0.01;4.0]: 0.0
+dust{color:16711680,scale:2}	OK	1500ff000040000000	0
+dust{color:16711680}	ERR	Can't parse particle options: No key scale in MapLike[{color:16711680}]
+dust{scale:1.0f}	ERR	Can't parse particle options: No key color in MapLike[{scale:1.0f}]
+dust{color:"red",scale:1.0f}	ERR	Can't parse particle options: Failed to parse either. First: Not a number; Second: Not a list: "red"
+dust{color:1d,scale:1.0d}	OK	15000000013f800000	0
+dust_color_transition{from_color:16711680,to_color:255,scale:2.5f}	OK	1600ff0000000000ff40200000	0
+dust_color_transition{from_color:[0.1f,0.2f,0.3f],to_color:255,scale:0.5f}	OK	16ff19334c000000ff3f000000	0
+dust_color_transition{from_color:16711680,to_color:255}	ERR	Can't parse particle options: No key scale in MapLike[{from_color:16711680,to_color:255}]
+entity_effect	ERR	Can't parse particle options: No key color in MapLike[{}]
+entity_effect{color:-65536}	OK	1cffff0000	0
+entity_effect{color:[1.0f,0.5f,0.25f,0.75f]}	OK	1cbfff7f3f	0
+entity_effect{color:[1.0f,0.5f,0.25f]}	ERR	Can't parse particle options: Failed to parse either. First: Not a number; Second: Input is not a list of 4 elements
+entity_effect{color:"x"}	ERR	Can't parse particle options: Failed to parse either. First: Not a number; Second: Not a list: "x"
+tinted_leaves{color:255}	OK	2e000000ff	0
+flash{color:12345}	OK	3400003039	0
+block	ERR	Can't parse particle options: No key block_state in MapLike[{}]
+block{block_state:"minecraft:stone"}	OK	0101	0
+block{block_state:"stone"}	OK	0101	0
+block{block_state:{id:"minecraft:oak_stairs"}}	OK	01e22a	0
+block{block_state:{id:"minecraft:oak_stairs",properties:{facing:"north",half:"top"}}}	OK	01d82a	0
+block{block_state:{id:"minecraft:oak_stairs",properties:{facing:"bogus",half:"top"}}}	OK	01d82a	0
+block{block_state:{id:"minecraft:oak_stairs",properties:"x"}}	OK	01e22a	0
+block{block_state:{id:"minecraft:nonexistent"}}	ERR	Can't parse particle options: Failed to parse either. First: Failed to parse either. First: Not a string; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:block]: minecraft:nonexistent; Second: Not a string
+block{block_state:"minecraft:nonexistent"}	ERR	Can't parse particle options: Failed to parse either. First: Failed to parse either. First: Unknown registry key in ResourceKey[minecraft:root / minecraft:block]: minecraft:nonexistent; Second: Not a map: "minecraft:nonexistent"; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:block]: minecraft:nonexistent
+block{block_state:5}	ERR	Can't parse particle options: Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a map: 5; Second: Not a string
+block{block_state:{properties:{}}}	ERR	Can't parse particle options: Failed to parse either. First: Failed to parse either. First: Not a string; Second: No key id in MapLike[{properties:{}}]; Second: Not a string
+block{block_state:{Name:"minecraft:stone"}}	ERR	Can't parse particle options: Failed to parse either. First: Failed to parse either. First: Not a string; Second: No key id in MapLike[{Name:"minecraft:stone"}]; Second: Not a string
+block_marker{block_state:"minecraft:barrier"}	OK	02ad70	0
+falling_dust{block_state:"minecraft:sand"}	OK	2479	0
+dust_pillar{block_state:"minecraft:dirt"}	OK	790a	0
+block_crumble{block_state:{id:"minecraft:redstone_wire",properties:{power:"7",north:"side"}}}	OK	7df633	0
+item	ERR	Can't parse particle options: No key item in MapLike[{}]
+item{item:"minecraft:diamond"}	OK	39f407010000	0
+item{item:{id:"minecraft:diamond",count:3}}	OK	39f407030000	0
+item{item:{id:"minecraft:diamond",count:0}}	ERR	Can't parse particle options: Value must be within range [1;99]: 0
+item{item:{id:"minecraft:air"}}	ERR	Can't parse particle options: Failed to parse either. First: Item must not be minecraft:air; Second: Not a string
+item{item:"minecraft:air"}	ERR	Can't parse particle options: Failed to parse either. First: Not a map: "minecraft:air"; Second: Item must not be minecraft:air
+item{item:{id:"minecraft:stick",components:{"minecraft:custom_name":"hi"}}}	OK	39a408010100060800026869	0
+item{item:"bogus:thing"}	ERR	Can't parse particle options: Failed to parse either. First: Not a map: "bogus:thing"; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:item]: bogus:thing
+vibration{destination:{type:"block",pos:[1,2,3]},arrival_in_ticks:20}	OK	3a00000000400000300214	0
+vibration{destination:{type:"minecraft:block",pos:[1,2]},arrival_in_ticks:20}	ERR	Can't parse particle options: Input is not a list of 3 ints
+vibration{destination:{type:"entity",source_entity:[I;1,2,3,4]},arrival_in_ticks:20}	ERR	Can't parse particle options: Entity position sources are not allowed
+vibration{destination:{type:"entity",source_entity:[I;1,2,3,4],y_offset:1.5f},arrival_in_ticks:20}	ERR	Can't parse particle options: Entity position sources are not allowed
+vibration{destination:{type:"bogus"},arrival_in_ticks:20}	ERR	Can't parse particle options: Unknown registry key in ResourceKey[minecraft:root / minecraft:position_source_type]: minecraft:bogus
+vibration{destination:{type:"block",pos:[1,2,3]}}	ERR	Can't parse particle options: No key arrival_in_ticks in MapLike[{destination:{pos:[1,2,3],type:"block"}}]
+vibration{arrival_in_ticks:3}	ERR	Can't parse particle options: No key destination in MapLike[{arrival_in_ticks:3}]
+sculk_charge{roll:1.5f}	OK	303fc00000	0
+sculk_charge	ERR	Can't parse particle options: No key roll in MapLike[{}]
+shriek{delay:5}	OK	7305	0
+shriek{delay:"x"}	ERR	Can't parse particle options: Not a number
+shriek	ERR	Can't parse particle options: No key delay in MapLike[{}]
+trail{target:[1.0d,2.0d,3.0d],color:255,duration:10}	OK	3b3ff000000000000040000000000000004008000000000000000000ff0a	0
+trail{target:[1.0d,2.0d],color:255,duration:10}	ERR	Can't parse particle options: Input is not a list of 3 elements
+trail{target:[1.0d,2.0d,3.0d],color:255,duration:0}	ERR	Can't parse particle options: Value must be positive: 0
+trail{target:[1.0d,2.0d,3.0d],color:255}	ERR	Can't parse particle options: No key duration in MapLike[{color:255,target:[1.0d,2.0d,3.0d]}]
+dragon_breath	OK	0f3f800000	0
+dragon_breath{power:2.5f}	OK	0f40200000	0
+dragon_breath{power:"a"}	ERR	Can't parse particle options: Not a number
+effect	OK	17ffffffff3f800000	0
+effect{color:255,power:0.5f}	OK	17000000ff3f000000	0
+effect{color:[1.0f,1.0f,1.0f]}	OK	17ffffffff3f800000	0
+instant_effect{power:3}	OK	38ffffffff40400000	0
+geyser{water_blocks:4}	OK	0700000004	0
+geyser{water_blocks:0}	ERR	Can't parse particle options: Value must be positive: 0
+geyser	ERR	Can't parse particle options: No key water_blocks in MapLike[{}]
+geyser_base{water_blocks:4,burst_impulse_base:0.5f}	OK	08000000043f000000	0
+geyser_poof{water_blocks:2,burst_impulse_base:1.0f}	OK	09000000023f800000	0
+geyser_plume{water_blocks:2}	OK	0a00000002	0
+flame{foo:1}	OK	27	0
+flame{	ERR	Expected literal " at position 6: flame{<--[HERE]
+flame{a:}	ERR	Expected a valid unquoted string at position 8: flame{a:<--[HERE]
+dust{color:16711680,scale:1.0f	ERR	Expected literal , at position 30: ...scale:1.0f<--[HERE]
+{}	ERR	Unknown particle: minecraft: at position 0: <--[HERE]

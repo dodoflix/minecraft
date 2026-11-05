@@ -51,6 +51,10 @@ impl<'a> MapLike<'a> {
 
 impl std::fmt::Display for MapLike<'_> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        // `NbtOps`' map is a `CompoundTag`: its `toString()` is SNBT
+        if self.kind == OpsKind::Nbt && let Ok(tag) = Dyn::Map(self.entries.to_vec()).to_tag() {
+            return write!(f, "MapLike[{tag}]");
+        }
         write!(f, "MapLike[{}]", Dyn::Map(self.entries.to_vec()))
     }
 }

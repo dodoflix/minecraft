@@ -143,6 +143,8 @@ pub struct EntityData {
     pub eye_in_fluid: [bool; 2],
     pub invulnerable_time: i32,
     pub first_tick: bool,
+    /// `setPosRaw` moved the entity since the level last updated its waypoint connections (`WaypointManager.updateWaypoint/updatePlayer`).
+    pub waypoint_dirty: bool,
     pub entity_data: SynchedEntityData,
     pub packet_position_codec: VecDeltaCodec,
     /// `getInterpolation().interpolationTracker()` (server side).
@@ -250,6 +252,7 @@ impl EntityData {
             eye_in_fluid: [false; 2],
             invulnerable_time: 0,
             first_tick: true,
+            waypoint_dirty: false,
             entity_data: builder.build(),
             packet_position_codec: VecDeltaCodec::default(),
             interpolation_tracker: Default::default(),
@@ -371,6 +374,9 @@ impl EntityData {
     pub fn set_pos_raw(&mut self, x: f64, y: f64, z: f64) {
         if self.position.x != x || self.position.y != y || self.position.z != z {
             self.position = Vec3::new(x, y, z);
+            if !self.first_tick && self.removal_reason().is_none() {
+                self.waypoint_dirty = true;
+            }
             let fx = mth::floor_f64(x);
             let fy = mth::floor_f64(y);
             let fz = mth::floor_f64(z);

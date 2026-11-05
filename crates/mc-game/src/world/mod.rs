@@ -13,3 +13,4 @@ pub mod inventory;
 pub mod item;
 pub mod level;
 pub mod scores;
+pub mod waypoints;

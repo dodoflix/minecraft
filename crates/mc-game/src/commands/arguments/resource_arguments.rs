@@ -589,6 +589,7 @@ fn check_inline(context: &CommandBuildContext, registry: &str, tag: &Tag) -> Res
         "minecraft:item_modifier" => run(crate::world::level::storage::loot::functions::function_codec(), tag),
         "minecraft:predicate" => run(crate::world::level::storage::loot::predicates::condition_codec(), tag),
         "minecraft:slot_source" => run(crate::world::item::slot::slot_source_codec(), tag),
+        "minecraft:dialog" => mc_protocol::dialog::Dialog::from_inline_tag(tag).map(|_| ()),
         _ => Ok(()),
     })
 }

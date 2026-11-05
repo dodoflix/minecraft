@@ -28,6 +28,7 @@ pub mod tick_pacing;
 pub mod bossevents;
 pub mod tick_rate_manager;
 pub mod watchdog;
+pub mod waypoints;
 pub mod world_dimensions;
 
 pub use minecraft_server::MinecraftServer;
