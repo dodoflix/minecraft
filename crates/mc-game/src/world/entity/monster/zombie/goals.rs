@@ -1,7 +1,7 @@
 //! The goal registration of the zombie family (`registerGoals()`'s egg goal and `addBehaviourGoals()` of `Zombie`,
 //! `Drowned`, `ZombifiedPiglin`).
 //!
-//! NOT YET WIRED (their goals are not on main): `SpearUseGoal`, `BreakDoorGoal`, `MoveThroughVillageGoal`,
+//! NOT YET WIRED (their goals are not on main): `SpearUseGoal`,
 //! `ResetUniversalAngerTargetGoal`.
 
 use super::drowned::{self, DrownedGoToWaterGoal, DrownedSwimUpGoal};
@@ -9,7 +9,7 @@ use super::{Zombie, ZombieKind};
 use crate::server::level::ServerLevel;
 use crate::world::entity::ai::goal::move_to_block::{self, MoveToBlock, MoveToBlockData};
 use crate::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType, class_of_type};
-use crate::world::entity::ai::goal::{Flag, Goal, GoalFlags, RandomStrollGoal, RangedAttackGoal, RemoveBlockGoal, RemoveBlockHooks, WaterAvoidingRandomStrollGoal, ZombieAttackGoal};
+use crate::world::entity::ai::goal::{BreakDoorGoal, MoveThroughVillageGoal, Flag, Goal, GoalFlags, RandomStrollGoal, RangedAttackGoal, RemoveBlockGoal, RemoveBlockHooks, WaterAvoidingRandomStrollGoal, ZombieAttackGoal};
 use crate::world::entity::ai::targeting::TargetSelector;
 use crate::world::entity::mob::{self, neutral};
 use crate::world::entity::Entity;
@@ -19,13 +19,19 @@ use crate::world::level::block::state::BlockStateExt;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::Block;
+use mc_world::level_storage::Difficulty;
 use mc_data::{EntityType, Item, SoundEvent};
 use mc_protocol::packets::play::SoundSource;
 use std::sync::Arc;
 
 /// `this instanceof BreakDoorGoal`.
-pub fn is_break_door_goal(_goal: &dyn Goal) -> bool {
-    false
+pub fn is_break_door_goal(goal: &dyn Goal) -> bool {
+    (goal as &dyn std::any::Any).is::<BreakDoorGoal>()
+}
+
+/// `breakDoorGoal = new BreakDoorGoal(this, DOOR_BREAKING_PREDICATE)` (a field initializer).
+pub fn create_break_door_goal(zombie: &Zombie) -> Box<dyn Goal> {
+    Box::new(BreakDoorGoal::new(zombie, Arc::new(|d: Difficulty| d == Difficulty::Hard)))
 }
 
 /// `Zombie.ZombieAttackTurtleEggGoal`'s overrides.
@@ -108,8 +114,11 @@ pub fn add_behaviour_goals(zombie: &mut Zombie) {
             // ResetUniversalAngerTargetGoal(3) pending
         }
         _ => {
-            // SpearUseGoal(2), BreakDoor-free MoveThroughVillageGoal(6) pending
+            // SpearUseGoal(2) pending
+            let can_break_doors: Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync> = Arc::new(|e: &dyn Entity| e.as_zombie().is_some_and(|z| z.can_break_doors()));
             zombie.mob.goal_selector.add_goal(3, Box::new(ZombieAttackGoal::new(1.0, false)));
+            let village = MoveThroughVillageGoal::new(zombie, 1.0, true, 4, can_break_doors);
+            zombie.mob.goal_selector.add_goal(6, Box::new(village));
             zombie.mob.goal_selector.add_goal(7, Box::new(WaterAvoidingRandomStrollGoal::new(1.0)));
             let mut hurt_by = HurtByTargetGoal::new(Vec::new()).set_alert_others(vec![zp]);
             hurt_by.alert_class = Some(alert);

@@ -109,6 +109,7 @@ impl Zombie {
             ZombieKind::ZombieVillager(_) => zombie_villager::init(&mut zombie, registries),
             _ => {}
         }
+        zombie.parked_break_door_goal = Some(goals::create_break_door_goal(&zombie));
         zombie.register_goals();
         zombie
     }
