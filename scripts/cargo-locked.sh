@@ -7,6 +7,12 @@ SLOTS="${MC_BUILD_SLOTS:-4}"
 export CARGO_BUILD_JOBS="${CARGO_BUILD_JOBS:-6}"
 
 with_slot() {
+  # merge-to-main.sh's serialized re-check uses its own slot (only one merge holds the merge lock at a time).
+  if [ -n "${MC_MERGE_SLOT:-}" ]; then
+    local rc=0
+    flock /tmp/mc-build.lock.merge nice -n 10 "$@" || rc=$?
+    return $rc
+  fi
   while :; do
     for i in $(seq 1 "$SLOTS"); do
       exec {fd}>"/tmp/mc-build.lock.$i"
@@ -35,6 +41,11 @@ case "${1:-}" in
     for a in "${@:2}"; do [ "$a" = "--" ] && break; build_args+=("$a"); done
     with_slot cargo build "${build_args[@]}"
     nice -n 10 cargo "$@"
+    ;;
+  check|clippy)
+    # Check-only incremental caches are small (metadata); rechecks after a rebase drop from ~8 min to <1 min.
+    export CARGO_INCREMENTAL=1
+    with_slot cargo "$@"
     ;;
   *)
     with_slot cargo "$@"

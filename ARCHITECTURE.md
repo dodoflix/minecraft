@@ -98,8 +98,8 @@ uncommitted edit found there to a `stray-main-<time>` branch every minute. Every
 `git worktree add /home/dodo/Projects/mc-wt/<name> -b <name> main && ln -s ./ref /home/dodo/Projects/mc-wt/<name>/ref`
 (the `ref/` symlink is required: builds read `ref/extracted`, `ref/generated`, …), builds only there, runs its tests,
 then integrates ONLY via `./scripts/merge-to-main.sh` (from the worktree): it rebases on
-main, runs `cargo check --workspace --tests` through the build slots, and fast-forwards + pushes main only if main
-didn't move meanwhile (else retries). Resolve rebase conflicts keeping both sides' intent. Never merge by hand (a
+main, runs `cargo check --workspace --tests` (incremental), then under the merge lock rebases again, re-checks on a
+dedicated slot and fast-forwards + pushes main (serialized, no retries/livelock). Resolve rebase conflicts keeping both sides' intent. Never merge by hand (a
 hand merge broke main once), never force-push/reset main, never discard others' work.
 
 **Backup:** remote `origin` = private GitHub repo `dodoflix/minecraft`. After merging to main run
