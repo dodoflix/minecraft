@@ -5,6 +5,8 @@ use super::speleothem_block::{
     Speleothem, SpeleothemClass, find_block_vertical, find_tip, is_stalactite, is_stalactite_start_pos,
 };
 use crate::server::level::ServerLevel;
+use crate::world::entity::Entity;
+use mc_data::enums::SpeleothemThickness;
 use crate::world::level::block::behaviour;
 use crate::world::level::gameevent::GameEventContext;
 use mc_core::phys::shapes::{BooleanOp, Shapes, VoxelShape};
@@ -41,6 +43,15 @@ impl SpeleothemClass for PointedDripstoneBlock {
     }
     fn blocks_stalagmite_scan(&self, level: &dyn LevelReader, pos: BlockPos, state: BlockState) -> bool {
         !can_drip_through(level, pos, state)
+    }
+    fn fall_on(&self, level: &mut ServerLevel, state: BlockState, entity: &mut dyn Entity, fall_distance: f64) -> bool {
+        if state.get(props::VERTICAL_DIRECTION) == Direction::Up && state.get(props::SPELEOTHEM_THICKNESS) == SpeleothemThickness::Tip {
+            let source = level.damage_sources().stalagmite();
+            entity.cause_fall_damage(level, fall_distance + 2.5, 2.0, &source);
+            true
+        } else {
+            false
+        }
     }
     fn before_random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         let random_value = level.random().next_float();

@@ -4,9 +4,15 @@
 //! `randomTick` override of the dripstone) are the [`SpeleothemClass`] trait; [`Speleothem`] is the shared behaviour.
 use super::prelude::*;
 use crate::server::level::ServerLevel;
+use crate::world::entity::Entity;
+use crate::world::entity::falling_block_entity::FallingBlockEntity;
 use crate::world::level::collision::CollisionContext;
 use crate::world::level::shapes::column;
 use mc_core::phys::shapes::VoxelShape;
+use crate::world::damagesource::DamageSource;
+use crate::world::entity::projectile::Projectile;
+use crate::world::level::block::PlainBlock;
+use mc_data::EntityType;
 use mc_data::enums::SpeleothemThickness;
 use std::sync::LazyLock;
 
@@ -36,6 +42,10 @@ pub trait SpeleothemClass: Send + Sync + 'static {
     }
     /// `blocksStalagmiteScan`.
     fn blocks_stalagmite_scan(&self, _level: &dyn LevelReader, _pos: BlockPos, _state: BlockState) -> bool {
+        false
+    }
+    /// A subclass' `fallOn` override; `true` when it handled the fall (else `Block.fallOn` runs).
+    fn fall_on(&self, _level: &mut ServerLevel, _state: BlockState, _entity: &mut dyn Entity, _fall_distance: f64) -> bool {
         false
     }
     /// The part of a subclass' `randomTick` that runs before `super.randomTick`.
@@ -300,6 +310,29 @@ impl<C: SpeleothemClass> BlockBehaviour for Speleothem<C> {
     fn is_collision_shape_full_block(&self, _state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos) -> bool {
         false
     }
+    fn fall_on(&self, level: &mut ServerLevel, state: BlockState, pos: BlockPos, entity: &mut dyn Entity, fall_distance: f64) {
+        if !self.class.fall_on(level, state, entity, fall_distance) {
+            PlainBlock.fall_on(level, state, pos, entity, fall_distance);
+        }
+    }
+    fn on_projectile_hit(&self, level: &mut ServerLevel, _state: BlockState, hit: &mc_core::phys::BlockHitResult, projectile: &mut dyn Projectile) {
+        let block_pos = hit.block_pos;
+        if projectile.may_interact_projectile(level, block_pos)
+            && projectile.may_break(level, block_pos)
+            && projectile.get_type() == EntityType::TRIDENT
+            && projectile.base().delta_movement().length() > 0.6
+        {
+            level.destroy_block(block_pos, true, None, 512);
+        }
+    }
+    fn on_broken_after_fall(&self, level: &mut ServerLevel, pos: BlockPos, entity: &FallingBlockEntity) {
+        if !entity.base().is_silent() {
+            level.level_event(None, self.class.stalactite_landing_sound(), pos, 0);
+        }
+    }
+    fn get_fall_damage_source(&self, level: &ServerLevel, entity: &FallingBlockEntity) -> DamageSource {
+        level.damage_sources().falling_stalactite(entity)
+    }
     fn random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         self.class.before_random_tick(state, level, pos);
         if level.random().next_float() < GROWTH_PROBABILITY_PER_RANDOM_TICK && is_stalactite_start_pos(state, level, pos) {
@@ -322,16 +355,19 @@ fn speleothem_shape(state: BlockState, pos: BlockPos) -> VoxelShape {
     shape.move_vec(state.get_offset(pos))
 }
 
-/// `SpeleothemBlock.spawnFallingStalactite` (needs `FallingBlockEntity`).
+/// `SpeleothemBlock.spawnFallingStalactite`.
 fn spawn_falling_stalactite(state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
     let mut fall_pos = pos;
     let mut fall_state = state;
     while is_stalactite(fall_state) {
-        let entity = crate::world::entity::falling_block_entity::FallingBlockEntity::fall(level, fall_pos, fall_state);
-        if is_tip(fall_state, true) {
-            let size = (1 + pos.y() - fall_pos.y()).max(6);
-            let damage_per_fall_distance = 1.0f32 * size as f32;
-            entity.set_hurts_entities(damage_per_fall_distance, 40);
+        let tip = is_tip(fall_state, true);
+        let size = (1 + pos.y() - fall_pos.y()).max(6);
+        FallingBlockEntity::fall_with(level, fall_pos, fall_state, |entity| {
+            if tip {
+                entity.set_hurts_entities(1.0f32 * size as f32, 40);
+            }
+        });
+        if tip {
             break;
         }
         fall_pos = fall_pos.below();
