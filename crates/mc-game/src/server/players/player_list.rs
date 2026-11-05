@@ -725,7 +725,8 @@ mod tests {
         let (a, mut wa) = handle(1, "A", "minecraft:overworld");
         list.add_player(a.clone());
         assert!(list.disconnect_all_players_with_profile(&a.uuid));
-        assert_eq!(wa.ids().len(), 2, "disconnect packet + close");
+        // `Outbound::Disconnect` is the disconnect packet of the current protocol followed by the close, as one message
+        assert_eq!(wa.ids(), [None], "disconnect packet + close");
         assert!(!list.disconnect_all_players_with_profile(&Uuid::from_u128(1)));
 
         list.get_player_stats(&a).lock().increment(Stats::LEAVE_GAME, 1);
