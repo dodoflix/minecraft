@@ -6,7 +6,6 @@
 //! children are the builder indices of pieces whose children are still to be generated
 //! ([`StructurePiecesBuilder::take_out`] hands such a piece out mutably next to the builder).
 
-use crate::world::level::block::BlockStateExt;
 use crate::world::level::levelgen::block_entity_data::spawner_tag;
 use crate::world::level::levelgen::env::GenEnv;
 use crate::world::level::levelgen::structure::manager::StructureManager;
@@ -16,7 +15,6 @@ use crate::world::level::levelgen::structure::piece::{
 };
 use crate::world::level::levelgen::structure::pieces::StructurePiecesBuilder;
 use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
-use crate::world::level::LevelAccessor;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::Direction;
 use mc_core::pos::{BlockPos, ChunkPos};

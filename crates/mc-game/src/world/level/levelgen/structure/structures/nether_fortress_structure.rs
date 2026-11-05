@@ -3,7 +3,6 @@
 use super::nether_fortress_pieces::StartPiece;
 use crate::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
 use crate::world::level::levelgen::registries::DecodeCtx;
-use crate::world::level::levelgen::structure::piece::StructurePiece;
 use crate::world::level::levelgen::structure::pieces::StructurePiecesBuilder;
 use crate::world::level::levelgen::structure::structure::{
     GenerationContext, GenerationStub, STRUCTURE_TYPES, SpawnerData, Structure, StructureSettings,
