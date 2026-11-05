@@ -12,5 +12,6 @@ pub mod frog;
 pub mod nautilus;
 pub mod pig;
 pub mod squid;
+pub mod sheep;
 pub mod temperature_variants;
 pub mod wolf;
