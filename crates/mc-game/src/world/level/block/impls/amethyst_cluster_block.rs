@@ -4,6 +4,9 @@ use super::prelude::*;
 pub struct AmethystClusterBlock;
 
 impl BlockBehaviour for AmethystClusterBlock {
+    fn on_projectile_hit(&self, level: &mut crate::server::level::ServerLevel, _state: BlockState, hit: &mc_core::phys::BlockHitResult, _projectile: &mut dyn crate::world::entity::projectile::Projectile) {
+        super::amethyst_block::on_projectile_hit(level, hit);
+    }
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         let direction = state.get(props::FACING);
         let adjacent_pos = pos.relative(direction.get_opposite());
@@ -15,6 +18,10 @@ impl BlockBehaviour for AmethystClusterBlock {
         }
         if direction == state.get(props::FACING).get_opposite() && !state.can_survive(&*level, pos) { air() } else { state }
     });
+    fn get_state_for_placement(&self, block: Block, level: &mut crate::server::level::ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+        let pos = context.get_clicked_pos();
+        Some(block.default_state().set(props::WATERLOGGED, level.get_fluid_state(pos).get_type() == mc_data::fluid::Fluid::WATER).set(props::FACING, context.get_clicked_face()))
+    }
     fn rotate(&self, state: BlockState, rotation: Rotation) -> BlockState {
         helpers::rotate_facing(state, props::FACING, rotation)
     }

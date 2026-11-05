@@ -45,6 +45,7 @@ pub mod abstract_candle_block;
 pub mod abstract_cauldron_block;
 pub mod abstract_furnace_block;
 pub mod abstract_skull_block;
+pub mod amethyst_block;
 pub mod amethyst_cluster_block;
 pub mod budding_amethyst_block;
 pub mod anvil_block;

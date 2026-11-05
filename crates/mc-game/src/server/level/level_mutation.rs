@@ -279,6 +279,13 @@ impl LevelAccessor for ServerLevel {
         &mut self.tick_state.random
     }
 
+    fn get_block_entity_mut(&mut self, pos: BlockPos) -> Option<&mut dyn crate::world::block_entity::BlockEntity> {
+        if !self.is_in_valid_bounds(pos) || !self.get_block_entity_creating(pos, super::level_chunk_ops::EntityCreationType::Check) {
+            return None;
+        }
+        self.chunk_at_mut(pos)?.block_entities.get_mut(&pos).map(|b| &mut **b)
+    }
+
     fn schedule_block_tick(&mut self, pos: BlockPos, block: Block, delay: i32, priority: TickPriority) {
         let tick = self.create_tick(pos, block, delay, priority);
         self.tick_state.ticks.lock().block.schedule(tick);

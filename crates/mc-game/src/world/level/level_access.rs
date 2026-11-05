@@ -150,6 +150,11 @@ pub trait LevelAccessor: LevelReader {
     fn set_block_flags(&mut self, pos: BlockPos, state: BlockState, flags: u32) -> bool {
         self.set_block(pos, state, flags, 512)
     }
+    /// `getBlockEntity(pos)` (`EntityCreationType.CHECK`) for mutation: vanilla block code that only holds a `LevelReader`
+    /// mutates block entities through the shared object. Only a server level has block entities that can be mutated.
+    fn get_block_entity_mut(&mut self, _pos: BlockPos) -> Option<&mut dyn BlockEntity> {
+        None
+    }
     /// `setBlockAndUpdate(pos, state)`.
     fn set_block_and_update(&mut self, pos: BlockPos, state: BlockState) -> bool {
         self.set_block(pos, state, 3, 512)
