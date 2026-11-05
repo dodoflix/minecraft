@@ -75,15 +75,15 @@ case "${1:-}" in
   test|bench)
     # Run the WHOLE test command (build + run, incl. its JVMs) on a builder test lane (1..MC_REMOTE_TEST_LANES). Waiters
     # register in /tmp/mc-queue so the autoscaler adds builders; local fallback only after MC_REMOTE_WAIT_S without any
-    # free lane (default 15 min) or when the command is configured through MC_* env vars (paths into this worktree).
+    # free lane (default 60 min) or when the command is configured through MC_* env vars (paths into this worktree).
     if ! env | grep -qE '^MC_(SERVER_BIN|RECORD|SEED|SCENARIO|GOLDEN|CMDDIFF|TEXT)'; then
       mkdir -p /tmp/mc-queue /tmp/mc-builders; qf="/tmp/mc-queue/$$"; : > "$qf"; trap 'rm -f "$qf"' EXIT
-      deadline=$(( $(date +%s) + ${MC_REMOTE_WAIT_S:-900} ))
+      deadline=$(( $(date +%s) + ${MC_REMOTE_WAIT_S:-3600} ))
       while [ "$(date +%s)" -lt "$deadline" ]; do
         for reg in /tmp/mc-builders/*.ip; do
           [ -e "$reg" ] || continue
           name=$(basename "$reg" .ip)
-          for lane in $(seq 1 "${MC_REMOTE_TEST_LANES:-4}"); do
+          for lane in $(seq 1 "${MC_REMOTE_TEST_LANES:-6}"); do
             exec {tfd}>"/tmp/mc-remote.$name.$lane"
             if flock -n "$tfd"; then
               rm -f "$qf"; touch "/tmp/mc-builders/$name.last"; rc=0
