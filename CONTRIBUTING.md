@@ -1,13 +1,13 @@
 # Contributing
 
-This is a Rust port of the vanilla Minecraft Java Edition 26.3 server (protocol 777, world version 5023, data pack format 121). Linux only. Behaviour is checked against the real vanilla server, so most changes need a vanilla reference. See [ARCHITECTURE.md](ARCHITECTURE.md) for the crate layout and [docs/standards.md](docs/standards.md) for code standards.
+This is a Rust port of the vanilla Minecraft Java Edition 26.3 server (protocol 777, world version 5023, data pack format 121). Linux only. Behaviour is checked against the real vanilla server, so most changes need a vanilla reference. See [ARCHITECTURE.md](ARCHITECTURE.md) for the crate layout and [docs/standards.md](docs/standards.md) for code standards. Everyone taking part follows the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## Setup
 
 - Install [rustup](https://rustup.rs). It picks the toolchain pinned in `rust-toolchain.toml` automatically.
-- Install JDK 25. The build script of `mc-data` reads the extractor output under `ref/`.
-- Run `scripts/setup-ref.sh`. It downloads the vanilla server from Mojang into `ref/`. You accept Mojang's EULA yourself; nothing from `ref/` is ever committed.
-- Install the tools `scripts/check.sh` needs: rustfmt, clippy, cargo-deny, shellcheck, ruff.
+- Install JDK 25 or newer, including `javac`. The build script of `mc-data` reads the extractor output under `ref/`.
+- Run `scripts/setup-ref.sh --decompile`. It downloads the vanilla server from Mojang into `ref/` and decompiles it into `ref/src/net/minecraft/`. You need the decompiled source to read the vanilla code you port, and the oracle and fixture-regeneration scripts that build against it need it too. Plain `scripts/setup-ref.sh` is enough to build and to run the hermetic tests. You accept Mojang's EULA yourself; nothing from `ref/` is ever committed.
+- Install the tools `scripts/check.sh` needs: rustfmt and clippy (`rustup` installs them from `rust-toolchain.toml`), `cargo install cargo-deny --locked`, shellcheck (your distribution's package), and ruff (your distribution's package or `pipx install ruff`).
 - Run `git config blame.ignoreRevsFile .git-blame-ignore-revs`. The file lists the one-off rustfmt commit (and any later bulk reformat), so `git blame` skips it and keeps pointing at the real change. GitHub's blame view reads it automatically.
 - Compiling `mc-game-core` is memory hungry. On a small machine set `CARGO_BUILD_JOBS` (for example `CARGO_BUILD_JOBS=2`).
 
@@ -43,16 +43,18 @@ Run `scripts/check.sh` before you push. `--fast` skips clippy. A missing tool is
 
 CI (`.github/workflows/ci.yml`) runs on every pull request and every push to `main`. Its jobs, and the one command each runs:
 
-| Job | Runs | Expected time |
-|---|---|---|
-| `fmt` | `cargo fmt --all --check` | under 1 min |
-| `clippy` | `cargo clippy --workspace --all-targets --all-features --locked --keep-going -- -D warnings` | 4 to 15 min (cold cache) |
-| `deny` | `cargo deny check licenses bans sources` | 1 min |
-| `hygiene` | `scripts/check.sh --fast` (shellcheck, ruff, source and provenance checks) | 1 min |
-| `commits` | `scripts/check-commits.sh` on the PR title and commits | 1 min |
-| `test` | `scripts/test-known-failures.py`: `cargo test` per package (T0/T1) | 35 to 45 min |
-| `ref` | builds or restores the cached `ref/` that `clippy` and `test` need | seconds cached, 10 to 15 min cold |
-| `ci-ok` | passes only when all of the above passed; the one required check | seconds |
+| Job | Runs |
+|---|---|
+| `fmt` | `cargo fmt --all --check` |
+| `clippy` | `cargo clippy --workspace --all-targets --all-features --locked --keep-going -- -D warnings` |
+| `deny` | `cargo deny check licenses bans sources` |
+| `hygiene` | `scripts/check.sh --fast` (shellcheck, ruff, source and provenance checks) |
+| `commits` | `scripts/check-commits.sh` on the PR title and commits |
+| `test` | `scripts/test-known-failures.py`: `cargo test` per package (T0/T1) |
+| `ref` | builds or restores the cached `ref/` that `clippy` and `test` need |
+| `ci-ok` | passes only when all of the above passed; the one required check |
+
+The `test` job is the slow one (it can take close to an hour).
 
 `scripts/test-known-failures.py` fails only on a test that `tests/known-failures.txt` does not list; run it locally the same way (`-p <crate>` limits it). A change that makes a listed test pass deletes its line. A new failure is re-run once alone; if it passes, the run reports it as flaky (a warning) instead of failing, and the flaky test gets fixed.
 
@@ -61,9 +63,9 @@ CI (`.github/workflows/ci.yml`) runs on every pull request and every push to `ma
 Also run:
 
 - `cargo test -p <crate>` for each crate you touched.
-- `cargo test --workspace` before opening a PR.
+- `scripts/test-known-failures.py` before opening a PR. `cargo test --workspace` currently reports the failures listed in `tests/known-failures.txt`, so it never passes cleanly; the script runs the same tests and fails only on a failure that the file does not list.
 
-Do not run workspace-wide `cargo fmt` or clippy rewrites in a feature change. Maintainers make a one-off formatting commit. After it has landed, format the files you touch.
+Run `cargo fmt --all` before you commit. Do not mix formatting changes into a functional change, and do not run workspace-wide clippy rewrites in one.
 
 ## Tests
 
@@ -75,7 +77,7 @@ The oracle and E2E tiers start the real vanilla server. Running them means you a
 
 Fixtures that record vanilla behaviour are produced by the generator next to them. The generator's header comments (`Usage:`, `Output:`) say how to run it. To regenerate:
 
-1. Run `scripts/setup-ref.sh` if `ref/` is not set up.
+1. Run `scripts/setup-ref.sh --decompile` if `ref/` is not set up (the generators that build against vanilla sources need the decompiled `ref/src`).
 2. Run the generator.
 3. Review the diff; unexpected changes mean a bug in either side.
 4. Commit the generator and its output together.
@@ -99,7 +101,7 @@ Reviewers check:
 - Tests are at the right tier and golden values come from the oracle, not guesses.
 - No silencers: `fn _x`, `let _ = ident;`, `#[allow(dead_code)]` on production items, or blanket allows without `reason`.
 - Every file is in the module tree.
-- No stub or no-op seam without a caller. A skipped vanilla behaviour is documented in the code and listed in the README status.
+- No stub or no-op hook without a caller. A skipped vanilla behaviour is documented in the code and listed in the README status.
 - Hook installers and traits have both a caller and an implementor.
 - One definition per Java-compat primitive (`String.hashCode`, `floor_div`, ...), in `mc-core`.
 - Comments explain why. They never narrate history or paste Java statements.
@@ -112,7 +114,7 @@ Enforcement is review, except where an item above is covered by `scripts/check.s
 
 ## Security
 
-Report vulnerabilities privately through GitHub security advisories. Do not open a public issue.
+Report vulnerabilities privately as described in [SECURITY.md](SECURITY.md). Do not open a public issue.
 
 ## License
 

@@ -22,15 +22,15 @@ from their own vanilla download; they contain no Mojang code.
 
 (b) Data derived from Mojang's server
 
-Some data files committed to the repository were derived from Mojang's server and
-are Mojang's, not relicensed here:
+Builds read the user's own vanilla download under ref/ (see section 3) and embed
+data derived from it: the registries, block and item data and data pack
+(crates/mc-data), the packet ids (crates/mc-protocol) and the language files
+(crates/mc-text). None of that data is committed; it is Mojang's, not relicensed
+here.
 
-  crates/mc-text/data/en_us.json
-  crates/mc-text/data/deprecated.json
-  crates/mc-protocol/data/packets.json
-
-They will be replaced by build-time derivation from the user's own vanilla
-download.
+One data file is committed: crates/mc-game-core/src/server/jsonrpc/json-rpc-api-schema.json,
+the schema of the management protocol as written by the vanilla data generator
+(its --reports output). It is Mojang's, not relicensed here.
 
 (c) Ports of Mojang's MIT-licensed libraries
 

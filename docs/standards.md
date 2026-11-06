@@ -4,12 +4,11 @@ Rules for code, scripts and docs in this repository. Each rule says how it is en
 before every push; `scripts/check.sh --fast` skips clippy), a named clippy lint, CI, or review. "Review" means a
 maintainer checks it in the diff; nothing fails automatically.
 
-`scripts/check.sh` does not pass on the current tree. The list at the end says what is still open. Rules that are
-already met are enforced as written; for the others the lint level starts at `warn` and flips to `deny` in the change
-that brings its count to zero.
+`scripts/check.sh` passes on `main`. The list at the end says which rules the tree does not meet yet. For a lint with
+open findings the level is `warn`; it flips to `deny` in the change that brings its count to zero.
 
 Related documents: [README](../README.md), [CONTRIBUTING](../CONTRIBUTING.md), [ARCHITECTURE](../ARCHITECTURE.md),
-[docs/testing.md](testing.md), [docs/crate-split.md](crate-split.md), [tests/e2e/README.md](../tests/e2e/README.md).
+[docs/testing.md](testing.md), [SECURITY](../SECURITY.md), [tests/e2e/README.md](../tests/e2e/README.md).
 
 ## 1. Style and formatting
 
@@ -18,8 +17,7 @@ Related documents: [README](../README.md), [CONTRIBUTING](../CONTRIBUTING.md), [
 - Run `cargo fmt --all` before committing. Do not mix formatting changes into a functional change.
 - `.editorconfig` covers everything rustfmt does not (final newline, LF, 2-space indent for TOML/YAML/JSON/shell/Markdown).
   Enforced: editor integration, review.
-- The check fails today: the one-off formatting commit has not landed yet. After it lands, its revision is listed in
-  `.git-blame-ignore-revs`.
+- The one-off formatting commit is listed in `.git-blame-ignore-revs`, so `git blame` skips it.
 
 ## 2. Toolchain
 
@@ -28,7 +26,7 @@ Related documents: [README](../README.md), [CONTRIBUTING](../CONTRIBUTING.md), [
 - Toolchain bumps are a dedicated `build:` change that also fixes any new lints. Enforced: review.
 - Edition is 2024 everywhere (`edition.workspace = true`). Nightly features are not used; nightly tools (for example
   `cargo-fuzz`) are optional and never required for a change.
-- Linux only. Building needs JDK 25 and a populated `ref/` (`scripts/setup-ref.sh`); see the README.
+- Linux only. Building needs JDK 25 or newer and a populated `ref/` (`scripts/setup-ref.sh`); see the README.
 
 ## 3. Lints
 
@@ -61,18 +59,17 @@ Enforced: `scripts/check.sh` runs `cargo clippy --workspace --all-targets --all-
   a helper that one of the crate's two targets does not use would otherwise warn. Enforced: review.
 - Test code may `unwrap`, `expect`, `panic!`, index, print and use `dbg!` (`clippy.toml` `allow-*-in-tests`). Tests that
   compare NaN on purpose use `#[expect(clippy::eq_op, reason = "NaN != NaN")]`.
-- Output: library crates log through the `log` crate; `print_stdout` and `print_stderr` are `warn`. The binaries
-  (`mc-server`, `mc-testbot`, `worldcmp`) and examples are exempt through a crate-root
-  `#![allow(clippy::print_stdout, clippy::print_stderr, reason = "command-line binary")]`.
-  Enforced: clippy.
+- Output: library crates log through the `log` crate; `print_stdout` and `print_stderr` are `warn`. The binaries that print
+  (`mc-testbot`, `worldcmp`) and examples are exempt through a crate-root
+  `#![expect(clippy::print_stdout, clippy::print_stderr, reason = "...")]` that says why. Enforced: clippy.
 - Documentation lint policy:
   - Every crate has a crate-level `//!` comment of at least three lines saying what the crate is and which vanilla
-    packages it ports. Enforced: review (a script check is planned).
+    packages it ports. Enforced: review.
   - `#![warn(missing_docs)]` is enabled per crate, and only once that crate has zero missing items. Order: `mc-nbt`,
     `mc-dfu`, `mc-text`, `mc-brigadier`, then others as they reach zero. It is not enabled on `mc-protocol`,
     `mc-data` or the `mc-game-*` crates before 1.0.
   - `unreachable_pub` stays off until the re-export bridge (section 8) is gone.
-  - Links in docs must resolve: `RUSTDOCFLAGS="-D warnings" cargo doc --no-deps`. Enforced: CI once the lanes are wired.
+  - Links in docs must resolve: `RUSTDOCFLAGS="-D warnings" cargo doc --no-deps`. Enforced: review.
 
 ## 4. Panics and untrusted input
 
@@ -101,11 +98,12 @@ Rules:
   have findings.
 - Server handlers never `assert!` or `panic!` on client data; they disconnect or ignore the packet as vanilla does.
   Enforced: review.
-- A panic while handling one packet is contained with `catch_unwind` in every listener phase (login, configuration,
-  status, play) and closes only that connection. For this, `panic = "unwind"` stays set in `[profile.dev]` and
-  `[profile.release]`. Enforced: review.
-- Each phase gets one deterministic hostile-packet test: send a malformed packet, assert the connection is closed and
-  the server still accepts new connections. Enforced: review. These tests are not written yet.
+- A panic while handling one packet is contained and closes only that connection: the connection task wraps the
+  handshake, status, login and configuration phases in one `catch_unwind` guard, and the play packet dispatch has its
+  own. For this, `panic = "unwind"` stays set in `[profile.dev]` and `[profile.release]`. Enforced: review and the
+  panic-injection test.
+- Each pre-play phase (handshake, status, login, configuration) has one deterministic hostile-packet test: send a
+  malformed packet, assert the connection is closed and the server still accepts new connections. Enforced: review.
 - Fuzzing (`cargo-fuzz`, nightly) is optional and never gates a pull request. The existing fixture corpora are the
   seeds for fuzz targets.
 
@@ -124,7 +122,9 @@ Rules:
   errors, log lines players see), `Display` is identical to vanilla's text. Enforced: review.
 - No new `Result<_, String>` in public signatures of `mc-nbt`, `mc-protocol`, `mc-world` or `mc-core`. Enforced: review.
 - Type names ending in `Exception` are used only for types that have an identically named vanilla class. Enforced: review.
-- `std::process::exit` is called only from `main`. Library code returns an error. Enforced: review.
+- `std::process::exit` is called only from the code of a binary (`main` and its command-line helpers). Library code
+  returns an error. The one exception is `crates/mc-game-core/src/server/watchdog.rs`, which mirrors vanilla's
+  `ServerWatchdog`, which halts the JVM when the server stops ticking. Enforced: review.
 - Large error types are boxed. Enforced: `clippy::result_large_err` (part of `clippy::all`).
 
 ## 7. Naming
@@ -182,7 +182,7 @@ Python:
 Generators (scripts that write fixtures or goldens):
 
 - Start with a `Usage:` line and an `Output: <path>` line in the header comment, and live beside the fixtures they
-  write. Enforced: review now; a check that fails on a missing header is planned.
+  write. Enforced: `scripts/check.sh` fails on a generator without both headers.
 
 ## 10. Comments and docs
 
@@ -193,17 +193,17 @@ Generators (scripts that write fixtures or goldens):
   defect; a single-line quote of a vanilla condition is tolerated, but a prose description is preferred. Name the
   class and method instead. Enforced: review.
 - `TODO`, `FIXME` and similar marker comments carry an issue number (`TODO(#123): ...`). Enforced: review.
-- Prose does not hard-code sizes, counts or percentages that change (number of crates, tests, lines, disk usage).
-  Enforced: review.
+- Prose does not hard-code exact figures that drift (number of crates, tests, files or lines, measured durations).
+  Approximate size hints for a prerequisite (disk, memory) are fine. Enforced: review.
 - One document per purpose: `README.md` (what it is, status, quick start), `CONTRIBUTING.md` (workflow),
-  `ARCHITECTURE.md` (design and conventions), `docs/standards.md` (this file), `docs/testing.md` (test tiers and
-  fixtures), `docs/crate-split.md` (crate layout), `tests/e2e/README.md` (end-to-end harness). Do not add a second
-  document for a purpose that has one.
-- Docs describe what is, not plans. Planned work belongs in issues.
+  `ARCHITECTURE.md` (design, conventions, crate layout), `docs/standards.md` (this file), `docs/testing.md` (test
+  tiers and fixtures), `SECURITY.md` (vulnerability reporting), `tests/e2e/README.md` (end-to-end harness). Do not
+  add a second document for a purpose that has one.
+- Docs describe what is, not plans. Open work is tracked as GitHub issues.
 - A public item that skips vanilla behaviour (a stub that ignores its arguments and returns a default) documents what it
   skips, and the gap is listed in the README status section. Enforced: review.
 - A hook installer or trait with no caller or no implementor is deleted, or wired in the same change. Enforced: review.
-- Doc links resolve: `RUSTDOCFLAGS="-D warnings" cargo doc --no-deps`. Enforced: CI once the lanes are wired.
+- Doc links resolve: `RUSTDOCFLAGS="-D warnings" cargo doc --no-deps`. Enforced: review.
 
 ## 11. Syntactic slop checks
 
@@ -232,10 +232,10 @@ directory adds a row there. Enforced: review.
 
 ## Where the tree does not yet meet this document
 
-These are open; CI does not yet enforce them (the checks that are green on `main` are).
+These are open. CI does not enforce them; everything else in this document that says "Enforced" passes on `main`.
 
-- Silencer functions, `let _ = <ident>;` statements and orphan `.rs` files still exist.
 - Decode modules in `mc-protocol`, `mc-nbt`, `mc-world` and the command code still contain `unwrap` and indexing; the
-  per-module `warn` attributes and the hostile-packet tests are not in place.
+  per-module `warn` attributes are not in place. `mc-brigadier`'s `StringReader` panics on an out-of-range cursor like
+  Java's `charAt`; the command dispatcher contains it.
 - `missing_docs` is not enabled on any crate yet, and some crates lack a three-line crate doc.
 - The `mc-game-*` bridge layout is still in place.

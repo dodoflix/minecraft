@@ -9,13 +9,17 @@ transliteration.
 
 | Path | What |
 |---|---|
-| `ref/src/net/minecraft/**` | Decompiled vanilla 26.3 server (Mojang names, unobfuscated). **The spec.** |
-| `ref/src/data/minecraft/**` | Vanilla built-in data pack (recipes, loot, tags, worldgen JSON, …) |
+| `ref/src/net/minecraft/**` | Decompiled vanilla 26.3 server (Mojang names, unobfuscated). **The spec.** Exists only after `scripts/setup-ref.sh --decompile`. |
+| `ref/src/data/minecraft/**`, `ref/src/assets/**` | Vanilla built-in data pack (recipes, loot, tags, worldgen JSON, …) and assets (language files) |
 | `ref/generated/reports/` | Vanilla data-generator reports: `blocks.json`, `registries.json`, `packets.json`, `commands.json`, `datapack.json`, … |
 | `ref/generated/data/` | Data-generator output (same content as the built-in data pack) |
 | `ref/bundle/META-INF/{versions,libraries}` | Unbundled vanilla server jar + its libraries (brigadier, DFU, authlib, …) |
 | `ref/server.jar` | Original vanilla server bundler jar (use it to run the real vanilla server as an oracle) |
-| `ref/vineflower.jar` | Decompiler (e.g. to decompile brigadier / authlib from `ref/bundle`) |
+| `ref/vineflower.jar` | Decompiler used by `--decompile` (and `--libs`, which decompiles brigadier / DataFixerUpper / authlib into `ref/libs/`) |
+| `ref/extracted/` | Code-defined data that the data generator does not report, written by `tools/extractor` |
+
+Run `scripts/setup-ref.sh --decompile` to read the vanilla source. The oracle and fixture-regeneration scripts also
+need it.
 
 ### Vanilla oracle
 
@@ -58,7 +62,7 @@ crates/
   mc-game-ai          concrete goals/behaviors/sensors                          (leaf over core)
   mc-game-animals     animals + ambient mobs                                    (over mc-game-ai)
   mc-game-monsters    monsters, npc, raid parts, creaking heart                 (over mc-game-ai)
-  mc-game             thin facade: re-exports the crates above so `mc_game::...` is the public API; tests, examples
+  mc-game             thin facade: re-exports the crates above so `mc_game::...` is the public API; integration tests, examples
   mc-server           thin binary: CLI args, server.properties, console, JSON-RPC management, starts mc-game
   mc-testbot          headless protocol client (scriptable bot) used by integration/E2E tests
   mc-testkit          test support: guarded launcher for the vanilla server and our own (no workspace dependencies)
@@ -66,17 +70,59 @@ tools/                tools/extractor (Java data extractor), tools/worldcmp (chu
 scripts/              helper scripts (setup-ref, vanilla oracle, real client harness, check.sh)
 ```
 
+The area crates keep the file paths of vanilla-shaped modules (`world/entity/animal/sheep/...` lives under
+`crates/mc-game-animals/src/` and `crates/mc-game-core/src/` holds the rest of `world/entity/`), so a file's crate
+is found by its path.
+
 Dependency direction (lower never imports higher):
 `mc-core, mc-nbt, mc-brigadier` → `mc-text, mc-data, mc-dfu` → `mc-datafix, mc-protocol, mc-world` → `mc-light, mc-worldgen`
 → `mc-game-core` → `mc-game-{blocks,levelgen,cmds,ai}` → `mc-game-{animals,monsters}` (over `ai`) → `mc-game` → `mc-server`;
-`mc-testbot` → `mc-protocol`. Sibling area crates (`blocks`, `levelgen`, `cmds`, `animals`, `monsters`) never depend on each other; the area crates
-never depend on `mc-game`. Rule for gameplay code: it goes into the area crate that owns it (see docs/crate-split.md); code that
-`mc-game-core` itself calls must live in `core`.
+`mc-testbot` → `mc-protocol`.
+
+```
+mc-game ──► mc-game-blocks ───────────────┐
+        ├─► mc-game-levelgen ─────────────┤
+        ├─► mc-game-cmds ─────────────────┼─► mc-game-core ─► mc-core, mc-nbt, mc-protocol, mc-world, ...
+        ├─► mc-game-ai ───────────────────┤
+        ├─► mc-game-animals ──► mc-game-ai ┤
+        └─► mc-game-monsters ─► mc-game-ai ┘
+```
+
+Rules:
+
+- `mc-game-blocks`, `-levelgen`, `-cmds`, `-animals` and `-monsters` never depend on each other; `animals` and `monsters`
+  depend on `ai` and on `core`. No area crate depends on `mc-game`. `blocks`, `levelgen` and `cmds` are leaves: only
+  `mc-game` depends on them. Cargo rejects a cycle; the sibling rule is checked in review.
+- **Where new gameplay code goes:** into the area crate that owns it (a block behaviour or block entity: `blocks`; a
+  feature, structure or placement: `levelgen`; a command: `cmds`; a goal, behaviour or sensor that nothing in `core`
+  names: `ai`; an animal or ambient mob: `animals`; a monster, villager, raid part or creaking heart: `monsters`).
+  Code that `mc-game-core` itself calls, or that the `Entity` trait or the block base names, must live in `core`: it is
+  the spine and cannot depend on the crates above it.
+- **How paths resolve.** An area crate declares only the modules whose files it owns and imports everything else from
+  the crate that owns it by explicit path (`mc_game_core::world::entity::Entity`); `crate::` means the crate's own modules.
+  A module with children in several crates (`world::entity`, `world::level::block::impls`, ...) exists once per crate
+  with the same path and holds only that crate's children. A module's file lives in the lowest crate that owns any file
+  below it, so a `mod x;` never crosses a crate boundary.
+- **The `mc-game` facade** (`crates/mc-game/src/lib.rs`) declares each module that more than one crate contributes to
+  once and re-exports exactly those crates (`pub use mc_game_core::world::entity::*; pub use mc_game_animals::world::entity::*;`);
+  everything else is reached through the parent's re-export. Binaries and integration tests import from `mc_game`.
+- **Macros.** `#[macro_export]` macros of `core` (`register_block_class!`, `update_shape!`, ...) are imported by path
+  (`use mc_game_core::register_block_class;`); a macro used by area crates names its items with `$crate::`.
+- **Visibility.** Items that area crates use from `core` are `pub`, not `pub(crate)`. An inherent `impl Foreign {}` block is
+  not allowed across crates; use an extension trait.
+- **Registration and linking.** `#[distributed_slice]` statics in a crate nothing references are dropped by the linker.
+  `mc-game` re-exports modules of every area crate so that they are linked;
+  `crates/mc-game/tests/golden/registration_counts.rs` asserts the length of every slice and fails if a crate stops being linked.
+- **Integration tests.** Most tests build a `MinecraftServer` or `ServerLevel`, which needs the registrations of the area
+  crates, and those exist only in the linked-everything `mc-game`; those tests live in `crates/mc-game/tests`. A test lives
+  in `mc-game-core` only if it passes there on its own (see [docs/testing.md](docs/testing.md)).
+- **Compile time.** An edit to one block, mob, command or feature recompiles one area crate plus the thin `mc-game`; an edit in
+  `mc-game-core` recompiles the spine and everything above it.
 
 ## mc-game design (contract for gameplay code)
 
 Vanilla's gameplay code is one tightly coupled object graph. It mirrors vanilla structure and is split over `mc-game-core` + the area
-crates (docs/crate-split.md: each area crate imports what it uses from the owning crate by explicit path, and `mc-game`
+crates (see the rules above: each area crate imports what it uses from the owning crate by explicit path, and `mc-game`
 re-exports all of them under the vanilla-shaped `mc_game::world::...` paths). Everything below applies to the crates together.
 
 - **Threads.** One game thread runs `MinecraftServer` exactly like vanilla's main thread (20 TPS loop, task queue
@@ -109,7 +155,8 @@ re-exports all of them under the vanilla-shaped `mc_game::world::...` paths). Ev
 
 Workflow, commit format, local checks and the review checklist are in [CONTRIBUTING.md](CONTRIBUTING.md); code
 standards are in [docs/standards.md](docs/standards.md) and test tiers in [docs/testing.md](docs/testing.md). Builds read
-`ref/extracted`, `ref/generated`, ... so `ref/` must be set up in every checkout (`scripts/setup-ref.sh`).
+`ref/extracted`, `ref/generated`, ... so `ref/` must be set up in every checkout (`scripts/setup-ref.sh`; add `--decompile` to
+read the vanilla source).
 
 ## Conventions
 
