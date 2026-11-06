@@ -32,7 +32,7 @@ def packages():
 
 
 def run_package(package, cargo_args, libtest_args):
-    """Returns {key: "ok" | "FAILED" | "ignored"} for one `cargo test` run."""
+    """Returns ({key: "ok" | "FAILED" | "ignored"}, combined output) for one `cargo test` run."""
     cmd = ["cargo", "test", "--locked", "--no-fail-fast", "-p", package, *cargo_args, "--", *libtest_args]
     print("+", " ".join(cmd), flush=True)
     # colour codes would split "Running" from the rest of the line (CI sets CARGO_TERM_COLOR=always)
@@ -54,9 +54,14 @@ def run_package(package, cargo_args, libtest_args):
         results[f"{package} {binary} <crashed>"] = "FAILED"
     if proc.returncode and "FAILED" not in results.values():
         results[f"{package} <cargo> <exit status>"] = "FAILED"
-    if proc.returncode:
-        print(proc.stdout[-4000:], flush=True)  # the failure details; the full log is megabytes
-    return results
+    return results, proc.stdout
+
+
+def details(key, output):
+    """The libtest failure block of a failed test ("---- name stdout ----" up to the next block), else the output tail."""
+    name = key.split(" ", 2)[2]
+    m = re.search(rf"^---- {re.escape(name)} stdout ----\n(.*?)(?=^---- |^failures:|\Z)", output, re.M | re.S)
+    return m[1].strip()[:6000] if m else output[-4000:]
 
 
 def main():
@@ -68,23 +73,24 @@ def main():
     if oracle:
         libtest_args = ["--ignored", *libtest_args]
 
-    results = {}
+    results, outputs = {}, {}
     for name, directory in sorted(packages().items()):
         if only and name not in only:
             continue
         if oracle and not (directory / "tests" / "oracle" / "main.rs").exists():
             continue
-        results |= run_package(name, ["--test", "oracle"] if oracle else [], libtest_args)
+        results[name], outputs[name] = run_package(name, ["--test", "oracle"] if oracle else [], libtest_args)
 
     known = set()
     if KNOWN.exists():
         known = {l.strip() for l in KNOWN.read_text().splitlines() if l.strip() and not l.startswith("#")}
+    results = {k: v for r in results.values() for k, v in r.items()}
     failed = {k for k, v in results.items() if v == "FAILED"}
     new = sorted(failed - known)
     for k in sorted(k for k in known if results.get(k) == "ok"):
         print(f"now passing, delete from tests/known-failures.txt: {k}")
     for k in new:
-        print(f"NEW FAILURE: {k}")
+        print(f"\nNEW FAILURE: {k}\n{details(k, outputs[k.split(' ', 1)[0]])}")
     print(f"{len(results)} tests, {len(failed)} failed, {len(failed) - len(new)} known, {len(new)} new")
     return 1 if new else 0
 
