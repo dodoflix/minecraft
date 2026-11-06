@@ -175,10 +175,10 @@ pub fn optional_empty_map<A: 'static>(codec: &Codec<A>) -> Codec<Option<A>> {
             Some(a) => e.encode(ops, a, prefix),
         },
         move |ops, input| {
-            if let DataResult::Success(m) = ops.get_map(input) {
-                if m.entries().is_empty() {
-                    return DataResult::success((None, input.clone()));
-                }
+            if let DataResult::Success(m) = ops.get_map(input)
+                && m.entries().is_empty()
+            {
+                return DataResult::success((None, input.clone()));
             }
             d.decode(ops, input).map(|(a, r)| (Some(a), r))
         },
