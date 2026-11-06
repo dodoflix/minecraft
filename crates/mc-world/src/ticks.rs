@@ -1,5 +1,5 @@
 //! Scheduled block/fluid ticks (vanilla `net.minecraft.world.ticks`): `TickPriority`, `SavedTick` (+ its NBT codec),
-//! `ScheduledTick`, `ProtoChunkTicks`, `LevelChunkTicks`, `LevelTicks`, `WorldGenTickAccess`, `BlackholeTickAccess`
+//! `ScheduledTick`, `ProtoChunkTicks`, `LevelChunkTicks`, `LevelTicks`, `BlackholeTickAccess`
 //! and the `ChunkAccess.PackedTicks` record.
 //!
 //! Deviations forced by Rust ownership (behaviour is otherwise 1:1, including iteration orders):
@@ -320,46 +320,6 @@ impl<T> TickAccess<T> for BlackholeTickAccess {
 impl<T> TickContainerAccess<T> for BlackholeTickAccess {}
 
 impl<T> LevelTickAccess<T> for BlackholeTickAccess {
-    fn will_tick_this_tick(&mut self, _pos: &BlockPos, _ty: T) -> bool {
-        false
-    }
-}
-
-/// The `Function<BlockPos, TickContainerAccess<T>>` of `WorldGenTickAccess`.
-pub trait TickContainerGetter<T> {
-    fn container(&self, pos: &BlockPos) -> &dyn TickContainerAccess<T>;
-    fn container_mut(&mut self, pos: &BlockPos) -> &mut dyn TickContainerAccess<T>;
-}
-
-/// `WorldGenTickAccess`: forwards to the container owning the position; never ticks.
-pub struct WorldGenTickAccess<G> {
-    container_getter: G,
-}
-
-impl<G> WorldGenTickAccess<G> {
-    pub fn new(container_getter: G) -> Self {
-        Self { container_getter }
-    }
-}
-
-impl<T, G: TickContainerGetter<T>> TickAccess<T> for WorldGenTickAccess<G> {
-    fn schedule(&mut self, tick: ScheduledTick<T>) {
-        let pos = tick.pos;
-        self.container_getter.container_mut(&pos).schedule(tick);
-    }
-
-    fn has_scheduled_tick(&self, pos: &BlockPos, ty: T) -> bool {
-        self.container_getter
-            .container(pos)
-            .has_scheduled_tick(pos, ty)
-    }
-
-    fn count(&self) -> usize {
-        0
-    }
-}
-
-impl<T, G: TickContainerGetter<T>> LevelTickAccess<T> for WorldGenTickAccess<G> {
     fn will_tick_this_tick(&mut self, _pos: &BlockPos, _ty: T) -> bool {
         false
     }
