@@ -1,15 +1,25 @@
 #!/usr/bin/env bash
-# Regenerates crates/mc-game/tests/fixtures/menu_golden.txt from the vanilla classes (needs tools/extractor/build for Setup.bootstrap).
+# Regenerates the menu, item, container-menu and beacon goldens from the vanilla classes.
+# Usage:
+#   scripts/golden-menu.sh
+#
+# Output: crates/mc-game/tests/fixtures/{menu,item,container_menu,beacon}_golden.txt (each replaced only when its generator succeeds)
+# Needs: java, ref/ (scripts/setup-ref.sh) and the extractor build for Setup.bootstrap (scripts/extract.sh; MC_EXTRACTOR_BUILD overrides its directory).
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-CP="$("$ROOT/scripts/vanilla-cp.sh")"
-EXTRACTOR="${EXTRACTOR_BUILD:-$ROOT/tools/extractor/build}"
+# shellcheck source=scripts/lib.sh
+. "$ROOT/scripts/lib.sh"
+help_flag "$@"
+need java
+export MC_EXTRA_CP="${MC_EXTRACTOR_BUILD:-$ROOT/tools/extractor/build}"
 F="$ROOT/crates/mc-game/tests/fixtures"
-java -cp "$EXTRACTOR:$CP" "$F/MenuGolden.java" > "$F/menu_golden.txt"
+VJ="$ROOT/scripts/vanilla-java.sh"
+items() { quiet "$VJ" "$F/ItemGolden.java" | grep -E '^(tool|use) '; }
+"$VJ" -o "$F/menu_golden.txt" "$F/MenuGolden.java"
 wc -l "$F/menu_golden.txt"
-java -cp "$EXTRACTOR:$CP" "$F/ItemGolden.java" 2>/dev/null | grep -E '^(tool|use) ' > "$F/item_golden.txt"
+to_file "$F/item_golden.txt" items
 wc -l "$F/item_golden.txt"
-java -cp "$EXTRACTOR:$CP" "$F/ContainerMenuGolden.java" > "$F/container_menu_golden.txt"
+"$VJ" -o "$F/container_menu_golden.txt" "$F/ContainerMenuGolden.java"
 wc -l "$F/container_menu_golden.txt"
-java -cp "$EXTRACTOR:$CP" "$F/BeaconGolden.java" > "$F/beacon_golden.txt" 2>/dev/null
+quiet "$VJ" -o "$F/beacon_golden.txt" "$F/BeaconGolden.java"
 wc -l "$F/beacon_golden.txt"

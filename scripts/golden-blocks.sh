@@ -1,9 +1,17 @@
 #!/usr/bin/env bash
-# Regenerates crates/mc-data/tests/fixtures/block_golden.json from the vanilla classes (needs ref/ and scripts/extract.sh's build).
+# Regenerates the block golden from the vanilla block classes.
+# Usage:
+#   scripts/golden-blocks.sh
+#
+# Output: crates/mc-data/tests/fixtures/block_golden.json (replaced only when the generator succeeds)
+# Needs: java, ref/ (scripts/setup-ref.sh) and the extractor build (scripts/extract.sh; MC_EXTRACTOR_BUILD overrides its directory).
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-CP="$("$ROOT/scripts/vanilla-cp.sh")"
+# shellcheck source=scripts/lib.sh
+. "$ROOT/scripts/lib.sh"
+help_flag "$@"
+need java
 F="$ROOT/crates/mc-data/tests/fixtures"
 cd "$ROOT"
-java -cp "$ROOT/tools/extractor/build:$CP" "$F/GoldenBlocks.java" "$F/block_golden.json" >/dev/null 2>&1
+quiet env MC_EXTRA_CP="${MC_EXTRACTOR_BUILD:-$ROOT/tools/extractor/build}" "$ROOT/scripts/vanilla-java.sh" -o "$F/block_golden.json" "$F/GoldenBlocks.java" "$F/block_golden.json" >/dev/null
 ls -la "$F/block_golden.json"

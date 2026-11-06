@@ -1,4 +1,13 @@
+#!/usr/bin/env python3
+"""Prints Data.spawn of a level.dat (gzip-compressed NBT), for scripts/world-spawn-check.sh.
+
+Usage: scripts/level-dat-spawn.py PATH_TO_level.dat
+"""
 import gzip,struct,sys
+
+if sys.argv[1:2] in (["-h"], ["--help"]):
+    print(__doc__)
+    sys.exit(0)
 def rd(f,t):
     if t==1: return struct.unpack('>b',f.read(1))[0]
     if t==2: return struct.unpack('>h',f.read(2))[0]

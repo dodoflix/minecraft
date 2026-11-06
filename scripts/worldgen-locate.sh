@@ -2,11 +2,18 @@
 # Find interesting worldgen locations with the REAL vanilla server (`/locate structure`) for the given seeds and print
 # `seed dim structure x z` lines (x z = block coordinates, y is ~). Used to (re)generate scripts/worldgen-diff-areas.txt:
 #
-#   scripts/worldgen-locate.sh SEED... >> scripts/worldgen-diff-areas.txt
+#   Usage: scripts/worldgen-locate.sh SEED... >> scripts/worldgen-diff-areas.txt
 #
-# Env: LOCATE_PORT (default 25598). Takes a few minutes per seed (every search generates structure starts).
+# Output: `seed dim structure x z` lines on stdout (appended to scripts/worldgen-diff-areas.txt by the redirect above, never truncating it).
+# Env: LOCATE_PORT (default 25598), MC_ACCEPT_EULA=1 (starts the vanilla server). Takes a few minutes per seed (every search generates
+# structure starts).
+# Needs: java, ref/ (scripts/setup-ref.sh).
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+# shellcheck source=scripts/lib.sh
+. "$ROOT/scripts/lib.sh"
+help_flag "$@"
+need java
 VS="$ROOT/scripts/vanilla-server.sh"
 PORT="${LOCATE_PORT:-25598}"
 OVERWORLD='#minecraft:village minecraft:stronghold minecraft:mansion minecraft:ancient_city minecraft:trial_chambers minecraft:pillager_outpost

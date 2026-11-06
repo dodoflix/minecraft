@@ -15,9 +15,13 @@
 # Env VANILLA_JVM_OPTS: extra JVM flags (e.g. "-Dmax.bg.threads=1").
 # Env MC_ACCEPT_EULA=1 is required to start: it writes eula.txt, i.e. accepts the Minecraft EULA in your name.
 # Defaults: online-mode=false, enforce-secure-profile=false, white-list=false, spawn-protection=0.
+# Needs: java, ref/ (scripts/setup-ref.sh).
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+# shellcheck source=scripts/lib.sh
+. "$ROOT/scripts/lib.sh"
+help_flag "$@"
 die() { echo "vanilla-server: $*" >&2; exit 1; }
 dir_of() { echo "$ROOT/run/servers/$1"; }
 pid_of() { cat "$(dir_of "$1")/server.pid" 2>/dev/null || true; }
@@ -25,11 +29,13 @@ alive() { local p; p="$(pid_of "$1")"; [[ -n "$p" ]] && kill -0 "$p" 2>/dev/null
 
 cmd="${1:-}"; shift || true
 name="${1:-}"; shift || true
-[[ -n "$cmd" && -n "$name" ]] || die "usage: $0 start|cmd|wait|log|stop|status NAME ..."
+[[ -n "$cmd" && -n "$name" ]] || { usage >&2; exit 1; }
+[[ "$name" =~ ^[A-Za-z0-9][A-Za-z0-9._-]*$ ]] || die "bad NAME: $name"
 D="$(dir_of "$name")"
 
 case "$cmd" in
 start)
+  need java mkfifo setsid
   port=25565 seed="" level_type="minecraft:normal" vd=6 sd=6 gm=creative diff=peaceful reset=0 xmx=2G
   declare -A extra=()
   while (($#)); do
@@ -49,10 +55,10 @@ start)
     esac
   done
   ! alive "$name" || die "$name already running (pid $(pid_of "$name"))"
-  [[ "${MC_ACCEPT_EULA:-}" == 1 ]] || die "starting the vanilla server accepts the Minecraft EULA (https://aka.ms/MinecraftEULA) in your name: set MC_ACCEPT_EULA=1 if you accept it"
+  require_eula
   ((reset)) && rm -rf "$D"
   mkdir -p "$D"
-  echo "eula=true" > "$D/eula.txt"
+  write_eula "$D"
   {
     echo "server-port=$port"
     echo "online-mode=false"

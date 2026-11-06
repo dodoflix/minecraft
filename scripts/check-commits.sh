@@ -13,13 +13,16 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+# shellcheck source=scripts/lib.sh
+. "$ROOT/scripts/lib.sh"
+help_flag "$@"
+need git cargo python3
 cd "$ROOT"
 
 TITLE="" RANGE=""
 while [ $# -gt 0 ]; do
   case "$1" in
     --title) [ $# -ge 2 ] || { echo "--title needs a value" >&2; exit 2; }; TITLE=$2; shift 2 ;;
-    -h | --help) sed -n '2,11p' "$0"; exit 0 ;;
     -*) echo "unknown option: $1" >&2; exit 2 ;;
     *) RANGE=$1; shift ;;
   esac

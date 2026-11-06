@@ -63,9 +63,16 @@
 #   scripts/worldgen-diff.sh --seed 12345 --radius 4 --sides vanilla,vanilla --out run/wgdiff/sanity   # must be IDENTICAL
 #   scripts/worldgen-diff.sh --seed 1 --dims nether,end --center 0,0 --radius 6 --out run/wgdiff/nether-end
 #   (curated interesting places: scripts/worldgen-diff-areas.txt, `seed dim structure x z`)
+#
+# Needs: java, python3, cargo, sha1sum, ref/ (scripts/setup-ref.sh), MC_ACCEPT_EULA=1. Output goes under run/ (--out must be inside run/).
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+# shellcheck source=scripts/lib.sh
+. "$ROOT/scripts/lib.sh"
+help_flag "$@"
+need java python3 cargo sha1sum timeout
+require_eula
 die() { echo "worldgen-diff: $*" >&2; exit 2; }
 log() { echo "[worldgen-diff] $*" >&2; }
 
@@ -123,6 +130,7 @@ for s in "$SIDE_A" "$SIDE_B"; do [[ "$s" == vanilla || "$s" == ours ]] || die "-
 CX=$(( ${CENTER%,*} >> 4 )) CZ=$(( ${CENTER#*,} >> 4 ))   # arithmetic shift = floorDiv(x, 16)
 [[ -n "$OUT" ]] || OUT="$ROOT/run/wgdiff/$SEED-${DIMS//,/+}-${CX}_$CZ"
 mkdir -p "$OUT"; OUT="$(cd "$OUT" && pwd)"
+[[ "$OUT" == "$ROOT"/run/* ]] || die "--out must be inside $ROOT/run/ (the side directories are wiped): $OUT"
 X1=$((CX - RADIUS)) X2=$((CX + RADIUS)) Z1=$((CZ - RADIUS)) Z2=$((CZ + RADIUS))
 
 dim_id() { case "$1" in overworld) echo minecraft:overworld;; nether|the_nether) echo minecraft:the_nether;; end|the_end) echo minecraft:the_end;; *:*) echo "$1";; *) die "unknown dimension $1";; esac; }
@@ -160,7 +168,7 @@ max-players=$3
 pause-when-empty-seconds=-1
 motd=worldgen-diff
 EOF
-  echo "eula=true" > "$1/eula.txt"
+  write_eula "$1"
 }
 
 # --- generation by commands ---------------------------------------------------------------------------------------
@@ -235,7 +243,9 @@ run_side() {   # run_side LABEL KIND
     "$vs" stop "$name" >/dev/null </dev/null 2>&1
     cp -a "$sd/world" "$d/world"; cp -a "$sd/server.properties" "$sd/logs" "$d/"; rm -rf "$sd"
     if [[ "$CACHE" == 1 ]]; then   # complete worlds only: built aside, then renamed
-      rm -rf "$cache.tmp"; mkdir -p "$cache.tmp"; cp -a "$d/world" "$d/server.properties" "$d/logs" "$cache.tmp/"; rm -rf "$cache"; mv "$cache.tmp" "$cache"
+      local tmp; mkdir -p "$(dirname "$cache")"; tmp="$(mktemp -d "$cache.XXXXXX")"
+      cp -a "$d/world" "$d/server.properties" "$d/logs" "$tmp/"
+      mv -T "$tmp" "$cache" 2>/dev/null || rm -rf "$tmp"   # another run stored the same world first
     fi
   else
     if [[ -z "$BIN" ]]; then   # always: stays current (incremental)

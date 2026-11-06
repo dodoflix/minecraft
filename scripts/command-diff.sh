@@ -56,9 +56,15 @@
 #   plus the vanilla commands we do not register yet. `--tree` fails on a differing command or extra command, not on
 #   missing ones; `--tree-strict` also fails on missing commands and requires the packets to be equal after canonical
 #   gamerule ordering (the final goal, see crates/mc-game/tests/golden/command_tree_golden.rs `tree_equals_vanilla_full`).
+# Needs: java, cargo, ref/ (scripts/setup-ref.sh), MC_ACCEPT_EULA=1.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+# shellcheck source=scripts/lib.sh
+. "$ROOT/scripts/lib.sh"
+help_flag "$@"
+need java cargo
+require_eula
 BUILD=1 BIN=""
 ARGS=()
 while (($#)); do

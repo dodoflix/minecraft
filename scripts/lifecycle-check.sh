@@ -7,8 +7,14 @@
 #
 # Output: diff of the logs (exit 0 iff identical after normalization, vanilla-only worker-thread noise ignored),
 # "vanilla loaded our world: ok" on success. Scratch dirs: run/servers/lc-ours, run/servers/lc-vanilla, run/servers/lc-reload.
+# Needs: java, ref/, our mc-server binary, MC_ACCEPT_EULA=1.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+# shellcheck source=scripts/lib.sh
+. "$ROOT/scripts/lib.sh"
+help_flag "$@"
+need java mkfifo setsid
+require_eula
 BIN="${MC_SERVER_BIN:-$ROOT/target/gamelifecycle/debug/mc-server}"
 PORT=25590 SEED=12345
 while (($#)); do
@@ -37,7 +43,7 @@ difficulty=peaceful
 level-seed=$SEED
 motd=lifecycle check
 EOF
-echo "eula=true" > "$OURS/eula.txt"
+write_eula "$OURS"
 mkfifo "$OURS/stdin.fifo"
 # shellcheck disable=SC2016  # the inner script expands in the child shell
 (cd "$OURS" && setsid bash -c '

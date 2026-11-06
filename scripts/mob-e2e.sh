@@ -7,10 +7,15 @@
 # Output (DIR default run/mob-e2e/NAME): vanilla.jsonl / ours.jsonl (packet logs), vanilla.obs / ours.obs (`observe` lines), diff.txt
 # (`mc-testbot diff vanilla.jsonl ours.jsonl`) and obs.diff (plain diff of the observation files). Exit 0 iff both diffs are empty
 # (with --sides vanilla only: just records the oracle). Needs: ref/server.jar, java, target/debug/{mc-testbot,mc-server}
-# (`cargo build -p mc-testbot -p mc-server`; MC_SERVER_BIN / MC_TESTBOT_BIN override).
+# (`cargo build -p mc-testbot -p mc-server`; MC_SERVER_BIN / MC_TESTBOT_BIN override). MC_ACCEPT_EULA=1 is required (both servers).
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-[ $# -ge 1 ] || { sed -n 2,12p "$0" >&2; exit 2; }
+# shellcheck source=scripts/lib.sh
+. "$ROOT/scripts/lib.sh"
+help_flag "$@"
+need java mkfifo
+require_eula
+[ $# -ge 1 ] || { usage >&2; exit 2; }
 SCN="$(realpath "$1")"; shift
 NAME="$(basename "$SCN" .scn)"
 SIDES=vanilla,ours; OUT="$ROOT/run/mob-e2e/$NAME"; SEED=12345; DIFFARGS=()
@@ -49,7 +54,7 @@ run_vanilla() {
 run_ours() {
   [ -x "$SERVER" ] || { echo "no mc-server binary: cargo build -p mc-server" >&2; return 1; }
   local d; d="$(mktemp -d)"
-  printf 'eula=true\n' > "$d/eula.txt"
+  write_eula "$d"
   { printf 'online-mode=false\nserver-ip=127.0.0.1\nserver-port=%s\nlevel-seed=%s\nmax-tick-time=-1\nview-distance=4\nsimulation-distance=4\n' "$PORT" "$SEED"
     printf '%s\n' "${PROPS[@]}"; } > "$d/server.properties"
   mkfifo "$d/in"

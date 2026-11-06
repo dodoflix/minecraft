@@ -1,9 +1,17 @@
 #!/usr/bin/env bash
-# Compile-check the in-process oracle Java sources (duplicate `case` labels, missing symbols, ...) against the vanilla classes without
-# running anything: scripts/check-oracle-java.sh [FILE.java ...]   (default: EntityOracleDriver.java + VanillaLevel.java + the other
-# scenario drivers it is used with). Needs ref/ and java. Exit 0 iff everything compiles.
+# Compile-checks the in-process oracle Java sources (duplicate `case` labels, missing symbols, ...) against the vanilla classes
+# without running anything.
+#
+#   scripts/check-oracle-java.sh [FILE.java ...]
+#
+# Default: EntityOracleDriver.java and VanillaLevel.java (crates/mc-game/tests/oracle). Exit 0 iff everything compiles.
+# Needs: java, javac, ref/ with decompiled sources (scripts/setup-ref.sh --decompile).
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+# shellcheck source=scripts/lib.sh
+. "$ROOT/scripts/lib.sh"
+help_flag "$@"
+need java javac
 T="$ROOT/crates/mc-game/tests/oracle"
 CP="$("$ROOT/scripts/vanilla-cp.sh")"
 OUT="$(mktemp -d)"; trap 'rm -rf "$OUT"' EXIT

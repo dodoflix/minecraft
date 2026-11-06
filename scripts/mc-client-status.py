@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
 """Print a JSON verdict for a real-client run directory (run/clients/NAME), parsed from client.out.
 
+Usage: scripts/mc-client-status.py RUN_DIR
+
 Fields: running, connecting, joined, joined_ever, screen, screen_title, game_time, chunks_loaded, disconnected,
 disconnect_reason, decode_errors[], errors[], crashed, crash_report, screenshots[], log.
 `joined` = client has a level + player right now; game_time = client level game time (ticks); chunks_loaded =
 chunks received. Both come from the last "[E2E]" line printed by E2eMain (latched `joined_ever`).
 """
 import glob, json, os, re, sys
+
+if sys.argv[1:2] in (["-h"], ["--help"]):
+    print(__doc__)
+    sys.exit(0)
 
 d = os.path.abspath(sys.argv[1])
 log_path = os.path.join(d, "client.out")

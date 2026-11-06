@@ -11,6 +11,10 @@ import sys
 import tomllib
 from pathlib import Path
 
+if sys.argv[1:2] in (["-h"], ["--help"]):
+    print(__doc__)
+    sys.exit(0)
+
 ROOT = Path(__file__).resolve().parent.parent
 MOD = re.compile(r'^[ \t]*(?:#\[path\s*=\s*"([^"]+)"\]\s*)?(?:pub(?:\([^)]*\))?\s+)?mod\s+(\w+)\s*;', re.M)
 COMMENT = re.compile(r"//[^\n]*|/\*.*?\*/", re.S)

@@ -5,8 +5,14 @@
 #   scripts/lifecycle-e2e.sh [--bin PATH_TO_mc-server] [--port N=25620] [--seconds N=20]
 #
 # Scratch: run/servers/lc-e2e (ours), run/servers/lc-e2e-vanilla (vanilla loading the resulting world).
+# Needs: java, python3, ref/, the e2e client prerequisites of scripts/real-client.sh, our mc-server binary, MC_ACCEPT_EULA=1.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+# shellcheck source=scripts/lib.sh
+. "$ROOT/scripts/lib.sh"
+help_flag "$@"
+need java python3 mkfifo setsid
+require_eula
 BIN="${MC_SERVER_BIN:-$ROOT/target/gamelifecycle/debug/mc-server}"
 PORT=25620 SECS=20
 while (($#)); do
@@ -49,7 +55,7 @@ stop_ours() {
 }
 
 rm -rf "$D"; mkdir -p "$D"
-echo "eula=true" > "$D/eula.txt"
+write_eula "$D"
 cat > "$D/server.properties" <<EOF
 server-port=$PORT
 online-mode=false

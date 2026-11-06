@@ -23,6 +23,10 @@ import subprocess
 import sys
 from pathlib import Path
 
+if sys.argv[1:2] in (["-h"], ["--help"]):
+    print(__doc__)
+    sys.exit(0)
+
 ROOT = Path(__file__).resolve().parent.parent
 KNOWN = ROOT / "tests" / "known-failures.txt"
 # colour codes would split "Running" from the rest of the line (CI sets CARGO_TERM_COLOR=always)

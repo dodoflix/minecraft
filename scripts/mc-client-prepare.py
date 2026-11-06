@@ -2,11 +2,15 @@
 """Download the real 26.3 client (jar, linux libraries, asset index + assets) into a cache dir
 and print the launch classpath (one line) on stdout. Idempotent; verifies sha1.
 
-usage: mc-client-prepare.py CACHE_DIR [--all-assets]
+Usage: scripts/mc-client-prepare.py CACHE_DIR [--all-assets]
 Sound objects (minecraft/sounds/*.ogg) are skipped unless --all-assets: the harness runs without audio.
 """
 import hashlib, json, os, sys, urllib.request
 from concurrent.futures import ThreadPoolExecutor
+
+if sys.argv[1:2] in (["-h"], ["--help"]):
+    print(__doc__)
+    sys.exit(0)
 
 root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 cache = os.path.abspath(sys.argv[1])

@@ -2,8 +2,10 @@
 # The project's checks: one entry point for contributors and CI.
 #
 #   scripts/check.sh [--fast]
+#   scripts/check.sh --list
 #
 #   --fast   skip clippy (the only check that compiles the workspace and needs ref/)
+#   --list   print the index of scripts/: each script and the first line of its header comment
 #
 # Every check runs; the summary lists the failures. A missing tool is a failure, not a skip: exit status is 0 when
 # everything passed, 1 when a check failed, 2 when a required tool is not installed.
@@ -11,13 +13,19 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+# shellcheck source=scripts/lib.sh
+. "$ROOT/scripts/lib.sh"
+help_flag "$@"
+need git python3
 cd "$ROOT"
 
 FAST=0
 case "${1:-}" in
   "") ;;
   --fast) FAST=1 ;;
-  -h | --help) sed -n '2,10p' "$0"; exit 0 ;;
+  --list)
+    for f in scripts/*.sh scripts/*.py; do printf '%-28s %s\n' "${f#scripts/}" "$(sed -n '2s/^# *//p;2s/^"""//p' "$f")"; done
+    exit 0 ;;
   *) echo "unknown option: $1" >&2; exit 2 ;;
 esac
 
@@ -68,6 +76,24 @@ run "no silencer functions (fn _name)" no_match '^\s*(pub(\([a-z]+\))? )?fn _[a-
 run "no 'let _ = ident;' statements" no_match '^\s*let _ = &?[A-Za-z_][A-Za-z0-9_:]*;\s*(//.*)?$'
 run "no commented-out mod/use/fn/let" no_match '^\s*//\s*(pub )?(mod \w+;|use [A-Za-z_][^;]*;|fn \w+|let (mut )?\w+ =)'
 run "every .rs file is in a module tree" python3 scripts/check-modules.py
+
+# Scripts: every generator (fixture/oracle source or golden script) documents how to run it and what it writes, and only
+# scripts/lib.sh writes the EULA acceptance (behind MC_ACCEPT_EULA=1).
+generator_headers() {
+  local f bad=0
+  while IFS= read -r -d '' f; do
+    case $f in
+      *.java) grep -q 'static void main' "$f" || continue ;;
+      *.py) grep -qE '__main__|sys\.argv' "$f" || continue ;;
+    esac
+    for tag in 'Usage:' 'Output:'; do grep -q "$tag" "$f" || { echo "$f: no '$tag' line in the header"; bad=1; }; done
+  done < <(git ls-files -z 'crates/*/tests/*.java' 'crates/*/tests/*.py' 'crates/*/tests/*.sh' \
+    'scripts/golden-*.sh' 'scripts/*-golden.sh' 'scripts/*-oracle.sh' scripts/worldgen-locate.sh)
+  return "$bad"
+}
+eula_only_in_lib() { ! git grep -n 'eula[=]true' -- '*.sh' ':!scripts/lib.sh'; }
+run "generators have Usage:/Output: headers" generator_headers
+run "EULA acceptance only in scripts/lib.sh" eula_only_in_lib
 
 # Provenance (NOTICE): no Mojang sources or assets in the tree.
 mojang_source() { ! git ls-files -z | xargs -0 grep -lIE '^package net\.minecraft\.'; }

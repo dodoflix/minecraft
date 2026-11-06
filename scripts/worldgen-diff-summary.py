@@ -8,6 +8,10 @@ heightmaps, structures = structure_starts + structure_references, entities, tick
 import json, sys
 from pathlib import Path
 
+if sys.argv[1:2] in (["-h"], ["--help"]):
+    print(__doc__)
+    sys.exit(0)
+
 root = Path(__file__).resolve().parent.parent
 args = [a for a in sys.argv[1:] if not a.startswith("--")]
 runs = root / "run/wgdiff"

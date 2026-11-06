@@ -11,8 +11,13 @@
 #   crashed, crash_report, screenshot, log, elapsed_seconds, host, port.
 # Exit code 0 only if joined, still connected at the end, no disconnect, no decode errors, no crash.
 # client_game_time_ticks / chunks_loaded come from scripts/e2e/E2eMain.java (state probe inside the stock client).
+# Needs: python3 and the prerequisites of scripts/real-client.sh.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+# shellcheck source=scripts/lib.sh
+. "$ROOT/scripts/lib.sh"
+help_flag "$@"
+need python3
 host="${1:?HOST}"; port="${2:?PORT}"; shift 2
 secs=15 jt=90 user=E2EBot out="" rd=4 keep=0
 # shellcheck disable=SC2034  # `keep` is read by the EXIT trap below

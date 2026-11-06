@@ -14,25 +14,32 @@
 # start opts: --width N (854) --height N (480) --render-distance N (4) --xmx 2G --option key:value (extra options.txt line)
 # State lives in run/clients/NAME/{game,client.out,pid,display}. client.out = JVM stdout+stderr = the client log
 # (the stock client has no log file without the launcher's log4j config). Each start wipes old logs/screenshots/crash reports.
+# Needs: python3; java, javac, gamescope, xdotool for start/screenshot/key. The run/ directory is created on first use.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+# shellcheck source=scripts/lib.sh
+. "$ROOT/scripts/lib.sh"
+help_flag "$@"
 CACHE="$ROOT/run/client-cache"
 die() { echo "real-client: $*" >&2; exit 1; }
 D_OF() { echo "$ROOT/run/clients/$1"; }
 alive() { local p; p="$(cat "$(D_OF "$1")/pid" 2>/dev/null || true)"; [[ -n "$p" ]] && kill -0 "$p" 2>/dev/null; }
 display_of() { cat "$(D_OF "$1")/display" 2>/dev/null || die "client $1 has no display yet (not started?)"; }
 
+need python3
 prepare() { python3 "$ROOT/scripts/mc-client-prepare.py" "$CACHE" 2>"$ROOT/run/client-prepare.log"; }
 
 cmd="${1:-}"; shift || true
 if [[ "$cmd" == prepare ]]; then prepare >/dev/null; echo "client ready in $CACHE"; exit 0; fi
 name="${1:-}"; shift || true
-[[ -n "$cmd" && -n "$name" ]] || die "usage: $0 prepare|start|screenshot|status|wait|key|log|stop NAME ..."
+[[ -n "$cmd" && -n "$name" ]] || { usage >&2; exit 1; }
+[[ "$name" =~ ^[A-Za-z0-9][A-Za-z0-9._-]*$ ]] || die "bad NAME: $name"
 D="$(D_OF "$name")"
 
 case "$cmd" in
 start)
+  need java javac python3 gamescope xdotool setsid
   user="${1:?USERNAME}"; addr="${2:?HOST:PORT}"; shift 2
   w=854 h=480 rd=4 xmx=2G; extra=()
   while (($#)); do

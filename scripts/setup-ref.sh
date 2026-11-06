@@ -11,6 +11,10 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+# shellcheck source=scripts/lib.sh
+. "$ROOT/scripts/lib.sh"
+help_flag "$@"
+need curl unzip jq java javac sha1sum
 REF="$ROOT/ref"
 VERSION="26.3"
 VINEFLOWER_URL="https://repo1.maven.org/maven2/org/vineflower/vineflower/1.11.1/vineflower-1.11.1.jar"
@@ -27,9 +31,6 @@ for a in "$@"; do
   esac
 done
 
-for tool in curl unzip jq java javac sha1sum; do
-  command -v "$tool" >/dev/null || { echo "missing required tool: $tool" >&2; exit 1; }
-done
 mkdir -p "$REF"
 
 log() { echo "[setup-ref] $*"; }
