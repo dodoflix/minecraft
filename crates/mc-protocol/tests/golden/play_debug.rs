@@ -63,7 +63,10 @@ fn all(g: &Golden, name: &str, event: DebugSubscriptionEvent, salt: i32) {
     );
 }
 
-#[allow(clippy::too_many_arguments)]
+#[allow(
+    clippy::too_many_arguments,
+    reason = "builds one fixture node from every field of the wire struct"
+)]
 fn node(
     x: i32,
     y: i32,
@@ -116,7 +119,7 @@ fn subscription_values(g: &Golden) {
         1,
     );
     all(
-        &g,
+        g,
         "bees_full",
         E::Bees(DebugBeeInfo {
             hive_pos: Some(bp(10, 64, -10)),
@@ -179,7 +182,7 @@ fn subscription_values(g: &Golden) {
         1,
     );
     all(
-        &g,
+        g,
         "brains_full",
         E::Brains(DebugBrainDump {
             activities: strs(&["core", "idle", "work"]),
@@ -202,7 +205,7 @@ fn subscription_values(g: &Golden) {
         2,
     );
     all(
-        &g,
+        g,
         "brains_warden",
         E::Brains(DebugBrainDump {
             activities: strs(&["fight"]),
@@ -212,7 +215,7 @@ fn subscription_values(g: &Golden) {
         3,
     );
     all(
-        &g,
+        g,
         "brains_extremes",
         E::Brains(DebugBrainDump {
             activities: strs(&[""]),
@@ -262,7 +265,7 @@ fn subscription_values(g: &Golden) {
         1,
     );
     all(
-        &g,
+        g,
         "goals_some",
         E::GoalSelectors(DebugGoalInfo {
             goals: vec![
@@ -310,7 +313,7 @@ fn subscription_values(g: &Golden) {
         }
     };
     all(
-        &g,
+        g,
         "paths_empty",
         E::EntityPaths(path(
             false,
@@ -324,7 +327,7 @@ fn subscription_values(g: &Golden) {
         1,
     );
     all(
-        &g,
+        g,
         "paths_types",
         E::EntityPaths(DebugPathInfo {
             max_node_distance: 16.0,
@@ -344,7 +347,7 @@ fn subscription_values(g: &Golden) {
         2,
     );
     all(
-        &g,
+        g,
         "paths_neg",
         E::EntityPaths(DebugPathInfo {
             max_node_distance: f32::MAX,
@@ -459,7 +462,7 @@ fn subscription_values(g: &Golden) {
     all(g, "raids_empty", E::Raids(vec![]), 1);
     all(g, "raids_one", E::Raids(vec![bp(1, 2, 3)]), 2);
     all(
-        &g,
+        g,
         "raids_many",
         E::Raids(vec![
             bp(1, 2, 3),
@@ -482,7 +485,7 @@ fn subscription_values(g: &Golden) {
         2,
     );
     all(
-        &g,
+        g,
         "structures_pieces",
         E::Structures(vec![
             DebugStructureInfo {
@@ -545,7 +548,7 @@ fn subscription_values(g: &Golden) {
         );
     }
     all(
-        &g,
+        g,
         "gameevent_extreme",
         E::GameEvents(DebugGameEventInfo {
             event: GameEvent::from_id(2).unwrap(),

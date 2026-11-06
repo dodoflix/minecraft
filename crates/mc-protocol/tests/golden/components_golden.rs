@@ -33,7 +33,7 @@ fn install_registries() {
             .filter(|n| !n.is_empty())
             .map(|n| mc_core::ident::Identifier::parse(n).unwrap())
             .collect();
-        ctx = ctx.with_registry(&key.to_string(), names);
+        ctx = ctx.with_registry(key, names);
     }
     let _ = registry_context::set(ctx);
 }
@@ -462,13 +462,12 @@ fn components_golden() {
                 continue;
             }
             // Components of families that are not implemented yet are skipped (see `all_components_defined`).
-            if matches!(f[0], "json" | "snbt" | "wire") {
-                if let Some(id) = DataComponentType::by_name(f[1]) {
-                    if try_def(id).is_none() {
-                        skipped += 1;
-                        continue;
-                    }
-                }
+            if matches!(f[0], "json" | "snbt" | "wire")
+                && let Some(id) = DataComponentType::by_name(f[1])
+                && try_def(id).is_none()
+            {
+                skipped += 1;
+                continue;
             }
             total += 1;
             let expected = if f[3].starts_with("ERR") { "ERR" } else { f[3] };

@@ -6,7 +6,6 @@
 //! (`ClientboundMoveEntityPosPacket`, `ServerboundMovePlayerPosRotPacket`). Registry-holder fields of *data-driven*
 //! registries (enchantments, biomes, dimension types, variants, ...) carry the raw registry id (`i32`), static registries use
 //! the typed `mc_data` ids. Codec-backed NBT payloads whose Rust model lives in a later layer are raw [`mc_nbt::Tag`]s.
-use mc_nbt::Tag;
 
 use super::common::{common_packets, cookie_packets};
 use crate::codec::Holder;

@@ -177,6 +177,10 @@ pub struct ServerLinksDialog {
 
 /// `net.minecraft.server.dialog.Dialog`.
 #[derive(Clone, Debug, PartialEq)]
+#[expect(
+    clippy::large_enum_variant,
+    reason = "dialog variants are held by value; ServerLinks/MultiAction embed full DialogBase structs and callers match them unboxed"
+)]
 pub enum Dialog {
     Notice(NoticeDialog),
     ServerLinks(ServerLinksDialog),

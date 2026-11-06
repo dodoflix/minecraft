@@ -37,11 +37,7 @@ fn check_lenient<P: Packet + Debug>(g: &Golden, label: &str) {
     let mut out = Vec::new();
     mc_protocol::codec::write_varint(&mut out, P::ID);
     p.encode(&mut out).unwrap();
-    assert_eq!(
-        hex(&out),
-        hex(&g.bytes(&format!("norm_{label}"))[..]),
-        "{label}"
-    );
+    assert_eq!(hex(&out), hex(g.bytes(&format!("norm_{label}"))), "{label}");
 }
 
 fn simple(g: &Golden) {
@@ -1127,9 +1123,9 @@ fn recipes(g: &Golden) {
 
     // recipe book add
     let mut entries = vec![];
-    for (n, cat) in RecipeBookCategory::iter().enumerate() {
+    for cat in RecipeBookCategory::iter() {
         for display in [d("shapeless"), d("furnace")] {
-            let n = entries.len() as i32 + 0 * n as i32;
+            let n = entries.len() as i32;
             let crafting_requirements = match n % 3 {
                 0 => None,
                 1 => Some(vec![]),

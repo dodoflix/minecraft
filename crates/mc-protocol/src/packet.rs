@@ -132,7 +132,7 @@ macro_rules! packet_enum {
     ($(#[$m:meta])* $vis:vis enum $name:ident { $($variant:ident($ty:ty)),* $(,)? }) => {
         $(#[$m])*
         #[derive(Debug, Clone, PartialEq)]
-        #[allow(clippy::large_enum_variant)]
+        #[allow(clippy::large_enum_variant, reason = "packet enums hold their payload structs by value; sizes differ per packet family")]
         $vis enum $name { $($variant($ty)),* }
 
         impl $name {

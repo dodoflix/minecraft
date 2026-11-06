@@ -545,10 +545,10 @@ impl Decode for ClientboundCommandsPacket {
         let buildable = is_acyclic(
             n,
             |e, f| {
-                if e.flags & COMMAND_NODE_REDIRECT != 0 {
-                    if let Ok(r) = usize::try_from(e.redirect) {
-                        f(r)
-                    }
+                if e.flags & COMMAND_NODE_REDIRECT != 0
+                    && let Ok(r) = usize::try_from(e.redirect)
+                {
+                    f(r)
                 }
             },
             &entries,

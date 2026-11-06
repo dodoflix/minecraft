@@ -35,15 +35,15 @@ mod item_holder_set {
     pub fn decode(input: &mut &[u8]) -> DecodeResult<HolderSet> {
         // Vanilla resolves each id while reading; here the ids are checked after the whole set was read.
         let set = HolderSet::decode(input)?;
-        if let HolderSet::Direct(ids) = &set {
-            if let Some(bad) = ids.iter().find(|id| {
+        if let HolderSet::Direct(ids) = &set
+            && let Some(bad) = ids.iter().find(|id| {
                 u32::try_from(**id)
                     .ok()
                     .and_then(mc_data::Item::from_id)
                     .is_none()
-            }) {
-                return Err(DecodeError::Message(format!("No value with id {bad}")));
-            }
+            })
+        {
+            return Err(DecodeError::Message(format!("No value with id {bad}")));
         }
         Ok(set)
     }
@@ -83,6 +83,10 @@ pub struct TrimPattern {
 /// Variants are named after the vanilla classes without the `SlotDisplay` suffix; `Dyed` is `DyedSlotDemo`.
 #[derive(Debug, Clone, PartialEq, Encode, Decode)]
 #[mc(error = "No value with id {}")]
+#[expect(
+    clippy::large_enum_variant,
+    reason = "variants carry inline ItemStack/Component/Holder payloads of very different sizes; boxing would change the public variant types"
+)]
 pub enum SlotDisplay {
     /// `SlotDisplay.Empty`
     Empty,
@@ -200,6 +204,10 @@ pub struct SmithingRecipeDisplay {
 /// `RecipeDisplay.STREAM_CODEC`: VarInt registry id of the display type (`recipe_display` registry order), then its fields.
 #[derive(Debug, Clone, PartialEq, Encode, Decode)]
 #[mc(error = "No value with id {}")]
+#[expect(
+    clippy::large_enum_variant,
+    reason = "each variant is a by-value recipe display struct of a different size; boxing would change the public variant types"
+)]
 pub enum RecipeDisplay {
     CraftingShapeless(ShapelessCraftingRecipeDisplay),
     CraftingShaped(ShapedCraftingRecipeDisplay),

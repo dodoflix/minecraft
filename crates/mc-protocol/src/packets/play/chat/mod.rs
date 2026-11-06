@@ -27,6 +27,10 @@ use crate::{Decode, Encode, Packet};
 /// `MessageSignature.Packed`: a reference into the 128-entry signature cache (`id`, sent as `id + 1`), or the full
 /// signature (sent as `0` followed by the 256 bytes). `Cached(-1)` is not representable on the wire (it decodes as `Full`).
 #[derive(Debug, Clone, PartialEq, Eq)]
+#[expect(
+    clippy::large_enum_variant,
+    reason = "Full carries the inline 256-byte signature; boxing would change the public variant type"
+)]
 pub enum MessageSignaturePacked {
     Cached(i32),
     Full(MessageSignature),

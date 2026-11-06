@@ -891,7 +891,7 @@ fn var_int(key: ComponentKey<i32>, codec: Codec<i32>) -> ComponentDef {
                 write_varint(out, *v);
                 Ok(())
             },
-            |i| read_varint(i),
+            read_varint,
         )
         .build()
 }
@@ -899,7 +899,7 @@ fn var_int(key: ComponentKey<i32>, codec: Codec<i32>) -> ComponentDef {
 fn float(key: ComponentKey<f32>, codec: Codec<f32>) -> ComponentDef {
     ComponentDef::builder(key)
         .persistent(codec)
-        .network_with(|v, out| v.encode(out), |i| f32::decode(i))
+        .network_with(|v, out| v.encode(out), f32::decode)
         .build()
 }
 
@@ -995,7 +995,7 @@ pub(crate) fn defs(out: &mut Vec<ComponentDef>) {
     out.push(
         ComponentDef::builder(ENCHANTMENT_GLINT_OVERRIDE)
             .persistent(BOOL.clone())
-            .network_with(|v, out| v.encode(out), |i| bool::decode(i))
+            .network_with(|v, out| v.encode(out), bool::decode)
             .build(),
     );
     out.push(
@@ -1024,7 +1024,7 @@ pub(crate) fn defs(out: &mut Vec<ComponentDef>) {
                     write_varint(out, *v);
                     Ok(())
                 },
-                |i| read_varint(i),
+                read_varint,
             )
             .build(),
     );
@@ -1087,10 +1087,7 @@ pub(crate) fn defs(out: &mut Vec<ComponentDef>) {
     out.push(
         ComponentDef::builder(BREAK_SOUND)
             .persistent(SoundEvent::holder_codec())
-            .network_with(
-                |h, out| SoundEvent::encode_holder(h, out),
-                |i| SoundEvent::decode_holder(i),
-            )
+            .network_with(SoundEvent::encode_holder, SoundEvent::decode_holder)
             .build(),
     );
     out.push(

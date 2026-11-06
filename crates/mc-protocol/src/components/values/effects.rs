@@ -91,7 +91,7 @@ pub(crate) fn dec_opt<T>(
     }
 }
 pub(crate) fn enc_sound_opt(v: &Option<Holder<SoundEvent>>, out: &mut Vec<u8>) -> EncodeResult<()> {
-    enc_opt(out, v, |h, o| SoundEvent::encode_holder(h, o))
+    enc_opt(out, v, SoundEvent::encode_holder)
 }
 pub(crate) fn dec_sound_opt(input: &mut &[u8]) -> DecodeResult<Option<Holder<SoundEvent>>> {
     dec_opt(input, SoundEvent::decode_holder)
@@ -165,6 +165,10 @@ string_enum! {
 
 /// `ItemAttributeModifiers.Display`.
 #[derive(Clone, Debug, PartialEq)]
+#[expect(
+    clippy::large_enum_variant,
+    reason = "OverrideText holds a by-value Component; boxing would change the public variant type"
+)]
 pub enum ItemAttributeModifiersDisplay {
     Default,
     Hidden,
@@ -308,7 +312,7 @@ struct DetailsFields {
 
 impl Details {
     fn map_codec_with(this: Codec<Details>) -> MapCodec<Details> {
-        let boxed = this.xmap(Box::new, |b: &Box<Details>| (**b).clone());
+        let boxed = this.xmap(Box::new, |b| (**b).clone());
         mc_dfu::record!(DetailsFields {
             amplifier: mc_dfu::extra::UNSIGNED_BYTE.optional_field_of_default("amplifier", 0),
             duration: INT.optional_field_of_default("duration", 0),

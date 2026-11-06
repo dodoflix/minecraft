@@ -567,7 +567,7 @@ impl PatchedDataComponentMap {
         let idx = self.patch.iter().position(|(k, _)| *k == id);
         let last = if default.is_some() {
             match idx {
-                Some(i) => Some(std::mem::replace(&mut self.patch[i].1, None)),
+                Some(i) => Some(self.patch[i].1.take()),
                 None => {
                     self.patch.push((id, None));
                     None

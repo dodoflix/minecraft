@@ -820,6 +820,10 @@ fn waypoints(g: &Golden) {
             &format!("waypoint/track_azimuth_{s}"),
             &wp(Track, u1(), icon, TrackedWaypointData::Azimuth(1.5707964)),
         );
+        #[expect(
+            clippy::approx_constant,
+            reason = "exact f32 bit pattern of -pi on the wire"
+        )]
         g.check(
             &format!("waypoint/update_azimuth_{s}"),
             &wp(Update, u2(), icon, TrackedWaypointData::Azimuth(-3.1415927)),
@@ -1173,7 +1177,7 @@ fn string_limits() {
     );
     // encoded byte length above 3 * max is rejected before reading
     let mut bytes = mc_protocol::codec::to_bytes(&VarInt(98302)).unwrap();
-    bytes.extend(std::iter::repeat(b'a').take(98302));
+    bytes.extend(std::iter::repeat_n(b'a', 98302));
     assert_eq!(
         err::<ClientboundSetDisplayObjectivePacket>(&[vec![0], bytes].concat()),
         "The received encoded string buffer length is longer than maximum allowed (98302 > 98301)"

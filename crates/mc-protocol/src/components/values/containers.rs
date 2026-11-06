@@ -108,29 +108,32 @@ pub struct Fraction {
     den: i32,
 }
 
-/// `ArithmeticException` as `Err(())`.
-pub type Arith<T> = Result<T, ()>;
+/// `java.lang.ArithmeticException`.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct ArithmeticException;
+
+pub type Arith<T> = Result<T, ArithmeticException>;
 
 fn mul_and_check(x: i32, y: i32) -> Arith<i32> {
-    i32::try_from(i64::from(x) * i64::from(y)).map_err(|_| ())
+    i32::try_from(i64::from(x) * i64::from(y)).map_err(|_| ArithmeticException)
 }
 fn mul_pos_and_check(x: i32, y: i32) -> Arith<i32> {
     // `m > Integer.MAX_VALUE` only
     let m = i64::from(x) * i64::from(y);
     if m > i64::from(i32::MAX) {
-        Err(())
+        Err(ArithmeticException)
     } else {
         Ok(m as i32)
     }
 }
 fn add_and_check(x: i32, y: i32) -> Arith<i32> {
-    i32::try_from(i64::from(x) + i64::from(y)).map_err(|_| ())
+    i32::try_from(i64::from(x) + i64::from(y)).map_err(|_| ArithmeticException)
 }
 
 fn gcd(mut u: i32, mut v: i32) -> Arith<i32> {
     if u == 0 || v == 0 {
         if u == i32::MIN || v == i32::MIN {
-            return Err(());
+            return Err(ArithmeticException);
         }
         return Ok(u.abs() + v.abs());
     }
@@ -150,7 +153,7 @@ fn gcd(mut u: i32, mut v: i32) -> Arith<i32> {
         k += 1;
     }
     if k == 31 {
-        return Err(());
+        return Err(ArithmeticException);
     }
     let mut t = if (u & 1) == 1 { v } else { -(u / 2) };
     loop {
@@ -177,11 +180,11 @@ impl Fraction {
     /// `Fraction.getFraction(n, d)` (not reduced).
     pub fn get(mut num: i32, mut den: i32) -> Arith<Fraction> {
         if den == 0 {
-            return Err(());
+            return Err(ArithmeticException);
         }
         if den < 0 {
             if num == i32::MIN || den == i32::MIN {
-                return Err(());
+                return Err(ArithmeticException);
             }
             num = -num;
             den = -den;
@@ -198,7 +201,7 @@ impl Fraction {
 
     fn reduced(mut num: i32, mut den: i32) -> Arith<Fraction> {
         if den == 0 {
-            return Err(());
+            return Err(ArithmeticException);
         }
         if num == 0 {
             return Ok(Fraction::ZERO);
@@ -209,7 +212,7 @@ impl Fraction {
         }
         if den < 0 {
             if num == i32::MIN || den == i32::MIN {
-                return Err(());
+                return Err(ArithmeticException);
             }
             num = -num;
             den = -den;
@@ -224,7 +227,7 @@ impl Fraction {
     /// `negate`.
     pub fn negate(self) -> Arith<Fraction> {
         if self.num == i32::MIN {
-            return Err(());
+            return Err(ArithmeticException);
         }
         Ok(Fraction {
             num: -self.num,
@@ -235,7 +238,7 @@ impl Fraction {
     /// `invert`.
     pub fn invert(self) -> Arith<Fraction> {
         if self.num == 0 || self.num == i32::MIN {
-            return Err(());
+            return Err(ArithmeticException);
         }
         Ok(if self.num < 0 {
             Fraction {
@@ -265,7 +268,7 @@ impl Fraction {
             let n = if is_add {
                 add_and_check(uvp, upv)?
             } else {
-                i32::try_from(i64::from(uvp) - i64::from(upv)).map_err(|_| ())?
+                i32::try_from(i64::from(uvp) - i64::from(upv)).map_err(|_| ArithmeticException)?
             };
             return Ok(Fraction {
                 num: n,
@@ -278,7 +281,7 @@ impl Fraction {
         let tmodd1 = t.rem_euclid(i128::from(d1)) as i32;
         let d2 = if tmodd1 == 0 { d1 } else { gcd(tmodd1, d1)? };
         let w = t / i128::from(d2);
-        let num = i32::try_from(w).map_err(|_| ())?;
+        let num = i32::try_from(w).map_err(|_| ArithmeticException)?;
         Ok(Fraction {
             num,
             den: mul_pos_and_check(self.den / d1, other.den / d2)?,
@@ -311,7 +314,7 @@ impl Fraction {
     /// `divideBy`.
     pub fn divide_by(self, other: Fraction) -> Arith<Fraction> {
         if other.num == 0 {
-            return Err(());
+            return Err(ArithmeticException);
         }
         self.multiply_by(other.invert()?)
     }
@@ -521,14 +524,14 @@ impl BundleContents {
     /// `weight()` as the `Fraction` (`Err(message)`: nested error or "Excessive total bundle weight").
     pub fn weight_fraction(&self) -> Result<Fraction, String> {
         match self.weight_inner() {
-            Err(()) => Err("Excessive total bundle weight".into()),
+            Err(ArithmeticException) => Err("Excessive total bundle weight".into()),
             Ok(r) => r,
         }
     }
     /// `getWeight(item)` of a single contained item.
     pub fn item_weight_fraction(item: &ItemStackTemplate) -> Result<Fraction, String> {
         match Self::item_weight(item) {
-            Err(()) => Err("Excessive total bundle weight".into()),
+            Err(ArithmeticException) => Err("Excessive total bundle weight".into()),
             Ok(r) => r,
         }
     }
@@ -543,7 +546,9 @@ impl BundleContents {
     }
 
     /// `getWeight(item)`: nested bundle, bees (a hive weighs 1) or `1 / maxStackSize`.
-    fn item_weight(item: &ItemStackTemplate) -> Result<Result<Fraction, String>, ()> {
+    fn item_weight(
+        item: &ItemStackTemplate,
+    ) -> Result<Result<Fraction, String>, ArithmeticException> {
         let proto = item_prototype(item.item);
         if let Some(bundle) = item.components.get(proto, &BUNDLE_CONTENTS) {
             return match bundle.weight_inner()? {
@@ -562,7 +567,7 @@ impl BundleContents {
     }
 
     /// `computeContentWeight`; the outer `Err` is the `ArithmeticException`.
-    fn weight_inner(&self) -> Result<Result<Fraction, String>, ()> {
+    fn weight_inner(&self) -> Result<Result<Fraction, String>, ArithmeticException> {
         let mut weight = Fraction::ZERO;
         for stack in &self.items {
             match Self::item_weight(stack)? {
@@ -576,7 +581,7 @@ impl BundleContents {
     /// `weight()`: `Ok(())` when the total weight is computable (the value itself is not needed by codecs).
     pub fn weight(&self) -> Result<(), String> {
         match self.weight_inner() {
-            Err(()) => Err("Excessive total bundle weight".into()),
+            Err(ArithmeticException) => Err("Excessive total bundle weight".into()),
             Ok(r) => r.map(|_| ()),
         }
     }

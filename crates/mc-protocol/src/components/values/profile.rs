@@ -65,7 +65,7 @@ impl PlayerSkinPatch {
 mod properties {
     use super::*;
 
-    pub fn encode(props: &Vec<Property>, out: &mut Vec<u8>) -> EncodeResult<()> {
+    pub fn encode(props: &[Property], out: &mut Vec<u8>) -> EncodeResult<()> {
         crate::codec::write_properties(out, props)
     }
 

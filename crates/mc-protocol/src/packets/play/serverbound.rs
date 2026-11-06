@@ -417,7 +417,7 @@ macro_rules! move_player_getters {
     (@pick $s:ident none $fb:ident) => { $fb };
     (@pick $s:ident $f:ident $fb:ident) => { $s.$f };
     ($name:ident, has_pos = $has_pos:literal, has_rot = $has_rot:literal, x = $x:tt, y = $y:tt, z = $z:tt, y_rot = $yr:tt, x_rot = $xr:tt) => {
-        #[allow(unused_variables)]
+        #[allow(unused_variables, reason = "the fallback parameter is unused for packets that carry every component")]
         impl $name {
             pub fn get_x(&self, fallback: f64) -> f64 { move_player_getters!(@pick self $x fallback) }
             pub fn get_y(&self, fallback: f64) -> f64 { move_player_getters!(@pick self $y fallback) }
@@ -688,13 +688,7 @@ impl Decode for ServerboundSetStructureBlockPacket {
         let data = read_utf(input, 128)?;
         // `Mth.clamp(float)`: `value < min ? min : Math.min(value, max)`; NaN stays NaN.
         let integrity = f32::decode(input)?;
-        let integrity = if integrity < 0.0 {
-            0.0
-        } else if integrity > 1.0 {
-            1.0
-        } else {
-            integrity
-        };
+        let integrity = integrity.clamp(0.0, 1.0);
         let seed = <i64 as crate::codec::VarEncode>::decode_var(input)?;
         let flags = u8::decode(input)?;
         Ok(Self {

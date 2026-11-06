@@ -64,13 +64,13 @@ fn blocks(g: &Golden) {
             &ClientboundBlockChangedAckPacket { sequence: s },
         );
     }
-    for i in 0..4 {
+    for (i, &block_pos) in pos.iter().enumerate() {
         let progress = if i == 3 { 255 } else { i as u8 * 3 };
         g.check(
             &format!("block_destruction/{i}"),
             &ClientboundBlockDestructionPacket {
                 id: i as i32 * 1000 - 1,
-                pos: pos[i],
+                pos: block_pos,
                 progress,
             },
         );
@@ -769,7 +769,7 @@ fn login_respawn_spawn(g: &Golden) {
     );
 
     let pos = positions();
-    for i in 0..4 {
+    for (i, &block_pos) in pos.iter().enumerate() {
         let dimension = if i % 2 == 0 {
             id("minecraft:overworld")
         } else {
@@ -781,7 +781,7 @@ fn login_respawn_spawn(g: &Golden) {
                 respawn_data: RespawnData {
                     global_pos: GlobalPos {
                         dimension,
-                        pos: pos[i],
+                        pos: block_pos,
                     },
                     yaw: -180.0 + i as f32 * 90.0,
                     pitch: 90.0 - i as f32 * 60.0,

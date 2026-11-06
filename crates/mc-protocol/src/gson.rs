@@ -565,7 +565,7 @@ impl Reader {
     }
 
     fn push(&mut self, new_top: u8) -> RResult<()> {
-        if self.stack.len() - 1 >= DEFAULT_NESTING_LIMIT {
+        if self.stack.len() > DEFAULT_NESTING_LIMIT {
             return Err(ReadErr {
                 eof: false,
                 message: format!(

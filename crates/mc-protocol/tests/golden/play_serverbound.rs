@@ -11,7 +11,7 @@ use mc_core::pos::vec3i::Vec3i;
 use mc_core::rotation::Rotation;
 use mc_protocol::codec::read_varint;
 use mc_protocol::packets::play::*;
-use mc_protocol::{Decode, Encode, Packet};
+use mc_protocol::{Encode, Packet};
 use uuid::Uuid;
 
 const POSITIONS: [(i32, i32, i32); 6] = [
@@ -87,7 +87,12 @@ fn id(s: &str) -> Identifier {
 /// `check` for packets whose float fields may be NaN (`PartialEq` fails): encoding equals vanilla's and decoding vanilla's
 /// bytes re-encodes to the same bytes.
 fn check_bits<P: Packet + PartialEq + std::fmt::Debug>(g: &Golden, label: &str, p: &P) {
-    if p == p {
+    #[expect(
+        clippy::eq_op,
+        reason = "NaN != NaN: self-comparison detects NaN-carrying packets"
+    )]
+    let comparable = p == p;
+    if comparable {
         return g.check(label, p);
     }
     let expected = g.bytes(label);
@@ -241,12 +246,12 @@ fn simple(g: &Golden) {
             &ServerboundClientCommandPacket { action: a },
         );
     }
-    for i in 0..POSITIONS.len() {
+    for (i, &levels) in INTS.iter().take(POSITIONS.len()).enumerate() {
         g.check(
             &format!("jigsaw_generate_{i}"),
             &ServerboundJigsawGeneratePacket {
                 pos: pos(i),
-                levels: INTS[i],
+                levels,
                 keep_jigsaws: i % 2 == 0,
             },
         );

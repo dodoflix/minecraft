@@ -201,6 +201,10 @@ mod optional_unsigned_int {
 /// variants of data-driven registries (variants/sound variants) carry the raw registry id.
 #[derive(Debug, Clone, PartialEq, Encode, Decode)]
 #[mc(error = "Unknown serializer type {}")]
+#[expect(
+    clippy::large_enum_variant,
+    reason = "the 44 serializer values are held inline, a few (ItemStack, Component) are much larger than the scalar ones"
+)]
 pub enum EntityDataValue {
     Byte(i8),
     Int(#[mc(var)] i32),

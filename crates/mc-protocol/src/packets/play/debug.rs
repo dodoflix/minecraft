@@ -258,7 +258,7 @@ impl RedstoneOrientation {
             self.front.get_axis() == Axis::Y
         };
         let front_key = (key as i32) << 1 | self.front.get_axis_direction() as i32;
-        ((self.up.ordinal() as i32) << 2) + front_key << 1 | self.side_bias as i32
+        (((self.up.ordinal() as i32) << 2) + front_key) << 1 | self.side_bias as i32
     }
 
     /// Inverse of [`index`](Self::index); `None` outside `0..48`.
@@ -391,6 +391,10 @@ impl Decode for DebugSubscriptionEvent {
 
 /// `DebugSubscription.Update<?>`: the subscription id, then an optional value (`Optional.empty` clears it client side).
 #[derive(Debug, Clone, PartialEq)]
+#[expect(
+    clippy::large_enum_variant,
+    reason = "Value carries the by-value DebugSubscriptionEvent payload; boxing would change the public variant type"
+)]
 pub enum DebugSubscriptionUpdate {
     /// `emptyUpdate()`. The subscription must have a value codec (not `dedicated_server_tick_time`).
     Empty(mc_data::DebugSubscription),

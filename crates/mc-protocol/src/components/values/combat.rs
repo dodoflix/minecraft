@@ -254,7 +254,7 @@ impl BlocksAttacksDamageReduction {
 impl Encode for BlocksAttacksDamageReduction {
     fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         self.horizontal_blocking_angle.encode(out)?;
-        enc_opt(out, &self.r#type, |s, o| enc_damage_types(s, o))?;
+        enc_opt(out, &self.r#type, enc_damage_types)?;
         self.base.encode(out)?;
         self.factor.encode(out)?;
         Ok(())
@@ -358,7 +358,7 @@ impl Encode for BlocksAttacks {
         self.disable_cooldown_scale.encode(out)?;
         self.damage_reductions.encode(out)?;
         self.item_damage.encode(out)?;
-        enc_opt(out, &self.bypassed_by, |s, o| enc_damage_types(s, o))?;
+        enc_opt(out, &self.bypassed_by, enc_damage_types)?;
         enc_sound_opt(&self.block_sound, out)?;
         enc_sound_opt(&self.disable_sound, out)?;
         Ok(())

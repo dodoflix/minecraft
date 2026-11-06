@@ -286,7 +286,7 @@ impl Encode for Ints {
 }
 impl Decode for Ints {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        decode_bounds(input, |i| i32::decode(i)).map(Ints::new)
+        decode_bounds(input, i32::decode).map(Ints::new)
     }
 }
 impl Encode for Doubles {
@@ -296,7 +296,7 @@ impl Encode for Doubles {
 }
 impl Decode for Doubles {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        decode_bounds(input, |i| f64::decode(i)).map(Doubles::new)
+        decode_bounds(input, f64::decode).map(Doubles::new)
     }
 }
 impl Encode for FloatDegrees {
@@ -306,6 +306,6 @@ impl Encode for FloatDegrees {
 }
 impl Decode for FloatDegrees {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        decode_bounds(input, |i| f32::decode(i)).map(|bounds| FloatDegrees { bounds })
+        decode_bounds(input, f32::decode).map(|bounds| FloatDegrees { bounds })
     }
 }

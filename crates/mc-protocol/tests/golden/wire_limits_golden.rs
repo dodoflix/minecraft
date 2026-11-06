@@ -317,13 +317,13 @@ fn nbt_cases() -> Vec<(&'static str, Tag)> {
         ("nbt/tag/string_smile_16384", s(16384, smile)),
     ];
     let mut c = CompoundTag::new();
-    c.put_string("k", &"b".repeat(70000));
+    c.put_string("k", "b".repeat(70000));
     v.push(("nbt/compound/long_value", Tag::Compound(c)));
     let mut c = CompoundTag::new();
-    c.put_int(&"k".repeat(65536), 1);
+    c.put_int("k".repeat(65536), 1);
     v.push(("nbt/compound/long_key", Tag::Compound(c)));
     let mut c = CompoundTag::new();
-    c.put_int(&"k".repeat(65535), 1);
+    c.put_int("k".repeat(65535), 1);
     v.push(("nbt/compound/key_65535", Tag::Compound(c)));
     let mut list = ListTag::new();
     list.push(Tag::String("c".repeat(65536)));
@@ -343,7 +343,7 @@ fn nbt() {
     // no write-side quota and no write-side depth limit (the read side has both)
     let mut big = CompoundTag::new();
     for i in 0..40 {
-        big.put_string(&format!("s{i}"), &"z".repeat(60000));
+        big.put_string(format!("s{i}"), "z".repeat(60000));
     }
     let bytes = to_bytes(&Tag::Compound(big)).unwrap();
     assert!(bytes.len() > 2_000_000);
@@ -377,11 +377,11 @@ fn components() {
         ("component/literal_hi", Component::literal("hi")),
         (
             "component/literal_65535",
-            Component::literal(&"a".repeat(65535)),
+            Component::literal("a".repeat(65535)),
         ),
         (
             "component/literal_65536",
-            Component::literal(&"a".repeat(65536)),
+            Component::literal("a".repeat(65536)),
         ),
         (
             "component/translatable_key_65536",
@@ -389,11 +389,11 @@ fn components() {
         ),
         (
             "component/nested_long_string",
-            Component::literal("x").append(Component::literal(&"a".repeat(70000))),
+            Component::literal("x").append(Component::literal("a".repeat(70000))),
         ),
         (
             "component/stream_string_100000",
-            Component::literal(&"\u{20ac}".repeat(30000)),
+            Component::literal("\u{20ac}".repeat(30000)),
         ),
     ];
     for (label, c) in cases {
@@ -558,12 +558,12 @@ fn packets() {
     ours.push((
         "packet/system_chat_long",
         packet_verdict(&ClientboundSystemChatPacket {
-            content: Component::literal(&"a".repeat(70000)),
+            content: Component::literal("a".repeat(70000)),
             overlay: false,
         }),
     ));
     let mut tq = CompoundTag::new();
-    tq.put_string("k", &"q".repeat(70000));
+    tq.put_string("k", "q".repeat(70000));
     ours.push((
         "packet/tag_query_long",
         packet_verdict(&ClientboundTagQueryPacket {

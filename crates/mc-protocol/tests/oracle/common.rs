@@ -64,6 +64,10 @@ pub async fn read(conn: &mut Connection<TcpStream>) -> Vec<u8> {
         .expect("read")
 }
 
+#[expect(
+    clippy::print_stdout,
+    reason = "diagnostic trace of the packets exchanged with the vanilla server"
+)]
 pub fn log_id(state: ConnectionState, payload: &[u8]) {
     let id = mc_protocol::codec::read_varint(&mut &payload[..]).unwrap();
     println!(

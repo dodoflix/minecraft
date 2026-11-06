@@ -33,7 +33,10 @@ fn uuid(msb: i64, lsb: i64) -> Uuid {
 
 // ---------------------------------------------------------------- add_entity
 
-#[allow(clippy::too_many_arguments)]
+#[allow(
+    clippy::too_many_arguments,
+    reason = "mirrors every field of the add-entity packet fixture"
+)]
 fn add_entity(
     g: &Golden,
     label: &str,
@@ -434,7 +437,7 @@ fn set_entity_data_scalars(g: &Golden) {
         EntityDataValue::OptionalLivingEntityReference(None),
     );
     sed(
-        &g,
+        g,
         "optional_living_entity_reference_present",
         EntityDataValue::OptionalLivingEntityReference(Some(uuid(
             0x0123456789abcdef,
@@ -508,7 +511,7 @@ fn set_entity_data_structured(g: &Golden) {
     );
     sed(g, "particles_empty", EntityDataValue::Particles(vec![]));
     sed(
-        &g,
+        g,
         "particles_mixed",
         EntityDataValue::Particles(vec![
             ParticleOptions::Simple(ParticleType::HEART),
@@ -606,7 +609,7 @@ fn set_entity_data_structured(g: &Golden) {
         EntityDataValue::OptionalGlobalPos(None),
     );
     sed(
-        &g,
+        g,
         "optional_global_pos_overworld",
         EntityDataValue::OptionalGlobalPos(Some(GlobalPos {
             dimension: Identifier::parse("minecraft:overworld").unwrap(),
@@ -614,7 +617,7 @@ fn set_entity_data_structured(g: &Golden) {
         })),
     );
     sed(
-        &g,
+        g,
         "optional_global_pos_custom",
         EntityDataValue::OptionalGlobalPos(Some(GlobalPos {
             dimension: Identifier::parse("mod:the_void").unwrap(),
@@ -1048,6 +1051,10 @@ fn particle_types(g: &Golden) {
         .unwrap(),
         g.bytes("particle_dust_color_transition_clamp_lo")
     );
+    #[expect(
+        clippy::approx_constant,
+        reason = "arbitrary float value in the wire fixture"
+    )]
     for (i, roll) in [0.0f32, -1.5, 3.14159].into_iter().enumerate() {
         g.check_value(
             &format!("particle_sculk_charge_{i}"),

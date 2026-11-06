@@ -85,15 +85,15 @@ impl ValueMatcher {
         match self {
             ValueMatcher::Exact(v) => typed_index(def, v).is_some_and(|e| rank(def, e) == actual),
             ValueMatcher::Ranged { min, max } => {
-                if let Some(min) = min {
-                    if !typed_index(def, min).is_some_and(|m| actual >= rank(def, m)) {
-                        return false;
-                    }
+                if let Some(min) = min
+                    && !typed_index(def, min).is_some_and(|m| actual >= rank(def, m))
+                {
+                    return false;
                 }
-                if let Some(max) = max {
-                    if !typed_index(def, max).is_some_and(|m| actual <= rank(def, m)) {
-                        return false;
-                    }
+                if let Some(max) = max
+                    && !typed_index(def, max).is_some_and(|m| actual <= rank(def, m))
+                {
+                    return false;
                 }
                 true
             }
@@ -142,10 +142,10 @@ impl BlockPredicate {
         &self,
         entity: Option<(&CompoundTag, &crate::components::map::DataComponentMap)>,
     ) -> bool {
-        if let Some(nbt) = &self.nbt {
-            if !entity.is_some_and(|(tag, _)| nbt.matches_compound(tag)) {
-                return false;
-            }
+        if let Some(nbt) = &self.nbt
+            && !entity.is_some_and(|(tag, _)| nbt.matches_compound(tag))
+        {
+            return false;
         }
         self.components.is_empty()
             || entity.is_some_and(|(_, components)| self.components.test(components))
