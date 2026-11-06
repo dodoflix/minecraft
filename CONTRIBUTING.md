@@ -100,7 +100,7 @@ Reviewers check:
 
 - Behaviour matches vanilla, and the vanilla class and method are cited.
 - Tests are at the right tier and golden values come from the oracle, not guesses.
-- No silencers: `fn _x`, `let _ = ident;`, `#[allow(dead_code)]` on production items, or blanket allows without `reason`.
+- No silencers: `fn _x`, `let _ = ident;`, `let _ = (a, b);`, `#[allow(dead_code)]` on production items, or blanket allows without `reason`.
 - Every file is in the module tree.
 - No stub or no-op hook without a caller. A skipped vanilla behaviour is documented in the code and listed in the README status.
 - Hook installers and traits have both a caller and an implementor.

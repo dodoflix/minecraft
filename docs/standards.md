@@ -193,6 +193,10 @@ Generators (scripts that write fixtures or goldens):
   defect; a single-line quote of a vanilla condition is tolerated, but a prose description is preferred. Name the
   class and method instead. Enforced: review.
 - `TODO`, `FIXME` and similar marker comments carry an issue number (`TODO(#123): ...`). Enforced: review.
+- `shortcut: <limit>` marks a deliberate, known limit: a case where the Rust differs from vanilla (or from the obvious
+  implementation) and is not modelled, with what differs and when it would matter or be worth upgrading. It is for
+  behaviour that vanilla play does not reach or that is listed in the README gaps; unfinished work uses `TODO(#n)` instead.
+  `git grep 'shortcut:'` lists them. Enforced: review.
 - Prose does not hard-code exact figures that drift (number of crates, tests, files or lines, measured durations).
   Approximate size hints for a prerequisite (disk, memory) are fine. Enforced: review.
 - One document per purpose: `README.md` (what it is, status, quick start), `CONTRIBUTING.md` (workflow),
@@ -201,7 +205,8 @@ Generators (scripts that write fixtures or goldens):
   add a second document for a purpose that has one.
 - Docs describe what is, not plans. Open work is tracked as GitHub issues.
 - A public item that skips vanilla behaviour (a stub that ignores its arguments and returns a default) documents what it
-  skips, and the gap is listed in the README status section. Enforced: review.
+  skips. A gap that a player, a vanilla client, a command user or a data pack author can observe is also listed in the
+  README status section; the comment at the item is the authority for smaller internal gaps. Enforced: review.
 - A hook installer or trait with no caller or no implementor is deleted, or wired in the same change. Enforced: review.
 - Doc links resolve: `RUSTDOCFLAGS="-D warnings" cargo doc --no-deps`. Enforced: the CI `doc` job and `scripts/check.sh`.
 
@@ -210,7 +215,7 @@ Generators (scripts that write fixtures or goldens):
 `scripts/check.sh` fails on these patterns. They are syntactic on purpose; everything else in this document is review.
 
 - A function named `fn _name(` outside tests: a function that exists only to use a binding and silence a warning.
-- A statement `let _ = <identifier or path>;`: same purpose. Remove the unused binding or parameter instead. (An
+- A statement `let _ = <identifier or path>;` or `let _ = (a, b);`: same purpose. Remove the unused binding or parameter instead. (An
   unused trait-method parameter is named `_param` in the signature.) Discarding a call result with `let _ = call();` is
   not matched.
 - An `.rs` file not reachable from a crate root (section 8).
@@ -237,8 +242,13 @@ These are open. CI does not enforce them; everything else in this document that 
 - Decode modules in `mc-protocol`, `mc-nbt`, `mc-world` and the command code still contain `unwrap` and indexing; the
   per-module `warn` attributes are not in place. `mc-brigadier`'s `StringReader` panics on an out-of-range cursor like
   Java's `charAt`; the command dispatcher contains it.
-- Some generated fixtures do not reproduce byte for byte: the chat goldens embed freshly generated RSA keys, the component
-  hash-order, registry line-order, POI and recipe-book goldens depend on the JVM run, and `trades_golden.txt` differs on
-  JDK 27.
+- Some generated fixtures do not reproduce byte for byte:
+  - the chat goldens embed freshly generated RSA keys;
+  - the component hash-order, registry line-order, POI and recipe-book goldens depend on the JVM run;
+  - `trades_golden.txt` differs on JDK 27;
+  - `model_golden.tsv` and `binary_golden.tsv.gz` (`ModelOracle.java`, `BinaryOracle.java`) were generated from an older
+    `snbt_golden.tsv.gz`; regenerating them against the current corpus adds the missing `Z` records;
+  - `tree_golden_items.txt` (`CommandTreeGolden.java`, built with `tools/extractor`) gains lines, and
+    `vegetation_features.txt.gz` (`VegetationFeatureOracle.java`) differs by a few bytes; the cause of both is unknown.
 - `missing_docs` is not enabled on any crate yet, and some crates lack a three-line crate doc.
 - Commit subjects: the format rule in `CONTRIBUTING.md` applies to commits after `d0016913`; older subjects are not rewritten.

@@ -156,8 +156,9 @@ generator without both headers.
 - Fixtures that are recordings of vanilla are rewritten only through `MC_UPDATE_FIXTURES=1`, and only inside the
   oracle target. This is the single variable for it; it counts only when set to `1`. Enforced: review.
 
-**Format and size.** Fixtures are plain text and there is no Git LFS. The one exception is a generated fixture that is
-larger than 1 MB uncompressed: it is committed as `<name>.gz` (the full file name plus `.gz`, for example `snbt_golden.tsv.gz`; `gzip -9n`, so there is no
+**Format and size.** Fixtures are plain text, except inputs in a binary format that the code under test parses (Anvil
+region files, `level.dat` and other NBT files, LZ4 frames, the `.bin` oracle inputs, a PKCS#12 key store); there is no Git
+LFS. The one other exception is a generated fixture that is larger than 1 MB uncompressed: it is committed as `<name>.gz` (the full file name plus `.gz`, for example `snbt_golden.tsv.gz`; `gzip -9n`, so there is no
 name or timestamp and the output is deterministic) and its `Output:` header names the `.gz` path. Smaller fixtures are not compressed. No tracked file may
 exceed 8 MiB (`scripts/check.sh`).
 
