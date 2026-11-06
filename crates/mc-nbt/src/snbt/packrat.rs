@@ -426,7 +426,7 @@ impl<'g> Ps<'g> {
     /// `Grammar.parseForSuggestions` after the parse: the cursor of the longest failure and what its terminals would
     /// have accepted; `None` when no error was recorded there.
     pub fn suggestions(&self) -> Option<(usize, &[String])> {
-        (self.err.entries > 0).then(|| {
+        (self.err.entries > 0).then_some({
             (
                 self.err.last_cursor as usize,
                 self.err.suggestions.as_slice(),
