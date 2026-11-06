@@ -25,7 +25,7 @@ server from Mojang; you accept Mojang's EULA yourself (section 3).
 
 **Contract.** `cargo test --workspace` runs T0 and T1 only, and it must be green on a clean checkout after
 `scripts/setup-ref.sh`. `cargo nextest` may be used as a faster runner, but the documented contract is
-`cargo test --workspace`. Enforced by CI once the lanes in section 9 are wired.
+`cargo test --workspace`. Enforced by CI (section 9).
 
 **T2 ignores.** T2 tests live in a dedicated target, `crates/<crate>/tests/oracle/main.rs`, and every test in it
 carries `#[ignore = "<class>: <reason>"]`. There is no Cargo feature for it. Run the oracle tier of the whole
@@ -213,15 +213,26 @@ from the tree, before 1.0. Review until the check exists; the file's presence is
 
 ## 9. CI
 
-The deterministic lane is: `cargo fmt --all --check`, `cargo clippy --workspace --all-targets --all-features
---locked -- -D warnings`, `cargo deny check licenses bans sources`, `scripts/check.sh`, and
-`cargo test --workspace` (T0/T1). Run `scripts/check.sh` locally before pushing; `scripts/check.sh --fast` skips
-clippy.
+`.github/workflows/ci.yml` runs on pull requests and on pushes to `main`; its `ci-ok` job is the single required
+status check and passes only when every job passed:
 
-The oracle tier (`cargo test --workspace --test oracle -- --ignored`, with `MC_ACCEPT_EULA=1`) runs on pushes to
-`main` and nightly. It must pass before a release is tagged. It is not part of the required pull request checks.
+- `fmt`: `cargo fmt --all --check`.
+- `clippy`: `cargo clippy --workspace --all-targets --all-features --locked --keep-going -- -D warnings`.
+- `deny`: `cargo deny check licenses bans sources`.
+- `hygiene`: `scripts/check.sh --fast` (shellcheck, ruff, syntactic slop and provenance checks).
+- `commits`: `scripts/check-commits.sh` on the pull request title and commits (Conventional Commits).
+- `test`: `scripts/test-known-failures.py`, which runs `cargo test --no-fail-fast` for each workspace package (T0/T1)
+  and fails only on a failure that `tests/known-failures.txt` does not list. A binary that aborts counts as a failure.
+  The script prints listed tests that now pass; delete their lines (section 8).
+- `ref`: builds `ref/` from Mojang's download, or restores it from the cache keyed on the scripts that produce it.
+  `clippy` and `test` need it (`mc-data`'s build script reads the extractor output).
 
-Current state: `.github/workflows/ci.yml` only runs the scheduled and on-demand full build and test of the
-workspace, `cargo test --workspace` followed by the oracle tier with `MC_ACCEPT_EULA=1`. The other lanes above are
-wired in after the tree passes `scripts/check.sh` and clippy with `-D warnings`; until then `scripts/check.sh` is
-expected to fail on parts of the tree.
+`.github/workflows/nightly.yml` runs once a day and on demand, and never blocks a pull request:
+
+- `advisories`: `cargo deny check advisories`. Advisories change without a code change; the accepted one is documented
+  in `deny.toml`.
+- `oracle`: the oracle tier, `scripts/test-known-failures.py --oracle`, which runs each package's `tests/oracle` target
+  with `--ignored` and the same known-failures filter, with `MC_ACCEPT_EULA=1`. It must pass before a release is tagged.
+
+Run the filter locally with `scripts/test-known-failures.py [-p <crate>]...`. To run CI on a branch without a pull
+request: `gh workflow run ci.yml --ref <branch>`.

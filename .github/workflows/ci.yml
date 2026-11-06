@@ -1,21 +1,22 @@
-# Full build + test on GitHub's runners (public repo: unlimited minutes).
-# - scheduled: a complete run of main's tip every 2 hours
-# - on demand for any branch: `gh workflow run ci.yml --ref <branch>` then `gh run watch`
-#   (optionally `-f test_filter='-p mc-game --test golden'` or `-p mc-game-core` to run a subset of T0/T1)
+# Pull request and main checks. `ci-ok` is the single required status check: it passes only when every job passes.
+# - fmt, deny, hygiene, commits: no vanilla reference needed
+# - clippy, test: need ref/ (the `ref` job builds it once per script change and caches it)
+# - test counts only failures that tests/known-failures.txt does not list (scripts/test-known-failures.py)
+# - the oracle tier (real vanilla server) and the advisory scan run in nightly.yml
+# Also runs on demand for any branch: `gh workflow run ci.yml --ref <branch>`, then `gh run watch`.
 name: ci
 
 on:
-  # main moves every few seconds, so per-push runs were almost all cancelled; a scheduled full run of main's tip
-  # gives one complete, comparable result every 2 hours.
-  schedule:
-    - cron: "17 */2 * * *"
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+  push:
+    branches: [main]
   workflow_dispatch:
-    inputs:
-      test_filter:
-        description: "extra cargo test args (default: whole workspace)"
-        required: false
-        default: "--workspace"
 
+permissions:
+  contents: read
+
+# Main moves often: one run at a time, the newest waiting run replaces older waiting ones. Other refs cancel stale runs.
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
@@ -28,63 +29,130 @@ env:
   CARGO_PROFILE_TEST_DEBUG: "0"
 
 jobs:
-  test:
+  ref:
     runs-on: ubuntu-latest
-    timeout-minutes: 300
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/ref
+
+  fmt:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install the pinned toolchain
+        run: rustup show
+      - run: cargo fmt --all --check
+
+  clippy:
+    needs: ref
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/ref
+      - name: Install the pinned toolchain
+        run: rustup show
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+        with:
+          shared-key: clippy
+          save-if: ${{ github.ref == 'refs/heads/main' }}
+      - run: cargo clippy --workspace --all-targets --all-features --locked --keep-going -- -D warnings
+
+  deny:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install the pinned toolchain
+        run: rustup show
+      - uses: taiki-e/install-action@c509219cf42fba86913069efd0ade2458c59337b # v2.90.1
+        with:
+          tool: cargo-deny
+      # Advisories change without a code change: they run in nightly.yml and never block a pull request.
+      - run: cargo deny --locked check licenses bans sources
+
+  # scripts/check.sh --fast: fmt and deny again (seconds), plus shellcheck, ruff and the source hygiene greps.
+  hygiene:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install the pinned toolchain
+        run: rustup show
+      - uses: taiki-e/install-action@c509219cf42fba86913069efd0ade2458c59337b # v2.90.1
+        with:
+          tool: cargo-deny
+      - name: Install ruff
+        run: pipx install ruff==0.17.4
+      # shellcheck is preinstalled on the runner image.
+      - run: scripts/check.sh --fast
+
+  # Pull requests only: the title (the squash-merge commit message) and every commit. Maintainer pushes to main go
+  # through the local gate, which has the same check.
+  commits:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        if: github.event_name == 'pull_request'
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Install the pinned toolchain
+        if: github.event_name == 'pull_request'
+        run: rustup show
+      - name: Check the PR title and commits
+        if: github.event_name == 'pull_request'
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: scripts/check-commits.sh --title "$TITLE" "$BASE..$HEAD"
+
+  test:
+    needs: ref
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
     steps:
       - name: Free disk space
-        uses: jlumbroso/free-disk-space@v1.3.1
+        run: |
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup
+          sudo docker image prune --all --force
+          df -h /
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          tool-cache: false
-          android: true
-          dotnet: true
-          haskell: true
-          large-packages: false
-          docker-images: true
-          swap-storage: false
-
-      - uses: actions/checkout@v5
-
-      - uses: actions/setup-java@v5
+          persist-credentials: false
+      - uses: ./.github/actions/ref
+      - name: Install the pinned toolchain
+        run: rustup show
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
         with:
-          distribution: temurin
-          java-version: "25"
-
-      # ref/ = vanilla jar, unbundled libs, datagen reports, extractor output (gitignored; rebuilt from Mojang's download)
-      - name: Cache ref/
-        id: ref-cache
-        uses: actions/cache@v4
-        with:
-          path: ref
-          key: ref-26.3-${{ hashFiles('scripts/setup-ref.sh', 'scripts/extract.sh', 'tools/extractor/**') }}
-
-      - name: Build ref/ (download vanilla 26.3, datagen, extractor)
-        if: steps.ref-cache.outputs.cache-hit != 'true'
-        run: scripts/setup-ref.sh
-
-      - name: Fingerprint ref/ (compare with a local `sha256sum` to catch JVM-dependent generator output)
-        run: (cd ref && sha256sum generated/reports/*.json extracted/*.json) | tee ref-fingerprint.txt
-
-      - uses: dtolnay/rust-toolchain@1.97.1
-
-      - uses: Swatinem/rust-cache@v2
-        with:
-          shared-key: workspace
+          shared-key: test
           save-if: ${{ github.ref == 'refs/heads/main' }}
-
-      - name: Build (workspace, tests)
-        run: cargo build --workspace --tests
-
       - name: Test (T0/T1)
-        env:
-          TEST_FILTER: ${{ inputs.test_filter || '--workspace' }}
-        # mc-core float goldens depend on libm matching Java; a failure only there on CI is a platform issue
-        run: cargo test --no-fail-fast $TEST_FILTER -- --test-threads=2
+        run: scripts/test-known-failures.py
 
-      # T2 starts the real vanilla server and our mc-server binary (built by the target itself); running this
-      # workflow accepts the Minecraft EULA (docs/testing.md). Skipped when a test filter narrows the run.
-      - name: Test (oracle, T2)
-        if: ${{ !cancelled() && (!inputs.test_filter || inputs.test_filter == '--workspace') }}
+  ci-ok:
+    if: always()
+    needs: [ref, fmt, clippy, deny, hygiene, commits, test]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Every job succeeded
         env:
-          MC_ACCEPT_EULA: "1"
-        run: cargo test --no-fail-fast --workspace --test oracle -- --ignored --test-threads=2
+          NEEDS: ${{ toJSON(needs) }}
+        run: |
+          jq -r 'to_entries[] | "\(.key): \(.value.result)"' <<<"$NEEDS"
+          jq -e 'all(.[]; .result == "success")' <<<"$NEEDS" >/dev/null

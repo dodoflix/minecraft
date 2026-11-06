@@ -43,9 +43,8 @@ Enforced: `scripts/check.sh` runs `cargo clippy --workspace --all-targets --all-
 
 - Lint groups: `clippy::all` plus the individually named restriction lints in `Cargo.toml`. No `pedantic`, no
   `nursery`, no whole `restriction` group. A new lint is added by name, with a reason in the commit message.
-- `-D warnings` is applied only to lints whose count is zero. A lint that current code still violates is set to `warn`
-  in the table; the change that fixes the last violation flips it to `deny`. Until the tree is clean, CI does not pass
-  `-D warnings`.
+- A lint that current code still violates is set to `warn` in the table; the change that fixes the last violation flips
+  it to `deny`. CI runs clippy with `-D warnings`, so any warning fails the `clippy` job.
 - `dbg_macro`, `todo` and `unimplemented` are `deny`. Enforced: clippy.
 - Three lints are `allow` for the whole workspace because vanilla's shapes trigger them and mirroring vanilla wins:
   `neg_cmp_op_on_partial_ord` (negated float comparisons are observable with NaN), `module_inception` (`Foo::foo`
@@ -233,10 +232,8 @@ directory adds a row there. Enforced: review.
 
 ## Where the tree does not yet meet this document
 
-`scripts/check.sh` is expected to fail until these are done. The `-D warnings` wiring in CI follows the cleanup.
+These are open; CI does not yet enforce them (the checks that are green on `main` are).
 
-- The one-off formatting commit is pending, so `cargo fmt --all --check` fails.
-- Clippy is not clean: several lints in the workspace table are still `warn`, and `-D warnings` is not applied yet.
 - Silencer functions, `let _ = <ident>;` statements and orphan `.rs` files still exist.
 - Decode modules in `mc-protocol`, `mc-nbt`, `mc-world` and the command code still contain `unwrap` and indexing; the
   per-module `warn` attributes and the hostile-packet tests are not in place.

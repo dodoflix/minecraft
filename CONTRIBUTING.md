@@ -18,7 +18,7 @@ Until the first 1.0 release:
 - Maintainers integrate branches through a local gate: formatting, lints and tests must pass, then the branch is fast-forwarded onto `main`.
 - Contributors open pull requests against `main`. Maintainers integrate them the same way, so keep your branch rebased on `main`.
 
-From 1.0 on, `main` is protected: pull requests only, squash-merge, the PR title becomes the commit message, and CI must pass.
+From 1.0 on, `main` is protected: pull requests only, squash-merge, the PR title becomes the commit message, and the `ci-ok` check must pass.
 
 Branch names are `<type>/<short-kebab>`, for example `fix/aquifer-lava-level`. `<type>` is a commit type from the list below.
 
@@ -35,13 +35,28 @@ Commits follow [Conventional Commits](https://www.conventionalcommits.org): `typ
 
 Example: `fix(worldgen): use vanilla lava level in aquifer picker`.
 
-Commit messages are checked in review.
+CI runs `scripts/check-commits.sh` on a pull request's title and every commit: known type, scope from the list above if present, no trailing period, at most 100 characters (over 72 only warns). Run it yourself with `scripts/check-commits.sh origin/main..HEAD`.
 
 ## Checks
 
-Run `scripts/check.sh` before you push. It is the entry point CI is wired to once the tree is clean. `--fast` skips clippy. A missing tool is a failure, not a skip, and the script exits 2 with a message.
+Run `scripts/check.sh` before you push. `--fast` skips clippy. A missing tool is a failure, not a skip, and the script exits 2 with a message.
 
-The tree does not pass every check yet: formatting, clippy warnings, silencer cleanup and unreachable files are being burned down before 1.0. Compare your result against `main` and make sure your change adds no new findings; do not expect zero.
+CI (`.github/workflows/ci.yml`) runs on every pull request and every push to `main`. Its jobs, and the one command each runs:
+
+| Job | Runs | Expected time |
+|---|---|---|
+| `fmt` | `cargo fmt --all --check` | 1 min |
+| `clippy` | `cargo clippy --workspace --all-targets --all-features --locked --keep-going -- -D warnings` | 15 to 40 min |
+| `deny` | `cargo deny check licenses bans sources` | 1 min |
+| `hygiene` | `scripts/check.sh --fast` (shellcheck, ruff, source and provenance checks) | 2 min |
+| `commits` | `scripts/check-commits.sh` on the PR title and commits | 1 min |
+| `test` | `scripts/test-known-failures.py`: `cargo test` per package (T0/T1) | 30 to 90 min |
+| `ref` | builds or restores the cached `ref/` that `clippy` and `test` need | 1 min cached, 10 min cold |
+| `ci-ok` | passes only when all of the above passed; the one required check | seconds |
+
+`scripts/test-known-failures.py` fails only on a test that `tests/known-failures.txt` does not list; run it locally the same way (`-p <crate>` limits it). A change that makes a listed test pass deletes its line.
+
+`.github/workflows/nightly.yml` runs once a day and on demand: `cargo deny check advisories` and the oracle tier (`scripts/test-known-failures.py --oracle`, which starts the vanilla server and sets `MC_ACCEPT_EULA=1`). Neither blocks a pull request; the oracle tier must be green before a release is tagged. To run CI on a branch without a pull request: `gh workflow run ci.yml --ref <branch>`.
 
 Also run:
 
