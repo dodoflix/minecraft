@@ -1051,15 +1051,14 @@ fn spawn_entity_and_redirect(
     source: &CommandSourceStack,
     entity_type: mc_data::EntityType,
 ) -> Result<CommandSourceStack, CommandSyntaxException> {
-    let entity = super::summon_command::create_entity(
+    let (_, command_entity) = super::summon_command::create_entity(
         source,
         entity_type,
         source.get_position(),
         &CompoundTag::new(),
         true,
     )?;
-    let command_entity = source.with_server(|server| host::command_entity(server, &entity));
-    Ok(source.with_entity(command_entity.expect("a freshly summoned entity is in its level")))
+    Ok(source.with_entity(command_entity))
 }
 
 /// `ExecuteIfFunctionCustomModifier`.

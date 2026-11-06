@@ -274,8 +274,9 @@ pub fn entity_scores_match(
 
 /// The `advancements` option: for a player, every `(advancement, criteria)` expectation holds
 /// (`criteria: None` = the advancement `done == value`).
-/// Not implemented: no advancement data is available, so a known advancement cannot be found, and
-/// vanilla's `getOrStartProgress` is skipped for unknown ones (`advancement == null` -> no match).
+/// Not implemented: the option is not connected to the `ServerAdvancementManager` (the server loads it, but this hook
+/// does not look advancements up), so a known advancement is never found; vanilla's `getOrStartProgress` is skipped for
+/// unknown ones (`advancement == null` -> no match).
 pub fn advancements_match(
     _server: &MinecraftServer,
     entity: &dyn Entity,
@@ -296,7 +297,7 @@ pub enum AdvancementExpectation {
 }
 
 /// The `predicate` option: evaluates the loot predicate `id` with `THIS_ENTITY = entity`.
-/// No loot predicates are available (`ReloadableServerRegistries.lookup` has none), so `lookup(id) == null`: false.
+/// Not implemented: the hook is not connected to the loaded predicate registry or to a loot context, so it never matches.
 pub fn loot_predicate_matches(
     _server: &MinecraftServer,
     _dimension: &DimensionKey,
@@ -1012,25 +1013,26 @@ pub struct AdvancementProgressRef {
 }
 
 /// `server.getAdvancements().get(id)`.
-/// Not implemented: the server holds no `ServerAdvancementManager`, so nothing is found.
+/// Not implemented: not connected to the `ServerAdvancementManager` (the server loads it, this hook does not read it), so
+/// nothing is found.
 pub fn advancement_get(_server: &MinecraftServer, _id: &Identifier) -> Option<AdvancementRef> {
     None
 }
 
 /// `server.getAdvancements().getAllAdvancements()`.
-/// Not implemented: always empty (no `ServerAdvancementManager`).
+/// Not implemented: always empty (not connected to the `ServerAdvancementManager`).
 pub fn advancement_all(_server: &MinecraftServer) -> Vec<AdvancementRef> {
     Vec::new()
 }
 
 /// `server.getAdvancements().tree().get(holder)`.
-/// Not implemented: always `None` (no `ServerAdvancementManager`).
+/// Not implemented: always `None` (not connected to the `ServerAdvancementManager`).
 pub fn advancement_node(_server: &MinecraftServer, _id: &Identifier) -> Option<AdvancementNodeRef> {
     None
 }
 
 /// `player.getAdvancements().getOrStartProgress(holder)`.
-/// Not implemented: no progress is ever recorded, the result is "nothing done".
+/// Not implemented: not connected to the player's `PlayerAdvancements`, the result is "nothing done".
 pub fn player_advancement_progress(
     _server: &mut MinecraftServer,
     _player: &EntityRef,
@@ -1291,7 +1293,16 @@ pub fn command_entity(
     entity: &EntityRef,
 ) -> Option<super::CommandEntity> {
     let e = get_entity(server, entity)?;
-    Some(super::CommandEntity {
+    Some(command_entity_of(server, entity, e))
+}
+
+/// [`command_entity`] for an entity that is held by the caller (for example one that is not in a loaded chunk).
+pub fn command_entity_of(
+    server: &MinecraftServer,
+    entity: &EntityRef,
+    e: &dyn Entity,
+) -> super::CommandEntity {
+    super::CommandEntity {
         id: entity.id,
         uuid: e.uuid(),
         is_player: e.is_player(),
@@ -1303,7 +1314,7 @@ pub fn command_entity(
         } else {
             None
         },
-    })
+    }
 }
 
 /// `entity.position()`.
@@ -1400,8 +1411,9 @@ pub enum EntityRelation {
 /// The entities `relation` leads to from `entity`, before the `!isRemoved()` filter `/execute on` applies:
 /// `OwnableEntity.getOwner`, `Leashable.getLeashHolder`, `Targeting.getTarget`, `Attackable.getLastAttacker`,
 /// `getVehicle`, `getControllingPassenger`, `TraceableEntity.getOwner`, `getPassengers`.
-/// `TraceableEntity` covers the projectiles, item entities and primed TNT that exist so far; `OwnableEntity` goes
-/// through [`Entity::ownable_owner_uuid`], which the tameable and horse classes do not override, so they have no owner.
+/// `TraceableEntity` covers the projectiles, item entities and primed TNT that exist so far.
+/// Not implemented: `OwnableEntity` goes through [`Entity::ownable_owner_uuid`], which the tameable and horse classes do
+/// not override, so `/execute on owner` finds no owner for tamed animals and horses.
 pub fn entity_relation(
     server: &MinecraftServer,
     entity: &EntityRef,

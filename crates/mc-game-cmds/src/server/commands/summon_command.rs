@@ -14,7 +14,7 @@ use mc_game_core::commands::arguments::selector::EntityRef;
 use mc_game_core::commands::message::simple_translatable;
 use mc_game_core::commands::synchronization::suggestion_providers;
 use mc_game_core::commands::{
-    CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal,
+    CommandEntity, CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal,
 };
 use mc_game_core::world::entity::factory::{self, EntitySpawnRequest};
 use mc_game_core::{register_command, translatable};
@@ -83,14 +83,14 @@ register_command!("SummonCommand", |ctx| {
 });
 
 /// `createEntity(source, type, pos, nbt, finalize)`: loads the entity (and its passengers) from `nbt`, places it at `pos`,
-/// finalizes mobs and adds the tree to the source's level.
+/// finalizes mobs and adds the tree to the source's level. The [`CommandEntity`] describes the entity as it was when added.
 pub fn create_entity(
     source: &CommandSourceStack,
     entity_type: EntityType,
     pos: Vec3,
     nbt: &CompoundTag,
     finalize: bool,
-) -> Result<EntityRef, CommandSyntaxException> {
+) -> Result<(EntityRef, CommandEntity), CommandSyntaxException> {
     if !is_in_spawnable_bounds(BlockPos::containing(pos.x, pos.y, pos.z)) {
         return Err(INVALID_POSITION.create());
     }
@@ -126,10 +126,17 @@ pub fn create_entity(
         if finalize {
             host::finalize_mob_spawn(level, loaded[0].as_mut());
         }
+        // vanilla keeps the entity object, so the name is known even when its chunk is not loaded and the entity cannot
+        // be looked up in the level
+        let entity = EntityRef { dimension, id };
+        let command_entity = host::command_entity_of(server, &entity, loaded[0].as_ref());
+        let Some(level) = server.level_mut(&entity.dimension) else {
+            return Err(ERROR_FAILED.create());
+        };
         if !level.try_add_fresh_entity_with_passengers(loaded) {
             return Err(ERROR_DUPLICATE_UUID.create());
         }
-        Ok(EntityRef { dimension, id })
+        Ok((entity, command_entity))
     })
 }
 
@@ -140,14 +147,9 @@ fn spawn_entity(
     nbt: &CompoundTag,
     finalize: bool,
 ) -> Result<i32, CommandSyntaxException> {
-    let entity = create_entity(source, entity_type, pos, nbt, finalize)?;
+    let (_, entity) = create_entity(source, entity_type, pos, nbt, finalize)?;
     source.send_success(
-        || {
-            translatable!(
-                "commands.summon.success",
-                host::display_name_of(source, &entity)
-            )
-        },
+        || translatable!("commands.summon.success", entity.display_name.clone()),
         true,
     );
     Ok(1)
