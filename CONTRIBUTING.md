@@ -45,13 +45,13 @@ CI (`.github/workflows/ci.yml`) runs on every pull request and every push to `ma
 
 | Job | Runs | Expected time |
 |---|---|---|
-| `fmt` | `cargo fmt --all --check` | 1 min |
-| `clippy` | `cargo clippy --workspace --all-targets --all-features --locked --keep-going -- -D warnings` | 15 to 40 min |
+| `fmt` | `cargo fmt --all --check` | under 1 min |
+| `clippy` | `cargo clippy --workspace --all-targets --all-features --locked --keep-going -- -D warnings` | 4 to 15 min (cold cache) |
 | `deny` | `cargo deny check licenses bans sources` | 1 min |
-| `hygiene` | `scripts/check.sh --fast` (shellcheck, ruff, source and provenance checks) | 2 min |
+| `hygiene` | `scripts/check.sh --fast` (shellcheck, ruff, source and provenance checks) | 1 min |
 | `commits` | `scripts/check-commits.sh` on the PR title and commits | 1 min |
-| `test` | `scripts/test-known-failures.py`: `cargo test` per package (T0/T1) | 30 to 90 min |
-| `ref` | builds or restores the cached `ref/` that `clippy` and `test` need | 1 min cached, 10 min cold |
+| `test` | `scripts/test-known-failures.py`: `cargo test` per package (T0/T1) | 35 to 45 min |
+| `ref` | builds or restores the cached `ref/` that `clippy` and `test` need | seconds cached, 10 to 15 min cold |
 | `ci-ok` | passes only when all of the above passed; the one required check | seconds |
 
 `scripts/test-known-failures.py` fails only on a test that `tests/known-failures.txt` does not list; run it locally the same way (`-p <crate>` limits it). A change that makes a listed test pass deletes its line.
