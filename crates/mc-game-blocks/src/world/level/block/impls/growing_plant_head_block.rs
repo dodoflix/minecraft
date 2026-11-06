@@ -1,7 +1,7 @@
 //! `net.minecraft.world.level.block.GrowingPlantHeadBlock`.
 //!
 //! The concrete head blocks (kelp, cave vines, twisting/weeping vines) implement [`GrowingPlantHead`] and get their
-//! [`BlockBehaviour`] methods from [`growing_plant_head_behaviour!`].
+//! [`BlockBehaviour`] methods from `growing_plant_head_behaviour!`.
 use super::growing_plant_block::GrowingPlant;
 use mc_core::random::RandomSource;
 use mc_game_core::server::level::ServerLevel;

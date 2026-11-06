@@ -1,6 +1,6 @@
 //! `ArgumentTypeInfos`: maps each argument type to its wire template (`ArgumentTypeInfo.unpack`). Vanilla keys a
 //! `Class -> info` map; here every argument type registers a downcast-and-unpack function in a linkme slice
-//! ([`register_argument_type!`]) from its own module. The registry ids and the (de)serialization of the templates are
+//! (`register_argument_type!`) from its own module. The registry ids and the (de)serialization of the templates are
 //! `mc_protocol::packets::play::ArgumentTypeTemplate`.
 
 use crate::commands::CommandSourceStack;

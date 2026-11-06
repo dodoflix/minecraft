@@ -1,7 +1,7 @@
 //! `MineshaftPieces`: the pieces of an abandoned mineshaft (`mscorridor`, `mscrossing`, `msroom`, `msstairs`) and the
 //! recursive generation (`createRandomShaftPiece`/`generateAndAddPiece`) that grows them from the start room.
 //!
-//! `MineShaftPiece` (the abstract base class) is the [`MineShaftPiece`] trait: the piece-type specific block set
+//! `MineShaftPiece` (the abstract base class) is the `MineShaftPiece` trait: the piece-type specific block set
 //! ([`MineshaftType`]) and the helpers shared by the four pieces. The start piece vanilla hands down through
 //! `addChildren` is only read for its bounding box (and the `type`, which is the same in every piece of one start), so
 //! the stand-in the builder holds for a piece under construction is enough for everything but the room, which is always

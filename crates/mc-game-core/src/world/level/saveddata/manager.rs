@@ -13,7 +13,7 @@ use mc_world::level_storage::{SavedDataStorage, create_directories_safe, write_c
 use crate::util::codec::{DataResult, DecodeResult};
 
 /// `SavedData`: an object with a dirty flag that the storage persists. Implementors keep the flag themselves
-/// (vanilla's base class field) because their mutators call `setDirty()`; use [`impl_saved_data!`] for the plumbing.
+/// (vanilla's base class field) because their mutators call `setDirty()`; use `impl_saved_data!` for the plumbing.
 pub trait SavedData: Any + Send {
     fn is_dirty(&self) -> bool;
     /// `setDirty(boolean)`.

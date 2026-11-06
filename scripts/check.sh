@@ -4,7 +4,7 @@
 #   scripts/check.sh [--fast]
 #   scripts/check.sh --list
 #
-#   --fast   skip clippy (the only check that compiles the workspace and needs ref/)
+#   --fast   skip clippy and rustdoc (the checks that compile the workspace and need ref/)
 #   --list   print the index of scripts/: each script and the first line of its header comment
 #
 # Every check runs; the summary lists the failures. A missing tool is a failure, not a skip: exit status is 0 when
@@ -62,6 +62,8 @@ if [ "$FAST" = 0 ]; then
   if have clippy cargo clippy --version; then
     run "clippy" cargo clippy --workspace --all-targets --all-features --locked --keep-going -- -D warnings
   fi
+  # Broken intra-doc links and other rustdoc warnings.
+  run "rustdoc" env RUSTDOCFLAGS="-D warnings" cargo doc --no-deps --workspace --locked --keep-going
 fi
 if have cargo-deny cargo deny --version; then run "deny (licenses bans sources)" cargo deny check licenses bans sources; fi
 if have shellcheck shellcheck --version; then

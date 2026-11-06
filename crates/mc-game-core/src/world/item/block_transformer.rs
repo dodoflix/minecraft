@@ -1,7 +1,7 @@
 //! `BlockTransformer` (`core.component.BlockTransformer`): the data-driven `block_transformer` registry behind axes,
 //! hoes and shovels (`Item.useOn` with the `block_transformer` component). Decoded together with the feature layer
 //! (`GenRegistries`: the block state providers and block predicates of the transform rules are worldgen codecs) and
-//! evaluated through [`transform_block`], installed as the item hook in [`install`].
+//! evaluated through [`transform_block`], installed as the item hook in `install`.
 
 use super::{InteractionResult, ItemStack, ItemStackExt, UseOnContext, hurt_and_break};
 use crate::server::level::ServerLevel;

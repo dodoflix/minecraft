@@ -149,7 +149,7 @@ pub struct BlockEntityData {
     /// `BlockEntity.components` (`DataComponentMap.EMPTY` until set).
     pub components: mc_protocol::components::DataComponentMap,
     /// `setChanged()` was requested by a container operation that had no level at hand (see
-    /// [`BlockEntity::flush_pending`]).
+    /// `BlockEntity::flush_pending`).
     pub changed: bool,
     /// Identity of this block entity object (vanilla compares references: `level.getBlockEntity(pos) != blockEntity`
     /// in `Container.stillValidBlockEntity`).

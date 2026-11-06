@@ -1,7 +1,7 @@
 //! `net.minecraft.world.level.block.VegetationBlock` and the shared plumbing of its subclasses.
 //!
 //! The Java subclasses override `mayPlaceOn`; here a subclass implements [`MayPlaceOn`] and calls [`can_survive`] /
-//! [`update_shape`] (its `super` behavior), or uses [`vegetation_behaviour!`] when it only overrides `mayPlaceOn`.
+//! [`update_shape()`] (its `super` behavior), or uses [`vegetation_behaviour!`] when it only overrides `mayPlaceOn`.
 use super::prelude::*;
 
 /// `VegetationBlock.mayPlaceOn(state, level, pos)`; the default is `BlockTags.SUPPORTS_VEGETATION`.

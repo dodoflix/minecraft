@@ -2,7 +2,7 @@
 //! unloading, and which players track which chunks.
 //!
 //! The vanilla future graph is explicit state here (see [`super::chunk_holder`]); `ChunkMap` is driven by the game
-//! thread through [`ChunkMap::poll_task`] and never blocks on workers. Everything that needs the live level (building
+//! thread through `ChunkMap::poll_task` and never blocks on workers. Everything that needs the live level (building
 //! `LevelChunk`s, starting ticking, entity visibility, unloading chunks) is reported as a [`ChunkMapEvent`] that
 //! `ServerLevel` handles right after the chunk source call and answers with the `complete_*` methods.
 

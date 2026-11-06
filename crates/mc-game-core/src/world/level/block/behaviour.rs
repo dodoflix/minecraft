@@ -316,7 +316,7 @@ pub trait BlockBehaviour: Send + Sync + 'static {
         _fall_distance: f64,
     ) {
     }
-    /// `BlockBehaviour.onExplosionHit(state, level, pos, explosion, onHit)`: default = [`default_on_explosion_hit`].
+    /// `BlockBehaviour.onExplosionHit(state, level, pos, explosion, onHit)`: default = `default_on_explosion_hit`.
     fn on_explosion_hit(
         &self,
         state: BlockState,

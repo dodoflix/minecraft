@@ -1,7 +1,7 @@
 //! `net.minecraft.world.entity.animal.fish.WaterAnimal` and `net.minecraft.world.entity.animal.AgeableWaterCreature`: the
 //! shared water-bound behavior (air supply while out of water, no fluid push, no leash, 1-3 xp, spawn obstruction).
 //!
-//! Concrete classes call these from their `Entity` impl; [`water_creature_entity!`] writes the overrides both Java base
+//! Concrete classes call these from their `Entity` impl; `water_creature_entity!` writes the overrides both Java base
 //! classes make.
 
 use mc_core::random::RandomSource as _;

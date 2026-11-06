@@ -2,7 +2,7 @@
 //! the generation hooks that plug them into the chunk map (`server::level::world_gen::WorldGenHooks`).
 //!
 //! Layout (each area owns its directory; types register themselves in linkme tables, no central lists):
-//! * [`codec`], [`holder`], [`registries`], [`env`]: shared decoding infrastructure and the per-level [`env::GenEnv`].
+//! * [`codec`], [`holder`], [`registries`], [`mod@env`]: shared decoding infrastructure and the per-level [`env::GenEnv`].
 //! * [`world_gen_level`] / `gen_level`: the `WorldGenLevel` interface and its implementation over the lent chunks.
 //! * [`feature`], [`placement`], [`blockpredicates`], [`stateproviders`]: the feature layer.
 //! * `decoration`: `applyBiomeDecoration` + `FeatureSorter`; `hooks`: the `WorldGenHooks` implementation.

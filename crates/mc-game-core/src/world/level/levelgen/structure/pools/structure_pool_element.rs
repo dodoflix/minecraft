@@ -175,7 +175,7 @@ impl ProcessorListRef {
 }
 
 /// `PlacedFeature.CODEC` of the feature element: a reference resolves against the feature registry (bound lazily, see
-/// [`FeaturePoolElement`](super::feature_pool_element::FeaturePoolElement)).
+/// `FeaturePoolElement`).
 pub fn decode_placed_feature(
     value: &Value,
     ctx: &ElementCodecCtx<'_, '_>,

@@ -1,7 +1,7 @@
 //! `SynchedEntityData` / `EntityDataAccessor` / `EntityDataSerializers`.
 //!
 //! Accessor ids are fixed by vanilla's class chain order and come from the extracted table
-//! (`mc_data::misc::ENTITY_DATA_ACCESSORS`): [`define_accessor!`] looks the id up at compile time and checks the
+//! (`mc_data::misc::ENTITY_DATA_ACCESSORS`): `define_accessor!` looks the id up at compile time and checks the
 //! serializer, so a wrong class/field/serializer is a build error. Values are `mc_protocol`'s [`EntityDataValue`]
 //! (the wire form); an accessor is typed by a serializer marker (`serializer::Byte`, ...).
 

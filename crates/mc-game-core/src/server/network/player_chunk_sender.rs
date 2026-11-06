@@ -4,7 +4,7 @@
 //! ("send chunks") and sends at most one batch.
 //!
 //! The handle is cheaply cloneable: the listener keeps one, the chunk map keeps another one boxed as a
-//! [`ChunkSendSink`]; both see the same state (game thread only, the mutex is uncontended).
+//! `ChunkSendSink`; both see the same state (game thread only, the mutex is uncontended).
 
 use super::ConnectionSender;
 use super::connection::Payload;

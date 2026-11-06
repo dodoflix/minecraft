@@ -1,4 +1,4 @@
-//! Keeps the [`PlayerHandle`] mirror of a `ServerPlayer` current (see `server::players::player_handle`): everything
+//! Keeps the `PlayerHandle` mirror of a `ServerPlayer` current (see `server::players::player_handle`): everything
 //! another player or the player list reads off a `ServerPlayer` from outside its level.
 
 use super::ServerPlayer;

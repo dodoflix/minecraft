@@ -2,7 +2,7 @@
 //!
 //! Vanilla's block entities hold their `Level` and unpack the loot table lazily inside `getItem`/`isEmpty`/`removeItem`/
 //! `setItem`. Rust containers have no level at hand there, so the unpacking happens at the entry points that do have it
-//! ([`BlockEntity::unpack_loot_table`]: hopper/dropper container resolution, `createMenu`, ...). Observable behavior is
+//! (`BlockEntity::unpack_loot_table`: hopper/dropper container resolution, `createMenu`, ...). Observable behavior is
 //! the same: every vanilla access path unpacks before it reads, and the fill uses its own seeded random.
 //! Not implemented: the `GENERATE_LOOT` criterion trigger of a player's unpack is not fired.
 

@@ -4,7 +4,7 @@
 //! A concrete arrow embeds an [`AbstractArrowData`] next to its `EntityData`/`ProjectileData` and implements
 //! [`AbstractArrow`] (the virtual hooks, defaults = vanilla `AbstractArrow`). The shared behavior lives in this
 //! module's free functions (`tick`, `on_hit_entity`, `on_hit_block`, ...), which a subclass override calls as its
-//! "super"; [`impl_abstract_arrow!`] wires the `Entity`/`Projectile` overrides every arrow shares.
+//! "super"; `impl_abstract_arrow!` wires the `Entity`/`Projectile` overrides every arrow shares.
 
 pub mod arrow;
 pub mod spectral_arrow;
@@ -1029,8 +1029,8 @@ pub fn read_additional_save_data(arrow: &mut dyn AbstractArrow, input: &Compound
 }
 
 /// `Entity`/`Projectile` overrides every arrow shares. `impl_abstract_arrow!(Type)` goes at module level; it
-/// generates `impl Projectile for Type` pieces through [`impl_abstract_arrow_projectile!`] and the `Entity` pieces through
-/// [`impl_abstract_arrow_entity!`], which are placed inside the respective impl blocks.
+/// generates `impl Projectile for Type` pieces through `impl_abstract_arrow_projectile!` and the `Entity` pieces through
+/// `impl_abstract_arrow_entity!`, which are placed inside the respective impl blocks.
 #[macro_export]
 macro_rules! impl_abstract_arrow_projectile {
     () => {
@@ -1072,7 +1072,7 @@ macro_rules! impl_abstract_arrow_projectile {
     };
 }
 
-/// The `AbstractArrow` overrides of `Entity` (see [`impl_abstract_arrow_projectile!`]).
+/// The `AbstractArrow` overrides of `Entity` (see `impl_abstract_arrow_projectile!`).
 #[macro_export]
 macro_rules! impl_abstract_arrow_entity {
     () => {

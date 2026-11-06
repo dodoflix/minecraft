@@ -38,7 +38,7 @@ pub(crate) fn adjust_spawn_location(
     find_spawn_position(level, adventure, radius, suggestion)
 }
 
-/// The level half of [`adjust_spawn_location`] (`adventure` = the world's default game type, `radius` = the
+/// The level half of `adjust_spawn_location` (`adventure` = the world's default game type, `radius` = the
 /// `respawnRadius` rule).
 pub fn find_spawn_position(
     level: &mut ServerLevel,

@@ -472,7 +472,7 @@ impl Shapes {
         !Self::join_is_not_empty(first, second, BooleanOp::NOT_SAME)
     }
 
-    /// `rotate(shape, rotation)` about [`BLOCK_CENTER`].
+    /// `rotate(shape, rotation)` about `BLOCK_CENTER`.
     pub fn rotate(shape: &VoxelShape, rotation: OctahedralGroup) -> VoxelShape {
         Self::rotate_with_point(shape, rotation, &BLOCK_CENTER)
     }

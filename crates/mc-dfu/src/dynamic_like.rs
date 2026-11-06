@@ -36,7 +36,7 @@
 //! # Map order
 //!
 //! NBT-kind `Dyn::Map`s list their entries in `CompoundTag` (`HashMap`) iteration order; all mutating operations
-//! reproduce Java's order (see [`crate::nbt_order`]).
+//! reproduce Java's order (see `crate::nbt_order`).
 //!
 //! shortcut: `Dynamic.hashCode()` includes `ops.hashCode()`, an identity hash that is random per JVM run in Java (as are the
 //! hashes of `EndTag`/`JsonNull`); here the constant [`IDENTITY_HASH`] (= what `-XX:hashCode=2` gives, used for the goldens).

@@ -2,7 +2,7 @@
 //!
 //! Data inheritance: a concrete projectile embeds a [`ProjectileData`] next to its `EntityData` and implements
 //! [`Projectile`] (the overridable hooks, defaults = vanilla `Projectile`) besides `Entity`, returning itself from
-//! `Entity::as_projectile{,_mut}` (use [`impl_projectile_entity!`]). Its `Entity::tick` calls [`tick`] (= `Projectile.tick`,
+//! `Entity::as_projectile{,_mut}` (use `impl_projectile_entity!`). Its `Entity::tick` calls [`tick`] (= `Projectile.tick`,
 //! which ends in `Entity.tick`), its hit logic [`hit_target_or_deflect_self`] after [`util::get_hit_result_on_move_vector`].
 //! The owner is an `EntityReference` = a UUID resolved through the level.
 

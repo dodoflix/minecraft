@@ -491,7 +491,7 @@ pub fn write(tag: &CompoundTag, out: &mut Vec<u8>) {
         .expect("fallback writes cannot fail");
 }
 
-/// [`write`] into a fresh buffer.
+/// [`fn@write`] into a fresh buffer.
 pub fn to_bytes(tag: &CompoundTag) -> Vec<u8> {
     let mut out = Vec::new();
     write(tag, &mut out);

@@ -1,4 +1,4 @@
-//! `Husk` (a [`Zombie`](super::Zombie) of kind [`ZombieKind::Husk`](super::ZombieKind::Husk)): hunger on hit, no sun
+//! `Husk` (a `Zombie` of kind `ZombieKind::Husk`): hunger on hit, no sun
 //! burning (it is not in the `burn_in_daylight` tag), the camel husk + parched jockey spawn.
 
 use super::Zombie;

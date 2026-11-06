@@ -1,5 +1,5 @@
 //! `net.minecraft.world.level.block.CropBlock` (extends `VegetationBlock`; wheat) and its subclasses `CarrotBlock`,
-//! `PotatoBlock`, `BeetrootBlock`, `TorchflowerCropBlock` (the overrides are the [`Kind`] of the struct).
+//! `PotatoBlock`, `BeetrootBlock`, `TorchflowerCropBlock` (the overrides are the `Kind` of the struct).
 use super::prelude::*;
 use super::vegetation_block::{self, MayPlaceOn};
 use crate::server::level::ServerLevel;

@@ -278,7 +278,7 @@ impl<A: 'static> Codec<A> {
         })
     }
 
-    /// `orElse(onError, value)`: like [`or_else`] but reports the message.
+    /// `orElse(onError, value)`: like `or_else` but reports the message.
     pub fn or_else_report(
         &self,
         on_error: impl Fn(&str) + Send + Sync + 'static,

@@ -71,7 +71,7 @@ impl CommandSyntaxException {
         set_built_in_exceptions(provider)
     }
 
-    /// `getMessage()`: message plus " at position N: ...<--[HERE]" when there is a context.
+    /// `getMessage()`: message plus " at position N: ...<--\[HERE\]" when there is a context.
     pub fn get_message(&self) -> String {
         let mut message = self.message.get_string();
         if let Some(context) = self.get_context() {

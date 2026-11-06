@@ -1,7 +1,7 @@
 //! `net.minecraft.world.clock`: `WorldClock`, `ClockState`, `ClockTimeMarker`, `ServerClockManager`.
 //!
 //! World clocks are identified by their registry id (`minecraft:overworld`, `minecraft:the_end`, data-pack ones);
-//! a vanilla `Holder<WorldClock>` is an [`Identifier`] here. Time markers come from the timeline registry:
+//! a vanilla `Holder<WorldClock>` is an `Identifier` here. Time markers come from the timeline registry:
 //! [`time_markers_from_timeline_json`] reads them out of the raw timeline JSON.
 mod clock_state;
 mod clock_time_marker;

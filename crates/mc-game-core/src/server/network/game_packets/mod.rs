@@ -7,7 +7,7 @@
 //! Vanilla handles some packets directly on the netty thread (keep-alive, chat family, command suggestions, ping,
 //! book/sign editing, configuration acknowledgement; chat then queues a server task) and the rest on the main thread
 //! through the `PacketProcessor`, which is drained once at the very start of every tick (before `tickServer`).
-//! The queued tasks of the netty-handled packets run before that drain. [`drain_inbound`] reproduces this
+//! The queued tasks of the netty-handled packets run before that drain. `drain_inbound` reproduces this
 //! ordering for the batch of packets that arrived since the previous tick: first the netty-thread packets in arrival
 //! order, then the main-thread ones in arrival order.
 //!

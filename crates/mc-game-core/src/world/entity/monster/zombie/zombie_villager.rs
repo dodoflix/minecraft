@@ -1,4 +1,4 @@
-//! `ZombieVillager` (a [`Zombie`](super::Zombie) of kind [`ZombieKind::ZombieVillager`](super::ZombieKind::ZombieVillager)):
+//! `ZombieVillager` (a `Zombie` of kind `ZombieKind::ZombieVillager`):
 //! cured with a golden apple + weakness, converts back to a villager.
 
 use super::{Zombie, ZombieKind, base};

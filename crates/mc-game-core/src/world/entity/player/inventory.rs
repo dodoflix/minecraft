@@ -1,5 +1,5 @@
 //! `net.minecraft.world.entity.player.Inventory` (26.3 layout): 36 main slots (hotbar 0..9) in `items`, followed by
-//! the equipment slots of [`EQUIPMENT_SLOT_MAPPING`] stored in the player's `EntityEquipment` (the inventory owns it,
+//! the equipment slots of `EQUIPMENT_SLOT_MAPPING` stored in the player's `EntityEquipment` (the inventory owns it,
 //! vanilla's `PlayerEquipment` redirects `MAINHAND` to the selected hotbar slot, see [`Inventory::equipment_get`]).
 //!
 //! Vanilla's `Inventory` holds its `Player`; the Rust one does not (the player owns the inventory). Methods that

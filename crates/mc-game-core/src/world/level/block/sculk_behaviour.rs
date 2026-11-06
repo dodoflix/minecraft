@@ -1,4 +1,4 @@
-//! `SculkBehaviour`: how a block takes part in a [`SculkSpreader`](super::sculk_spreader::SculkSpreader) (implemented by
+//! `SculkBehaviour`: how a block takes part in a `SculkSpreader` (implemented by
 //! `SculkBlock` and `SculkVeinBlock`; everything else uses [`DEFAULT`]).
 
 use super::sculk_spreader::{ChargeCursor, SculkSpreader};

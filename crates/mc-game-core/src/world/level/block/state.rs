@@ -1,4 +1,4 @@
-//! `BlockBehaviour.BlockStateBase` methods that dispatch to the block's [`BlockBehaviour`] (everything that is plain
+//! `BlockBehaviour.BlockStateBase` methods that dispatch to the block's `BlockBehaviour` (everything that is plain
 //! static data is an inherent method of `mc_data::block::BlockState`), as an extension trait so call sites read like
 //! vanilla (`state.update_shape(..)`, `state.tick(..)`).
 

@@ -1,4 +1,4 @@
-//! `CrossbowAttackMob.performCrossbowAttack` (the interface itself is [`mc_game_core::world::entity::mob::ranged::CrossbowAttackMob`]).
+//! `CrossbowAttackMob.performCrossbowAttack` (the interface itself is `mc_game_core::world::entity::mob::ranged::CrossbowAttackMob`).
 
 use mc_data::Item;
 use mc_game_core::server::level::ServerLevel;

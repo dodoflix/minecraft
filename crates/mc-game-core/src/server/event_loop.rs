@@ -1,5 +1,5 @@
 //! `BlockableEventLoop` / `ReentrantBlockableEventLoop` as used by `MinecraftServer`: the pending task queue
-//! (`TickTask`s submitted through [`ServerShared::execute`]), the blocking depth and the reentrancy depth.
+//! (`TickTask`s submitted through `ServerShared::execute`), the blocking depth and the reentrancy depth.
 //! The task-running methods themselves live on `MinecraftServer` (tasks receive `&mut MinecraftServer`).
 
 use super::shared::TickTask;

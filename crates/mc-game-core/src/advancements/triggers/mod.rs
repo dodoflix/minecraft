@@ -105,10 +105,10 @@ pub(crate) mod prelude {
 }
 
 /// Namespace of the trigger constants (`CriteriaTriggers.X`): every trigger module declares its own constants with
-/// [`register_triggers!`]. Usage: `CriteriaTriggers::CONSUME_ITEM.trigger(level, player, &stack)`.
+/// `register_triggers!`. Usage: `CriteriaTriggers::CONSUME_ITEM.trigger(level, player, &stack)`.
 pub struct CriteriaTriggers;
 
-/// The registered triggers (`BuiltInRegistries.TRIGGER_TYPES`), filled by [`register_triggers!`].
+/// The registered triggers (`BuiltInRegistries.TRIGGER_TYPES`), filled by `register_triggers!`.
 #[linkme::distributed_slice]
 pub static TRIGGER_TYPES: [ErasedTrigger];
 

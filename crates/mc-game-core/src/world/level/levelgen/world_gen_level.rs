@@ -62,7 +62,7 @@ pub trait WorldGenLevel: LevelAccessor {
         false
     }
     /// `BulkSectionAccess.getBlockState(pos)`: the block of the chunk section at `pos` read directly (AIR outside the build
-    /// height); no write-zone check and no "unsafe terrain read" warning. Default: [`BlockGetter::get_block_state`].
+    /// height); no write-zone check and no "unsafe terrain read" warning. Default: `BlockGetter::get_block_state`.
     fn get_block_state_in_section(&self, pos: BlockPos) -> BlockState {
         if self.is_outside_build_height(pos.y()) {
             Block::AIR.default_state()

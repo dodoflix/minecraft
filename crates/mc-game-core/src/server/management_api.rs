@@ -4,7 +4,7 @@
 //!
 //! The RPC layer wraps every method in [`ManagementApi::run_on_server_thread`]; inside it the server is reachable through
 //! the command system's `server_access` (the same installed-pointer mechanism commands use), so the primitive methods
-//! below find it with [`on_server`] and only marshal to the game thread themselves when called from anywhere else.
+//! below find it with `on_server` and only marshal to the game thread themselves when called from anywhere else.
 
 use super::MinecraftServer;
 use super::jsonrpc::ManagementApi;

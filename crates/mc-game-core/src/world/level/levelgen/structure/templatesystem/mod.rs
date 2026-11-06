@@ -1,9 +1,9 @@
 //! `net.minecraft.world.level.levelgen.structure.templatesystem`: structure templates, their placement settings and
 //! the processor / rule-test system, plus the template manager and its loaders.
 //!
-//! Type tables (linkme, filled by each type's own file): [`rule_test::RULE_TEST_TYPES`],
-//! [`pos_rule_test::POS_RULE_TEST_TYPES`], [`structure_processor::STRUCTURE_PROCESSOR_TYPES`],
-//! [`rule::blockentity::RULE_BLOCK_ENTITY_MODIFIER_TYPES`]; the `worldgen/processor_list` registry is
+//! Type tables (linkme, filled by each type's own file): `rule_test::RULE_TEST_TYPES`,
+//! `pos_rule_test::POS_RULE_TEST_TYPES`, [`structure_processor::STRUCTURE_PROCESSOR_TYPES`],
+//! `rule::blockentity::RULE_BLOCK_ENTITY_MODIFIER_TYPES`; the `worldgen/processor_list` registry is
 //! [`structure_processor_list::load_processor_lists`].
 
 pub mod block_rot_processor;

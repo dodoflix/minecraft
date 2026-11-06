@@ -168,7 +168,7 @@ pub fn do_hurt_target(e: &mut dyn Entity, level: &mut ServerLevel, target: Entit
 }
 
 /// `Entity.getTeam()` as the team's name (`Team` identity): the team of the scoreboard member `e` plays for (a tamed pet's
-/// root owner's, like [`ext::is_allied_to`]).
+/// root owner's, like `ext::is_allied_to`).
 pub fn get_team_name(level: &ServerLevel, e: &dyn Entity) -> Option<String> {
     let member = super::ext::team_member_name(level, e)?;
     level

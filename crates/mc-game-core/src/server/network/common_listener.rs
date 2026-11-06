@@ -1,7 +1,7 @@
 //! `ServerCommonPacketListenerImpl`: the state and logic shared by the configuration and play listeners
 //! (keep-alive, latency, the closed-listener timeout, `disconnect`). Plain `Send` data without server references:
 //! the configuration listener runs inside the connection's tokio task, so time is passed in as `now_ms`
-//! (`Util.getMillis()`) and the connection through the [`ConnectionSender`].
+//! (`Util.getMillis()`) and the connection through the `ConnectionSender`.
 
 use mc_protocol::codec::GameProfile;
 use mc_protocol::packets::common::ClientInformation;

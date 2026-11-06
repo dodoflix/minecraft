@@ -421,7 +421,7 @@ impl PlayerList {
     }
 }
 
-/// `BAN_DATE_FORMAT`: `yyyy-MM-dd 'at' HH:mm:ss z` in the default time zone (`z`: see [`short_zone_name`]).
+/// `BAN_DATE_FORMAT`: `yyyy-MM-dd 'at' HH:mm:ss z` in the default time zone (`z`: see `short_zone_name`).
 pub fn format_ban_date(date: &chrono::DateTime<chrono::Utc>) -> String {
     let Some(tm) = local_time(date.timestamp()) else {
         return date.format("%Y-%m-%d at %H:%M:%S UTC").to_string();

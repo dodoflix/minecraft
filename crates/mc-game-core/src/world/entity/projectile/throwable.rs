@@ -1,9 +1,9 @@
 //! `ThrowableProjectile` + `ThrowableItemProjectile`: the shared tick and the synched `Item` stack of snowballs, eggs,
 //! ender pearls, experience bottles and thrown potions.
 //!
-//! A concrete class embeds `base: EntityData` and `projectile: ProjectileData`, invokes [`impl_throwable_entity!`] inside
+//! A concrete class embeds `base: EntityData` and `projectile: ProjectileData`, invokes `impl_throwable_entity!` inside
 //! its `impl Entity` (accessors, `tick`, drag, portal use, the `Projectile` entity overrides) and
-//! [`impl_throwable_projectile!`] inside `impl Projectile` (the data accessors).
+//! `impl_throwable_projectile!` inside `impl Projectile` (the data accessors).
 
 use super::{HitType, Projectile, hit_target_or_deflect_self, update_rotation, util};
 use crate::define_accessor;

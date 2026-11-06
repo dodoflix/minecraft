@@ -3,7 +3,7 @@
 //!
 //! The worldgen biome registry keeps the biome `attributes` as raw JSON; [`BiomeSpawnTable`] decodes the two spawning
 //! attributes of every biome once per registry (memoized by [`BiomeSpawnTable::for_registry`], shared by the server level
-//! and the generation threads). [`resolve`] evaluates the attribute stack of a position: the dimension type's constant
+//! and the generation threads). `resolve` evaluates the attribute stack of a position: the dimension type's constant
 //! layer, then the biome layer (the attribute is `fullResolutionBiomes`, so the biome is the block-resolution
 //! `BiomeManager.getBiome`).
 

@@ -16,7 +16,7 @@ pub enum OnBreak {
 }
 
 /// `EnchantedItemInUse(itemStack, inSlot, owner, onBreak)`. The stack is a working copy of the one held in `in_slot` of
-/// `owner` (or of a weapon in hand); effects change it in place and the iteration writes it back when [`modified`] is set.
+/// `owner` (or of a weapon in hand); effects change it in place and the iteration writes it back when `modified` is set.
 pub struct EnchantedItemInUse {
     pub item_stack: ItemStack,
     pub in_slot: Option<EquipmentSlot>,

@@ -117,7 +117,7 @@ pub trait LevelReader: BlockGetter {
 /// `LevelAccessor` (+ `ScheduledTickAccess`): mutation entry points shared by `ServerLevel` and `WorldGenRegion`.
 pub trait LevelAccessor: LevelReader {
     /// `this instanceof ServerLevel` (vanilla's `BlockEntity.level` / `Level` reached from `LevelAccessor`-typed code such
-    /// as `updateShape`): `Some` only for `ServerLevel`. [Blocks:TechnicalA]
+    /// as `updateShape`): `Some` only for `ServerLevel`. \[Blocks:TechnicalA\]
     fn as_server_level_mut(&mut self) -> Option<&mut crate::server::level::ServerLevel> {
         None
     }

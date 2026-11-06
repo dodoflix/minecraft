@@ -2,7 +2,7 @@
 //!
 //! Attacker/target entities of the anger functions are passed as `&dyn Entity`: the entity that hurt a piglin is usually
 //! the running (taken-out) entity, see [`mc_game_core::world::entity::mob::ext::with_causing_entity`]; entities that are
-//! compared by distance are carried as `(id, position)` ([`Located`]) so that they need not resolve in the level.
+//! compared by distance are carried as `(id, position)` (`Located`) so that they need not resolve in the level.
 
 use super::abstract_piglin::{can_hunt_entity, is_adult};
 use super::piglin::Piglin;

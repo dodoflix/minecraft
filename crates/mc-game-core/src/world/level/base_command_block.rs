@@ -3,7 +3,7 @@
 //!
 //! Vanilla mutates the object from inside the command (`successCount++` in the result callback, `lastOutput` in the
 //! command source), while the object stays reachable through its block entity / entity. Here the two fields the command
-//! touches live in a shared cell ([`Shared`]), so the command can run without the owner being borrowed: the owner calls
+//! touches live in a shared cell (`Shared`), so the command can run without the owner being borrowed: the owner calls
 //! [`BaseCommandBlock::begin_perform`] (borrowing itself), runs the returned [`PendingCommand`] with the level, and
 //! finishes with [`BaseCommandBlock::finish_perform`].
 

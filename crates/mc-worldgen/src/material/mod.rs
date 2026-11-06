@@ -5,7 +5,7 @@
 //! `MaterialRule` / `MaterialCondition` decode from `data/<ns>/worldgen/material_rule|material_condition`
 //! JSON: a string is a holder reference (decoded once per registry entry and shared), an object is inline.
 //! Reference cycles are an error. `biome_is` sets and temperature checks need the world's
-//! [`BiomeRegistry`](crate::biome::BiomeRegistry); decoded rules are only meaningful together with the
+//! `BiomeRegistry`; decoded rules are only meaningful together with the
 //! registry they were decoded with (the registry memoizes entries per [`WorldgenRegistries`]).
 
 mod cave_surface;

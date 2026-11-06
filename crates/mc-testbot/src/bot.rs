@@ -743,7 +743,7 @@ impl Bot {
         self.with_state(|s| s.air())
     }
 
-    /// Mark in the [`Observed`] log; pass it to [`Bot::events_since`] / [`Bot::wait_event`] after an action.
+    /// Mark in the `Observed` log; pass it to [`Bot::events_since`] / [`Bot::wait_event`] after an action.
     pub fn event_mark(&self) -> usize {
         self.with_state(|s| s.events.len())
     }

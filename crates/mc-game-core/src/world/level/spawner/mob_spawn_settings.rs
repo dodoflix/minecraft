@@ -3,7 +3,7 @@
 //! settings (`MobSpawnSettingsModifier.Overlay`).
 //!
 //! `SpawnerData` (`type` + `count`) is the one the structure spawn overrides use
-//! ([`SpawnerData`](crate::world::level::levelgen::structure::structure::SpawnerData)); weights live in the
+//! (`SpawnerData`); weights live in the
 //! [`WeightedList`] entries.
 
 use crate::world::level::levelgen::structure::structure::{SpawnerData, mob_category_by_name};

@@ -1,4 +1,4 @@
-//! `Drowned` (a [`Zombie`](super::Zombie) of kind [`ZombieKind::Drowned`](super::ZombieKind::Drowned)): amphibious
+//! `Drowned` (a `Zombie` of kind `ZombieKind::Drowned`): amphibious
 //! navigation, swimming, trident throwing, nautilus shell / zombie nautilus jockey.
 
 use super::base;

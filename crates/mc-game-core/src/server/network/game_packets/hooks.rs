@@ -2,7 +2,7 @@
 //!
 //! Vanilla's listener methods for these packets are thin: a `resetLastActionTime()`/permission check followed by a call
 //! into the subsystem (menus, recipe book, advancements, block entities, entities, inventory). The listener-level part
-//! is implemented in the dispatcher ([`PlayCtx::dispatch_hook`]); the subsystem part is a method of [`PlayHandlers`].
+//! is implemented in the dispatcher (`PlayCtx::dispatch_hook`); the subsystem part is a method of [`PlayHandlers`].
 //! A subsystem registers one implementor in [`PLAY_HANDLERS`] (a `linkme` slice); all registered implementors are
 //! called for every packet and each overrides only the methods of the packets it owns, so the defaults are no-ops
 //! (what vanilla does when the player has no matching open menu / block entity).

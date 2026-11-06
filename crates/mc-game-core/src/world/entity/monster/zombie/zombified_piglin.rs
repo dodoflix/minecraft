@@ -1,4 +1,4 @@
-//! `ZombifiedPiglin` (a [`Zombie`](super::Zombie) of kind [`ZombieKind::ZombifiedPiglin`](super::ZombieKind::ZombifiedPiglin)):
+//! `ZombifiedPiglin` (a `Zombie` of kind `ZombieKind::ZombifiedPiglin`):
 //! a `NeutralMob` that alerts other zombified piglins.
 
 use super::{Zombie, ZombieKind};

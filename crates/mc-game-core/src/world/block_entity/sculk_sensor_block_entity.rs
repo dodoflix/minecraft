@@ -1,6 +1,6 @@
 //! `SculkSensorBlockEntity` (also the Rust type of `CalibratedSculkSensorBlockEntity`, which only differs in its
 //! type and listener radius): `last_vibration_frequency` and the vibration system's `listener` data. The vibration
-//! user is [`BlockEntityVibration`](super::vibration::BlockEntityVibration).
+//! user is `BlockEntityVibration`.
 
 use super::vibration::{self, BlockEntityVibration, Kind};
 use super::{

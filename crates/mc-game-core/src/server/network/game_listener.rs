@@ -1,6 +1,6 @@
 //! `ServerGamePacketListenerImpl`: per-player play-state listener *state*. It lives inside the player
 //! (`ServerPlayer.connection`); the behavior (`handle*`, `tick`) is in [`super::game_packets`] as methods of
-//! [`PlayCtx`](super::game_packets::PlayCtx), the transient borrow of `(server, level, player)` that exists while a
+//! `PlayCtx`, the transient borrow of `(server, level, player)` that exists while a
 //! packet or a tick is handled (the player is taken out of the level's entity storage meanwhile, see
 //! `ARCHITECTURE.md`).
 

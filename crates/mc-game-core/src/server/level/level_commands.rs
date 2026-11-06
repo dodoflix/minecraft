@@ -2,7 +2,7 @@
 //! `server.getCommands().performPrefixedCommand(source, command)` synchronously from `CommandBlock.tick`, but here the
 //! ticking level is taken out of the server and block code only has the level. While [`ServerLevel::tick`] runs the
 //! scheduled block ticks the tick environment (which owns the server borrow) is reachable through the level
-//! ([`ServerLevel::with_command_env`]); [`ServerLevel::perform_prefixed_command`] hands the command to it, which lends this
+//! (`ServerLevel::with_command_env`); [`ServerLevel::perform_prefixed_command`] hands the command to it, which lends this
 //! very level back to the server for the duration of the command (`MinecraftServer::with_lent_level`).
 
 use super::ServerLevel;

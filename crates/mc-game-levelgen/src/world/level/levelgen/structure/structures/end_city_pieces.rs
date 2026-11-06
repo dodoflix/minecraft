@@ -1,9 +1,9 @@
 //! `EndCityPieces`: the end city (house towers, towers, bridges, fat towers, the ship) as a tree of template pieces, and the
 //! data markers (`Chest` loot, `Sentry` shulkers, `Elytra` item frames) of `EndCityPiece`.
 //!
-//! Vanilla's `SectionGenerator`s are the four [`Section`]s here. Piece lists are `Vec<EndCityPiece>`; vanilla's references to
+//! Vanilla's `SectionGenerator`s are the four `Section`s here. Piece lists are `Vec<EndCityPiece>`; vanilla's references to
 //! pieces of a list (`parent`, `lastPiece`) are indices into it, and a generator's `parent` lives in the caller's list while its
-//! children go into a fresh one ([`recursive_children`]).
+//! children go into a fresh one (`recursive_children`).
 
 use super::structure_entities;
 use crate::world::level::levelgen::structure::template_structure_piece::{

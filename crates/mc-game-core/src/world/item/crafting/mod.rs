@@ -1,6 +1,6 @@
 //! `net.minecraft.world.item.crafting`: recipes, ingredients, recipe inputs, the recipe manager, recipe displays.
 //!
-//! Recipes are decoded from the `recipe` registry ([`decoder`]) and served by [`RecipeManager`] (a [`ReloadListener`]
+//! Recipes are decoded from the `recipe` registry ([`decoder`]) and served by [`RecipeManager`] (a `ReloadListener`
 //! (`crate::server::reloadable_resources::ReloadListener`), reachable as `level.recipe_access()`).
 
 mod brewing_recipe;

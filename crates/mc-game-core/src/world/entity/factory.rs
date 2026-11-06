@@ -2,7 +2,7 @@
 //! (`EntityType.create`, `loadEntityRecursive`, `loadEntitiesRecursive`).
 //!
 //! Concrete entity classes register a factory through [`ENTITY_FACTORIES`] from the module that implements them.
-//! Types without an implementation yet are created as [`PlainEntity`](super::plain::PlainEntity), which keeps the
+//! Types without an implementation yet are created as `PlainEntity`, which keeps the
 //! raw NBT it was loaded from so saved worlds round trip losslessly.
 
 use super::plain::PlainEntity;
