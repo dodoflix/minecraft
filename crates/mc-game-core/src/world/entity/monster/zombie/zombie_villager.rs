@@ -270,7 +270,7 @@ pub fn finalize_spawn(
     base::finalize_spawn(zombie, level, difficulty, reason, group_data)
 }
 
-// ==== PENDING(villagers): the functions below need the Villager class (villagers) ====
+// ==== Not implemented: the functions below are no-ops because they need the `Villager` class ====
 
 /// `VillagerDataHolder.finalizeVillagerType(level, pos)`.
 fn finalize_villager_type(

@@ -430,7 +430,7 @@ impl ItemBehaviour for EmptyMapItem {
         let mut stack = player.get_item_in_hand(hand);
         let infinite = player.player.abilities.instabuild;
         stack.consume(1, infinite);
-        // `player.awardStat(Stats.ITEM_USED.get(this))`: statistics are not ported yet
+        // `player.awardStat(Stats.ITEM_USED.get(this))`: not implemented (statistics)
         let position = player.position();
         level.play_sound_at(
             None,

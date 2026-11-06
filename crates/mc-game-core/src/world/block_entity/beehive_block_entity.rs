@@ -505,8 +505,7 @@ fn release_occupant(
     level.add_fresh_entity(entity)
 }
 
-/// `CampfireBlock.isSmokeyPos(level, pos)`.
-// TEMP: replaced by `CampfireBlock::is_smokey_pos` once the campfire block exists
+/// `CampfireBlock.isSmokeyPos(level, pos)` (same logic as `CampfireBlock::is_smokey_pos`).
 fn is_smokey_pos(level: &dyn BlockGetter, pos: BlockPos) -> bool {
     use crate::world::level::collision::CollisionContext;
     use mc_core::phys::shapes::{BooleanOp, Shapes};

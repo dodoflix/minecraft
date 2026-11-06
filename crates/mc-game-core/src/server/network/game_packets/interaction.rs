@@ -296,7 +296,7 @@ impl PlayCtx<'_> {
         {
             return;
         }
-        // `AbstractArrow && !isAttackable()`: arrows are not ported yet
+        // `AbstractArrow && !isAttackable()`: not implemented (no arrow entity)
         let unattackable_arrow = false;
         if target.is_item_entity
             || target.is_experience_orb

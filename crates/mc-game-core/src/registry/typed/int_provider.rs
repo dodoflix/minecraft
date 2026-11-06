@@ -1,6 +1,6 @@
 //! `util.valueproviders.IntProvider(s)`: the codec (`IntProviders.codec(min, max)`) and a value type for the providers
 //! gameplay code reads out of registry data (constant and uniform are sampled; the other provider types keep their
-//! validated JSON until the `util` slice ports their sampling).
+//! validated JSON and are not sampled).
 
 use mc_core::random::RandomSource;
 use mc_nbt::Tag;

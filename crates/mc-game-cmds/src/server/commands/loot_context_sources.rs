@@ -1,8 +1,7 @@
 //! `LootContextSources`: the `default | block <pos> | entity <target>` branch shared by the `compute` commands.
 //!
-//! SEAM(loot): there is no loot system (`LootContext`/`LootParams`/loot number providers) yet, so a decorator resolves its
-//! command arguments exactly like vanilla (loaded position, entity selector) and then fails: [`LootContext`] cannot be
-//! constructed. Replace the enum with the real `LootContext` and fill [`ContextDecorator`] once loot contexts exist.
+//! Not implemented: [`LootContext`] cannot be constructed, so a decorator resolves its command arguments exactly like
+//! vanilla (loaded position, entity selector) and then fails.
 use mc_brigadier::{
     ArgumentBuilder, CommandContext, CommandSyntaxException, NodeBuilder,
     SimpleCommandExceptionType,

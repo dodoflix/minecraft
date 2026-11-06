@@ -579,7 +579,7 @@ impl BlockItem {
     ) -> Option<BlockPlaceContext> {
         match self.kind {
             Kind::Scaffolding => {
-                // `ScaffoldingBlock.getDistance` (the scaffolding block's stability distance) is not ported yet:
+                // Not implemented: `ScaffoldingBlock.getDistance` (the scaffolding block's stability distance);
                 // behaves like the non-scaffolding path for a freshly clicked position, which is the common case.
                 let pos = ctx.get_clicked_pos();
                 let replaced = level.get_block_state(pos);

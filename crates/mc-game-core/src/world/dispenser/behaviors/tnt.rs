@@ -19,7 +19,7 @@ impl DispenseTemplate for TntDispense {
             return dispensed;
         }
         let target = source.pos.relative(source.facing());
-        // `SulfurCubeBlockDispenseItemBehavior.dispenseBlock(level, target, dispensed)`: no sulfur cube entity exists yet
+        // `SulfurCubeBlockDispenseItemBehavior.dispenseBlock(level, target, dispensed)`: not implemented (TNT is always primed)
         let tnt = PrimedTnt::at(
             source.level,
             f64::from(target.x()) + 0.5,

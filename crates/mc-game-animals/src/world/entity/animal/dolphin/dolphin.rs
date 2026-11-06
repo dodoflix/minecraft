@@ -454,10 +454,8 @@ impl Entity for Dolphin {
     }
 }
 
-/// SEAM: `level.findNearestMapStructure(DOLPHIN_LOCATED, pos, 50, false)`. `ChunkGenerator.findNearestMapStructure` exists
-/// (`levelgen::structure::locate`), but its `LocateLevel` adapter for `ServerLevel` (the worldedit commands'
-/// `ServerLevel::find_nearest_map_structure`) does not exist yet; until it does the dolphin finds nothing and gives up like
-/// vanilla's "no structure" branch. Replace the body with the `ServerLevel` call once it exists.
+/// `level.findNearestMapStructure(DOLPHIN_LOCATED, pos, 50, false)`. Not implemented: always `None`, so the dolphin finds
+/// no structure and gives up like vanilla's "no structure" branch.
 fn find_nearest_map_structure(
     _level: &mut ServerLevel,
     _wanted: &[Identifier],

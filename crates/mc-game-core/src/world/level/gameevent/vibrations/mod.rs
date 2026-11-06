@@ -68,6 +68,5 @@ fn try_get_player(
         .filter(|id| is_player(*id))
 }
 
-/// `CriteriaTriggers.AVOID_VIBRATION.trigger(player)`.
-// SEAM(advancements): `CriteriaTriggers::AVOID_VIBRATION.trigger(level, player)` once the trigger API exists.
+/// `CriteriaTriggers.AVOID_VIBRATION.trigger(player)`. Not implemented: does nothing.
 pub fn trigger_avoid_vibration(_level: &mut ServerLevel, _player: EntityId) {}

@@ -1,6 +1,6 @@
 //! `VanillaWorldGenHooks`: the [`WorldGenHooks`] of one level. Decoration builds the [`GenLevel`] over the lent region
 //! and runs [`decoration::apply_biome_decoration`]; the structure stages are `structure::generation`; original mob
-//! spawns are reached through the [`OriginalMobSpawner`] seam which the entity layer replaces with its implementation
+//! spawns are reached through the [`OriginalMobSpawner`] hook, which the entity layer sets to its implementation
 //! (`VanillaWorldGenHooks::with_mob_spawner`).
 
 use super::decoration::{self, DecorationInput, StepFeatureData};

@@ -1081,7 +1081,7 @@ pub trait Entity: Any {
     }
 
     /// `OwnableEntity.getOwnerReference()`: the owner's UUID for tameable animals, horses and the like (`None` for
-    /// everything else). SEAM(mobs): overridden by the mob classes that are `OwnableEntity`.
+    /// everything else). Not overridden by any entity class: the default is `None`.
     fn ownable_owner_uuid(&self) -> Option<uuid::Uuid> {
         None
     }
@@ -3370,11 +3370,11 @@ pub trait Entity: Any {
         self.mob().is_some_and(|m| m.ageable.is_some())
             && super::mob::ageable::is_baby(self.as_dyn())
     }
-    /// `Mob.getTarget()` (`None` for non-mobs). SEAM(Mob): overridden by the mob classes.
+    /// `Mob.getTarget()` (`None` for non-mobs).
     fn get_target(&self) -> Option<EntityId> {
         self.mob().and_then(|m| m.target)
     }
-    /// `Sheep.isSheared()`; `None` when the entity is not a `Sheep`. SEAM(Sheep).
+    /// `Sheep.isSheared()`; `None` when the entity is not a `Sheep`.
     fn sheep_sheared(&self) -> Option<bool> {
         None
     }
@@ -3449,7 +3449,7 @@ pub trait Entity: Any {
             l.jumping = jump;
         }
     }
-    /// `AbstractCubeMob.getSize()`; `None` when the entity is not a cube mob. SEAM(AbstractCubeMob).
+    /// `AbstractCubeMob.getSize()`; `None` when the entity is not a cube mob.
     fn cube_mob_size(&self) -> Option<i32> {
         None
     }
@@ -3475,14 +3475,14 @@ pub trait Entity: Any {
     /// The part of an overridden `remove(reason)` that runs before `super.remove(reason)` (`AbstractCubeMob` splits on death);
     /// called for `Killed` / `Discarded` removals by the code that removes an entity with the level at hand.
     fn before_remove(&mut self, _level: &mut ServerLevel, _reason: RemovalReason) {}
-    /// `FishingHook.isOpenWaterFishing()`; `None` when the entity is not a `FishingHook`. SEAM(FishingHook).
+    /// `FishingHook.isOpenWaterFishing()`; `None` when the entity is not a `FishingHook`.
     fn fishing_hook_open_water(&self) -> Option<bool> {
         None
     }
     /// `Axolotl.rehydrate()` (water bottles splashed on axolotls); a no-op for everything else. Overridden by the Axolotl.
     fn rehydrate(&mut self) {}
     /// `(LightningBolt.getBlocksSetOnFire(), LightningBolt.getHitEntities())`; `None` when the entity is not a
-    /// `LightningBolt`. SEAM(LightningBolt): implemented by the lightning entity.
+    /// `LightningBolt`.
     fn lightning_bolt_state(
         &self,
     ) -> Option<crate::advancements::predicates::entity::support::LightningBoltState> {
@@ -3497,7 +3497,7 @@ pub trait Entity: Any {
         0
     }
     /// `PlayerAdvancements.getOrStartProgress(advancement)` as data; `None` when the advancement does not exist.
-    /// SEAM(advancements): implemented once player advancements are modelled.
+    /// Not implemented: always `None`.
     fn advancement_progress(
         &self,
         _advancement: &mc_core::ident::Identifier,

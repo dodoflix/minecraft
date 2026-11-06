@@ -45,7 +45,7 @@ impl ServerPlayer {
         if let Some(pos) = target {
             let (y_rot, x_rot) = (self.base().y_rot(), self.base().x_rot());
             if self.player.living.is_sleeping() {
-                // SEAM(player): `stopSleepInBed(true, true)` of `ServerPlayer.teleportTo`
+                // Not implemented: `ServerPlayer.teleportTo` calls `stopSleepInBed(true, true)` here.
             }
             self.connection_teleport(pos.x, pos.y, pos.z, y_rot, x_rot);
             let head = y_rot;

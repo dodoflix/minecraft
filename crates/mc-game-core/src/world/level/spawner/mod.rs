@@ -1,6 +1,6 @@
 //! Mob spawning infrastructure (`NaturalSpawner`, `SpawnPlacements`, `MobSpawnSettings`, the `CustomSpawner` driver).
 //!
-//! # For mob authors (phase 2)
+//! # Adding spawn behavior for a mob
 //!
 //! * **Spawn predicate of a type.** Vanilla's `SpawnPlacements.register(type, placement, heightmap, predicate)`: the
 //!   placement type and heightmap are `mc_data` data already, the predicate is code. Types whose vanilla predicate is a

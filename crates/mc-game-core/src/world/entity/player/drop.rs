@@ -80,7 +80,7 @@ impl ServerPlayer {
         else {
             return false;
         };
-        // `awardStat(ITEM_DROPPED, DROP)`: statistics are not ported yet
+        // `awardStat(ITEM_DROPPED, DROP)`: not implemented (statistics)
         level.add_fresh_entity(Box::new(entity))
     }
 

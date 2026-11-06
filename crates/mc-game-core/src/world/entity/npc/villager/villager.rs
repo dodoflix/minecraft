@@ -1,6 +1,6 @@
 //! `Villager`: the brain mob that trades, works, sleeps, gossips and breeds (`net.minecraft.world.entity.npc.villager.Villager`).
 //!
-//! # Seams worth knowing about
+//! # Deviations from vanilla worth knowing about
 //! * `getTradingPlayer()` is an entity id. Vanilla's `updateSpecialPrices(player)` touches the player (effects, menu, packet); while
 //!   the player is itself taken out of the level (it is running a menu handler or `mobInteract`) the update cannot reach it, so
 //!   callers without the player set `pending_special_prices`, which `customServerAiStep` applies (the player is in the level

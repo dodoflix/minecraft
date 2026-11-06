@@ -1,5 +1,5 @@
-//! `Entity`/`LivingEntity`/`Level` helpers the mob code needs and that have no home elsewhere yet (each is a vanilla
-//! method of the same name; they move to their owners' modules if those grow them).
+//! `Entity`/`LivingEntity`/`Level` helpers the mob code needs and that have no home elsewhere (each is a vanilla
+//! method of the same name).
 
 use crate::server::level::ServerLevel;
 use crate::world::entity::ai::targeting::TargetingConditions;
@@ -289,8 +289,7 @@ pub fn trigger_bred_animals(
     level.with_player(cause, |level, player| matches.award(level, player));
 }
 
-/// `LeashFenceKnotEntity.getOrCreateKnot(level, pos)`. SEAM(items): the knot entity is not ported yet;
-/// it replaces this body.
+/// `LeashFenceKnotEntity.getOrCreateKnot(level, pos)`. Not implemented: always `None` (no knot entity is created).
 pub fn get_or_create_leash_knot(
     _level: &mut ServerLevel,
     _pos: mc_core::pos::BlockPos,
@@ -311,8 +310,8 @@ pub fn trigger_tame_animal(level: &mut ServerLevel, player: EntityId, animal: &d
     );
 }
 
-/// `oldBrain` `ANGRY_AT` memory copy of `ConversionType.convertCommon`. SEAM(brain): the brain memories are
-/// not wired up here yet; they replace this body once `Brain` is available.
+/// `oldBrain` `ANGRY_AT` memory copy of `ConversionType.convertCommon`. Not implemented: does nothing, the brain
+/// memories are not copied.
 pub fn copy_angry_at_memory(_from: &dyn Entity, _to: &mut dyn Entity) {}
 
 /// `CriteriaTriggers.PLAYER_SHEARED_EQUIPMENT.trigger(player, itemStackToShear, mob)`; `mob` is the running entity.
@@ -612,8 +611,7 @@ pub fn get_last_damage_source(
     }
 }
 
-/// `ChestBlockEntity.getOpenCount(level, pos)`. SEAM(containers): the chest block entity is not ported yet;
-/// it replaces this body.
+/// `ChestBlockEntity.getOpenCount(level, pos)`. Not implemented: always `0`.
 pub fn chest_open_count(_level: &ServerLevel, _pos: mc_core::pos::BlockPos) -> i32 {
     0
 }

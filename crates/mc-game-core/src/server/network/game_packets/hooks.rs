@@ -1,4 +1,4 @@
-//! Extension points of the play-state dispatcher for subsystems that are not ported yet.
+//! Extension points of the play-state dispatcher for subsystems outside the listener.
 //!
 //! Vanilla's listener methods for these packets are thin: a `resetLastActionTime()`/permission check followed by a call
 //! into the subsystem (menus, recipe book, advancements, block entities, entities, inventory). The listener-level part

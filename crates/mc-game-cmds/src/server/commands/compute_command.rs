@@ -1,10 +1,9 @@
 //! `ComputeCommand`.
 //!
-//! SEAM(loot): evaluating a `ContextIntProvider`/`ContextFloatProvider` needs a `LootContext` and the loot number
-//! providers, which the entity/loot code owns ([`LootContext`] cannot be constructed yet, see `loot_context_sources`).
-//! [`evaluate_int`]/[`evaluate_float`] are the two calls (`provider.value().getIntUnsafe(lootContext)` /
-//! `getFloatUnsafe(lootContext)`, `Err` = the `ArithmeticException` message) to fill once it exists; everything else
-//! (tree, `scale`, rounding, result messages and errors) is vanilla's.
+//! Not implemented: evaluating a `ContextIntProvider`/`ContextFloatProvider` needs a `LootContext`, which cannot be
+//! constructed (see `loot_context_sources`). [`evaluate_int`]/[`evaluate_float`] are the two calls
+//! (`provider.value().getIntUnsafe(lootContext)` / `getFloatUnsafe(lootContext)`, `Err` = the `ArithmeticException`
+//! message) that fail for that reason; everything else (tree, `scale`, rounding, result messages and errors) is vanilla's.
 use super::loot_context_sources::{ContextDecorator, LootContext, add_context_sources};
 use mc_brigadier::arguments::{FloatArgumentType, float_arg};
 use mc_brigadier::{

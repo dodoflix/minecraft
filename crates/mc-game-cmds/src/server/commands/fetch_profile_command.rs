@@ -228,7 +228,7 @@ fn print_for_entity(
     source: &CommandSourceStack,
     entity: EntityRef,
 ) -> Result<i32, CommandSyntaxException> {
-    // `entity instanceof Avatar` (players; the mannequin entity does not exist in this server yet)
+    // `entity instanceof Avatar` (players only: there is no mannequin entity)
     let (profile, display_name) = source.with_server(|server| {
         let e = host::get_entity(server, &entity).expect("selected entity exists");
         let profile = e

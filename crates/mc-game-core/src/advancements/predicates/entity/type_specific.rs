@@ -1,5 +1,5 @@
-//! The `type_specific/*` sub predicates. Their subject entity classes are not all modelled yet: each one asks the
-//! entity through the matching `Entity` seam hook (`sheep_sheared`, `cube_mob_size`, `raider_state`,
+//! The `type_specific/*` sub predicates. Their subject entity classes are not all modelled: each one asks the
+//! entity through the matching `Entity` hook (`sheep_sheared`, `cube_mob_size`, `raider_state`,
 //! `fishing_hook_open_water`, `lightning_bolt_state`) which is `None` for every other class.
 
 use super::entity_predicate::{EntityPredicate, EntitySubPredicateImpl};

@@ -1,6 +1,6 @@
-//! SEAM(maps): `exploration_map` (`level.findNearestMapStructure` + `MapItem.applyNewSavedData` /
-//! `renderBiomePreviewMap` / `addTargetDecoration`). Map items and map saved data are not ported, so the stack is left
-//! untouched (vanilla also returns it unchanged when no structure is found).
+//! `exploration_map` (`level.findNearestMapStructure` + `MapItem.applyNewSavedData` / `renderBiomePreviewMap` /
+//! `addTargetDecoration`). Not implemented: the stack is returned untouched (vanilla also returns it unchanged when no
+//! structure is found).
 
 use mc_core::phys::Vec3;
 use mc_protocol::components::ItemStack;

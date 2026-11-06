@@ -983,7 +983,7 @@ impl Entity for AbstractBoat {
         _hand: InteractionHand,
         _location: Vec3,
     ) -> InteractionResult {
-        // SEAM(mobs): `Entity.interact` leash handling (lead item, shears, `Leashable`)
+        // Not implemented: `Entity.interact` leash handling (lead item, shears, `Leashable`)
         let secondary = player.is_shift_key_down();
         let boarded = if secondary || !(self.out_of_control_ticks < TIME_TO_EJECT) {
             false
@@ -1006,7 +1006,7 @@ impl Entity for AbstractBoat {
                 GameEvent::CONTAINER_OPEN,
                 self.base.position(),
             );
-            // SEAM(mobs): `PiglinAi.angerNearbyPiglins(level, player, true)`
+            // Not implemented: `PiglinAi.angerNearbyPiglins(level, player, true)`
         }
         result
     }
@@ -1016,7 +1016,7 @@ impl Entity for AbstractBoat {
         if reason.should_destroy() && self.chest.is_some() {
             self.drop_chest_contents(level);
         }
-        // SEAM(mobs): `if (isLeashed()) dropLeash()`
+        // Not implemented: `if (isLeashed()) dropLeash()`
     }
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {

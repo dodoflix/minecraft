@@ -31,7 +31,7 @@ pub fn add_offers_from_trade_set(
     add_offers_from_trade_set_in(&mut context, offers, &set);
 }
 
-/// The body of `addOffersFromTradeSet` once the loot context exists (callers that need a specific random source build the
+/// The body of `addOffersFromTradeSet` for an existing loot context (callers that need a specific random source build the
 /// context themselves: `LootContext::builder(&params).with_optional_random_seed(..).create(None)`).
 pub fn add_offers_from_trade_set_in(
     context: &mut LootContext,

@@ -134,8 +134,8 @@ fn try_award_it_spreads_advancement(level: &ServerLevel, mob: &dyn Entity) {
         .and_then(|uuid| level.get_entity_by_uuid(uuid))
         .filter(|e| e.as_any().is::<ServerPlayer>());
     if let Some(_player) = player {
-        // SEAM(advancements): `CriteriaTriggers::KILL_MOB_NEAR_SCULK_CATALYST.trigger(level, player, mob, damage source)`
-        // (the damage source is `mob.getLastDamageSource()`, else `damageSources().playerAttack(player)`) once the trigger API exists.
+        // Not implemented: vanilla fires `CriteriaTriggers.KILL_MOB_NEAR_SCULK_CATALYST` for `player` here (damage source:
+        // `mob.getLastDamageSource()`, else `damageSources().playerAttack(player)`).
     }
 }
 

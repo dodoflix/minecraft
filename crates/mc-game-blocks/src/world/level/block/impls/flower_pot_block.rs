@@ -90,7 +90,7 @@ impl BlockBehaviour for FlowerPotBlock {
             pos,
             &GameEventContext::of(Some(player.base_id()), None),
         );
-        // `awardStat(Stats.POT_FLOWER)`: statistics are not ported yet
+        // `awardStat(Stats.POT_FLOWER)`: not implemented (statistics)
         let mut held = player.get_item_in_hand(hand);
         held.consume(1, player.player.abilities.instabuild);
         player.set_item_in_hand(hand, held);

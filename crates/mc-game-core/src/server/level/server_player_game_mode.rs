@@ -372,7 +372,7 @@ impl ServerPlayer {
         );
     }
 
-    /// `Player.canUseGameMasterBlocks()`: `abilities.instabuild` and op permission (ops are not modelled yet, so
+    /// `Player.canUseGameMasterBlocks()`: `abilities.instabuild` and op permission (op permission is not checked, so
     /// creative players are allowed).
     pub fn can_use_game_master_blocks(&self) -> bool {
         self.player.abilities.instabuild
@@ -494,7 +494,7 @@ impl ServerPlayer {
             return InteractionResult::FAIL;
         }
         if self.game_mode.game_mode_for_player == GameType::Spectator {
-            // SEAM(portals): the `Portal` spectator teleport (`teleportToPortalDestination`) is not ported.
+            // Not implemented: the `Portal` spectator teleport (`teleportToPortalDestination`).
             let provider = block_behaviour(state.block()).get_menu_provider(state, level, pos);
             return match provider {
                 Some(provider) => {

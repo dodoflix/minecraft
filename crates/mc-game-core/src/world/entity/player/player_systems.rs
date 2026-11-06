@@ -100,7 +100,7 @@ impl PlayerSystems for ServerPlayerSystems {
             mc_data::GameEvent::CONTAINER_OPEN,
             position,
         );
-        // SEAM(mobs): `PiglinAi.angerNearbyPiglins(level, player, true)`
+        // Not implemented: `PiglinAi.angerNearbyPiglins(level, player, true)`
     }
 
     /// `Player.tryToStartFallFlying()`.

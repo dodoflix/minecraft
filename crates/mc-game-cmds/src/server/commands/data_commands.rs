@@ -335,8 +335,8 @@ fn decorators(
     let build_context = build_context.clone();
     rests.push(Box::new(move |_manipulator| {
         let build_context = build_context.clone();
-        // SEAM(loot): the providers evaluate against a `LootContext` (`getFloatProvider(c, "provider").value().getFloat(lootContext)`
-        // -> `manipulate_data(.., [FloatTag])`, likewise `getInt` -> `[IntTag]`); no context can be created yet.
+        // Not implemented: vanilla evaluates the providers against a `LootContext` (`getFloatProvider(c, "provider").value().getFloat(lootContext)`
+        // -> `manipulate_data(.., [FloatTag])`, likewise `getInt` -> `[IntTag]`); no context can be created here.
         NodeBuilder::Literal(add_context_sources(
             literal("compute"),
             &|decorator, output| {

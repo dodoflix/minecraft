@@ -1,7 +1,7 @@
 //! `server.dedicated.ServerWatchdog`: a daemon thread that declares the server crashed when one tick takes longer
 //! than `max-tick-time`.
 //!
-//! Deviation (allowed by the task): Java stack traces of other threads do not exist; the "Thread Dump" category lists
+//! Deviation from vanilla: Java stack traces of other threads do not exist; the "Thread Dump" category lists
 //! the process' threads with their kernel state from `/proc/self/task` instead.
 
 use super::shared::{ServerShared, get_nanos};

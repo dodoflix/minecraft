@@ -1,8 +1,7 @@
-//! SEAM(Mob): the `Mob`-only calls the block spawners make on a freshly created entity, in vanilla's order
+//! The `Mob`-only calls the block spawners make on a freshly created entity, in vanilla's order
 //! (`Mob.checkSpawnRules`, `checkSpawnObstruction`, `finalizeSpawn`, `setPersistenceRequired`, `equip`, `spawnAnim`,
-//! `dropPreservedEquipment`) and `SpawnPlacements.checkSpawnRules`. The mob spine and the spawn framework do not
-//! exist yet, so no entity is a `Mob` and every entity passes these checks untouched. Once they exist, replace the
-//! bodies with the `Entity`-trait hooks and `SpawnPlacements::check_spawn_rules`; callers do not change.
+//! `dropPreservedEquipment`) and `SpawnPlacements.checkSpawnRules`. Not implemented: none of these run, so every entity
+//! passes the checks untouched and the spawners do not call the `Mob` hooks.
 
 use crate::server::level::ServerLevel;
 use crate::world::entity::equipment_table::EquipmentTable;

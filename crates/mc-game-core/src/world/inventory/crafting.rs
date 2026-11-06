@@ -150,7 +150,7 @@ impl Container for TransientCraftingContainer {
     }
 }
 
-/// `ResultContainer` (one slot; the `recipeUsed` bookkeeping is not ported yet).
+/// `ResultContainer` (one slot; the `recipeUsed` bookkeeping is not implemented).
 #[derive(Default)]
 pub struct ResultContainer {
     item: ItemStack,
@@ -215,7 +215,7 @@ impl ResultSlot {
 
     fn check_take_achievements(&self) {
         // `carried.onCraftedBy(player, removeCount)` (item behaviour `on_crafted`, crafting stats/advancements) and
-        // `awardUsedRecipes` are not wired.
+        // `awardUsedRecipes`: not implemented.
         self.remove_count.set(0);
     }
 }

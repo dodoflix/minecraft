@@ -105,7 +105,7 @@ impl ChestVehicleData {
             return;
         };
         let table = loading::get_loot_table(&level.registries, &table_id);
-        // SEAM(advancements): `CriteriaTriggers.GENERATE_LOOT.trigger(player, lootTable)` when a player opened it
+        // Not implemented: `CriteriaTriggers.GENERATE_LOOT.trigger(player, lootTable)` when a player opened it
         let seed = self.loot_table_seed;
         let mut builder = LootParams::builder(level).origin(origin);
         if let Some(p) = player {
@@ -254,7 +254,7 @@ pub trait ContainerEntity: Entity {
         if level.entity_drops() {
             self.drop_chest_contents(level);
             if source.direct_is_player() {
-                // SEAM(mobs): `PiglinAi.angerNearbyPiglins(level, player, true)`
+                // Not implemented: `PiglinAi.angerNearbyPiglins(level, player, true)`
             }
         }
     }

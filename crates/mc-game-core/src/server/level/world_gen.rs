@@ -1,4 +1,4 @@
-//! `WorldGenContext`, the chunk generator seam and `WorldGenRegion` (the chunk neighbourhood a generation step works on).
+//! `WorldGenContext`, the chunk generator interface and `WorldGenRegion` (the chunk neighbourhood a generation step works on).
 //!
 //! The state-only generation stages (biomes, terrain) are `mc_worldgen`'s `ChunkGenerator`; the stages that need block
 //! behaviours (structure starts/references, feature decoration, mob spawning) are [`WorldGenHooks`], implemented by the

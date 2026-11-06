@@ -1,4 +1,4 @@
-//! `net.minecraft.server.level.ServerBossEvent (raids use it; replaced by DimEnd's `server_boss_event.rs` when that lands)` (+ `BossEvent`): a boss bar and the online players that see it. Every
+//! `net.minecraft.server.level.ServerBossEvent` (+ `BossEvent`) as raids use it: a boss bar and the online players that see it. Every
 //! visible change is sent to those players like vanilla's `RaidBossBar.broadcast`.
 
 use crate::server::bossevents::{BossBarColor, BossBarOverlay, wire_color, wire_overlay};

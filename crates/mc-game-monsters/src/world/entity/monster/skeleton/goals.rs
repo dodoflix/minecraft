@@ -86,7 +86,7 @@ pub fn register_goals(skeleton: &mut AbstractSkeleton) {
     );
 }
 
-/// The `bowGoal` / `meleeGoal` field initializers. NOT YET: `bowGoal` (`RangedBowAttackGoal` is not ported yet).
+/// The `bowGoal` / `meleeGoal` field initializers. Not implemented: `bowGoal` (`RangedBowAttackGoal`).
 pub fn create_weapon_goals(skeleton: &mut AbstractSkeleton) {
     skeleton.parked_melee_goal = Some(Box::new(SkeletonMeleeAttackGoal {
         melee: MeleeAttackGoal::new(1.2, false),

@@ -1,4 +1,4 @@
-//! SEAM: text resolution for `set_name` / `set_lore` (`ComponentUtils.resolve` with the entity as command source) and
+//! Text resolution for `set_name` / `set_lore` (`ComponentUtils.resolve` with the entity as command source) and
 //! the player game profile of `fill_player_head`.
 
 use mc_protocol::components::values::profile::ResolvableProfile;

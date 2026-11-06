@@ -170,7 +170,7 @@ fn predicates() -> &'static HashMap<EntityType, SpawnPredicate> {
     &PREDICATES
 }
 
-/// Entity types with a vanilla spawn placement whose predicate is not registered (yet): the mob modules still to port.
+/// Entity types with a vanilla spawn placement whose predicate is not registered.
 pub fn missing_predicates() -> Vec<EntityType> {
     let map = predicates();
     EntityType::iter()
@@ -230,7 +230,7 @@ pub fn check_spawn_rules(
     }
     match predicates().get(&ty) {
         Some(predicate) => predicate(ty, level, reason, pos, random),
-        // registered in vanilla, the mob itself is not ported yet (such a mob cannot be created either)
+        // registered in vanilla but without an implementation here (such a mob cannot be created either)
         None => false,
     }
 }

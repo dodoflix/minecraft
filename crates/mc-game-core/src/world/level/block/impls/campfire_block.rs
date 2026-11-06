@@ -72,8 +72,7 @@ impl BlockBehaviour for CampfireBlock {
         _hit: &mc_core::phys::BlockHitResult,
     ) -> crate::world::item::InteractionResult {
         use crate::world::item::InteractionResult;
-        // SEAM(crafting menus): `CampfireBlockEntity.placeFood` (the `CAMPFIRE_INPUT` recipe branch of vanilla's useItemOn) is
-        // wired here once the campfire block entity lands.
+        // Not implemented: `CampfireBlockEntity.placeFood` (the `CAMPFIRE_INPUT` recipe branch of vanilla's useItemOn).
         let douses = mc_data::tags::get::<mc_data::Item>("douses_campfires")
             .is_some_and(|tag| tag.contains(stack.item()));
         if douses && state.get(props::LIT) {

@@ -1,5 +1,5 @@
-//! Seams to other subsystems' state (levels, entities, player list): every place where a command needs something owned
-//! by another subsystem goes through here, so the adaptation to their final APIs is confined to this file.
+//! Access to other subsystems' state (levels, entities, player list): every place where a command needs something
+//! owned by another subsystem goes through here, so the commands do not depend on those subsystems' APIs directly.
 //! Each function documents the vanilla call it stands for.
 
 use crate::server::MinecraftServer;
@@ -190,8 +190,8 @@ pub fn get_entity<'a>(server: &'a MinecraftServer, entity: &EntityRef) -> Option
 }
 
 /// `PlayerList.getPlayers()` as entity references, in join order.
-/// SEAM(server lifecycle): `MinecraftServer.player_list`; until the field exists the players of every level are listed
-/// (dimension order, then level order).
+/// The players of every level are listed (dimension order, then level order) rather than read from a
+/// `MinecraftServer.player_list` field.
 pub fn server_players(server: &MinecraftServer) -> Vec<EntityRef> {
     let mut out = Vec::new();
     for dimension in server.level_keys() {
@@ -274,7 +274,7 @@ pub fn entity_scores_match(
 
 /// The `advancements` option: for a player, every `(advancement, criteria)` expectation holds
 /// (`criteria: None` = the advancement `done == value`).
-/// No advancement data is loaded yet (`ServerAdvancementManager` is empty): a known advancement cannot be found, and
+/// Not implemented: no advancement data is available, so a known advancement cannot be found, and
 /// vanilla's `getOrStartProgress` is skipped for unknown ones (`advancement == null` -> no match).
 pub fn advancements_match(
     _server: &MinecraftServer,
@@ -296,7 +296,7 @@ pub enum AdvancementExpectation {
 }
 
 /// The `predicate` option: evaluates the loot predicate `id` with `THIS_ENTITY = entity`.
-/// No loot predicates are loaded yet (`ReloadableServerRegistries.lookup` has none), so `lookup(id) == null`: false.
+/// No loot predicates are available (`ReloadableServerRegistries.lookup` has none), so `lookup(id) == null`: false.
 pub fn loot_predicate_matches(
     server: &MinecraftServer,
     dimension: &DimensionKey,
@@ -308,7 +308,7 @@ pub fn loot_predicate_matches(
 }
 
 /// The `SelectedItem` the `nbt` option adds for players (`ItemStack.CODEC` of the selected hotbar item).
-/// SEAM(items).
+/// Not implemented: always `None`; vanilla writes the item as `ItemStack.CODEC` NBT.
 pub fn player_selected_item_nbt(_entity: &dyn Entity) -> Option<mc_nbt::Tag> {
     None
 }
@@ -735,8 +735,7 @@ pub fn teleport_entity(
 
 /// `TeleportCommand.performTeleport`'s tail for a successfully teleported `victim`: keeps only horizontal momentum and
 /// `setOnGround(true)` (with the supporting-block check) unless it is fall flying.
-///
-/// SEAM(mobs): `if (victim instanceof PathfinderMob mob) mob.getNavigation().stop()` once `PathfinderMob` exists.
+/// Not implemented: vanilla also calls `getNavigation().stop()` when `victim` is a `PathfinderMob`.
 pub fn after_teleport(server: &mut MinecraftServer, victim: &EntityRef) {
     let Some(level) = server.level_mut(&victim.dimension) else {
         return;
@@ -860,7 +859,7 @@ pub fn kick_player(
     Some(name)
 }
 
-// ==== GiveCommand seams ====
+// ==== GiveCommand ====
 
 /// `GiveCommand.giveItem`'s per-player loop: gives `count` of `prototype` in stacks of `max_stack_size`.
 pub fn give_item(
@@ -915,7 +914,7 @@ pub fn give_item(
     });
 }
 
-// ---- DataCommands seams (`/data`: `EntityDataAccessor`, `BlockDataAccessor`, `StorageDataAccessor`) ----
+// ---- DataCommands (`/data`: `EntityDataAccessor`, `BlockDataAccessor`, `StorageDataAccessor`) ----
 
 /// `CommandStorage.set(id, contents)`.
 pub fn command_storage_set(
@@ -988,7 +987,7 @@ pub fn block_entity_load_data(
     level.send_block_updated(pos, state, state, 3);
 }
 
-// ==== AdvancementCommands / RecipeCommand seams ====
+// ==== AdvancementCommands / RecipeCommand ====
 
 /// An `AdvancementHolder` as the commands need it: `id`, `Advancement.name(holder)` and `advancement.criteria().keySet()`.
 #[derive(Clone, Debug)]
@@ -1014,27 +1013,27 @@ pub struct AdvancementProgressRef {
 }
 
 /// `server.getAdvancements().get(id)`.
-/// SEAM(advancements): `ServerAdvancementManager` is not ported yet, so nothing is found.
+/// Not implemented: the server holds no `ServerAdvancementManager`, so nothing is found.
 pub fn advancement_get(server: &MinecraftServer, id: &Identifier) -> Option<AdvancementRef> {
     let _ = (server, id);
     None
 }
 
 /// `server.getAdvancements().getAllAdvancements()`.
-/// SEAM(advancements).
+/// Not implemented: always empty (no `ServerAdvancementManager`).
 pub fn advancement_all(_server: &MinecraftServer) -> Vec<AdvancementRef> {
     Vec::new()
 }
 
 /// `server.getAdvancements().tree().get(holder)`.
-/// SEAM(advancements).
+/// Not implemented: always `None` (no `ServerAdvancementManager`).
 pub fn advancement_node(server: &MinecraftServer, id: &Identifier) -> Option<AdvancementNodeRef> {
     let _ = (server, id);
     None
 }
 
 /// `player.getAdvancements().getOrStartProgress(holder)`.
-/// SEAM(advancements).
+/// Not implemented: no progress is ever recorded, the result is "nothing done".
 pub fn player_advancement_progress(
     server: &mut MinecraftServer,
     player: &EntityRef,
@@ -1050,7 +1049,7 @@ pub fn player_advancement_progress(
 }
 
 /// `player.getAdvancements().award(holder, criterion)`.
-/// SEAM(advancements).
+/// Not implemented: awards nothing and returns `false`.
 pub fn player_advancement_award(
     server: &mut MinecraftServer,
     player: &EntityRef,
@@ -1062,7 +1061,7 @@ pub fn player_advancement_award(
 }
 
 /// `player.getAdvancements().revoke(holder, criterion)`.
-/// SEAM(advancements).
+/// Not implemented: revokes nothing and returns `false`.
 pub fn player_advancement_revoke(
     server: &mut MinecraftServer,
     player: &EntityRef,
@@ -1074,7 +1073,7 @@ pub fn player_advancement_revoke(
 }
 
 /// `player.getAdvancements().flushDirty(player, showAdvancements)`.
-/// SEAM(advancements).
+/// Not implemented: does nothing.
 pub fn player_advancements_flush_dirty(
     server: &mut MinecraftServer,
     player: &EntityRef,
@@ -1137,7 +1136,7 @@ pub fn player_reset_recipes(
         .unwrap_or(0)
 }
 
-// ==== Entity command seams (SummonCommand, KillCommand, RideCommand, RotateCommand, EnchantCommand, ...) ====
+// ==== Entity commands (SummonCommand, KillCommand, RideCommand, RotateCommand, EnchantCommand, ...) ====
 
 /// `entity.getDisplayName()` of a live entity (empty when it is gone).
 pub fn display_name_of(source: &super::CommandSourceStack, entity: &EntityRef) -> Component {
@@ -1291,7 +1290,7 @@ pub fn enchantment_full_name(
     result
 }
 
-// ==== ExecuteCommand seams ====
+// ==== ExecuteCommand ====
 
 /// The facts `CommandSourceStack.withEntity(entity)` needs from the live `entity`.
 pub fn command_entity(
@@ -1409,7 +1408,7 @@ pub enum EntityRelation {
 /// `OwnableEntity.getOwner`, `Leashable.getLeashHolder`, `Targeting.getTarget`, `Attackable.getLastAttacker`,
 /// `getVehicle`, `getControllingPassenger`, `TraceableEntity.getOwner`, `getPassengers`.
 /// `TraceableEntity` covers the projectiles, item entities and primed TNT that exist so far; `OwnableEntity` goes
-/// through [`Entity::ownable_owner_uuid`] (SEAM(mobs): the tameable/horse classes implement it).
+/// through [`Entity::ownable_owner_uuid`], which the tameable and horse classes do not override, so they have no owner.
 pub fn entity_relation(
     server: &MinecraftServer,
     entity: &EntityRef,

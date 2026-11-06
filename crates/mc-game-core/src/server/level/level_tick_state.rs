@@ -149,7 +149,7 @@ pub struct LevelTickState {
     pub dragon_fight_tick: Option<fn(&mut ServerLevel)>,
     /// `environmentAttributes`: dimension constants + timelines + weather layers (set at level creation).
     pub attributes: crate::world::attribute::EnvironmentAttributeSystem,
-    /// Test seam: when set, every `PlayerList.broadcast` the level makes (sounds, level events, block events) is appended
+    /// Test hook: when set, every `PlayerList.broadcast` the level makes (sounds, level events, block events) is appended
     /// here whether or not a player is in range (`tests/common/block_scenario.rs` records vanilla's twin in the block oracle).
     pub broadcast_log: Option<Arc<Mutex<Vec<super::level_events::BroadcastRecord>>>>,
     /// `oRainLevel` / `rainLevel` / `oThunderLevel` / `thunderLevel`.

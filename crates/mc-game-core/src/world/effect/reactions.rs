@@ -46,8 +46,7 @@ pub fn weaving(level: &mut ServerLevel, mob: &mut dyn Entity) {
 }
 
 /// `InfestedMobEffect.onMobHurt`: `chanceToSpawn = 0.1F`, `spawnedCount = random -> randomBetweenInclusive(1, 2)`.
-/// The silverfish themselves are spawned by the mob classes (no `Silverfish` entity exists yet), only the draws from
-/// the mob's random are reproduced.
+/// No silverfish are spawned here, only the draws from the mob's random are reproduced.
 pub fn infested(_level: &mut ServerLevel, mob: &mut dyn Entity) {
     let random = &mut mob.base_mut().random;
     if random.next_float() <= 0.1 {

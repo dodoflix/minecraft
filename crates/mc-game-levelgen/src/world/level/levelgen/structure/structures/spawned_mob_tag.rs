@@ -2,11 +2,11 @@
 //! swamp hut): `EntityTypes.X.create(level, STRUCTURE)`, persistence required, `snapTo(position, 0, 0)`,
 //! `finalizeSpawn`, as `ProtoChunk.addEntity` stores them.
 //!
-//! The entity layer has no mob classes yet, so these are the tags of an unticked mob with the fields that do not depend on
+//! These are the tags of an unticked mob with the fields that do not depend on
 //! `finalizeSpawn`'s randomness. Vanilla draws that randomness (attribute bonuses, left-handedness, equipment, baby/jockey
 //! rolls, cat variant) partly from the region random and the world difficulty/clock, and partly from the unseeded
 //! `Entity.random`; the UUID is random too, so no world file reproduces them.
-// shortcut: no finalizeSpawn outcome (attributes, equipment, cat variant), upgrade when the mob classes land
+// Limitation: no finalizeSpawn outcome (attributes, equipment, cat variant)
 
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;

@@ -73,7 +73,7 @@ fn knockback(level: &mut ServerLevel, attacker: &mut dyn Entity, entity: &mut dy
         let Some(nearby) = level.get_entity(id) else {
             continue;
         };
-        // `knockbackPredicate`; `TamableAnimal` owned by the attacker is not ported (no tamable mobs yet)
+        // `knockbackPredicate`; not implemented: a `TamableAnimal` owned by the attacker is not excluded
         let not_spectator = !nearby.is_spectator();
         let not_player = id != attacker_id && id != target_id;
         let not_allied =

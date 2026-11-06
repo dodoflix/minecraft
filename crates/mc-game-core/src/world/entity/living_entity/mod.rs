@@ -1,5 +1,5 @@
 //! Behaviour of `net.minecraft.world.entity.LivingEntity`, generic over every entity whose `living()` is `Some`
-//! (players now, mobs later). Free functions take `&mut dyn Entity`; the overridable vanilla methods are hooks on
+//! (players and mobs). Free functions take `&mut dyn Entity`; the overridable vanilla methods are hooks on
 //! `trait Entity` whose defaults call into this module, overrides call these functions as their `super` call.
 
 pub mod ai_step;

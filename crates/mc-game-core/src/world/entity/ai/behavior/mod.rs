@@ -1,5 +1,5 @@
-//! `net.minecraft.world.entity.ai.behavior`: the behavior framework. Concrete behaviors (`ai/behavior/*.java`
-//! beyond the framework files below) are ported by the mob authors against this API.
+//! `net.minecraft.world.entity.ai.behavior`: the behavior framework. The concrete behaviors of vanilla's
+//! `ai/behavior/*.java` are the modules below, written against this API.
 //!
 //! # Mapping from vanilla
 //!
@@ -21,32 +21,11 @@
 //!
 //! ## 1. Declarative (`BehaviorBuilder`): memory conditions + one trigger closure
 //!
-//! Vanilla `SetWalkTargetFromLookTarget`:
-//!
-//! ```java
-//! BehaviorBuilder.create(i -> i.group(i.absent(WALK_TARGET), i.present(LOOK_TARGET)).apply(i, (walkTarget, lookTarget) ->
-//!     (level, body, timestamp) -> {
-//!         PositionTracker target = i.get(lookTarget);
-//!         if (!canWalkTo.test(body) || ...) return false;
-//!         walkTarget.set(new WalkTarget(target, speedModifier.apply(body), closeEnoughDistance));
-//!         return true;
-//!     }))
-//! ```
-//!
-//! ```ignore
-//! pub fn create(can_walk_to: fn(&dyn Entity) -> bool, speed: fn(&dyn Entity) -> f32, close_enough: i32) -> OneShot {
-//!     let mut i = BehaviorBuilder::instance();
-//!     let walk_target = i.absent(&memory_module_type::WALK_TARGET);
-//!     let look_target = i.present(&memory_module_type::LOOK_TARGET);
-//!     i.create(move |c: &mut TriggerContext| {
-//!         let target = c.get(&look_target).clone();
-//!         if !can_walk_to(c.body()) { return false; }
-//!         let wt = WalkTarget::new(target, speed(c.body()), close_enough);
-//!         c.set(&walk_target, wt);
-//!         true
-//!     })
-//! }
-//! ```
+//! Vanilla's `SetWalkTargetFromLookTarget` is a `BehaviorBuilder.create` call that requires the `WALK_TARGET` memory to
+//! be absent and `LOOK_TARGET` to be present; its trigger returns `false` when the `canWalkTo` predicate fails and
+//! otherwise sets `WALK_TARGET` from the look target, the speed modifier and the close-enough distance. Here the
+//! memories are declared with [`BehaviorBuilder::absent`] / [`BehaviorBuilder::present`] and the trigger is a closure over
+//! a [`TriggerContext`]; see [`set_walk_target_from_look_target`] for the real implementation.
 //!
 //! Conditions are evaluated in declaration order when the behavior is tried; the first failing one aborts (vanilla:
 //! `tryTrigger` returns `null`), the closure runs only if all passed. The memories' values are cloned out when the
@@ -55,27 +34,10 @@
 //!
 //! ## 2. Classic ([`Behavior`] + [`BehaviorBase`]): `start / tick / stop / can_still_use` with a duration
 //!
-//! Vanilla `LookAtTargetSink`:
-//!
-//! ```ignore
-//! pub struct LookAtTargetSink;
-//! impl LookAtTargetSink {
-//!     pub fn new(min: i32, max: i32) -> BehaviorBase<LookAtTargetSink> {
-//!         BehaviorBase::with_duration(entry_condition![LOOK_TARGET => ValuePresent], min, max, LookAtTargetSink)
-//!     }
-//! }
-//! impl Behavior for LookAtTargetSink {
-//!     fn can_still_use(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, _ts: i64) -> bool {
-//!         body.brain().get_memory(&LOOK_TARGET).is_some_and(|pos| pos.is_visible_by(level, &*body))
-//!     }
-//!     fn stop(&mut self, _l: &mut ServerLevel, body: &mut dyn Entity, _ts: i64) { body.brain_mut().erase_memory(&LOOK_TARGET); }
-//!     fn tick(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, _ts: i64) {
-//!         if let Some(t) = body.brain().get_memory(&LOOK_TARGET) { let p = t.current_position(level); mob::look_at_xyz(body, p.x, p.y, p.z); }
-//!     }
-//! }
-//! ```
-//!
-//! Both examples are implemented for real in [`set_walk_target_from_look_target`] and [`look_at_target_sink`].
+//! Vanilla's `LookAtTargetSink` is a `Behavior` with an entry condition (`LOOK_TARGET` present) and a duration range:
+//! `canStillUse` checks that the look target is visible, `stop` erases the memory and `tick` makes the mob look at the
+//! target's current position. Here the entry condition goes into [`BehaviorBase::with_duration`] and the three hooks are
+//! methods of the [`Behavior`] impl; see [`look_at_target_sink`] for the real implementation.
 //!
 //! ## 3. Register with an activity
 //!

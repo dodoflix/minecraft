@@ -1,5 +1,5 @@
 //! The smelting recipe lookup of `furnace_smelt` (`level.recipeAccess().getRecipeFor(RecipeType.SMELTING, input, level)`),
-//! answered from the loaded `recipe` registry until a recipe manager exists.
+//! answered from the loaded `recipe` registry rather than a recipe manager.
 
 use mc_core::ident::Identifier;
 use mc_dfu::{Dyn, JSON};

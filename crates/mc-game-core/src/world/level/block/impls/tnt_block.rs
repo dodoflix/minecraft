@@ -171,7 +171,7 @@ impl BlockBehaviour for TntBlock {
             return;
         }
         // `owner instanceof LivingEntity` (a non-living owner is no source); `AbstractArrow.getPickupItemStackOrigin()` is
-        // only read for the adventure-mode check of a player source, and arrows are not ported yet.
+        // only read for the adventure-mode check of a player source; arrows are not implemented.
         let source = projectile
             .get_owner(level)
             .filter(|o| o.living().is_some())

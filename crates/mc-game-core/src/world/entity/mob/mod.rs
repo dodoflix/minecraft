@@ -1,7 +1,7 @@
 //! `net.minecraft.world.entity.Mob` and its generic subclasses: `PathfinderMob`, `AgeableMob`, `Animal`,
 //! `TamableAnimal`, `Monster`, plus the `NeutralMob` / `OwnableEntity` / `Leashable` interfaces.
 //!
-//! # How to define a concrete mob (phase-2 author guide)
+//! # How to define a concrete mob
 //!
 //! 1. **Struct layout.** Embed [`MobData`] (which embeds `LivingEntityData` ⊂ `EntityData`) plus the fields vanilla's concrete
 //!    class adds:

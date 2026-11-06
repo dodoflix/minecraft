@@ -534,7 +534,7 @@ impl BlockEntity for PistonMovingBlockEntity {
     }
 }
 
-/// Seam of the crate split: these were inherent `ServerLevel` methods, which cannot be defined outside `mc-game-core`.
+/// `ServerLevel` operations the moving piston needs; an extension trait because `mc-game-core` owns `ServerLevel`.
 pub trait MovingPistonLevelExt {
     fn moving_piston_info(&self, pos: BlockPos) -> Option<MovingPistonInfo>;
     fn final_tick_moving_piston(&mut self, pos: BlockPos);

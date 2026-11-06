@@ -1,5 +1,5 @@
 //! Entity accessors the predicates need (vanilla's `Entity`/`LivingEntity`/`Player` methods that have no counterpart on
-//! our traits yet) and the data types of the `Entity` seam hooks.
+//! our traits) and the data types of the `Entity` hooks.
 
 use crate::server::level::ServerLevel;
 use crate::world::container::Container;
