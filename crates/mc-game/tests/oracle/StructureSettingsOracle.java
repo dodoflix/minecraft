@@ -19,7 +19,8 @@ import net.minecraft.core.registries.BuiltInRegistries;
 
 /** Golden for `Structure.StructureSettings.CODEC`: every line of the input (one JSON object) is decoded and dumped as
  *  `json TAB ok biomes=..;overrides=..;step=..;adapt=..` or `json TAB err`.
- *  Run: scripts/vanilla-java.sh crates/mc-game/tests/oracle/StructureSettingsOracle.java crates/mc-game/tests/fixtures/structure_settings_cases.in crates/mc-game/tests/fixtures/structure_settings_cases.golden */
+ *  Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/structure_settings_cases.golden crates/mc-game/tests/oracle/StructureSettingsOracle.java crates/mc-game/tests/fixtures/structure_settings_cases.in crates/mc-game/tests/fixtures/structure_settings_cases.golden
+ *  Output: crates/mc-game/tests/fixtures/structure_settings_cases.golden */
 public class StructureSettingsOracle {
     public static void main(String[] args) throws Exception {
         net.minecraft.SharedConstants.tryDetectVersion();

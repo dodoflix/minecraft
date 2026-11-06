@@ -28,7 +28,10 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * Trade goldens (scripts/golden-trades.sh -> tests/fixtures/trades_golden.txt), run through scripts/entity-oracle.sh:
+ * Trade goldens, run through scripts/entity-oracle.sh.
+ * Usage: scripts/golden-trades.sh
+ * Output: crates/mc-game/tests/fixtures/trades_golden.txt
+ * Lines:
  * <pre>
  * S prof level type seed sha1(canon(MerchantOffers.CODEC nbt))   seeded context (LootContext.Builder.withOptionalRandomSeed)
  * W seed sha1                                                   wandering trader sets (buying, uncommon, common) seeded

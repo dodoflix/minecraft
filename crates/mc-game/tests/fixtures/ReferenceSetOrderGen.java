@@ -1,7 +1,7 @@
 // Golden generator for `ConstHashReferenceSet` (server/level/fastutil.rs): the iteration order of a fastutil
 // `ReferenceOpenHashSet` (vanilla `DistanceManager.chunksToUpdateFutures`) when every identity hash is equal.
-// Run: JAVA_TOOL_OPTIONS="-XX:+UnlockExperimentalVMOptions -XX:hashCode=2" scripts/vanilla-java.sh \
-//        crates/mc-game/tests/fixtures/ReferenceSetOrderGen.java > crates/mc-game/tests/fixtures/reference_set_order.txt
+// Usage: JAVA_TOOL_OPTIONS="-XX:+UnlockExperimentalVMOptions -XX:hashCode=2" scripts/vanilla-java.sh -o crates/mc-game-core/tests/fixtures/reference_set_order.txt crates/mc-game/tests/fixtures/ReferenceSetOrderGen.java
+// Output: crates/mc-game-core/tests/fixtures/reference_set_order.txt
 // Line: `<ids added in wave 1> / <ids added in wave 2> ... | <wave 1 order> / <wave 2 order> ...` (the set is cleared after each wave).
 import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
 import java.util.*;

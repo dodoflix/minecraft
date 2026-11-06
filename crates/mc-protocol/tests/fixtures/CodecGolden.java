@@ -1,5 +1,6 @@
 // Generates tests/fixtures/codec.golden: `label:hex` of vanilla FriendlyByteBuf / ByteBufCodecs encodings.
-//   scripts/vanilla-java.sh crates/mc-protocol/tests/fixtures/CodecGolden.java crates/mc-protocol/tests/fixtures/codec.golden
+// Usage: scripts/vanilla-java.sh -o crates/mc-protocol/tests/fixtures/codec.golden crates/mc-protocol/tests/fixtures/CodecGolden.java crates/mc-protocol/tests/fixtures/codec.golden
+// Output: crates/mc-protocol/tests/fixtures/codec.golden
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;

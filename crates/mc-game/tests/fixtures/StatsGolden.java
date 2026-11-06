@@ -1,6 +1,7 @@
 // Golden for ServerStatsCounter: parse of stats files (valid and malformed), toJson (file content, incl. key order),
 // and the ClientboundAwardStatsPacket entry order (dirty HashSet -> fastutil Object2IntOpenHashMap).
-//   scripts/golden-stats.sh   (java -cp "$(scripts/vanilla-cp.sh)" StatsGolden.java > stats_golden.txt)
+// Usage: scripts/golden-stats.sh
+// Output: crates/mc-game/tests/fixtures/stats_golden.txt
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;

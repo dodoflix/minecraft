@@ -27,6 +27,8 @@ import net.minecraft.world.item.ItemStack;
  * kinds: json|snbt|wire (component `name`), stack-json|stack-snbt|ostack-json|ostack-snbt|stack-wire|stack-wire-untrusted
  * (name ignored, use "-"), patch-json|patch-snbt|patch-wire. Output: kind TAB name TAB payload TAB result, result =
  * ERR or OK followed by key=value fields (TAB separated). Wire inputs that decode get mutated variants appended.
+ * Usage: crates/mc-protocol/tests/fixtures/components/gen.sh [--registries | corpus/NN-x.txt ...]   (args of the program: INPUT OUTPUT; INPUT "registries" dumps the registry names)
+ * Output: crates/mc-protocol/tests/fixtures/components/golden/<corpus name>.txt, crates/mc-protocol/tests/fixtures/components/registries.golden
  */
 public class ComponentGolden {
    static RegistryAccess.Frozen access;

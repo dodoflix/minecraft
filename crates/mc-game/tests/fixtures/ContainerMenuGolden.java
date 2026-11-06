@@ -1,7 +1,8 @@
 // Golden generator for crates/mc-game/tests/golden/container_menu_golden.rs: scripted clicks through the REAL vanilla ChestMenu
 // (single + double chest), HopperMenu, DispenserMenu and ShulkerBoxMenu over SimpleContainers.
-//   scripts/golden-menu.sh  (runs this against the vanilla classpath and writes menu_golden.txt)
-// Output: "OP ..." lines (the script, replayed by Rust) each followed by "OUT ..." lines (state after the op).
+// Usage: scripts/golden-menu.sh
+// Output: crates/mc-game/tests/fixtures/container_menu_golden.txt
+// Format: "OP ..." lines (the script, replayed by Rust) each followed by "OUT ..." lines (state after the op).
 import java.lang.reflect.Field;
 import java.util.*;
 import net.minecraft.core.NonNullList;

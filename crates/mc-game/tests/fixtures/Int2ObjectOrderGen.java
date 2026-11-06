@@ -1,6 +1,7 @@
 // Golden generator for `fastutil::LongOpenHashMap::new_int()` (= vanilla ChunkMap.entityMap Int2ObjectOpenHashMap):
 // scripted put/remove sequences with entity-id-like keys, printing the `keySet()` iteration order after each script.
-// Regenerate: scripts/vanilla-java.sh crates/mc-game/tests/fixtures/Int2ObjectOrderGen.java > crates/mc-game/tests/fixtures/int2object_order.txt
+// Usage: scripts/vanilla-java.sh -o crates/mc-game-core/tests/fixtures/int2object_order.txt crates/mc-game/tests/fixtures/Int2ObjectOrderGen.java
+// Output: crates/mc-game-core/tests/fixtures/int2object_order.txt
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import java.util.Random;

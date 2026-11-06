@@ -4,8 +4,6 @@
 
 use crate::common;
 
-use std::io::Read;
-
 use mc_core::ident::Identifier;
 use mc_game::world::item::crafting::*;
 use mc_protocol::packets::play::inventory::{
@@ -58,15 +56,10 @@ fn recipe_book_matches_vanilla() {
         .listener::<RecipeManager>()
         .expect("recipe manager")
         .clone();
-    let mut text = String::new();
-    flate2::read::GzDecoder::new(
-        std::fs::File::open(concat!(
-            env!("CARGO_MANIFEST_DIR"),
-            "/tests/fixtures/recipe_book_golden.txt.gz"
-        ))
-        .unwrap(),
-    )
-    .read_to_string(&mut text)
+    let text = std::fs::read_to_string(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/tests/fixtures/recipe_book_golden.txt"
+    ))
     .unwrap();
 
     let mut book = ServerRecipeBook::new();

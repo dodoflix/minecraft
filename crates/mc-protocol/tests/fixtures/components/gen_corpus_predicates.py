@@ -3,12 +3,18 @@
 
 Hand-written valid/invalid values for every codec form, then seeded structural mutations (type confusion, dropped /
 unknown / null fields, number edge cases) of the valid seeds, each emitted as both `json` and `snbt` records.
-Run: crates/mc-protocol/tests/fixtures/components/gen_corpus_predicates.py && gen.sh corpus/70-predicates.txt
+Usage: python3 crates/mc-protocol/tests/fixtures/components/gen_corpus_predicates.py && crates/mc-protocol/tests/fixtures/components/gen.sh corpus/70-predicates.txt
+Output: crates/mc-protocol/tests/fixtures/components/corpus/70-predicates.txt (reads ref/extracted/registries.json; run scripts/extract.sh first)
 """
 import json
 import os
 import random
 import struct
+import sys
+
+if sys.argv[1:] in (["-h"], ["--help"]):
+    print(__doc__)
+    sys.exit(0)
 
 rnd = random.Random(70)
 OUT = []
@@ -297,7 +303,6 @@ def utf(s):
 
 
 BOOL = lambda v: b"\x01" if v else b"\x00"
-import sys
 sys.path.insert(0, os.path.dirname(__file__))
 
 
@@ -435,5 +440,7 @@ for i in range(N_RANDOM // 2):
     both(c, bp)
 
 path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "corpus", "70-predicates.txt")
-open(path, "w").write("\n".join(OUT) + "\n")
+with open(path + ".tmp", "w") as f:
+    f.write("\n".join(OUT) + "\n")
+os.replace(path + ".tmp", path)
 print(len(OUT), "lines ->", path)

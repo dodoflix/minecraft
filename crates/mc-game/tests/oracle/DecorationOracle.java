@@ -53,7 +53,8 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 /**
  * Goldens for FeatureSorter and ChunkGenerator.applyBiomeDecoration (the Rust side: levelgen/decoration.rs, crates/mc-game-core/tests/golden/decoration_golden.rs).
- *   java -cp tools/extractor/build:$(scripts/vanilla-cp.sh) crates/mc-game/tests/oracle/DecorationOracle.java <out.txt>
+ * Usage: MC_EXTRA_CP=tools/extractor/build scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/decoration/decoration.txt crates/mc-game/tests/oracle/DecorationOracle.java crates/mc-game/tests/fixtures/decoration/decoration.txt
+ * Output: crates/mc-game/tests/fixtures/decoration/decoration.txt
  *
  * Per generator (vanilla overworld/nether/end level stems and flat settings):
  *   GEN <name> <flat settings json | ->

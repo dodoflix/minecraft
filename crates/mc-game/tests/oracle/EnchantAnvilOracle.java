@@ -36,8 +36,9 @@ import net.minecraft.world.phys.AABB;
 /**
  * Golden generator for crates/mc-game/tests/golden/enchant_anvil_golden.rs: scripted sessions through the REAL vanilla
  * EnchantmentMenu / AnvilMenu / GrindstoneMenu of a real ServerPlayer on a real ServerLevel (VanillaLevel, void world).
- *   scripts/enchant-anvil-golden.sh
- * Output (stdout): one line per op ("OP ...", replayed by Rust) followed by "OUT ..." lines (state after the op):
+ * Usage: scripts/enchant-anvil-golden.sh
+ * Output: crates/mc-game/tests/fixtures/enchant_anvil/{enchant,anvil,grindstone}.txt.gz (the wrapper runs this program once per section and compresses)
+ * Stdout: one line per op ("OP ...", replayed by Rust) followed by "OUT ..." lines (state after the op):
  *   OP OPEN kind xp seed creative pseed lseed shelves blockers   open a menu of `kind` (enchant|anvil|grindstone) at the table block
  *   OP SET slot STACK | OP NAME text | OP BUTTON id | OP CLICK slot button INPUT | OP SWAPTAKE... | OP CLOSE
  *   OUT S i=stack ...  menu slots (non-empty)   OUT D d0 d1 ..  data slots   OUT C carried   OUT I i=stack  player inventory

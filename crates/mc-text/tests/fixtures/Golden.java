@@ -7,8 +7,9 @@ import java.nio.file.*;
 import java.util.*;
 
 /**
- * Golden generator for mc-text: run with
- *   scripts/vanilla-java.sh crates/mc-text/tests/fixtures/Golden.java crates/mc-text/tests/fixtures/corpus.txt crates/mc-text/tests/fixtures/corpus_random.txt > crates/mc-text/tests/fixtures/golden.jsonl
+ * Golden generator for mc-text (stdout is captured into the fixture by the `-o` wrapper).
+ * Usage: scripts/vanilla-java.sh -o crates/mc-text/tests/fixtures/golden.jsonl crates/mc-text/tests/fixtures/Golden.java crates/mc-text/tests/fixtures/corpus.txt crates/mc-text/tests/fixtures/corpus_random.txt
+ * Output: crates/mc-text/tests/fixtures/golden.jsonl
  *
  * Corpus lines: `J<json>` decodes with JsonOps, `N<snbt>` decodes with NbtOps. Blank lines and `#` comments are skipped.
  * One JSON object per output line:

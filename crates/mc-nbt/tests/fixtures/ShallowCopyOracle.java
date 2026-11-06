@@ -3,7 +3,9 @@ import java.io.*;
 import java.nio.file.*;
 
 /** `CompoundTag.shallowCopy()` pre-sizes the new HashMap from the entry count (JDK 19+: ceil(n / 0.75)); the key order of
- *  later inserts depends on that table size. Line: n TAB hex(named bytes of the copy after 7 more puts). */
+ *  later inserts depends on that table size. Line: n TAB hex(named bytes of the copy after 7 more puts).
+ *  Usage: scripts/vanilla-java.sh -o crates/mc-nbt/tests/fixtures/shallow_copy_golden.tsv crates/mc-nbt/tests/fixtures/ShallowCopyOracle.java crates/mc-nbt/tests/fixtures/shallow_copy_golden.tsv
+ *  Output: crates/mc-nbt/tests/fixtures/shallow_copy_golden.tsv */
 public class ShallowCopyOracle {
    public static void main(String[] args) throws Exception {
       StringBuilder out = new StringBuilder();

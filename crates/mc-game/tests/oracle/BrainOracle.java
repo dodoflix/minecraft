@@ -22,7 +22,9 @@ import net.minecraft.world.level.storage.ServerLevelData;
 
 /**
  * Brain oracle: a vanilla Brain with fake behaviors (log start/tick/stop) ticked on a real level with a seeded Level.random, plus the
- * sensor scan-rate pattern. Run: scripts/entity-oracle.sh crates/mc-game/tests/oracle/BrainOracle.java > fixtures/brain/brain.txt
+ * sensor scan-rate pattern.
+ * Usage: scripts/entity-oracle.sh crates/mc-game/tests/oracle/BrainOracle.java -o crates/mc-game-core/tests/fixtures/brain/brain.txt
+ * Output: crates/mc-game-core/tests/fixtures/brain/brain.txt
  */
 public class BrainOracle {
    static final List<String> LOG = new ArrayList<>();

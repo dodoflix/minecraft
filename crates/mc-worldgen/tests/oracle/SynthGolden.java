@@ -1,5 +1,6 @@
-// Generates tests/fixtures/synth/*.txt: run from the repo root as
-//   scripts/vanilla-java.sh crates/mc-worldgen/tests/oracle/SynthGolden.java crates/mc-worldgen/tests/fixtures/synth
+// Generates tests/fixtures/synth/*.txt.
+// Usage: scripts/vanilla-java.sh crates/mc-worldgen/tests/oracle/SynthGolden.java crates/mc-worldgen/tests/fixtures/synth
+// Output: crates/mc-worldgen/tests/fixtures/synth/{perlin,simplex,normal,blended,smeared}.txt (the program takes the output directory and writes the files into it directly; no -o wrapper)
 // Every number is the raw hex bit pattern (double: 64-bit, float: 32-bit, ints: decimal).
 import it.unimi.dsi.fastutil.doubles.DoubleArrayList;
 import java.io.PrintWriter;

@@ -1,7 +1,8 @@
 import net.minecraft.world.level.levelgen.*;
 import net.minecraft.util.RandomSource;
 
-// Usage: scripts/vanilla-java.sh RandomGen.java > random.txt
+// Usage: scripts/vanilla-java.sh -o crates/mc-core/tests/fixtures/random/random.txt crates/mc-core/tests/fixtures/random/RandomGen.java
+// Output: crates/mc-core/tests/fixtures/random/random.txt
 public class RandomGen {
     static final long[] SEEDS = {0L, 1L, -1L, 42L, 12345L, -987654321L, 0x123456789ABCDEFL, Long.MAX_VALUE, Long.MIN_VALUE};
     static final int[] BOUNDS = {1, 2, 3, 7, 16, 100, 1000, 65536, 1 << 30, Integer.MAX_VALUE, 12345678};

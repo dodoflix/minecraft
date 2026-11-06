@@ -1,6 +1,7 @@
 // Generates tests/fixtures/wire_limits.golden: what vanilla's encoders do with values at/over their write-side limits.
 // Line format (tab separated): `label<TAB>OK<TAB>hex` or `label<TAB>ERR<TAB>Throwable.toString()[<TAB>cause=Throwable.toString()][<TAB>skippable]`.
-//   crates/mc-protocol/tests/fixtures/wire_limits.sh        (compiles tools/extractor Setup + play/PlayHarness, then runs this)
+// Usage: crates/mc-protocol/tests/fixtures/wire_limits.sh   (compiles tools/extractor Setup + play/PlayHarness, then runs this)
+// Output: crates/mc-protocol/tests/fixtures/wire_limits.golden
 import com.google.common.collect.ImmutableMultimap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;

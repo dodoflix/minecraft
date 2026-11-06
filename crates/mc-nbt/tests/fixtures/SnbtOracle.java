@@ -8,7 +8,8 @@ import java.util.*;
  * Generates snbt_golden.tsv: one line per input, tab separated, fields escaped with esc():
  *   input, parse-status (O|E), then for O: compact, pretty, anyTag-hex, namedCompound-hex ("-" if not compound);
  *   for E: message, cursor. Final field: compound-mode result: "O" or the error message.
- * Run: scripts/vanilla-java.sh crates/mc-nbt/tests/fixtures/SnbtOracle.java crates/mc-nbt/tests/fixtures/snbt_golden.tsv
+ * Usage: scripts/vanilla-java.sh -o crates/mc-nbt/tests/fixtures/snbt_golden.tsv crates/mc-nbt/tests/fixtures/SnbtOracle.java crates/mc-nbt/tests/fixtures/snbt_golden.tsv
+ * Output: crates/mc-nbt/tests/fixtures/snbt_golden.tsv
  */
 public class SnbtOracle {
     static boolean lone;

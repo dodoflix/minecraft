@@ -17,7 +17,8 @@ import net.minecraft.world.level.block.state.properties.Property;
 /** Golden for the worldgen block entities (sculk catalyst/sensor/calibrated sensor/shrieker, creaking heart, potent sulfur,
  *  end portal/gateway): a fresh entity's `saveWithFullMetadata`, and `loadStatic` (id/x/y/z + the case's NBT) followed by
  *  `saveWithFullMetadata` and `getUpdateTag`. Line: case TAB block TAB props TAB input-snbt TAB saved-hex TAB saved-snbt TAB update-hex TAB has-update-packet TAB packet-tag-hex (saveCustomOnly).
- *  Run: scripts/vanilla-java.sh crates/mc-game/tests/oracle/SculkBlockEntitiesOracle.java crates/mc-game/tests/fixtures/sculk_block_entities.txt */
+ *  Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/sculk_block_entities.txt crates/mc-game/tests/oracle/SculkBlockEntitiesOracle.java crates/mc-game/tests/fixtures/sculk_block_entities.txt
+ *  Output: crates/mc-game/tests/fixtures/sculk_block_entities.txt */
 public class SculkBlockEntitiesOracle {
     static final BlockPos POS = new BlockPos(10, 64, -20);
     static RegistryAccess REG; // the static layer: every built-in registry (game_event for the vibration codecs)

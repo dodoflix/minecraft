@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
 """Generates corpus/60-entity.txt (entity data, mob variants, profile). Seeded: output is reproducible.
-Run: python3 gen_corpus_entity.py  (from this directory); then gen.sh corpus/60-entity.txt."""
-import json, random, os
+Usage: python3 crates/mc-protocol/tests/fixtures/components/gen_corpus_entity.py && crates/mc-protocol/tests/fixtures/components/gen.sh corpus/60-entity.txt
+Output: crates/mc-protocol/tests/fixtures/components/corpus/60-entity.txt (then gen.sh writes golden/60-entity.txt)
+"""
+import json, random, os, sys
+
+if sys.argv[1:] in (["-h"], ["--help"]):
+    print(__doc__)
+    sys.exit(0)
 
 rng = random.Random(60)
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -450,6 +456,8 @@ add("patch-snbt", "-", "{\"!minecraft:entity_data\":{},\"!minecraft:villager/var
 add("patch-snbt", "-", "{\"minecraft:profile\":{name:'x'},\"minecraft:pig/variant\":'warm'}")
 add("patch-json", "-", '{"minecraft:rabbit/variant":"evil","!minecraft:painting/variant":{}}')
 
-with open(os.path.join(HERE, "corpus", "60-entity.txt"), "w") as f:
+path = os.path.join(HERE, "corpus", "60-entity.txt")
+with open(path + ".tmp", "w") as f:
     f.write("\n".join(lines) + "\n")
+os.replace(path + ".tmp", path)
 print(len(lines), "lines")

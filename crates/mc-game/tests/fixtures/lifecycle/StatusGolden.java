@@ -3,7 +3,9 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Util;
 
-/** MinecraftServer.buildPlayerStatus' sample selection (offset + shuffle) with real Mth/Util/RandomSource. */
+/** MinecraftServer.buildPlayerStatus' sample selection (offset + shuffle) with real Mth/Util/RandomSource.
+ * Usage: scripts/vanilla-java.sh -o crates/mc-game-core/tests/fixtures/lifecycle/status_sample.txt crates/mc-game/tests/fixtures/lifecycle/StatusGolden.java crates/mc-game-core/tests/fixtures/lifecycle/status_sample.txt
+ * Output: crates/mc-game-core/tests/fixtures/lifecycle/status_sample.txt */
 public class StatusGolden {
    public static void main(String[] args) {
       StringBuilder out = new StringBuilder();

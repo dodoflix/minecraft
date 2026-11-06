@@ -2,7 +2,9 @@ import it.unimi.dsi.fastutil.longs.*;
 import java.io.*;
 import java.util.*;
 
-/** Iteration order of fastutil's LongOpenHashSet (used by the light engine) through adds, rehash, clear and trim. */
+/** Iteration order of fastutil's LongOpenHashSet (used by the light engine) through adds, rehash, clear and trim.
+ * Usage: scripts/vanilla-java.sh -o crates/mc-light/tests/fixtures/set_golden.txt crates/mc-light/tests/fixtures/SetGolden.java crates/mc-light/tests/fixtures/set_golden.txt
+ * Output: crates/mc-light/tests/fixtures/set_golden.txt */
 public class SetGolden {
     public static void main(String[] args) throws Exception {
         PrintWriter out = new PrintWriter(new FileWriter(args[0]));

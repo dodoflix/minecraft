@@ -36,10 +36,11 @@ import net.minecraft.world.level.storage.LevelStorageSource;
  * Oracle of crates/mc-game/tests/golden/scattered_structures_golden.rs: a real vanilla structure (`Structure.generate`: every piece's
  * saved tag), then `StructureStart.placeInChunk` over the synthetic terrain of FeatureOracleBase for every chunk of the start's
  * bounding box (the way ChunkGenerator.applyBiomeDecoration does it) with the region dump incl. block entity NBT and entities.
- * Usage (repo root, FeatureOracleBase.java next to this file):
- * scripts/vanilla-java.sh crates/mc-game/tests/oracle/ScatteredStructuresOracle.java out.txt STRUCTURE_ID COUNT [nether] [seed] [fullBlockLines]
+ * Usage: crates/mc-game/tests/oracle/scattered_structures.sh [structure ...]   (all fixtures; one structure: scripts/vanilla-java.sh -o OUT
+ * crates/mc-game/tests/oracle/ScatteredStructuresOracle.java OUT STRUCTURE_ID COUNT [nether] [seed] [fullBlockLines], FeatureOracleBase.java next to this file)
+ * Output: crates/mc-game/tests/fixtures/scattered/STRUCTURE_ID.txt (.txt.gz for shipwreck, shipwreck_beached, nether_fossil, ocean_ruin_cold, ocean_ruin_warm)
  *
- * Output per start: {@code START id seed chunkX chunkZ pieceCount} (pieceCount -1: no valid start), one {@code P <piece tag SNBT>} per
+ * Lines per start: {@code START id seed chunkX chunkZ pieceCount} (pieceCount -1: no valid start), one {@code P <piece tag SNBT>} per
  * piece, then per placement {@code PLACE cx cz featureIndex} + {@code D <dump line>} (block lines folded to a {@code B* cx cz count fnv} digest
  * unless fullBlockLines) + {@code END}. Mobs spawned by pieces (drowned, witch, cat) are created through a fake ServerLevel;
  * their {@code finalizeSpawn} randomness (region random, unseeded Entity.random, UUID) is not reproducible, so the entity lines

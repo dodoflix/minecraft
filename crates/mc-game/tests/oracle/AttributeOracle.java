@@ -19,7 +19,9 @@ import org.joml.Vector4fc;
 /**
  * Environment attribute oracle: the REAL vanilla {@code EnvironmentAttributeSystem} of the overworld, the nether and the end of an
  * in-process vanilla server (see {@link VanillaLevel}), sampled for every registered attribute at several world clock values and
- * weather levels. Run: {@code scripts/entity-oracle.sh crates/mc-game/tests/oracle/AttributeOracle.java > crates/mc-game/tests/fixtures/attribute_oracle.txt}
+ * weather levels.
+ * Usage: scripts/entity-oracle.sh crates/mc-game/tests/oracle/AttributeOracle.java -o crates/mc-game/tests/fixtures/attribute_oracle.txt
+ * Output: crates/mc-game/tests/fixtures/attribute_oracle.txt
  *
  * <pre>
  * B dim idx x y z full=BIOME noise=BIOME     the probe positions and the biomes the biome layers see there

@@ -4,7 +4,10 @@ import java.util.*;
 import net.minecraft.nbt.*;
 import net.minecraft.world.level.chunk.status.*;
 
-/** Usage (repo root): scripts/vanilla-java.sh StatusGolden.java inputs.snbt golden.txt */
+/**
+ * Usage: scripts/vanilla-java.sh -o crates/mc-world/tests/fixtures/status/golden.txt crates/mc-world/tests/fixtures/status/StatusGolden.java crates/mc-world/tests/fixtures/status/inputs.snbt crates/mc-world/tests/fixtures/status/golden.txt
+ * Output: crates/mc-world/tests/fixtures/status/golden.txt
+ */
 public class StatusGolden {
     public static void main(String[] args) throws Exception {
         net.minecraft.SharedConstants.tryDetectVersion();

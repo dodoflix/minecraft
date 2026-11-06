@@ -4,8 +4,6 @@
 
 use crate::common;
 
-use std::io::Read;
-
 use mc_core::ident::Identifier;
 use mc_data::Item;
 use mc_game::server::level::ServerLevel;
@@ -156,15 +154,10 @@ fn place_recipe_matches_vanilla() {
         .listener::<RecipeManager>()
         .expect("recipe manager")
         .clone();
-    let mut text = String::new();
-    flate2::read::GzDecoder::new(
-        std::fs::File::open(concat!(
-            env!("CARGO_MANIFEST_DIR"),
-            "/tests/fixtures/place_recipe_golden.txt.gz"
-        ))
-        .unwrap(),
-    )
-    .read_to_string(&mut text)
+    let text = std::fs::read_to_string(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/tests/fixtures/place_recipe_golden.txt"
+    ))
     .unwrap();
 
     let new_level = || ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());

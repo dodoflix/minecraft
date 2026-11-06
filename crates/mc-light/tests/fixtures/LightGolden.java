@@ -15,9 +15,10 @@ import net.minecraft.network.protocol.game.ClientboundLightUpdatePacketData;
 
 /**
  * Drives the real vanilla LevelLightEngine (sky + block) over real ProtoChunks and records everything observable.
- * Usage: scripts/vanilla-java.sh LightGolden.java out.txt
+ * Usage: scripts/vanilla-java.sh -o crates/mc-light/tests/fixtures/light_golden.txt crates/mc-light/tests/fixtures/LightGolden.java crates/mc-light/tests/fixtures/light_golden.txt
+ * Output: crates/mc-light/tests/fixtures/light_golden.txt
  *
- * Output (one scenario after the other):
+ * Format (one scenario after the other):
  *   SCEN <name> <minY> <height> <hasSky> <gridMin> <gridSize>
  *   SEC <cx> <sy> <cz> <count:stateId,...>        initial blocks, y-major then z then x (only non-air sections)
  *   Then a script of steps; every step is replayed by the Rust test, `SNAP` lines are the expectations:

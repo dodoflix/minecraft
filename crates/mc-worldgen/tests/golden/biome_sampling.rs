@@ -1,9 +1,8 @@
 //! Differential test of climate sampling, biome resolvers (point and chunk-volume paths), `BiomeManager`, the biome
 //! searches and the spawn finder against the vanilla classes
-//! (fixture `tests/fixtures/biome_sampling.txt.gz` from `tests/oracle/BiomeSamplingOracle.java`).
+//! (fixture `tests/fixtures/biome_sampling.txt` from `tests/oracle/BiomeSamplingOracle.java`).
 
 use std::collections::{BTreeMap, HashMap};
-use std::io::Read;
 use std::sync::Arc;
 
 use mc_core::ident::Identifier;
@@ -19,12 +18,9 @@ use mc_worldgen::densityfunction::SamplerContext;
 use mc_worldgen::random_state::RandomState;
 
 fn fixture() -> Vec<String> {
-    let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
-        .join("tests/fixtures/biome_sampling.txt.gz");
-    let mut text = String::new();
-    flate2::read::GzDecoder::new(std::fs::File::open(path).expect("fixture"))
-        .read_to_string(&mut text)
-        .expect("gunzip");
+    let path =
+        std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/biome_sampling.txt");
+    let text = std::fs::read_to_string(path).expect("fixture");
     text.lines().map(str::to_owned).collect()
 }
 

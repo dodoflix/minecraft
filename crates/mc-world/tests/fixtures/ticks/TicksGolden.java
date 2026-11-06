@@ -1,6 +1,7 @@
 // Golden generator for ticks::{LevelChunkTicks, ProtoChunkTicks, LevelTicks}: random op scripts executed by the real
 // vanilla classes; each fixture line is `<scenario>\t<op>\t<result>` and the Rust test replays the ops.
-// Run: scripts/vanilla-java.sh crates/mc-world/tests/fixtures/ticks/TicksGolden.java crates/mc-world/tests/fixtures/ticks/ticks_golden.txt
+// Usage: scripts/vanilla-java.sh -o crates/mc-world/tests/fixtures/ticks/ticks_golden.txt crates/mc-world/tests/fixtures/ticks/TicksGolden.java crates/mc-world/tests/fixtures/ticks/ticks_golden.txt
+// Output: crates/mc-world/tests/fixtures/ticks/ticks_golden.txt
 import java.io.PrintWriter;
 import java.util.*;
 import java.util.stream.Collectors;

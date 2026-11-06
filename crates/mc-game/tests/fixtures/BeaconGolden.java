@@ -1,6 +1,7 @@
 // Golden generator for beacon_golden.rs: BeaconBlockEntity.validateEffects over every (primary, secondary, levels) and the
 // BeaconMenu effect encoding. Output lines: "primary secondary levels result" (effect = registry id + 1, 0 = none).
-//   java -cp "$EXTRACTOR:$CP" BeaconGolden.java > beacon_golden.txt
+// Usage: scripts/golden-menu.sh
+// Output: crates/mc-game/tests/fixtures/beacon_golden.txt
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffect;

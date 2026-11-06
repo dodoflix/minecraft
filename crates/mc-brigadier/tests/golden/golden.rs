@@ -1,5 +1,5 @@
 //! Compares against `fixtures/golden.txt`, produced by running the real brigadier 1.3.11 through
-//! `scripts/vanilla-java.sh crates/mc-brigadier/tests/fixtures/BrigadierGolden.java`.
+//! `tests/fixtures/BrigadierGolden.java` (command in its header).
 
 use std::any::Any;
 

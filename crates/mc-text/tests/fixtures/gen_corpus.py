@@ -1,8 +1,18 @@
 #!/usr/bin/env python3
-"""Deterministic random component corpus generator: gen_corpus.py [count] [seed] > corpus_random.txt (J/N lines)."""
-import json, random, sys
+"""Deterministic random component corpus generator (J/N lines).
 
-rnd = random.Random(int(sys.argv[2]) if len(sys.argv) > 2 else 26_3)
+Usage: python3 crates/mc-text/tests/fixtures/gen_corpus.py crates/mc-text/tests/fixtures/corpus_random.txt [count] [seed]
+Output: crates/mc-text/tests/fixtures/corpus_random.txt (written to OUT.tmp, renamed into place on success)
+"""
+import json, os, random, sys
+
+if sys.argv[1:] in (["-h"], ["--help"]):
+    print(__doc__)
+    sys.exit(0)
+if len(sys.argv) < 2:
+    sys.exit(__doc__)
+OUT = sys.argv[1]
+rnd = random.Random(int(sys.argv[3]) if len(sys.argv) > 3 else 26_3)
 KEYS = ["gui.done", "chat.type.text", "commands.give.success.single", "death.attack.player", "nope.key",
         "multiplayer.player.joined", "commands.teleport.success.entity.single", "options.on", "block.minecraft.stone", ""]
 FALLBACKS = ["%s", "x %s y", "%s %s", "%1$s %2$s", "%2$s%1$s", "100%", "%%", "%d", "%1$s%s", "%5$s", "a%sb%%c", "%", "%1$", "plain"]
@@ -124,10 +134,14 @@ def to_snbt(v, ctx=""):
         return "{" + ",".join(f"{snbt_str(k)}:{to_snbt(x)}" for k, x in v.items()) + "}"
     raise TypeError(v)
 
-N = int(sys.argv[1]) if len(sys.argv) > 1 else 700
+N = int(sys.argv[2]) if len(sys.argv) > 2 else 700
+lines = []
 for _ in range(N):
     c = component()
     if rnd.random() < 0.4: c = mutate(c)
-    print("J" + json.dumps(c, ensure_ascii=False))
+    lines.append("J" + json.dumps(c, ensure_ascii=False))
     if isinstance(c, (dict, list, str)):
-        print("N" + to_snbt(c))
+        lines.append("N" + to_snbt(c))
+with open(OUT + ".tmp", "w", encoding="utf-8", newline="\n") as f:
+    f.write("".join(line + "\n" for line in lines))
+os.replace(OUT + ".tmp", OUT)

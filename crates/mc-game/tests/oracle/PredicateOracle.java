@@ -28,8 +28,11 @@ import net.minecraft.world.phys.Vec3;
  * {@code EntityPredicate}/{@code DamageSourcePredicate}/{@code DamagePredicate}/{@code LocationPredicate} objects, decoded from
  * JSON with the real registry ops, over the real entities and blocks of the in-process vanilla level.
  *
- * <p>Run: {@code scripts/entity-oracle.sh crates/mc-game/tests/oracle/PredicateOracle.java crates/mc-game/tests/oracle/scenarios/predicates/NAME.txt
- * > crates/mc-game/tests/fixtures/predicate_oracle/NAME.txt} (or {@code scripts/predicate-oracle.sh}). A scenario is an
+ * Usage: scripts/predicate-oracle.sh [NAME...]
+ * Output: crates/mc-game/tests/fixtures/predicate_oracle/NAME.txt
+ * One scenario by hand: scripts/entity-oracle.sh crates/mc-game/tests/oracle/PredicateOracle.java -o crates/mc-game/tests/fixtures/predicate_oracle/NAME.txt crates/mc-game/tests/oracle/scenarios/predicates/NAME.txt
+ *
+ * <p>A scenario is an
  * {@code EntityOracleDriver} script (world/entities, see its header) extended by the commands below; the Rust test
  * {@code tests/golden/advancement_predicates_golden.rs} replays the same script against our level and entities.
  * <pre>

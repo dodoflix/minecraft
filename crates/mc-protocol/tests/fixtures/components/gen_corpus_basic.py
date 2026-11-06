@@ -4,11 +4,19 @@
 Hand-written valid/invalid values per component plus seeded mutations (type confusion, dropped/added fields, number
 edge cases) in both strict JSON and SNBT with typed numbers. Multi-entry enchantment maps are only emitted when
 vanilla must reject them: Object2IntOpenHashMap iterates in identity-hash order, so valid ones have no stable golden.
+
+Usage: python3 crates/mc-protocol/tests/fixtures/components/gen_corpus_basic.py && crates/mc-protocol/tests/fixtures/components/gen.sh corpus/10-basic-a.txt corpus/10-basic-b.txt
+Output: crates/mc-protocol/tests/fixtures/components/corpus/10-basic-a.txt, crates/mc-protocol/tests/fixtures/components/corpus/10-basic-b.txt
 """
 import json
 import math
 import os
 import random
+import sys
+
+if sys.argv[1:] in (["-h"], ["--help"]):
+    print(__doc__)
+    sys.exit(0)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 R = random.Random(2610)
@@ -181,8 +189,10 @@ class Out:
             if l not in seen:
                 seen.add(l)
                 uniq.append(l)
-        with open(os.path.join(HERE, "corpus", self.name), "w") as f:
+        path = os.path.join(HERE, "corpus", self.name)
+        with open(path + ".tmp", "w") as f:
             f.write("\n".join(uniq) + "\n")
+        os.replace(path + ".tmp", path)
         print(self.name, len(uniq))
 
 

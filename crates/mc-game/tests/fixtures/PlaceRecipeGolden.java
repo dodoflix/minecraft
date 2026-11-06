@@ -1,7 +1,3 @@
-// Golden generator for crates/mc-game/tests/golden/menu_golden.rs: scripted container clicks through the REAL vanilla
-// InventoryMenu / Inventory / AbstractContainerMenu with a constructor-less ServerPlayer subclass.
-//   scripts/golden-menu.sh  (runs this against the vanilla classpath and writes menu_golden.txt)
-// Output: "OP ..." lines (the script, replayed by Rust) each followed by "OUT ..." lines (state after the op).
 import java.lang.reflect.Field;
 import java.util.*;
 import net.minecraft.core.NonNullList;
@@ -39,8 +35,9 @@ import net.minecraft.world.item.crafting.*;
 import java.util.concurrent.Executor;
 // Golden generator for crates/mc-game/tests/golden/place_recipe_golden.rs: the REAL vanilla InventoryMenu.handlePlacement
 // (ServerPlaceRecipe + StackedItemContents) over random inventories, using the real RecipeManager.
-//   scripts/golden-recipes.sh  (also regenerates place_recipe_golden.txt.gz)
-// Output: "OP ..." lines (replayed by Rust) each followed by "OUT ..." lines (state after the op).
+// Usage: scripts/golden-recipes.sh
+// Output: crates/mc-game/tests/fixtures/place_recipe_golden.txt
+// Format: "OP ..." lines (replayed by Rust) each followed by "OUT ..." lines (state after the op).
 public class PlaceRecipeGolden {
    static final StringBuilder OUT = new StringBuilder();
    static final List<String> events = new ArrayList<>();

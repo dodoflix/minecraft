@@ -1,5 +1,6 @@
 // Golden for ExperienceOrb.getExperienceValue/getIcon and ItemEntity.areMergable/merge (static logic).
-//   java -cp "$EXTRACTOR:$CP" ItemEntityGolden.java > item_entity_golden.txt   (see scripts/golden-menu.sh for $CP / $EXTRACTOR)
+// Usage: MC_EXTRA_CP=tools/extractor/build scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/item_entity_golden.txt crates/mc-game/tests/fixtures/ItemEntityGolden.java
+// Output: crates/mc-game/tests/fixtures/item_entity_golden.txt
 import java.util.*;
 import java.util.function.Supplier;
 import net.minecraft.core.component.DataComponents;

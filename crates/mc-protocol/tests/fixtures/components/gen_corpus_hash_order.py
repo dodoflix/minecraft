@@ -8,12 +8,19 @@
   92-hash-order-deterministic.txt insertion-ordered or stable-hash maps (patches, stacks, block_state, tooltip_display, ...):
                               compared byte-exact; only `hashed=` (client-side HashedPatchMap, IdentityHashMap) is relaxed
   93-hash-order-click.txt     ServerboundContainerClickPacket with multi-component hashed stacks (wire compared by decoding)
-Regenerate: python3 gen_corpus_hash_order.py && ./gen.sh corpus/90-hash-order-identity.txt corpus/91-hash-order-exactpred.txt corpus/92-hash-order-deterministic.txt corpus/93-hash-order-click.txt
+Usage: python3 crates/mc-protocol/tests/fixtures/components/gen_corpus_hash_order.py && crates/mc-protocol/tests/fixtures/components/gen.sh corpus/90-hash-order-identity.txt corpus/91-hash-order-exactpred.txt corpus/92-hash-order-deterministic.txt corpus/93-hash-order-click.txt
+Output: crates/mc-protocol/tests/fixtures/components/corpus/{90-hash-order-identity,91-hash-order-exactpred,92-hash-order-deterministic,93-hash-order-click}.txt
+Needs registries.golden next to this script (components/gen.sh --registries).
 """
 import json
 import os
 import random
+import sys
 from corpus_lib import to_snbt
+
+if sys.argv[1:] in (["-h"], ["--help"]):
+    print(__doc__)
+    sys.exit(0)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 rng = random.Random(260305)
@@ -63,8 +70,10 @@ class Corpus:
         self.add("snbt", name, sn(value))
 
     def write(self, fname):
-        with open(os.path.join(HERE, "corpus", fname), "w") as f:
+        path = os.path.join(HERE, "corpus", fname)
+        with open(path + ".tmp", "w") as f:
             f.write("\n".join(self.lines) + "\n")
+        os.replace(path + ".tmp", path)
 
 
 def enchant_map(n, levels=LEVELS):

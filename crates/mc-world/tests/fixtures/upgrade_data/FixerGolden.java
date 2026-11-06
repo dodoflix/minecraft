@@ -2,7 +2,8 @@
 //   FIXMAP  <block> <fixer>                       every block's fixer (MAP.getOrDefault(block, DEFAULT))
 //   CHEST / STEM <state> <direction> <neighbour> <result state | EXC:class> <events>
 //           only the combinations where the result differs from `state`, events were recorded, or an exception was thrown
-// Run: scripts/vanilla-java.sh crates/mc-world/tests/fixtures/upgrade_data/FixerGolden.java crates/mc-world/tests/fixtures/upgrade_data/fixer_golden.txt
+// Usage: scripts/vanilla-java.sh -o crates/mc-world/tests/fixtures/upgrade_data/fixer_golden.txt crates/mc-world/tests/fixtures/upgrade_data/FixerGolden.java crates/mc-world/tests/fixtures/upgrade_data/fixer_golden.txt
+// Output: crates/mc-world/tests/fixtures/upgrade_data/fixer_golden.txt
 import java.io.PrintWriter;
 import java.lang.reflect.*;
 import java.util.*;

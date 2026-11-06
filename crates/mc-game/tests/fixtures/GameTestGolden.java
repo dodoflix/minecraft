@@ -4,11 +4,14 @@ import net.minecraft.gametest.framework.StructureUtils;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 
-/** Golden for the pure geometry of the game test framework: scripts/vanilla-java.sh GameTestGolden.java > gametest_golden.txt */
+/** Golden for the pure geometry of the game test framework (Bootstrap routes stdout through the logger, so the output goes to a file).
+ * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/gametest_golden.txt crates/mc-game/tests/fixtures/GameTestGolden.java crates/mc-game/tests/fixtures/gametest_golden.txt
+ * Output: crates/mc-game/tests/fixtures/gametest_golden.txt */
 public class GameTestGolden {
-   public static void main(String[] args) {
+   public static void main(String[] args) throws Exception {
       net.minecraft.SharedConstants.tryDetectVersion();
       net.minecraft.server.Bootstrap.bootStrap();
+      System.setOut(new java.io.PrintStream(new java.io.FileOutputStream(args[0]), false, "UTF-8"));
       int[][] sizes = {{1, 1, 1}, {3, 4, 5}, {5, 5, 5}, {7, 2, 9}, {1, 1, 48}};
       BlockPos[] origins = {new BlockPos(0, 0, 0), new BlockPos(10, 64, 10), new BlockPos(-33, -5, 100)};
       for (BlockPos origin : origins) {

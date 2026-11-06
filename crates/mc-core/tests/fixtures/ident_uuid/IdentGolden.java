@@ -1,4 +1,6 @@
-// Generates ident.txt: scripts/vanilla-java.sh crates/mc-core/tests/fixtures/ident_uuid/IdentGolden.java > crates/mc-core/tests/fixtures/ident_uuid/ident.txt
+// Generates ident.txt.
+// Usage: scripts/vanilla-java.sh -o crates/mc-core/tests/fixtures/ident_uuid/ident.txt crates/mc-core/tests/fixtures/ident_uuid/IdentGolden.java
+// Output: crates/mc-core/tests/fixtures/ident_uuid/ident.txt
 // Strings are escaped: every UTF-16 unit outside 0x20..0x7e and backslash becomes backslash-u plus 4 lowercase hex digits.
 import java.util.*;
 import net.minecraft.IdentifierException;

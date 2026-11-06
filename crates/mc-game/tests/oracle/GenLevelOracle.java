@@ -20,9 +20,11 @@ import net.minecraft.world.ticks.TickPriority;
  * Oracle of crates/mc-game-core/tests/golden/gen_level_golden.rs: random operation scripts (block placement/removal incl. block-entity
  * blocks, far/out-of-zone writes, heights, biomes, ticks, post-processing, block entity NBT, entities, region random) executed
  * on the real vanilla WorldGenRegion over the synthetic terrain of FeatureOracleBase, followed by FeatureOracleBase.dump.
- * Usage (repo root): scripts/vanilla-java.sh crates/mc-game/tests/oracle/GenLevelOracle.java crates/mc-game/tests/fixtures/gen_level.txt
+ * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/gen_level.txt crates/mc-game/tests/oracle/GenLevelOracle.java crates/mc-game/tests/fixtures/gen_level.txt
+ * (FeatureOracleBase.java next to this file)
+ * Output: crates/mc-game/tests/fixtures/gen_level.txt
  *
- * Output: {@code SCENARIO id seed cx cz step chunkRadius primeWg}, then per operation {@code > op} / {@code = result}, then the dump
+ * Lines: {@code SCENARIO id seed cx cz step chunkRadius primeWg}, then per operation {@code > op} / {@code = result}, then the dump
  * lines as {@code D <line>}, then {@code END}. The Rust test replays every {@code >} line and compares.
  */
 public class GenLevelOracle {

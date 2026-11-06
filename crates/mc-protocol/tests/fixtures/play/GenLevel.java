@@ -1,4 +1,6 @@
-// Golden generator for the `level` play packet group (tests/golden/play_level.rs). Run through gen.sh.
+// Golden generator for the `level` play packet group (tests/golden/play_level.rs).
+// Usage: crates/mc-protocol/tests/fixtures/play/gen.sh GenLevel.java
+// Output: crates/mc-protocol/tests/fixtures/play/level.golden
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.*;

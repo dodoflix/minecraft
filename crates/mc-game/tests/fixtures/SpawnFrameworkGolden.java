@@ -1,5 +1,6 @@
-// Generates tests/fixtures/spawn_framework_golden.txt:
-//   scripts/vanilla-java.sh crates/mc-game/tests/fixtures/SpawnFrameworkGolden.java ref/src/data/minecraft/worldgen/biome | grep "\[STDOUT\]: " | sed -e 's/^\[[0-9:]*\] \[main\/INFO\]: \[STDOUT\]: //' > crates/mc-game/tests/fixtures/spawn_framework_golden.txt
+// Generates tests/fixtures/spawn_framework_golden.txt (Bootstrap routes stdout through the logger, so the output goes to the file named by the second argument):
+// Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/spawn_framework_golden.txt crates/mc-game/tests/fixtures/SpawnFrameworkGolden.java ref/src/data/minecraft/worldgen/biome crates/mc-game/tests/fixtures/spawn_framework_golden.txt
+// Output: crates/mc-game/tests/fixtures/spawn_framework_golden.txt
 // Sections: MobCategory constants, the SpawnPlacements table (placement type + heightmap per entity type), PotentialCalculator
 // charge sums over scripted positions, MobSpawnSettings decoded from every vanilla biome.
 import com.google.gson.JsonElement;
@@ -22,6 +23,7 @@ public class SpawnFrameworkGolden {
    public static void main(String[] args) throws Exception {
       net.minecraft.SharedConstants.tryDetectVersion();
       net.minecraft.server.Bootstrap.bootStrap();
+      System.setOut(new java.io.PrintStream(new java.io.FileOutputStream(args[1]), false, "UTF-8"));
 
       for (MobCategory c : MobCategory.values()) {
          System.out.println("category " + c.getName() + " " + c.getMaxInstancesPerChunk() + " " + c.isFriendly() + " " + c.isPersistent() + " "

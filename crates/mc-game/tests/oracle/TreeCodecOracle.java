@@ -22,7 +22,8 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 
 /** Golden for the tree codecs: runs every case of fixtures/tree_codec_cases.in (kind TAB json) through the vanilla codec and
  *  writes `kind TAB json TAB ok|err` lines (vanilla redirects System.out into its logger, hence the output file).
- *  Run: scripts/vanilla-java.sh crates/mc-game/tests/oracle/TreeCodecOracle.java crates/mc-game/tests/fixtures/tree_codec_cases.in crates/mc-game/tests/fixtures/tree_codec_cases.golden */
+ *  Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/tree_codec_cases.golden crates/mc-game/tests/oracle/TreeCodecOracle.java crates/mc-game/tests/fixtures/tree_codec_cases.in crates/mc-game/tests/fixtures/tree_codec_cases.golden
+ *  Output: crates/mc-game/tests/fixtures/tree_codec_cases.golden */
 public class TreeCodecOracle {
     public static void main(String[] args) throws Exception {
         net.minecraft.SharedConstants.tryDetectVersion();

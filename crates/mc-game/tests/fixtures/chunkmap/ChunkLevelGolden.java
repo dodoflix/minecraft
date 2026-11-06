@@ -1,6 +1,7 @@
 // Golden: ChunkLevel constants, both ChunkPyramids (dependencies, write radius), TicketStorage NBT codec,
-// ChunkTrackingView.difference/contains. Run:
-//   scripts/vanilla-java.sh crates/mc-game/tests/fixtures/chunkmap/ChunkLevelGolden.java crates/mc-game/tests/fixtures/chunkmap/chunk_level_golden.txt
+// ChunkTrackingView.difference/contains.
+// Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/chunkmap/chunk_level_golden.txt crates/mc-game/tests/fixtures/chunkmap/ChunkLevelGolden.java crates/mc-game/tests/fixtures/chunkmap/chunk_level_golden.txt
+// Output: crates/mc-game/tests/fixtures/chunkmap/chunk_level_golden.txt
 import com.mojang.serialization.DataResult;
 import java.io.PrintWriter;
 import java.util.*;

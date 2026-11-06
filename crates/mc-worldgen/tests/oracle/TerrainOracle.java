@@ -54,8 +54,8 @@ import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 /**
  * Golden generator for the mc-worldgen terrain pipeline (NoiseBasedChunkGenerator, Aquifer, NoiseChunk).
- * Usage: scripts/vanilla-java.sh -cp ... is wrapped: java -cp tools/extractor/build:$(scripts/vanilla-cp.sh) TerrainOracle.java > tests/fixtures/terrain_golden.txt
- * (see crates/mc-worldgen/tests/oracle/run_terrain_oracle.sh).
+ * Usage: MC_EXTRA_CP=tools/extractor/build scripts/vanilla-java.sh -o crates/mc-worldgen/tests/fixtures/terrain_golden.txt crates/mc-worldgen/tests/oracle/TerrainOracle.java
+ * Output: crates/mc-worldgen/tests/fixtures/terrain_golden.txt (the wrapper captures stdout)
  *
  * Hashes are FNV-1a 64 over little-endian u32 words (block state ids) / UTF-8 bytes + '\n' (biome keys) / i64 words.
  * Lines (all start with a tag; setting seed cx cz identify the case):

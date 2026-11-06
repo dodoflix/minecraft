@@ -11,7 +11,8 @@ import net.minecraft.world.level.levelgen.Heightmap;
 
 /**
  * Drives the real vanilla Heightmap on a real ProtoChunk with random setBlockState sequences.
- * Usage: scripts/vanilla-java.sh HeightmapGolden.java out.txt
+ * Usage: scripts/vanilla-java.sh -o crates/mc-world/tests/fixtures/heightmap/golden.txt crates/mc-world/tests/fixtures/heightmap/HeightmapGolden.java crates/mc-world/tests/fixtures/heightmap/golden.txt
+ * Output: crates/mc-world/tests/fixtures/heightmap/golden.txt
  * Output lines:
  *   CFG <minY> <height> <status>
  *   OP <x> <y> <z> <stateId>

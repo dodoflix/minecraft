@@ -9,7 +9,8 @@ import java.util.*;
  *   "N\t<kind>\t<value-bits-hex>\tbyte\tshort\tint\tlong\tfloatBits\tdoubleBits\tbool"  numeric conversions
  *   "Z\t<hex any-tag bytes>\t<sizeInBytes>"                                              Tag.sizeInBytes over the snbt corpus
  *   "C\t<expected snbt>\t<actual snbt>\t<partial 0/1>\t<result>"                          NbtUtils.compareNbt
- * Run: scripts/vanilla-java.sh crates/mc-nbt/tests/fixtures/ModelOracle.java crates/mc-nbt/tests/fixtures/model_golden.tsv crates/mc-nbt/tests/fixtures/snbt_golden.tsv
+ * Usage: scripts/vanilla-java.sh -o crates/mc-nbt/tests/fixtures/model_golden.tsv crates/mc-nbt/tests/fixtures/ModelOracle.java crates/mc-nbt/tests/fixtures/model_golden.tsv crates/mc-nbt/tests/fixtures/snbt_golden.tsv
+ * Output: crates/mc-nbt/tests/fixtures/model_golden.tsv (reads snbt_golden.tsv: regenerate that first)
  */
 public class ModelOracle {
     static byte[] unhex(String h) {

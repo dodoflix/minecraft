@@ -28,8 +28,8 @@ import net.minecraft.world.level.levelgen.synth.NormalNoise;
  * Runs the real vanilla NoiseBasedChunkGenerator.doFill, then MaterialSystem.buildSurface, and dumps the
  * doFill output (input of the Rust side), the per-quart biomes the BiomeManager reads, and the result.
  *
- *   java -cp tools/extractor/build:$(scripts/vanilla-cp.sh) crates/mc-worldgen/tests/oracle/MaterialSurfaceOracle.java \
- *        /tmp/material_surface.txt && gzip -9 -c /tmp/material_surface.txt > crates/mc-worldgen/tests/fixtures/material_surface.txt.gz
+ * Usage: MC_EXTRA_CP=tools/extractor/build scripts/vanilla-java.sh -o crates/mc-worldgen/tests/fixtures/material_surface.txt.gz crates/mc-worldgen/tests/oracle/MaterialSurfaceOracle.java crates/mc-worldgen/tests/fixtures/material_surface.txt.gz
+ * Output: crates/mc-worldgen/tests/fixtures/material_surface.txt.gz (the program writes plain text; the wrapper gzips it)
  *
  * Lines (tokens space separated):
  *   CASE name seed cx cz minY height        starts a chunk case

@@ -7,11 +7,25 @@ number edge cases, list/scalar shape changes) emitted as JSON and as SNBT with r
 hex, and `stack-snbt` / `stack-json` / `patch-json` records embedding the values.
 Also imported by gen_corpus_combat.py (helpers below).
 
-    python3 gen_corpus_effects.py > 20-effects.txt     (deterministic)
+Usage: python3 crates/mc-protocol/tests/fixtures/components/corpus/gen_corpus_effects.py && crates/mc-protocol/tests/fixtures/components/gen.sh corpus/20-effects.txt   (deterministic)
+Output: crates/mc-protocol/tests/fixtures/components/corpus/20-effects.txt
 """
 import json
+import os
 import random
 import sys
+
+if sys.argv[1:] in (["-h"], ["--help"]):
+    print(__doc__)
+    sys.exit(0)
+
+
+def write_corpus(name, lines):
+    """Writes corpus/<name> (the directory of this script) via a temp file, so a failed run never truncates the committed corpus."""
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), name)
+    with open(path + ".tmp", "w") as f:
+        f.write("\n".join(lines) + "\n")
+    os.replace(path + ".tmp", path)
 
 # ---------------------------------------------------------------------------------------------------------------
 # helpers shared with gen_corpus_combat.py
@@ -492,7 +506,7 @@ def main():
                      ("consumable", "3fcccccd0001010101"), ("attribute_modifiers", "010003613a623ff0000000000000ff0000"),
                      ("food", "0400000000"), ("use_effects", "0001" + "3e4ccccd"), ("use_cooldown", "3f80000000"), ("use_cooldown", "3f800000" + "0103613a62")]:
         out.add("wire", "minecraft:" + name, hx)
-    sys.stdout.write("\n".join(out.lines) + "\n")
+    write_corpus("20-effects.txt", out.lines)
 
 
 if __name__ == "__main__":

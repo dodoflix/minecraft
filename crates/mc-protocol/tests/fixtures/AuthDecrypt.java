@@ -1,4 +1,6 @@
-// Decrypts with vanilla Crypt.decryptUsingKey: AuthDecrypt.java <private_pkcs8_hex> <ciphertext_hex>; prints plaintext hex.
+// Decrypts with vanilla Crypt.decryptUsingKey; prints plaintext hex (ad-hoc query tool, no fixture is written).
+// Usage: scripts/vanilla-java.sh crates/mc-protocol/tests/fixtures/AuthDecrypt.java <private_pkcs8_hex> <ciphertext_hex>
+// Output: stdout only
 import java.security.PrivateKey;
 import java.security.KeyFactory;
 import java.security.spec.PKCS8EncodedKeySpec;

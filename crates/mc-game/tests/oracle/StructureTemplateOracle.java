@@ -30,9 +30,11 @@ import net.minecraft.world.phys.Vec3;
  * Oracle of crates/mc-game/tests/golden/structure_template_golden.rs: the real {@code StructureTemplate.placeInWorld} (with the
  * real processors) over the synthetic world of FeatureOracleBase for every template of the vanilla data pack, plus the
  * static transform math.
- * Usage (repo root): scripts/vanilla-java.sh crates/mc-game/tests/oracle/StructureTemplateOracle.java crates/mc-game/tests/fixtures/structure_template_place.txt [templateFilter] (then gzip -9 -f the fixture) [fullDumpScenarioId]
+ * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/structure_template_place.txt.gz crates/mc-game/tests/oracle/StructureTemplateOracle.java crates/mc-game/tests/fixtures/structure_template_place.txt.gz [templateFilter] [fullDumpScenarioId]
+ * (FeatureOracleBase.java next to this file; the wrapper gzips, the program writes plain text)
+ * Output: crates/mc-game/tests/fixtures/structure_template_place.txt.gz
  *
- * Output lines:
+ * Lines:
  *   X <kind> ...                          static math (transform / zero position / bounding box)
  *   SC <id> <template> <seed> <cx> <cz> <rot> <mirror> <pivotX> <pivotZ> <x> <y> <z> <refX> <refY> <refZ> <ignoreEntities> <knownShape>
  *      <liquid> <bb|-> <settingsRandomSeed|-> <processors|-> <flags> <rngSeed> <paletteCount>

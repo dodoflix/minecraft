@@ -2,7 +2,10 @@ import java.io.*;
 import java.util.*;
 import net.minecraft.world.level.chunk.CarvingMask;
 
-/** Usage (repo root): scripts/vanilla-java.sh CarvingMaskGolden.java golden.txt */
+/**
+ * Usage: scripts/vanilla-java.sh -o crates/mc-world/tests/fixtures/carving_mask/golden.txt crates/mc-world/tests/fixtures/carving_mask/CarvingMaskGolden.java crates/mc-world/tests/fixtures/carving_mask/golden.txt
+ * Output: crates/mc-world/tests/fixtures/carving_mask/golden.txt
+ */
 public class CarvingMaskGolden {
     public static void main(String[] args) throws Exception {
         PrintWriter out = new PrintWriter(new FileWriter(args[0]));

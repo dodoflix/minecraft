@@ -15,7 +15,9 @@ import net.minecraft.world.phys.AABB;
 /**
  * Real-vanilla trace of the brewing stand: a survival player with a random inventory opens the menu of a brewing stand
  * (real server, real {@code BrewingStandBlockEntity}), then a seeded script of menu clicks / quick-craft drags / server
- * ticks runs; the state after every op is printed. Run: {@code scripts/entity-oracle.sh BrewingMenuOracle.java [scenarios]}.
+ * ticks runs; the state after every op is printed.
+ * Usage: scripts/entity-oracle.sh crates/mc-game/tests/oracle/BrewingMenuOracle.java -o crates/mc-game/tests/fixtures/brewing/menu_trace.txt [scenarios [ops]]
+ * Output: crates/mc-game/tests/fixtures/brewing/menu_trace.txt
  *
  * <pre>
  * SCENARIO n

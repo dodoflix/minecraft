@@ -1,5 +1,5 @@
-//! `Entity.calculateViewVector` against the real vanilla class (generator: `tests/fixtures/EntityBaseGolden.java`,
-//! `scripts/vanilla-java.sh crates/mc-game/tests/fixtures/EntityBaseGolden.java > tests/fixtures/entity_base/view_vector.txt`).
+//! `Entity.calculateViewVector` against the real vanilla class (generator and command: the header of
+//! `tests/fixtures/EntityBaseGolden.java`).
 
 use mc_game::world::entity::entity::calculate_view_vector;
 

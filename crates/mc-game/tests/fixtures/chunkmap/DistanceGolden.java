@@ -1,6 +1,7 @@
 // Golden generator for DistanceManager ticket levels (loading + simulation + natural spawn counter) and the
-// LongOpenHashMap iteration order. Run:
-//   scripts/vanilla-java.sh crates/mc-game/tests/fixtures/chunkmap/DistanceGolden.java crates/mc-game/tests/fixtures/chunkmap/distance_golden.txt
+// LongOpenHashMap iteration order.
+// Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/chunkmap/distance_golden.txt crates/mc-game/tests/fixtures/chunkmap/DistanceGolden.java crates/mc-game/tests/fixtures/chunkmap/distance_golden.txt
+// Output: crates/mc-game/tests/fixtures/chunkmap/distance_golden.txt
 import it.unimi.dsi.fastutil.longs.*;
 import java.io.PrintWriter;
 import java.lang.reflect.Field;

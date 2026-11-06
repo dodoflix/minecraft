@@ -36,10 +36,11 @@ import net.minecraft.world.level.storage.LevelStorageSource;
  * Oracle of crates/mc-game/tests/golden/jigsaw_structures_golden.rs: every vanilla {@code minecraft:jigsaw} structure (villages, pillager
  * outpost, bastion remnant, ancient city, trail ruins, trial chambers with its pool aliases, abandoned camps) generated with the
  * real {@code Structure.generate} for several seeds/chunks, then {@code placeInChunk} over the synthetic terrain.
- * Usage (repo root, FeatureOracleBase.java next to this file):
- * scripts/vanilla-java.sh crates/mc-game/tests/oracle/JigsawStructureOracle.java crates/mc-game/tests/fixtures/jigsaw_structures.txt [startsPerStructure=6] [idFilter,...]
+ * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/jigsaw_structures.txt.gz crates/mc-game/tests/oracle/JigsawStructureOracle.java crates/mc-game/tests/fixtures/jigsaw_structures.txt.gz [startsPerStructure=6] [idFilter,...]
+ * (FeatureOracleBase.java next to this file; the wrapper gzips, the program writes plain text)
+ * Output: crates/mc-game/tests/fixtures/jigsaw_structures.txt.gz
  *
- * Output per start: {@code START id seed chunkX chunkZ pieceCount}, one {@code P <canonical piece tag>} line per piece (the saved
+ * Lines per start: {@code START id seed chunkX chunkZ pieceCount}, one {@code P <canonical piece tag>} line per piece (the saved
  * {@code createTag}: pool element, junctions, rotation, ground level delta, bounding box ...), per placement chunk
  * {@code PLACE cx cz} + the region dump as {@code D <line>} (block lines folded to a digest per chunk) + {@code END}, and per
  * terrain-adaptation chunk {@code BEARD cx cz <affected box|-> rigids junctions nonZeroSamples digest} (the real

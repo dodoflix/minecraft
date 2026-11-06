@@ -1,14 +1,12 @@
 //! `WorldDimensions` codec + `bake` vs vanilla: presets and crafted dimension sets (vanilla-like detection, dimension
 //! order, registry lifecycle, special world property, inline dimension types / biomes / noise settings, base
-//! registries). Fixture `tests/fixtures/flat/world_dimensions.txt.gz` (generator `tests/oracle/FlatOracle.java`); the
+//! registries). Fixture `tests/fixtures/flat/world_dimensions.txt` (generator `tests/oracle/FlatOracle.java`); the
 //! fixture is self-describing: every `WD_INPUT`/`WD_BASE` pair is decoded and baked here and the `BAKE` line vanilla
 //! printed must be reproduced verbatim.
 
-use std::io::Read;
 use std::path::PathBuf;
 use std::sync::Arc;
 
-use flate2::read::GzDecoder;
 use mc_core::ident::Identifier;
 use mc_worldgen::biome::BiomeRegistry;
 use mc_worldgen::data::{LoadError, McDataSource, WorldgenRegistries};
@@ -38,13 +36,9 @@ impl DimensionTypes for RawTypes {
 }
 
 fn fixture() -> String {
-    let path = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-        .join("tests/fixtures/flat/world_dimensions.txt.gz");
-    let mut text = String::new();
-    GzDecoder::new(std::fs::File::open(path).unwrap())
-        .read_to_string(&mut text)
-        .unwrap();
-    text
+    let path =
+        PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/flat/world_dimensions.txt");
+    std::fs::read_to_string(path).unwrap()
 }
 
 fn lifecycle(l: Lifecycle) -> &'static str {

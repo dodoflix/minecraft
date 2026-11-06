@@ -35,9 +35,11 @@ import net.minecraft.world.ticks.WorldGenTickAccess;
  * large_dripstone, monster_room, spike, end_spike, end_gateway, end_island, end_podium, end_platform, fossil and template features run on the
  * real vanilla WorldGenRegion over the synthetic terrain of FeatureOracleBase (data-pack entries plus hand written
  * variants), after random terrain preparation (caverns, solid blocks, snow), followed by FeatureOracleBase.dump.
- * Usage (repo root): scripts/vanilla-java.sh crates/mc-game/tests/oracle/UndergroundOracle.java crates/mc-game/tests/fixtures/feat_underground.txt && gzip -9 -f crates/mc-game/tests/fixtures/feat_underground.txt
+ * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/feat_underground.txt.gz crates/mc-game/tests/oracle/UndergroundOracle.java crates/mc-game/tests/fixtures/feat_underground.txt.gz
+ * (FeatureOracleBase.java next to this file; the wrapper gzips, the program writes plain text)
+ * Output: crates/mc-game/tests/fixtures/feat_underground.txt.gz
  *
- * Output lines: {@code CASE id kind json}; {@code BAD id json} + {@code = ERR} (the codec must reject); then per case a few
+ * Lines: {@code CASE id kind json}; {@code BAD id json} + {@code = ERR} (the codec must reject); then per case a few
  * {@code SCENARIO id n seed cx cz}, {@code > op} / {@code = result} lines, {@code D <dump line>} lines and {@code END}.
  * Entity UUIDs are random in vanilla and therefore stripped from the dump ({@code N} lines).
  */

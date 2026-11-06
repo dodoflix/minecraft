@@ -1,12 +1,10 @@
 //! World presets (`worldgen/world_preset`) vs vanilla: for every registered preset, every dimension's stem
 //! (dimension type, generator kind, biome source, noise settings / flat settings) against
-//! `tests/fixtures/flat/world_presets.txt.gz` (generator `tests/oracle/FlatOracle.java`).
+//! `tests/fixtures/flat/world_presets.txt` (generator `tests/oracle/FlatOracle.java`).
 
-use std::io::Read;
 use std::path::PathBuf;
 use std::sync::Arc;
 
-use flate2::read::GzDecoder;
 use mc_core::ident::Identifier;
 use mc_worldgen::biome::BiomeRegistry;
 use mc_worldgen::data::LoadError;
@@ -38,12 +36,8 @@ impl DimensionTypes for RawTypes {
 
 fn fixture() -> String {
     let path =
-        PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/flat/world_presets.txt.gz");
-    let mut text = String::new();
-    GzDecoder::new(std::fs::File::open(path).unwrap())
-        .read_to_string(&mut text)
-        .unwrap();
-    text
+        PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/flat/world_presets.txt");
+    std::fs::read_to_string(path).unwrap()
 }
 
 fn rle(values: &[String]) -> String {

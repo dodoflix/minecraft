@@ -17,6 +17,8 @@ import org.joml.Vector3i;
 /**
  * Prints the output lines tests/golden/octahedral.rs must reproduce: group tables, rotation of directions/vectors/
  * FrontAndTop, Rotation/Mirror.rotation(), and the shape rotation family driven by octahedral.script.
+ * Usage: scripts/vanilla-java.sh -o crates/mc-core/tests/fixtures/octahedral/octahedral.out crates/mc-core/tests/fixtures/octahedral/OctahedralOracle.java crates/mc-core/tests/fixtures/octahedral/octahedral.script
+ * Output: crates/mc-core/tests/fixtures/octahedral/octahedral.out (stdout)
  */
 public class OctahedralOracle {
     static final Map<String, VoxelShape> S = new HashMap<>();

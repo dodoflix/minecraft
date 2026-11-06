@@ -1,4 +1,6 @@
 // Evidence generator for the UpdateTags packet: inner tag order of TagNetworkSerialization.serializeToNetwork over several runs.
+// Usage: MC_EXTRA_CP=tools/extractor/build scripts/vanilla-java.sh crates/mc-protocol/tests/fixtures/components/HashOrderTagsProbe.java
+// Output: stdout only (evidence probe, no fixture is written)
 import net.minecraft.core.*;
 import net.minecraft.core.registries.*;
 import net.minecraft.tags.*;

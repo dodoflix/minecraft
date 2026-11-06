@@ -13,7 +13,8 @@ import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 
 /**
  * Golden generator for mc-worldgen Beardifier tests (synthetic pieces/junctions handed straight to vanilla's Beardifier).
- * Usage: java -cp $(scripts/vanilla-cp.sh) BeardifierOracle.java > tests/fixtures/beardifier.txt
+ * Usage: scripts/vanilla-java.sh -o crates/mc-worldgen/tests/fixtures/beardifier.txt crates/mc-worldgen/tests/oracle/BeardifierOracle.java
+ * Output: crates/mc-worldgen/tests/fixtures/beardifier.txt (the wrapper captures stdout)
  *
  * Lines: R case adjustment minX minY minZ maxX maxY maxZ groundLevelDelta       (rigid piece)
  *        J case sourceX sourceGroundY sourceZ                                   (junction)

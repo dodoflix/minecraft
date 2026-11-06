@@ -1,5 +1,6 @@
 // Golden generator for ticks::SavedTick list codec (SerializableChunkData codec) and UpgradeData NBT.
-// Run: scripts/vanilla-java.sh crates/mc-world/tests/fixtures/ticks/SavedTickGolden.java crates/mc-world/tests/fixtures/ticks/saved_tick_golden.txt
+// Usage: scripts/vanilla-java.sh -o crates/mc-world/tests/fixtures/ticks/saved_tick_golden.txt crates/mc-world/tests/fixtures/ticks/SavedTickGolden.java crates/mc-world/tests/fixtures/ticks/saved_tick_golden.txt
+// Output: crates/mc-world/tests/fixtures/ticks/saved_tick_golden.txt
 import com.mojang.serialization.Codec;
 import java.io.PrintWriter;
 import java.util.List;

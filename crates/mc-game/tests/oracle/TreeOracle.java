@@ -18,7 +18,9 @@ import net.minecraft.world.level.levelgen.feature.TreeFeature;
  * Oracle of crates/mc-game/tests/golden/tree_golden.rs: every `tree` / `fallen_tree` entry of the data pack is placed 6 times in a
  * region of the synthetic terrain (FeatureOracleBase), for 5 terrain variants and different seeds/chunks; the oracle prints the
  * per-placement result + next RNG long and digests of the region dump per line kind.
- * Usage: scripts/vanilla-java.sh crates/mc-game/tests/oracle/TreeOracle.java crates/mc-game/tests/fixtures/tree_golden.txt [scenarioId [full]]
+ * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/tree_golden.txt crates/mc-game/tests/oracle/TreeOracle.java crates/mc-game/tests/fixtures/tree_golden.txt [scenarioId [full]]
+ * (FeatureOracleBase.java next to this file)
+ * Output: crates/mc-game/tests/fixtures/tree_golden.txt
  * (`full`: prints every dump line as `L <line>`, for diffing against the Rust test's /tmp dump.)
  */
 public class TreeOracle {

@@ -8,7 +8,9 @@ import net.minecraft.world.level.ChunkPos;
 import java.nio.file.*;
 import java.util.*;
 
-/** Replays border_ops.txt on the real WorldBorder: `scripts/vanilla-java.sh BorderGolden.java border_ops.txt border.golden`. */
+/** Replays border_ops.txt on the real WorldBorder.
+ * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/border.golden crates/mc-game/tests/fixtures/BorderGolden.java crates/mc-game/tests/fixtures/border_ops.txt crates/mc-game/tests/fixtures/border.golden
+ * Output: crates/mc-game/tests/fixtures/border.golden */
 public class BorderGolden {
   static String d(double v) { return Long.toHexString(Double.doubleToLongBits(v)); }
   static String line(WorldBorder b) {

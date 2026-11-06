@@ -4,6 +4,7 @@ A corpus line is `kind<TAB>component<TAB>payload`; payloads never contain tabs o
 """
 import copy
 import json
+import os
 import random
 
 INTERESTING_NUMBERS = [0, 1, -1, 2, 3, 4, 15, 16, 99, 100, 127, 128, 255, 256, 257, 1023, 1024, 1025, 32767, 32768, 65535,
@@ -147,8 +148,10 @@ def build(out_path, seed, components, handwritten_raw, mutations_per_base=4, sta
         if l not in seen:
             seen.add(l)
             uniq.append(l)
-    with open(out_path, "w", encoding="utf-8") as f:
+    tmp = out_path + ".tmp"  # replaced only on success, so a failed run never truncates the committed corpus
+    with open(tmp, "w", encoding="utf-8") as f:
         f.write("\n".join(uniq) + "\n")
+    os.replace(tmp, out_path)
     print(f"{out_path}: {len(uniq)} lines")
 
 

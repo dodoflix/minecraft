@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
-import java.util.zip.GZIPOutputStream;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -39,8 +38,8 @@ import net.minecraft.world.level.levelgen.synth.NormalNoise;
 /**
  * Golden generator for mc-worldgen biome sampling tests: climate sampling, biome resolvers (point + chunk volume),
  * BiomeManager, biome searches and the spawn finder, for every real biome source type.
- * Usage (from the repo root):
- *   java -cp tools/extractor/build:$(scripts/vanilla-cp.sh) crates/mc-worldgen/tests/oracle/BiomeSamplingOracle.java crates/mc-worldgen/tests/fixtures/biome_sampling.txt.gz
+ * Usage: MC_EXTRA_CP=tools/extractor/build scripts/vanilla-java.sh -o crates/mc-worldgen/tests/fixtures/biome_sampling.txt crates/mc-worldgen/tests/oracle/BiomeSamplingOracle.java crates/mc-worldgen/tests/fixtures/biome_sampling.txt
+ * Output: crates/mc-worldgen/tests/fixtures/biome_sampling.txt
  *
  * Lines: P source id...                         possibleBiomes() in order
  *        T source seed qx qy qz t h c e d w biome   Climate.Sampler.sample + resolver biome (climate sources)
@@ -90,7 +89,7 @@ public class BiomeSamplingOracle {
       HolderGetter<NormalNoise> noises = reg.lookupOrThrow(Registries.NOISE);
       var settingsLookup = reg.lookupOrThrow(Registries.NOISE_SETTINGS);
       var lists = reg.lookupOrThrow(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST);
-      out = new PrintWriter(new GZIPOutputStream(new FileOutputStream(args[0])));
+      out = new PrintWriter(new FileOutputStream(args[0]));
 
       BiomeSource overworld = MultiNoiseBiomeSource.createFromPreset(lists.getOrThrow(MultiNoiseBiomeSourceParameterLists.OVERWORLD));
       BiomeSource nether = MultiNoiseBiomeSource.createFromPreset(lists.getOrThrow(MultiNoiseBiomeSourceParameterLists.NETHER));

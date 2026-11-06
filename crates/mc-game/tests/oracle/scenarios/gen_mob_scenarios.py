@@ -1,19 +1,28 @@
 #!/usr/bin/env python3
 """Generates the bulk mob scenarios of the entity oracle (the hand written ones live next to this file as mob_*.txt).
-Run from this directory:  python3 gen_mob_scenarios.py        (rewrites mob_trades.txt mob_raid_waves.txt mob_finalize_equipment.txt
-mob_local_difficulty.txt mob_spawnpass_*.txt mob_animals_idle.txt), then
+It rewrites mob_trades.txt mob_raid_waves.txt mob_finalize_equipment.txt mob_local_difficulty.txt mob_spawnpass_*.txt mob_animals_idle.txt, then
   for n in mob_trades mob_raid_waves mob_finalize_equipment mob_local_difficulty mob_spawnpass_plains_night mob_spawnpass_plains_day \\
            mob_spawnpass_biomes mob_animals_idle; do scripts/entity-oracle.sh crates/mc-game/tests/oracle/scenarios/$n.txt \\
            -o crates/mc-game/tests/fixtures/entity_oracle/$n.txt; done
-(`scripts/entity-oracle.sh --regen` regenerates every fixture from its scenario, generated or not)."""
+(`scripts/entity-oracle.sh --regen` regenerates every fixture from its scenario, generated or not).
+
+Usage: python3 crates/mc-game/tests/oracle/scenarios/gen_mob_scenarios.py   (takes no arguments; each file is replaced only on success)
+Output: crates/mc-game/tests/oracle/scenarios/{mob_trades,mob_raid_waves,mob_finalize_equipment,mob_local_difficulty,mob_spawnpass_*,mob_animals_idle}.txt"""
 import os
+import sys
+
+if sys.argv[1:] in (["-h"], ["--help"]):
+    print(__doc__)
+    sys.exit(0)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 
 def emit(name, lines):
-    with open(os.path.join(HERE, name + ".txt"), "w") as f:
+    path = os.path.join(HERE, name + ".txt")
+    with open(path + ".tmp", "w") as f:
         f.write("\n".join(lines) + "\n")
+    os.replace(path + ".tmp", path)
 
 
 PROFESSIONS = ["armorer", "butcher", "cartographer", "cleric", "farmer", "fisherman", "fletcher", "leatherworker", "librarian", "mason", "shepherd",

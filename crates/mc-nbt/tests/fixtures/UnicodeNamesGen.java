@@ -1,15 +1,15 @@
 import java.io.*;
-import java.util.zip.GZIPOutputStream;
 
 /**
  * Dumps Java's Unicode name tables (Character.getName) used by SNBT `\N{...}` escapes
- * (Character.codePointOf) into a gzip file: "N<TAB>HEX<TAB>NAME" for named code points and
+ * (Character.codePointOf) as plain TSV on stdout (the `-o` wrapper gzips it): "N<TAB>HEX<TAB>NAME" for named code points and
  * "B<TAB>START<TAB>END<TAB>BLOCK NAME" for every UnicodeBlock range (names with '_' -> ' ').
- * Run: scripts/vanilla-java.sh crates/mc-nbt/tests/fixtures/UnicodeNamesGen.java crates/mc-nbt/src/snbt/unicode_names.tsv.gz
+ * Usage: scripts/vanilla-java.sh -o crates/mc-nbt/src/snbt/unicode_names.tsv.gz crates/mc-nbt/tests/fixtures/UnicodeNamesGen.java
+ * Output: crates/mc-nbt/src/snbt/unicode_names.tsv.gz
  */
 public class UnicodeNamesGen {
     public static void main(String[] a) throws Exception {
-        try (PrintWriter out = new PrintWriter(new OutputStreamWriter(new GZIPOutputStream(new FileOutputStream(a[0])), "UTF-8"))) {
+        try (PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out, "UTF-8"))) {
             Character.UnicodeBlock cur = null; int start = 0;
             for (int cp = 0; cp <= 0x110000; cp++) {
                 Character.UnicodeBlock b = cp == 0x110000 ? null : Character.UnicodeBlock.of(cp);

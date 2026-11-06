@@ -2,10 +2,9 @@
 //! as in vanilla), and the decoded registries agree with the real vanilla registries: entry counts, `Registry<Structure>`
 //! order per generation step (the structure loop of `applyBiomeDecoration`), the per-step feature lists of every biome
 //! and the `FeatureSorter` step sizes of the overworld/nether/end biome sources.
-//! Fixture: `tests/fixtures/decoration/registries.txt.gz` from `tests/oracle/RegistryDecodeOracle.java`.
+//! Fixture: `tests/fixtures/decoration/registries.txt` from `tests/oracle/RegistryDecodeOracle.java`.
 
 use crate::decoration_common::feature_name;
-use flate2::read::GzDecoder;
 use mc_core::ident::Identifier;
 use mc_game::world::level::levelgen::decoration::sort_features_per_step;
 use mc_game::world::level::levelgen::registries::GenRegistries;
@@ -14,18 +13,13 @@ use mc_worldgen::biome::BiomeRegistry;
 use mc_worldgen::data::{FsDataSource, WorldgenDataSource, WorldgenRegistries};
 use mc_worldgen::structure_placement::StructureSetRegistry;
 use mc_worldgen::world_preset::level_generator_from_json;
-use std::io::Read;
 use std::path::PathBuf;
 use std::sync::Arc;
 
 fn golden() -> String {
-    let path = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-        .join("tests/fixtures/decoration/registries.txt.gz");
-    let mut text = String::new();
-    GzDecoder::new(std::fs::File::open(path).unwrap())
-        .read_to_string(&mut text)
-        .unwrap();
-    text
+    let path =
+        PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/decoration/registries.txt");
+    std::fs::read_to_string(path).unwrap()
 }
 
 #[test]

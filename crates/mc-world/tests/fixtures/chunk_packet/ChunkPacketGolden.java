@@ -14,7 +14,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.*;
 import net.minecraft.world.level.levelgen.Heightmap;
 
-/** Golden generator for the chunk / light packet data encoding. usage: ChunkPacketGolden <out file> */
+/**
+ * Golden generator for the chunk / light packet data encoding.
+ * Usage: scripts/vanilla-java.sh -o crates/mc-world/tests/fixtures/chunk_packet/golden.txt crates/mc-world/tests/fixtures/chunk_packet/ChunkPacketGolden.java crates/mc-world/tests/fixtures/chunk_packet/golden.txt
+ * Output: crates/mc-world/tests/fixtures/chunk_packet/golden.txt
+ */
 public class ChunkPacketGolden {
   static String hex(byte[] b) { StringBuilder s = new StringBuilder(); for (byte x : b) s.append(String.format("%02x", x)); return s.toString(); }
 

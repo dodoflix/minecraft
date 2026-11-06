@@ -1,8 +1,20 @@
 #!/usr/bin/env python3
 """Generates scenarios/brewing_cross.txt: one brewing stand per (reagent, 3 containers) of the full cross product
 reagent x {potion, splash_potion, lingering_potion} x every potion (+ junk containers/reagents), 400+ ticks, then `data get`
-of every stand. Run from the repo root: python3 crates/mc-game/tests/oracle/gen_brewing_cross.py > <scenario>."""
-import json, glob, sys
+of every stand.
+
+Usage: python3 crates/mc-game/tests/oracle/gen_brewing_cross.py crates/mc-game/tests/oracle/scenarios/brewing_cross.txt
+Output: crates/mc-game/tests/oracle/scenarios/brewing_cross.txt (replaced only when generation succeeds; needs ref/)."""
+import glob
+import json
+import os
+import sys
+
+if sys.argv[1:] in (["-h"], ["--help"]):
+    print(__doc__)
+    sys.exit(0)
+if len(sys.argv) != 2:
+    sys.exit(__doc__)
 reg = json.load(open('ref/generated/reports/registries.json'))
 potions = list(reg['minecraft:potion']['entries'])
 reagents = set()
@@ -50,4 +62,6 @@ out.append('tick 201')
 for x, z in pos:
     out.append('cmd data get block %d -60 %d' % (x, z))
 out.append('dump blocks:0,-60,0,%d,-60,%d' % (side - 1, (len(pos) - 1) // side))
-sys.stdout.write('\n'.join(out) + '\n')
+with open(sys.argv[1] + '.tmp', 'w') as f:
+    f.write('\n'.join(out) + '\n')
+os.replace(sys.argv[1] + '.tmp', sys.argv[1])

@@ -1,6 +1,6 @@
 // Generates tests/fixtures/packets.golden: `label:hex` of vanilla's `ProtocolInfo.codec()` output (VarInt id + body).
-// Run from the repo root:
-//   scripts/vanilla-java.sh crates/mc-protocol/tests/fixtures/PacketGolden.java crates/mc-protocol/tests/fixtures/packets.golden
+// Usage: scripts/vanilla-java.sh -o crates/mc-protocol/tests/fixtures/packets.golden crates/mc-protocol/tests/fixtures/PacketGolden.java crates/mc-protocol/tests/fixtures/packets.golden
+// Output: crates/mc-protocol/tests/fixtures/packets.golden
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;

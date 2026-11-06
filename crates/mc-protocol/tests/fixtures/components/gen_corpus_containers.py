@@ -1,10 +1,18 @@
 #!/usr/bin/env python3
 """Generates corpus/40-containers.txt (container, bundle_contents, charged_projectiles, container_loot, block_state,
 bees, sulfur_cube_content, debug_stick_state, recipes, lodestone_tracker, map_decorations, lock).
-Run from this directory: ./gen_corpus_containers.py && ./gen.sh corpus/40-containers.txt"""
+Usage: python3 crates/mc-protocol/tests/fixtures/components/gen_corpus_containers.py && crates/mc-protocol/tests/fixtures/components/gen.sh corpus/40-containers.txt
+Output: crates/mc-protocol/tests/fixtures/components/corpus/40-containers.txt (then gen.sh writes golden/40-containers.txt)
+"""
 import json
+import os
 import random
+import sys
 import corpus_lib as L
+
+if sys.argv[1:] in (["-h"], ["--help"]):
+    print(__doc__)
+    sys.exit(0)
 
 P = "minecraft:"
 
@@ -277,4 +285,4 @@ for _ in range(40):
     body = f'[{its}]' if comp != "container" else "[" + ",".join(f"{{slot:{i},item:{x}}}" for i, x in enumerate(its.replace("},{", "}|{").split("|"))) + "]"
     stack.append(f'stack-snbt\t-\t{{id:"minecraft:{rng.choice(["shulker_box", "bundle", "crossbow", "stone"])}",count:{rng.choice([1, 1, 2, 64])},components:{{"minecraft:{comp}":{body}}}}}')
 
-L.build("corpus/40-containers.txt", 40, components, raw, mutations_per_base=5, stack_lines=stack)
+L.build(os.path.join(os.path.dirname(os.path.abspath(__file__)), "corpus", "40-containers.txt"), 40, components, raw, mutations_per_base=5, stack_lines=stack)

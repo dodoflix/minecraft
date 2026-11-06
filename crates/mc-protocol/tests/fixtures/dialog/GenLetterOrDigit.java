@@ -1,6 +1,7 @@
 // Generates src/dialog/java_letter_or_digit.rs: the UTF-16 code units for which Java's Character.isLetterOrDigit(char)
 // is true, as inclusive ranges (StringTemplate.isValidVariableName iterates chars, so surrogates are never valid).
-//   java GenLetterOrDigit.java > crates/mc-protocol/src/dialog/java_letter_or_digit.rs
+// Usage: scripts/vanilla-java.sh -o crates/mc-protocol/src/dialog/java_letter_or_digit.rs crates/mc-protocol/tests/fixtures/dialog/GenLetterOrDigit.java
+// Output: crates/mc-protocol/src/dialog/java_letter_or_digit.rs (the wrapper captures stdout)
 public class GenLetterOrDigit {
     public static void main(String[] args) {
         StringBuilder sb = new StringBuilder();

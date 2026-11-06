@@ -8,7 +8,9 @@ import net.minecraft.world.level.timers.*;
 import net.minecraft.server.MinecraftServer;
 import java.util.*;
 
-/** `scripts/vanilla-java.sh SavedDataGolden.java saved_data.golden`: SNBT of vanilla-encoded saved data. */
+/** SNBT of vanilla-encoded saved data.
+ * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/saved_data.golden crates/mc-game/tests/fixtures/SavedDataGolden.java crates/mc-game/tests/fixtures/saved_data.golden
+ * Output: crates/mc-game/tests/fixtures/saved_data.golden */
 public class SavedDataGolden {
   static java.io.PrintStream out;
   static void p(String k, Object v) { out.println(k + "\t" + v); }

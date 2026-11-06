@@ -2,7 +2,10 @@ import java.io.*;
 import java.util.*;
 import net.minecraft.world.level.chunk.DataLayer;
 
-/** Usage (repo root): scripts/vanilla-java.sh DataLayerGolden.java golden.txt */
+/**
+ * Usage: scripts/vanilla-java.sh -o crates/mc-world/tests/fixtures/data_layer/golden.txt crates/mc-world/tests/fixtures/data_layer/DataLayerGolden.java crates/mc-world/tests/fixtures/data_layer/golden.txt
+ * Output: crates/mc-world/tests/fixtures/data_layer/golden.txt
+ */
 public class DataLayerGolden {
     static String hex(byte[] b) { StringBuilder sb = new StringBuilder(); for (byte x : b) sb.append(String.format("%02x", x & 0xFF)); return sb.toString(); }
 

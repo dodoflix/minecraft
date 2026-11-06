@@ -16,7 +16,8 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 
 /**
  * Golden for the decoded feature/structure registries (Rust: tests/golden/vanilla_registries.rs).
- *   java -cp tools/extractor/build:$(scripts/vanilla-cp.sh) crates/mc-game/tests/oracle/RegistryDecodeOracle.java <out.txt>
+ * Usage: MC_EXTRA_CP=tools/extractor/build scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/decoration/registries.txt crates/mc-game/tests/oracle/RegistryDecodeOracle.java crates/mc-game/tests/fixtures/decoration/registries.txt
+ * Output: crates/mc-game/tests/fixtures/decoration/registries.txt
  *
  *   COUNT <registry> <n>                       (entries of the loaded registry)
  *   STRUCTURES <step ordinal> <id,id,...>       (Registry<Structure> iteration order grouped by Structure.step(), as applyBiomeDecoration)

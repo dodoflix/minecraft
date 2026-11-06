@@ -2,9 +2,17 @@
 """Generates corpus/50-decor.txt (writable_book_content, written_book_content, firework_explosion, fireworks,
 banner_patterns, pot_decorations, sign_text_front/back, instrument, jukebox_playable, trim, provides_trim_material,
 provides_banner_patterns, provides_pottery_pattern).
-Run from this directory: ./gen_corpus_decor.py && ./gen.sh corpus/50-decor.txt"""
+Usage: python3 crates/mc-protocol/tests/fixtures/components/gen_corpus_decor.py && crates/mc-protocol/tests/fixtures/components/gen.sh corpus/50-decor.txt
+Output: crates/mc-protocol/tests/fixtures/components/corpus/50-decor.txt (then gen.sh writes golden/50-decor.txt)
+"""
 import json
+import os
+import sys
 import corpus_lib as L
+
+if sys.argv[1:] in (["-h"], ["--help"]):
+    print(__doc__)
+    sys.exit(0)
 
 P = "minecraft:"
 j = lambda v: json.dumps(v, ensure_ascii=False, separators=(",", ":"))
@@ -264,4 +272,4 @@ s('{id:"minecraft:music_disc_cat",count:1,components:{"minecraft:jukebox_playabl
 s('{id:"minecraft:firework_rocket",count:1,components:{"minecraft:fireworks":{explosions:[{shape:"bad"}]}}}')
 s('{id:"minecraft:white_banner",count:2,components:{"!minecraft:banner_patterns":{}}}')
 
-L.build("corpus/50-decor.txt", 50, components, raw, mutations_per_base=4, stack_lines=stack)
+L.build(os.path.join(os.path.dirname(os.path.abspath(__file__)), "corpus", "50-decor.txt"), 50, components, raw, mutations_per_base=4, stack_lines=stack)

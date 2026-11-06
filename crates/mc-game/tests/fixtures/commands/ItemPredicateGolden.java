@@ -1,7 +1,8 @@
 // Prints `<input>\t<result>` for ItemPredicateArgument inputs, produced by the real vanilla classes:
 // `OK@<cursor>|<bits of the predicate on the sample stacks>` or `ERR<cursor>:<message>`, then `|S<start>:<count>:<hashCode of the joined texts>:<first 6>`
 // (the suggestions at the end of the input, sorted as brigadier sorts them).
-// Usage: java -cp tools/extractor/build:$(scripts/vanilla-cp.sh) ItemPredicateGolden.java <out> <corpus>
+// Usage: MC_EXTRA_CP=tools/extractor/build scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/commands/item_predicate_golden.txt crates/mc-game/tests/fixtures/commands/ItemPredicateGolden.java crates/mc-game/tests/fixtures/commands/item_predicate_golden.txt crates/mc-game/tests/fixtures/commands/item_predicate_corpus.txt
+// Output: crates/mc-game/tests/fixtures/commands/item_predicate_golden.txt
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.Suggestion;

@@ -1,4 +1,6 @@
-// Generates uuid.txt: scripts/vanilla-java.sh crates/mc-core/tests/fixtures/ident_uuid/UuidGolden.java > crates/mc-core/tests/fixtures/ident_uuid/uuid.txt
+// Generates uuid.txt.
+// Usage: scripts/vanilla-java.sh -o crates/mc-core/tests/fixtures/ident_uuid/uuid.txt crates/mc-core/tests/fixtures/ident_uuid/UuidGolden.java
+// Output: crates/mc-core/tests/fixtures/ident_uuid/uuid.txt
 // Names are escaped: every UTF-16 unit outside 0x20..0x7e and backslash becomes backslash-u plus 4 lowercase hex digits.
 import com.mojang.util.UndashedUuid;
 import java.util.*;

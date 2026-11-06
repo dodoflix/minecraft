@@ -15,7 +15,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.*;
 
-/** Generates golden.txt for the mc-brigadier tests: run with scripts/vanilla-java.sh BrigadierGolden.java golden.txt */
+/** Generates golden.txt for the mc-brigadier tests.
+ * Usage: scripts/vanilla-java.sh -o crates/mc-brigadier/tests/fixtures/golden.txt crates/mc-brigadier/tests/fixtures/BrigadierGolden.java crates/mc-brigadier/tests/fixtures/golden.txt
+ * Output: crates/mc-brigadier/tests/fixtures/golden.txt */
 public class BrigadierGolden {
     static StringBuilder out = new StringBuilder();
     static StringBuilder events = new StringBuilder();

@@ -1,5 +1,6 @@
 // Golden for the data-driven Item defaults (Tool speed / correct tool, use duration / animation).
-//   scripts/golden-menu.sh also regenerates item_golden.txt
+// Usage: scripts/golden-menu.sh
+// Output: crates/mc-game/tests/fixtures/item_golden.txt (only the `tool` and `use` lines of this program's stdout)
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;

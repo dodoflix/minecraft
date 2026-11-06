@@ -10,7 +10,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.*;
 
-/** Interprets shapes.script against vanilla and prints the result lines that tests/golden/shapes.rs must reproduce. */
+/**
+ * Interprets shapes.script against vanilla and prints the result lines that tests/golden/shapes.rs must reproduce.
+ * Usage: scripts/vanilla-java.sh -o crates/mc-core/tests/fixtures/shapes/shapes.out crates/mc-core/tests/fixtures/shapes/ShapesOracle.java crates/mc-core/tests/fixtures/shapes/shapes.script
+ * Output: crates/mc-core/tests/fixtures/shapes/shapes.out (stdout)
+ */
 public class ShapesOracle {
     static final Map<String, VoxelShape> S = new HashMap<>();
     static final StringBuilder OUT = new StringBuilder();

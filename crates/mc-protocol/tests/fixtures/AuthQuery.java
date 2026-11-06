@@ -1,4 +1,6 @@
-// Prints authlib's hasJoined query strings: scripts/vanilla-java.sh crates/mc-protocol/tests/fixtures/AuthQuery.java
+// Prints authlib's hasJoined query strings (ad-hoc query tool, no fixture is written).
+// Usage: scripts/vanilla-java.sh crates/mc-protocol/tests/fixtures/AuthQuery.java
+// Output: stdout only
 import com.mojang.authlib.HttpDiscoveryService;
 import java.util.*;
 public class Q { public static void main(String[] a){

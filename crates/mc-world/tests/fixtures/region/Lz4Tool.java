@@ -1,7 +1,9 @@
 // Golden LZ4Block framing from lz4-java (the library vanilla's RegionFileVersion uses).
 //   gen   <dir>: writes <name>.bin (input) and <name>.lz4 (LZ4BlockOutputStream output, default 64 KiB blocks)
 //   check <dir>: decodes every <name>.rs.lz4 with LZ4BlockInputStream and compares with <name>.bin
-// Run: scripts/vanilla-java.sh crates/mc-world/tests/fixtures/region/Lz4Tool.java gen <dir>
+// Usage: scripts/vanilla-java.sh crates/mc-world/tests/fixtures/region/Lz4Tool.java gen crates/mc-world/tests/fixtures/region/lz4
+//        (check mode: scripts/vanilla-java.sh crates/mc-world/tests/fixtures/region/Lz4Tool.java check <dir>, prints OK/FAIL lines to stdout)
+// Output: crates/mc-world/tests/fixtures/region/lz4/<name>.bin and <name>.lz4 (gen writes many files into the directory argument directly)
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;

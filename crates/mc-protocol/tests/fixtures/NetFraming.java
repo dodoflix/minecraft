@@ -1,5 +1,6 @@
 // Generates net_framing.txt: run through the real vanilla pipeline handlers (EmbeddedChannel).
-//   scripts/vanilla-java.sh crates/mc-protocol/tests/fixtures/NetFraming.java > crates/mc-protocol/tests/fixtures/net_framing.txt
+// Usage: scripts/vanilla-java.sh -o crates/mc-protocol/tests/fixtures/net_framing.txt crates/mc-protocol/tests/fixtures/NetFraming.java
+// Output: crates/mc-protocol/tests/fixtures/net_framing.txt (the wrapper captures stdout)
 // Line format: <scenario> <threshold> <secret-hex or -> <payload-size> <wire-hex>; payload(n) = [0x2b, ((i*7 + i/13) % 251) for i in 1..n]
 // Packets of one scenario are sent through ONE stream (cipher state continues across lines).
 import io.netty.buffer.ByteBuf;

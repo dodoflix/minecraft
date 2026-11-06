@@ -10,7 +10,11 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.*;
 
-/** Golden generator for PalettedContainer: replayable script of sets with checkpoints. usage: PaletteGolden <out file>. */
+/**
+ * Golden generator for PalettedContainer: replayable script of sets with checkpoints.
+ * Usage: scripts/vanilla-java.sh -o crates/mc-world/tests/fixtures/palette/golden.txt crates/mc-world/tests/fixtures/palette/PaletteGolden.java crates/mc-world/tests/fixtures/palette/golden.txt
+ * Output: crates/mc-world/tests/fixtures/palette/golden.txt
+ */
 public class PaletteGolden {
   static StringBuilder out = new StringBuilder();
 

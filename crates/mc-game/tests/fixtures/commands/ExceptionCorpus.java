@@ -1,5 +1,6 @@
 // Prints `<command>\t<exception message>` for invalid commands, produced by the real vanilla command tree.
-// Usage: java -cp tools/extractor/build:$(scripts/vanilla-cp.sh) ExceptionCorpus.java <out> <commands file>
+// Usage: MC_EXTRA_CP=tools/extractor/build scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/commands/exception_corpus.txt crates/mc-game/tests/fixtures/commands/ExceptionCorpus.java crates/mc-game/tests/fixtures/commands/exception_corpus.txt crates/mc-game/tests/fixtures/commands/exception_corpus_commands.txt
+// Output: crates/mc-game/tests/fixtures/commands/exception_corpus.txt, and fx_exception_corpus.txt from fx_exception_corpus_commands.txt
 // (one command per line; `~` lines are skipped). Messages are `CommandSyntaxException.getMessage()` (en_us text +
 // brigadier's context suffix, newlines escaped as \n).
 import com.mojang.brigadier.ParseResults;

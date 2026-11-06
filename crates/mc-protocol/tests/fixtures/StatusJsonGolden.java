@@ -9,13 +9,14 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.zip.GZIPOutputStream;
 import net.minecraft.network.Utf8String;
 import net.minecraft.network.protocol.status.ClientboundStatusResponsePacket;
 
 /**
  * Golden generator for crates/mc-protocol/tests/golden/status_json.rs: vanilla's status JSON path over crafted lenient/malformed
- * inputs. Run: scripts/vanilla-java.sh StatusJsonGolden.java crates/mc-protocol/tests/fixtures/status_json.txt.gz
+ * inputs.
+ * Usage: scripts/vanilla-java.sh -o crates/mc-protocol/tests/fixtures/status_json.txt.gz crates/mc-protocol/tests/fixtures/StatusJsonGolden.java crates/mc-protocol/tests/fixtures/status_json.txt.gz
+ * Output: crates/mc-protocol/tests/fixtures/status_json.txt.gz (the program writes plain text; the wrapper gzips it)
  *
  * Line = hex(input) TAB parse TAB status, where
  *   parse  = "ok:" hex(JsonParser.parseString(input).toString()) | "err:" hex(exception message)
@@ -173,7 +174,7 @@ public class StatusJsonGolden {
             }
          }
       }
-      OutputStream os = new GZIPOutputStream(new FileOutputStream(args[0]));
+      OutputStream os = new FileOutputStream(args[0]);
       for (String c : cases) {
          if (c.length() > 32767) {
             throw new IllegalStateException("case too long");

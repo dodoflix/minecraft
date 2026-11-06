@@ -1,5 +1,6 @@
 // Golden generator for the `misc` play packets (stats, boss events, combat, scoreboard, advancements, waypoints, tag queries).
-// Run: crates/mc-protocol/tests/fixtures/play/gen.sh GenMisc.java   (writes misc.golden)
+// Usage: crates/mc-protocol/tests/fixtures/play/gen.sh GenMisc.java
+// Output: crates/mc-protocol/tests/fixtures/play/misc.golden
 import io.netty.buffer.Unpooled;
 import it.unimi.dsi.fastutil.objects.Object2IntLinkedOpenHashMap;
 import java.lang.reflect.Constructor;

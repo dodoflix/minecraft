@@ -10,7 +10,8 @@ import java.util.*;
  *   "R\t<hex>\t<usage>\t<r1>\t<r2>\t<r3>\t<r4>"  reads of every OK case of snbt_golden.tsv (+ hand cases):
  *        usage with unlimited quota, then results with quota usage-1, usage/2, truncated-1, truncated-half
  *   "H\t<hex>\t<result>"                     hand-made malformed inputs read with the default quota
- * Run: scripts/vanilla-java.sh crates/mc-nbt/tests/fixtures/BinaryOracle.java crates/mc-nbt/tests/fixtures/binary_golden.tsv crates/mc-nbt/tests/fixtures/snbt_golden.tsv
+ * Usage: scripts/vanilla-java.sh -o crates/mc-nbt/tests/fixtures/binary_golden.tsv crates/mc-nbt/tests/fixtures/BinaryOracle.java crates/mc-nbt/tests/fixtures/binary_golden.tsv crates/mc-nbt/tests/fixtures/snbt_golden.tsv
+ * Output: crates/mc-nbt/tests/fixtures/binary_golden.tsv (reads snbt_golden.tsv: regenerate that first)
  */
 public class BinaryOracle {
     static String hex(byte[] b) {

@@ -11,8 +11,9 @@ import java.util.*;
 
 /**
  * Golden generator for server::chat (cache, last-seen window, signed chain, filter mask, chat type decoration).
- *   scripts/vanilla-java.sh crates/mc-game/tests/fixtures/ChatGolden.java 2>/dev/null | grep '^{' > crates/mc-game/tests/fixtures/chat_golden.jsonl
- * (vanilla logs 'Received expired chat' warnings to stdout: the fixed 2023 timestamps are older than 5 minutes)
+ * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/chat_golden.jsonl crates/mc-game/tests/fixtures/ChatGolden.java crates/mc-game/tests/fixtures/chat_golden.jsonl
+ * Output: crates/mc-game/tests/fixtures/chat_golden.jsonl
+ * (the output goes to the file named by the argument: vanilla logs 'Received expired chat' warnings to stdout, the fixed 2023 timestamps are older than 5 minutes)
  */
 public class ChatGolden {
     static final Gson GSON = new GsonBuilder().disableHtmlEscaping().create();
@@ -44,7 +45,7 @@ public class ChatGolden {
     public static void main(String[] args) throws Exception {
         net.minecraft.SharedConstants.tryDetectVersion();
         net.minecraft.server.Bootstrap.bootStrap();
-        PrintStream out = new PrintStream(new FileOutputStream(FileDescriptor.out), true, "UTF-8");
+        PrintStream out = new PrintStream(new FileOutputStream(args[0]), true, "UTF-8");
         Random rnd = new Random(42);
         cache(out, rnd);
         lastSeen(out, rnd);

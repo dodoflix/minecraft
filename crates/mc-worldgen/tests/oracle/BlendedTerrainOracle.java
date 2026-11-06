@@ -19,9 +19,9 @@ import net.minecraft.world.level.levelgen.synth.NormalNoise;
 /**
  * Blended terrain: createBiomes / doFill / buildTerrain of the real NoiseBasedChunkGenerator with a non-empty Blender built by
  * Blender.of(region) over hand-built old chunks (and below-zero-retrogen targets).
- * Run from the repo root (writes the fixture to args[0]):
- *   java -cp tools/extractor/build:$(scripts/vanilla-cp.sh) crates/mc-worldgen/tests/oracle/BlendedTerrainOracle.java crates/mc-worldgen/tests/fixtures/blended_terrain_golden.txt
- * Output: CASE/OLD/RETRO parameter lines (read by tests/golden/blending.rs) and per case
+ * Usage: MC_EXTRA_CP=tools/extractor/build scripts/vanilla-java.sh -o crates/mc-worldgen/tests/fixtures/blended_terrain_golden.txt crates/mc-worldgen/tests/oracle/BlendedTerrainOracle.java crates/mc-worldgen/tests/fixtures/blended_terrain_golden.txt
+ * Output: crates/mc-worldgen/tests/fixtures/blended_terrain_golden.txt
+ * Lines: CASE/OLD/RETRO parameter lines (read by tests/golden/blending.rs) and per case
  *   BE key empty | BB key biomeHash | BD key sectionHashes | BF key sectionHashes | BFH key type hash | BFP key hash | BR key sectionHashes
  */
 public class BlendedTerrainOracle {

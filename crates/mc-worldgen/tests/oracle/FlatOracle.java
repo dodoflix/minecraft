@@ -50,9 +50,10 @@ import net.minecraft.world.level.levelgen.presets.WorldPreset;
 
 /**
  * Goldens for flat/debug generators and world presets.
- *   java -cp tools/extractor/build:$(scripts/vanilla-cp.sh) crates/mc-worldgen/tests/oracle/FlatOracle.java <outdir>
- * Writes <outdir>/flat.txt, <outdir>/debug.txt, <outdir>/debug_grid.txt, <outdir>/world_presets.txt and
- * <outdir>/world_dimensions.txt (WorldDimensions codec + bake over crafted dimension sets).
+ * Usage: MC_EXTRA_CP=tools/extractor/build scripts/vanilla-java.sh crates/mc-worldgen/tests/oracle/FlatOracle.java crates/mc-worldgen/tests/fixtures/flat
+ * Output: crates/mc-worldgen/tests/fixtures/flat/{flat,debug,debug_grid,world_presets,world_dimensions}.txt (the program takes the
+ * output directory and writes the five files into it directly; no -o wrapper)
+ * (WorldDimensions codec + bake over crafted dimension sets for world_dimensions.txt.)
  * The Rust test (tests/golden/flat_golden.rs) re-derives the same lines and compares them verbatim.
  */
 public class FlatOracle {

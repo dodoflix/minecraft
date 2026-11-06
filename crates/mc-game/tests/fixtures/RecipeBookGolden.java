@@ -35,6 +35,8 @@ import java.util.concurrent.Executor;
 
 // Golden generator for crates/mc-game/tests/golden/recipe_book_golden.rs: the REAL vanilla ServerRecipeBook (add/remove/seen/
 // settings/initial packets, pack NBT) over the real RecipeManager.
+// Usage: scripts/golden-recipes.sh
+// Output: crates/mc-game/tests/fixtures/recipe_book_golden.txt
 public class RecipeBookGolden {
    static final StringBuilder OUT = new StringBuilder();
    static final List<String> events = new ArrayList<>();

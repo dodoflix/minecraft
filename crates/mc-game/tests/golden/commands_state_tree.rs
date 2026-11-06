@@ -1,7 +1,7 @@
 //! The command trees of the state commands (`bossbar`, `title`, `stopwatch`, `random`, `defaultgamemode`,
 //! `setidletimeout`, `version`, `transfer`, `perf`, `fetchprofile`, `jfr`) against the real vanilla
 //! `ClientboundCommandsPacket` (`fixtures/commands/tree_golden_state.txt`, generated with `CommandTreeGolden.java`:
-//! `java -cp tools/extractor/build:$(scripts/vanilla-cp.sh) CommandTreeGolden.java out.txt bossbar,title,...`, keeping the
+//! the command is in its header, with the subset `bossbar,title,...`, keeping the
 //! `DEDICATED <level> subset` lines).
 
 use mc_protocol::codec::{Decode, Encode};

@@ -1,5 +1,6 @@
 // Golden generator for the `debug` play packet group (debug subscriptions, samples, game rules, game tests).
-// Run: crates/mc-protocol/tests/fixtures/play/gen.sh GenDebug.java   (writes debug.golden)
+// Usage: crates/mc-protocol/tests/fixtures/play/gen.sh GenDebug.java
+// Output: crates/mc-protocol/tests/fixtures/play/debug.golden
 import java.lang.reflect.Field;
 import java.util.*;
 import net.minecraft.core.BlockPos;

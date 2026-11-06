@@ -19,7 +19,8 @@ import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
  * {@code kind TAB json TAB ok|err[ TAB canonical NbtOps encoding]} (pool elements are re-encoded to NBT, the form saved in
  * jigsaw pieces), plus one {@code POOL} line per vanilla template pool: id, fallback, element count and a digest of the
  * weighted NBT encodings of its elements.
- * Run (repo root): scripts/vanilla-java.sh crates/mc-game/tests/oracle/JigsawCodecOracle.java crates/mc-game/tests/fixtures/jigsaw_codec_cases.in crates/mc-game/tests/fixtures/jigsaw_codec_cases.golden
+ * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/jigsaw_codec_cases.golden crates/mc-game/tests/oracle/JigsawCodecOracle.java crates/mc-game/tests/fixtures/jigsaw_codec_cases.in crates/mc-game/tests/fixtures/jigsaw_codec_cases.golden
+ * Output: crates/mc-game/tests/fixtures/jigsaw_codec_cases.golden
  */
 public class JigsawCodecOracle {
     /** Sorted-key canonical text of a tag (mirrored by the Rust test). */

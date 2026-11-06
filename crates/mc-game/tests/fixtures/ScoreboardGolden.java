@@ -9,7 +9,8 @@ import java.nio.file.*;
 import java.util.*;
 
 /**
- * `scripts/vanilla-java.sh ScoreboardGolden.java scoreboard_in.snbt scoreboard.golden scoreboard_roundtrip.golden`
+ * Usage: scripts/vanilla-java.sh crates/mc-game/tests/fixtures/ScoreboardGolden.java crates/mc-game/tests/fixtures/scoreboard_in.snbt crates/mc-game/tests/fixtures/scoreboard.golden crates/mc-game/tests/fixtures/scoreboard_roundtrip.golden
+ * Output: crates/mc-game/tests/fixtures/scoreboard.golden and scoreboard_roundtrip.golden (two files, so the program opens them itself: the `-o` wrapper atomicity covers one file)
  * 1. builds a rich Scoreboard with the real classes and writes `ScoreboardSaveData.Packed` as SNBT,
  * 2. decodes `scoreboard_in.snbt` (produced by our encoder) with the real codec, loads it into a Scoreboard,
  *    stores it again and writes the result.

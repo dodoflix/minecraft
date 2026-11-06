@@ -15,8 +15,10 @@ import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 
 /**
  * Map rendering oracle: real vanilla {@code MapItem.update} / {@code HoldingPlayer} packets in the in-process vanilla level
- * ({@link VanillaLevel}, void world). Run with
- * <pre>  scripts/entity-oracle.sh crates/mc-game/tests/oracle/MapGolden.java > crates/mc-game/tests/fixtures/map_golden.txt</pre>
+ * ({@link VanillaLevel}, void world).
+ * Usage: scripts/entity-oracle.sh crates/mc-game/tests/oracle/MapGolden.java -o crates/mc-game/tests/fixtures/map_golden.txt
+ * Output: crates/mc-game/tests/fixtures/map_golden.txt
+ *
  * Each case builds the terrain of {@link #state} in the region [-48, 48)^2 (everything else stays void air), joins a player
  * holding a fresh map at the given position, ticks the server and prints (see tests/golden/map_golden.rs for the reader):
  * <pre>

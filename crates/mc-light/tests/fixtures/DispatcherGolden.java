@@ -19,14 +19,16 @@ import net.minecraft.world.level.material.FluidState;
 
 /**
  * Drives the real vanilla ThreadedLevelLightEngine behind its real ChunkTaskDispatcher / ConsecutiveExecutor and records
- * everything observable about the task order. Usage: scripts/vanilla-java.sh DispatcherGolden.java out.txt
+ * everything observable about the task order.
+ * Usage: scripts/vanilla-java.sh -o crates/mc-light/tests/fixtures/dispatcher_golden.txt crates/mc-light/tests/fixtures/DispatcherGolden.java crates/mc-light/tests/fixtures/dispatcher_golden.txt
+ * Output: crates/mc-light/tests/fixtures/dispatcher_golden.txt
  *
  * Vanilla runs the dispatcher and the light executor on pool threads (a race). This harness replaces the pool by two
  * manual FIFO executors and a fixed schedule: PUMP = run the dispatcher executor and the light executor until both are
  * idle (every submission is popped through the priority queue into lightTasks, the 1000-task inline runUpdate included),
  * then tryScheduleUpdate() and run the light executor (runUpdate: PRE tasks, runLightUpdates, POST tasks).
  *
- * Output: SCEN <name> <hasSky> <minY> <height> <gridSize>; SEC lines (initial blocks); INIT; then script lines replayed by
+ * Format: SCEN <name> <hasSky> <minY> <height> <gridSize>; SEC lines (initial blocks); INIT; then script lines replayed by
  * the Rust test: QL cx cz level|-  (queue level of a visible chunk; absent = 34), INITLIGHT/LIGHTCHUNK cx cz lighted,
  * SET x y z stateId (ProtoChunk.setBlockState through the threaded engine), BARRIER cx cz, PROP/ENABLE/RETAIN/SECT/STATUS,
  * PUMP. After each PUMP the expectations: DONE <completion tokens in order>, UPD <n> <hash of sorted onLightUpdate

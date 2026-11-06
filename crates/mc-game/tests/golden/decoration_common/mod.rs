@@ -4,27 +4,19 @@
     reason = "each test target uses a subset of the shared helpers"
 )]
 
-use flate2::read::GzDecoder;
 use mc_core::ident::Identifier;
 use mc_worldgen::biome::{BiomeRegistry, PlacedFeatureRef};
 use mc_worldgen::data::{McDataSource, WorldgenRegistries};
 use mc_worldgen::generator::ChunkGenerator;
 use mc_worldgen::world_preset::level_generator_from_json;
 use serde_json::json;
-use std::io::Read;
 use std::path::PathBuf;
 use std::sync::Arc;
 
 pub fn fixture() -> String {
     let path = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-        .join("../mc-game/tests/fixtures/decoration/decoration.txt.gz");
-    let mut text = String::new();
-    GzDecoder::new(
-        std::fs::File::open(&path).unwrap_or_else(|e| panic!("{}: {e}", path.display())),
-    )
-    .read_to_string(&mut text)
-    .unwrap();
-    text
+        .join("../mc-game/tests/fixtures/decoration/decoration.txt");
+    std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("{}: {e}", path.display()))
 }
 
 /// The placed feature as the oracle names it.

@@ -1,27 +1,42 @@
 #!/usr/bin/env bash
-# Regenerate golden fixtures from the real vanilla classes.
-#   gen.sh                  all corpus/*.txt -> golden/<same name>, plus registries.golden
-#   gen.sh corpus/10-x.txt  only the given corpus files (paths relative to this dir)
-#   gen.sh --registries     only registries.golden
+# Regenerates the component golden fixtures from the real vanilla classes (ComponentGolden.java).
+# Usage: crates/mc-protocol/tests/fixtures/components/gen.sh [--registries | corpus/NN-x.txt ...]
+#   (no argument)           all corpus/*.txt -> golden/<same name>, plus registries.golden
+#   corpus/10-x.txt ...     only the given corpus files (paths relative to this dir)
+#   --registries            only registries.golden
+# Output: crates/mc-protocol/tests/fixtures/components/golden/<corpus name>.txt, crates/mc-protocol/tests/fixtures/components/registries.golden
+#   (each file is written to a temp dir first and moved into place only when ComponentGolden succeeds)
 # Corpus line: kind<TAB>component-name-or-"-"<TAB>payload  (see ComponentGolden.java for kinds).
+# Needs: java, javac, ref/ (scripts/setup-ref.sh).
 set -euo pipefail
-HERE="$(cd "$(dirname "$0")" && pwd)"
-ROOT="$(cd "$HERE/../../../../.." && pwd)"
+ROOT="$(cd "$(dirname "$0")/../../../../.." && pwd)"
+# shellcheck source=scripts/lib.sh
+. "$ROOT/scripts/lib.sh"
+help_flag "$@"
+need java javac
+HERE="$ROOT/crates/mc-protocol/tests/fixtures/components"
 CP="$("$ROOT/scripts/vanilla-cp.sh")"
 OUT="$(mktemp -d)"
 trap 'rm -rf "$OUT"' EXIT
-javac -nowarn -cp "$CP" -d "$OUT" "$ROOT/tools/extractor/src/extractor/Setup.java" "$HERE/ComponentGolden.java" 2>&1 | grep -v "^Note:" || true
+javac -nowarn -cp "$CP" -d "$OUT" "$ROOT/tools/extractor/src/extractor/Setup.java" "$HERE/ComponentGolden.java"
 mkdir -p "$HERE/golden"
+
+# gen INPUT DEST: runs ComponentGolden INPUT into a temp file, moves it to DEST only on success.
+gen() {
+  java -cp "$OUT:$CP" ComponentGolden "$1" "$OUT/result.tmp" 2>"$OUT/stderr.log" || { cat "$OUT/stderr.log" >&2; die "ComponentGolden $1 failed"; }
+  mv "$OUT/result.tmp" "$2"
+}
+
 if [[ "${1:-}" == "--registries" ]]; then
-  java -cp "$OUT:$CP" ComponentGolden registries "$HERE/registries.golden" 2>/dev/null
+  gen registries "$HERE/registries.golden"
   exit 0
 fi
 if [[ $# -eq 0 ]]; then
-  java -cp "$OUT:$CP" ComponentGolden registries "$HERE/registries.golden" 2>/dev/null
+  gen registries "$HERE/registries.golden"
   set -- "$HERE"/corpus/*.txt
 fi
 for f in "$@"; do
   [[ -f "$f" ]] || f="$HERE/$f"
-  java -cp "$OUT:$CP" ComponentGolden "$f" "$HERE/golden/$(basename "$f")" 2>/dev/null
+  gen "$f" "$HERE/golden/$(basename "$f")"
   echo "$(basename "$f"): $(wc -l < "$HERE/golden/$(basename "$f")") records"
 done

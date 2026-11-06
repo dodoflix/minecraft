@@ -1,6 +1,8 @@
 // Golden generator for the dialog codecs (crates/mc-protocol/tests/dialog_golden.rs): vanilla's Dialog.CODEC / STREAM_CODEC /
 // CONTEXT_FREE_STREAM_CODEC over a RegistryOps of the booted vanilla registries (the data pack's three dialogs exist as
-// references).   crates/mc-protocol/tests/fixtures/dialog/gen.sh
+// references).
+// Usage: crates/mc-protocol/tests/fixtures/dialog/gen.sh   (program args: corpus.txt golden.jsonl)
+// Output: crates/mc-protocol/tests/fixtures/dialog/golden.jsonl
 //
 // Corpus lines (corpus.txt, blank lines and `#` comments skipped):
 //   J<json>   Dialog.CODEC.parse(RegistryOps<JsonElement>, json)

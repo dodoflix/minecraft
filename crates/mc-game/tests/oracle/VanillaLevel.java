@@ -282,6 +282,8 @@ public final class VanillaLevel {
             + "\ngamemode=" + o.defaultGameType.getName() + "\ngenerate-structures=false\nview-distance=" + o.viewDistance
             + "\nsimulation-distance=" + o.simulationDistance + "\nspawn-monsters=false\nspawn-animals=false\nspawn-npcs=false\nallow-nether=false\n"
             + "pause-when-empty-seconds=0\nmax-tick-time=-1\nenable-jmx-monitoring=false\nlevel-name=world\n");
+      // a vanilla server refuses to start without an accepted EULA: accepting it is the user's decision, never ours
+      if (!"1".equals(System.getenv("MC_ACCEPT_EULA"))) throw new IllegalStateException("starting a vanilla server accepts the Minecraft EULA (https://aka.ms/MinecraftEULA) in your name: set MC_ACCEPT_EULA=1 if you accept it");
       Files.writeString(dir.resolve("eula.txt"), "eula=true\n");
       DedicatedServerSettings settings = new DedicatedServerSettings(dir.resolve("server.properties"));
       Eula ignored = new Eula(dir.resolve("eula.txt"));

@@ -20,8 +20,10 @@ import net.minecraft.world.phys.Vec3;
 
 /**
  * Loot golden generator: every block loot table x tool x seed (block param set) and every chest table x seed (chest param set),
- * rolled by the real vanilla {@code LootTable.getRandomItems(params, seed)}. Output (stdout): {@code T table paramset seed tool}
- * then one {@code I item count +component,-component} line per stack. Run: scripts/entity-oracle.sh LootOracle.java
+ * rolled by the real vanilla {@code LootTable.getRandomItems(params, seed)}. Stdout format: {@code T table paramset seed tool}
+ * then one {@code I item count +component,-component} line per stack.
+ * Usage: scripts/golden-loot.sh
+ * Output: crates/mc-game/tests/fixtures/loot_golden.txt
  */
 public final class LootOracle {
    public static void main(String[] args) throws Exception {

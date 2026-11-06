@@ -5,7 +5,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.zip.GZIPOutputStream;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -19,8 +18,8 @@ import net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList;
 /**
  * Golden generator for mc-worldgen biome tests (registry order, preset parameter lists, R-tree searches, biome
  * temperatures, seed obfuscation).
- * Usage (from the repo root):
- *   java -cp tools/extractor/build:$(scripts/vanilla-cp.sh) crates/mc-worldgen/tests/oracle/BiomeParamsOracle.java crates/mc-worldgen/tests/fixtures/biome_params.txt.gz
+ * Usage: MC_EXTRA_CP=tools/extractor/build scripts/vanilla-java.sh -o crates/mc-worldgen/tests/fixtures/biome_params.txt.gz crates/mc-worldgen/tests/oracle/BiomeParamsOracle.java crates/mc-worldgen/tests/fixtures/biome_params.txt.gz
+ * Output: crates/mc-worldgen/tests/fixtures/biome_params.txt.gz (the program writes plain text; the wrapper gzips it)
  * (tools/extractor/build: see scripts/extract.sh)
  *
  * Lines: R id name                                   biome registry order
@@ -37,7 +36,7 @@ public class BiomeParamsOracle {
    public static void main(String[] args) throws Exception {
       RegistryAccess.Frozen reg = extractor.Setup.bootstrap();
       Registry<Biome> biomes = reg.lookupOrThrow(Registries.BIOME);
-      PrintWriter out = new PrintWriter(new GZIPOutputStream(new FileOutputStream(args[0])));
+      PrintWriter out = new PrintWriter(new FileOutputStream(args[0]));
       for (int i = 0; i < biomes.size(); i++) {
          out.println("R " + i + " " + biomes.getKey(biomes.byId(i)));
       }

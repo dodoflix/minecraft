@@ -1,8 +1,16 @@
 #!/usr/bin/env python3
 """Generates tests/oracle/scenarios/attack_*.txt (melee attack pipeline scenarios for scripts/entity-oracle.sh).
-Run from anywhere: `python3 gen_attack.py`. Victims are NoAI mobs (they never move or tick physics), one fresh victim per attack,
-the attacker is moved next to it with `snap`."""
+Victims are NoAI mobs (they never move or tick physics), one fresh victim per attack, the attacker is moved next to it with `snap`.
+Fixtures: scripts/entity-oracle.sh --regen.
+
+Usage: python3 crates/mc-game/tests/oracle/scenarios/gen_attack.py   (takes no arguments; writes several files, each replaced only on success)
+Output: crates/mc-game/tests/oracle/scenarios/attack_{weapons,cooldown,crit_sweep,enchant,armor,shield,modes,entities,mob,mace}.txt"""
 import os
+import sys
+
+if sys.argv[1:] in (["-h"], ["--help"]):
+    print(__doc__)
+    sys.exit(0)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 NOAI = "{NoAI:1b,PersistenceRequired:1b}"
@@ -42,8 +50,10 @@ class Scenario:
             self.add(f"give {ref} {slot} {item}")
 
     def save(self, name):
-        with open(os.path.join(HERE, f"attack_{name}.txt"), "w") as f:
+        path = os.path.join(HERE, f"attack_{name}.txt")
+        with open(path + ".tmp", "w") as f:
             f.write("\n".join(self.lines) + "\n")
+        os.replace(path + ".tmp", path)
 
 
 def weapons():

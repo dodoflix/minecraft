@@ -20,9 +20,11 @@ import net.minecraft.world.level.levelgen.feature.Feature;
  * of FeatureOracleBase, at origins of several kinds (surface, ocean floor, inside the ground, caves, random y, world bounds,
  * chunk borders) on terrain sprinkled with feature-agnostic base blocks, pillars and surface covers.
  *
- * Usage (repo root): scripts/vanilla-java.sh crates/mc-game/tests/oracle/VegetationFeatureOracle.java crates/mc-game/tests/fixtures/vegetation_features.txt
+ * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/vegetation_features.txt crates/mc-game/tests/oracle/VegetationFeatureOracle.java crates/mc-game/tests/fixtures/vegetation_features.txt
+ * (FeatureOracleBase.java next to this file)
+ * Output: crates/mc-game/tests/fixtures/vegetation_features.txt
  *
- * Output: {@code SCENARIO id feature seed cx cz}; {@code S x y z state} (setBlock flags 2, the prepared terrain); then per
+ * Lines: {@code SCENARIO id feature seed cx cz}; {@code S x y z state} (setBlock flags 2, the prepared terrain); then per
  * placement {@code > P x y z L|X randomSeed} / {@code = <result> <next long of the random>}; then the dump lines as
  * {@code D <line>} (C/T/M lines dropped, heightmap digests folded into one line); {@code END}.
  */

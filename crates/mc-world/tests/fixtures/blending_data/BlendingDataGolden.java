@@ -4,7 +4,10 @@ import java.util.*;
 import net.minecraft.nbt.*;
 import net.minecraft.world.level.levelgen.blending.BlendingData;
 
-/** Usage (repo root): scripts/vanilla-java.sh BlendingDataGolden.java inputs.snbt golden.txt */
+/**
+ * Usage: scripts/vanilla-java.sh -o crates/mc-world/tests/fixtures/blending_data/golden.txt crates/mc-world/tests/fixtures/blending_data/BlendingDataGolden.java crates/mc-world/tests/fixtures/blending_data/inputs.snbt crates/mc-world/tests/fixtures/blending_data/golden.txt
+ * Output: crates/mc-world/tests/fixtures/blending_data/golden.txt
+ */
 public class BlendingDataGolden {
     public static void main(String[] args) throws Exception {
         net.minecraft.SharedConstants.tryDetectVersion();

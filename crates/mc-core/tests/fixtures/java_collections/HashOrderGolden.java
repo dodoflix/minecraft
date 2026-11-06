@@ -8,6 +8,8 @@ import java.util.*;
  * capacity, `new HashMap<>(n)`, copy constructors) and fastutil Object2ObjectOpenHashMap / Int2ObjectOpenHashMap after a
  * sequence of puts. Line: kind TAB capacity-or-expected TAB keys (US-separated) TAB iteration order (US-separated).
  * kinds: hashmap (capacity n), hashmap-copy (capacity = that of the source map the copy iterates), hashset-copy, fast (expected n), fastint (expected n).
+ * Usage: crates/mc-core/tests/fixtures/java_collections/gen.sh
+ * Output: crates/mc-core/tests/fixtures/java_collections/golden.txt
  */
 public class HashOrderGolden {
    static String join(Collection<?> c) {

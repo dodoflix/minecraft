@@ -1,5 +1,6 @@
 // Golden generator for the play `entity` packet group (entity.golden): see PlayHarness.java / gen.sh.
-//   crates/mc-protocol/tests/fixtures/play/gen.sh GenEntity.java
+// Usage: crates/mc-protocol/tests/fixtures/play/gen.sh GenEntity.java
+// Output: crates/mc-protocol/tests/fixtures/play/entity.golden
 import com.google.common.collect.ImmutableList;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

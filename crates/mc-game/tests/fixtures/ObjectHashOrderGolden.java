@@ -1,5 +1,6 @@
 // Golden for fastutil Object2ObjectOpenHashMap iteration orders (String keys), as used by Scoreboard.
-//   scripts/vanilla-java.sh crates/mc-game/tests/fixtures/ObjectHashOrderGolden.java crates/mc-game/tests/fixtures/object_hash_order.txt
+// Usage: scripts/vanilla-java.sh -o crates/mc-game-core/tests/fixtures/object_hash_order.txt crates/mc-game/tests/fixtures/ObjectHashOrderGolden.java crates/mc-game-core/tests/fixtures/object_hash_order.txt
+// Output: crates/mc-game-core/tests/fixtures/object_hash_order.txt
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import java.io.PrintWriter;
 import java.util.*;

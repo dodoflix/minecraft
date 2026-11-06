@@ -26,7 +26,8 @@ import net.minecraft.world.level.saveddata.WeatherData;
  * Weather oracle (real vanilla {@code ServerLevel}): the weather cycle ({@code advanceWeatherCycle} through reflection, with a
  * connected player recording the game events), {@code resetWeatherCycle}, {@code tickThunder} until the first lightning strike
  * (level random state, strike position, trap), and {@code tickPrecipitation} on scripted snow / ice / cauldron terrain.
- * Run: {@code scripts/entity-oracle.sh crates/mc-game/tests/oracle/WeatherOracle.java > crates/mc-game/tests/fixtures/weather_oracle.txt}
+ * Usage: scripts/entity-oracle.sh crates/mc-game/tests/oracle/WeatherOracle.java -o crates/mc-game/tests/fixtures/weather_oracle.txt
+ * Output: crates/mc-game/tests/fixtures/weather_oracle.txt
  *
  * <pre>
  * W scenario seed tick clear= rain= thunder= raining= thundering= rl=o,c tl=o,c isRaining= isThundering= rnd=NEXTLONG

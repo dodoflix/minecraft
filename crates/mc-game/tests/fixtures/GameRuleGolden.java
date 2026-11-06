@@ -7,7 +7,9 @@ import net.minecraft.world.level.gamerules.*;
 import net.minecraft.world.flag.*;
 import java.util.*;
 
-/** Golden values for GameRules/GameRuleMap: `scripts/vanilla-java.sh GameRuleGolden.java gamerule.golden`. */
+/** Golden values for GameRules/GameRuleMap.
+ * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/gamerule.golden crates/mc-game/tests/fixtures/GameRuleGolden.java crates/mc-game/tests/fixtures/gamerule.golden
+ * Output: crates/mc-game/tests/fixtures/gamerule.golden */
 public class GameRuleGolden {
   static String sorted(GameRuleMap m) {
     TreeMap<String, String> t = new TreeMap<>();

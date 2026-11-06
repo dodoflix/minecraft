@@ -31,7 +31,10 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * Mob variant goldens (scripts/golden-variants.sh -> tests/fixtures/variants_golden.txt), run through scripts/entity-oracle.sh:
+ * Mob variant goldens, run through scripts/entity-oracle.sh.
+ * Usage: scripts/golden-variants.sh
+ * Output: crates/mc-game/tests/fixtures/variants_golden.txt
+ * Lines:
  * <pre>
  * E registry id sha1(canon(DIRECT_CODEC nbt))      every entry of the 12 variant registries
  * N registry id sha1(canon(NETWORK_CODEC nbt))     the registry_data payload

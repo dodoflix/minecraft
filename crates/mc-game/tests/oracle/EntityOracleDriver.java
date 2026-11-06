@@ -78,9 +78,10 @@ import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.util.RandomSource;
 
 /**
- * Scenario driver of the in-process vanilla oracle ({@link VanillaLevel}). Usage:
- * <pre>  scripts/entity-oracle.sh crates/mc-game/tests/oracle/scenarios/NAME.txt [-o crates/mc-game/tests/fixtures/entity_oracle/NAME.txt]</pre>
- * The scenario is a line-based script, the fixture is the text this driver prints (stdout; vanilla log noise goes to stderr).
+ * Scenario driver of the in-process vanilla oracle ({@link VanillaLevel}).
+ * Usage: scripts/entity-oracle.sh crates/mc-game/tests/oracle/scenarios/NAME.txt -o crates/mc-game/tests/fixtures/entity_oracle/NAME.txt
+ * Output: crates/mc-game/tests/fixtures/entity_oracle/NAME.txt (scripts/entity-oracle.sh --regen rewrites all of them)
+ * <p>The scenario is a line-based script, the fixture is the text this driver prints (stdout; vanilla log noise goes to stderr).
  * Commit scenario + fixture; Rust reads the fixture with {@code tests/common/entity_oracle.rs}.
  *
  * <p>Syntax: one command per line, tokens split on whitespace ({@code [..]}, {@code {..}} and "..." keep spaces), {@code #}

@@ -29,8 +29,9 @@ import net.minecraft.world.level.chunk.storage.SimpleRegionStorage;
 
 /**
  * Golden generator for PoiManager (crates/mc-game/tests/golden/poi_golden.rs):
- *   scripts/vanilla-java.sh crates/mc-game/tests/oracle/PoiOracle.java > crates/mc-game/tests/fixtures/poi_oracle.txt
- * Output per scenario: "scenario N", then "<op> => <result>" lines (the Rust test replays the ops), "chunk cx cz <hex>" (uncompressed
+ * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/poi_oracle.txt crates/mc-game/tests/oracle/PoiOracle.java
+ * Output: crates/mc-game/tests/fixtures/poi_oracle.txt (stdout)
+ * Per scenario: "scenario N", then "<op> => <result>" lines (the Rust test replays the ops), "chunk cx cz <hex>" (uncompressed
  * NBT of every poi chunk after flushAll+close) and, after "post", queries against a fresh manager that loaded the written files.
  * Query results that span several POI types are sorted by type name inside one section order only when stated: the type order inside
  * a section is a HashMap of identity hashes in vanilla, so multi-type results are canonicalised by (type name) groups kept in order of

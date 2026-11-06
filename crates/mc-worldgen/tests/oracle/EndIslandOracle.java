@@ -9,7 +9,8 @@ import net.minecraft.world.level.levelgen.densityfunction.generator.EndIslandFun
 
 /**
  * Golden values for EndIslandFunction (RandomState.createEndIslandRandom() is `new LegacyRandomSource(seed)`).
- * Run: scripts/vanilla-java.sh crates/mc-worldgen/tests/oracle/EndIslandOracle.java | sed "s/.*\[STDOUT\]: //" | grep -E "^(P|V) " > crates/mc-worldgen/tests/fixtures/end_island.txt
+ * Usage: scripts/vanilla-java.sh -o crates/mc-worldgen/tests/fixtures/end_island.txt crates/mc-worldgen/tests/oracle/EndIslandOracle.java
+ * Output: crates/mc-worldgen/tests/fixtures/end_island.txt (the wrapper captures stdout; main restores the real stdout so vanilla's [STDOUT] log wrapping is bypassed)
  * Lines: P seed blockX blockZ floatBits      point sample
  *        V seed floatBits...                  volume sample of DensityVolume(3, 2, 3, min=(-1030, 0, 1018), step=(8, 4, 8)) in buffer order
  */
@@ -20,6 +21,7 @@ public class EndIslandOracle {
    public static void main(String[] args) {
       net.minecraft.SharedConstants.tryDetectVersion();
       net.minecraft.server.Bootstrap.bootStrap();
+      System.setOut(net.minecraft.server.Bootstrap.STDOUT);
       for (long seed : SEEDS) {
          DensityFunction.CompileContext context = new DensityFunction.CompileContext() {
             public net.minecraft.world.level.levelgen.synth.Noise createNoiseSampler(net.minecraft.core.Holder<net.minecraft.world.level.levelgen.synth.NormalNoise> p) {

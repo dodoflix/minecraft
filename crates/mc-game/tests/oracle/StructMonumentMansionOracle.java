@@ -33,10 +33,11 @@ import net.minecraft.world.level.levelgen.structure.StructureSet;
  * ({@code minecraft:monument}), the woodland mansion ({@code minecraft:mansion}) or the end city ({@code minecraft:end_city}) on the
  * real overworld generator for the potential start chunks of the structure set, and {@code StructureStart.placeInChunk} of every
  * chunk of a start over the synthetic world of FeatureOracleBase (a 3x3 FEATURES region per chunk, as the decoration step places).
- * Usage (repo root):
- * scripts/vanilla-java.sh crates/mc-game/tests/oracle/StructMonumentMansionOracle.java <out> monument|mansion|end_city <seed,seed,..> <regionRadius> <maxStartsPerSeed> [full]
+ * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/FIXTURE crates/mc-game/tests/oracle/StructMonumentMansionOracle.java crates/mc-game/tests/fixtures/FIXTURE monument|mansion|end_city <seed,seed,..> <regionRadius> <maxStartsPerSeed> [full]
+ * (FIXTURE = struct_monument.txt | struct_mansion.txt.gz | struct_end_city.txt.gz for monument | mansion | end_city; FeatureOracleBase.java next to this file)
+ * Output: crates/mc-game/tests/fixtures/FIXTURE
  *
- * Output: per examined potential chunk either {@code NONE seed cx cz} (no valid start) or {@code START seed cx cz count} + one
+ * Lines: per examined potential chunk either {@code NONE seed cx cz} (no valid start) or {@code START seed cx cz count} + one
  * {@code P <piece tag SNBT>} line per piece (StructurePiece.createTag), then per chunk of the start's box {@code PLACE cx cz}, the
  * dump lines as {@code D <line>} (entity UUIDs and the shulkers' random yaw masked; the {@code B} block lines and {@code K} tick lines
  * are replaced by {@code DG <category> <fnv> <count>} unless {@code full}) and {@code END}.

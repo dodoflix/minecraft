@@ -1,7 +1,6 @@
 // Differential golden corpus for every command argument type, produced by the real vanilla classes.
-//
-//   scripts/args-golden.sh [type ...]      (all types when none is named; writes crates/mc-game/tests/fixtures/args/<type>_golden.txt)
-//
+// Usage: scripts/args-golden.sh [type ...]      (all types when none is named)
+// Output: crates/mc-game/tests/fixtures/args/<type>_golden.txt (the generator takes the output directory as its first argument and writes one file per type)
 // Per type: a deterministic corpus of >= 250 inputs (valid seeds, every prefix of every seed = what a client
 // sends while typing, mutations with boundary numbers / unicode / surrogate pairs / separators) is run through a real
 // brigadier dispatcher `t <arg>`; per input the generator records the reader cursor after the parse, the argument

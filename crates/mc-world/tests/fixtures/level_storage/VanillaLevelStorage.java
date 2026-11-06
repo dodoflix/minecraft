@@ -3,6 +3,8 @@
 //   summary <savesDir> <levelId> <playerUuid>   print level data, summary, resource paths, player data
 //   lock <dir>                                  DirectoryLock.isLocked + try DirectoryLock.create
 //   hold <dir> <millis>                         DirectoryLock.create, print HELD, sleep
+// Usage: scripts/vanilla-java.sh crates/mc-world/tests/fixtures/level_storage/VanillaLevelStorage.java summary|lock|hold <args as above>
+// Output: stdout only (oracle process driven by the Rust test, no fixture is written)
 import java.nio.file.*;
 import java.util.UUID;
 import com.mojang.serialization.Dynamic;

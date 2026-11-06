@@ -1,5 +1,7 @@
 // Golden command-tree packets from the real vanilla classes.
-//   java -cp tools/extractor/build:$(scripts/vanilla-cp.sh) CommandTreeGolden.java tree_golden.txt stop,save-all,...
+// Usage: MC_EXTRA_CP=tools/extractor/build scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/commands/tree_golden_items.txt crates/mc-game/tests/fixtures/commands/CommandTreeGolden.java crates/mc-game/tests/fixtures/commands/tree_golden_items.txt clear,give,item,loot
+// Output: crates/mc-game/tests/fixtures/commands/{tree_golden,tree_golden_items,tree_golden_state,data_tree_golden,execute_tree_golden,function_tree_golden}.txt, one per run;
+//   the last argument is the comma-separated list of top-level commands kept in the `subset` lines of that fixture.
 // Output lines: `<selection> <permission level> <subset|full> <hex of ClientboundCommandsPacket>`; `subset` keeps only the
 // top-level commands listed in SUBSET (registration order preserved) - the commands the Rust port implements.
 import com.mojang.brigadier.builder.ArgumentBuilder;

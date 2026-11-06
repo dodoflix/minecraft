@@ -8,6 +8,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 
+/** Table of the per-block isValidSpawn overrides (block path + one 0/1 flag per polar bear, ocelot, parrot, zombie, zombified piglin), used by
+ *  crates/mc-game-core/src/world/level/block/valid_spawn.rs.
+ *  Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/valid_spawn_overrides.txt crates/mc-game/tests/oracle/ValidSpawnGen.java
+ *  Output: crates/mc-game/tests/fixtures/valid_spawn_overrides.txt (stdout) */
 public class ValidSpawnGen {
    public static void main(String[] a) throws Exception {
       net.minecraft.SharedConstants.tryDetectVersion();

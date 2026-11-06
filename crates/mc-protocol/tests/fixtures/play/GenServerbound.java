@@ -1,5 +1,6 @@
 // Generates tests/fixtures/play/serverbound.golden (group `Serverbound`): real vanilla serverbound play packets.
-//   crates/mc-protocol/tests/fixtures/play/gen.sh GenServerbound.java
+// Usage: crates/mc-protocol/tests/fixtures/play/gen.sh GenServerbound.java
+// Output: crates/mc-protocol/tests/fixtures/play/serverbound.golden
 // Also emits, per decode-failure case, `<label>.in` (the malformed packet bytes) and `<label>.err` (hex of the UTF-8
 // message of the exception vanilla's codec throws), and for lossy LpVec3 interactions `<label>.dec` (the three doubles
 // vanilla decodes).

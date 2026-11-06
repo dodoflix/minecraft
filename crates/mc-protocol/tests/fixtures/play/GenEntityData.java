@@ -1,5 +1,7 @@
 // Golden generator for the entity_data play group: add_entity, set_entity_data (every EntityDataSerializers type),
-// level_particles, explode and every ParticleTypes payload. Run: gen.sh GenEntityData.java
+// level_particles, explode and every ParticleTypes payload.
+// Usage: crates/mc-protocol/tests/fixtures/play/gen.sh GenEntityData.java
+// Output: crates/mc-protocol/tests/fixtures/play/entitydata.golden
 import com.mojang.datafixers.util.Either;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

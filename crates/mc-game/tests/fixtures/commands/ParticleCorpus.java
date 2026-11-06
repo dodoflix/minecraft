@@ -1,6 +1,8 @@
 // Prints `<input>\tOK\t<wire hex>` / `<input>\tERR\t<message>` for `ParticleArgument.readParticle` over the lines of a file,
 // produced by the real vanilla classes (wire hex = `ParticleTypes.STREAM_CODEC`).
-// Usage: scripts/vanilla-java.sh ParticleCorpus.java <commands file> > particle_corpus.txt
+// Bootstrap routes stdout through the logger, so the output goes to the file named by the second argument.
+// Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/commands/particle_corpus.txt crates/mc-game/tests/fixtures/commands/ParticleCorpus.java crates/mc-game/tests/fixtures/commands/particle_corpus_inputs.txt crates/mc-game/tests/fixtures/commands/particle_corpus.txt
+// Output: crates/mc-game/tests/fixtures/commands/particle_corpus.txt
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.netty.buffer.ByteBuf;
@@ -24,6 +26,7 @@ public class ParticleCorpus {
    public static void main(String[] args) throws Exception {
       SharedConstants.tryDetectVersion();
       Bootstrap.bootStrap();
+      System.setOut(new java.io.PrintStream(new java.io.FileOutputStream(args[1]), false, "UTF-8"));
       CommandBuildContext ctx = Commands.createValidationContext(VanillaRegistries.createWorldLookup());
       RegistryAccess access = RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY);
       for (String line : Files.readAllLines(Path.of(args[0]))) {

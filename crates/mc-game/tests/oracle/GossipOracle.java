@@ -5,7 +5,9 @@ import net.minecraft.world.entity.ai.gossip.*;
 import net.minecraft.world.level.levelgen.LegacyRandomSource;
 import com.mojang.serialization.Codec;
 
-/** Random op scripts on vanilla GossipContainer: prints each op and the observable result (reputations, counts, NBT). */
+/** Random op scripts on vanilla GossipContainer: prints each op and the observable result (reputations, counts, NBT).
+ *  Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/brain/gossip.txt crates/mc-game/tests/oracle/GossipOracle.java
+ *  Output: crates/mc-game/tests/fixtures/brain/gossip.txt (stdout) */
 public class GossipOracle {
    static GossipType[] T = GossipType.values();
    static UUID uuid(Random r, int pool) { return new UUID(0x1234L * (r.nextInt(pool) + 1) * 0x9E3779B97F4A7C15L, 77L * (r.nextInt(pool) + 3) * 0x517CC1B727220A95L); }

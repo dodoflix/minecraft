@@ -2,14 +2,19 @@
 """Generates corpus/30-combat.txt (components: tool, weapon, attack_range, blocks_attacks, kinetic_weapon, piercing_weapon,
 attack_animation, interact_animation, damage_resistant, equippable). Uses the helpers of gen_corpus_effects.py.
 
-    python3 gen_corpus_combat.py > 30-combat.txt     (deterministic)
+Usage: python3 crates/mc-protocol/tests/fixtures/components/corpus/gen_corpus_combat.py && crates/mc-protocol/tests/fixtures/components/gen.sh corpus/30-combat.txt   (deterministic)
+Output: crates/mc-protocol/tests/fixtures/components/corpus/30-combat.txt
 """
 import os
 import random
 import sys
 
+if sys.argv[1:] in (["-h"], ["--help"]):
+    print(__doc__)
+    sys.exit(0)
+
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from gen_corpus_effects import Out, emit_component  # noqa: E402
+from gen_corpus_effects import Out, emit_component, write_corpus  # noqa: E402
 
 BLOCKS = ["stone", "dirt", "oak_log", "cobweb", "obsidian", "glass", "sand", "netherrack", "nope", "air", "bedrock"]
 BLOCK_TAGS = ["mineable/pickaxe", "mineable/axe", "mineable/shovel", "mineable/hoe", "logs", "leaves", "wool", "planks", "needs_diamond_tool",
@@ -232,7 +237,7 @@ def main():
                      ("attack_animation", "6306"), ("attack_animation", "0206"), ("attack_animation", "0100"), ("weapon", "0200000000"), ("weapon", "02400000000"),
                      ("attack_range", "00000000" * 6), ("tool", "00" + "3f800000" + "01" + "01")]:
         out.add("wire", "minecraft:" + name, hx)
-    sys.stdout.write("\n".join(out.lines) + "\n")
+    write_corpus("30-combat.txt", out.lines)
 
 
 if __name__ == "__main__":

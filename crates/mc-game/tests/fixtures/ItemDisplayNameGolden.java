@@ -1,5 +1,6 @@
 // Golden for ItemStack.getDisplayName(): one JSON line per item (plain stack), plus custom_name / rarity / written book variants.
-//   java -cp "$EXTRACTOR:$(scripts/vanilla-cp.sh)" ItemDisplayNameGolden.java > item_display_name_golden.txt
+// Usage: MC_EXTRA_CP=tools/extractor/build scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/item_display_name_golden.txt crates/mc-game/tests/fixtures/ItemDisplayNameGolden.java
+// Output: crates/mc-game/tests/fixtures/item_display_name_golden.txt
 import com.mojang.serialization.JsonOps;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;

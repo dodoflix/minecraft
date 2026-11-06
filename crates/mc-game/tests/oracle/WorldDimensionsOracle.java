@@ -24,8 +24,9 @@ import net.minecraft.world.level.levelgen.presets.WorldPreset;
  * Goldens for `LevelStem.CODEC` as the dimension registry / `world_gen_settings.dat` use it: for every crafted stem the
  * canonical NBT the codec re-encodes (inline dimension types, inline-biome flat settings, inline biomes in biome
  * sources, malformed variants of each) or ERR.
- *   java -cp tools/extractor/build:$(scripts/vanilla-cp.sh) crates/mc-game/tests/oracle/WorldDimensionsOracle.java <outdir>
- * Cases named `noenc:` are compared for acceptance only (see the test). Writes <outdir>/world_dimensions_stems.txt (tests/golden/world_dimensions_golden.rs replays every `STEM` line).
+ * Usage: MC_EXTRA_CP=tools/extractor/build scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/world_dimensions_stems.txt crates/mc-game/tests/oracle/WorldDimensionsOracle.java crates/mc-game/tests/fixtures/world_dimensions_stems.txt
+ * Output: crates/mc-game/tests/fixtures/world_dimensions_stems.txt (tests/golden/world_dimensions_golden.rs replays every `STEM` line)
+ * Cases named `noenc:` are compared for acceptance only (see the test).
  */
 public class WorldDimensionsOracle {
    static RegistryAccess.Frozen access;
@@ -85,7 +86,7 @@ public class WorldDimensionsOracle {
       access = extractor.Setup.bootstrap();
       jsonOps = RegistryOps.create(JsonOps.INSTANCE, access);
       nbtOps = RegistryOps.create(NbtOps.INSTANCE, access);
-      try (PrintWriter out = new PrintWriter(args[0] + "/world_dimensions_stems.txt")) {
+      try (PrintWriter out = new PrintWriter(args[0])) {
          String[] presets = {"normal", "flat", "debug_all_block_states", "large_biomes", "amplified", "single_biome_surface", "flat_all_dimensions"};
          for (String preset : presets) {
             for (var entry : presetStems(preset).entrySet()) {

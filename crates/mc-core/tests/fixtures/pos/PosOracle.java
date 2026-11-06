@@ -1,4 +1,6 @@
-// Golden generator for tests/golden/pos.rs. Run: scripts/vanilla-java.sh crates/mc-core/tests/fixtures/pos/PosOracle.java > crates/mc-core/tests/fixtures/pos/pos_golden.txt
+// Golden generator for tests/golden/pos.rs.
+// Usage: scripts/vanilla-java.sh -o crates/mc-core/tests/fixtures/pos/pos_golden.txt crates/mc-core/tests/fixtures/pos/PosOracle.java
+// Output: crates/mc-core/tests/fixtures/pos/pos_golden.txt
 // Line format: `<tag> <inputs...> => <outputs...>`; lists are `;`-separated, positions `x,y,z`.
 import java.util.*;
 import java.util.function.*;

@@ -18,7 +18,9 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifier;
  * loop of vanilla's FeaturePlacer.place with biome check, minus the feature) over the shared synthetic world: the ordered final
  * positions (count + order-sensitive hash) and the next long of the random after the chain.
  * Plus the chains of tests/fixtures/placement_synthetic.json (modifier types and parameters the data pack never uses), id {@code synthetic:<name>}.
- * Usage (repo root): scripts/vanilla-java.sh crates/mc-game/tests/oracle/PlacementOracle.java crates/mc-game/tests/fixtures/placement_golden.txt crates/mc-game/tests/fixtures/placement_synthetic.json [idFilter]
+ * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/placement_golden.txt crates/mc-game/tests/oracle/PlacementOracle.java crates/mc-game/tests/fixtures/placement_golden.txt crates/mc-game/tests/fixtures/placement_synthetic.json [idFilter]
+ * (FeatureOracleBase.java next to this file)
+ * Output: crates/mc-game/tests/fixtures/placement_golden.txt
  *
  * Lines: {@code R seed cx cz} (region), six {@code O x y z} origins, then per case {@code id mode oi count hash nextLong}
  * ({@code EXC} instead of the results when vanilla throws). Mode b = vanilla chain with the biome check, n = the chain without

@@ -30,7 +30,8 @@ import net.minecraft.world.level.storage.loot.LootContext;
  * Enchantment golden generator (EnchantmentHelper on the real vanilla server): enchanting table maths, protection / immunity per
  * damage source, weapon damage / knockback / armor effectiveness / fall-based damage per victim type, durability (unbreaking) RNG
  * sequences, mending / block xp, equipment attribute modifiers, has / hasTag.
- * Run: scripts/entity-oracle.sh crates/mc-game/tests/oracle/EnchantOracle.java > crates/mc-game/tests/fixtures/enchant_golden.txt
+ * Usage: scripts/entity-oracle.sh crates/mc-game/tests/oracle/EnchantOracle.java -o crates/mc-game/tests/fixtures/enchant_golden.txt
+ * Output: crates/mc-game/tests/fixtures/enchant_golden.txt
  */
 public final class EnchantOracle {
    static PrintStream out;

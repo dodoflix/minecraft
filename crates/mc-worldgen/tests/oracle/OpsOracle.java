@@ -4,7 +4,11 @@ import net.minecraft.world.level.levelgen.densityfunction.generator.ConstantFunc
 import net.minecraft.world.level.levelgen.densityfunction.op.*;
 import com.mojang.serialization.MapCodec;
 
-/** Golden values for the op/ samplers (InterpolatedFunction, RangeChoiceFunction). Run: scripts/vanilla-java.sh OpsOracle.java | sed "s/.*\[STDOUT\]: //" | grep -E "^(point|volume|rangechoice)" > tests/fixtures/ops.txt */
+/**
+ * Golden values for the op/ samplers (InterpolatedFunction, RangeChoiceFunction).
+ * Usage: scripts/vanilla-java.sh -o crates/mc-worldgen/tests/fixtures/ops.txt crates/mc-worldgen/tests/oracle/OpsOracle.java
+ * Output: crates/mc-worldgen/tests/fixtures/ops.txt (the wrapper captures stdout; main restores the real stdout so vanilla's [STDOUT] log wrapping is bypassed)
+ */
 public class OpsOracle {
     static float f(int x, int y, int z) {
         return x * 0.37f + y * y * 0.011f - z * 0.21f + (x * z) * 0.003f;
@@ -41,6 +45,7 @@ public class OpsOracle {
     public static void main(String[] a) {
         net.minecraft.SharedConstants.tryDetectVersion();
         net.minecraft.server.Bootstrap.bootStrap();
+        System.setOut(net.minecraft.server.Bootstrap.STDOUT);
         DensitySampler s = new InterpolatedFunction(new Fn(), 4, 8).compileSampler(null);
         SamplerContext ctx = SamplerContext.EMPTY_UNCACHED;
         int[][] pts = {{5, 3, 7}, {-3, -5, 2}, {4, 8, 12}, {0, 1, 0}, {-1, 15, -2}, {13, 9, 6}};

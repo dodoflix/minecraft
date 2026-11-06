@@ -10,7 +10,8 @@ import java.util.*;
  * Golden generator for TextComponentTagVisitor (nbt_text.rs): for every `T<snbt>` line of corpus_nbt.txt and the
  * compound/list `N<snbt>` lines of corpus.txt, the component (as JSON) for indentation {"", "  "} x styling {plain, rich},
  * with sorted keys (vanilla default depends on the logger level).
- *   scripts/vanilla-java.sh crates/mc-text/tests/fixtures/NbtText.java crates/mc-text/tests/fixtures/corpus_nbt.txt crates/mc-text/tests/fixtures/corpus.txt > crates/mc-text/tests/fixtures/nbt_text.jsonl
+ * Usage: scripts/vanilla-java.sh -o crates/mc-text/tests/fixtures/nbt_text.jsonl crates/mc-text/tests/fixtures/NbtText.java crates/mc-text/tests/fixtures/corpus_nbt.txt crates/mc-text/tests/fixtures/corpus.txt
+ * Output: crates/mc-text/tests/fixtures/nbt_text.jsonl
  */
 public class NbtText {
     public static void main(String[] args) throws Exception {

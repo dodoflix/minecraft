@@ -5,7 +5,9 @@
 //   gen <dir>         : writes r.<id>.0.mca for each compression version (1 gzip, 2 deflate, 3 none, 4 lz4)
 //   genbig <dir>      : writes r.3.1.mca / r.4.1.mca containing an oversized (external .mcc) chunk plus a small one
 //   write <srcdir> <dstdir> <versionId> : re-reads every chunk of <srcdir> and writes it into <dstdir> with vanilla RegionFile
-// Run: scripts/vanilla-java.sh crates/mc-world/tests/fixtures/region/RegionTool.java dump <dir>
+// Usage: scripts/vanilla-java.sh -o crates/mc-world/tests/fixtures/region/java/expected.txt crates/mc-world/tests/fixtures/region/RegionTool.java dump crates/mc-world/tests/fixtures/region/java
+//        (gen/genbig/write modes: scripts/vanilla-java.sh crates/mc-world/tests/fixtures/region/RegionTool.java gen <dir>, which writes .mca files into the directory directly)
+// Output: crates/mc-world/tests/fixtures/region/java/expected.txt (dump, stdout captured); gen/genbig/write write r.*.mca files into their directory argument
 import java.io.*;
 import java.nio.file.*;
 import java.security.MessageDigest;

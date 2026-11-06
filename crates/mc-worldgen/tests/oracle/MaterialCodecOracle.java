@@ -16,8 +16,8 @@ import net.minecraft.world.level.levelgen.material.rule.MaterialRule;
 /**
  * Decodes every case of material_codec_cases.json with the vanilla MaterialRule.CODEC / MaterialCondition.CODEC and prints
  * "name ok|err".
- *   java -cp tools/extractor/build:$(scripts/vanilla-cp.sh) crates/mc-worldgen/tests/oracle/MaterialCodecOracle.java \
- *        crates/mc-worldgen/tests/fixtures/material_codec_cases.json > crates/mc-worldgen/tests/fixtures/material_codec.txt
+ * Usage: MC_EXTRA_CP=tools/extractor/build scripts/vanilla-java.sh -o crates/mc-worldgen/tests/fixtures/material_codec.txt crates/mc-worldgen/tests/oracle/MaterialCodecOracle.java crates/mc-worldgen/tests/fixtures/material_codec_cases.json
+ * Output: crates/mc-worldgen/tests/fixtures/material_codec.txt (the wrapper captures stdout)
  */
 public class MaterialCodecOracle {
    public static void main(String[] args) throws Exception {

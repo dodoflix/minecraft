@@ -1,15 +1,13 @@
 //! `LevelStem.CODEC` as the dimension registry and `world_gen_settings.dat` use it, against vanilla: for every crafted
 //! stem (presets, inline dimension types, inline-biome flat settings, inline biomes in biome sources and malformed
 //! variants of each) the stem is accepted iff vanilla accepts it and re-encodes to the very same NBT.
-//! Fixture `tests/fixtures/world_dimensions_stems.txt.gz`, generator `tests/oracle/WorldDimensionsOracle.java`.
+//! Fixture `tests/fixtures/world_dimensions_stems.txt`, generator `tests/oracle/WorldDimensionsOracle.java`.
 //! Also the `WorldDimensions` lifecycle of the game layer: preset -> stored NBT -> decode -> bake.
 
 use crate::common;
 
-use std::io::Read;
 use std::path::PathBuf;
 
-use flate2::read::GzDecoder;
 use mc_core::ident::Identifier;
 use mc_game::registry::keys;
 use mc_game::server::world_dimensions::{DimensionDecoder, WorldDimensions};
@@ -17,13 +15,9 @@ use mc_world::level_storage::{SpecialWorldProperty, WorldDataConfiguration};
 use mc_worldgen::world_preset::{Holder, Lifecycle};
 
 fn fixture() -> String {
-    let path = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-        .join("tests/fixtures/world_dimensions_stems.txt.gz");
-    let mut text = String::new();
-    GzDecoder::new(std::fs::File::open(path).unwrap())
-        .read_to_string(&mut text)
-        .unwrap();
-    text
+    let path =
+        PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/world_dimensions_stems.txt");
+    std::fs::read_to_string(path).unwrap()
 }
 
 /// The first position where two SNBT strings differ, with context.

@@ -1,4 +1,6 @@
-// Generates bits.txt: scripts/vanilla-java.sh crates/mc-core/tests/fixtures/bits/BitsGolden.java > crates/mc-core/tests/fixtures/bits/bits.txt
+// Generates bits.txt.
+// Usage: scripts/vanilla-java.sh -o crates/mc-core/tests/fixtures/bits/bits.txt crates/mc-core/tests/fixtures/bits/BitsGolden.java
+// Output: crates/mc-core/tests/fixtures/bits/bits.txt
 // `case <bits> <size> <acc> <unpack_hash> <raw_hash> <values_ctor_raw_hash> <raw|->` : ops driven by splitmix64 (same stream in the Rust test).
 // `err <bits> <size> <len> = <message>` : data-array constructor length validation. `bad_bits <bits> = <message>`.
 import java.util.*;

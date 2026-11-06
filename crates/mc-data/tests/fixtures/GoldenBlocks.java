@@ -1,5 +1,6 @@
 // Golden values for crates/mc-data tests, straight from the vanilla classes (independent of the extractor passes).
-//   scripts/golden-blocks.sh  (runs this with tools/extractor/build + the vanilla classpath, writes block_golden.json)
+// Usage: scripts/golden-blocks.sh  (runs this with tools/extractor/build + the vanilla classpath)
+// Output: crates/mc-data/tests/fixtures/block_golden.json
 import com.google.gson.*;
 import java.util.*;
 import net.minecraft.core.BlockPos;

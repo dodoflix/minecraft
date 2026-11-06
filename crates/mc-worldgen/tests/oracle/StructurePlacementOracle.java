@@ -14,7 +14,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.util.zip.GZIPOutputStream;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
@@ -55,9 +54,8 @@ import sun.misc.Unsafe;
 
 /**
  * Golden generator for the mc-worldgen structure placement tests (crates/mc-worldgen/src/structure_placement).
- * Usage (from the repo root):
- *   java -cp tools/extractor/build:$(scripts/vanilla-cp.sh) crates/mc-worldgen/tests/oracle/StructurePlacementOracle.java \
- *        crates/mc-worldgen/tests/fixtures/structure_placement_cases.json crates/mc-worldgen/tests/fixtures/structure_placement.txt.gz
+ * Usage: MC_EXTRA_CP=tools/extractor/build scripts/vanilla-java.sh -o crates/mc-worldgen/tests/fixtures/structure_placement.txt.gz crates/mc-worldgen/tests/oracle/StructurePlacementOracle.java crates/mc-worldgen/tests/fixtures/structure_placement_cases.json crates/mc-worldgen/tests/fixtures/structure_placement.txt.gz
+ * Output: crates/mc-worldgen/tests/fixtures/structure_placement.txt.gz (the program writes plain text; the wrapper gzips it)
  *
  * Lines (hashes: h = h * 1000003 + v over the found values, java long arithmetic):
  *   K name ok|err [summary]        codec case (summary format in the Rust test)
@@ -165,7 +163,7 @@ public class StructurePlacementOracle {
       reg = extractor.Setup.bootstrap();
       RegistryOps<JsonElement> ops = RegistryOps.create(JsonOps.INSTANCE, reg);
       var cases = JsonParser.parseString(Files.readString(Path.of(args[0]))).getAsJsonObject();
-      out = new PrintWriter(new GZIPOutputStream(new FileOutputStream(args[1])));
+      out = new PrintWriter(new FileOutputStream(args[1]));
 
       // codec cases
       for (JsonElement ce : cases.getAsJsonArray("codec")) {

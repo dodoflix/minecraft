@@ -4,7 +4,9 @@ import java.util.*;
 import java.util.stream.*;
 import net.minecraft.world.level.ChunkPos;
 
-/** Golden for PlayerChunkSender.collectChunksToSend ordering (fastutil set iteration + Guava Comparators.least). */
+/** Golden for PlayerChunkSender.collectChunksToSend ordering (fastutil set iteration + Guava Comparators.least).
+ * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/play_net/chunk_sender.golden crates/mc-game/tests/fixtures/play_net/ChunkSenderGolden.java crates/mc-game/tests/fixtures/play_net/chunk_sender.golden
+ * Output: crates/mc-game/tests/fixtures/play_net/chunk_sender.golden */
 public class ChunkSenderGolden {
     static String fmt(List<Long> l) {
         return l.stream().map(p -> ChunkPos.getX(p) + ":" + ChunkPos.getZ(p)).collect(Collectors.joining(","));

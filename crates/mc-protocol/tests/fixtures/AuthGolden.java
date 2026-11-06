@@ -1,5 +1,6 @@
-// Generates auth_golden.txt (key=hex lines) for crates/mc-protocol/tests/golden/auth.rs:
-//   scripts/vanilla-java.sh crates/mc-protocol/tests/fixtures/AuthGolden.java > crates/mc-protocol/tests/fixtures/auth_golden.txt
+// Generates auth_golden.txt (key=hex lines) for crates/mc-protocol/tests/golden/auth.rs.
+// Usage: scripts/vanilla-java.sh -o crates/mc-protocol/tests/fixtures/auth_golden.txt crates/mc-protocol/tests/fixtures/AuthGolden.java
+// Output: crates/mc-protocol/tests/fixtures/auth_golden.txt (the wrapper captures stdout)
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import java.math.BigInteger;

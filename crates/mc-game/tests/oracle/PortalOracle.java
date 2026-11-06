@@ -51,7 +51,10 @@ import net.minecraft.world.phys.Vec3;
  * Portal golden generator (PortalShape / PortalForcer / BlockUtil / BaseFireBlock.onPlace) over a real vanilla server whose
  * overworld AND nether are void flat worlds (custom world preset in a temp data pack). Output (stdout) is a script with its
  * results: {@code > command} lines are the inputs (the Rust replay in {@code tests/golden/portal_golden.rs} executes them in order),
- * {@code < result} lines the vanilla results it must reproduce. Run: {@code scripts/entity-oracle.sh PortalOracle.java shapes|forcer|misc}.
+ * {@code < result} lines the vanilla results it must reproduce.
+ * Usage: scripts/entity-oracle.sh crates/mc-game/tests/oracle/PortalOracle.java -o crates/mc-game/tests/fixtures/portal/MODE.txt MODE [count]   (MODE = shapes|forcer|misc)
+ * Output: crates/mc-game/tests/fixtures/portal/MODE.txt
+ * Needs MC_ACCEPT_EULA=1 (the oracle starts a vanilla server).
  *
  * <pre>
  * > dim overworld|nether
@@ -117,6 +120,8 @@ public final class PortalOracle {
          "level-type=portal:void\nlevel-seed=4242\nonline-mode=false\nenforce-secure-profile=false\nspawn-protection=0\ndifficulty=normal\n"
             + "generate-structures=false\nview-distance=4\nsimulation-distance=4\nspawn-monsters=false\nspawn-animals=false\nspawn-npcs=false\n"
             + "initial-enabled-packs=vanilla,file/voidworld\npause-when-empty-seconds=0\nmax-tick-time=-1\nenable-jmx-monitoring=false\nlevel-name=world\n");
+      // a vanilla server refuses to start without an accepted EULA: accepting it is the user's decision, never ours
+      if (!"1".equals(System.getenv("MC_ACCEPT_EULA"))) throw new IllegalStateException("starting a vanilla server accepts the Minecraft EULA (https://aka.ms/MinecraftEULA) in your name: set MC_ACCEPT_EULA=1 if you accept it");
       Files.writeString(dir.resolve("eula.txt"), "eula=true\n");
       DedicatedServerSettings settings = new DedicatedServerSettings(dir.resolve("server.properties"));
       new Eula(dir.resolve("eula.txt"));

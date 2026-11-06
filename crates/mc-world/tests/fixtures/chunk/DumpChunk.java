@@ -4,7 +4,11 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.chunk.storage.*;
 import net.minecraft.world.level.Level;
 
-/** usage: DumpChunk <mca> <chunkX> <chunkZ> : prints the chunk's NBT as SNBT (pretty). */
+/**
+ * Prints the chunk's NBT as SNBT (pretty); a query tool, no fixture is written.
+ * Usage: scripts/vanilla-java.sh crates/mc-world/tests/fixtures/chunk/DumpChunk.java <mca> <chunkX> <chunkZ>
+ * Output: stdout only
+ */
 public class DumpChunk {
   public static void main(String[] a) throws Exception {
     net.minecraft.SharedConstants.tryDetectVersion(); net.minecraft.server.Bootstrap.bootStrap();

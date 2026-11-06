@@ -4,7 +4,10 @@ import java.util.*;
 import net.minecraft.nbt.*;
 import net.minecraft.world.level.levelgen.BelowZeroRetrogen;
 
-/** Usage (repo root): scripts/vanilla-java.sh BelowZeroRetrogenGolden.java inputs.snbt golden.txt */
+/**
+ * Usage: scripts/vanilla-java.sh -o crates/mc-world/tests/fixtures/below_zero_retrogen/golden.txt crates/mc-world/tests/fixtures/below_zero_retrogen/BelowZeroRetrogenGolden.java crates/mc-world/tests/fixtures/below_zero_retrogen/inputs.snbt crates/mc-world/tests/fixtures/below_zero_retrogen/golden.txt
+ * Output: crates/mc-world/tests/fixtures/below_zero_retrogen/golden.txt
+ */
 public class BelowZeroRetrogenGolden {
     public static void main(String[] args) throws Exception {
         net.minecraft.SharedConstants.tryDetectVersion();

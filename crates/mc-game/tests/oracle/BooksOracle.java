@@ -17,8 +17,9 @@ import net.minecraft.world.level.GameType;
 
 /**
  * Real-vanilla trace of the book handlers ({@code ServerGamePacketListenerImpl.handleEditBook}: update pages / sign,
- * {@code WritableBookItem} / {@code WrittenBookItem} use + {@code WrittenBookContent.resolveForItem}). Run:
- * {@code scripts/entity-oracle.sh crates/mc-game/tests/oracle/BooksOracle.java > crates/mc-game/tests/fixtures/books_oracle.txt}.
+ * {@code WritableBookItem} / {@code WrittenBookItem} use + {@code WrittenBookContent.resolveForItem}).
+ * Usage: scripts/entity-oracle.sh crates/mc-game/tests/oracle/BooksOracle.java -o crates/mc-game/tests/fixtures/books_oracle.txt
+ * Output: crates/mc-game/tests/fixtures/books_oracle.txt
  *
  * <pre>
  * SETUP slot SNBT          the stack put into the player's inventory slot (ItemStack.OPTIONAL_CODEC / NbtOps)

@@ -1,4 +1,6 @@
-// Generates mth.txt: scripts/vanilla-java.sh crates/mc-core/tests/fixtures/math/MthGolden.java > crates/mc-core/tests/fixtures/math/mth.txt
+// Generates mth.txt.
+// Usage: scripts/vanilla-java.sh -o crates/mc-core/tests/fixtures/math/mth.txt crates/mc-core/tests/fixtures/math/MthGolden.java
+// Output: crates/mc-core/tests/fixtures/math/mth.txt
 // Line format: `<fn> <args...> = <result>`; double = 16 hex raw bits, float = 8 hex raw bits, int/long decimal, bool true/false, int lists `[a,b]`.
 import java.lang.reflect.Field;
 import java.util.*;

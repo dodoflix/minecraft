@@ -8,7 +8,11 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.*;
 
-/** Decode-side golden for the block state container codec: valid, partial and broken inputs. usage: <out file> */
+/**
+ * Decode-side golden for the block state container codec: valid, partial and broken inputs.
+ * Usage: scripts/vanilla-java.sh -o crates/mc-world/tests/fixtures/palette/decode_golden.txt crates/mc-world/tests/fixtures/palette/PaletteDecodeGolden.java crates/mc-world/tests/fixtures/palette/decode_golden.txt
+ * Output: crates/mc-world/tests/fixtures/palette/decode_golden.txt
+ */
 public class PaletteDecodeGolden {
   static StringBuilder out = new StringBuilder();
   static Strategy<BlockState> bs;

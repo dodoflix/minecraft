@@ -19,7 +19,9 @@ import net.minecraft.world.level.levelgen.carver.WorldCarver;
 /**
  * Golden generator for the carvers: replays NoiseBasedChunkGenerator.generateCarvers' carver loop
  * (setLargeFeatureSeed(seed + index, srcX, srcZ); isStartChunk; carve) for all source chunks within +-8 of a target.
- * Usage: scripts/vanilla-java.sh crates/mc-worldgen/tests/oracle/CarverOracle.java crates/mc-worldgen/tests/fixtures/carvers.txt crates/mc-worldgen/tests/fixtures/carver_masks.txt
+ * Usage: scripts/vanilla-java.sh -o crates/mc-worldgen/tests/fixtures/carver_masks.txt.gz crates/mc-worldgen/tests/oracle/CarverOracle.java crates/mc-worldgen/tests/fixtures/carvers.txt crates/mc-worldgen/tests/fixtures/carver_masks.txt.gz
+ * Output: crates/mc-worldgen/tests/fixtures/carvers.txt (written through carvers.txt.tmp + move at the end) and
+ *         crates/mc-worldgen/tests/fixtures/carver_masks.txt.gz (the program writes plain text; the wrapper gzips it)
  *
  * carvers.txt:
  *   E OK|ERR json                                       accept/reject of WorldCarver.DIRECT_CODEC for an edge-case JSON
@@ -107,7 +109,7 @@ public class CarverOracle {
       for (String name : VANILLA) {
          carvers.put(name, lookup.getOrThrow(ResourceKey.create(Registries.CARVER, Identifier.withDefaultNamespace(name))).value());
       }
-      PrintWriter out = new PrintWriter(args[0]);
+      PrintWriter out = new PrintWriter(args[0] + ".tmp");
       PrintWriter dump = new PrintWriter(args[1]);
       for (String[] custom : CUSTOM) {
          out.println("D " + custom[0] + " " + custom[1]);
@@ -175,6 +177,7 @@ public class CarverOracle {
       }
       out.close();
       dump.close();
+      java.nio.file.Files.move(java.nio.file.Path.of(args[0] + ".tmp"), java.nio.file.Path.of(args[0]), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
       System.exit(0);
    }
 }

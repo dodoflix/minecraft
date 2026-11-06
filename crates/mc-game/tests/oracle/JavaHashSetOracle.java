@@ -3,7 +3,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.levelgen.LegacyRandomSource;
 
 /** Golden for tree::java_hash_set: iteration order of java.util.HashSet<BlockPos> for tree-shaped sets.
- *  Run: scripts/vanilla-java.sh crates/mc-game/tests/oracle/JavaHashSetOracle.java > crates/mc-game/tests/fixtures/java_hash_set.txt */
+ *  Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/java_hash_set.txt crates/mc-game/tests/oracle/JavaHashSetOracle.java
+ *  Output: crates/mc-game/tests/fixtures/java_hash_set.txt (stdout) */
 public class JavaHashSetOracle {
     public static void main(String[] args) {
         LegacyRandomSource r = new LegacyRandomSource(12345L);

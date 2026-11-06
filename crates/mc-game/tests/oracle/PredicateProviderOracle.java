@@ -29,9 +29,11 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
  * the vanilla data pack (feature, placed_feature, block_state_provider) plus the hand-written accept/reject/evaluation cases of
  * tests/fixtures/levelgen/predicate_provider_edge_cases.txt, decoded with the vanilla codecs and evaluated at positions of the
  * synthetic world of FeatureOracleBase (a real WorldGenRegion).
- * Usage (repo root): scripts/vanilla-java.sh crates/mc-game/tests/oracle/PredicateProviderOracle.java crates/mc-game/tests/fixtures/levelgen/predicate_provider_golden.txt
+ * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/levelgen/predicate_provider_golden.txt crates/mc-game/tests/oracle/PredicateProviderOracle.java crates/mc-game/tests/fixtures/levelgen/predicate_provider_golden.txt
+ * (FeatureOracleBase.java next to this file)
+ * Output: crates/mc-game/tests/fixtures/levelgen/predicate_provider_golden.txt
  *
- * Output lines: {@code CASE i kind json}, {@code DEC i ok|err message}, {@code SCENARIO s seed cx cz}, {@code POS s x,y,z;...},
+ * Lines: {@code CASE i kind json}, {@code DEC i ok|err message}, {@code SCENARIO s seed cx cz}, {@code POS s x,y,z;...},
  * {@code RES i s result}; a predicate result is a 0/1 string per position, a provider result is
  * {@code <state ids>|<optional state ids, -1 = null>|<next long after each pass>}; {@code X <exception>} replaces either.
  */

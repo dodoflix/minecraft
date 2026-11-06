@@ -1,5 +1,6 @@
 // Golden generator for the `inventory` play packets (containers, recipe book/displays, maps, trading, books/signs).
-// Usage: gen.sh GenInventory.java   (writes inventory.golden)
+// Usage: crates/mc-protocol/tests/fixtures/play/gen.sh GenInventory.java
+// Output: crates/mc-protocol/tests/fixtures/play/inventory.golden
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import java.nio.charset.StandardCharsets;

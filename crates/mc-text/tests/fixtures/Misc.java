@@ -9,7 +9,8 @@ import java.util.*;
 
 /**
  * Golden generator for TextColor / ChatFormatting / StringDecomposer / Style operations.
- *   scripts/vanilla-java.sh crates/mc-text/tests/fixtures/Misc.java crates/mc-text/tests/fixtures/golden.jsonl > crates/mc-text/tests/fixtures/misc.jsonl
+ * Usage: scripts/vanilla-java.sh -o crates/mc-text/tests/fixtures/misc.jsonl crates/mc-text/tests/fixtures/Misc.java crates/mc-text/tests/fixtures/golden.jsonl
+ * Output: crates/mc-text/tests/fixtures/misc.jsonl
  * (styles are taken from the J cases of golden.jsonl that decode successfully)
  */
 public class Misc {
