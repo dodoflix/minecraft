@@ -37,11 +37,6 @@
 //! * Output: `T n`, `P`/`E` lines for `dump`/`watch` (`player:`, `entity:`, `mob:`, `entities`, `mobs`, `all_players`), `HURT`, `EFFECT`,
 //!   `# note`. Base/living/player/item fields are written by this module, extra fields of the rich mob dumps by the
 //!   `SCENARIO_DUMP_EXTRA` registry.
-#![allow(
-    dead_code,
-    reason = "each test target uses a subset of the shared helpers"
-)]
-
 use super::entity_oracle::{Fixture, Options, scenario_dir};
 
 // Command families of the DSL (one file each, `pub(super) fn run(&mut Harness, &[String]) -> bool` = "handled"): mob state

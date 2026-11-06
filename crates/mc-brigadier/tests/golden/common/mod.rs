@@ -1,7 +1,7 @@
 //! Sample command tree shared by the tests; mirrors `fixtures/BrigadierGolden.java#sample`.
 #![allow(
     dead_code,
-    reason = "each test binary uses a subset of the shared helpers"
+    reason = "each test target uses a subset of the shared helpers"
 )]
 
 use std::sync::{Arc, Mutex};

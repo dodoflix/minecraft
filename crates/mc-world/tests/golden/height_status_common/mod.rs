@@ -1,7 +1,7 @@
 //! Shared test helpers.
 #![allow(
     dead_code,
-    reason = "each test binary uses a subset of the shared helpers"
+    reason = "each test target uses a subset of the shared helpers"
 )]
 
 use mc_data::Block;

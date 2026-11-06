@@ -1,9 +1,4 @@
 //! Helpers of the `region_*` oracle tests: the vanilla-java runner and the vanilla dump of a region folder.
-#![allow(
-    dead_code,
-    reason = "each test target uses a subset of the shared helpers"
-)]
-
 use crate::region_common::{fixtures, repo_root};
 use std::path::Path;
 use std::process::Command;

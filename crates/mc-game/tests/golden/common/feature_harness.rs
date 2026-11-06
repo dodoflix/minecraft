@@ -16,11 +16,6 @@
 //! `GenEnv` has the real overworld `NoiseBasedChunkGenerator` and `RandomState` of the seed (as the Java oracle's
 //! `generator()`/`randomState(seed)`) and the vanilla feature registries (when all of them decode; otherwise empty ones
 //! so tests of the level itself still run).
-#![allow(
-    dead_code,
-    reason = "each test target uses a subset of the shared helpers"
-)]
-
 use std::collections::HashMap;
 use std::sync::{Arc, LazyLock};
 

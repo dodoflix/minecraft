@@ -1,7 +1,3 @@
-#![allow(
-    dead_code,
-    reason = "each test target uses a subset of the shared helpers"
-)]
 //! Dual-server survival scenarios: the SAME bot script against the real vanilla server (observations committed as
 //! `tests/fixtures/entity_dual/*.txt`, regenerate with `MC_UPDATE_FIXTURES=1 cargo test -p mc-server --test oracle
 //! entity_dual_vanilla -- --ignored`) and OUR server (`entity_dual_ours` diffs its observations against those fixtures and writes

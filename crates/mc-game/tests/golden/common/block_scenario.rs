@@ -23,11 +23,6 @@
 //! tickers; `random_tick_speed` defaults to 0 like the oracle), game time advances one per tick. Prefer `tick_chunk` + `rand_value` to
 //! `gamerule random_tick_speed`: whole-level random ticking depends on chunk iteration order, which the two servers do not share.
 //! `gamerule` goes through the real `GameRules` (all rules).
-#![allow(
-    dead_code,
-    reason = "each test target uses a subset of the shared helpers"
-)]
-
 #[path = "block_scenario_actors.rs"]
 mod actors;
 use super::entity_oracle::{Fixture, Options, compare, fixture_dir, scenario_dir};
