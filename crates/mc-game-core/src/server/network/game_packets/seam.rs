@@ -209,16 +209,6 @@ impl PlayCtx<'_> {
         self.player.player.abilities.instabuild
     }
 
-    /// `server.allowFlight()`.
-    pub(super) fn allow_flight(&self) -> bool {
-        self.server.allow_flight()
-    }
-
-    /// `server.playerIdleTimeout()` (minutes).
-    pub(super) fn player_idle_timeout(&self) -> i32 {
-        self.server.player_idle_timeout()
-    }
-
     /// `level.getMaxY()` / `getMinY()`.
     pub(super) fn max_y(&self) -> i32 {
         self.level.get_max_y()

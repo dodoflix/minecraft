@@ -50,11 +50,11 @@ fn in_portal_dimension(level: &ServerLevel) -> bool {
 /// `BaseFireBlock.onPlace`: a fire inside a valid empty frame lights the portal (`FireBlock` then schedules its tick).
 pub fn on_place(state: BlockState, level: &mut ServerLevel, pos: BlockPos, old_state: BlockState) {
     if !old_state.is_block(state.block()) {
-        if in_portal_dimension(level) {
-            if let Some(shape) = PortalShape::find_empty_portal_shape(&*level, pos, Axis::X) {
-                shape.create_portal_blocks(level);
-                return;
-            }
+        if in_portal_dimension(level)
+            && let Some(shape) = PortalShape::find_empty_portal_shape(&*level, pos, Axis::X)
+        {
+            shape.create_portal_blocks(level);
+            return;
         }
 
         if !state.can_survive(&*level, pos) {

@@ -121,7 +121,7 @@ impl Container for MerchantContainer {
     }
 }
 
-fn trade_container<'a>(locals: &'a mut [Box<dyn Container>]) -> &'a mut MerchantContainer {
+fn trade_container(locals: &mut [Box<dyn Container>]) -> &mut MerchantContainer {
     locals[TRADE_LOCAL]
         .as_any_mut()
         .downcast_mut::<MerchantContainer>()
@@ -529,7 +529,6 @@ impl AbstractContainerMenu for MerchantMenu {
     }
 
     fn still_valid(&self, player: &dyn MenuPlayer) -> bool {
-        use crate::world::entity::Entity;
         let me = player.entity_id();
         player
             .level_ref()

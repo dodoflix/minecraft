@@ -148,7 +148,6 @@ struct RecipeData {
     recipe_to_display: HashMap<Identifier, Vec<usize>>,
     learnable_recipes: Vec<RecipeHolder>,
     registries: RegistryAccess,
-    enabled_features: Option<FeatureFlagSet>,
 }
 
 /// `RecipeManager`.
@@ -182,7 +181,6 @@ impl RecipeManager {
         }
         let mut data = RecipeData {
             registries: registries.clone(),
-            enabled_features: Some(enabled_features),
             ..RecipeData::default()
         };
         for (index, holder) in recipes.iter().enumerate() {
@@ -212,10 +210,10 @@ impl RecipeManager {
         level: &ServerLevel,
         hint: Option<&Identifier>,
     ) -> Option<RecipeHolder> {
-        if let Some(hinted) = hint.and_then(|id| self.by_key_typed(ty, id)) {
-            if input.matches(&hinted.value, level) {
-                return Some(hinted.clone());
-            }
+        if let Some(hinted) = hint.and_then(|id| self.by_key_typed(ty, id))
+            && input.matches(&hinted.value, level)
+        {
+            return Some(hinted.clone());
         }
         self.recipes_for(ty, input, level).next().cloned()
     }
@@ -348,21 +346,20 @@ impl RecipeData {
             for (key, ingredients) in &mut collectors {
                 collect_property_ingredients(key, recipe, ingredients);
             }
-            if let Some(s) = recipe.as_stonecutter() {
-                if is_ingredient_enabled(enabled, s.input())
-                    && crate::world::item::crafting::display::slot_display_enabled(
-                        &s.result_display(),
-                        enabled,
-                    )
-                {
-                    stonecutter.push(SingleInputEntry {
-                        input: s.input().clone(),
-                        recipe: SelectableRecipe {
-                            option_display: s.result_display(),
-                            recipe: Some(holder.clone()),
-                        },
-                    });
-                }
+            if let Some(s) = recipe.as_stonecutter()
+                && is_ingredient_enabled(enabled, s.input())
+                && crate::world::item::crafting::display::slot_display_enabled(
+                    &s.result_display(),
+                    enabled,
+                )
+            {
+                stonecutter.push(SingleInputEntry {
+                    input: s.input().clone(),
+                    recipe: SelectableRecipe {
+                        option_display: s.result_display(),
+                        recipe: Some(holder.clone()),
+                    },
+                });
             }
         }
         self.property_sets = collectors

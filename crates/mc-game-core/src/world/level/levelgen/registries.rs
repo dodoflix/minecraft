@@ -58,11 +58,13 @@ impl<T: ?Sized> TypedRegistry<T> {
     }
 }
 
+type CellMap = RefCell<HashMap<(&'static str, Identifier), Arc<dyn Any + Send + Sync>>>;
+
 /// Holder cells shared by every registry that is decoded against the same data source.
 pub struct Cells {
     source: Arc<dyn WorldgenDataSource>,
     known: RefCell<HashMap<&'static str, HashSet<Identifier>>>,
-    cells: RefCell<HashMap<(&'static str, Identifier), Arc<dyn Any + Send + Sync>>>,
+    cells: CellMap,
 }
 
 impl Cells {

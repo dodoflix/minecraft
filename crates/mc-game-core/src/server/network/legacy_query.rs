@@ -227,7 +227,7 @@ mod tests {
         );
         assert_eq!(
             create_version1_response(&info),
-            "\u{a7}1\0127\026.3\0A Minecraft Server\01\020"
+            "\u{a7}1\x00127\x0026.3\0A Minecraft Server\x001\x0020"
         );
         let packet = create_legacy_disconnect_packet("ab\u{a7}");
         assert_eq!(packet, [255, 0, 3, 0, b'a', 0, b'b', 0, 0xa7]);

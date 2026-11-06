@@ -11,7 +11,7 @@ use std::time::Duration;
 use futures_util::{SinkExt, StreamExt};
 use parking_lot::Mutex;
 use tokio::io::{AsyncRead, AsyncWrite};
-use tokio::net::{TcpListener, TcpStream};
+use tokio::net::TcpListener;
 use tokio::sync::mpsc::{UnboundedSender, unbounded_channel};
 use tokio::task::JoinHandle;
 use tokio_rustls::TlsAcceptor;
@@ -198,7 +198,7 @@ async fn accept_loop(
     }
 }
 
-fn header_str<'a>(request: &'a Request, name: header::HeaderName) -> Option<&'a str> {
+fn header_str(request: &Request, name: header::HeaderName) -> Option<&str> {
     request.headers().get(name).and_then(|v| v.to_str().ok())
 }
 
@@ -223,6 +223,10 @@ async fn serve_connection<S>(
 ) where
     S: AsyncRead + AsyncWrite + Unpin + Send + 'static,
 {
+    #[expect(
+        clippy::result_large_err,
+        reason = "the tungstenite handshake `Callback` signature fixes `ErrorResponse` as the error type"
+    )]
     let callback = |request: &Request, mut response: Response| -> Result<Response, ErrorResponse> {
         let check = auth.check(
             header_str(request, header::AUTHORIZATION),

@@ -207,7 +207,7 @@ impl IntermediaryFormat {
                 supported: formats,
             });
         }
-        let format = optional(o, "pack_format", |v| get_int(v));
+        let format = optional(o, "pack_format", get_int);
         let supported = optional(o, "supported_formats", decode_int_range);
         let (((min, max), format), supported) =
             join_errors(join_errors(join_errors(min, max), format), supported)?;
@@ -304,10 +304,11 @@ impl IntermediaryFormat {
                     last_pre_minor + 1
                 ));
             }
-            if has_pack_format_field && self.format.is_some() {
-                if let Some(e) = self.validate_pack_format_for_range(major_min, major_max) {
-                    return Err(e);
-                }
+            if has_pack_format_field
+                && self.format.is_some()
+                && let Some(e) = self.validate_pack_format_for_range(major_min, major_max)
+            {
+                return Err(e);
             }
         } else {
             let Some(old) = self.supported else {

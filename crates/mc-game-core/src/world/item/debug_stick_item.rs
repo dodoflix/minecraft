@@ -4,7 +4,7 @@ use super::{InteractionResult, ItemBehaviour, ItemStack, UseOnContext};
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
 use crate::world::entity::ServerPlayer;
-use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
+use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
 use mc_data::props::PropertyDef;

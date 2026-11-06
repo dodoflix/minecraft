@@ -2,10 +2,10 @@
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use crate::world::item::{InteractionResult, ItemStack};
+use crate::world::level::LevelAccessor;
 use crate::world::level::block::helpers;
 use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::storage::loot::block_drops::block_interact_drops;
-use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;

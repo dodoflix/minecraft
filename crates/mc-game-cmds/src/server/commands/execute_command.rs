@@ -1190,5 +1190,5 @@ fn instantiation_failure(
     e: &FunctionInstantiationException,
 ) -> CommandSyntaxException {
     ERROR_FUNCTION_CONDITION_INSTANTATION_FAILURE
-        .create(id.to_string(), e.message_component.clone())
+        .create(id.to_string(), (*e.message_component).clone())
 }

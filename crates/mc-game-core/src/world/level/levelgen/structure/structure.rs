@@ -367,7 +367,6 @@ pub trait Structure: Send + Sync {
     fn type_name(&self) -> &'static str;
 
     /// `afterPlace(level, structureManager, generator, random, chunkBB, chunkPos, pieces)`.
-    #[allow(clippy::too_many_arguments)]
     fn after_place(
         &self,
         _level: &mut dyn WorldGenLevel,

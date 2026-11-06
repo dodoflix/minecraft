@@ -198,14 +198,14 @@ impl UserNameToIdResolver for CachedUserNameToIdResolver {
         let user_name = lower(name);
         let mut needs_save = false;
         let mut cached = self.state.lock().by_name.get(&user_name).cloned();
-        if let Some(info) = &cached {
-            if Date::from(std::time::SystemTime::now()) >= info.expiration_date {
-                let mut state = self.state.lock();
-                state.by_uuid.remove(&info.name_and_id.id);
-                state.by_name.remove(&lower(&info.name_and_id.name));
-                needs_save = true;
-                cached = None;
-            }
+        if let Some(info) = &cached
+            && Date::from(std::time::SystemTime::now()) >= info.expiration_date
+        {
+            let mut state = self.state.lock();
+            state.by_uuid.remove(&info.name_and_id.id);
+            state.by_name.remove(&lower(&info.name_and_id.name));
+            needs_save = true;
+            cached = None;
         }
         let result = match cached {
             Some(info) => {
@@ -294,14 +294,13 @@ fn cached_get<K: Clone + Eq + std::hash::Hash, T: Clone>(
     }
     let value = load();
     let mut cache = cache.lock();
-    if cache.len() >= PROFILE_CACHE_MAX {
-        if let Some(oldest) = cache
+    if cache.len() >= PROFILE_CACHE_MAX
+        && let Some(oldest) = cache
             .iter()
             .min_by_key(|(_, e)| e.last_access)
             .map(|(k, _)| k.clone())
-        {
-            cache.remove(&oldest);
-        }
+    {
+        cache.remove(&oldest);
     }
     cache.insert(
         key.clone(),

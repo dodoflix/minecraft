@@ -1,14 +1,12 @@
 //! `Items.POTION`: a water bottle turns the block in front into mud when it is convertible, else it is dropped.
 
 use crate::world::dispenser::{
-    BlockSource, DispenseItemBehavior, DispenseTemplate, Templated, consume_with_remainder,
-    default_behavior,
+    BlockSource, DispenseTemplate, Templated, consume_with_remainder, default_behavior,
 };
 use crate::world::effect::potion_contents;
 use crate::world::item::ItemStack;
 use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::{BlockGetter, LevelAccessor};
-use mc_core::random::RandomSource;
 use mc_data::block::Block;
 use mc_data::{GameEvent, Item, ParticleType, Potion, SoundEvent};
 use mc_protocol::components::POTION_CONTENTS;

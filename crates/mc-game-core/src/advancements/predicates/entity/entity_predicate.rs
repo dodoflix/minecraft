@@ -33,6 +33,7 @@ pub trait EntitySubPredicateImpl: Sized {
 macro_rules! entity_sub_predicates {
     ($($variant:ident($name:literal, $ty:ty)),* $(,)?) => {
         /// `EntitySubPredicate` implementations in `EntitySubPredicates.bootstrap` order.
+        #[expect(clippy::large_enum_variant, reason = "one variant per vanilla EntitySubPredicate type; boxing would change every construction/pattern site of the generated enum")]
         #[derive(Clone, Debug, PartialEq)]
         pub enum EntitySubPredicate {
             $($variant($ty)),*

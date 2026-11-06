@@ -416,14 +416,13 @@ impl EntityTracker {
             let needs_sync = entity.base().needs_sync;
             if section_changed {
                 t.update_players(entities, env, players);
-                if t.is_player {
-                    if let Some(p) = entities
+                if t.is_player
+                    && let Some(p) = entities
                         .get_any(t.entity_id)
                         .and_then(|e| e.as_any().downcast_ref::<ServerPlayer>())
                         .map(TrackerPlayer::of)
-                    {
-                        moved_players.push(p);
-                    }
+                {
+                    moved_players.push(p);
                 }
                 t.last_section_pos = new_pos;
             }

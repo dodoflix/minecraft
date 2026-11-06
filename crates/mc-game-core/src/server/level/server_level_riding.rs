@@ -53,7 +53,7 @@ impl ServerLevel {
         &mut self,
         rider: &mut dyn Entity,
         vehicle_id: EntityId,
-        mut held_vehicle: Option<&mut dyn Entity>,
+        held_vehicle: Option<&mut dyn Entity>,
         force: bool,
         send_event_and_triggers: bool,
     ) -> bool {
@@ -102,7 +102,7 @@ impl ServerLevel {
         let first_is_player = first_passenger
             .and_then(|p| self.entity_manager.get_any(p))
             .is_some_and(|p| p.is_player());
-        let position = match held_vehicle.as_deref_mut() {
+        let position = match held_vehicle {
             Some(v) => {
                 v.add_passenger(&*rider, first_is_player);
                 v.after_add_passenger(rider);
@@ -191,10 +191,9 @@ impl ServerLevel {
             .base()
             .removal_reason()
             .is_none_or(|r| r.should_destroy())
+            && let Some(p) = vehicle_position
         {
-            if let Some(p) = vehicle_position {
-                self.game_event_from_entity(Some(rider_id), GameEvent::ENTITY_DISMOUNT, p);
-            }
+            self.game_event_from_entity(Some(rider_id), GameEvent::ENTITY_DISMOUNT, p);
         }
         if rider.is_player() {
             rider.base_mut().boarding_cooldown = 0;
@@ -415,10 +414,10 @@ impl ServerLevel {
     pub fn ride_tick(&mut self, passenger: &mut dyn Entity) {
         passenger.base_mut().set_delta_movement(Vec3::ZERO);
         passenger.tick(self);
-        if let Some(vehicle_id) = passenger.base().vehicle {
-            if let Some(vehicle) = self.entity_manager.get_any(vehicle_id) {
-                vehicle.position_rider(passenger);
-            }
+        if let Some(vehicle_id) = passenger.base().vehicle
+            && let Some(vehicle) = self.entity_manager.get_any(vehicle_id)
+        {
+            vehicle.position_rider(passenger);
         }
         passenger.after_ride_tick(self);
     }

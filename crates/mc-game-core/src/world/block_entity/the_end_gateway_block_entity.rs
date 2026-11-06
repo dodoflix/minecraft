@@ -7,14 +7,14 @@ use super::{
 use crate::commands::arguments::coordinates::block_pos_argument::is_in_spawnable_bounds;
 use crate::server::level::ServerLevel;
 use crate::server::world_dimensions::end_key;
-use crate::world::level::block::{BlockStateExt, behaviour};
+use crate::world::level::BlockGetter;
+use crate::world::level::block::behaviour;
 use crate::world::level::levelgen::feature::Feature;
 use crate::world::level::levelgen::feature::end_gateway_feature::EndGatewayFeature;
-use crate::world::level::{BlockGetter, LevelReader};
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
-use mc_core::random::{LegacyRandomSource, RandomSource};
+use mc_core::random::LegacyRandomSource;
 use mc_data::BlockEntityType;
 use mc_data::block::BlockState;
 use mc_nbt::CompoundTag;

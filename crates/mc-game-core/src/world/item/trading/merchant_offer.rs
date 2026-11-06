@@ -59,7 +59,6 @@ impl MerchantOffer {
     }
 
     /// `new MerchantOffer(baseCostA, costB, result, uses, maxUses, xp, priceMultiplier, demand)`.
-    #[allow(clippy::too_many_arguments)]
     pub fn with_uses(
         base_cost_a: ItemCost,
         cost_b: Option<ItemCost>,

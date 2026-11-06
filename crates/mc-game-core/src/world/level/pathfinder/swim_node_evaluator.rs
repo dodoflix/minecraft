@@ -3,7 +3,6 @@
 use super::node::NodeId;
 use super::node_evaluator::{NodeEvaluator, PathEnv};
 use super::path_type::PathType;
-use crate::world::level::BlockGetter;
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::material::FluidStateExt;
 use mc_core::direction::Direction;

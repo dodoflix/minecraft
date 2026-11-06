@@ -90,7 +90,7 @@ impl GameRuleCategory {
     /// `label()`: `gamerule.category.<namespace>.<path>` translatable.
     pub fn label(&self) -> Component {
         Component::translatable(
-            &self.id.to_language_key_prefixed("gamerule.category"),
+            self.id.to_language_key_prefixed("gamerule.category"),
             vec![],
         )
     }

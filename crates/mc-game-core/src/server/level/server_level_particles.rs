@@ -10,7 +10,6 @@ use mc_protocol::packets::play::{
 
 impl ServerLevel {
     /// `sendParticles(particle, x, y, z, count, xDist, yDist, zDist, speed)`: returns how many players got the packet.
-    #[allow(clippy::too_many_arguments)]
     pub fn send_particles(
         &self,
         particle: ParticleOptions,
@@ -42,7 +41,10 @@ impl ServerLevel {
     }
 
     /// The general `sendParticles(particle, overrideLimiter, alwaysShow, x, y, z, count, xDist, yDist, zDist, xSpeed, ySpeed, zSpeed, randomizationType)`.
-    #[allow(clippy::too_many_arguments)]
+    #[expect(
+        clippy::too_many_arguments,
+        reason = "mirrors vanilla ServerLevel.sendParticles (14 parameters)"
+    )]
     pub fn send_particles_full(
         &self,
         particle: ParticleOptions,

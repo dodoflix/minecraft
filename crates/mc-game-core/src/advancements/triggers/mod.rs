@@ -79,7 +79,10 @@ pub mod used_totem_trigger;
 pub mod using_item_trigger;
 
 /// What the trigger modules need (`use super::prelude::*;`).
-#[allow(unused_imports)]
+#[allow(
+    unused_imports,
+    reason = "shared prelude glob-imported by every trigger module; each module uses a different subset"
+)]
 pub(crate) mod prelude {
     pub use super::{
         CriteriaTriggers, CriterionTriggerInstance, SimpleInstance, Trigger, TriggerInstance,

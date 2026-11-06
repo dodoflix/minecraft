@@ -75,7 +75,7 @@ impl FunctionBuilder {
             .push(MacroEntry::Macro {
                 template: parse_results,
                 parameters,
-                compilation_context: compilation_context.clone(),
+                compilation_context: Box::new(compilation_context.clone()),
             });
         Ok(())
     }

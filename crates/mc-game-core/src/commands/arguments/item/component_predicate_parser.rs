@@ -309,10 +309,10 @@ impl<'a, X: Context> Parser<'a, X> {
             return Some(t);
         }
         self.reader.set_cursor(mark);
-        if self.ch('!') {
-            if let Some(t) = self.test() {
-                return Some(self.ctx.negate(t));
-            }
+        if self.ch('!')
+            && let Some(t) = self.test()
+        {
+            return Some(self.ctx.negate(t));
         }
         self.reader.set_cursor(mark);
         None
@@ -416,7 +416,7 @@ pub fn parse_for_commands<X: Context>(
         return Ok(r);
     }
     let cursor = parser.errors.last_cursor.max(0) as usize;
-    for (_, reason) in parser.errors.entries {
+    if let Some((_, reason)) = parser.errors.entries.into_iter().next() {
         match reason {
             Reason::Exception(e) => return Err(e),
             Reason::Literal(c) => {

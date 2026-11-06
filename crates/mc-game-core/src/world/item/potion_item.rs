@@ -4,8 +4,8 @@
 
 use super::throwable::{ThrowKind, throw_item};
 use super::{
-    InteractionHand, InteractionResult, ItemBehaviour, ItemStack, ItemStackExt, PlainItem,
-    UseOnContext, create_filled_result, player_pov_hit_result,
+    InteractionHand, InteractionResult, ItemBehaviour, ItemStack, PlainItem, UseOnContext,
+    create_filled_result, player_pov_hit_result,
 };
 use crate::register_item_class;
 use crate::server::level::ServerLevel;

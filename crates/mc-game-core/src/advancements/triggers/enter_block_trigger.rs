@@ -1,10 +1,7 @@
 //! `EnterBlockTrigger`: `enter_block`.
 
 use super::prelude::*;
-use crate::world::container::Container;
-use mc_protocol::components::{
-    PotionContents, PotionsPredicate, RegistrySet, StatePropertiesPredicate,
-};
+use mc_protocol::components::{RegistrySet, StatePropertiesPredicate};
 
 /// `EnterBlockTrigger.TriggerInstance`.
 #[derive(Clone)]

@@ -31,6 +31,7 @@ struct BorrowedRandom {
 // SAFETY: the pointer is only dereferenced under the mutex while `scoped` (which owns the `&mut` it was made from) is
 // running on the creating thread's call stack; `scoped` clears it before returning, and `RandomSource: Send`.
 unsafe impl Send for BorrowedRandom {}
+// SAFETY: as for `Send`: the pointer is only reached through the mutex, under the same `scoped` lifetime.
 unsafe impl Sync for BorrowedRandom {}
 
 impl SharedRandom {

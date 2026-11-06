@@ -4,7 +4,6 @@ use crate::server::level::ServerLevel;
 use crate::world::item::ItemStack;
 use crate::world::item::crafting::CraftingInput;
 use crate::world::level::level_access::LevelAccessor as _;
-use mc_core::random::RandomSource;
 use mc_data::{Item, RecipeType};
 use mc_protocol::components::{DYE, DyeColor};
 

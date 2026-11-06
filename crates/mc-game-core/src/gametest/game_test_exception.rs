@@ -8,30 +8,33 @@ use mc_text::Component;
 #[derive(Clone, Debug)]
 pub enum GameTestException {
     /// `GameTestAssertException(message, tick)`.
-    Assert { message: Component, tick: i32 },
+    Assert { message: Box<Component>, tick: i32 },
     /// `GameTestAssertPosException(baseMessage, absolutePos, relativePos, tick)`.
     AssertPos {
-        message: Component,
+        message: Box<Component>,
         absolute_pos: BlockPos,
         relative_pos: BlockPos,
         tick: i32,
     },
     /// `GameTestTimeoutException(message)`.
-    Timeout { message: Component },
+    Timeout { message: Box<Component> },
     /// `UnknownGameTestException(reason)`: the message of the wrapped throwable.
     Unknown { reason: String },
 }
 
 impl GameTestException {
     pub fn assert(message: Component, tick: i32) -> Self {
-        Self::Assert { message, tick }
+        Self::Assert {
+            message: Box::new(message),
+            tick,
+        }
     }
 
     /// `getDescription()`.
     pub fn description(&self) -> Component {
         match self {
             Self::Assert { message, tick } => {
-                translatable!("test.error.tick", message.clone(), *tick)
+                translatable!("test.error.tick", (**message).clone(), *tick)
             }
             Self::AssertPos {
                 message,
@@ -40,7 +43,7 @@ impl GameTestException {
                 tick,
             } => translatable!(
                 "test.error.position",
-                message.clone(),
+                (**message).clone(),
                 absolute_pos.x(),
                 absolute_pos.y(),
                 absolute_pos.z(),
@@ -49,7 +52,7 @@ impl GameTestException {
                 relative_pos.z(),
                 *tick
             ),
-            Self::Timeout { message } => message.clone(),
+            Self::Timeout { message } => (**message).clone(),
             Self::Unknown { reason } => translatable!("test.error.unknown", reason.clone()),
         }
     }
@@ -76,7 +79,7 @@ impl GameTestException {
                 message,
                 absolute_pos,
                 ..
-            } => Some((*absolute_pos, message.clone())),
+            } => Some((*absolute_pos, (**message).clone())),
             _ => None,
         }
     }
@@ -137,7 +140,7 @@ mod tests {
         let assert = GameTestException::assert(Component::literal("boom"), 7);
         assert_eq!(assert.get_message(), "boom on tick 7");
         let at = GameTestException::AssertPos {
-            message: Component::literal("bad"),
+            message: Box::new(Component::literal("bad")),
             absolute_pos: BlockPos::new(1, 2, 3),
             relative_pos: BlockPos::new(0, 1, 2),
             tick: 4,
@@ -148,7 +151,7 @@ mod tests {
         );
         assert_eq!(
             GameTestException::Timeout {
-                message: Component::literal("late")
+                message: Box::new(Component::literal("late"))
             }
             .get_message(),
             "late"

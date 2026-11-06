@@ -34,6 +34,10 @@ impl ChunkSendSink for Sink {
     }
 }
 
+#[expect(
+    clippy::print_stderr,
+    reason = "stuck-chunk diagnostics printed right before the timeout panic; this helper is not a #[test] fn"
+)]
 fn run_until(level: &mut ServerLevel, what: &str, mut done: impl FnMut(&mut ServerLevel) -> bool) {
     let start = Instant::now();
     while !done(level) {

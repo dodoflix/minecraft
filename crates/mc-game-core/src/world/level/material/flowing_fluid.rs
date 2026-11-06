@@ -281,7 +281,6 @@ fn is_water_hole<F: FlowingFluid + ?Sized>(
     }
 }
 
-#[allow(clippy::too_many_arguments)]
 fn can_maybe_pass_through<F: FlowingFluid + ?Sized>(
     f: &F,
     level: &dyn BlockGetter,
@@ -304,7 +303,6 @@ fn can_maybe_pass_through<F: FlowingFluid + ?Sized>(
         )
 }
 
-#[allow(clippy::too_many_arguments)]
 fn can_pass_through<F: FlowingFluid + ?Sized>(
     f: &F,
     level: &dyn BlockGetter,
@@ -393,7 +391,6 @@ impl<'a> SpreadContext<'a> {
     }
 }
 
-#[allow(clippy::too_many_arguments)]
 fn get_slope_distance<F: FlowingFluid + ?Sized>(
     f: &F,
     level: &dyn LevelReader,

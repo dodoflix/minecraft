@@ -18,7 +18,7 @@ pub enum MacroEntry {
     Macro {
         template: StringTemplate,
         parameters: Vec<usize>,
-        compilation_context: CommandSourceStack,
+        compilation_context: Box<CommandSourceStack>,
     },
 }
 

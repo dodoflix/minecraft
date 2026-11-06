@@ -5,7 +5,7 @@
 //! it is taken out of the level and handed in as `&mut dyn Entity`; the weapon stack is the caller's `&mut ItemStack`
 //! (written back to its slot by the caller).
 
-use super::{InteractionHand, ItemStack, ItemStackExt as _, hurt_and_break_stack};
+use super::{InteractionHand, ItemStack, hurt_and_break_stack};
 use crate::server::level::ServerLevel;
 use crate::world::container::Container;
 use crate::world::entity::equipment::EquipmentSlot;
@@ -45,7 +45,6 @@ pub trait ProjectileWeapon {
     }
 
     /// `shootProjectile(shooter, projectile, index, power, uncertainty, angle, targetOverride)`.
-    #[allow(clippy::too_many_arguments)]
     fn shoot_projectile(
         &self,
         level: &mut ServerLevel,
@@ -329,7 +328,6 @@ pub fn draw(
 }
 
 /// `ProjectileWeaponItem.shoot(level, shooter, hand, weapon, projectiles, power, uncertainty, isCrit, targetOverride)`.
-#[allow(clippy::too_many_arguments)]
 pub fn shoot(
     weapon_impl: &dyn ProjectileWeapon,
     level: &mut ServerLevel,

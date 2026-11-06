@@ -292,14 +292,6 @@ pub(crate) mod test_support {
             }
             out
         }
-
-        pub fn payloads(&mut self) -> Vec<Arc<[u8]>> {
-            let mut out = Vec::new();
-            while let Ok(Outbound::Payload(bytes)) = self.0.try_recv() {
-                out.push(bytes);
-            }
-            out
-        }
     }
 
     pub fn handle(id: i32, name: &str, dimension: &str) -> (PlayerHandle, Wire) {

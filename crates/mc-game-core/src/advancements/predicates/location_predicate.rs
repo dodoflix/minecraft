@@ -160,10 +160,10 @@ impl LocationPredicate {
                 return false;
             }
         }
-        if let Some(smokey) = self.smokey {
-            if !(loaded && smokey == CampfireBlock::is_smokey_pos(level, pos)) {
-                return false;
-            }
+        if let Some(smokey) = self.smokey
+            && !(loaded && smokey == CampfireBlock::is_smokey_pos(level, pos))
+        {
+            return false;
         }
         if self.light.as_ref().is_some_and(|l| !l.matches(level, pos)) {
             return false;

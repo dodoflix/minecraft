@@ -144,12 +144,11 @@ impl crate::server::network::game_packets::hooks::PlayHandlers for AdvancementPa
         packet: &mc_protocol::packets::play::ServerboundSeenAdvancementsPacket,
     ) {
         if let mc_protocol::packets::play::ServerboundSeenAdvancementsPacket::OpenedTab(id) = packet
+            && let Some(advancement) = ctx.server.advancements().get(id).cloned()
         {
-            if let Some(advancement) = ctx.server.advancements().get(id).cloned() {
-                ctx.player
-                    .advancements
-                    .set_selected_tab(ctx.player, Some(&advancement));
-            }
+            ctx.player
+                .advancements
+                .set_selected_tab(ctx.player, Some(&advancement));
         }
     }
 }

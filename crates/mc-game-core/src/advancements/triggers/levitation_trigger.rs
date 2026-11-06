@@ -1,7 +1,7 @@
 //! `LevitationTrigger`: `levitation`.
 
 use super::prelude::*;
-use crate::advancements::predicates::{DistancePredicate, LocationPredicate};
+use crate::advancements::predicates::DistancePredicate;
 
 /// `LevitationTrigger.TriggerInstance`.
 #[derive(Clone)]

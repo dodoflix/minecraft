@@ -263,27 +263,27 @@ fn float_provider_base_codec() -> Codec<FloatProvider> {
 pub fn float_provider_codec(min: Option<f32>, max: Option<f32>) -> Codec<FloatProvider> {
     let jf = mc_core::math::java::java_float_to_string;
     float_provider_base_codec().validate(move |v: FloatProvider| {
-        if let Some(lo) = min {
-            if v.min() < lo {
-                let m = format!(
-                    "Value provider too low: {} [{}-{}]",
-                    jf(lo),
-                    jf(v.min()),
-                    jf(v.max())
-                );
-                return DataResult::error(move || m.clone());
-            }
+        if let Some(lo) = min
+            && v.min() < lo
+        {
+            let m = format!(
+                "Value provider too low: {} [{}-{}]",
+                jf(lo),
+                jf(v.min()),
+                jf(v.max())
+            );
+            return DataResult::error(move || m.clone());
         }
-        if let Some(hi) = max {
-            if v.max() > hi {
-                let m = format!(
-                    "Value provider too high: {} [{}-{}]",
-                    jf(hi),
-                    jf(v.min()),
-                    jf(v.max())
-                );
-                return DataResult::error(move || m.clone());
-            }
+        if let Some(hi) = max
+            && v.max() > hi
+        {
+            let m = format!(
+                "Value provider too high: {} [{}-{}]",
+                jf(hi),
+                jf(v.min()),
+                jf(v.max())
+            );
+            return DataResult::error(move || m.clone());
         }
         DataResult::success(v)
     })
@@ -820,7 +820,7 @@ fn vec3i_offset_schema(max: i32, _required: bool) -> Schema {
             })
             .collect::<Result<_, _>>()?;
         if ints.len() != 3 {
-            return Err(format!("Input is not a list of 3 elements"));
+            return Err("Input is not a list of 3 elements".to_string());
         }
         if ints.iter().any(|i| i.unsigned_abs() as i64 > max as i64) {
             return Err(format!(

@@ -21,6 +21,8 @@ use mc_nbt::Tag;
 use mc_protocol::packets::play::ArgumentTypeTemplate;
 use std::sync::{Arc, LazyLock};
 
+type KeyFilter = Arc<dyn Fn(&Identifier) -> bool + Send + Sync>;
+
 /// `ResourceKey<T>`: a registry key and the element id in it.
 #[derive(Clone, PartialEq, Eq, Hash, Debug)]
 pub struct ResourceKey {
@@ -267,7 +269,7 @@ impl ArgumentType<CommandSourceStack> for ResourceArgument {
 #[derive(Clone)]
 pub struct ResourceKeyArgument {
     registry_key: Identifier,
-    filter: Option<Arc<dyn Fn(&Identifier) -> bool + Send + Sync>>,
+    filter: Option<KeyFilter>,
 }
 
 registry_argument!(ResourceKeyArgument);

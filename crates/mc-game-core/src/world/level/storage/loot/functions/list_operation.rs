@@ -81,13 +81,12 @@ impl ListOperation {
                 if let ListOperation::ReplaceSection {
                     size: Some(size), ..
                 } = &op
+                    && *size as i64 > max_size as i64
                 {
-                    if *size as i64 > max_size as i64 {
-                        let (size, max) = (*size, max_size);
-                        return DataResult::error(move || {
-                            format!("Size value too large: {size}, max size is {max}")
-                        });
-                    }
+                    let (size, max) = (*size, max_size);
+                    return DataResult::error(move || {
+                        format!("Size value too large: {size}, max size is {max}")
+                    });
                 }
                 DataResult::success(op)
             })

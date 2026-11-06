@@ -123,9 +123,9 @@ fn is_sticky(state: BlockState) -> bool {
 }
 
 fn can_stick_to_each_other(state1: BlockState, state2: BlockState) -> bool {
-    if state1.is_block(Block::HONEY_BLOCK) && state2.is_block(Block::SLIME_BLOCK) {
-        false
-    } else if state1.is_block(Block::SLIME_BLOCK) && state2.is_block(Block::HONEY_BLOCK) {
+    if (state1.is_block(Block::HONEY_BLOCK) && state2.is_block(Block::SLIME_BLOCK))
+        || (state1.is_block(Block::SLIME_BLOCK) && state2.is_block(Block::HONEY_BLOCK))
+    {
         false
     } else {
         is_sticky(state1) || is_sticky(state2)

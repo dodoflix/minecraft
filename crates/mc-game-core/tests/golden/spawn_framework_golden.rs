@@ -18,7 +18,7 @@ use std::sync::Arc;
 
 const GOLDEN: &str = include_str!("../../../mc-game/tests/fixtures/spawn_framework_golden.txt");
 
-fn section<'a>(prefix: &'a str) -> impl Iterator<Item = &'a str> {
+fn section(prefix: &str) -> impl Iterator<Item = &str> {
     GOLDEN.lines().filter(move |l| l.starts_with(prefix))
 }
 

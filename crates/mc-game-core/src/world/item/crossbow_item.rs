@@ -6,7 +6,7 @@ use super::projectile_weapon_item::{
 };
 use super::{
     APPROXIMATELY_INFINITE_USE_DURATION, InteractionHand, InteractionResult, ItemBehaviour,
-    ItemStack, ItemStackExt as _, holder_sound,
+    ItemStack, holder_sound,
 };
 use crate::register_item_class;
 use crate::server::level::ServerLevel;

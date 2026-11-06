@@ -24,7 +24,10 @@ pub static PLAY_HANDLERS: [&'static dyn PlayHandlers] = [..];
 #[distributed_slice]
 pub static PLAYER_SYSTEMS: [&'static dyn PlayerSystems] = [..];
 
-#[allow(unused_variables)]
+#[expect(
+    unused_variables,
+    reason = "default no-op bodies; the parameters document the vanilla call shape"
+)]
 pub trait PlayerSystems: Sync {
     /// `ServerPlayer.jumpFromGround` (jump power, sprint boost, `Stats.JUMP`, food exhaustion).
     fn jump_from_ground(&self, ctx: &mut PlayCtx) {}
@@ -135,7 +138,10 @@ pub trait PlayerSystems: Sync {
 #[distributed_slice]
 pub static ITEM_SYSTEMS: [&'static dyn ItemSystems] = [..];
 
-#[allow(unused_variables)]
+#[expect(
+    unused_variables,
+    reason = "default no-op bodies; the parameters document the vanilla call shape"
+)]
 pub trait ItemSystems: Sync {
     /// `LivingEntity.stopUsingItem` / `releaseUsingItem` / `getUsedItemHand`.
     fn stop_using_item(&self, ctx: &mut PlayCtx) {}
@@ -205,7 +211,10 @@ pub struct SwingAnimationRef(pub u32);
 pub use crate::world::item::{InteractionHand, InteractionResult};
 pub use mc_protocol::packets::play::BlockHitResult as ServerboundBlockHitResult;
 
-#[allow(unused_variables)]
+#[expect(
+    unused_variables,
+    reason = "default no-op bodies; the parameters document the vanilla call shape"
+)]
 pub trait PlayHandlers: Sync {
     /// `handleContainerClose` -> `player.doCloseContainer()`.
     fn handle_container_close(&self, ctx: &mut PlayCtx, packet: &ServerboundContainerClosePacket) {}

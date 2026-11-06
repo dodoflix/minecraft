@@ -3,8 +3,8 @@
 
 use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
 use crate::server::level::ServerLevel;
+use crate::world::entity::EntityId;
 use crate::world::entity::effect::MobEffectInstance;
-use crate::world::entity::{Entity, EntityId};
 use crate::world::level::LevelAccessor;
 use linkme::distributed_slice;
 use mc_core::direction::Direction;

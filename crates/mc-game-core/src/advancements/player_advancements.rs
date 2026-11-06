@@ -386,10 +386,10 @@ impl PlayerAdvancements {
             self.roots_to_update.clear();
             let changed: Vec<AdvancementHolder> = self.progress_changed.iter().cloned().collect();
             for holder in changed {
-                if self.visible.contains(&holder) {
-                    if let Some(p) = self.progress.get(&holder) {
-                        progress.insert(holder.id.clone(), p.clone());
-                    }
+                if self.visible.contains(&holder)
+                    && let Some(p) = self.progress.get(&holder)
+                {
+                    progress.insert(holder.id.clone(), p.clone());
                 }
             }
             self.progress_changed.clear();
@@ -509,13 +509,14 @@ impl SharedAdvancements {
         let (result, newly_done) = self.0.lock().award_state(holder, criterion);
         if newly_done {
             holder.value().rewards.grant(level, player);
-            if let Some(display) = &holder.value().display {
-                if display.announce_to_chat && level.show_advancement_messages() {
-                    let message = display
-                        .type_
-                        .create_announcement(holder, player.get_display_name());
-                    broadcast_system_message(level, &message);
-                }
+            if let Some(display) = &holder.value().display
+                && display.announce_to_chat
+                && level.show_advancement_messages()
+            {
+                let message = display
+                    .type_
+                    .create_announcement(holder, player.get_display_name());
+                broadcast_system_message(level, &message);
             }
             self.0.lock().mark_for_visibility_update(holder);
         }

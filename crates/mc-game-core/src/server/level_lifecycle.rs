@@ -160,7 +160,7 @@ impl MinecraftServer {
         stem: &LevelStem,
         is_debug: bool,
     ) -> ServerLevel {
-        let access = self.registries.composite_access();
+        let _access = self.registries.composite_access();
         let dimension_type: Arc<DimensionType> = stem.dimension_type.value().clone();
         let seed = self.world_gen_settings.options.seed;
         let BuiltGenerator {

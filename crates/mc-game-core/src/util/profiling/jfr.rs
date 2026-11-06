@@ -6,7 +6,6 @@
 //! JVM's own events (GC, CPU, allocation, file IO) and the chunk generation/region IO/structure events, which have no
 //! source here; the summary written next to the recording (`SummaryReporter`) reports those JVM-only sections as empty.
 
-use std::collections::BTreeMap;
 use std::fs::File;
 use std::io::{self, BufWriter, Write};
 use std::path::{Path, PathBuf};
@@ -867,10 +866,10 @@ impl JfrProfiler {
         remote_address: &str,
         bytes: i32,
     ) {
-        if self.is_running() {
-            if let Some(recording) = self.recording.lock().as_mut() {
-                recording.packet(true, protocol, packet_id, remote_address, bytes);
-            }
+        if self.is_running()
+            && let Some(recording) = self.recording.lock().as_mut()
+        {
+            recording.packet(true, protocol, packet_id, remote_address, bytes);
         }
     }
 
@@ -882,10 +881,10 @@ impl JfrProfiler {
         remote_address: &str,
         bytes: i32,
     ) {
-        if self.is_running() {
-            if let Some(recording) = self.recording.lock().as_mut() {
-                recording.packet(false, protocol, packet_id, remote_address, bytes);
-            }
+        if self.is_running()
+            && let Some(recording) = self.recording.lock().as_mut()
+        {
+            recording.packet(false, protocol, packet_id, remote_address, bytes);
         }
     }
 }

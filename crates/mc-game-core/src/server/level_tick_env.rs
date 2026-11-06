@@ -12,7 +12,6 @@ use crate::world::entity::Entity;
 use crate::world::level::DimensionKey;
 use crate::world::level::gamerules::GameRules;
 use crate::world::level::saveddata::weather_data::WeatherData;
-use mc_core::pos::BlockPos;
 use mc_protocol::packets::play::ClientboundGameEventPacket;
 use mc_world::level_storage::Difficulty;
 

@@ -67,12 +67,7 @@ impl DamageSourcePredicate {
     }
 
     /// `matches(level, position, source)`; the entities of the source are looked up in the level.
-    pub fn matches<'a>(
-        &self,
-        level: &'a ServerLevel,
-        position: Vec3,
-        source: &DamageSource,
-    ) -> bool {
+    pub fn matches(&self, level: &ServerLevel, position: Vec3, source: &DamageSource) -> bool {
         let direct = source
             .get_direct_entity()
             .and_then(|id| level.get_entity(id));

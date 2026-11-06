@@ -956,13 +956,11 @@ impl Scoreboard {
             .expect("checked")
             .players
             .insert(player.to_string());
-        if self.server.is_some() {
-            if added {
-                let packet = self.teams_by_name[team].create_player_packet(player, true);
-                self.broadcast(ScoreboardPacket::SetPlayerTeam(packet));
-                self.push_waypoints(vec![player.to_string()]);
-                self.set_dirty();
-            }
+        if self.server.is_some() && added {
+            let packet = self.teams_by_name[team].create_player_packet(player, true);
+            self.broadcast(ScoreboardPacket::SetPlayerTeam(packet));
+            self.push_waypoints(vec![player.to_string()]);
+            self.set_dirty();
         }
         added
     }

@@ -303,9 +303,7 @@ impl ServerPlaceRecipe<'_> {
                     smallest_stack_size = stack.count();
                 }
             }
-            if smallest_stack_size != i32::MAX {
-                smallest_stack_size += 1;
-            }
+            smallest_stack_size = smallest_stack_size.saturating_add(1);
             smallest_stack_size
         } else {
             1

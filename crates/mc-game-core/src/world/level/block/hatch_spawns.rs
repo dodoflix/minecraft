@@ -36,16 +36,14 @@ pub fn spawn_breeding(
     ty: EntityType,
     tag: &CompoundTag,
 ) -> Option<EntityId> {
-    let Some(mut entity) = factory::create(
+    let mut entity = factory::create(
         ty,
         level,
         EntitySpawnRequest {
             reason: EntitySpawnReason::Breeding,
             ignore_checks: false,
         },
-    ) else {
-        return None;
-    };
+    )?;
     if let Err(message) = entity.load(tag) {
         log::warn!("Exception configuring hatched {}: {message}", ty.name());
         return None;

@@ -3,7 +3,6 @@
 
 use super::sculk_spreader::{ChargeCursor, SculkSpreader};
 use crate::world::level::LevelAccessor;
-use crate::world::level::block::BlockStateExt;
 use crate::world::level::block::impls::{sculk_block, sculk_vein_block};
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;

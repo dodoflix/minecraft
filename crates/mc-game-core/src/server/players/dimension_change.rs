@@ -387,10 +387,11 @@ fn teleport_player_cross_dimension(
                 &old_dimension,
                 &destination,
             );
-            if old_dimension == nether_key() && destination == overworld_key() {
-                if let Some(entered) = player.entered_nether_position {
-                    CriteriaTriggers::NETHER_TRAVEL.trigger(level, player, entered);
-                }
+            if old_dimension == nether_key()
+                && destination == overworld_key()
+                && let Some(entered) = player.entered_nether_position
+            {
+                CriteriaTriggers::NETHER_TRAVEL.trigger(level, player, entered);
             }
             if destination != nether_key() {
                 player.entered_nether_position = None;
@@ -495,8 +496,8 @@ impl ServerPlayer {
     /// `PlayerList.sendAllPlayerInfo(player)`: full inventory resend + held slot.
     pub fn send_all_player_info(&mut self, level: &mut ServerLevel) {
         use crate::world::entity::player::menu_ctx::PlayerCtx;
-        use crate::world::inventory::PlayerMenus;
-        let mut menus = std::mem::replace(&mut self.player.menus, PlayerMenus::new());
+
+        let mut menus = std::mem::take(&mut self.player.menus);
         {
             let mut ctx = PlayerCtx {
                 player: self,

@@ -105,7 +105,10 @@ impl std::fmt::Debug for EntitySelector {
 impl EntitySelector {
     pub const INFINITE: i32 = i32::MAX;
 
-    #[allow(clippy::too_many_arguments)]
+    #[expect(
+        clippy::too_many_arguments,
+        reason = "mirrors the vanilla EntitySelector constructor"
+    )]
     pub fn new(
         max_results: i32,
         includes_entities: bool,

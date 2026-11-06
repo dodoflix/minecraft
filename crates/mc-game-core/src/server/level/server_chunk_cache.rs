@@ -9,7 +9,6 @@ use super::fastutil::LongOpenHashSet;
 use super::{Ticket, TicketType};
 use crate::world::level::chunk::LevelChunk;
 use crate::world::level::saveddata::SavedDataManager;
-use crate::world::level::ticket_storage::TicketStorage;
 use mc_core::pos::{BlockPos, ChunkPos, SectionPos};
 use mc_world::level_storage::SavedDataStorage;
 use mc_world::status::ChunkStatus;
@@ -209,10 +208,10 @@ impl ServerChunkCache {
             SectionPos::block_to_section_coord_i32(pos.x()),
             SectionPos::block_to_section_coord_i32(pos.z()),
         );
-        if let Some(holder) = self.chunk_map.holders.visible_holder_mut(key) {
-            if holder.block_changed(pos) {
-                self.chunk_holders_to_broadcast.insert(key);
-            }
+        if let Some(holder) = self.chunk_map.holders.visible_holder_mut(key)
+            && holder.block_changed(pos)
+        {
+            self.chunk_holders_to_broadcast.insert(key);
         }
     }
 
@@ -221,10 +220,10 @@ impl ServerChunkCache {
         let key = pos.chunk().pack();
         let min = self.chunk_map.level_height.min_section_y() - 1;
         let max = self.chunk_map.level_height.max_section_y() + 1;
-        if let Some(holder) = self.chunk_map.holders.visible_holder_mut(key) {
-            if holder.section_light_changed(sky, pos.y(), min, max) {
-                self.chunk_holders_to_broadcast.insert(key);
-            }
+        if let Some(holder) = self.chunk_map.holders.visible_holder_mut(key)
+            && holder.section_light_changed(sky, pos.y(), min, max)
+        {
+            self.chunk_holders_to_broadcast.insert(key);
         }
     }
 

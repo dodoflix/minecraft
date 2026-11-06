@@ -5,7 +5,10 @@ use mc_dfu::{Codec, DataResult};
 use super::context::ContextKey::*;
 use super::context::ContextKeySet;
 
-#[allow(non_snake_case)]
+#[expect(
+    non_snake_case,
+    reason = "mirrors vanilla's `LootContextParamSets` class name"
+)]
 pub mod LootContextParamSets {
     use super::*;
 

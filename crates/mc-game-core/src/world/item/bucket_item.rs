@@ -2,8 +2,8 @@
 //! `DispensibleContainerItem` interface they share with `SolidBucketItem` (powder snow, see `block_item.rs`).
 
 use super::{
-    InteractionHand, InteractionResult, ItemBehaviour, ItemStack, ItemStackExt,
-    bucket_empty_success_item, create_filled_result,
+    InteractionHand, InteractionResult, ItemBehaviour, ItemStack, bucket_empty_success_item,
+    create_filled_result,
     item_use_helpers::{may_interact, may_use_item_at, player_play_sound},
     player_pov_hit_result,
 };
@@ -13,7 +13,7 @@ use crate::world::entity::player::menu_ctx::PlayerCtx;
 use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::level::block::{BlockStateExt, behaviour as block_behaviour};
 use crate::world::level::gameevent::GameEventContext;
-use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
+use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_core::phys::{BlockHitResult, Vec3};
 use mc_core::pos::BlockPos;
 use mc_data::fluid::Fluid;

@@ -9,7 +9,7 @@ use crate::world::entity::vec_delta_codec::{self, VecDeltaCodec};
 use crate::world::entity::{Entity, EntityId, TrackingKind};
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
-use mc_protocol::codec::{LpVec3, write_varint};
+use mc_protocol::codec::LpVec3;
 use mc_protocol::packet::Packet;
 use mc_protocol::packets::play::{
     AttributeSnapshot, ClientboundAddEntityPacket, ClientboundBundleDelimiterPacket,
@@ -20,7 +20,6 @@ use mc_protocol::packets::play::{
     ClientboundSetEntityMotionPacket, ClientboundSetPassengersPacket,
     ClientboundUpdateAttributesPacket, DataValue, PositionPath, VecDelta, VecDeltaStep,
 };
-use std::sync::Arc;
 
 const TOLERANCE_LEVEL_POSITION: f64 = 7.6293945E-6f32 as f64;
 pub const FORCED_POS_UPDATE_PERIOD: i32 = 60;

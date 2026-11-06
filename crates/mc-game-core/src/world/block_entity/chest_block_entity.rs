@@ -207,10 +207,10 @@ impl BlockEntity for ChestBlockEntity {
 
     fn save_additional(&self, tag: &mut CompoundTag) {
         self.container.save(tag);
-        if !self.loot.try_save_loot_table(tag) {
-            if let Some(list) = helper::save_all_items(&self.items, true) {
-                tag.put("Items", mc_nbt::Tag::List(list));
-            }
+        if !self.loot.try_save_loot_table(tag)
+            && let Some(list) = helper::save_all_items(&self.items, true)
+        {
+            tag.put("Items", mc_nbt::Tag::List(list));
         }
     }
 

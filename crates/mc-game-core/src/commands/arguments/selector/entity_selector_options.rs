@@ -9,9 +9,8 @@ use crate::commands::message::{dynamic_translatable, message, simple_translatabl
 use crate::commands::shared_suggestion_provider::{
     suggest, suggest_resource_into, suggest_resource_prefixed_into,
 };
-use crate::translatable;
 use mc_brigadier::{
-    CommandSyntaxException, DynamicCommandExceptionType, ImmutableStringReader, MessageRef,
+    CommandSyntaxException, DynamicCommandExceptionType, ImmutableStringReader,
     SimpleCommandExceptionType, StringReader, SuggestionsBuilder,
 };
 use mc_core::ident::Identifier;

@@ -373,6 +373,35 @@ pub fn install_panic_hook() {
     }));
 }
 
+/// `ReportType.PROFILE.nuggets`.
+const PROFILE_NUGGETS: [&str; 15] = [
+    "I'd Rather Be Surfing",
+    "Shiny numbers!",
+    "Am I not running fast enough? :(",
+    "I'm working as hard as I can!",
+    "Will I ever be good enough for you? :(",
+    "Speedy. Zoooooom!",
+    "Hello world",
+    "40% better than a crash report.",
+    "Now with extra numbers",
+    "Now with less numbers",
+    "Now with the same numbers",
+    "You should add flames to things, it makes them go faster!",
+    "Do you feel the need for... optimization?",
+    "*cracks redstone whip*",
+    "Maybe if you treated it better then it'll have more motivation to work faster! Poor server.",
+];
+
+/// `ReportType.PROFILE.appendHeader(builder, List.of())`.
+pub fn append_profile_report_header(builder: &mut String) {
+    let nanos = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map_or(0, |d| d.as_nanos());
+    builder.push_str("---- Minecraft Profiler Results ----\n// ");
+    builder.push_str(PROFILE_NUGGETS[(nanos % PROFILE_NUGGETS.len() as u128) as usize]);
+    builder.push_str("\n\n");
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -416,33 +445,4 @@ mod tests {
                 .contains("Description: t")
         );
     }
-}
-
-/// `ReportType.PROFILE.nuggets`.
-const PROFILE_NUGGETS: [&str; 15] = [
-    "I'd Rather Be Surfing",
-    "Shiny numbers!",
-    "Am I not running fast enough? :(",
-    "I'm working as hard as I can!",
-    "Will I ever be good enough for you? :(",
-    "Speedy. Zoooooom!",
-    "Hello world",
-    "40% better than a crash report.",
-    "Now with extra numbers",
-    "Now with less numbers",
-    "Now with the same numbers",
-    "You should add flames to things, it makes them go faster!",
-    "Do you feel the need for... optimization?",
-    "*cracks redstone whip*",
-    "Maybe if you treated it better then it'll have more motivation to work faster! Poor server.",
-];
-
-/// `ReportType.PROFILE.appendHeader(builder, List.of())`.
-pub fn append_profile_report_header(builder: &mut String) {
-    let nanos = std::time::SystemTime::now()
-        .duration_since(std::time::UNIX_EPOCH)
-        .map_or(0, |d| d.as_nanos());
-    builder.push_str("---- Minecraft Profiler Results ----\n// ");
-    builder.push_str(PROFILE_NUGGETS[(nanos % PROFILE_NUGGETS.len() as u128) as usize]);
-    builder.push_str("\n\n");
 }

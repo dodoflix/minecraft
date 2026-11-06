@@ -8,7 +8,6 @@ use crate::world::entity::projectile::Projectile;
 use crate::world::entity::{EntityId, ServerPlayer};
 use crate::world::item::{BlockPlaceContext, InteractionResult, ItemStack};
 use crate::world::level::explosion::{Explosion, default_on_explosion_hit};
-use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::redstone::Orientation;
 use crate::world::level::signal_getter;
 use mc_core::phys::{BlockHitResult, Vec3};

@@ -171,7 +171,7 @@ async fn legacy_ping_forms() {
         legacy_exchange(server.addr, &[0xfe]).await,
         expected_legacy("A Minecraft Server\u{a7}0\u{a7}20")
     );
-    let v1 = expected_legacy("\u{a7}1\0127\026.3\0A Minecraft Server\00\020");
+    let v1 = expected_legacy("\u{a7}1\x00127\x0026.3\x00A Minecraft Server\x000\x0020");
     assert_eq!(legacy_exchange(server.addr, &[0xfe, 0x01]).await, v1);
     // 1.6: FE 01 FA, "MC|PingHost", payload { protocol, host, port }
     let host = legacy_utf16("localhost");

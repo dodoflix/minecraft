@@ -120,10 +120,10 @@ fn block_predicate_matches(p: &BlockPredicate, state: BlockState) -> bool {
     if p.will_match_block_entity() {
         return false;
     }
-    if let Some(blocks) = &p.blocks {
-        if !blocks.contains(state.block()) {
-            return false;
-        }
+    if let Some(blocks) = &p.blocks
+        && !blocks.contains(state.block())
+    {
+        return false;
     }
     if let Some(props) = &p.properties {
         return props.properties.iter().all(|m| property_matches(state, m));
@@ -172,20 +172,18 @@ pub fn item_stack_use_on(
     let before = context.item_stack.copy();
     let used_item = context.item_stack.item();
     let result = behaviour(used_item).use_on(context, level, player);
-    if let InteractionResult::Success(success) = &result {
-        if success.was_item_interaction() {
-            player.award_stat_once(level, crate::stats::Stat::Used(used_item));
-            let transform_to = success
-                .item_context
-                .held_item_transformed_to
-                .clone()
-                .unwrap_or_else(|| context.item_stack.clone());
-            let result_stack =
-                apply_after_use_component_side_effects(level, transform_to, player, &before);
-            return InteractionResult::Success(
-                success.clone().held_item_transformed_to(result_stack),
-            );
-        }
+    if let InteractionResult::Success(success) = &result
+        && success.was_item_interaction()
+    {
+        player.award_stat_once(level, crate::stats::Stat::Used(used_item));
+        let transform_to = success
+            .item_context
+            .held_item_transformed_to
+            .clone()
+            .unwrap_or_else(|| context.item_stack.clone());
+        let result_stack =
+            apply_after_use_component_side_effects(level, transform_to, player, &before);
+        return InteractionResult::Success(success.clone().held_item_transformed_to(result_stack));
     }
     result
 }
@@ -200,19 +198,15 @@ pub fn item_stack_use(
     let before = stack.copy();
     let is_instantly_used = behaviour(stack.item()).get_use_duration(&stack) <= 0;
     let result = behaviour(stack.item()).use_item(level, player, hand);
-    if is_instantly_used {
-        if let InteractionResult::Success(success) = &result {
-            let transform_to = success
-                .item_context
-                .held_item_transformed_to
-                .clone()
-                .unwrap_or_else(|| player.get_item_in_hand(hand));
-            let result_stack =
-                apply_after_use_component_side_effects(level, transform_to, player, &before);
-            return InteractionResult::Success(
-                success.clone().held_item_transformed_to(result_stack),
-            );
-        }
+    if is_instantly_used && let InteractionResult::Success(success) = &result {
+        let transform_to = success
+            .item_context
+            .held_item_transformed_to
+            .clone()
+            .unwrap_or_else(|| player.get_item_in_hand(hand));
+        let result_stack =
+            apply_after_use_component_side_effects(level, transform_to, player, &before);
+        return InteractionResult::Success(success.clone().held_item_transformed_to(result_stack));
     }
     result
 }
@@ -291,9 +285,7 @@ fn process_durability_change(
     level: &mut ServerLevel,
     player_infinite: bool,
 ) -> i32 {
-    if !stack.is_damageable_item() {
-        0
-    } else if player_infinite {
+    if !stack.is_damageable_item() || player_infinite {
         0
     } else if amount > 0 {
         super::enchantment_helper::process_durability_change(level, stack, amount)
@@ -329,7 +321,7 @@ pub fn hurt_and_break_stack(
     stack: &mut ItemStack,
     amount: i32,
     level: &mut ServerLevel,
-    mut player: Option<&mut ServerPlayer>,
+    player: Option<&mut ServerPlayer>,
 ) -> Option<ItemStack> {
     let player_infinite = player
         .as_ref()
@@ -337,7 +329,7 @@ pub fn hurt_and_break_stack(
     let new_amount = process_durability_change(stack, amount, level, player_infinite);
     if new_amount != 0 {
         let new_damage = stack.get_damage_value() + new_amount;
-        apply_damage(stack, new_damage, level, player.as_deref_mut())
+        apply_damage(stack, new_damage, level, player)
     } else {
         None
     }
@@ -392,12 +384,12 @@ pub fn interact_living_entity(
     target: &mut dyn Entity,
     hand: InteractionHand,
 ) -> InteractionResult {
-    if let Some(equippable) = stack.get(&mc_protocol::components::EQUIPPABLE).cloned() {
-        if equippable.equip_on_interact {
-            let result = equip_on_target(level, &equippable, target, stack);
-            if result != InteractionResult::PASS {
-                return result;
-            }
+    if let Some(equippable) = stack.get(&mc_protocol::components::EQUIPPABLE).cloned()
+        && equippable.equip_on_interact
+    {
+        let result = equip_on_target(level, &equippable, target, stack);
+        if result != InteractionResult::PASS {
+            return result;
         }
     }
     behaviour(stack.item()).interact_living_entity(stack, player, target, hand)

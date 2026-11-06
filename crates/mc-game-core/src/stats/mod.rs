@@ -7,7 +7,6 @@ pub mod hash_order;
 pub mod server_stats_counter;
 pub mod stat;
 pub mod stat_formatter;
-#[allow(clippy::module_inception)]
 pub mod stats;
 pub mod stats_counter;
 

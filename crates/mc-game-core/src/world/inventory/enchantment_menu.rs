@@ -8,7 +8,6 @@ use super::{
 };
 use crate::registry::RegistryAccess;
 use crate::registry::keys::ENCHANTMENT as ENCHANTMENT_REGISTRY;
-use crate::world::container::Container;
 use crate::world::item::ItemStack;
 use crate::world::item::enchantment::enchantment_instance::EnchantmentInstance;
 use crate::world::item::enchantment::enchantment_tags;

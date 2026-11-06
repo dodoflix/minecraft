@@ -8,12 +8,11 @@
 
 use super::ServerLevel;
 use crate::server::MinecraftServer;
-use crate::world::block_entity::BlockEntity;
 use crate::world::difficulty_instance::DifficultyInstance;
 use crate::world::entity::factory::{EntitySpawnRequest, load_entity_recursive};
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::levelgen::{GenEnv, WorldGenLevel};
-use crate::world::level::{BlockGetter, DimensionKey, LevelAccessor};
+use crate::world::level::{BlockGetter, DimensionKey};
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_data::block::{Block, BlockState};
 use mc_data::enums::EntitySpawnReason;

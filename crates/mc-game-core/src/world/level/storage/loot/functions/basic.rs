@@ -355,22 +355,22 @@ impl ConditionalFunction for EnchantedCountIncreaseFunction {
         vec![ContextKey::AttackingEntity]
     }
     fn run(&self, mut stack: ItemStack, context: &mut LootContext) -> ItemStack {
-        if let Some(killer) = context.params().attacking_entity {
-            if killer.living().is_some() {
-                let level = crate::world::item::enchantment_helper::get_enchantment_level(
-                    context.get_resolver(),
-                    &self.enchantment,
-                    killer,
-                );
-                if level == 0 {
-                    return stack;
-                }
-                let addition =
-                    level as f32 * self.count.value(context.get_resolver()).get_float(context);
-                stack.grow(round_f32(addition));
-                if self.limit > 0 {
-                    stack.limit_size(self.limit);
-                }
+        if let Some(killer) = context.params().attacking_entity
+            && killer.living().is_some()
+        {
+            let level = crate::world::item::enchantment_helper::get_enchantment_level(
+                context.get_resolver(),
+                &self.enchantment,
+                killer,
+            );
+            if level == 0 {
+                return stack;
+            }
+            let addition =
+                level as f32 * self.count.value(context.get_resolver()).get_float(context);
+            stack.grow(round_f32(addition));
+            if self.limit > 0 {
+                stack.limit_size(self.limit);
             }
         }
         stack
@@ -799,10 +799,10 @@ impl ConditionalFunction for CopyComponentsFunction {
                         None => mc_data::DataComponentType::iter().collect(),
                     };
                     for t in types {
-                        if !exclude.contains(&t) {
-                            if let Some(v) = tool.get_value(t) {
-                                stack.set_value(t, Some(v.clone()));
-                            }
+                        if !exclude.contains(&t)
+                            && let Some(v) = tool.get_value(t)
+                        {
+                            stack.set_value(t, Some(v.clone()));
                         }
                     }
                 }
@@ -897,17 +897,17 @@ impl ConditionalFunction for CopyCustomDataFunction {
         };
         let mut result: Option<Tag> = None;
         for op in &self.operations {
-            if let Ok(source_tags) = op.source_path.get(&source_tag) {
-                if !source_tags.is_empty() {
-                    let target = result.get_or_insert_with(|| {
-                        Tag::Compound(
-                            stack
-                                .get(&CUSTOM_DATA)
-                                .map_or_else(CompoundTag::new, CustomData::copy_tag),
-                        )
-                    });
-                    let _ = op.op.merge(target, &op.target_path, &source_tags);
-                }
+            if let Ok(source_tags) = op.source_path.get(&source_tag)
+                && !source_tags.is_empty()
+            {
+                let target = result.get_or_insert_with(|| {
+                    Tag::Compound(
+                        stack
+                            .get(&CUSTOM_DATA)
+                            .map_or_else(CompoundTag::new, CustomData::copy_tag),
+                    )
+                });
+                let _ = op.op.merge(target, &op.target_path, &source_tags);
             }
         }
         if let Some(Tag::Compound(tag)) = result {
@@ -931,14 +931,12 @@ impl ConditionalFunction for FillPlayerHead {
         vec![self.entity_target.context_param()]
     }
     fn run(&self, mut stack: ItemStack, context: &mut LootContext) -> ItemStack {
-        if stack.is(mc_data::Item::PLAYER_HEAD) {
-            if let Some(donor) = self.entity_target.get(context).filter(|e| e.is_player()) {
-                if let Some(profile) =
-                    crate::world::level::storage::loot::text_api::player_profile(donor)
-                {
-                    stack.set(mc_protocol::components::values::profile::PROFILE, profile);
-                }
-            }
+        if stack.is(mc_data::Item::PLAYER_HEAD)
+            && let Some(donor) = self.entity_target.get(context).filter(|e| e.is_player())
+            && let Some(profile) =
+                crate::world::level::storage::loot::text_api::player_profile(donor)
+        {
+            stack.set(mc_protocol::components::values::profile::PROFILE, profile);
         }
         stack
     }

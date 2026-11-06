@@ -42,13 +42,13 @@ impl ChunkMap {
                     let height = self.level_height;
                     let factory = self.factory.clone();
                     self.pool.submit(move || {
-                        let result = SerializableChunkData::parse(height, &factory, &tag);
+                        let result = Box::new(SerializableChunkData::parse(height, &factory, &tag));
                         Some(WorkerMessage::ChunkParsed { key, result })
                     });
                 }
                 Err(e) => self.handle_chunk_load_failure(key, &e.to_string()),
             },
-            WorkerMessage::ChunkParsed { key, result } => match result {
+            WorkerMessage::ChunkParsed { key, result } => match *result {
                 Ok(Some(data)) => self.install_parsed_chunk(key, data),
                 Ok(None) => {
                     log::error!(
@@ -478,11 +478,11 @@ impl ChunkMap {
         let keys: Vec<i64> = self.holders.visible.iter().copied().collect();
         let mut out = Vec::new();
         for key in keys {
-            if let Some(h) = self.holders.holder_mut(key) {
-                if h.was_accessible_since_last_save() {
-                    h.refresh_accessibility();
-                    out.push(key);
-                }
+            if let Some(h) = self.holders.holder_mut(key)
+                && h.was_accessible_since_last_save()
+            {
+                h.refresh_accessibility();
+                out.push(key);
             }
         }
         out

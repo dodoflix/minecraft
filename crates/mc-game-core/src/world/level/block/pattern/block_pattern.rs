@@ -130,12 +130,12 @@ impl BlockPattern {
         {
             for forwards in Direction::VALUES {
                 for up in Direction::VALUES {
-                    if up != forwards && up != forwards.get_opposite() {
-                        if let Some(found) =
+                    if up != forwards
+                        && up != forwards.get_opposite()
+                        && let Some(found) =
                             self.matches_cached(level, test_pos, forwards, up, &mut cache)
-                        {
-                            return Some(found);
-                        }
+                    {
+                        return Some(found);
                     }
                 }
             }

@@ -51,10 +51,10 @@ fn read_status_chunks(folder: &Path, status: &str) -> Vec<(ChunkPos, CompoundTag
         for lz in 0..32 {
             for lx in 0..32 {
                 let pos = ChunkPos::new(rx * 32 + lx, rz * 32 + lz);
-                if let Some(tag) = storage.read(&pos).unwrap() {
-                    if tag.get_string("Status") == Some(status) {
-                        out.push((pos, tag));
-                    }
+                if let Some(tag) = storage.read(&pos).unwrap()
+                    && tag.get_string("Status") == Some(status)
+                {
+                    out.push((pos, tag));
                 }
             }
         }

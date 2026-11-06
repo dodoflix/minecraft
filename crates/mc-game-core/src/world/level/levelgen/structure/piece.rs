@@ -41,15 +41,17 @@ pub struct StructurePieceSerializationContext<'a> {
     pub env: &'a GenEnv,
 }
 
+type LoadPieceFn = fn(
+    &StructurePieceSerializationContext<'_>,
+    &CompoundTag,
+) -> Result<Box<dyn StructurePiece>, String>;
+
 /// `StructurePieceType`: registry id + the loader of the piece class (`StructurePieceType.load`). A loader error is
 /// vanilla's exception while loading a piece (`PiecesContainer.load` logs it and skips the piece).
 pub struct StructurePieceType {
     /// Lower-case path of the `minecraft:` registry key (`setPieceId` lower-cases the constant's id).
     pub id: &'static str,
-    pub load: fn(
-        &StructurePieceSerializationContext<'_>,
-        &CompoundTag,
-    ) -> Result<Box<dyn StructurePiece>, String>,
+    pub load: LoadPieceFn,
 }
 
 impl StructurePieceType {
@@ -382,7 +384,6 @@ pub trait StructurePiece: Any + Send + Sync {
     }
 
     /// `postProcess(level, structureManager, generator, random, chunkBB, chunkPos, referencePos)`.
-    #[allow(clippy::too_many_arguments)]
     fn post_process(
         &mut self,
         level: &mut dyn WorldGenLevel,
@@ -575,7 +576,6 @@ pub trait StructurePiece: Any + Send + Sync {
     }
 
     /// `generateAirBox(level, chunkBB, x0, y0, z0, x1, y1, z1)`.
-    #[allow(clippy::too_many_arguments)]
     fn generate_air_box(
         &self,
         level: &mut dyn WorldGenLevel,
@@ -598,7 +598,6 @@ pub trait StructurePiece: Any + Send + Sync {
     }
 
     /// `generateBox(level, chunkBB, x0, y0, z0, x1, y1, z1, edgeBlock, fillBlock, skipAir)`.
-    #[allow(clippy::too_many_arguments)]
     fn generate_box(
         &self,
         level: &mut dyn WorldGenLevel,
@@ -654,7 +653,6 @@ pub trait StructurePiece: Any + Send + Sync {
     }
 
     /// `generateBox(level, chunkBB, x0, y0, z0, x1, y1, z1, skipAir, random, selector)`.
-    #[allow(clippy::too_many_arguments)]
     fn generate_box_selector(
         &self,
         level: &mut dyn WorldGenLevel,
@@ -713,7 +711,10 @@ pub trait StructurePiece: Any + Send + Sync {
     }
 
     /// `generateMaybeBox(level, chunkBB, random, probability, x0, y0, z0, x1, y1, z1, edge, fill, skipAir, hasToBeInside)`.
-    #[allow(clippy::too_many_arguments)]
+    #[expect(
+        clippy::too_many_arguments,
+        reason = "mirrors vanilla StructurePiece.generateMaybeBox's signature"
+    )]
     fn generate_maybe_box(
         &self,
         level: &mut dyn WorldGenLevel,
@@ -750,7 +751,6 @@ pub trait StructurePiece: Any + Send + Sync {
     }
 
     /// `maybeGenerateBlock(level, chunkBB, random, probability, x, y, z, blockState)`.
-    #[allow(clippy::too_many_arguments)]
     fn maybe_generate_block(
         &self,
         level: &mut dyn WorldGenLevel,
@@ -768,7 +768,6 @@ pub trait StructurePiece: Any + Send + Sync {
     }
 
     /// `generateUpperHalfSphere(level, chunkBB, x0, y0, z0, x1, y1, z1, fillBlock, skipAir)` (`float` maths).
-    #[allow(clippy::too_many_arguments)]
     fn generate_upper_half_sphere(
         &self,
         level: &mut dyn WorldGenLevel,
@@ -838,7 +837,6 @@ pub trait StructurePiece: Any + Send + Sync {
     }
 
     /// `createChest(level, chunkBB, random, x, y, z, lootTable)`.
-    #[allow(clippy::too_many_arguments)]
     fn create_chest(
         &self,
         level: &mut dyn WorldGenLevel,
@@ -860,7 +858,6 @@ pub trait StructurePiece: Any + Send + Sync {
     }
 
     /// `createChest(level, chunkBB, random, pos, lootTable, blockState)`.
-    #[allow(clippy::too_many_arguments)]
     fn create_chest_at(
         &self,
         level: &mut dyn WorldGenLevel,
@@ -874,7 +871,6 @@ pub trait StructurePiece: Any + Send + Sync {
     }
 
     /// `createDispenser(level, chunkBB, random, x, y, z, facing, lootTable)`.
-    #[allow(clippy::too_many_arguments)]
     fn create_dispenser(
         &self,
         level: &mut dyn WorldGenLevel,

@@ -13,7 +13,6 @@ use crate::world::entity::spawn_util::{self, Strategy};
 use crate::world::entity::{Entity, EntityId};
 use crate::world::level::BlockGetter;
 use crate::world::level::LevelAccessor as _;
-use crate::world::level::block::BlockStateExt;
 use crate::world::level::flags::UPDATE_CLIENTS;
 use crate::world::level::gameevent::vibrations::VibrationData;
 use crate::world::level::gameevent::{BlockEntityListener, GameEventContext};

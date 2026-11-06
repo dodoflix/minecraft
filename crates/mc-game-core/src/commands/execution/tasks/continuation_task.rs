@@ -3,8 +3,10 @@
 
 use crate::commands::execution::{CommandQueueEntry, ExecutionContext, Frame};
 
+type TaskFactory<P> = Box<dyn Fn(&Frame, &P) -> CommandQueueEntry>;
+
 struct ContinuationTask<P> {
-    task_factory: Box<dyn Fn(&Frame, &P) -> CommandQueueEntry>,
+    task_factory: TaskFactory<P>,
     arguments: Vec<P>,
     index: usize,
 }

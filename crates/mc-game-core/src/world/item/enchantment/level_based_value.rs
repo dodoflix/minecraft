@@ -99,7 +99,7 @@ impl LevelBasedValue {
 }
 
 fn boxed() -> Codec<Box<LevelBasedValue>> {
-    Codec::lazy(LevelBasedValue::codec).xmap(Box::new, |b: &Box<LevelBasedValue>| (**b).clone())
+    Codec::lazy(LevelBasedValue::codec).xmap(Box::new, |b| (**b).clone())
 }
 
 #[derive(Clone)]

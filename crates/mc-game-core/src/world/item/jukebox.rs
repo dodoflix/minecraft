@@ -12,7 +12,6 @@ use crate::world::level::gameevent::GameEventContext;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
 use mc_data::block::BlockState;
 use mc_data::{GameEvent, ParticleType};
 use mc_dfu::JSON;

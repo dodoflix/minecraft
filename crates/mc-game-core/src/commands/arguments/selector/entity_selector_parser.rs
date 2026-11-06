@@ -6,7 +6,6 @@ use super::option_state::{InvertableSetOptionState, SetOnceOptionState};
 use crate::commands::CommandSourceStack;
 use crate::commands::arguments::min_max_bounds::{Doubles, FloatDegrees, Ints};
 use crate::commands::message::{dynamic_translatable, simple_translatable};
-use crate::commands::shared_suggestion_provider::suggest;
 use crate::server::permissions::permissions;
 use mc_brigadier::{
     CommandSyntaxException, DynamicCommandExceptionType, ImmutableStringReader,

@@ -1,6 +1,6 @@
 //! Item classes whose only override so far is the use animation/duration (bow, crossbow, trident, spyglass, brush,
 //! bundle). The remaining behavior of these classes (`use`, `releaseUsing`, ...) is not ported yet.
-use super::{APPROXIMATELY_INFINITE_USE_DURATION, ItemBehaviour, ItemStack};
+use super::{ItemBehaviour, ItemStack};
 use crate::register_item_class;
 use mc_protocol::components::ItemUseAnimation;
 

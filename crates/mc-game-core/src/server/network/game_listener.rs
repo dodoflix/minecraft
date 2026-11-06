@@ -25,13 +25,12 @@ use parking_lot::Mutex;
 use std::sync::Arc;
 use std::sync::mpsc::Receiver;
 
+/// A `server.execute(..)` task queued by a packet handler.
+type DeferredTask = Box<dyn FnOnce(&mut crate::server::MinecraftServer)>;
+
 /// `ServerGamePacketListenerImpl.CLIENT_LOADED_TIMEOUT_TIME`.
 pub const CLIENT_LOADED_TIMEOUT_TIME: i32 = 60;
 pub(crate) const NO_BLOCK_UPDATES_TO_ACK: i32 = -1;
-pub(crate) const MAXIMUM_FLYING_TICKS: i32 = 80;
-pub(crate) const MIN_SUPPORTED_BLOCKS_RESEND_TICKS: i32 = 200;
-pub(crate) const INVALID_POSITION_CORRECTION_MAX_INTERVAL_TICKS: i32 = 20;
-pub(crate) const MAX_DISTANCE_TO_VALID_POSITION: f64 = 1.0;
 
 /// The mutable fields of vanilla's `ServerGamePacketListenerImpl` (`player` and `server` are the [`PlayCtx`]).
 pub struct ServerGamePacketListenerImpl {
@@ -82,7 +81,7 @@ pub struct ServerGamePacketListenerImpl {
     pub(crate) pending_respawn: Option<bool>,
     /// `server.execute(..)` tasks queued by packet handlers while the player was taken out of its level (commands
     /// must see the player in the level and every level in the server): run right after the packet batch.
-    pub(crate) deferred_tasks: Vec<Box<dyn FnOnce(&mut crate::server::MinecraftServer)>>,
+    pub(crate) deferred_tasks: Vec<DeferredTask>,
     /// `chatSession`, `signedMessageDecoder`.
     pub(crate) chat_session: Option<RemoteChatSession>,
     pub(crate) signed_message_decoder: Box<dyn Decoder>,

@@ -6,7 +6,7 @@ use std::sync::{Arc, LazyLock};
 use mc_core::ident::Identifier;
 use mc_dfu::extra::IDENTIFIER;
 use mc_dfu::{Codec, DataResult, Either, STRING, record};
-use mc_nbt::{CompoundTag, Tag};
+use mc_nbt::Tag;
 
 use crate::commands::arguments::nbt_path_argument::NbtPath;
 use crate::world::level::storage::loot::context::{ContextKey, EntityTarget, LootContext};
@@ -72,13 +72,6 @@ pub enum NbtSource {
 }
 
 impl NbtSource {
-    fn name(self) -> &'static str {
-        match self {
-            NbtSource::Entity(t) => t.name(),
-            NbtSource::BlockEntity => "block_entity",
-        }
-    }
-
     fn codec() -> Codec<NbtSource> {
         static ALL: LazyLock<Vec<(NbtSource, &'static str)>> = LazyLock::new(|| {
             let mut all: Vec<(NbtSource, &'static str)> = EntityTarget::ALL

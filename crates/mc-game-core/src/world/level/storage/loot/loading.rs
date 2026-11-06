@@ -21,14 +21,11 @@ use crate::registry::decoders::{DYNAMIC_REGISTRY_DECODERS, DecodedEntry, Dynamic
 use crate::registry::{RegistryAccess, keys};
 use crate::world::item::slot::{SlotSourceRef, slot_source_codec};
 
-fn parse<A: Send + Sync + 'static>(
+fn parse<A: Clone + Send + Sync + 'static>(
     codec: Codec<A>,
     json: &Value,
     ctx: &RegistryDecodeContext,
-) -> Result<DecodedEntry, String>
-where
-    A: Clone,
-{
+) -> Result<DecodedEntry, String> {
     let dyn_value =
         Dyn::from_json_str(&json.to_string()).map_err(|e| format!("Failed to parse JSON: {e}"))?;
     match with_decode_context(ctx, || codec.parse(&JSON, &dyn_value)) {
@@ -117,8 +114,8 @@ pub fn validate_loot_registries(registries: &RegistryAccess) -> Result<(), Strin
     let problems = ProblemCollector::new();
     let source = ValidationContextSource::new(&problems, registries);
     let all_params = LootContextParamSets::ALL_PARAMS;
-    let mut run = |registry: &'static str,
-                   validate: &mut dyn FnMut(
+    let run = |registry: &'static str,
+               validate: &mut dyn FnMut(
         &super::validation::ValidationContext,
         &RegistryAccess,
         &mc_core::ident::Identifier,

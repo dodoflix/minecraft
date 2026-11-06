@@ -347,6 +347,10 @@ impl ScoreboardSaveData {
     }
 
     /// `ScoreboardSaveData.TYPE`.
+    #[expect(
+        clippy::result_large_err,
+        reason = "`Partial<T>` carries the partial value of `DataResult.error(msg, partial)` inline, shared by every saved-data decoder"
+    )]
     pub fn type_() -> SavedDataType<ScoreboardSaveData> {
         SavedDataType::new(
             Identifier::parse("minecraft:scoreboard").expect("static id"),
@@ -357,6 +361,10 @@ impl ScoreboardSaveData {
     }
 }
 
+#[expect(
+    clippy::result_large_err,
+    reason = "`Partial<T>` carries the partial value of `DataResult.error(msg, partial)` inline, shared by every saved-data decoder"
+)]
 fn mc_game_map(r: DecodeResult<ScoreboardSaveDataPacked>) -> DecodeResult<ScoreboardSaveData> {
     codec::map_decoded(r, ScoreboardSaveData::new)
 }

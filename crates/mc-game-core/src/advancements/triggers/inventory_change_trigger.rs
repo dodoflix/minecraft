@@ -3,9 +3,6 @@
 use super::prelude::*;
 use crate::world::container::Container;
 use crate::world::entity::player::inventory::Inventory;
-use mc_protocol::components::{
-    PotionContents, PotionsPredicate, RegistrySet, StatePropertiesPredicate,
-};
 
 /// `InventoryChangeTrigger.TriggerInstance`.
 #[derive(Clone)]

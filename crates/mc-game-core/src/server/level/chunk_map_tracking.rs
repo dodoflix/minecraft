@@ -3,8 +3,8 @@
 
 use super::chunk_holder::ChunkSlot;
 use super::chunk_map::{
-    ChunkMap, ChunkMapEvent, MAX_VIEW_DISTANCE, MIN_VIEW_DISTANCE, PlayerTrackingInfo,
-    PlayerTrackingUpdate, TrackedPlayer,
+    ChunkMap, MAX_VIEW_DISTANCE, MIN_VIEW_DISTANCE, PlayerTrackingInfo, PlayerTrackingUpdate,
+    TrackedPlayer,
 };
 use super::chunk_tracking_view::ChunkTrackingView;
 use super::distance_manager::TriState;
@@ -167,10 +167,10 @@ impl ChunkMap {
             center,
             view_distance: vd,
         } = player.view
+            && center == chunk_pos
+            && vd == view_distance
         {
-            if center == chunk_pos && vd == view_distance {
-                return;
-            }
+            return;
         }
         self.apply_chunk_tracking_view(id, ChunkTrackingView::of(chunk_pos, view_distance));
     }
@@ -211,10 +211,10 @@ impl ChunkMap {
     }
 
     fn mark_chunk_pending_to_send_pos(&mut self, id: EntityId, pos: ChunkPos) {
-        if self.get_chunk_to_send(pos.pack()).is_some() {
-            if let Some(player) = self.players.get_mut(&id) {
-                player.info.sink.mark_chunk_pending_to_send(pos);
-            }
+        if self.get_chunk_to_send(pos.pack()).is_some()
+            && let Some(player) = self.players.get_mut(&id)
+        {
+            player.info.sink.mark_chunk_pending_to_send(pos);
         }
     }
 
@@ -281,12 +281,11 @@ impl ChunkMap {
         let candidates = self.distance_manager.get_spawn_candidate_chunks();
         let mut out = Vec::new();
         for key in candidates {
-            if let Some(holder) = self.holders.visible_holder(key) {
-                if holder.get_ticking_chunk().is_some()
-                    && self.any_player_close_enough_for_spawning_internal(holder.get_pos())
-                {
-                    out.push(key);
-                }
+            if let Some(holder) = self.holders.visible_holder(key)
+                && holder.get_ticking_chunk().is_some()
+                && self.any_player_close_enough_for_spawning_internal(holder.get_pos())
+            {
+                out.push(key);
             }
         }
         out
@@ -498,12 +497,11 @@ impl ChunkMap {
         pos: BlockPos,
         state: mc_data::block::BlockState,
     ) {
-        if state.has_block_entity() {
-            if let Some(be) = chunk.block_entities.get(&pos) {
-                if let Some(packet) = be.get_update_packet() {
-                    self.send_to(players, &packet);
-                }
-            }
+        if state.has_block_entity()
+            && let Some(be) = chunk.block_entities.get(&pos)
+            && let Some(packet) = be.get_update_packet()
+        {
+            self.send_to(players, &packet);
         }
     }
 }

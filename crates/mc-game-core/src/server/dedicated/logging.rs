@@ -129,14 +129,13 @@ impl Log for VanillaLogger {
         if now.date_naive() != sink.day {
             // `TimeBasedTriggeringPolicy`: a new day starts a new file
             let previous = sink.day;
-            if roll_latest_log(&sink.dir, Some(previous)).is_ok() {
-                if let Ok(file) = OpenOptions::new()
+            if roll_latest_log(&sink.dir, Some(previous)).is_ok()
+                && let Ok(file) = OpenOptions::new()
                     .create(true)
                     .append(true)
                     .open(sink.dir.join("latest.log"))
-                {
-                    sink.file = file;
-                }
+            {
+                sink.file = file;
             }
             sink.day = now.date_naive();
         }

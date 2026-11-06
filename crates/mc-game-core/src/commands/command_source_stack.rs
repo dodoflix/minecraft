@@ -72,7 +72,7 @@ impl PartialEq for CommandEntity {
 #[derive(Clone, Debug)]
 enum NamesProvider {
     ForEntity,
-    Constant(Component),
+    Constant(Box<Component>),
 }
 
 #[derive(Clone)]
@@ -126,7 +126,7 @@ impl CommandSourceStack {
             rotation,
             level,
             permissions,
-            NamesProvider::Constant(name),
+            NamesProvider::Constant(Box::new(name)),
             None,
         )
     }
@@ -295,7 +295,7 @@ impl CommandSourceStack {
 
     pub fn get_display_name(&self) -> Component {
         match (&self.names_provider, &self.entity) {
-            (NamesProvider::Constant(name), _) => name.clone(),
+            (NamesProvider::Constant(name), _) => Component::clone(name),
             (NamesProvider::ForEntity, Some(entity)) => {
                 // `Entity.getDisplayName()` is live (team prefix/color change while a command runs); the snapshot is the
                 // fallback when no server is reachable.

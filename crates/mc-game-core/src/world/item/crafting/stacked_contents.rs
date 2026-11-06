@@ -189,10 +189,8 @@ impl<'a, T: Copy + Eq + Hash, I: IngredientInfo<T>> RecipePicker<'a, T, I> {
                             self.residual[i] = false;
                             let picked = self.items[item];
                             self.contents.put(picked, capacity);
-                            if has_output {
-                                if let Some(out) = output.as_mut() {
-                                    out(picked);
-                                }
+                            if has_output && let Some(out) = output.as_mut() {
+                                out(picked);
                             }
                             break;
                         }
@@ -222,10 +220,10 @@ impl<'a, T: Copy + Eq + Hash, I: IngredientInfo<T>> RecipePicker<'a, T, I> {
     fn try_assigning_new_item(&mut self, capacity: i32) -> Option<Vec<usize>> {
         self.clear_all_visited();
         for item in 0..self.item_count {
-            if self.contents.has_at_least(&self.items[item], capacity) {
-                if let Some(path) = self.find_new_item_assignment_path(item) {
-                    return Some(path);
-                }
+            if self.contents.has_at_least(&self.items[item], capacity)
+                && let Some(path) = self.find_new_item_assignment_path(item)
+            {
+                return Some(path);
             }
         }
         None

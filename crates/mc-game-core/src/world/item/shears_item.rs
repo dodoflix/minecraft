@@ -7,7 +7,7 @@ use crate::world::entity::ServerPlayer;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::level::block::{BlockStateExt, helpers};
 use crate::world::level::gameevent::GameEventContext;
-use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
+use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;

@@ -91,6 +91,6 @@ impl ServerLevel {
 fn is_in_tag(holder: &Holder<dyn Feature>, tagged: &[String]) -> bool {
     holder.id().is_some_and(|id| {
         let id = id.to_string();
-        tagged.iter().any(|name| *name == id)
+        tagged.contains(&id)
     })
 }

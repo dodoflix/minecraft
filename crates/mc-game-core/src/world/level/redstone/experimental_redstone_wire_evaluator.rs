@@ -118,15 +118,14 @@ impl ExperimentalRedstoneWireEvaluator {
             let block_power = self.get_block_signal(level, pos);
             let wire_power = self.get_incoming_wire_signal(level, pos);
             let new_power = block_power.max(wire_power);
-            let power_to_set;
-            if new_power < old_power {
+            let power_to_set = if new_power < old_power {
                 if block_power > 0 && !self.wires_to_turn_on.contains(&pos) {
                     self.wires_to_turn_on.push_back(pos);
                 }
-                power_to_set = 0;
+                0
             } else {
-                power_to_set = new_power;
-            }
+                new_power
+            };
             if power_to_set != old_power {
                 self.set_power(pos, power_to_set, orientation);
             }
@@ -188,17 +187,9 @@ impl ExperimentalRedstoneWireEvaluator {
                 BlockGetter::get_block_state(level, offset_pos).is_redstone_conductor();
             for &direction_horizontal in &horizontal {
                 let neighbor = pos.relative(direction_horizontal);
-                if direction_vertical == Direction::Up && !solid_block {
-                    let neighbor_wire = offset_pos.relative(direction_horizontal);
-                    self.enqueue_neighbor_wire(
-                        level,
-                        neighbor_wire,
-                        new_power,
-                        orientation.with_front(direction_horizontal),
-                        allow_turning_off,
-                    );
-                } else if direction_vertical == Direction::Down
-                    && !BlockGetter::get_block_state(level, neighbor).is_redstone_conductor()
+                if (direction_vertical == Direction::Up && !solid_block)
+                    || (direction_vertical == Direction::Down
+                        && !BlockGetter::get_block_state(level, neighbor).is_redstone_conductor())
                 {
                     let neighbor_wire = offset_pos.relative(direction_horizontal);
                     self.enqueue_neighbor_wire(

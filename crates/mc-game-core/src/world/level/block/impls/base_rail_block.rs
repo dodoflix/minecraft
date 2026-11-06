@@ -3,7 +3,6 @@ use super::prelude::*;
 use crate::server::level::ServerLevel;
 use crate::world::item::BlockPlaceContext;
 use crate::world::level::block::rail_state::RailState;
-use crate::world::level::redstone::Orientation;
 use crate::world::level::signal_getter;
 use mc_data::enums::RailShape;
 

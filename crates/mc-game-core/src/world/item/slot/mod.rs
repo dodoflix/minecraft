@@ -441,7 +441,7 @@ impl SlotSource for TransformedSlotSource {
             }
             Transform::Limit(limit) => slots.limit(*limit),
             Transform::Contents(component) => {
-                let component = component.clone();
+                let component = *component;
                 slots.flat_map(move |slot| component.get_slots(slot))
             }
         }
@@ -573,7 +573,7 @@ static TYPES: LazyLock<Arc<TypeTable<dyn SlotSource>>> = LazyLock::new(|| {
                     ContainerComponentManipulator::codec()
                         .field_of("component")
                         .xmap(Transform::Contents, |t: &Transform| match t {
-                            Transform::Contents(c) => c.clone(),
+                            Transform::Contents(c) => *c,
                             _ => unreachable!(),
                         }),
                 ),

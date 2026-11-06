@@ -3,8 +3,7 @@
 //! Vanilla's `Recipe<I>` interface hierarchy is a closed set of serializers (a data pack cannot add one), so a recipe is a
 //! [`RecipeKind`] enum with one struct per vanilla class; [`Recipe`] adds the cached `placementInfo()`.
 
-use mc_core::ident::Identifier;
-use mc_data::{Item, RecipeBookCategory, RecipeSerializer, RecipeType};
+use mc_data::{RecipeBookCategory, RecipeSerializer, RecipeType};
 use mc_dfu::{BOOL, Codec, MapCodec, STRING, string_enum_codec};
 use mc_protocol::components::holder::registry_by_name_codec;
 use mc_protocol::packets::play::inventory::RecipeDisplay;
@@ -530,11 +529,3 @@ fn serializer_codec(serializer: RecipeSerializer) -> MapCodec<RecipeKind> {
         unreachable!("every recipe serializer of vanilla is handled")
     }
 }
-
-/// `Item` helper used by displays: the crafting station icons.
-pub(super) fn station(item: Item) -> mc_protocol::packets::play::inventory::SlotDisplay {
-    super::display::item_display(item)
-}
-
-/// A recipe key (`ResourceKey<Recipe>`) is the path of its identifier in the `recipe` registry.
-pub type RecipeId = Identifier;

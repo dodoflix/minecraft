@@ -331,6 +331,10 @@ impl ServerClockManager {
 
     /// `TYPE` (`data/minecraft/world_clocks.dat`).
     pub fn type_() -> SavedDataType<ServerClockManager> {
+        #[expect(
+            clippy::result_large_err,
+            reason = "DecodeResult<T> carries the partial value by value (DataResult.error(msg, partial)); the SavedDataType decode fn pointer fixes the signature"
+        )]
         fn decode(tag: &Tag) -> DecodeResult<ServerClockManager> {
             map_decoded(PackedClockStates::decode(tag), ServerClockManager::new)
         }

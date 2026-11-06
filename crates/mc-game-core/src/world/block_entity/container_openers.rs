@@ -113,10 +113,7 @@ impl ContainerOpenersCounter {
         let users = self.get_entities_with_container_open(host, level, pos);
         self.max_interaction_range = 0.0;
         for id in &users {
-            if let Some(range) = level
-                .get_entity(*id)
-                .and_then(|e| container_interaction_range(e))
-            {
+            if let Some(range) = level.get_entity(*id).and_then(container_interaction_range) {
                 self.max_interaction_range = range.max(self.max_interaction_range);
             }
         }
@@ -200,7 +197,7 @@ impl ChestLidController {
 /// `player.containerMenu instanceof ChestMenu` whose container is (or contains, for a double chest) the block entity at
 /// `pos` (the `isOwnContainer` of chests and barrels).
 pub fn player_has_chest_menu_open_on(entity: &dyn Entity, pos: BlockPos) -> bool {
-    use crate::world::inventory::{AbstractContainerMenu, ContainerKey};
+    use crate::world::inventory::ContainerKey;
     use mc_data::MenuType;
     let Some(player) = entity
         .as_any()

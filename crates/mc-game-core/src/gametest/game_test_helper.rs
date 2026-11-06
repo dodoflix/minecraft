@@ -79,7 +79,7 @@ impl<'a> GameTestHelper<'a> {
         description: Component,
     ) -> GameTestException {
         GameTestException::AssertPos {
-            message: description,
+            message: Box::new(description),
             absolute_pos: self.absolute_pos(pos),
             relative_pos: pos,
             tick: self.test_info.get_tick(),

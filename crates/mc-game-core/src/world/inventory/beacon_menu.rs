@@ -180,13 +180,12 @@ impl BeaconMenu {
     }
 
     fn set_data_value(&self, player: &mut dyn MenuPlayer, id: usize, value: i32) {
-        if let (Some(pos), Some(level)) = (self.access.pos(), player.level()) {
-            if let Some(d) = level
+        if let (Some(pos), Some(level)) = (self.access.pos(), player.level())
+            && let Some(d) = level
                 .get_block_entity_immediate(pos)
                 .and_then(|be| be.container_data_mut())
-            {
-                d.set(id, value);
-            }
+        {
+            d.set(id, value);
         }
     }
 

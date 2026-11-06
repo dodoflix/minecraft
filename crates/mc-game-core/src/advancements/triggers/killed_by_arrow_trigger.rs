@@ -58,10 +58,10 @@ impl KilledByArrowTriggerInstance {
         unique_entity_types: i32,
         fired_from_weapon: Option<&ItemStack>,
     ) -> bool {
-        if let Some(weapon) = &self.fired_from_weapon {
-            if !fired_from_weapon.is_some_and(|w| weapon.test(w)) {
-                return false;
-            }
+        if let Some(weapon) = &self.fired_from_weapon
+            && !fired_from_weapon.is_some_and(|w| weapon.test(w))
+        {
+            return false;
         }
         if !self.victims.is_empty() {
             let mut remaining: Vec<usize> = (0..victims.len()).collect();

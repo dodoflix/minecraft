@@ -372,7 +372,7 @@ pub mod helper {
 
     /// `saveAllItems(output, items, alsoWhenEmpty)`: the `Items` list (`None` = nothing to write).
     pub fn save_all_items(stacks: &[ItemStack], also_when_empty: bool) -> Option<ListTag> {
-        let list = save_slots(stacks.iter().enumerate().map(|(i, s)| (i, s)));
+        let list = save_slots(stacks.iter().enumerate());
         if list.is_empty() && !also_when_empty {
             None
         } else {

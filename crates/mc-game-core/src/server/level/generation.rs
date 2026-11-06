@@ -17,7 +17,6 @@ use std::collections::HashMap;
 use std::sync::Arc;
 
 pub struct ChunkGenerationTask {
-    pub id: u64,
     pos: ChunkPos,
     scheduled_status: Option<ChunkStatus>,
     pub target_status: ChunkStatus,
@@ -82,10 +81,10 @@ impl ChunkMap {
             Some(h) => std::mem::replace(&mut h.task, new_task),
             None => None,
         };
-        if let Some(old) = old {
-            if let Some(t) = self.tasks.get_mut(&old) {
-                t.mark_for_cancellation();
-            }
+        if let Some(old) = old
+            && let Some(t) = self.tasks.get_mut(&old)
+        {
+            t.mark_for_cancellation();
         }
     }
 
@@ -109,7 +108,6 @@ impl ChunkMap {
         self.tasks.insert(
             id,
             ChunkGenerationTask {
-                id,
                 pos,
                 scheduled_status: None,
                 target_status: target,
@@ -152,10 +150,10 @@ impl ChunkMap {
         }
         let waiting_for = self.run_until_wait(id);
         self.flush_batch(id);
-        if let Some((key, status)) = waiting_for {
-            if let Some(h) = self.holders.holder_mut(key) {
-                h.add_waiter(status, Waiter::Task(id));
-            }
+        if let Some((key, status)) = waiting_for
+            && let Some(h) = self.holders.holder_mut(key)
+        {
+            h.add_waiter(status, Waiter::Task(id));
         }
     }
 
@@ -204,10 +202,10 @@ impl ChunkMap {
         }
         task.released = true;
         let center = task.center_key();
-        if let Some(h) = self.holders.holder_mut(center) {
-            if h.task == Some(id) {
-                h.task = None;
-            }
+        if let Some(h) = self.holders.holder_mut(center)
+            && h.task == Some(id)
+        {
+            h.task = None;
         }
         let range = task.cache_range;
         for x in task.pos.x - range..=task.pos.x + range {
@@ -456,10 +454,10 @@ impl ChunkMap {
         let Some(holder) = self.holders.holder_mut(key) else {
             return;
         };
-        if let ChunkSlot::Proto(p) = &mut holder.slot {
-            if p.get_persisted_status().is_before(status) {
-                p.set_persisted_status(status);
-            }
+        if let ChunkSlot::Proto(p) = &mut holder.slot
+            && p.get_persisted_status().is_before(status)
+        {
+            p.set_persisted_status(status);
         }
         let cached = holder.get_persisted_status();
         let slot_status = match &holder.slot {
@@ -542,19 +540,18 @@ impl ChunkMap {
                             }
                             other => holder.slot = other,
                         }
-                    } else if !structure_views.contains_key(&key) {
-                        if let Some(holder) = self.holders.holder(key) {
-                            match &holder.slot {
-                                ChunkSlot::Proto(p) => {
-                                    structure_views
-                                        .insert(key, Arc::new(p.access.structures.clone()));
-                                }
-                                ChunkSlot::Level(l) => {
-                                    structure_views
-                                        .insert(key, Arc::new(l.data.access.structures.clone()));
-                                }
-                                _ => {}
+                    } else if !structure_views.contains_key(&key)
+                        && let Some(holder) = self.holders.holder(key)
+                    {
+                        match &holder.slot {
+                            ChunkSlot::Proto(p) => {
+                                structure_views.insert(key, Arc::new(p.access.structures.clone()));
                             }
+                            ChunkSlot::Level(l) => {
+                                structure_views
+                                    .insert(key, Arc::new(l.data.access.structures.clone()));
+                            }
+                            _ => {}
                         }
                     }
                 }

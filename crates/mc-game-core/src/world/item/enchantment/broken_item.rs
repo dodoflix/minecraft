@@ -41,10 +41,10 @@ pub fn on_equipped_item_broken(
     if let (Some(modifiers), Some(living)) = (broken.get(&ATTRIBUTE_MODIFIERS), entity.living_mut())
     {
         for entry in &modifiers.modifiers {
-            if super::enchantment::slot_group_test(entry.slot, slot) {
-                if let Some(instance) = living.attributes.get_instance(entry.attribute) {
-                    instance.remove_modifier(&entry.modifier.id);
-                }
+            if super::enchantment::slot_group_test(entry.slot, slot)
+                && let Some(instance) = living.attributes.get_instance(entry.attribute)
+            {
+                instance.remove_modifier(&entry.modifier.id);
             }
         }
     }

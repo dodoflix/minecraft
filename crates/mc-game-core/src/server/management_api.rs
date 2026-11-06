@@ -35,10 +35,10 @@ fn on_server<R: Send + 'static>(
     if has_server() {
         return with_server(f);
     }
+    let task: Box<dyn FnOnce(&mut MinecraftServer) -> R + Send + '_> = Box::new(f);
     // SAFETY: `execute_blocking` does not return before the task finished (or was dropped unrun after the game thread
     // exited, in which case the closure is dropped on that thread before we return), so the borrows `f` captures
     // outlive its use; only the `'static` bound of the queue is being circumvented.
-    let task: Box<dyn FnOnce(&mut MinecraftServer) -> R + Send + '_> = Box::new(f);
     let task: Box<dyn FnOnce(&mut MinecraftServer) -> R + Send + 'static> =
         unsafe { std::mem::transmute(task) };
     shared

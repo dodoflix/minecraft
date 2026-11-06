@@ -207,8 +207,7 @@ impl FeaturePlacer {
         let mut placed_any = false;
         self.positions.push(origin);
         self.modifier_indices.push(0);
-        while !self.positions.is_empty() {
-            let pos = self.positions.pop().expect("checked non-empty");
+        while let Some(pos) = self.positions.pop() {
             let modifier_index = self.modifier_indices.pop().expect("parallel to positions");
             {
                 let context = PlacementContext::new(&*level, generator, top_feature);

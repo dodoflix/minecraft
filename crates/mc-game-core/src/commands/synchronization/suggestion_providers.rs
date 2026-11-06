@@ -5,9 +5,7 @@ use crate::commands::message::message;
 use crate::commands::shared_suggestion_provider::{
     suggest_resource, suggest_resource_with_tooltip,
 };
-use mc_brigadier::{
-    CommandContext, CommandSyntaxException, SuggestionProvider, Suggestions, SuggestionsBuilder,
-};
+use mc_brigadier::{CommandContext, SuggestionProvider, SuggestionsBuilder};
 use mc_core::ident::Identifier;
 use mc_data::{EntityType, SoundEvent};
 use mc_text::Component;

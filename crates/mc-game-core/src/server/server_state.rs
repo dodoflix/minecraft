@@ -15,7 +15,6 @@ use crate::world::level::saveddata::SavedDataType;
 use crate::world::level::saveddata::weather_data::WeatherData;
 use mc_core::ident::Identifier;
 use mc_protocol::packets::play as packets;
-use serde_json::Value;
 
 /// `MinecraftServer` fields of typed saved data: the types are kept to look the instances up again.
 pub struct SavedDataTypes {
@@ -211,7 +210,7 @@ impl MinecraftServer {
         let advance_time = self
             .saved_data
             .peek(&self.game_rules_type)
-            .map_or(true, |rules| rules.get(GameRules::ADVANCE_TIME));
+            .is_none_or(|rules| rules.get(GameRules::ADVANCE_TIME));
         let mut host = ClockHostAdapter {
             advance_time,
             game_time: self.world_data.lock().game_time,

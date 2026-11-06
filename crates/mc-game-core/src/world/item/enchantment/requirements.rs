@@ -31,25 +31,23 @@ pub fn requirement_test(
     };
     // the context draws from the level's own random (a shared handle: the draws advance the level's sequence)
     let shared = level.tick_state.random.clone();
-    let result = {
+
+    {
         let lvl: &ServerLevel = level;
         let entity = |id| actors.get(lvl, id);
         let params = match kind {
             ContextKind::Damage { victim, source } => {
                 let victim_e = entity(*victim);
-                match victim_e {
-                    None => None,
-                    Some(v) => Some(
-                        LootParams::builder(lvl)
-                            .this_entity(v)
-                            .enchantment_level(enchantment_level)
-                            .origin(v.position())
-                            .damage_source(source)
-                            .attacking_entity(source.get_entity().and_then(entity))
-                            .direct_attacking_entity(source.get_direct_entity().and_then(entity))
-                            .create(&LootContextParamSets::ENCHANTED_DAMAGE),
-                    ),
-                }
+                victim_e.map(|v| {
+                    LootParams::builder(lvl)
+                        .this_entity(v)
+                        .enchantment_level(enchantment_level)
+                        .origin(v.position())
+                        .damage_source(source)
+                        .attacking_entity(source.get_entity().and_then(entity))
+                        .direct_attacking_entity(source.get_direct_entity().and_then(entity))
+                        .create(&LootContextParamSets::ENCHANTED_DAMAGE)
+                })
             }
             ContextKind::Item { stack } => Some(
                 LootParams::builder(lvl)
@@ -94,6 +92,5 @@ pub fn requirement_test(
                 .create(None);
             condition.test(&mut context)
         })
-    };
-    result
+    }
 }

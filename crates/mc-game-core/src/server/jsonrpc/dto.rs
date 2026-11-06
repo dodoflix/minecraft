@@ -59,7 +59,7 @@ pub fn decode_int(e: &JsonElement) -> Decoded<i32> {
     }
 }
 
-pub fn decode_list<'a>(e: &'a JsonElement) -> Decoded<&'a [JsonElement]> {
+pub fn decode_list(e: &JsonElement) -> Decoded<&[JsonElement]> {
     match e {
         JsonElement::Array(items) => Ok(items),
         _ => Err(not("list", e)),

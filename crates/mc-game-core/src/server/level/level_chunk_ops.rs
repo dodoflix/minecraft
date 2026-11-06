@@ -297,7 +297,7 @@ impl ServerLevel {
                 None
             }
         } else {
-            match BlockEntityType::by_name(&id) {
+            match BlockEntityType::by_name(id) {
                 None => {
                     log::error!(
                         "Skipping block entity with invalid type: {}",

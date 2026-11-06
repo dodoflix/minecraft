@@ -20,7 +20,7 @@ use super::shared::{ServerShared, TickTask, get_nanos};
 use super::status::load_status_icon;
 use super::tick_pacing::{self, TickTimes};
 use super::watchdog::{SharedWatchdogInfo, WatchdogInfo};
-use crate::crash_report::{CrashReport, ReportedException, SystemReport, install_panic_hook};
+use crate::crash_report::{CrashReport, ReportedException, SystemReport};
 use crate::registry::LayeredRegistryAccess;
 use crate::server::level::ServerLevel;
 use crate::server::level::level_data::SharedWorldData;
@@ -197,7 +197,7 @@ pub(super) fn player_list_settings(
         enforce_secure_profile: properties.enforce_secure_profile && properties.online_mode,
         uses_authentication: properties.online_mode,
         log_ips: properties.log_ips,
-        operator_user_permissions: properties.op_permissions.get().clone(),
+        operator_user_permissions: *properties.op_permissions.get(),
     }
 }
 
@@ -422,8 +422,8 @@ impl MinecraftServer {
         let Some(mut level) = self.levels.get_mut(dimension)?.take() else {
             // The level of the running tick: lent for the call, taken out of the server while `f` has it.
             let lent = self.lent_level.take_if(|l| l.dimension == *dimension)?;
-            // SAFETY: see `level_mut`; the lent pointer was taken out, so nothing else can reach the level during `f`.
             let result = panic::catch_unwind(AssertUnwindSafe(|| {
+                // SAFETY: see `level_mut`; the lent pointer was taken out, so nothing else can reach the level during `f`.
                 f(self, unsafe { &mut *lent.level.as_ptr() })
             }));
             self.lent_level = Some(lent);
@@ -450,9 +450,10 @@ impl MinecraftServer {
             .iter()
             .filter_map(move |(key, l)| match l.as_deref() {
                 Some(level) => Some(level),
-                None => lent
-                    .filter(|l| l.dimension == *key)
-                    .map(|l| unsafe { l.level.as_ref() }),
+                None => lent.filter(|l| l.dimension == *key).map(|l| {
+                    // SAFETY: see `level`; the lent pointer stays valid while `&self` is borrowed.
+                    unsafe { l.level.as_ref() }
+                }),
             })
     }
 
@@ -593,11 +594,6 @@ impl MinecraftServer {
             let text = crate::crash_report::exception_text(payload.as_ref());
             log::error!("Error executing task on Server\n{text}");
         }
-    }
-
-    /// `shouldRun(task)`: late tasks run regardless of the tick budget.
-    fn should_run(&self, task: &TickTask) -> bool {
-        task.tick.wrapping_add(MAX_TICK_LATENCY) < self.tick_count || self.have_time()
     }
 
     /// `BlockableEventLoop.pollTask`: throw a delayed crash, then run the head task if allowed.

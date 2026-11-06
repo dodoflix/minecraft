@@ -127,7 +127,7 @@ pub enum Begin {
     /// `performCommand` returned this value without running a command.
     Done(bool),
     /// Run the command, then call [`BaseCommandBlock::finish_perform`]; `performCommand` returns `true`.
-    Run(PendingCommand),
+    Run(Box<PendingCommand>),
 }
 
 impl BaseCommandBlock {
@@ -274,11 +274,11 @@ impl BaseCommandBlock {
                     }
                 },
             ));
-            return Begin::Run(PendingCommand {
+            return Begin::Run(Box::new(PendingCommand {
                 stack,
                 command: self.command.clone(),
                 source,
-            });
+            }));
         }
         self.finish_perform(game_time);
         Begin::Done(true)

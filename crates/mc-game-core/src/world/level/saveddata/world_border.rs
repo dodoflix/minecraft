@@ -719,6 +719,10 @@ impl WorldBorder {
     }
 
     /// `WorldBorder.TYPE` (`minecraft:world_border`).
+    #[expect(
+        clippy::result_large_err,
+        reason = "DecodeResult<T> carries the partial value by value (DataResult.error(msg, partial)); the SavedDataType decode fn pointer fixes the signature"
+    )]
     pub fn type_() -> SavedDataType<WorldBorder> {
         SavedDataType::new(
             Identifier::parse("minecraft:world_border").expect("static id"),

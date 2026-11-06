@@ -39,6 +39,10 @@ pub struct SetPlayerTeam {
 }
 
 /// One packet broadcast to every player.
+#[expect(
+    clippy::large_enum_variant,
+    reason = "short-lived packet value built and broadcast immediately; the large `SetPlayerTeam` variant is the common team packet, so boxing would only add an allocation per packet"
+)]
 #[derive(Debug, Clone, PartialEq)]
 pub enum ScoreboardPacket {
     /// `ClientboundSetScorePacket`.
@@ -64,6 +68,10 @@ pub enum ScoreboardPacket {
 }
 
 /// What `ServerScoreboard` asks the server to do, in order.
+#[expect(
+    clippy::large_enum_variant,
+    reason = "short-lived value moved straight from the scoreboard queue into the broadcast; boxing would only add an allocation per packet"
+)]
 #[derive(Debug, Clone, PartialEq)]
 pub enum ScoreboardOutput {
     /// `playerList.broadcastAll(packet)`.

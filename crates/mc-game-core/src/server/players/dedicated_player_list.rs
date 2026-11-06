@@ -14,6 +14,10 @@ impl DedicatedPlayerList {
     /// `server.viewDistance()`/`simulationDistance()`. Levels do not exist yet at this point of `initServer`, so the
     /// vanilla `getAllLevels()` loops inside `setViewDistance` have nothing to update; the levels read the values when
     /// they are created.
+    #[expect(
+        clippy::new_ret_no_self,
+        reason = "mirrors `new DedicatedPlayerList(..)`: the dedicated list is a `PlayerList` here"
+    )]
     pub fn new(
         settings: PlayerListSettings,
         player_io: PlayerDataStorage,

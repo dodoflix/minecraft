@@ -95,8 +95,13 @@ impl ChunkStepBuilder {
         } else {
             self.direct_dependencies_by_radius = previous.clone();
         }
-        for i in 0..new_length.min(previous.len()) {
-            self.direct_dependencies_by_radius[i] = ChunkStatus::max(previous[i], status);
+        for (slot, prev) in self
+            .direct_dependencies_by_radius
+            .iter_mut()
+            .zip(&previous)
+            .take(new_length)
+        {
+            *slot = ChunkStatus::max(*prev, status);
         }
         self
     }

@@ -37,6 +37,10 @@ fn from_bits(bits: u8) -> FeatureFlagSet {
 
 /// The `FeatureFlagSet` methods `mc_world` does not expose.
 pub trait FeatureFlagSetExt: Sized {
+    #[expect(
+        clippy::wrong_self_convention,
+        reason = "mirrors vanilla FeatureFlagSet.isEmpty; FeatureFlagSet is Copy but the trait is generic over Sized"
+    )]
     fn is_empty(self) -> bool;
     fn subtract(self, other: Self) -> Self;
     fn intersects(self, other: Self) -> bool;
@@ -92,10 +96,7 @@ mod tests {
         let all = FeatureFlagSet::ALL;
         assert!(FeatureFlagSet::EMPTY.is_empty());
         assert!(!FeatureFlagSet::VANILLA.is_empty());
-        assert_eq!(
-            all.subtract(FeatureFlagSet::VANILLA).is_subset_of(all),
-            true
-        );
+        assert!(all.subtract(FeatureFlagSet::VANILLA).is_subset_of(all));
         assert!(
             !all.subtract(FeatureFlagSet::VANILLA)
                 .contains_all(FeatureFlagSet::VANILLA)

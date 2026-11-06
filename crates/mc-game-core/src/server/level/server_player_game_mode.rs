@@ -7,12 +7,12 @@
 use super::block_break;
 use crate::advancements::triggers::CriteriaTriggers;
 use crate::server::level::ServerLevel;
+use crate::world::entity::Entity;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::player::server_player::ServerPlayer;
-use crate::world::entity::{Entity, EntityId};
 use crate::world::item::behaviour;
 use crate::world::item::{
-    ContextPlayer, InteractionHand, InteractionResult, ItemStack, ItemStackExt, UseOnContext,
+    ContextPlayer, InteractionHand, InteractionResult, ItemStack, UseOnContext,
 };
 use crate::world::level::block::behaviour as block_behaviour;
 use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
@@ -23,8 +23,8 @@ use mc_data::enums::GameType;
 use mc_data::{Attribute, MobEffect};
 use mc_protocol::packets::common::ChatVisibility;
 use mc_protocol::packets::play::{
-    ClientboundBlockUpdatePacket, ClientboundGameEventPacket, ClientboundPlayerAbilitiesPacket,
-    ClientboundSystemChatPacket, ServerboundPlayerActionAction as Action,
+    ClientboundBlockUpdatePacket, ClientboundSystemChatPacket,
+    ServerboundPlayerActionAction as Action,
 };
 use mc_text::{ChatFormatting, Component};
 use mc_world::level_storage::FeatureFlagSet;
@@ -293,9 +293,7 @@ impl ServerPlayer {
         }
         let block_entity = block_break::snapshot_block_entity(level, pos);
         let block = state.block();
-        if block.data().classes.iter().any(|c| *c == "GameMasterBlock")
-            && !self.can_use_game_master_blocks()
-        {
+        if block.data().classes.contains(&"GameMasterBlock") && !self.can_use_game_master_blocks() {
             level.send_block_updated(pos, state, state, 3);
             return false;
         }
@@ -468,8 +466,8 @@ impl ServerPlayer {
     /// `inventoryMenu.sendAllDataToRemote()`.
     pub fn send_inventory_menu_all_data(&mut self, level: &mut ServerLevel) {
         use crate::world::entity::player::menu_ctx::PlayerCtx;
-        use crate::world::inventory::PlayerMenus;
-        let mut menus = std::mem::replace(&mut self.player.menus, PlayerMenus::new());
+
+        let mut menus = std::mem::take(&mut self.player.menus);
         {
             let mut ctx = PlayerCtx {
                 player: self,
@@ -543,10 +541,10 @@ impl ServerPlayer {
                 s.set_count(count);
                 self.set_item_in_hand(hand, s);
             } else {
-                if let InteractionResult::Success(success) = &result {
-                    if let Some(t) = &success.item_context.held_item_transformed_to {
-                        s = t.clone();
-                    }
+                if let InteractionResult::Success(success) = &result
+                    && let Some(t) = &success.item_context.held_item_transformed_to
+                {
+                    s = t.clone();
                 }
                 if s != item_stack {
                     self.set_item_in_hand(hand, s);
@@ -606,14 +604,5 @@ impl ServerPlayer {
             self.game_mode.last_sent_state = s;
         }
         progress
-    }
-}
-
-fn game_type_id(g: GameType) -> i32 {
-    match g {
-        GameType::Survival => 0,
-        GameType::Creative => 1,
-        GameType::Adventure => 2,
-        GameType::Spectator => 3,
     }
 }

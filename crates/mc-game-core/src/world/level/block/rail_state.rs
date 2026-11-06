@@ -1,7 +1,6 @@
 //! `net.minecraft.world.level.block.RailState`: connection logic of rails. Unlike vanilla the level is a parameter of
 //! the methods that need it instead of a field (the struct is only a value: position, state and connections).
 
-use super::BlockStateExt;
 use super::impls::base_rail_block::{is_rail, is_rail_state, is_straight, shape_property};
 use crate::server::level::ServerLevel;
 use crate::world::level::{BlockGetter, LevelAccessor};

@@ -200,8 +200,8 @@ impl FallbackResourceManager {
         // the closure must not borrow `self`: capture the (pack, filter) chain it needs
         let metadata_location = metadata_location(location);
         let ty = self.ty;
-        let chain: Vec<(Option<Arc<dyn PackResources>>, Option<PathFilter>)> = self.fallbacks
-            [final_pack_index..]
+        type PackChainLink = (Option<Arc<dyn PackResources>>, Option<PathFilter>);
+        let chain: Vec<PackChainLink> = self.fallbacks[final_pack_index..]
             .iter()
             .map(|e| (e.resources.clone(), e.filter.clone()))
             .collect();
@@ -230,14 +230,14 @@ impl ResourceManager for FallbackResourceManager {
     fn get_resource(&self, location: &Identifier) -> Option<Resource> {
         for i in (0..self.fallbacks.len()).rev() {
             let entry = &self.fallbacks[i];
-            if let Some(pack) = &entry.resources {
-                if let Some(resource) = pack.get_resource(self.ty, location) {
-                    return Some(Resource::new(
-                        pack.clone(),
-                        resource,
-                        self.stack_metadata_finder(location, i),
-                    ));
-                }
+            if let Some(pack) = &entry.resources
+                && let Some(resource) = pack.get_resource(self.ty, location)
+            {
+                return Some(Resource::new(
+                    pack.clone(),
+                    resource,
+                    self.stack_metadata_finder(location, i),
+                ));
             }
             if entry.is_filtered(location) {
                 log::warn!(
@@ -257,19 +257,19 @@ impl ResourceManager for FallbackResourceManager {
         let mut last_filter_name: Option<&str> = None;
         for i in (0..self.fallbacks.len()).rev() {
             let entry = &self.fallbacks[i];
-            if let Some(pack) = &entry.resources {
-                if let Some(resource) = pack.get_resource(self.ty, location) {
-                    let metadata: MetaSupplier = if filter_meta {
-                        empty_metadata()
-                    } else {
-                        let (pack, ty, ml) = (pack.clone(), self.ty, metadata_location.clone());
-                        Arc::new(move || match pack.get_resource(ty, &ml) {
-                            Some(m) => parse_metadata(&m),
-                            None => Ok(ResourceMetadata::EMPTY),
-                        })
-                    };
-                    result.push(Resource::new(pack.clone(), resource, metadata));
-                }
+            if let Some(pack) = &entry.resources
+                && let Some(resource) = pack.get_resource(self.ty, location)
+            {
+                let metadata: MetaSupplier = if filter_meta {
+                    empty_metadata()
+                } else {
+                    let (pack, ty, ml) = (pack.clone(), self.ty, metadata_location.clone());
+                    Arc::new(move || match pack.get_resource(ty, &ml) {
+                        Some(m) => parse_metadata(&m),
+                        None => Ok(ResourceMetadata::EMPTY),
+                    })
+                };
+                result.push(Resource::new(pack.clone(), resource, metadata));
             }
             if entry.is_filtered(location) {
                 last_filter_name = Some(&entry.name);
@@ -279,10 +279,10 @@ impl ResourceManager for FallbackResourceManager {
                 filter_meta = true;
             }
         }
-        if result.is_empty() {
-            if let Some(name) = last_filter_name {
-                log::warn!("Resource {location} not found, but was filtered by pack {name}");
-            }
+        if result.is_empty()
+            && let Some(name) = last_filter_name
+        {
+            log::warn!("Resource {location} not found, but was filtered by pack {name}");
         }
         result.reverse();
         result

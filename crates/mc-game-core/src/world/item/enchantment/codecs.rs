@@ -30,7 +30,7 @@ pub fn with_decode_context<R>(ctx: &RegistryDecodeContext<'_>, f: impl FnOnce() 
     // SAFETY: the pointer is only dereferenced on this thread while `f` runs (the `Restore` guard clears it on every exit
     // path, including unwinding), during which `ctx` is borrowed by this function. The lifetime is erased only to fit the
     // thread-local's `'static` type.
-    let erased = ctx as *const RegistryDecodeContext<'_> as *const RegistryDecodeContext<'static>;
+    let erased = std::ptr::from_ref(ctx).cast::<RegistryDecodeContext<'static>>();
     let _restore = Restore(SCOPE.with(|s| s.replace(erased)));
     f()
 }

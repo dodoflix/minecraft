@@ -12,7 +12,6 @@ use crate::world::entity::player::ServerPlayer;
 use crate::world::entity::projectile::{Projectile, shoot_from_rotation};
 use crate::world::entity::{Entity, EntityId};
 use crate::world::level::LevelAccessor as _;
-use mc_core::random::RandomSource as _;
 use mc_data::SoundEvent;
 use mc_protocol::components::ItemUseAnimation;
 use mc_protocol::packets::play::SoundSource;
@@ -136,7 +135,7 @@ impl ItemBehaviour for BowItem {
         player: &mut ServerPlayer,
         hand: InteractionHand,
     ) -> InteractionResult {
-        let stack = player.get_item_in_hand(hand);
+        let _stack = player.get_item_in_hand(hand);
         let found_projectile = !get_projectile(player, self).stack.is_empty();
         if !player.has_infinite_materials() && !found_projectile {
             InteractionResult::FAIL

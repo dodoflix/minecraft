@@ -18,6 +18,9 @@ use crate::server::level::ServerLevel;
 use crate::world::attribute::AttrValue;
 use crate::world::level::saveddata::random_sequences::RandomSequences;
 
+/// `clockManager().getInstance(clock).totalTicks()` by clock id; `None` for an unknown clock.
+type ClockTotalTicks = Arc<dyn Fn(&Identifier) -> Option<i64> + Send + Sync>;
+
 /// The shared server data loot reads (`MinecraftServer.getRandomSequence`, `getCommandStorage`).
 #[derive(Clone)]
 pub struct LootServices {
@@ -28,7 +31,7 @@ pub struct LootServices {
     /// `getCommandStorage()` contents by storage id.
     pub command_storage: Arc<dyn Fn(&Identifier) -> CompoundTag + Send + Sync>,
     /// `clockManager().getInstance(clock).totalTicks()`.
-    pub clock_total_ticks: Arc<dyn Fn(&Identifier) -> Option<i64> + Send + Sync>,
+    pub clock_total_ticks: ClockTotalTicks,
 }
 
 impl Default for LootServices {

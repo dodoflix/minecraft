@@ -8,7 +8,6 @@ use crate::world::item::ItemStack;
 use crate::world::level::LevelAccessor;
 use mc_core::direction::{Axis, Direction};
 use mc_core::phys::Vec3;
-use mc_core::random::RandomSource;
 
 const DEFAULT_ACCURACY: i32 = 6;
 

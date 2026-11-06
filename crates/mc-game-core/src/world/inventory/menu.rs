@@ -789,9 +789,9 @@ pub trait AbstractContainerMenu: Any {
             let expected_status = self.base().quickcraft_status;
             let new_status = get_quickcraft_header(button_num);
             self.base_mut().quickcraft_status = new_status;
-            if (expected_status != 1 || new_status != 2) && expected_status != new_status {
-                self.base_mut().reset_quick_craft();
-            } else if self.base().carried.is_empty() {
+            if ((expected_status != 1 || new_status != 2) && expected_status != new_status)
+                || self.base().carried.is_empty()
+            {
                 self.base_mut().reset_quick_craft();
             } else if new_status == 0 {
                 let ty = get_quickcraft_type(button_num);

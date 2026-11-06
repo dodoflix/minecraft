@@ -627,11 +627,11 @@ impl BlockItem {
                         } else {
                             wall_state
                         };
-                        if let Some(possible) = possible {
-                            if self.standing_can_place(kind, level, possible, pos) {
-                                state_for_placement = Some(possible);
-                                break;
-                            }
+                        if let Some(possible) = possible
+                            && self.standing_can_place(kind, level, possible, pos)
+                        {
+                            state_for_placement = Some(possible);
+                            break;
                         }
                     }
                 }

@@ -75,7 +75,7 @@ impl SpawnData {
                 |f: Fields| SpawnData::new(f.entity, f.custom_spawn_rules, f.equipment),
                 |s: &SpawnData| Fields {
                     entity: s.entity_to_spawn.clone(),
-                    custom_spawn_rules: s.custom_spawn_rules.clone(),
+                    custom_spawn_rules: s.custom_spawn_rules,
                     equipment: s.equipment.clone(),
                 },
             )

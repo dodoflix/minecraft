@@ -57,7 +57,10 @@ macro_rules! components {
             $( pub $field: Option<$ty>, )*
         }
 
-        #[allow(non_camel_case_types)]
+        #[expect(
+            non_camel_case_types,
+            reason = "variants are named after the snake_case registry ids of the vanilla components"
+        )]
         #[derive(Clone)]
         enum Value {
             $( $field($ty), )*
@@ -65,7 +68,10 @@ macro_rules! components {
 
         /// The effect component types (`EnchantmentEffectComponents.*`).
         #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-        #[allow(non_camel_case_types)]
+        #[expect(
+            non_camel_case_types,
+            reason = "variants are named after the snake_case registry ids of the vanilla components"
+        )]
         pub enum EffectComponent {
             $( $field, )*
         }

@@ -277,7 +277,6 @@ pub trait ItemBehaviour: Send + Sync + 'static {
 
     /// `getAttackDamageBonus(victim, damage, damageSource)` (`MaceItem`: smash damage); `attacker` is the (out of level)
     /// entity wielding `stack`, `source.getDirectEntity()` when it is the attacker itself.
-    #[allow(clippy::too_many_arguments)]
     fn get_attack_damage_bonus_for(
         &self,
         _level: &mut ServerLevel,

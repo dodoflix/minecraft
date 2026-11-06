@@ -1,10 +1,10 @@
 //! `net.minecraft.world.level.pathfinder.WalkNodeEvaluator` (the class-`Walk` implementations dispatched from
 //! [`NodeEvaluator`]; the amphibious and fly evaluators call into this module as their `super`).
 
-use super::node::{Node, NodeId};
+use super::node::NodeId;
 use super::node_evaluator::{EvaluatorState, NodeEvaluator, PathEnv, is_burning_block};
 use super::path_type::PathType;
-use super::pathfinding_context::{PathLevel, PathfindingContext};
+use super::pathfinding_context::PathfindingContext;
 use crate::world::level::BlockGetter;
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::material::FluidStateExt;
@@ -239,9 +239,7 @@ pub fn is_diagonal_valid<N: NodeEvaluator + ?Sized>(
         None => false,
         Some(d) => {
             let d = this.node(d);
-            if d.closed {
-                false
-            } else if d.ty == PathType::WalkableDoor {
+            if d.closed || d.ty == PathType::WalkableDoor {
                 false
             } else {
                 d.cost_malus >= 0.0
@@ -306,7 +304,6 @@ pub fn get_floor_level_static(level: &dyn BlockGetter, pos: BlockPos) -> f64 {
         }
 }
 
-#[allow(clippy::too_many_arguments)]
 pub fn find_accepted_node<N: NodeEvaluator + ?Sized>(
     this: &mut N,
     env: &mut PathEnv<'_>,
@@ -409,7 +406,6 @@ fn get_closed_node<N: NodeEvaluator + ?Sized>(
     id
 }
 
-#[allow(clippy::too_many_arguments)]
 fn try_jump_on<N: NodeEvaluator + ?Sized>(
     this: &mut N,
     env: &mut PathEnv<'_>,
@@ -655,7 +651,7 @@ pub fn get_path_type(env: &mut PathEnv<'_>, x: i32, y: i32, z: i32) -> PathType 
 pub fn get_path_type_static(context: &PathfindingContext<'_>, pos: BlockPos) -> PathType {
     let (x, y, z) = (pos.x(), pos.y(), pos.z());
     let block_path_type = context.get_path_type_from_state(x, y, z);
-    if block_path_type == PathType::Open && y >= context.level().get_min_y() + 1 {
+    if block_path_type == PathType::Open && y > context.level().get_min_y() {
         match context.get_path_type_from_state(x, y - 1, z) {
             PathType::Open | PathType::Water | PathType::Lava | PathType::Walkable => {
                 PathType::Open

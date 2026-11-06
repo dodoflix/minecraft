@@ -481,8 +481,7 @@ pub fn apply_biome_decoration_observed(
                 }
             }
 
-            if step_index < feature_step_count {
-                let step_feature_data = &features[step_index];
+            if let Some(step_feature_data) = features.get(step_index) {
                 let mut possible_features_this_step: BTreeSet<usize> = BTreeSet::new();
                 for &biome in &possible_biomes {
                     let features_in_biome = env.get_biome_generation_settings(biome).features();

@@ -10,7 +10,7 @@ use crate::world::item::{
 };
 use crate::world::level::block::rotation_segment;
 use crate::world::level::gameevent::GameEventContext;
-use mc_core::phys::{BlockHitResult, Vec3};
+use mc_core::phys::Vec3;
 use mc_data::GameEvent;
 use mc_protocol::packets::play::ClientboundOpenSignEditorPacket;
 use mc_protocol::packets::play::level::{ClientboundBlockUpdatePacket, SoundSource};

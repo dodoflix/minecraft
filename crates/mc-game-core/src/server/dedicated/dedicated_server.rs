@@ -443,7 +443,7 @@ impl MinecraftServer {
     }
 
     pub fn operator_user_permissions(&self) -> LevelBasedPermissionSet {
-        self.properties().op_permissions.get().clone()
+        *self.properties().op_permissions.get()
     }
 
     pub fn set_operator_user_permissions(&mut self, permissions: LevelBasedPermissionSet) {
@@ -453,7 +453,7 @@ impl MinecraftServer {
     }
 
     pub fn get_function_compilation_permissions(&self) -> LevelBasedPermissionSet {
-        self.properties().function_permissions.clone()
+        self.properties().function_permissions
     }
 
     /// `playerIdleTimeout`.

@@ -81,22 +81,22 @@ pub fn send_disguised_chat_message(
 /// `OutgoingChatMessage`.
 #[derive(Clone, Debug)]
 pub enum OutgoingChatMessage {
-    Disguised(Component),
-    Player(PlayerChatMessage),
+    Disguised(Box<Component>),
+    Player(Box<PlayerChatMessage>),
 }
 
 impl OutgoingChatMessage {
     pub fn create(message: &PlayerChatMessage) -> Self {
         if message.is_system() {
-            Self::Disguised(message.decorated_content())
+            Self::Disguised(Box::new(message.decorated_content()))
         } else {
-            Self::Player(message.clone())
+            Self::Player(Box::new(message.clone()))
         }
     }
 
     pub fn content(&self) -> Component {
         match self {
-            Self::Disguised(content) => content.clone(),
+            Self::Disguised(content) => Component::clone(content),
             Self::Player(message) => message.decorated_content(),
         }
     }

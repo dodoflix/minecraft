@@ -6,8 +6,7 @@ use crate::server::level::ServerLevel;
 use crate::world::block_entity::test_instance_block_entity::{
     self, Data, Status, TestInstanceView, structure_pos_of,
 };
-use crate::world::level::block::BlockStateExt;
-use crate::world::level::{BlockGetter, DimensionKey, LevelAccessor};
+use crate::world::level::{DimensionKey, LevelAccessor};
 use mc_core::bounding_box::BoundingBox;
 use mc_core::ident::Identifier;
 use mc_core::mirror::Mirror;

@@ -565,7 +565,7 @@ fn websocket_round_trip() {
         service.player_joined(&NameAndId::create_offline("Alex"));
         let Message::Text(note) = ws.next().await.unwrap().unwrap() else { panic!("text expected") };
         assert!(note.as_str().starts_with(r#"{"jsonrpc":"2.0","method":"minecraft:notification/players/joined","params":[{"id":""#), "{note}");
-        assert!(connections.len() >= 1);
+        assert!(!connections.is_empty());
     });
     server.stop();
 }

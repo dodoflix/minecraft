@@ -19,7 +19,7 @@ impl ChunkPyramid {
         &self.steps
     }
 
-    fn build(specs: Vec<(S, Box<dyn Fn(ChunkStepBuilder) -> ChunkStepBuilder>)>) -> Self {
+    fn build(specs: Vec<(S, Op)>) -> Self {
         let mut steps: Vec<ChunkStep> = Vec::new();
         for (status, op) in specs {
             let builder = ChunkStepBuilder::new(status, steps.last());

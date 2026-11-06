@@ -48,15 +48,16 @@ impl EntitySectionStorage {
             for &section_key in self.section_ids.range(lowest..=highest) {
                 let y = SectionPos::y_from_long(section_key);
                 let z = SectionPos::z_from_long(section_key);
-                if y >= y_min && y <= y_max && z >= z_min && z <= z_max {
-                    if let Some(section) = self.sections.get(&section_key) {
-                        if !section.is_empty()
-                            && section.status().is_accessible()
-                            && output(section_key, section).is_break()
-                        {
-                            return;
-                        }
-                    }
+                if y >= y_min
+                    && y <= y_max
+                    && z >= z_min
+                    && z <= z_max
+                    && let Some(section) = self.sections.get(&section_key)
+                    && !section.is_empty()
+                    && section.status().is_accessible()
+                    && output(section_key, section).is_break()
+                {
+                    return;
                 }
             }
         }

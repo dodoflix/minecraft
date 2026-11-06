@@ -1,13 +1,11 @@
 //! `BoatDispenseItemBehavior`: boats, chest boats and rafts (one instance per entity type).
 
-use crate::world::dispenser::{
-    BlockSource, DispenseItemBehavior, DispenseTemplate, Templated, default_behavior,
-};
+use crate::world::dispenser::{BlockSource, DispenseTemplate, Templated, default_behavior};
 use crate::world::entity::factory::{self, EntitySpawnRequest};
 use crate::world::entity::spawn_config::apply_default_stack_config;
 use crate::world::item::ItemStack;
+use crate::world::level::BlockGetter;
 use crate::world::level::material::FluidStateExt;
-use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_data::EntityType;
 use mc_data::enums::EntitySpawnReason;
 
@@ -24,9 +22,8 @@ impl DispenseTemplate for BoatDispense {
         let spawn_y = center.y + f64::from(direction.get_step_y()) * f64::from(1.125f32);
         let spawn_z = center.z + f64::from(direction.get_step_z()) * just_outside_dispenser;
         let front_pos = source.pos.relative(direction);
-        let y_offset;
-        if source.level.get_fluid_state(front_pos).is_tag("water") {
-            y_offset = 1.0;
+        let y_offset = if source.level.get_fluid_state(front_pos).is_tag("water") {
+            1.0
         } else {
             if !source.level.get_block_state(front_pos).is_air()
                 || !source
@@ -36,8 +33,8 @@ impl DispenseTemplate for BoatDispense {
             {
                 return default_behavior().dispense(source, dispensed);
             }
-            y_offset = 0.0;
-        }
+            0.0
+        };
         if let Some(mut boat) = factory::create(
             self.ty,
             source.level,

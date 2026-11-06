@@ -7,7 +7,6 @@ use super::{
 };
 use crate::registry::RegistryAccess;
 use crate::registry::keys::ENCHANTMENT as ENCHANTMENT_REGISTRY;
-use crate::world::container::Container;
 use crate::world::entity::experience_orb::ExperienceOrb;
 use crate::world::item::ItemStack;
 use crate::world::item::enchantment::enchantment_tags;
@@ -60,10 +59,9 @@ fn get_experience_from_item(registries: &RegistryAccess, item: &ItemStack) -> i3
             ENCHANTMENT_REGISTRY,
             key,
             &enchantment_tags::id(enchantment_tags::CURSE),
-        ) {
-            if let Some(e) = definition(registries, key) {
-                amount += e.get_min_cost(*lvl);
-            }
+        ) && let Some(e) = definition(registries, key)
+        {
+            amount += e.get_min_cost(*lvl);
         }
     }
     amount

@@ -56,15 +56,15 @@ impl IntRangePredicate {
                 h.value(context.get_resolver()).get_int(context) == input
             }
             IntRangePredicate::Line { min, max } => {
-                if let Some(min) = min {
-                    if input < min.value(context.get_resolver()).get_int(context) {
-                        return false;
-                    }
+                if let Some(min) = min
+                    && input < min.value(context.get_resolver()).get_int(context)
+                {
+                    return false;
                 }
-                if let Some(max) = max {
-                    if input > max.value(context.get_resolver()).get_int(context) {
-                        return false;
-                    }
+                if let Some(max) = max
+                    && input > max.value(context.get_resolver()).get_int(context)
+                {
+                    return false;
                 }
                 true
             }
@@ -145,15 +145,15 @@ impl FloatRangePredicate {
                 h.value(context.get_resolver()).get_float(context) == input
             }
             FloatRangePredicate::Line { min, max } => {
-                if let Some(min) = min {
-                    if !(input >= min.value(context.get_resolver()).get_float(context)) {
-                        return false;
-                    }
+                if let Some(min) = min
+                    && !(input >= min.value(context.get_resolver()).get_float(context))
+                {
+                    return false;
                 }
-                if let Some(max) = max {
-                    if !(input <= max.value(context.get_resolver()).get_float(context)) {
-                        return false;
-                    }
+                if let Some(max) = max
+                    && !(input <= max.value(context.get_resolver()).get_float(context))
+                {
+                    return false;
                 }
                 true
             }

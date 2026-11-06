@@ -57,10 +57,10 @@ impl<T: ConditionalFunction> LootItemFunction for T {
         self
     }
     fn apply(&self, stack: ItemStack, context: &mut LootContext) -> ItemStack {
-        if let Some(condition) = self.condition() {
-            if !condition.value(context.get_resolver()).test(context) {
-                return stack;
-            }
+        if let Some(condition) = self.condition()
+            && !condition.value(context.get_resolver()).test(context)
+        {
+            return stack;
         }
         self.run(stack, context)
     }

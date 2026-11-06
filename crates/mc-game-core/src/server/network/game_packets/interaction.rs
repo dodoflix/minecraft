@@ -7,7 +7,6 @@
 use super::PlayCtx;
 use super::hooks::InteractionHand as Hand;
 use crate::world::entity::{Entity, EntityId};
-use crate::world::level::BlockGetter;
 use mc_core::direction::Direction;
 use mc_core::math::mth;
 use mc_core::phys::{AABB, Vec3};
@@ -421,7 +420,8 @@ impl PlayCtx<'_> {
             {
                 self.item_sys().stop_using_item(self);
             }
-            self.player.player.inventory.set_selected_slot(slot);
+            // In range by the check above, so vanilla's `IllegalArgumentException` cannot happen.
+            let _ = self.player.player.inventory.set_selected_slot(slot);
             self.player.reset_last_action_time();
         } else {
             log::warn!(

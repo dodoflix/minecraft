@@ -4,10 +4,21 @@ use mc_core::math::mth;
 use serde_json::Value;
 use std::f32::consts::PI;
 
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug)]
 pub enum EasingType {
     Named(fn(f32) -> f32, &'static str),
     CubicBezier(CubicBezier),
+}
+
+/// Named curves compare by name (the function pointer is determined by it; fn-pointer addresses are not unique).
+impl PartialEq for EasingType {
+    fn eq(&self, other: &Self) -> bool {
+        match (self, other) {
+            (Self::Named(_, a), Self::Named(_, b)) => a == b,
+            (Self::CubicBezier(a), Self::CubicBezier(b)) => a == b,
+            _ => false,
+        }
+    }
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -102,7 +113,9 @@ fn out_bounce(x: f32) -> f32 {
     }
 }
 
-const SIMPLE: &[(&str, fn(f32) -> f32)] = &[
+type EaseFn = fn(f32) -> f32;
+
+const SIMPLE: &[(&str, EaseFn)] = &[
     ("constant", |_| 0.0),
     ("linear", |x| x),
     ("in_back", |x| sq(x) * (2.70158 * x - 1.70158)),

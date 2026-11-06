@@ -224,10 +224,10 @@ impl<V> LongOpenHashMap<V> {
                 }
                 pos = (pos + 1) & self.mask;
             }
-            if pos < last {
-                if let Some(w) = wrapped.as_deref_mut() {
-                    w.push(self.key[pos]);
-                }
+            if pos < last
+                && let Some(w) = wrapped.as_deref_mut()
+            {
+                w.push(self.key[pos]);
             }
             self.key[last] = curr;
             self.value[last] = self.value[pos].take();

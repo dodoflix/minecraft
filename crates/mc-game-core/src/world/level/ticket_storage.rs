@@ -184,12 +184,11 @@ impl TicketStorage {
     fn lowest_ticket(tickets: &[Ticket], simulation: bool) -> Option<&Ticket> {
         let mut t: Option<&Ticket> = None;
         for ticket in tickets {
-            if t.is_none_or(|t| ticket.get_ticket_level() < t.get_ticket_level()) {
-                if (simulation && ticket.get_type().does_simulate())
-                    || (!simulation && ticket.get_type().does_load())
-                {
-                    t = Some(ticket);
-                }
+            if t.is_none_or(|t| ticket.get_ticket_level() < t.get_ticket_level())
+                && ((simulation && ticket.get_type().does_simulate())
+                    || (!simulation && ticket.get_type().does_load()))
+            {
+                t = Some(ticket);
             }
         }
         t
@@ -473,6 +472,10 @@ fn is_ticket_same_type_and_level(ticket: &Ticket, t: &Ticket) -> bool {
 crate::impl_saved_data!(TicketStorage);
 
 /// `TicketStorage.TYPE` (`chunk_tickets`).
+#[expect(
+    clippy::result_large_err,
+    reason = "`Partial<T>` carries the partial value of `DataResult.error(msg, partial)` inline, shared by every saved-data decoder"
+)]
 pub fn saved_data_type() -> crate::world::level::saveddata::SavedDataType<TicketStorage> {
     use crate::util::codec::Partial;
     crate::world::level::saveddata::SavedDataType::new(

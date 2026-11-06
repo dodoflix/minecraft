@@ -424,15 +424,15 @@ fn parse_entry(
 
 /// `EnvironmentAttribute.valueCodec()` = type codec `.validate(range)`.
 fn validate_range(def: &AttributeDef, _json: &Value, tag: Tag) -> Result<Tag, String> {
-    if let (R::Float(min, max), Tag::Float(f)) = (def.range, &tag) {
-        if !(*f >= min && *f <= max) {
-            return Err(format!(
-                "{} is not in range [{}; {}]",
-                java_float_to_string(*f),
-                java_float_to_string(min),
-                java_float_to_string(max)
-            ));
-        }
+    if let (R::Float(min, max), Tag::Float(f)) = (def.range, &tag)
+        && !(*f >= min && *f <= max)
+    {
+        return Err(format!(
+            "{} is not in range [{}; {}]",
+            java_float_to_string(*f),
+            java_float_to_string(min),
+            java_float_to_string(max)
+        ));
     }
     Ok(tag)
 }

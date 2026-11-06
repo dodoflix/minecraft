@@ -266,7 +266,7 @@ pub fn apply_container_writes(
 }
 
 /// `source.getLevel().getBlockEntity(pos) instanceof Container`.
-pub fn container_at<'a>(level: &'a ServerLevel, pos: BlockPos) -> Option<&'a dyn Container> {
+pub fn container_at(level: &ServerLevel, pos: BlockPos) -> Option<&dyn Container> {
     use crate::world::level::BlockGetter;
     let block_entity: &dyn BlockEntity = level.get_block_entity(pos)?;
     block_entity.as_container()

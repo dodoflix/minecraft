@@ -12,19 +12,21 @@ fn duplicate_cases(source: &str) -> Vec<String> {
         };
         let mut seen: BTreeMap<String, usize> = BTreeMap::new();
         let mut depth = 0i32;
-        let mut line_no = source[..start].matches('\n').count() + 1;
-        for line in source[start..].lines() {
+        let first_line = source[..start].matches('\n').count() + 1;
+        for (line_no, line) in (first_line..).zip(source[start..].lines()) {
             let t = line.trim_start();
             // labels sit directly inside the switch body (depth 1)
-            if depth == 1 {
-                if let Some(rest) = t.strip_prefix("case ") {
-                    for label in rest.split("->").next().unwrap_or("").split(',') {
-                        let label = label.trim().to_string();
-                        if label.starts_with('"') {
-                            if let Some(first) = seen.insert(label.clone(), line_no) {
-                                dups.push(format!("{selector} duplicate {label} at line {line_no} (first at {first})"));
-                            }
-                        }
+            if depth == 1
+                && let Some(rest) = t.strip_prefix("case ")
+            {
+                for label in rest.split("->").next().unwrap_or("").split(',') {
+                    let label = label.trim().to_string();
+                    if label.starts_with('"')
+                        && let Some(first) = seen.insert(label.clone(), line_no)
+                    {
+                        dups.push(format!(
+                            "{selector} duplicate {label} at line {line_no} (first at {first})"
+                        ));
                     }
                 }
             }
@@ -38,7 +40,6 @@ fn duplicate_cases(source: &str) -> Vec<String> {
             if depth <= 0 {
                 break;
             }
-            line_no += 1;
         }
     }
     dups

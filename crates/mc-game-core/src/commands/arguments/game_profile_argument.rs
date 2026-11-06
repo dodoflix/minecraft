@@ -22,7 +22,7 @@ pub static ERROR_UNKNOWN_PLAYER: LazyLock<SimpleCommandExceptionType> =
 #[derive(Clone, Debug)]
 pub enum GameProfileResult {
     /// `SelectorResult`.
-    Selector(EntitySelector),
+    Selector(Box<EntitySelector>),
     /// A plain player name (resolved through the name -> id cache).
     Name(String),
 }
@@ -78,7 +78,7 @@ impl GameProfileArgument {
             if parse.includes_entities() {
                 return Err(ERROR_ONLY_PLAYERS_ALLOWED.create_with_context(reader));
             }
-            Ok(GameProfileResult::Selector(parse))
+            Ok(GameProfileResult::Selector(Box::new(parse)))
         } else {
             let start = reader.get_cursor();
             while reader.can_read() && reader.peek() != ' ' {

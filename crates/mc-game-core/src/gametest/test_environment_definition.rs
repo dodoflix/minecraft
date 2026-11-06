@@ -98,7 +98,7 @@ pub enum TestEnvironmentDefinition {
         setup_function: Option<Identifier>,
         teardown_function: Option<Identifier>,
     },
-    SetGameRules(GameRuleMap),
+    SetGameRules(Box<GameRuleMap>),
     Timelines(Vec<Identifier>),
     Weather(WeatherType),
 }
@@ -109,8 +109,8 @@ enum Saved {
     ClockTicks(i64),
     Difficulty(Difficulty),
     Unit,
-    GameRules(GameRuleMap),
-    Attributes(crate::world::attribute::EnvironmentAttributeSystem),
+    GameRules(Box<GameRuleMap>),
+    Attributes(Box<crate::world::attribute::EnvironmentAttributeSystem>),
     Weather(WeatherType),
 }
 
@@ -188,10 +188,10 @@ impl TestEnvironmentDefinition {
                     original.set_value(rule, server.game_rules().get_value(rule));
                 }
                 set_game_rules(server, map);
-                Saved::GameRules(original)
+                Saved::GameRules(Box::new(original))
             }
             Self::Timelines(timelines) => {
-                Saved::Attributes(set_timelines(server, level, timelines))
+                Saved::Attributes(Box::new(set_timelines(server, level, timelines)))
             }
             Self::Weather(weather) => {
                 let previous = {
@@ -238,7 +238,7 @@ impl TestEnvironmentDefinition {
             }
             (Self::Timelines(_), Saved::Attributes(previous)) => {
                 if let Some(lvl) = server.level_mut(level) {
-                    lvl.tick_state.attributes = previous;
+                    lvl.tick_state.attributes = *previous;
                 }
             }
             (Self::Weather(_), Saved::Weather(previous)) => {
@@ -397,7 +397,7 @@ pub fn decode_definition(
                 return Err(format!("Not a map: {rules}"));
             }
             let map = GameRuleMap::decode(&json_to_nbt(rules)).map_err(|p| p.error)?;
-            TestEnvironmentDefinition::SetGameRules(map)
+            TestEnvironmentDefinition::SetGameRules(Box::new(map))
         }
         "minecraft:timeline_attributes" => {
             let list = required(json, "timelines")?

@@ -12,7 +12,6 @@ use mc_core::ident::Identifier;
 use mc_core::phys::{AABB, Vec3};
 use mc_dfu::extra::IDENTIFIER;
 use mc_dfu::{BOOL, Codec, Either, STRING};
-use mc_nbt::Tag;
 use mc_protocol::components::Ints;
 use mc_protocol::components::holder::registry_name_codec;
 use std::sync::LazyLock;

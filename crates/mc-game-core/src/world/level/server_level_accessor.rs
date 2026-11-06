@@ -14,7 +14,6 @@ use crate::world::difficulty_instance::DifficultyInstance;
 use crate::world::entity::Entity;
 use crate::world::entity::factory::EntitySpawnRequest;
 use crate::world::level::LevelAccessor;
-use crate::world::level::LevelReader;
 use mc_core::phys::AABB;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;

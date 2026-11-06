@@ -4,8 +4,8 @@
 use super::{
     AbstractContainerMenu, ContainerKey, MenuBase, MenuPlayer, Slot, SlotBehavior, SlotEnv,
 };
+use crate::world::item::ItemStack;
 use crate::world::item::crafting::{PotionIngredient, RecipePropertySet};
-use crate::world::item::{ItemStack, ItemStackExt};
 use mc_core::pos::BlockPos;
 use mc_data::{DataComponentType, MenuType};
 use mc_protocol::components::POTION_CONTENTS;
@@ -207,7 +207,7 @@ impl AbstractContainerMenu for BrewingStandMenu {
                 ) {
                     return ItemStack::empty();
                 }
-            } else if self.base.with_slot(player, 0, |s, e| {
+            } else if self.base.with_slot(player, 0, |_s, e| {
                 recipe_test(e, |recipes| {
                     PotionIngredient::is_potion_input(&clicked, recipes)
                 })

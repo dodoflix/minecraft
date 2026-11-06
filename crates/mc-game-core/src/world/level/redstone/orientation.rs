@@ -52,7 +52,7 @@ fn generate_index(up: Direction, front: Direction, side_bias: SideBias) -> usize
         usize::from(front.get_axis() == Axis::Y)
     };
     let front_key = front_axis_key << 1 | front.get_axis_direction() as usize;
-    ((up.ordinal() << 2) + front_key << 1) + side_bias.ordinal()
+    (((up.ordinal() << 2) + front_key) << 1) + side_bias.ordinal()
 }
 
 impl Orientation {

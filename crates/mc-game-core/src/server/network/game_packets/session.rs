@@ -4,7 +4,6 @@
 
 use super::PlayCtx;
 use crate::server::network::common_listener::disconnect_unexpected_query;
-use crate::world::entity::Entity;
 use mc_core::ident::Identifier;
 use mc_protocol::packets::common::ClientInformation;
 use mc_protocol::packets::common::ResourcePackAction;

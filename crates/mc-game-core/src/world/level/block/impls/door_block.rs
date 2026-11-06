@@ -7,7 +7,6 @@ use crate::world::level::block::block_set_type::BlockSetType;
 use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::signal_getter::has_neighbor_signal;
 use mc_core::phys::{BlockHitResult, Vec3};
-use mc_core::random::RandomSource;
 use mc_data::GameEvent;
 use mc_data::block::PathComputationType;
 use mc_data::enums::{DoorHingeSide, DoubleBlockHalf};

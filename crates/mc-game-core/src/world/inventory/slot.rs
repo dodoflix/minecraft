@@ -7,7 +7,7 @@
 use super::MenuPlayer;
 use crate::world::block_entity::ContainerUser;
 use crate::world::container::{Container, SimpleContainer};
-use crate::world::entity::{Entity, EntityId};
+use crate::world::entity::EntityId;
 use crate::world::item::ItemStack;
 use crate::world::level::BlockGetter;
 use mc_core::pos::BlockPos;
@@ -221,10 +221,8 @@ impl ContainerKey {
                 if let Some(pos) = active {
                     notify_be(player, pos);
                 }
-                if !open {
-                    if let Some(c) = player.ender_chest_mut() {
-                        c.clear_active_chest();
-                    }
+                if !open && let Some(c) = player.ender_chest_mut() {
+                    c.clear_active_chest();
                 }
             }
         }
@@ -356,9 +354,9 @@ impl Slot {
     }
 
     pub fn try_remove(&self, env: &mut SlotEnv, amount: i32, max_amount: i32) -> Option<ItemStack> {
-        if !self.may_pickup(env) {
-            None
-        } else if !self.allow_modification(env) && max_amount < self.get_item(env).count() {
+        if !self.may_pickup(env)
+            || (!self.allow_modification(env) && max_amount < self.get_item(env).count())
+        {
             None
         } else {
             let amount = amount.min(max_amount);

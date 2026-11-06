@@ -52,6 +52,9 @@ pub struct FrameInfo {
     pub entity_id: i32,
 }
 
+/// The live-view lookup of `MapTickEnv::other`.
+type OtherPlayerView<'a> = dyn Fn(EntityId, &dyn Fn(&ItemStack) -> bool) -> Option<PlayerView> + 'a;
+
 /// What `tickCarriedBy` needs from the surroundings of the ticking player.
 pub struct MapTickEnv<'a> {
     /// `Level.getGameTime()` of the ticking player's level.
@@ -62,7 +65,7 @@ pub struct MapTickEnv<'a> {
     pub ticking: PlayerView,
     /// The live view of another holding player in the ticking level (`None` when it is not in it); the argument is
     /// `mapMatcher`, the predicate of `getInventory().contains(..)`.
-    pub other: &'a dyn Fn(EntityId, &dyn Fn(&ItemStack) -> bool) -> Option<PlayerView>,
+    pub other: &'a OtherPlayerView<'a>,
 }
 
 /// `MapItemSavedData.HoldingPlayer`.
@@ -419,7 +422,6 @@ impl MapItemSavedData {
         stack.set(mc_protocol::components::MAP_DECORATIONS, decorations);
     }
 
-    #[allow(clippy::too_many_arguments)]
     fn add_decoration(
         &mut self,
         ty: MapDecorationType,
@@ -715,6 +717,10 @@ impl MapItemSavedData {
     }
 
     /// `MapItemSavedData.CODEC` decode.
+    #[expect(
+        clippy::result_large_err,
+        reason = "`Partial<T>` carries the partial value of `DataResult.error(msg, partial)` inline, shared by every saved-data decoder"
+    )]
     pub fn decode(tag: &Tag) -> DecodeResult<MapItemSavedData> {
         let m = codec::compound(tag)?;
         let dimension = codec::identifier(codec::field(m, "dimension")?)?;

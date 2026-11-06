@@ -39,6 +39,9 @@ macro_rules! impl_saved_data {
     };
 }
 
+type SavedDataDecodeFn<T> = dyn Fn(&Tag) -> DecodeResult<T> + Send + Sync;
+type SavedDataEncodeFn<T> = dyn Fn(&T) -> DataResult<Tag> + Send + Sync;
+
 /// `SavedDataType<T>`: file id (`data/<namespace>/<path>.dat`), constructor and the NBT codec of the `data` tag.
 /// Datafix types are not modelled (no DFU port): files are read as-is.
 ///
@@ -46,8 +49,8 @@ macro_rules! impl_saved_data {
 pub struct SavedDataType<T: SavedData> {
     pub id: Identifier,
     pub constructor: Arc<dyn Fn() -> T + Send + Sync>,
-    pub decode: Arc<dyn Fn(&Tag) -> DecodeResult<T> + Send + Sync>,
-    pub encode: Arc<dyn Fn(&T) -> DataResult<Tag> + Send + Sync>,
+    pub decode: Arc<SavedDataDecodeFn<T>>,
+    pub encode: Arc<SavedDataEncodeFn<T>>,
 }
 
 impl<T: SavedData> SavedDataType<T> {

@@ -406,13 +406,12 @@ impl BlockBehaviour for RedstoneWireBlock {
     ) -> i32 {
         if should_signal() && direction != Direction::Down {
             let power = self.own_signal(state, level, pos);
-            if power == 0 {
-                0
-            } else if direction != Direction::Up
-                && !is_connected(
-                    get_connection_state(level, state, pos)
-                        .get(side_property(direction.get_opposite())),
-                )
+            if power == 0
+                || (direction != Direction::Up
+                    && !is_connected(
+                        get_connection_state(level, state, pos)
+                            .get(side_property(direction.get_opposite())),
+                    ))
             {
                 0
             } else {

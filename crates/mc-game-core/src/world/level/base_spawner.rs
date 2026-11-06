@@ -1,14 +1,14 @@
 //! `net.minecraft.world.level.BaseSpawner`: the spawn timer and spawn attempt shared by the monster spawner block
 //! entity and the spawner minecart. The client-only display entity and spin are not modelled.
 
+use super::LevelAccessor;
 use super::spawn_data::{SpawnData, has_no_configuration};
 use super::spawner_mob_seam::{self, MobSpawnSteps};
-use super::{LevelAccessor, LevelReader};
 use crate::server::level::ServerLevel;
 use crate::util::weighted_list::{Weighted, WeightedList};
 use crate::world::block_entity::read_codec;
+use crate::world::entity::EntityId;
 use crate::world::entity::factory::{self, EntitySpawnRequest, LoadedEntities};
-use crate::world::entity::{Entity, EntityId};
 use crate::world::item::enchantment::codecs::vec3_codec;
 use crate::world::level::collision::CollisionGetter;
 use mc_core::phys::AABB;

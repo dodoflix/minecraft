@@ -187,9 +187,8 @@ impl BiomeSpawnTable {
 
     /// The table of `registry`, built on first use and shared afterwards (one table per registry instance).
     pub fn for_registry(registry: &Arc<BiomeRegistry>) -> Arc<BiomeSpawnTable> {
-        static TABLES: LazyLock<
-            Mutex<HashMap<usize, (Weak<BiomeRegistry>, Arc<BiomeSpawnTable>)>>,
-        > = LazyLock::new(Mutex::default);
+        type TableCache = Mutex<HashMap<usize, (Weak<BiomeRegistry>, Arc<BiomeSpawnTable>)>>;
+        static TABLES: LazyLock<TableCache> = LazyLock::new(Mutex::default);
         let mut tables = TABLES.lock().unwrap_or_else(|e| e.into_inner());
         tables.retain(|_, (registry, _)| registry.strong_count() > 0);
         let key = Arc::as_ptr(registry) as usize;

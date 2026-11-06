@@ -13,7 +13,7 @@ use crate::world::inventory::{
     handle_container_click, handle_set_creative_mode_slot, try_pick_item,
 };
 use crate::world::level::block::{BlockStateExt, behaviour as block_behaviour};
-use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
+use crate::world::level::{BlockGetter, LevelReader};
 use linkme::distributed_slice;
 use mc_core::phys::BlockHitResult;
 use mc_protocol::components::{
@@ -243,7 +243,7 @@ impl PlayHandlers for MenuHandlers {
             player: &mut *ctx.player,
             level: &mut *ctx.level,
         };
-        let mut menus = std::mem::replace(&mut pctx.player.player.menus, PlayerMenus::new());
+        let mut menus = std::mem::take(&mut pctx.player.player.menus);
         let r =
             handle_set_creative_mode_slot(menus.inventory_menu_mut(), &mut pctx, slot, stack, true);
         pctx.player.player.menus = menus;
@@ -316,7 +316,7 @@ fn try_pick(ctx: &mut PlayCtx, stack: ItemStack) {
     };
     let slot = try_pick_item(&mut pctx, stack);
     pctx.player.send(&ClientboundSetHeldSlotPacket { slot });
-    let mut menus = std::mem::replace(&mut pctx.player.player.menus, PlayerMenus::new());
+    let mut menus = std::mem::take(&mut pctx.player.player.menus);
     menus.inventory_menu_mut().broadcast_changes(&mut pctx);
     pctx.player.player.menus = menus;
 }

@@ -15,7 +15,7 @@ pub enum InboundPacket {
     },
     /// The connection ended (always the last event): end of stream, timeout, a decode error
     /// (`Internal Exception: ...`) or the reason of a local `disconnect`.
-    Disconnected(DisconnectionDetails),
+    Disconnected(Box<DisconnectionDetails>),
 }
 
 /// `placeNewPlayer(connection, player, cookie)` minus the player entity (built by the spawn task): the connection of a

@@ -76,15 +76,14 @@ impl DataSlot {
     /// Re-reads a block-entity backed slot through the player's level (no-op for other kinds).
     pub fn refresh(&mut self, player: &dyn super::MenuPlayer) {
         use crate::world::level::BlockGetter;
-        if let DataSlotKind::BlockEntity { pos, id, cache } = &mut self.kind {
-            if let Some(v) = player
+        if let DataSlotKind::BlockEntity { pos, id, cache } = &mut self.kind
+            && let Some(v) = player
                 .level_ref()
                 .and_then(|l| l.get_block_entity(*pos))
                 .and_then(|be| be.container_data())
                 .map(|d| d.get(*id))
-            {
-                *cache = v;
-            }
+        {
+            *cache = v;
         }
     }
     pub fn standalone() -> Self {

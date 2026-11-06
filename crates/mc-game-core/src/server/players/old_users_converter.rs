@@ -135,10 +135,10 @@ pub fn convert_user_banlist(ctx: &ConversionContext) -> bool {
         ctx.path("banned-players.json"),
         Arc::new(EmptyNotificationService),
     );
-    if bans.get_file().exists() {
-        if let Err(e) = bans.load() {
-            log::warn!("Could not load existing file banned-players.json\n{e}");
-        }
+    if bans.get_file().exists()
+        && let Err(e) = bans.load()
+    {
+        log::warn!("Could not load existing file banned-players.json\n{e}");
     }
     let mut user_map = JavaHashMap::new();
     if let Err(e) = read_old_list_format(&old, &mut user_map) {
@@ -188,10 +188,10 @@ pub fn convert_ip_banlist(ctx: &ConversionContext) -> bool {
         ctx.path("banned-ips.json"),
         Arc::new(EmptyNotificationService),
     );
-    if ip_bans.get_file().exists() {
-        if let Err(e) = ip_bans.load() {
-            log::warn!("Could not load existing file banned-ips.json\n{e}");
-        }
+    if ip_bans.get_file().exists()
+        && let Err(e) = ip_bans.load()
+    {
+        log::warn!("Could not load existing file banned-ips.json\n{e}");
     }
     let mut user_map = JavaHashMap::new();
     if let Err(e) = read_old_list_format(&old, &mut user_map) {
@@ -223,10 +223,10 @@ pub fn convert_ops_list(ctx: &ConversionContext) -> bool {
         return true;
     }
     let mut ops = ServerOpList::new(ctx.path("ops.json"), Arc::new(EmptyNotificationService));
-    if ops.get_file().exists() {
-        if let Err(e) = ops.load() {
-            log::warn!("Could not load existing file ops.json\n{e}");
-        }
+    if ops.get_file().exists()
+        && let Err(e) = ops.load()
+    {
+        log::warn!("Could not load existing file ops.json\n{e}");
     }
     let lines = match read_lines(&old) {
         Ok(l) => l,
@@ -261,10 +261,10 @@ pub fn convert_white_list(ctx: &ConversionContext) -> bool {
         ctx.path("whitelist.json"),
         Arc::new(EmptyNotificationService),
     );
-    if whitelist.get_file().exists() {
-        if let Err(e) = whitelist.load() {
-            log::warn!("Could not load existing file whitelist.json\n{e}");
-        }
+    if whitelist.get_file().exists()
+        && let Err(e) = whitelist.load()
+    {
+        log::warn!("Could not load existing file whitelist.json\n{e}");
     }
     let lines = match read_lines(&old) {
         Ok(l) => l,

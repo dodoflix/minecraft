@@ -26,7 +26,6 @@ use mc_data::props;
 use mc_protocol::packets::play::ClientboundGameEventPacket;
 use mc_world::heightmap::HeightmapType;
 use mc_world::level_storage::Difficulty;
-use mc_world::ticks::LevelTickAccess;
 
 pub use super::level_rules::LevelRules;
 
@@ -934,7 +933,7 @@ impl ServerLevel {
         }
     }
 
-    /// `tickNonPassenger(entity)` is [`ServerLevel::tick_listed_entity`] (in `server_level_riding.rs`).
+    // `tickNonPassenger(entity)` is [`ServerLevel::tick_listed_entity`] (in `server_level_riding.rs`).
 
     /// `resetEmptyTime()`.
     pub fn reset_empty_time(&mut self) {

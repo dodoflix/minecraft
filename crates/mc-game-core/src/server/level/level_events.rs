@@ -174,7 +174,6 @@ impl ServerLevel {
     }
 
     /// `playSeededSound(except, x, y, z, sound, source, volume, pitch, seed)`.
-    #[allow(clippy::too_many_arguments)]
     pub fn play_seeded_sound(
         &self,
         except: Option<EntityId>,
@@ -209,7 +208,6 @@ impl ServerLevel {
 
     /// `playSeededSound(except, x, y, z, Holder.direct(SoundEvent.createVariableRangeEvent(id)), source, volume, pitch, seed)`:
     /// a sound that is not in the registry (note block custom head sounds) is sent inline.
-    #[allow(clippy::too_many_arguments)]
     pub fn play_seeded_variable_range_sound(
         &self,
         except: Option<EntityId>,
@@ -252,7 +250,6 @@ impl ServerLevel {
     }
 
     /// `playSound(except, x, y, z, sound, source, volume, pitch)`: draws the seed from `soundSeedGenerator`.
-    #[allow(clippy::too_many_arguments)]
     pub fn play_sound_at(
         &mut self,
         except: Option<EntityId>,
@@ -292,7 +289,6 @@ impl ServerLevel {
     }
 
     /// `playSeededSound(except, sourceEntity, sound, source, volume, pitch, seed)` (`ClientboundSoundEntityPacket`).
-    #[allow(clippy::too_many_arguments)]
     pub fn play_seeded_sound_from_entity(
         &self,
         except: Option<EntityId>,
@@ -326,7 +322,6 @@ impl ServerLevel {
     }
     /// `playSound(except, sourceEntity, sound, source, volume, pitch)` for an entity that is out of the level's storage
     /// (`position` is its position): draws the seed like `playSound`, sends the `ClientboundSoundEntityPacket`.
-    #[allow(clippy::too_many_arguments)]
     pub fn play_sound_from_entity_at(
         &mut self,
         except: Option<EntityId>,

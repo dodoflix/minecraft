@@ -8,7 +8,7 @@
 #[macro_export]
 macro_rules! update_shape {
     (|$this:ident, $state:ident, $level:ident, $pos:ident, $direction:ident, $neighbour_pos:ident, $neighbour_state:ident| $body:block) => {
-        #[allow(unused_variables)]
+        #[allow(unused_variables, reason = "each caller names all seven closure parameters but uses a subset")]
         fn update_shape(
             & $this,
             $state: BlockState,
@@ -22,7 +22,10 @@ macro_rules! update_shape {
 }
 pub use update_shape;
 
-#[allow(unused_imports)]
+#[allow(
+    unused_imports,
+    reason = "the prelude re-exports a superset; each block file uses a subset"
+)]
 pub mod prelude {
     pub use super::update_shape;
     pub use crate::register_block;

@@ -28,12 +28,14 @@ pub struct InstantiatedFunction {
 /// `FunctionInstantiationException`.
 #[derive(Clone, Debug)]
 pub struct FunctionInstantiationException {
-    pub message_component: Component,
+    pub message_component: Box<Component>,
 }
 
 impl FunctionInstantiationException {
     pub fn new(message_component: Component) -> Self {
-        Self { message_component }
+        Self {
+            message_component: Box::new(message_component),
+        }
     }
 }
 

@@ -42,8 +42,20 @@ pub trait GameTypeExt: Sized {
     fn get_short_display_name(self) -> Component;
     /// `updatePlayerAbilities(abilities)` as data.
     fn ability_update(self) -> AbilityUpdate;
+    #[expect(
+        clippy::wrong_self_convention,
+        reason = "mirrors vanilla GameType.isBlockPlacingRestricted; GameType is Copy"
+    )]
     fn is_block_placing_restricted(self) -> bool;
+    #[expect(
+        clippy::wrong_self_convention,
+        reason = "mirrors vanilla GameType.isCreative; GameType is Copy"
+    )]
     fn is_creative(self) -> bool;
+    #[expect(
+        clippy::wrong_self_convention,
+        reason = "mirrors vanilla GameType.isSurvival; GameType is Copy"
+    )]
     fn is_survival(self) -> bool;
     /// `byName(name)`: unknown names are `SURVIVAL`.
     fn by_name(name: &str) -> GameType;

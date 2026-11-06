@@ -11,7 +11,7 @@ use mc_protocol::components::{ItemStack, RegistrySet};
 
 use super::LootTable;
 use super::context::LootContext;
-use super::functions::{FunctionHolder, decorate, function_holder_codec};
+use super::functions::{FunctionHolder, function_holder_codec};
 use super::holder::{Holder, HolderSet, holder_set_codec};
 use super::predicates::{ConditionHolder, condition_holder_codec};
 use super::validation::{
@@ -459,7 +459,7 @@ fn build_entry_codec() -> Codec<LootPoolEntryContainer> {
             ),
             "item" => uniform_entry(
                 mc_protocol::components::holder::registry_by_name_codec::<Item>().field_of("name"),
-                |i, u| EntryKind::Item(i, u),
+                EntryKind::Item,
                 |k| {
                     if let EntryKind::Item(i, u) = k {
                         Some((*i, *u))
@@ -491,17 +491,13 @@ fn build_entry_codec() -> Codec<LootPoolEntryContainer> {
                     },
                 )
             }
-            "dynamic" => uniform_entry(
-                IDENTIFIER.field_of("name"),
-                |n, u| EntryKind::Dynamic(n, u),
-                |k| {
-                    if let EntryKind::Dynamic(n, u) = k {
-                        Some((n.clone(), *u))
-                    } else {
-                        None
-                    }
-                },
-            ),
+            "dynamic" => uniform_entry(IDENTIFIER.field_of("name"), EntryKind::Dynamic, |k| {
+                if let EntryKind::Dynamic(n, u) = k {
+                    Some((n.clone(), *u))
+                } else {
+                    None
+                }
+            }),
             "tag" => {
                 let codec = expandable_fields(RegistrySet::<Item>::codec().field_of("items"));
                 uniform_entry(
@@ -527,7 +523,7 @@ fn build_entry_codec() -> Codec<LootPoolEntryContainer> {
             }
             "slots" => uniform_entry(
                 slot_source_holder_codec().field_of("slot_source"),
-                |s, u| EntryKind::Slots(s, u),
+                EntryKind::Slots,
                 |k| {
                     if let EntryKind::Slots(s, u) = k {
                         Some((s.clone(), *u))

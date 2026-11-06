@@ -265,7 +265,7 @@ impl CustomCommandExecutor for TraceCustomExecutor {
                                 None
                             };
                         }
-                        Err(e) => source.send_failure(e.message_component),
+                        Err(e) => source.send_failure(*e.message_component),
                     }
                 }
                 Ok(())

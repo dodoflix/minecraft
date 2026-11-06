@@ -150,10 +150,10 @@ pub fn get_highest_level<'r, T>(
 ) -> Option<(&'r T, i32)> {
     let mut found: Option<(&'r T, i32)> = None;
     for (e, level) in enchantments_of(item) {
-        if found.as_ref().is_none_or(|(_, l)| *l < level) {
-            if let Some(effect) = definition(registries, &e).and_then(|d| component(&d.effects)) {
-                found = Some((effect, level));
-            }
+        if found.as_ref().is_none_or(|(_, l)| *l < level)
+            && let Some(effect) = definition(registries, &e).and_then(|d| component(&d.effects))
+        {
+            found = Some((effect, level));
         }
     }
     found
@@ -204,6 +204,9 @@ type SlotVisitor<'v> = dyn FnMut(
         &mut EnchantedItemInUse,
     ) + 'v;
 
+/// A caller supplied `Consumer<ItemStack>` run when the stack breaks (`onBreak`).
+type OnBreakCallback = Box<dyn FnMut(&mut ServerLevel, &ItemStack) + Send>;
+
 /// `runIterationOnItem(piece, slot, owner, method)`: runs `method` for each enchantment of `piece` that applies to `slot`, with
 /// one shared [`EnchantedItemInUse`]; durability changes made by effects are written back to the owner's slot.
 fn run_iteration_on_item_in_slot(
@@ -224,10 +227,10 @@ fn run_iteration_on_item_in_slot(
     }
     let mut item = EnchantedItemInUse::new(piece.clone(), Some(slot), owner);
     for (key, enchantment_level) in enchantments {
-        if let Some(e) = definition(registries, &key) {
-            if e.matching_slot(slot) {
-                method(level, actors, &key, e, enchantment_level, &mut item);
-            }
+        if let Some(e) = definition(registries, &key)
+            && e.matching_slot(slot)
+        {
+            method(level, actors, &key, e, enchantment_level, &mut item);
         }
     }
     write_back(level, actors, &item);
@@ -753,7 +756,7 @@ pub fn do_post_attack_effects_with_item_source_on_break(
     victim: EntityId,
     damage_source: &DamageSource,
     source: Option<&ItemStack>,
-    attackerless_on_break: Option<Box<dyn FnMut(&mut ServerLevel, &ItemStack) + Send>>,
+    attackerless_on_break: Option<OnBreakCallback>,
 ) {
     let registries = level.registries.clone();
     if is_living(level, actors, victim) {
@@ -842,7 +845,7 @@ pub fn on_projectile_spawned(
     weapon: &mut ItemStack,
     projectile: EntityId,
     owner: Option<EntityId>,
-    on_break: Box<dyn FnMut(&mut ServerLevel, &ItemStack) + Send>,
+    on_break: OnBreakCallback,
 ) {
     let registries = level.registries.clone();
     let mut item =
@@ -867,7 +870,7 @@ pub fn on_hit_block(
     slot: Option<EquipmentSlot>,
     hit_location: Vec3,
     hit_block: BlockState,
-    on_break: Box<dyn FnMut(&mut ServerLevel, &ItemStack) + Send>,
+    on_break: OnBreakCallback,
 ) {
     let registries = level.registries.clone();
     let mut item =
@@ -1033,10 +1036,10 @@ pub fn stop_location_based_effects_for_slot(
     }
     let mut item = EnchantedItemInUse::new(stack.clone(), Some(slot), entity);
     for (key, lvl) in enchantments_of(stack) {
-        if let Some(e) = definition(&registries, &key) {
-            if e.matching_slot(slot) {
-                stop_for(level, actors, &key, e, lvl, &mut item, entity);
-            }
+        if let Some(e) = definition(&registries, &key)
+            && e.matching_slot(slot)
+        {
+            stop_for(level, actors, &key, e, lvl, &mut item, entity);
         }
     }
 }
@@ -1071,9 +1074,9 @@ pub fn get_random_item_with(
     let registries = level.registries.clone();
     let mut items: Vec<EnchantedItemInUse> = Vec::new();
     for slot in EquipmentSlot::VALUES {
-        let Some(item) = actors.get(level, source).map(|e| e.get_item_by_slot(slot)) else {
-            return None;
-        };
+        let item = actors
+            .get(level, source)
+            .map(|e| e.get_item_by_slot(slot))?;
         if predicate(&item) {
             for (key, _) in enchantments_of(&item) {
                 if definition(&registries, &key)

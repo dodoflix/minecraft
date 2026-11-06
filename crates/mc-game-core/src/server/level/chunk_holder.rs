@@ -404,7 +404,7 @@ impl ChunkHolder {
         if self.futures[status.index() as usize] == FutureState::Done {
             Some(status)
         } else {
-            Some(status.parent()).filter(|_| status != ChunkStatus::Empty)
+            (status != ChunkStatus::Empty).then(|| status.parent())
         }
     }
 
@@ -456,19 +456,19 @@ impl ChunkHolder {
 
     /// `getChunkIfPresent(FULL)` as a level chunk (`ServerChunkCache.getChunkNow`).
     pub fn get_chunk_if_present_full(&self) -> Option<&LevelChunk> {
-        if self.has_chunk(ChunkStatus::Full) {
-            if let ChunkSlot::Level(chunk) = &self.slot {
-                return Some(chunk);
-            }
+        if self.has_chunk(ChunkStatus::Full)
+            && let ChunkSlot::Level(chunk) = &self.slot
+        {
+            return Some(chunk);
         }
         None
     }
 
     pub fn get_chunk_if_present_full_mut(&mut self) -> Option<&mut LevelChunk> {
-        if self.has_chunk(ChunkStatus::Full) {
-            if let ChunkSlot::Level(chunk) = &mut self.slot {
-                return Some(chunk);
-            }
+        if self.has_chunk(ChunkStatus::Full)
+            && let ChunkSlot::Level(chunk) = &mut self.slot
+        {
+            return Some(chunk);
         }
         None
     }

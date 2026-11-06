@@ -12,7 +12,6 @@ use crate::world::entity::attributes::{
 };
 use crate::world::entity::effect::MobEffectInstance;
 use crate::world::entity::{Entity, RemovalReason};
-use mc_core::random::RandomSource;
 use mc_data::enums::{AttributeModifierOperation as DataOperation, MobEffectCategory};
 use mc_data::{Attribute, MobEffect, ParticleType};
 use mc_protocol::packets::play::{ParticleOptions, SoundSource};
@@ -337,10 +336,9 @@ impl MobEffectExt for MobEffect {
         if reason != RemovalReason::Killed {
             return;
         }
-        match self.class() {
-            "WeavingMobEffect" => reactions::weaving(level, mob),
-            // `OozingMobEffect`: spawns `Slime` (size 2) offspring; needs the slime class (mobs)
-            _ => {}
+        // `OozingMobEffect`: spawns `Slime` (size 2) offspring; needs the slime class (mobs)
+        if self.class() == "WeavingMobEffect" {
+            reactions::weaving(level, mob);
         }
     }
 

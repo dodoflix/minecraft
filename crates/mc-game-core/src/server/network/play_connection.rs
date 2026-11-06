@@ -59,7 +59,7 @@ pub(super) async fn run(
                         vec![],
                     ))
                 });
-                let _ = inbound.send(InboundPacket::Disconnected(details));
+                let _ = inbound.send(InboundPacket::Disconnected(Box::new(details)));
                 return None;
             }
         }

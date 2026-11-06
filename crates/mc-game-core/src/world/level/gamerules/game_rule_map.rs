@@ -121,6 +121,10 @@ impl GameRuleMap {
 
     /// `CODEC` decode (`Codec.dispatchedMap(GAME_RULE.byNameCodec(), GameRule::valueCodec)`): entries with an unknown
     /// rule, a wrong type or an out-of-range value are dropped and reported as a partial result.
+    #[expect(
+        clippy::result_large_err,
+        reason = "DecodeResult<T> carries the partial value by value (DataResult.error(msg, partial)); the SavedDataType decode fn pointer fixes the signature"
+    )]
     pub fn decode(tag: &Tag) -> DecodeResult<GameRuleMap> {
         let m = codec::compound(tag)?;
         let mut map = GameRuleMap::of_empty();

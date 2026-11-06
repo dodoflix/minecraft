@@ -7,7 +7,6 @@ use super::hooks::{PLAY_HANDLERS, PlayHandlers};
 use crate::translatable;
 use crate::world::block_entity::command_block_entity::CommandBlockEntity;
 use crate::world::block_entity::{BlockEntity, JigsawBlockEntity, StructureBlockEntity};
-use crate::world::level::block::BlockStateExt;
 use crate::world::level::gamerules::GameRules;
 use crate::world::level::{BlockGetter, LevelAccessor};
 use linkme::distributed_slice;

@@ -782,10 +782,10 @@ impl FireworkRocketRecipe {
         for stack in input.items().iter().filter(|s| !s.is_empty()) {
             if self.fuel.test(stack) {
                 fuel_count += 1;
-            } else if self.star.test(stack) {
-                if let Some(explosion) = stack.get(&FIREWORK_EXPLOSION) {
-                    explosions.push(explosion.clone());
-                }
+            } else if self.star.test(stack)
+                && let Some(explosion) = stack.get(&FIREWORK_EXPLOSION)
+            {
+                explosions.push(explosion.clone());
             }
         }
         template_apply(

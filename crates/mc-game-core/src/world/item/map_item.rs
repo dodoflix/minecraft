@@ -16,7 +16,7 @@ use crate::world::level::{BlockGetter, DimensionKey};
 use mc_core::pos::BlockPos;
 use mc_data::Item;
 use mc_data::block::Block;
-use mc_protocol::components::{MAP_ID, MAP_POST_PROCESSING, MapId, MapPostProcessing};
+use mc_protocol::components::{MAP_ID, MAP_POST_PROCESSING, MapPostProcessing};
 use mc_protocol::packets::play::level::SoundSource;
 use mc_world::heightmap::HeightmapType;
 
@@ -258,10 +258,10 @@ pub fn update(level: &mut ServerLevel, player: &dyn Entity, data: &mut MapItemSa
                             // `chunk.getHeight(WORLD_SURFACE, x, z) + 1`
                             let mut column_y = heightmap.get_first_available(x & 15, z & 15);
                             let mut state;
-                            let mut pos = BlockPos::new(x, 0, z);
                             if column_y <= min_y {
                                 state = Block::BEDROCK.default_state();
                             } else {
+                                let mut pos;
                                 loop {
                                     column_y -= 1;
                                     pos = BlockPos::new(x, column_y, z);
@@ -308,7 +308,7 @@ pub fn update(level: &mut ServerLevel, player: &dyn Entity, data: &mut MapItemSa
                         }
                     })
                     .map_or(map_color::NONE, |(c, _)| c);
-                let parity = i32::from((img_x + img_y) & 1);
+                let parity = (img_x + img_y) & 1;
                 let brightness = if color == map_color::WATER {
                     let diff = f64::from(water_depth) * 0.1 + f64::from(parity) * 0.2;
                     if diff < 0.5 {

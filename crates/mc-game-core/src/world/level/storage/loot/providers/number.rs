@@ -7,12 +7,12 @@ use std::sync::{Arc, LazyLock};
 use mc_core::math::java::{floor_mod_i32, round_f32};
 use mc_core::random::RandomSource;
 use mc_dfu::extra::NON_NEGATIVE_INT;
-use mc_dfu::{BOOL, Codec, DataResult, Either, FLOAT, INT, MapCodec, record};
+use mc_dfu::{Codec, DataResult, Either, FLOAT, INT, MapCodec, record};
 use mc_nbt::{Number, Tag};
 
 use crate::registry::keys;
 use crate::world::level::storage::loot::codec_ext::OptionalDefaultWith;
-use crate::world::level::storage::loot::context::{ContextKey, EntityTarget, LootContext};
+use crate::world::level::storage::loot::context::{ContextKey, LootContext};
 use crate::world::level::storage::loot::holder::{
     Holder, HolderSet, TypeTable, holder_codec, holder_set_codec, lift,
 };
@@ -22,8 +22,8 @@ use crate::world::level::storage::loot::providers::score::{
 };
 use crate::world::level::storage::loot::server_access;
 use crate::world::level::storage::loot::validation::{
-    Validatable, ValidatableData, ValidationContext, validate_holder, validate_holder_field,
-    validate_holder_list, validate_holder_set_min,
+    Validatable, ValidatableData, ValidationContext, validate_holder_field, validate_holder_list,
+    validate_holder_set_min,
 };
 
 /// `java.lang.ArithmeticException`.

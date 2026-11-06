@@ -13,7 +13,6 @@ use crate::server::level::ServerLevel;
 use crate::server::network::text_filter::FilteredText;
 use crate::server::permissions::{LevelBasedPermissionSet, PermissionSet};
 use crate::world::entity::ServerPlayer;
-use crate::world::level::BlockGetter;
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_data::BlockEntityType;

@@ -82,10 +82,10 @@ impl VillagerTrade {
 
     /// `getOffer(lootContext)`: `None` when the merchant predicate fails or the result/costs turn out empty.
     pub fn get_offer(&self, context: &mut LootContext) -> Option<MerchantOffer> {
-        if let Some(predicate) = &self.merchant_predicate {
-            if !predicate.value(context.get_resolver()).test(context) {
-                return None;
-            }
+        if let Some(predicate) = &self.merchant_predicate
+            && !predicate.value(context.get_resolver()).test(context)
+        {
+            return None;
         }
         let mut result = self.gives.create();
         let mut additional_cost: i32 = 0;
@@ -101,16 +101,16 @@ impl VillagerTrade {
             result.remove(ADDITIONAL_TRADE_COST.id());
             additional_cost = additional_cost.wrapping_add(extra);
         }
-        if let Some(set) = &self.double_trade_price_enchantments {
-            if let Some(stored) = result.get(&STORED_ENCHANTMENTS) {
-                let ids = holder_set_ids(context.get_resolver(), keys::ENCHANTMENT, set);
-                if stored
-                    .entries()
-                    .iter()
-                    .any(|(e, _)| e.name().is_some_and(|n| ids.contains(n)))
-                {
-                    additional_cost = additional_cost.wrapping_mul(2);
-                }
+        if let Some(set) = &self.double_trade_price_enchantments
+            && let Some(stored) = result.get(&STORED_ENCHANTMENTS)
+        {
+            let ids = holder_set_ids(context.get_resolver(), keys::ENCHANTMENT, set);
+            if stored
+                .entries()
+                .iter()
+                .any(|(e, _)| e.name().is_some_and(|n| ids.contains(n)))
+            {
+                additional_cost = additional_cost.wrapping_mul(2);
             }
         }
         let item_cost: ItemCost = self.wants.to_item_cost(context, additional_cost);

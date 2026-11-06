@@ -146,7 +146,9 @@ impl MultipleTestTracker {
     }
 }
 
-struct FailureListener(Box<dyn Fn(&Rc<GameTestInfo>)>);
+type FailureCallback = Box<dyn Fn(&Rc<GameTestInfo>)>;
+
+struct FailureListener(FailureCallback);
 
 impl GameTestListener for FailureListener {
     fn test_structure_loaded(&self, _server: &mut MinecraftServer, _test_info: &Rc<GameTestInfo>) {}

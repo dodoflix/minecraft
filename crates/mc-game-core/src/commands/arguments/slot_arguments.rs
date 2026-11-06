@@ -272,13 +272,13 @@ impl ArgumentType<CommandSourceStack> for SlotSourceArgument {
         for s in sub.get_list() {
             builder.suggest(s.get_text());
         }
-        let ids = context.get_source().suggest_registry_elements(
+
+        context.get_source().suggest_registry_elements(
             "slot_source",
             crate::commands::shared_suggestion_provider::ElementSuggestionType::Elements,
             builder,
             None,
-        );
-        ids
+        )
     }
 
     fn get_examples(&self) -> Vec<String> {

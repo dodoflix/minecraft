@@ -7,8 +7,8 @@ use super::{InteractionResult, ItemStack, ItemStackExt, UseOnContext, hurt_and_b
 use crate::server::level::ServerLevel;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::{Entity, ServerPlayer};
+use crate::world::level::block::helpers;
 use crate::world::level::block::impls::chest_block;
-use crate::world::level::block::{BlockStateExt, helpers};
 use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::levelgen::codec::{
     Fields, LoadError, LoadResult, parse_bool, parse_direction, parse_identifier, parse_int,
@@ -16,7 +16,7 @@ use crate::world::level::levelgen::codec::{
 };
 use crate::world::level::levelgen::registries::DecodeCtx;
 use crate::world::level::levelgen::stateproviders::BlockStateProvider;
-use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
+use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;

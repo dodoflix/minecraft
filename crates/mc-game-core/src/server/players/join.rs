@@ -15,19 +15,15 @@ use crate::server::permissions::LevelBasedPermissionSet;
 use crate::world::entity::effect::MobEffectInstance;
 use crate::world::entity::{EntityId, ServerPlayer};
 use crate::world::level::DimensionKey;
-use mc_core::ident::Identifier;
 use mc_data::enums::GameType;
-use mc_nbt::Tag;
 use mc_protocol::packets::play::{
     ClientboundChangeDifficultyPacket, ClientboundEntityEventPacket, ClientboundGameEventPacket,
     ClientboundInitializeBorderPacket, ClientboundLoginPacket, ClientboundPlayerAbilitiesPacket,
-    ClientboundPostEffectsPacket, ClientboundRecipeBookAddEntry, ClientboundRecipeBookAddPacket,
-    ClientboundRecipeBookSettingsPacket, ClientboundServerDataPacket,
+    ClientboundPostEffectsPacket, ClientboundServerDataPacket,
     ClientboundSetDefaultSpawnPositionPacket, ClientboundSetHeldSlotPacket,
     ClientboundSetTimePacket, ClientboundTickingStatePacket, ClientboundTickingStepPacket,
     ClientboundUpdateMobEffectPacket, ClientboundUpdateRecipesPacket, CommonPlayerSpawnInfo,
-    Difficulty, GameType as WireGameType, RecipeBookSettings, RecipeBookSettingsTypeSettings,
-    RespawnData,
+    Difficulty, GameType as WireGameType, RespawnData,
 };
 use uuid::Uuid;
 
@@ -412,7 +408,7 @@ mod tests {
     use mc_core::ident::Identifier;
     use mc_protocol::codec::{GameProfile, GlobalPos};
     use mc_protocol::packet::{ConnectionState, PacketFlow, packet_name};
-    use mc_protocol::packets::play::{ClientboundCommandsEntry, ClientboundCommandsPacket};
+    use mc_protocol::packets::play::ClientboundCommandsPacket;
     use mc_world::level_storage::PlayerDataStorage;
     use std::sync::Arc;
 

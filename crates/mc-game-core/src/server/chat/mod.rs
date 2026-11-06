@@ -35,12 +35,14 @@ use mc_text::Component;
 /// `ThrowingComponent`: an error whose message is a chat component (kick / disable reason).
 #[derive(Clone, Debug, PartialEq)]
 pub struct ThrowingComponent {
-    component: Component,
+    component: Box<Component>,
 }
 
 impl ThrowingComponent {
     pub fn new(component: Component) -> Self {
-        Self { component }
+        Self {
+            component: Box::new(component),
+        }
     }
 
     pub fn component(&self) -> &Component {

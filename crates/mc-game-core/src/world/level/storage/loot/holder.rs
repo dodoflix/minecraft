@@ -31,6 +31,10 @@ pub fn with_decode_context<R>(ctx: &RegistryDecodeContext, f: impl FnOnce() -> R
     }
     // SAFETY: the pointer is only dereferenced on this thread while `f` runs (the guard restores the previous value even
     // on unwind), during which `ctx` is borrowed; the erased lifetime never escapes.
+    #[expect(
+        clippy::unnecessary_cast,
+        reason = "the second cast erases the context lifetime to 'static, which clippy does not see"
+    )]
     let erased = ctx as *const RegistryDecodeContext<'_> as *const RegistryDecodeContext<'static>;
     let _restore = Restore(DECODE_CONTEXT.with(|c| c.replace(erased)));
     f()
@@ -263,10 +267,10 @@ impl<T: ?Sized + 'static> TypeTable<T> {
         let (t1, t2) = (self.clone(), self.clone());
         let key_codec: Codec<&'static str> = IDENTIFIER.flat_xmap(
             move |id: Identifier| {
-                if id.namespace() == "minecraft" {
-                    if let Some((name, _)) = t1.entries.iter().find(|(n, _)| *n == id.path()) {
-                        return DataResult::success(*name);
-                    }
+                if id.namespace() == "minecraft"
+                    && let Some((name, _)) = t1.entries.iter().find(|(n, _)| *n == id.path())
+                {
+                    return DataResult::success(*name);
                 }
                 let registry = t1.registry;
                 DataResult::error(move || {

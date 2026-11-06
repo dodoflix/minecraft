@@ -6,7 +6,6 @@
 use super::{SculkSensorBlockEntity, SculkShriekerBlockEntity};
 use crate::server::level::ServerLevel;
 use crate::world::level::BlockGetter;
-use crate::world::level::block::BlockStateExt;
 use crate::world::level::block::impls::sculk_sensor_block;
 use crate::world::level::gameevent::vibrations::{
     self, VibrationData, VibrationSystem, get_game_event_frequency,

@@ -15,7 +15,6 @@ use crate::world::entity::{EntityId, ServerPlayer};
 use crate::world::level::gamerules::GameRules;
 use crate::world::level::saveddata::world_border::WorldBorder;
 use crate::world::level::{DimensionKey, LevelReader};
-use mc_core::ident::Identifier;
 use mc_protocol::codec::GlobalPos;
 use mc_protocol::packets::play::{
     ClientboundInitializeBorderPacket, ClientboundServerDataPacket, ClientboundSetTimePacket,

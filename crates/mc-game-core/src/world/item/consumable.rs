@@ -235,10 +235,10 @@ pub fn base_use(
             other => other,
         };
     }
-    if let Some(equippable) = stack.get(&EQUIPPABLE).cloned() {
-        if equippable.swappable {
-            return swap_with_equipment_slot(&equippable, level, player, hand);
-        }
+    if let Some(equippable) = stack.get(&EQUIPPABLE).cloned()
+        && equippable.swappable
+    {
+        return swap_with_equipment_slot(&equippable, level, player, hand);
     }
     if stack.has(mc_data::DataComponentType::BLOCKS_ATTACKS) {
         player.start_using_item(level, hand);

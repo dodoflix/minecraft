@@ -203,7 +203,6 @@ impl GraphState {
         self.has_work = !self.priority_queue.is_empty();
     }
 
-    #[allow(clippy::too_many_arguments)]
     fn check_edge_full<B: GraphBehavior>(
         &mut self,
         b: &mut B,

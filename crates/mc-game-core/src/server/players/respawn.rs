@@ -13,8 +13,6 @@ use crate::server::level::player_spawn_finder::{
     FindSpawn, PlayerSpawnFinder, Step, fixup_spawn_height,
 };
 use crate::world::entity::entity::Entity;
-use crate::world::entity::player::food_data::FoodData;
-use crate::world::entity::player::inventory::Inventory;
 use crate::world::entity::respawn::{RespawnConfig, RespawnPosAngle};
 use crate::world::entity::{EntityId, RemovalReason, ServerPlayer};
 use crate::world::level::block::behaviour;
@@ -188,7 +186,7 @@ fn restore_from(
         .assign_base_values(&old.player.living.attributes);
     let mut effects = Vec::new();
     let transfer_inventory = |new: &mut ServerPlayer, old: &mut ServerPlayer| {
-        new.player.inventory = std::mem::replace(&mut old.player.inventory, Inventory::new());
+        new.player.inventory = std::mem::take(&mut old.player.inventory);
         new.player.experience_level = old.player.experience_level;
         new.player.total_experience = old.player.total_experience;
         new.player.experience_progress = old.player.experience_progress;
@@ -198,7 +196,7 @@ fn restore_from(
     if restore_all {
         let health = old.player.living.get_health();
         new.player.living.set_health(health);
-        new.player.food_data = std::mem::replace(&mut old.player.food_data, FoodData::default());
+        new.player.food_data = std::mem::take(&mut old.player.food_data);
         new.player
             .living
             .attributes
@@ -220,10 +218,7 @@ fn restore_from(
         }
     }
     new.player.enchantment_seed = old.player.enchantment_seed;
-    new.player.ender_chest = std::mem::replace(
-        &mut old.player.ender_chest,
-        crate::world::inventory::PlayerEnderChestContainer::new(),
-    );
+    new.player.ender_chest = std::mem::take(&mut old.player.ender_chest);
     let customisation = old
         .player
         .living

@@ -1,14 +1,14 @@
 //! `HoneycombItem`: waxing copper blocks (`useOn`). Waxing signs (`SignApplicator`) is wired by the sign applicator
 //! dispatch (`BooksMisc`), which calls [`HoneycombItem`].
 
-use super::{InteractionResult, ItemBehaviour, ItemStackExt, UseOnContext};
+use super::{InteractionResult, ItemBehaviour, UseOnContext};
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
 use crate::world::entity::ServerPlayer;
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::block::impls::chest_block;
 use crate::world::level::gameevent::GameEventContext;
-use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
+use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_core::phys::Vec3;
 use mc_data::block::{Block, BlockState};
 use mc_data::enums::ChestType;

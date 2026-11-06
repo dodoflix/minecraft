@@ -9,7 +9,6 @@ use crate::server::level::ServerLevel;
 use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::inventory::{Prediction, Slot, SlotEnv};
 use crate::world::level::LevelAccessor;
-use mc_core::random::RandomSource;
 use mc_data::SoundEvent;
 use mc_protocol::components::{
     BUNDLE_CONTENTS, BundleContents, Fraction, ItemStackTemplate, ItemUseAnimation,
@@ -263,11 +262,11 @@ impl ItemBehaviour for BundleItem {
             *env.slots_changed_requested = true;
             true
         } else if action == ClickAction::Secondary && other.is_empty() {
-            if slot.allow_modification(env) {
-                if let Some(removed) = contents.remove_one() {
-                    play_remove_one_sound(env);
-                    *other = removed;
-                }
+            if slot.allow_modification(env)
+                && let Some(removed) = contents.remove_one()
+            {
+                play_remove_one_sound(env);
+                *other = removed;
             }
             me.set(BUNDLE_CONTENTS, contents.to_immutable());
             *env.slots_changed_requested = true;

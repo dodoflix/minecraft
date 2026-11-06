@@ -1,7 +1,6 @@
 //! `net.minecraft.world.level.block.FireBlock`.
 use super::prelude::*;
 use crate::server::level::ServerLevel;
-use mc_core::random::RandomSource;
 
 pub struct FireBlock;
 

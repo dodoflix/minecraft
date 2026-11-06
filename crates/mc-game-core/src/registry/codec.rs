@@ -526,12 +526,12 @@ fn convert_holder_set(
         ctx.check_holder(registry, &id)?;
         Ok(Tag::String(id.to_string()))
     };
-    if let Some(s) = v.as_str() {
-        if let Some(tag) = s.strip_prefix('#') {
-            let id = Identifier::read(tag)?;
-            ctx.check_tag(registry, &id)?;
-            return Ok(Tag::String(format!("#{id}")));
-        }
+    if let Some(s) = v.as_str()
+        && let Some(tag) = s.strip_prefix('#')
+    {
+        let id = Identifier::read(tag)?;
+        ctx.check_tag(registry, &id)?;
+        return Ok(Tag::String(format!("#{id}")));
     }
     let elements: Vec<Tag> = match v {
         Value::Array(list) => list.iter().map(holder).collect::<Result<_, _>>()?,
@@ -583,7 +583,7 @@ fn convert_record(
                     }
                 }
                 Err(_) if matches!(kind, FieldKind::Lenient) => {}
-                Err(e) => errors.push(format!("{e}")),
+                Err(e) => errors.push(e.to_string()),
             },
         }
     }

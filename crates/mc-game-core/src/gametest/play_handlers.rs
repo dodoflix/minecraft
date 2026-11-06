@@ -5,7 +5,7 @@ use crate::server::network::game_packets::PlayCtx;
 use crate::server::network::game_packets::hooks::{PLAY_HANDLERS, PlayHandlers};
 use crate::world::block_entity::test_block_entity;
 use crate::world::block_entity::test_instance_block_entity;
-use crate::world::level::{BlockGetter, LevelAccessor};
+use crate::world::level::BlockGetter;
 use linkme::distributed_slice;
 use mc_data::block::Block;
 use mc_data::enums::TestBlockMode;

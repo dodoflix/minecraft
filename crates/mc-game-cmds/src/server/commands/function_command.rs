@@ -271,7 +271,7 @@ fn instantiate_and_queue_functions(
     let instantiated = function
         .instantiate(arguments, commands.get_dispatcher())
         .map_err(|e| {
-            ERROR_FUNCTION_INSTANTATION_FAILURE.create(id.to_string(), e.message_component)
+            ERROR_FUNCTION_INSTANTATION_FAILURE.create(id.to_string(), *e.message_component)
         })?;
     output.queue_next(bind(
         Arc::new(CallFunction::new(

@@ -189,7 +189,7 @@ fn find_accepted_node<N: NodeEvaluator + ?Sized>(
 
 pub fn get_path_type(env: &mut PathEnv<'_>, x: i32, y: i32, z: i32) -> PathType {
     let mut block_path_type = env.context.get_path_type_from_state(x, y, z);
-    if block_path_type == PathType::Open && y >= env.context.level().get_min_y() + 1 {
+    if block_path_type == PathType::Open && y > env.context.level().get_min_y() {
         let below_pos = BlockPos::new(x, y - 1, z);
         let below_type =
             env.context

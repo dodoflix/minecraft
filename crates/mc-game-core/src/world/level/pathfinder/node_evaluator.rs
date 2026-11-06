@@ -229,7 +229,6 @@ pub trait NodeEvaluator {
         walk::get_floor_level(self, env, pos)
     }
     /// `findAcceptedNode(x, y, z, jumpSize, nodeHeight, travelDirection, blockPathTypeCurrent)`.
-    #[allow(clippy::too_many_arguments)]
     fn find_accepted_node(
         &mut self,
         env: &mut PathEnv<'_>,

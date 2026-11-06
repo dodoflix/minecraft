@@ -59,7 +59,7 @@ pub fn load_with_components(
             out.put("Items", save_items(&load_items(nbt, 3)));
             let mut recipes = CompoundTag::new();
             for (key, value) in nbt.get_compound_or_empty("RecipesUsed").iter() {
-                if let Some(id) = mc_core::ident::Identifier::parse(key).ok() {
+                if let Ok(id) = mc_core::ident::Identifier::parse(key) {
                     recipes.put_int(id.to_string(), value_int(value));
                 }
             }

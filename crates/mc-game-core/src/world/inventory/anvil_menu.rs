@@ -8,7 +8,7 @@ use super::{
 use crate::world::item::ItemStack;
 use crate::world::item::ItemStackExt;
 use crate::world::item::enchantment::enchantment::Enchantment;
-use crate::world::item::enchantment::item_enchantments::{ItemEnchantmentsMutable, holder};
+use crate::world::item::enchantment::item_enchantments::ItemEnchantmentsMutable;
 use crate::world::item::enchantment_helper::{
     can_store_enchantments, definition, get_enchantments_for_crafting, set_enchantments,
 };
@@ -125,16 +125,15 @@ impl SlotBehavior for AnvilResultSlot {
         }
         self.state.set_cost(0);
         let item_name = self.state.item_name.borrow().clone();
-        if let Some(name) = item_name {
-            if !is_blank(&name)
-                && env.locals[self.input_local]
-                    .get_item(INPUT_SLOT)
-                    .get_hover_name()
-                    .get_string()
-                    != name
-            {
-                env.player.process_stream_message(&name);
-            }
+        if let Some(name) = item_name
+            && !is_blank(&name)
+            && env.locals[self.input_local]
+                .get_item(INPUT_SLOT)
+                .get_hover_name()
+                .get_string()
+                != name
+        {
+            env.player.process_stream_message(&name);
         }
         env.locals[self.input_local].set_item(INPUT_SLOT, ItemStack::empty());
         if let Some(pos) = self.access.pos() {
@@ -238,13 +237,13 @@ impl AnvilMenu {
         }
         *self.state.item_name.borrow_mut() = Some(validated.clone());
         let result_local = self.core.result_local;
-        if let Some(stack) = self.core.base.locals[result_local].get_item_mut(0) {
-            if !stack.is_empty() {
-                if is_blank(&validated) {
-                    stack.remove(DataComponentType::CUSTOM_NAME);
-                } else {
-                    stack.set(CUSTOM_NAME, Component::literal(validated));
-                }
+        if let Some(stack) = self.core.base.locals[result_local].get_item_mut(0)
+            && !stack.is_empty()
+        {
+            if is_blank(&validated) {
+                stack.remove(DataComponentType::CUSTOM_NAME);
+            } else {
+                stack.set(CUSTOM_NAME, Component::literal(validated));
             }
         }
         self.create_result(player);

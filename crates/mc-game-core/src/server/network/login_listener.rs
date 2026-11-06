@@ -145,9 +145,7 @@ pub(super) async fn run(ctx: &mut ConnectionContext) -> Option<GameProfile> {
             }
             Event::ReadError(e) => ctx.fault(e),
             Event::Tick => {
-                if tick(ctx, &mut login, log_ips).await.is_none() {
-                    return None;
-                }
+                tick(ctx, &mut login, log_ips).await?;
             }
             Event::Payload(p) => match ServerboundLoginPacket::decode_payload(&p) {
                 Err(e) => ctx.fault(ReadError::Net(NetError::Decode(e))),

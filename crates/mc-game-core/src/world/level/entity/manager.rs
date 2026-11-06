@@ -211,11 +211,11 @@ impl PersistentEntitySectionManager {
         else {
             return;
         };
-        if self.visible_by_uuid.contains_key(&uuid) {
-            log::warn!("Duplicate entity UUID {uuid}: id {id}");
-        } else {
-            self.visible_by_uuid.insert(uuid, id);
+        if let std::collections::hash_map::Entry::Vacant(e) = self.visible_by_uuid.entry(uuid) {
+            e.insert(id);
             self.visible_by_id.insert(id, ());
+        } else {
+            log::warn!("Duplicate entity UUID {uuid}: id {id}");
         }
         self.events.push(EntityLevelEvent::TrackingStart(id));
     }
@@ -407,10 +407,10 @@ impl PersistentEntitySectionManager {
         let roots = self.root_entities_to_save(chunk_key);
         let pos = ChunkPos::unpack(chunk_key);
         if roots.is_empty() {
-            if status == ChunkLoadStatus::Loaded {
-                if let Some(storage) = self.permanent_storage.as_mut() {
-                    storage.store_entities(&ChunkEntities::new(pos, Vec::new()));
-                }
+            if status == ChunkLoadStatus::Loaded
+                && let Some(storage) = self.permanent_storage.as_mut()
+            {
+                storage.store_entities(&ChunkEntities::new(pos, Vec::new()));
             }
             return true;
         }
@@ -510,10 +510,10 @@ impl PersistentEntitySectionManager {
     pub fn save_all(&mut self, mut load_pending: impl FnMut(&mut Self)) {
         let mut chunks_to_save = self.all_chunks_to_save();
         while !chunks_to_save.is_empty() {
-            if let Some(storage) = self.permanent_storage.as_mut() {
-                if let Err(e) = storage.flush(false) {
-                    log::error!("Failed to flush entity storage: {e}");
-                }
+            if let Some(storage) = self.permanent_storage.as_mut()
+                && let Err(e) = storage.flush(false)
+            {
+                log::error!("Failed to flush entity storage: {e}");
             }
             load_pending(self);
             let keys: Vec<i64> = chunks_to_save.iter().copied().collect();
@@ -534,18 +534,18 @@ impl PersistentEntitySectionManager {
                 }
             }
         }
-        if let Some(storage) = self.permanent_storage.as_mut() {
-            if let Err(e) = storage.flush(true) {
-                log::error!("Failed to flush entity storage: {e}");
-            }
+        if let Some(storage) = self.permanent_storage.as_mut()
+            && let Err(e) = storage.flush(true)
+        {
+            log::error!("Failed to flush entity storage: {e}");
         }
     }
 
     pub fn close(&mut self) {
-        if let Some(storage) = self.permanent_storage.as_mut() {
-            if let Err(e) = storage.close() {
-                log::error!("Failed to close entity storage: {e}");
-            }
+        if let Some(storage) = self.permanent_storage.as_mut()
+            && let Err(e) = storage.close()
+        {
+            log::error!("Failed to close entity storage: {e}");
         }
     }
 
@@ -774,15 +774,14 @@ impl PersistentEntitySectionManager {
 
     /// Run `op` on the entity now if it is in storage, else when it is put back.
     pub fn defer_or_apply(&mut self, id: EntityId, op: DeferredEntityOp) {
-        match self.entities.get_mut(&id) {
-            Some(slot) => match slot.entity.as_deref_mut() {
+        if let Some(slot) = self.entities.get_mut(&id) {
+            match slot.entity.as_deref_mut() {
                 Some(e) => {
                     op(e);
                     self.sync_entity(id);
                 }
                 None => self.deferred.entry(id).or_default().push(op),
-            },
-            None => {}
+            }
         }
     }
 
@@ -813,10 +812,11 @@ impl PersistentEntitySectionManager {
         self.section_storage
             .for_each_accessible_non_empty_section(bb, |_, section| {
                 for &id in section.entities() {
-                    if let Some(e) = self.get_any(id) {
-                        if e.get_bounding_box().intersects_aabb(bb) && consumer(id, e).is_break() {
-                            return ControlFlow::Break(());
-                        }
+                    if let Some(e) = self.get_any(id)
+                        && e.get_bounding_box().intersects_aabb(bb)
+                        && consumer(id, e).is_break()
+                    {
+                        return ControlFlow::Break(());
                     }
                 }
                 ControlFlow::Continue(())
@@ -839,10 +839,11 @@ impl PersistentEntitySectionManager {
                     } else {
                         self.get_any(id)
                     };
-                    if let Some(e) = e {
-                        if e.get_bounding_box().intersects_aabb(bb) && consumer(id, e).is_break() {
-                            return ControlFlow::Break(());
-                        }
+                    if let Some(e) = e
+                        && e.get_bounding_box().intersects_aabb(bb)
+                        && consumer(id, e).is_break()
+                    {
+                        return ControlFlow::Break(());
                     }
                 }
                 ControlFlow::Continue(())

@@ -18,7 +18,6 @@ use crate::world::level::explosion::{
     ExplosionInteraction, ImmuneBlocks, SimpleExplosionDamageCalculator,
 };
 use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource as _;
 use mc_data::enums::EntitySpawnReason;
 use mc_data::{Block, EntityType};
 use mc_protocol::components::{Holder, RegistrySet};
@@ -41,10 +40,10 @@ pub fn apply(
         EnchantmentEntityEffect::ApplyExhaustion { amount } => {
             let amount = amount.calculate(enchantment_level);
             actors.with(level, entity, |_, e| {
-                if let Some(p) = e.player_mut() {
-                    if !p.abilities.invulnerable {
-                        p.food_data.add_exhaustion(amount);
-                    }
+                if let Some(p) = e.player_mut()
+                    && !p.abilities.invulnerable
+                {
+                    p.food_data.add_exhaustion(amount);
                 }
             });
         }

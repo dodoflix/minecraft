@@ -2,7 +2,6 @@
 use super::{Slot, SlotBehavior, SlotEnv};
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::item::ItemStack;
-use crate::world::item::ItemStackExt;
 
 /// `ArmorSlot`: owner is always the menu's player (the player passed as `env.player`).
 pub struct ArmorSlot {

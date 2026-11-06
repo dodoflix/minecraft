@@ -1,9 +1,9 @@
 //! `SculkBlock`'s `SculkBehaviour` (the block behaviour itself, a `DropExperienceBlock`, is the plain class chain).
 
+use crate::world::level::LevelAccessor;
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::block::sculk_behaviour::SculkBehaviour;
 use crate::world::level::block::sculk_spreader::{ChargeCursor, SculkSpreader};
-use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;

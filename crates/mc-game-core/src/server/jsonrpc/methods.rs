@@ -1126,35 +1126,37 @@ impl Dispatcher {
                 _ => self.handle_incoming_request(id, method, params, client),
             };
         }
-        if method.is_none() && error.is_none() {
-            if let (Some(result), Some(id)) = (result, id) {
-                if matches!(id, JsonElement::Number(_)) {
-                    // we never send requests that expect a reply, so no response can match one
-                    log::warn!(
-                        "Received unknown response (id: {}): {}",
-                        id.to_compact_string(),
-                        result.to_compact_string()
-                    );
-                } else {
-                    log::warn!(
-                        "Received respose {} with id {} we did not request",
-                        result.to_compact_string(),
-                        id.to_compact_string()
-                    );
-                }
-                return None;
-            }
-        }
-        if method.is_none() && result.is_none() {
-            if let Some(error) = error {
-                // `handleError`
-                log::error!(
-                    "Received error (id: {}): {}",
-                    id.map_or("null".to_owned(), JsonElement::to_compact_string),
-                    JsonElement::Object(error.clone()).to_compact_string()
+        if method.is_none()
+            && error.is_none()
+            && let (Some(result), Some(id)) = (result, id)
+        {
+            if matches!(id, JsonElement::Number(_)) {
+                // we never send requests that expect a reply, so no response can match one
+                log::warn!(
+                    "Received unknown response (id: {}): {}",
+                    id.to_compact_string(),
+                    result.to_compact_string()
                 );
-                return None;
+            } else {
+                log::warn!(
+                    "Received respose {} with id {} we did not request",
+                    result.to_compact_string(),
+                    id.to_compact_string()
+                );
             }
+            return None;
+        }
+        if method.is_none()
+            && result.is_none()
+            && let Some(error) = error
+        {
+            // `handleError`
+            log::error!(
+                "Received error (id: {}): {}",
+                id.map_or("null".to_owned(), JsonElement::to_compact_string),
+                JsonElement::Object(error.clone()).to_compact_string()
+            );
+            return None;
         }
         Some(JsonRpcError::InvalidRequest.create(id.unwrap_or(&JsonElement::Null), None))
     }

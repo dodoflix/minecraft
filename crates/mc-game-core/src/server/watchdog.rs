@@ -71,7 +71,7 @@ fn run(
                 stats.set_detail(key.clone(), value);
             }
             // Bootstrap.realStdoutPrintln
-            println!("Crash report:\n{}", report.get_friendly_report());
+            log::error!("Crash report:\n{}", report.get_friendly_report());
             let file = server_directory.join("crash-reports").join(format!(
                 "crash-{}-server.txt",
                 filename_formatted_date_time()

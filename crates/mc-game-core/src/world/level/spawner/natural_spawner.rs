@@ -15,7 +15,7 @@ use crate::world::level::block::BlockStateExt as _;
 use crate::world::level::levelgen::structure::manager::StructureDataSource;
 use crate::world::level::levelgen::structure::structure::SpawnerData;
 use crate::world::level::server_level_accessor::ServerLevelAccessor;
-use crate::world::level::{BlockGetter, LevelAccessor as _, LevelReader as _};
+use crate::world::level::{BlockGetter, LevelReader as _};
 use mc_core::math::mth;
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::{BlockPos, ChunkPos};
@@ -267,7 +267,7 @@ pub fn spawn_category_for_chunk(
     hooks: &mut dyn SpawnHooks,
 ) {
     let start = get_random_pos_within(level, chunk_pos);
-    if start.y() >= level.get_min_y() + 1 {
+    if start.y() > level.get_min_y() {
         spawn_category_for_position(category, level, chunk_pos, start, hooks);
     }
 }
@@ -647,13 +647,11 @@ pub fn is_valid_empty_spawn_block(
     fluid_state: FluidState,
     ty: EntityType,
 ) -> bool {
-    if block_state.is_collision_shape_full_block_at(level, pos) {
-        false
-    } else if block_state.is_signal_source() {
-        false
-    } else if !fluid_state.is_empty() {
-        false
-    } else if block_state.is_tag("prevent_mob_spawning_inside") {
+    if block_state.is_collision_shape_full_block_at(level, pos)
+        || block_state.is_signal_source()
+        || !fluid_state.is_empty()
+        || block_state.is_tag("prevent_mob_spawning_inside")
+    {
         false
     } else {
         !dismount_helper::is_block_dangerous(ty, block_state)

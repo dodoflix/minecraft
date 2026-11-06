@@ -109,10 +109,10 @@ struct LoadingBehavior<'a, H: DistanceHost> {
 
 impl<H: DistanceHost> ChunkTrackerBehavior for LoadingBehavior<'_, H> {
     fn get_level(&mut self, node: i64) -> i32 {
-        if !self.host.is_chunk_to_remove(node) {
-            if let Some(level) = self.host.holder_ticket_level(node) {
-                return level;
-            }
+        if !self.host.is_chunk_to_remove(node)
+            && let Some(level) = self.host.holder_ticket_level(node)
+        {
+            return level;
         }
         chunk_level::max_level() + 1
     }
@@ -439,10 +439,10 @@ impl DistanceManager {
         if simulation {
             self.simulation_level(key)
         } else {
-            if !host.is_chunk_to_remove(key) {
-                if let Some(level) = host.holder_ticket_level(key) {
-                    return level;
-                }
+            if !host.is_chunk_to_remove(key)
+                && let Some(level) = host.holder_ticket_level(key)
+            {
+                return level;
             }
             chunk_level::max_level() + 1
         }

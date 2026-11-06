@@ -10,10 +10,9 @@ use super::{
 };
 use crate::server::level::ServerLevel;
 use crate::world::container::{Container, helper};
-use crate::world::entity::{Entity, EntityId};
+use crate::world::entity::Entity;
 use crate::world::item::ItemStack;
-use crate::world::level::block::BlockStateExt;
-use crate::world::level::{BlockGetter, LevelAccessor};
+use crate::world::level::LevelAccessor;
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
@@ -135,10 +134,10 @@ impl BlockEntity for BarrelBlockEntity {
 
     fn save_additional(&self, tag: &mut CompoundTag) {
         self.container.save(tag);
-        if !self.loot.try_save_loot_table(tag) {
-            if let Some(list) = helper::save_all_items(&self.items, true) {
-                tag.put("Items", mc_nbt::Tag::List(list));
-            }
+        if !self.loot.try_save_loot_table(tag)
+            && let Some(list) = helper::save_all_items(&self.items, true)
+        {
+            tag.put("Items", mc_nbt::Tag::List(list));
         }
     }
 

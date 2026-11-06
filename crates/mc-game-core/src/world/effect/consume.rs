@@ -5,7 +5,7 @@ use super::potion_contents;
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use crate::world::entity::effect::MobEffectInstance;
-use crate::world::item::{ItemStack, ItemStackExt};
+use crate::world::item::ItemStack;
 use mc_core::random::RandomSource;
 use mc_data::MobEffect;
 use mc_protocol::components::{

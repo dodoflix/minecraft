@@ -50,23 +50,9 @@ pub struct ItemParser {
     items: Arc<dyn RegistryView>,
 }
 
-/// What a parse produced.
-pub trait Visitor {
-    fn visit_item(&mut self, _item: Item) {}
-    fn visit_component(
-        &mut self,
-        _type: DataComponentType,
-        _value: mc_protocol::components::Value,
-    ) {
-    }
-    fn visit_removed_component(&mut self, _type: DataComponentType) {}
-    fn visit_suggestions(&mut self, _suggestions: &'static str) {}
-}
-
-struct State<'a, V> {
+struct State<'a> {
     parser: &'a ItemParser,
     reader: &'a mut StringReader,
-    visitor: &'a mut V,
     suggestions: Suggest,
 }
 
@@ -91,7 +77,6 @@ impl ItemParser {
         let mut state = State {
             parser: self,
             reader,
-            visitor: &mut NullVisitor,
             suggestions: Suggest::Nothing,
         };
         let result = state.parse_collect(&mut |event| match event {
@@ -130,7 +115,6 @@ impl ItemParser {
         let mut state = State {
             parser: self,
             reader: &mut reader,
-            visitor: &mut NullVisitor,
             suggestions: Suggest::Nothing,
         };
         let _ = state.parse_collect(&mut |_| {});
@@ -194,11 +178,7 @@ enum Event {
     Removed(DataComponentType),
 }
 
-struct NullVisitor;
-
-impl Visitor for NullVisitor {}
-
-impl<V> State<'_, V> {
+impl State<'_> {
     fn parse_collect(&mut self, sink: &mut dyn FnMut(Event)) -> Result<(), CommandSyntaxException> {
         self.suggestions = Suggest::Item;
         self.read_item(sink)?;

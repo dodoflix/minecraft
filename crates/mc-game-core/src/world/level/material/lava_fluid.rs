@@ -62,7 +62,7 @@ impl FluidBehaviour for LavaFluid {
                     let r = LevelAccessor::random(level);
                     (r.next_int_bounded(3) - 1, r.next_int_bounded(3) - 1)
                 };
-                test_pos = BlockPos::from(test_pos.offset(dx, 1, dz));
+                test_pos = test_pos.offset(dx, 1, dz);
                 if !level.is_loaded(test_pos) {
                     return;
                 }
@@ -83,7 +83,7 @@ impl FluidBehaviour for LavaFluid {
                     let r = LevelAccessor::random(level);
                     (r.next_int_bounded(3) - 1, r.next_int_bounded(3) - 1)
                 };
-                let test_pos = BlockPos::from(pos.offset(dx, 0, dz));
+                let test_pos = pos.offset(dx, 0, dz);
                 if !level.is_loaded(test_pos) {
                     return;
                 }

@@ -11,10 +11,10 @@ pub fn get_mining_speed(stack: &ItemStack, state: BlockState) -> f32 {
     };
     let block = state.block();
     for rule in &tool.rules {
-        if let Some(speed) = rule.speed {
-            if rule.blocks.contains(block) {
-                return speed;
-            }
+        if let Some(speed) = rule.speed
+            && rule.blocks.contains(block)
+        {
+            return speed;
         }
     }
     tool.default_mining_speed
@@ -27,10 +27,10 @@ pub fn is_correct_for_drops(stack: &ItemStack, state: BlockState) -> bool {
     };
     let block = state.block();
     for rule in &tool.rules {
-        if let Some(correct) = rule.correct_for_drops {
-            if rule.blocks.contains(block) {
-                return correct;
-            }
+        if let Some(correct) = rule.correct_for_drops
+            && rule.blocks.contains(block)
+        {
+            return correct;
         }
     }
     false

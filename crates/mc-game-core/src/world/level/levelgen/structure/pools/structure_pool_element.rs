@@ -49,7 +49,6 @@ pub trait StructurePoolElement: fmt::Display + Send + Sync {
 
     /// `place(structureTemplateManager, level, structureManager, generator, position, referencePos, rotation, chunkBB, random,
     /// liquidSettings, keepJigsaws)`.
-    #[allow(clippy::too_many_arguments)]
     fn place(
         &self,
         manager: &StructureTemplateManager,

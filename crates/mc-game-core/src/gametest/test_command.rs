@@ -24,7 +24,7 @@ use crate::commands::shared_suggestion_provider::filter_resources;
 use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
 use crate::server::MinecraftServer;
 use crate::world::block_entity::test_instance_block_entity::{self, TestInstanceView};
-use crate::world::level::{BlockGetter, DimensionKey, LevelAccessor};
+use crate::world::level::{DimensionKey, LevelAccessor};
 use crate::{register_command, translatable};
 use mc_brigadier::arguments::{
     BoolArgumentType, IntegerArgumentType, StringArgumentType, integer, integer_min,
@@ -193,7 +193,7 @@ fn suggest_test_instance_ids(
     let mut matched = Vec::new();
     filter_resources(test_ids, &remaining, |id| id.clone(), |id| matched.push(id));
     for id in matched {
-        builder.suggest(&display_test_id(&id));
+        builder.suggest(display_test_id(&id));
     }
     Ok(builder.build())
 }
@@ -344,7 +344,7 @@ register_command!("TestCommand", |ctx| {
             literal("pos")
                 .executes(|c| show_pos(c.get_source(), "pos"))
                 .then(argument("var", StringArgumentType::word()).executes(|c| {
-                    show_pos(c.get_source(), &StringArgumentType::get_string(c, "var"))
+                    show_pos(c.get_source(), StringArgumentType::get_string(c, "var"))
                 })),
         )
         .then(
@@ -496,7 +496,7 @@ fn clear(source: &CommandSourceStack, finder: TestFinder) -> Result<i32, Command
 
 /// `export(finder)`.
 fn export(source: &CommandSourceStack, finder: TestFinder) -> Result<i32, CommandSyntaxException> {
-    let result = source.with_server(|server| {
+    source.with_server(|server| {
         let mut count = 0;
         let mut all_good = true;
         for pos in finder.find_test_pos(server) {
@@ -516,8 +516,7 @@ fn export(source: &CommandSourceStack, finder: TestFinder) -> Result<i32, Comman
         let message = format!("Exported {count} structures");
         send_success(server, source, || Component::literal(message), true);
         Ok(if all_good { 0 } else { 1 })
-    });
-    result
+    })
 }
 
 /// `verify(finder)`.

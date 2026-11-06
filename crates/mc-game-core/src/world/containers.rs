@@ -7,7 +7,6 @@ use crate::world::entity::item::ItemEntity;
 use crate::world::item::ItemStack;
 use crate::world::level::LevelAccessor;
 use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
 use mc_data::EntityType;
 
 /// `dropContents(level, pos, container)`.

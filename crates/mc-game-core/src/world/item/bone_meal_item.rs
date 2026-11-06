@@ -1,12 +1,12 @@
 //! `BoneMealItem`: growing `BonemealableBlock`s and seagrass/coral from water.
 
-use super::{InteractionResult, ItemBehaviour, ItemStack, ItemStackExt, UseOnContext};
+use super::{InteractionResult, ItemBehaviour, ItemStack, UseOnContext};
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
 use crate::world::entity::ServerPlayer;
 use crate::world::level::block::{BlockStateExt, BonemealSource, behaviour as block_behaviour};
 use crate::world::level::material::FluidStateExt;
-use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
+use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_data::GameEvent;
@@ -85,10 +85,10 @@ pub fn grow_water_plant(
                     state_to_grow = state_to_grow
                         .set(mc_data::props::FACING, clicked_face.expect("checked above"));
                 }
-            } else if LevelAccessor::random(level).next_int_bounded(4) == 0 {
-                if let Some(block) = random_block_of_tag("minecraft:underwater_bonemeals", level) {
-                    state_to_grow = block.default_state();
-                }
+            } else if LevelAccessor::random(level).next_int_bounded(4) == 0
+                && let Some(block) = random_block_of_tag("minecraft:underwater_bonemeals", level)
+            {
+                state_to_grow = block.default_state();
             }
         }
         if wall_corals.is_some_and(|t| t.contains(state_to_grow.block()))

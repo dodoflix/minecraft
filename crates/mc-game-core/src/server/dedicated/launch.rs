@@ -195,7 +195,7 @@ fn prepare(
         initial_data_config: data_config_to_use,
         safe_mode,
         init_mode,
-        function_compilation_permissions: properties.function_permissions.clone().into(),
+        function_compilation_permissions: properties.function_permissions.into(),
     };
     let loaded = load(
         &mut pack_config,

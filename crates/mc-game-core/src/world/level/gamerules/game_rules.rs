@@ -205,6 +205,10 @@ impl GameRules {
     }
 
     /// `GameRules.codec(enabledFeatures)` decode.
+    #[expect(
+        clippy::result_large_err,
+        reason = "DecodeResult<T> carries the partial value by value (DataResult.error(msg, partial)); the SavedDataType decode fn pointer fixes the signature"
+    )]
     pub fn decode(enabled_features: FeatureFlagSet, tag: &Tag) -> DecodeResult<GameRules> {
         map_decoded(GameRuleMap::decode(tag), |map| {
             GameRules::from_map(enabled_features, map)
@@ -218,6 +222,10 @@ impl GameRules {
 
     /// `GameRuleMap.TYPE` with the `GameRules` wrapper (`MinecraftServer`: `new GameRules(features,
     /// storage.computeIfAbsent(GameRuleMap.TYPE))`). A fresh file starts empty and is filled with the defaults.
+    #[expect(
+        clippy::result_large_err,
+        reason = "DecodeResult<T> carries the partial value by value (DataResult.error(msg, partial)); the SavedDataType decode fn pointer fixes the signature"
+    )]
     pub fn type_(enabled_features: FeatureFlagSet) -> SavedDataType<GameRules> {
         SavedDataType::new(
             GameRuleMap::type_().id,

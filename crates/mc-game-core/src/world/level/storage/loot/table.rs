@@ -86,10 +86,10 @@ impl LootPool {
 
     /// `addRandomItems(result, context)`.
     pub fn add_random_items(&self, result: ItemSink, context: &mut LootContext) {
-        if let Some(condition) = &self.condition {
-            if !condition.value(context.get_resolver()).test(context) {
-                return;
-            }
+        if let Some(condition) = &self.condition
+            && !condition.value(context.get_resolver()).test(context)
+        {
+            return;
         }
         let mut decorated = decorate(&self.modifier, result);
         let rolls = self.rolls.value(context.get_resolver()).get_int(context);

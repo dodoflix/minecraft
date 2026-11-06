@@ -9,7 +9,6 @@ use crate::server::level::ServerLevel;
 use crate::server::permissions::LevelBasedPermissionSet;
 use crate::world::level::BlockGetter;
 use crate::world::level::base_command_block::{BaseCommandBlock, Begin};
-use crate::world::level::block::BlockStateExt;
 use linkme::distributed_slice;
 use mc_core::phys::{Vec2, Vec3};
 use mc_core::pos::BlockPos;

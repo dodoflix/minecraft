@@ -25,7 +25,7 @@ pub enum WorkerMessage {
     },
     ChunkParsed {
         key: i64,
-        result: Result<Option<SerializableChunkData>, ChunkReadException>,
+        result: Box<Result<Option<SerializableChunkData>, ChunkReadException>>,
     },
     BatchDone(Box<BatchResult>),
     /// A generation step panicked: the game thread throws the report (`BlockableEventLoop.relayDelayCrash`).
@@ -246,10 +246,10 @@ impl WorkerPool {
                             let job = rx.lock().unwrap_or_else(|e| e.into_inner()).recv();
                             match job {
                                 Ok(job) => {
-                                    if let Some(msg) = job() {
-                                        if results.send(msg).is_err() {
-                                            return;
-                                        }
+                                    if let Some(msg) = job()
+                                        && results.send(msg).is_err()
+                                    {
+                                        return;
                                     }
                                 }
                                 Err(_) => return,

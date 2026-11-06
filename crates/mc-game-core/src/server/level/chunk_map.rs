@@ -37,7 +37,7 @@ use std::collections::{HashMap, VecDeque};
 use std::path::PathBuf;
 use std::sync::Arc;
 use std::sync::atomic::AtomicI32;
-use std::sync::mpsc::{Receiver, Sender, channel};
+use std::sync::mpsc::{Receiver, channel};
 use uuid::Uuid;
 
 pub const MIN_VIEW_DISTANCE: i32 = 2;
@@ -141,7 +141,7 @@ impl DistanceHost for Holders {
 
 /// Work that runs "on the main thread" in vanilla (`mainThreadExecutor.execute`), queued in order.
 pub enum MainTask {
-    Worker(WorkerMessage),
+    Worker(Box<WorkerMessage>),
     Distance(DistanceTask),
     /// `ChunkStatusTasks.full` body.
     FullStep(i64),
@@ -243,7 +243,6 @@ pub struct ChunkMap {
     pub(crate) pool: WorkerPool,
     pub(crate) worldgen: WorldgenThread,
     pub(crate) results: Receiver<WorkerMessage>,
-    pub(crate) result_tx: Sender<WorkerMessage>,
     pub(crate) worldgen_busy: bool,
     /// Holders whose chunk just became ready to send (`ServerChunkCache.onChunkReadyToSend` input).
     pub chunk_ready_to_send: Vec<i64>,
@@ -273,7 +272,6 @@ pub struct ChunkMap {
     pub(crate) active_chunk_writes: Arc<AtomicI32>,
     /// Save jobs (NBT encoding on the pool) not finished yet.
     pub(crate) encoding_chunks: Arc<AtomicI32>,
-    pub(crate) storage_info: RegionStorageInfo,
     /// `poiManager`.
     pub poi_manager: PoiManager,
 
@@ -307,18 +305,13 @@ impl ChunkMap {
             sync_writes,
             level_height,
         );
-        let io = RegionIo::new(
-            storage_info.clone(),
-            region_dir,
-            sync_writes,
-            result_tx.clone(),
-        );
+        let io = RegionIo::new(storage_info, region_dir, sync_writes, result_tx.clone());
         let pool = WorkerPool::new(
             "Chunk-Pool",
             std::thread::available_parallelism().map_or(2, |n| n.get().min(4)),
             result_tx.clone(),
         );
-        let worldgen = WorldgenThread::new(result_tx.clone());
+        let worldgen = WorldgenThread::new(result_tx);
         let mut map = Self {
             holders: Holders {
                 updating: IndexMap::new(),
@@ -352,7 +345,6 @@ impl ChunkMap {
             pool,
             worldgen,
             results,
-            result_tx,
             worldgen_busy: false,
             chunk_ready_to_send: Vec::new(),
             tasks: HashMap::new(),
@@ -375,7 +367,6 @@ impl ChunkMap {
             unload_wanted: HashMap::new(),
             active_chunk_writes: Arc::new(AtomicI32::new(0)),
             encoding_chunks: Arc::new(AtomicI32::new(0)),
-            storage_info,
             poi_manager,
             player_map: PlayerMap::new(),
             players: IndexMap::new(),
@@ -784,7 +775,7 @@ impl ChunkMap {
     /// Drain worker results into the main task queue (they are `mainThreadExecutor` tasks in vanilla).
     fn drain_worker_results(&mut self) {
         while let Ok(msg) = self.results.try_recv() {
-            self.main_tasks.push_back(MainTask::Worker(msg));
+            self.main_tasks.push_back(MainTask::Worker(Box::new(msg)));
         }
     }
 
@@ -822,7 +813,7 @@ impl ChunkMap {
 
     fn run_main_task(&mut self, task: MainTask) {
         match task {
-            MainTask::Worker(msg) => self.handle_worker_message(msg),
+            MainTask::Worker(msg) => self.handle_worker_message(*msg),
             MainTask::Distance(t) => {
                 self.distance_manager.run_main_task(t, &mut self.tickets);
                 self.queue_distance_tasks();

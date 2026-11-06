@@ -86,7 +86,6 @@ fn fake(
     fake_full(name, cond, min, max, run_for, period, false, None)
 }
 
-#[allow(clippy::too_many_arguments)]
 fn fake_full(
     name: &'static str,
     cond: Vec<(MemoryTypeId, MemoryStatus)>,
@@ -479,7 +478,7 @@ fn pack_and_load_persistent_memories() {
     );
 
     let packed = BrainPacked::from_nbt(&nbt).expect("decodes");
-    let mut loaded = Brain::construct(&types, &[], vec![], &packed.memories, &mut r);
+    let loaded = Brain::construct(&types, &[], vec![], &packed.memories, &mut r);
     assert_eq!(loaded.get_memory(&HOME), Some(&home));
     assert_eq!(loaded.get_time_until_expiry(&LAST_SLEPT), 40);
     assert_eq!(loaded.get_memory(&LAST_SLEPT), Some(&123_456_789_012i64));

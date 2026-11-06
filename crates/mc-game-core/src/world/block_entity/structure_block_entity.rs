@@ -12,7 +12,7 @@ use crate::world::level::levelgen::structure::templatesystem::structure_place_se
 use crate::world::level::levelgen::structure::templatesystem::{
     StructurePlaceSettings, StructureTemplate,
 };
-use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
+use crate::world::level::{BlockGetter, LevelAccessor};
 use linkme::distributed_slice;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::ident::Identifier;
@@ -352,7 +352,7 @@ impl StructureBlockEntity {
             for chunk_z in (min_z >> 4)..=(max_z >> 4) {
                 level.chunk_blocking_mut(chunk_x, chunk_z);
                 for section_y in
-                    (min_y >> 4).max(min_section_y)..=(max_y >> 4).min((level.get_max_y() >> 4))
+                    (min_y >> 4).max(min_section_y)..=(max_y >> 4).min(level.get_max_y() >> 4)
                 {
                     let has = level.chunk_now(chunk_x, chunk_z).is_some_and(|chunk| {
                         chunk
@@ -448,7 +448,6 @@ impl StructureBlockEntity {
     }
 
     /// `saveStructure(level, structureName, pos, structureSize, ignoreEntities, author, saveToDisk, ignoreBlocks)`.
-    #[allow(clippy::too_many_arguments)]
     pub fn save_structure(
         level: &mut ServerLevel,
         structure_name: &Identifier,

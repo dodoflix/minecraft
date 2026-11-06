@@ -10,7 +10,6 @@ use crate::world::level::block::BlockStateExt;
 use crate::world::level::block::helpers::{drop_resources, update_or_destroy_limited};
 use crate::world::level::flags::*;
 use crate::world::level::gameevent::GameEventContext;
-use crate::world::level::material::FluidStateExt as _;
 use crate::world::level::redstone::{
     CollectingNeighborUpdater, NeighborUpdateHost, Orientation, SideBias,
 };

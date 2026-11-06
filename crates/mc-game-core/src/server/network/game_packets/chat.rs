@@ -270,7 +270,7 @@ impl PlayCtx<'_> {
         packet: &ServerboundChatCommandSignedPacket,
         parsed_arguments: &[SignableArgument],
         last_seen: LastSeenMessages,
-    ) -> Result<HashMap<String, PlayerChatMessage>, DecodeException> {
+    ) -> Result<HashMap<String, PlayerChatMessage>, Box<DecodeException>> {
         let argument_signatures = &packet.argument_signatures.entries;
         let mismatch = || {
             let client_names = argument_signatures
@@ -289,7 +289,7 @@ impl PlayCtx<'_> {
                 client_names,
                 expected_names
             );
-            DecodeException::new(invalid_command_signature())
+            Box::new(DecodeException::new(invalid_command_signature()))
         };
         let mut arguments = HashMap::new();
         if argument_signatures.is_empty() {
@@ -335,7 +335,7 @@ impl PlayCtx<'_> {
         &mut self,
         packet: &ServerboundChatPacket,
         last_seen: LastSeenMessages,
-    ) -> Result<PlayerChatMessage, DecodeException> {
+    ) -> Result<PlayerChatMessage, Box<DecodeException>> {
         let body = SignedMessageBody {
             content: packet.message.clone(),
             time_stamp: packet.time_stamp,
@@ -345,6 +345,7 @@ impl PlayCtx<'_> {
         self.lis()
             .signed_message_decoder
             .unpack(packet.signature.as_ref(), body)
+            .map_err(Box::new)
     }
 
     /// `broadcastChatMessage`: `playerList.broadcastChatMessage(message, player, ChatType.bind(ChatType.CHAT, player))`.

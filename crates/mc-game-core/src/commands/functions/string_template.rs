@@ -62,8 +62,8 @@ impl StringTemplate {
     /// `substitute(arguments)`.
     pub fn substitute(&self, arguments: &[String]) -> Result<String, String> {
         let mut builder = String::new();
-        for i in 0..self.variables.len() {
-            builder.push_str(&self.segments[i]);
+        for (i, segment) in self.segments.iter().enumerate().take(self.variables.len()) {
+            builder.push_str(segment);
             builder.push_str(&arguments[i]);
             super::check_command_line_length(&builder)?;
         }

@@ -305,7 +305,7 @@ fn save_convert(s: &str, escape_space: bool, esc_unicode: bool) -> String {
                 out.push('\\');
                 out.push(c);
             }
-            c if (c < ' ' || c > '~') && esc_unicode => {
+            c if !(' '..='~').contains(&c) && esc_unicode => {
                 let mut buf = [0u16; 2];
                 for unit in c.encode_utf16(&mut buf) {
                     out.push_str(&format!("\\u{unit:04X}"));

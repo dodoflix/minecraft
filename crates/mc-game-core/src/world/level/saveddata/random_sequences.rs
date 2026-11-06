@@ -44,7 +44,7 @@ impl RandomSequence {
         let m = codec::compound(tag)?;
         let longs = codec::list(codec::field(m, "source")?)?;
         if longs.len() != 2 {
-            return Err(format!("Input is not a list of 2 elements"));
+            return Err("Input is not a list of 2 elements".to_string());
         }
         let lo = codec::long(&longs[0])?;
         let hi = codec::long(&longs[1])?;

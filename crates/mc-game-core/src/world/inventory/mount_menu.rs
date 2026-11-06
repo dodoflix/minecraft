@@ -5,10 +5,9 @@
 use super::{
     AbstractContainerMenu, ContainerKey, MenuBase, MenuPlayer, Slot, SlotBehavior, SlotEnv,
 };
+use crate::world::entity::EntityId;
 use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::{Entity, EntityId};
 use crate::world::item::ItemStack;
-use crate::world::level::BlockGetter as _;
 use std::any::Any;
 
 /// What the mount menus ask of the mob (`AbstractHorse` / `AbstractNautilus` / `Llama`).

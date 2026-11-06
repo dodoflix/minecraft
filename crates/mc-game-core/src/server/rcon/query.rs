@@ -381,7 +381,7 @@ mod tests {
         let full = r.process_packet(&stat(token, true), src).unwrap();
         assert_eq!(&full[..5], [0, 1, 2, 3, 4]);
         let has = |needle: &[u8]| full.windows(needle.len()).any(|w| w == needle);
-        assert!(has(b"splitnum\0\x80\0hostname\0A Minecraft Server\0gametype\0SMP\0game_id\0MINECRAFT\0version\x0026.3\0plugins\0\0map\0world\0numplayers\02\0"));
+        assert!(has(b"splitnum\0\x80\0hostname\0A Minecraft Server\0gametype\0SMP\0game_id\0MINECRAFT\0version\x0026.3\0plugins\0\0map\0world\0numplayers\x002\0"));
         assert!(full.ends_with(b"\0\x01player_\0\0Steve\0Alex\0\0"));
     }
 }

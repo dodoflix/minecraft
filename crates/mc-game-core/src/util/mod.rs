@@ -14,6 +14,5 @@ pub mod special_dates;
 pub mod tick_throttler;
 pub mod time_util;
 pub mod timer_queue;
-#[allow(clippy::module_inception)]
 pub mod util;
 pub mod weighted_list;

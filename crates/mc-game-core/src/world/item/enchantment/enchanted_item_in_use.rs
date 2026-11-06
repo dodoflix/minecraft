@@ -5,12 +5,14 @@ use crate::world::entity::EntityId;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::item::ItemStack;
 
+type BreakCallback = Box<dyn FnMut(&mut ServerLevel, &ItemStack) + Send>;
+
 /// What happens when the stack breaks (`onBreak`).
 pub enum OnBreak {
     /// `owner.onEquippedItemBroken(item, inSlot)`.
     OwnerEquipped,
     /// A caller supplied `Consumer<ItemStack>`.
-    Callback(Box<dyn FnMut(&mut ServerLevel, &ItemStack) + Send>),
+    Callback(BreakCallback),
 }
 
 /// `EnchantedItemInUse(itemStack, inSlot, owner, onBreak)`. The stack is a working copy of the one held in `in_slot` of

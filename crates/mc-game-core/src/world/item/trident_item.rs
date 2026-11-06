@@ -20,7 +20,6 @@ use mc_protocol::components::ItemUseAnimation;
 use mc_protocol::packets::play::SoundSource;
 
 pub const THROW_THRESHOLD_TIME: i32 = 10;
-pub const BASE_DAMAGE: f32 = 8.0;
 pub const PROJECTILE_SHOOT_POWER: f32 = 2.5;
 
 pub struct TridentItem {
@@ -152,14 +151,13 @@ impl ItemBehaviour for TridentItem {
         hand: InteractionHand,
     ) -> InteractionResult {
         let in_hand = player.get_item_in_hand(hand);
-        if in_hand.next_damage_will_break() {
-            InteractionResult::FAIL
-        } else if helper::get_trident_spin_attack_strength(
-            &level.registries.clone(),
-            &in_hand,
-            player,
-        ) > 0.0
-            && !player.is_in_water_or_rain(level)
+        if in_hand.next_damage_will_break()
+            || (helper::get_trident_spin_attack_strength(
+                &level.registries.clone(),
+                &in_hand,
+                player,
+            ) > 0.0
+                && !player.is_in_water_or_rain(level))
         {
             InteractionResult::FAIL
         } else {

@@ -132,8 +132,8 @@ pub struct DamageSource {
     pub causing_entity: Option<EntityId>,
     /// `damageSourcePosition` (explicit position; see [`DamageSource::get_source_position`]).
     pub source_position: Option<Vec3>,
-    direct: Option<Arc<DamageEntity>>,
-    causing: Option<Arc<DamageEntity>>,
+    direct: Option<Rc<DamageEntity>>,
+    causing: Option<Rc<DamageEntity>>,
 }
 
 impl DamageSource {
@@ -146,11 +146,11 @@ impl DamageSource {
         source_position: Option<Vec3>,
     ) -> DamageSource {
         let same = matches!((direct, causing), (Some(d), Some(c)) if d.id() == c.id());
-        let direct_snapshot = direct.map(|e| Arc::new(DamageEntity::capture(e)));
+        let direct_snapshot = direct.map(|e| Rc::new(DamageEntity::capture(e)));
         let causing_snapshot = if same {
             direct_snapshot.clone()
         } else {
-            causing.map(|e| Arc::new(DamageEntity::capture(e)))
+            causing.map(|e| Rc::new(DamageEntity::capture(e)))
         };
         DamageSource {
             damage_type,

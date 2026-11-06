@@ -31,6 +31,13 @@ enum Arg {
     BlendToGray { brightness: f32, factor: f32 },
 }
 
+/// A parsed `(modifier, argument)` entry.
+type ModifierEntry = (Modifier, Arg);
+/// Per attribute: its name and one optional entry per biome.
+type BiomeAttributeEntries = (&'static str, Vec<Option<ModifierEntry>>);
+/// `WeatherAttributes`: per attribute the `(rain, thunder)` entries.
+type WeatherLayer = (&'static str, Option<ModifierEntry>, Option<ModifierEntry>);
+
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum Modifier {
     Override,
@@ -705,7 +712,7 @@ impl EnvironmentAttributeSystem {
             }
         }
         // `addBiomeLayer`: attributes in the order biomes first mention them (`distinct()`); the order only matters per attribute
-        let mut per_attribute: Vec<(&'static str, Vec<Option<(Modifier, Arg)>>)> = Vec::new();
+        let mut per_attribute: Vec<BiomeAttributeEntries> = Vec::new();
         for (index, attributes) in biomes.iter().enumerate() {
             let Some(map) = attributes.and_then(Value::as_object) else {
                 continue;
@@ -865,12 +872,7 @@ impl EnvironmentAttributeSystem {
 }
 
 /// `WeatherAttributes.RAIN` / `THUNDER`: per attribute the `(rain, thunder)` entries.
-#[allow(clippy::type_complexity)]
-fn weather_layers() -> Vec<(
-    &'static str,
-    Option<(Modifier, Arg)>,
-    Option<(Modifier, Arg)>,
-)> {
+fn weather_layers() -> Vec<WeatherLayer> {
     use AttrValue as V;
     let night_sky_light = color_from_float(1.0, 0.48, 0.48, 1.0);
     let color = |a: f32, r: f32, g: f32, b: f32| color_from_float(a, r, g, b);

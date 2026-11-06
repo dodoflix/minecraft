@@ -233,9 +233,9 @@ impl Commands {
     pub fn new(selection: CommandSelection, build_context: &CommandBuildContext) -> Commands {
         let mut dispatcher = CommandDispatcher::new();
         let ctx_dispatcher_ptr: *const CommandDispatcher<CommandSourceStack> = &dispatcher;
-        // SAFETY: `register` only needs a shared reference for the duration of the calls below; `dispatcher` is not
-        // moved or otherwise borrowed until they return.
         let context = CommandRegistrationContext {
+            // SAFETY: `dispatcher` is a live local that is neither moved nor mutably borrowed while `context` exists
+            // (its last use is the `register` loop below, before `set_consumer` takes `&mut dispatcher`).
             dispatcher: unsafe { &*ctx_dispatcher_ptr },
             build_context,
             selection,

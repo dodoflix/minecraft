@@ -6,7 +6,6 @@ use crate::server::level::ServerLevel;
 use crate::world::entity::ServerPlayer;
 use crate::world::inventory::MenuPlayer;
 use crate::world::item::ItemStack;
-use crate::world::level::BlockGetter;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;

@@ -14,7 +14,6 @@ use crate::world::level::block::BlockStateExt;
 use crate::world::level::gameevent::GameEventContext;
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
 use mc_data::block::BlockState;
 use mc_data::enums::EntitySpawnReason;
 use mc_data::{BlockEntityType, EntityType, GameEvent, SoundEvent, props};
@@ -364,15 +363,6 @@ pub fn occupant_of(entity: &dyn Entity) -> Option<BeeOccupant> {
             MIN_OCCUPATION_TICKS_NECTARLESS
         },
     })
-}
-
-/// `Occupant.create(ticksInHive)`: a bare bee (structures' pre-filled nests).
-pub fn occupant_create(ticks_in_hive: i32) -> BeeOccupant {
-    BeeOccupant {
-        entity_data: TypedEntityData::of(EntityType::BEE, CompoundTag::new()),
-        ticks_in_hive,
-        min_ticks_in_hive: MIN_OCCUPATION_TICKS_NECTARLESS,
-    }
 }
 
 /// `Occupant.createEntity(level, hivePos)`: the stored bee as a live entity (not yet in the level).

@@ -13,7 +13,7 @@ use crate::translatable;
 use crate::world::block_entity::test_instance_block_entity::{
     self, Data, Status, TestInstanceView,
 };
-use crate::world::level::{BlockGetter, DimensionKey, LevelAccessor};
+use crate::world::level::{DimensionKey, LevelAccessor};
 use mc_core::ident::Identifier;
 use mc_core::phys::AABB;
 use mc_core::pos::{BlockPos, Vec3i};
@@ -191,10 +191,10 @@ impl GameTestInfo {
             let sequences: Vec<Rc<GameTestSequence>> = self.sequences.borrow().clone();
             if sequences.is_empty() {
                 self.fail_with(GameTestException::Timeout {
-                    message: translatable!(
+                    message: Box::new(translatable!(
                         "test.error.timeout.no_result",
                         self.test.value.max_ticks()
-                    ),
+                    )),
                 });
             } else {
                 for sequence in &sequences {
@@ -202,10 +202,10 @@ impl GameTestInfo {
                 }
                 if self.error.borrow().is_none() {
                     self.fail_with(GameTestException::Timeout {
-                        message: translatable!(
+                        message: Box::new(translatable!(
                             "test.error.timeout.no_sequences_finished",
                             self.test.value.max_ticks()
-                        ),
+                        )),
                     });
                 }
             }

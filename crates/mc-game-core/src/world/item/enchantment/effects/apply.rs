@@ -101,17 +101,15 @@ pub fn on_changed_block(
             }
         }
         EnchantmentLocationBasedEffect::Attribute(a) => {
-            if became_active {
-                if let Some(slot) = item.in_slot {
-                    let modifier = a.get_modifier(enchantment_level, slot.get_name());
-                    actors.with(level, entity, |_, e| {
-                        if let Some(living) = e.living_mut() {
-                            living
-                                .attributes
-                                .add_transient_attribute_modifiers(&[(a.attribute, modifier)]);
-                        }
-                    });
-                }
+            if became_active && let Some(slot) = item.in_slot {
+                let modifier = a.get_modifier(enchantment_level, slot.get_name());
+                actors.with(level, entity, |_, e| {
+                    if let Some(living) = e.living_mut() {
+                        living
+                            .attributes
+                            .add_transient_attribute_modifiers(&[(a.attribute, modifier)]);
+                    }
+                });
             }
         }
         // `EnchantmentEntityEffect.onChangedBlock` = `apply`
@@ -128,13 +126,13 @@ pub fn on_deactivated(
     actors: &mut Actors<'_>,
     item: &EnchantedItemInUse,
     entity: EntityId,
-    position: Vec3,
+    _position: Vec3,
     enchantment_level: i32,
 ) {
     match effect {
         EnchantmentLocationBasedEffect::AllOf(effects) => {
             for e in effects {
-                on_deactivated(e, level, actors, item, entity, position, enchantment_level);
+                on_deactivated(e, level, actors, item, entity, _position, enchantment_level);
             }
         }
         EnchantmentLocationBasedEffect::Attribute(a) => {
@@ -372,10 +370,10 @@ fn replace_block(
     position: Vec3,
 ) {
     let pos = BlockPos::containing_position(&position).offset(e.offset.x, e.offset.y, e.offset.z);
-    if let Some(p) = &e.predicate {
-        if !p.predicate.test(&*level, pos) {
-            return;
-        }
+    if let Some(p) = &e.predicate
+        && !p.predicate.test(&*level, pos)
+    {
+        return;
     }
     let Some(provider) = provider_of(level, &e.block_state) else {
         return;
@@ -385,10 +383,10 @@ fn replace_block(
     }) else {
         return;
     };
-    if level.set_block_and_update(pos, state) {
-        if let Some(event) = e.trigger_game_event {
-            game_event_at(level, entity, event, pos);
-        }
+    if level.set_block_and_update(pos, state)
+        && let Some(event) = e.trigger_game_event
+    {
+        game_event_at(level, entity, event, pos);
     }
 }
 
@@ -421,10 +419,10 @@ fn replace_disk(
             }) else {
                 return;
             };
-            if level.set_block_and_update(pos, state) {
-                if let Some(event) = e.trigger_game_event {
-                    game_event_at(level, entity, event, pos);
-                }
+            if level.set_block_and_update(pos, state)
+                && let Some(event) = e.trigger_game_event
+            {
+                game_event_at(level, entity, event, pos);
             }
         }
     }
@@ -456,10 +454,11 @@ fn set_block_properties(
     let pos = BlockPos::containing_position(&position).offset(e.offset.x, e.offset.y, e.offset.z);
     let state = level.get_block_state(pos);
     let modified = apply_block_item_state_properties(&e.properties, state);
-    if state != modified && level.set_block_and_update(pos, modified) {
-        if let Some(event) = e.trigger_game_event {
-            game_event_at(level, entity, event, pos);
-        }
+    if state != modified
+        && level.set_block_and_update(pos, modified)
+        && let Some(event) = e.trigger_game_event
+    {
+        game_event_at(level, entity, event, pos);
     }
 }
 

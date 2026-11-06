@@ -329,7 +329,7 @@ impl PlayCtx<'_> {
                     self.player.get_plain_text_name(),
                     self.level
                         .get_entity(vehicle_id)
-                        .map(|e| entity_plain_name(e))
+                        .map(entity_plain_name)
                         .unwrap_or_default()
                 );
                 if let Some(vehicle) = self.level.get_entity(vehicle_id) {
@@ -560,7 +560,6 @@ impl PlayCtx<'_> {
     }
 
     /// `handlePlayerPositionChange`.
-    #[allow(clippy::too_many_arguments)]
     pub(super) fn handle_player_position_change(
         &mut self,
         requested_x: f64,

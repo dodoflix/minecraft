@@ -15,7 +15,7 @@ use crate::world::level::entity::{PersistentEntitySectionManager, Visibility};
 use crate::world::level::spawner::natural_spawner;
 use crate::world::level::ticket_storage::TicketStorage;
 use crate::world::level::{BlockGetter, DimensionKey, LevelHeight, LevelReader, LightLayer};
-use mc_core::pos::{BlockPos, ChunkPos, SectionPos};
+use mc_core::pos::{BlockPos, ChunkPos};
 use mc_data::block::{Block, BlockState};
 use mc_data::fluid::FluidState;
 use mc_world::chunk::ProtoChunk;
@@ -735,20 +735,20 @@ impl LevelReader for ServerLevel {
 
     fn get_height_at(&self, ty: HeightmapType, x: i32, z: i32) -> i32 {
         if x >= -30_000_000 && z >= -30_000_000 && x < 30_000_000 && z < 30_000_000 {
-            if self.has_chunk(x >> 4, z >> 4) {
-                if let Some(chunk) = self.chunk_now(x >> 4, z >> 4) {
-                    if let Some(h) = chunk.data.access.heightmaps.get(&ty) {
-                        return h.get_first_available(x & 15, z & 15);
-                    }
-                    // `ChunkAccess.getHeight` primes a heightmap the chunk does not maintain (the `_WG` types)
-                    let mut primed = mc_world::heightmap::HeightmapMap::new();
-                    mc_world::heightmap::Heightmap::prime_heightmaps(
-                        &chunk.data.access.view(true),
-                        &mut primed,
-                        &[ty],
-                    );
-                    return primed[&ty].get_first_available(x & 15, z & 15);
+            if self.has_chunk(x >> 4, z >> 4)
+                && let Some(chunk) = self.chunk_now(x >> 4, z >> 4)
+            {
+                if let Some(h) = chunk.data.access.heightmaps.get(&ty) {
+                    return h.get_first_available(x & 15, z & 15);
                 }
+                // `ChunkAccess.getHeight` primes a heightmap the chunk does not maintain (the `_WG` types)
+                let mut primed = mc_world::heightmap::HeightmapMap::new();
+                mc_world::heightmap::Heightmap::prime_heightmaps(
+                    &chunk.data.access.view(true),
+                    &mut primed,
+                    &[ty],
+                );
+                return primed[&ty].get_first_available(x & 15, z & 15);
             }
             self.get_min_y()
         } else {
@@ -790,9 +790,4 @@ impl LevelReader for ServerLevel {
     fn ambient_light(&self) -> f32 {
         self.tick_state.ambient_light
     }
-}
-
-/// `SectionPos` helper for callers that hold a block position.
-pub fn section_of_block(pos: BlockPos) -> SectionPos {
-    SectionPos::of_block_pos(&pos)
 }

@@ -1,7 +1,7 @@
 //! `net.minecraft.world.item.{ArrowItem, SpectralArrowItem, TippedArrowItem}`: the dispenser side (`ProjectileItem.asProjectile`);
 //! the shooter side (`createArrow`) is `projectile_weapon_item::create_arrow`.
 
-use super::{ItemBehaviour, ItemStack, ItemStackExt as _, ProjectileItem};
+use super::{ItemBehaviour, ItemStack, ProjectileItem};
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
