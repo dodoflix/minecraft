@@ -7,6 +7,10 @@
 # Vanilla reference material (decompiled source, jars, datagen/extractor output); recreate with scripts/setup-ref.sh
 /ref
 
+# Left behind by the vanilla bundler when a script runs it from the repo root
+/libraries/
+/versions/
+
 # Local server/client runs (vanilla oracle, real client cache, E2E scratch worlds)
 /run
 logs/
