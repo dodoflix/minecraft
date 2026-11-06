@@ -204,11 +204,15 @@ fn custom_packs_world_matches_vanilla() {
         })
         .collect();
     let wanted = |m: &String| m.contains("pack") || m.contains("Registry loading");
-    let vanilla: Vec<String> = vanilla_messages(&read_log("custom"))
+    let mut vanilla: Vec<String> = vanilla_messages(&read_log("custom"))
         .into_iter()
         .filter(wanted)
         .collect();
-    assert_eq!(ours.into_iter().filter(wanted).collect::<Vec<_>>(), vanilla);
+    let mut ours: Vec<String> = ours.into_iter().filter(wanted).collect();
+    // Vanilla and this server list `world/datapacks` in directory order, which differs between file systems.
+    ours.sort();
+    vanilla.sort();
+    assert_eq!(ours, vanilla);
 }
 
 #[test]
