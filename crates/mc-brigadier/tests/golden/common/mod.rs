@@ -25,7 +25,7 @@ pub fn arg(name: &str, t: impl ArgumentType<i32>) -> RequiredArgumentBuilder<i32
 
 pub fn sample() -> D {
     let d = D::new();
-    let foo = d.register(
+    let foo_node = d.register(
         lit("foo")
             .then(lit("bar").executes(|_| Ok(1)))
             .then(lit("Baz").executes(|_| Ok(2)))
@@ -84,7 +84,7 @@ pub fn sample() -> D {
                 .executes(|c| Ok(LongArgumentType::get_long(c, "n") as i32)),
         ),
     );
-    d.register(lit("alias").redirect(foo));
+    d.register(lit("alias").redirect(foo_node));
     d.register(lit("run").redirect(d.get_root().clone()));
     d.register(lit("each").fork(d.get_root().clone(), |c| {
         Ok(vec![*c.get_source(), *c.get_source() + 10])

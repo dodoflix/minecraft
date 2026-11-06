@@ -118,7 +118,6 @@ impl<S: 'static> CommandNode<S> {
     }
 
     /// `new ArgumentCommandNode<>(...)`.
-    #[allow(clippy::too_many_arguments)]
     pub fn new_argument(
         name: impl Into<String>,
         type_: Arc<dyn ArgumentType<S>>,

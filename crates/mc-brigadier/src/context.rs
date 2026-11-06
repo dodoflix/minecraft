@@ -159,7 +159,6 @@ impl<S: Clone + 'static> Clone for CommandContext<S> {
 }
 
 impl<S: 'static> CommandContext<S> {
-    #[allow(clippy::too_many_arguments)]
     pub fn new(
         source: S,
         input: Arc<str>,

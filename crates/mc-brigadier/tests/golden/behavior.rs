@@ -455,10 +455,10 @@ fn argument_lookup_errors() {
     d.register(lit("a").then(arg("n", integer()).executes(move |c| {
         sink.lock()
             .unwrap()
-            .push(c.try_get_argument::<i32>("n").map(|v| *v).map_err(|e| e.0));
+            .push(c.try_get_argument::<i32>("n").copied().map_err(|e| e.0));
         sink.lock().unwrap().push(
             c.try_get_argument::<i32>("missing")
-                .map(|v| *v)
+                .copied()
                 .map_err(|e| e.0),
         );
         sink.lock().unwrap().push(
