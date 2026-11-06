@@ -1,5 +1,5 @@
 //! `mc-game`: the public API of the gameplay server. The code lives in `mc-game-core` (the spine) and the area
-//! crates; this facade re-exports them under the historical `mc_game::...` paths (see docs/crate-split.md).
+//! crates; this facade re-exports them under the historical `mc_game::...` paths (see ARCHITECTURE.md).
 //!
 //! Every module that more than one crate contributes to is declared here once and lists exactly the crates that
 //! extend it; modules owned by a single crate are reached through their parent's re-export.

@@ -1,6 +1,6 @@
-#![deny(unused_must_use)]
 //! Minecraft Java Edition 26.3 (protocol 777) wire protocol: codecs, framing, compression,
 //! encryption, authentication helpers and the handshake/status/login/configuration packets.
+#![deny(unused_must_use)]
 
 // Lets `#[derive(Encode, Decode, Packet)]` (which names `::mc_protocol`) work inside this crate.
 extern crate self as mc_protocol;
