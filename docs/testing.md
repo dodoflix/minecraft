@@ -157,8 +157,8 @@ generator without both headers.
   oracle target. This is the single variable for it; it counts only when set to `1`. Enforced: review.
 
 **Format and size.** Fixtures are plain text and there is no Git LFS. The one exception is a generated fixture that is
-larger than 1 MB uncompressed: it is committed as `<name>.txt.gz` (the generator writes it gzip-compressed without a timestamp, so the output is
-deterministic) and its `Output:` header names the `.gz` path. Smaller fixtures are not compressed. No tracked file may
+larger than 1 MB uncompressed: it is committed as `<name>.gz` (the full file name plus `.gz`, for example `snbt_golden.tsv.gz`; `gzip -9n`, so there is no
+name or timestamp and the output is deterministic) and its `Output:` header names the `.gz` path. Smaller fixtures are not compressed. No tracked file may
 exceed 8 MiB (`scripts/check.sh`).
 
 **Provenance.** Fixtures may contain Mojang-derived output (names, ids, text). They are public but not relicensed;
@@ -192,8 +192,8 @@ absence of an oracle in the stub's doc comment. Review.
 Input from the network and from data packs is hostile. Existing corpora are replayed as ordinary tests:
 
 - `crates/mc-protocol/tests/fixtures/components/corpus/` and `components/text/corpus.txt` (component codecs)
-- `crates/mc-protocol/tests/fixtures/wire_limits.golden` (length and depth limits on the wire)
-- `crates/mc-nbt/tests/fixtures/snbt_golden.tsv` (SNBT parsing, including malformed input)
+- `crates/mc-protocol/tests/fixtures/wire_limits.golden.gz` (length and depth limits on the wire)
+- `crates/mc-nbt/tests/fixtures/snbt_golden.tsv.gz` (SNBT parsing, including malformed input)
 - `crates/mc-game/tests/fixtures/commands/*corpus*.txt` and `commands_corpus/` (command parsing and execution errors)
 
 Each pre-play listener phase (handshake, status, login, configuration) has one deterministic test that sends a

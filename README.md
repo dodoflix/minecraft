@@ -79,7 +79,7 @@ redistribute `ref/` or a build that embeds it.
 ## Build
 
 ```sh
-cargo build -p mc-server --release
+cargo build -p mc-server --release --locked
 ```
 
 A cold release build takes a few minutes, and compiling `mc-game-core` needs a lot of

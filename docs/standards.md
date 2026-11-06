@@ -237,5 +237,8 @@ These are open. CI does not enforce them; everything else in this document that 
 - Decode modules in `mc-protocol`, `mc-nbt`, `mc-world` and the command code still contain `unwrap` and indexing; the
   per-module `warn` attributes are not in place. `mc-brigadier`'s `StringReader` panics on an out-of-range cursor like
   Java's `charAt`; the command dispatcher contains it.
+- Some generated fixtures do not reproduce byte for byte: the chat goldens embed freshly generated RSA keys, the component
+  hash-order, registry line-order, POI and recipe-book goldens depend on the JVM run, and `trades_golden.txt` differs on
+  JDK 27.
 - `missing_docs` is not enabled on any crate yet, and some crates lack a three-line crate doc.
 - Commit subjects: the format rule in `CONTRIBUTING.md` applies to commits after `d0016913`; older subjects are not rewritten.
