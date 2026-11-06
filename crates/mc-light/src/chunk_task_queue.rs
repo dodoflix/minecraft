@@ -33,14 +33,14 @@ impl<T> ChunkTaskPriorityQueue<T> {
             if old_priority == self.top_priority_queue_index {
                 self.advance_top();
             }
-            if let Some(old_tasks) = old_tasks {
-                if !old_tasks.is_empty() {
-                    self.queues[new_priority as usize]
-                        .entry(pos)
-                        .or_default()
-                        .extend(old_tasks);
-                    self.top_priority_queue_index = self.top_priority_queue_index.min(new_priority);
-                }
+            if let Some(old_tasks) = old_tasks
+                && !old_tasks.is_empty()
+            {
+                self.queues[new_priority as usize]
+                    .entry(pos)
+                    .or_default()
+                    .extend(old_tasks);
+                self.top_priority_queue_index = self.top_priority_queue_index.min(new_priority);
             }
         }
     }

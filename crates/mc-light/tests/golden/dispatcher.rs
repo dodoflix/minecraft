@@ -82,12 +82,7 @@ impl Scenario {
             let (count, id) = run.split_once(':').unwrap();
             let state = BlockState::from_id(id.parse().unwrap()).unwrap();
             for _ in 0..count.parse::<usize>().unwrap() {
-                section.set_block_state(
-                    (i & 15) as i32,
-                    (i >> 8) as i32,
-                    ((i >> 4) & 15) as i32,
-                    state,
-                );
+                section.set_block_state(i & 15, i >> 8, (i >> 4) & 15, state);
                 i += 1;
             }
         }

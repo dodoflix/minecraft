@@ -20,6 +20,10 @@ const DIMENSIONS: [(&str, LevelHeight, bool); 3] = [
     ("the_end", LevelHeight::new(0, 256), true),
 ];
 
+type SectionLight = (Option<DataLayer>, Option<DataLayer>);
+/// `(light_correct, status, light per section y)` as vanilla saved it.
+type SavedChunk = (bool, ChunkStatus, HashMap<i32, SectionLight>);
+
 fn factory() -> PalettedContainerFactory {
     let dir = Path::new(env!("CARGO_MANIFEST_DIR"))
         .join("../../ref/generated/data/minecraft/worldgen/biome");
@@ -128,14 +132,7 @@ fn relight_matches_saved_light() {
     for (dim, height, has_sky) in DIMENSIONS {
         let folder = world.join(format!("dimensions/minecraft/{dim}/region"));
         let mut getter: ChunkMapGetter<Chunk> = ChunkMapGetter::new();
-        let mut saved: HashMap<
-            ChunkPos,
-            (
-                bool,
-                ChunkStatus,
-                HashMap<i32, (Option<DataLayer>, Option<DataLayer>)>,
-            ),
-        > = HashMap::new();
+        let mut saved: HashMap<ChunkPos, SavedChunk> = HashMap::new();
         for (pos, tag) in read_all(&folder) {
             let data = SerializableChunkData::parse(height, &factory, &tag)
                 .unwrap()

@@ -530,7 +530,7 @@ impl LightEngine {
             if to_level == 0 {
                 continue;
             }
-            if to_level <= old_from_level - 1 {
+            if to_level < old_from_level {
                 if sky {
                     self.storage.set_stored_level(to_node, 0);
                     self.enqueue_decrease(
