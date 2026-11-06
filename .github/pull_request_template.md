@@ -6,7 +6,7 @@ Vanilla class and method this change follows (or "none: not a behaviour change")
 
 ## Checklist
 
-- [ ] Title is a Conventional Commit with a scope, e.g. `fix(worldgen): use vanilla lava level in aquifer picker`
+- [ ] Title is a Conventional Commit (scope is the crate name without `mc-`, when one applies), e.g. `fix(worldgen): use vanilla lava level in aquifer picker`
 - [ ] `scripts/check.sh` result noted below (new findings only)
 - [ ] Test tier named (T0/T1/T2); golden values regenerated with the generator and the diff reviewed
 - [ ] No Mojang code, assets or `ref/` content

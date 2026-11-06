@@ -1,0 +1,43 @@
+name: Bug report
+description: The server crashes, hangs or misbehaves in a way unrelated to vanilla parity.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Report security problems privately (see SECURITY.md), not here.
+        If the server behaves differently from the vanilla 26.3 server, use the "Parity difference" form instead.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what you expected and what you got.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: How to reproduce
+      description: Commands, `server.properties` changes, world files or client actions, in order.
+    validations:
+      required: true
+  - type: input
+    id: commit
+    attributes:
+      label: Commit
+      description: Output of `git rev-parse --short HEAD`.
+    validations:
+      required: true
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      description: Linux distribution, `rustc --version`, `java -version`.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log output
+      description: The relevant part of `logs/latest.log` or the panic message, with `RUST_BACKTRACE=1` if it panicked.
+      render: text

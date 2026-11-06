@@ -1,0 +1,56 @@
+name: Parity difference
+description: This server behaves differently from the vanilla Minecraft Java Edition 26.3 server.
+labels: ["parity"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The goal of this project is that observable behaviour matches vanilla. Name the vanilla behaviour and show how the two differ.
+  - type: textarea
+    id: vanilla
+    attributes:
+      label: Vanilla behaviour
+      description: What the vanilla server does, with the vanilla class and method if you know them (from your local `ref/src`).
+    validations:
+      required: true
+  - type: textarea
+    id: ours
+    attributes:
+      label: Behaviour of this server
+      description: What this server does instead.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: How to reproduce
+      description: The same steps for both servers: commands, seed, world files, packets or client actions.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Wire protocol
+        - World generation
+        - World files and storage
+        - Game mechanics (blocks, items, entities)
+        - Commands
+        - Data packs and registries
+        - Server start-up and configuration
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: commit
+    attributes:
+      label: Commit
+      description: Output of `git rev-parse --short HEAD`.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Log lines, a world diff (`tools/worldcmp`), a packet dump or a screenshot from both servers.
