@@ -15,7 +15,7 @@ use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
 use mc_game_core::world::entity::dimensions::EntityDimensions;
 use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
-use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::mob::{MobData, MobKind};
 use mc_game_core::world::entity::monster::cubemob::abstract_cube_mob::{
     self as acm, CubeMob, CubeMobAttackGoal, CubeMobData, CubeMobFloatGoal,
     CubeMobKeepOnJumpingGoal, CubeMobMoveControl, CubeMobRandomDirectionGoal, ID_SIZE,
@@ -23,7 +23,6 @@ use mc_game_core::world::entity::monster::cubemob::abstract_cube_mob::{
 use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::spawn_predicates::{check_mob_spawn_rules, is_spawner};
 use mc_game_core::world::entity::{Entity, EntityId, RemovalReason, ServerPlayer};
-use mc_game_core::world::level::LevelReader as _;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_nbt::CompoundTag;
 use mc_protocol::packets::play::SoundSource;

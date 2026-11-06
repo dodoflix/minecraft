@@ -219,23 +219,20 @@ impl Entity for Spider {
         }
         let mut group_data =
             mob::spawn::finalize_spawn(self, level, difficulty, reason, group_data);
-        if level.random().next_int_bounded(100) == 0 {
-            if let Some(mut skeleton) = level.create_entity(
+        if level.random().next_int_bounded(100) == 0
+            && let Some(mut skeleton) = level.create_entity(
                 EntityType::SKELETON,
                 EntitySpawnRequest {
                     reason: EntitySpawnReason::Jockey,
                     ignore_checks: false,
                 },
-            ) {
-                let b = self.base();
-                skeleton.snap_to(b.x(), b.y(), b.z(), b.y_rot(), 0.0);
-                skeleton.finalize_spawn(level, difficulty, reason, None);
-                if mc_game_core::world::entity::monster::start_riding_unadded(
-                    skeleton.as_mut(),
-                    self,
-                ) {
-                    self.mob.pending_passengers.push(skeleton);
-                }
+            )
+        {
+            let b = self.base();
+            skeleton.snap_to(b.x(), b.y(), b.z(), b.y_rot(), 0.0);
+            skeleton.finalize_spawn(level, difficulty, reason, None);
+            if mc_game_core::world::entity::monster::start_riding_unadded(skeleton.as_mut(), self) {
+                self.mob.pending_passengers.push(skeleton);
             }
         }
         if group_data.is_none() {

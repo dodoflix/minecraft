@@ -138,15 +138,9 @@ fn is_bow(goal: &dyn Goal) -> bool {
     goal.name() == "RangedBowAttackGoal"
 }
 
-/// `reassessWeaponGoal()` (the level is not needed: a goal that was running is stopped by [`reassess_weapon_goal_in`]).
+/// `reassessWeaponGoal()` (the level is not needed: no goal is stopped here).
 pub fn reassess_weapon_goal(skeleton: &mut AbstractSkeleton, difficulty: Difficulty) {
     reassess(skeleton, difficulty, None);
-}
-
-/// `reassessWeaponGoal()` with a level at hand: a removed running goal is stopped.
-pub fn reassess_weapon_goal_in(skeleton: &mut AbstractSkeleton, level: &mut ServerLevel) {
-    let difficulty = level.difficulty();
-    reassess(skeleton, difficulty, Some(level));
 }
 
 fn reassess(
@@ -161,10 +155,8 @@ fn reassess(
             .goal_selector
             .take_goal_where(|g| if melee { is_melee(g) } else { is_bow(g) });
         if let Some((mut goal, running)) = taken {
-            if running {
-                if let Some(level) = level.as_deref_mut() {
-                    goal.stop(skeleton, level);
-                }
+            if running && let Some(level) = level.as_deref_mut() {
+                goal.stop(skeleton, level);
             }
             if melee {
                 skeleton.parked_melee_goal = Some(goal);

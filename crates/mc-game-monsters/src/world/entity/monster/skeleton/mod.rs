@@ -31,7 +31,6 @@ use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::spawn_predicates as sp;
 use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
 use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
-use mc_game_core::world::level::BlockGetter;
 use mc_game_core::world::level::block::state::BlockStateExt;
 use mc_game_core::world::level::pathfinder::PathType;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
@@ -240,12 +239,11 @@ impl Entity for AbstractSkeleton {
     fn after_ride_tick(&mut self, level: &ServerLevel) {
         if let Some(vehicle) =
             mob::navigation::controlled_vehicle(self, level).and_then(|v| level.get_entity(v))
+            && vehicle.mob().is_some_and(|m| m.kind.is_pathfinder())
         {
-            if vehicle.mob().is_some_and(|m| m.kind.is_pathfinder()) {
-                let body = vehicle.living().map(|l| l.y_body_rot);
-                if let (Some(body), Some(l)) = (body, self.living_mut()) {
-                    l.y_body_rot = body;
-                }
+            let body = vehicle.living().map(|l| l.y_body_rot);
+            if let (Some(body), Some(l)) = (body, self.living_mut()) {
+                l.y_body_rot = body;
             }
         }
     }

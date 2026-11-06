@@ -6,7 +6,6 @@ use super::hoglin::hoglin_base::{
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
 use mc_data::enums::{EntitySpawnReason, Pose};
 use mc_data::{Attribute, EntityType, SoundEvent};
 use mc_game_ai::world::entity::ai::behavior::{

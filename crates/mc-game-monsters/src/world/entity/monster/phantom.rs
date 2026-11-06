@@ -28,7 +28,6 @@ use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::{Entity, EntityId};
 use mc_game_core::world::level::BlockGetter;
 use mc_game_core::world::level::LevelReader;
-use mc_game_core::world::level::block::state::BlockStateExt;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_nbt::CompoundTag;
 use mc_protocol::packets::play::SoundSource;
@@ -620,7 +619,7 @@ impl MoveControl for PhantomMoveControl {
         }
         let target = phantom(mob).move_target_point;
         let mut tdx = target.x - mob.base().x();
-        let mut tdy = target.y - mob.base().y();
+        let tdy = target.y - mob.base().y();
         let mut tdz = target.z - mob.base().z();
         let mut sd = (tdx * tdx + tdz * tdz).sqrt();
         if sd.abs() > f64::from(1.0E-5f32) {

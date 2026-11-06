@@ -45,7 +45,7 @@ use mc_game_core::world::level::material::FluidStateExt as _;
 use mc_game_core::world::level::pathfinder::node_evaluator::{EvaluatorState, NodeEvaluator};
 use mc_game_core::world::level::pathfinder::{PathFinder, PathType};
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
-use mc_game_core::world::level::{BlockGetter, LevelAccessor, LevelReader};
+use mc_game_core::world::level::{BlockGetter, LevelReader};
 use std::sync::{Arc, LazyLock};
 
 define_accessor!(pub DATA_BOOST_TIME: Int = Strider);
@@ -658,7 +658,7 @@ impl Entity for Strider {
                 let baby = get_spawn_as_baby_odds(level.random());
                 group_data = self.spawn_jockey(
                     level,
-                    difficulty.clone(),
+                    difficulty,
                     jockey,
                     Some(Box::new(ZombieGroupData::new(baby, false))),
                     Some(ItemStack::new(Item::WARPED_FUNGUS_ON_A_STICK)),
@@ -679,7 +679,7 @@ impl Entity for Strider {
                 },
             ) {
                 mob::ageable::set_age(jockey.as_mut(), -24000);
-                group_data = self.spawn_jockey(level, difficulty.clone(), jockey, None, None);
+                group_data = self.spawn_jockey(level, difficulty, jockey, None, None);
             }
         } else {
             group_data = Some(Box::new(AgeableMobGroupData::with_chance(0.5)));

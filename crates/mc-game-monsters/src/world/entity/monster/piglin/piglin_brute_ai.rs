@@ -1,6 +1,5 @@
 //! `PiglinBruteAi`.
 
-use super::abstract_piglin::AbstractPiglin as _;
 use super::piglin_ai;
 use super::piglin_brute::PiglinBrute;
 use mc_core::random::RandomSource;
@@ -186,13 +185,12 @@ fn is_nearest_valid_attack_target(
 /// `findNearestValidAttackTarget(level, body)`.
 fn find_nearest_valid_attack_target(level: &ServerLevel, body: &dyn Entity) -> Option<EntityId> {
     let angry_at = mc_game_core::world::entity::ai::behavior::behavior_utils::get_living_entity_from_uuid_memory(level, body, &ANGRY_AT);
-    if let Some(id) = angry_at {
-        if level
+    if let Some(id) = angry_at
+        && level
             .get_entity(id)
             .is_some_and(|t| is_entity_attackable_ignoring_line_of_sight(level, body, t))
-        {
-            return Some(id);
-        }
+    {
+        return Some(id);
     }
     let player = body.brain().get_memory(&NEAREST_VISIBLE_ATTACKABLE_PLAYER);
     if player.is_some() {

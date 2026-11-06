@@ -2,7 +2,6 @@
 
 pub mod anger_level;
 pub mod anger_management;
-#[allow(clippy::module_inception)]
 pub mod warden;
 pub mod warden_ai;
 

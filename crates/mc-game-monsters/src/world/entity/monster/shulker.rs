@@ -39,7 +39,7 @@ use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::{Entity, EntityId, MoverType};
 use mc_game_core::world::item::ItemStack;
 use mc_game_core::world::level::block::BlockStateExt as _;
-use mc_game_core::world::level::collision::{BlockGetterExt as _, CollisionGetter as _};
+use mc_game_core::world::level::collision::CollisionGetter as _;
 use mc_game_core::world::level::level_access::LevelAccessor as _;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_game_core::world::level::shapes::is_face_full;
@@ -383,43 +383,41 @@ impl Shulker {
                     ))
                     .deflate_scalar(1.0E-6),
                 )
+                && let Some(attachment_direction) = self.find_attachable_surface(level, target)
+                && !level
+                    .get_block_state(target.relative(attachment_direction))
+                    .block()
+                    .is_in_tag("shulker_does_not_teleport_to")
             {
-                if let Some(attachment_direction) = self.find_attachable_surface(level, target)
-                    && !level
-                        .get_block_state(target.relative(attachment_direction))
-                        .block()
-                        .is_in_tag("shulker_does_not_teleport_to")
-                {
-                    level.un_ride(self);
-                    self.set_attach_face(attachment_direction);
-                    self.play_sound(level, SoundEvent::ENTITY_SHULKER_TELEPORT, 1.0, 1.0);
-                    self.set_pos(
-                        f64::from(target.x()) + 0.5,
-                        f64::from(target.y()),
-                        f64::from(target.z()) + 0.5,
-                    );
-                    level.game_event_from_entity_ref(
-                        &*self,
-                        GameEvent::TELEPORT,
-                        Vec3::new(
-                            f64::from(old_pos.x()),
-                            f64::from(old_pos.y()),
-                            f64::from(old_pos.z()),
-                        ),
-                    );
-                    let packed_diff = mc_game_core::util::block_util::pack_difference_in_position(
-                        old_pos,
-                        self.base().block_position(),
-                        8,
-                        8,
-                        8,
-                    )
-                    .unwrap_or(0);
-                    level.level_event(None, 2016, old_pos, packed_diff);
-                    self.mob.living.entity.entity_data.set(DATA_PEEK_ID, 0);
-                    self.set_target(level, None);
-                    return true;
-                }
+                level.un_ride(self);
+                self.set_attach_face(attachment_direction);
+                self.play_sound(level, SoundEvent::ENTITY_SHULKER_TELEPORT, 1.0, 1.0);
+                self.set_pos(
+                    f64::from(target.x()) + 0.5,
+                    f64::from(target.y()),
+                    f64::from(target.z()) + 0.5,
+                );
+                level.game_event_from_entity_ref(
+                    &*self,
+                    GameEvent::TELEPORT,
+                    Vec3::new(
+                        f64::from(old_pos.x()),
+                        f64::from(old_pos.y()),
+                        f64::from(old_pos.z()),
+                    ),
+                );
+                let packed_diff = mc_game_core::util::block_util::pack_difference_in_position(
+                    old_pos,
+                    self.base().block_position(),
+                    8,
+                    8,
+                    8,
+                )
+                .unwrap_or(0);
+                level.level_event(None, 2016, old_pos, packed_diff);
+                self.mob.living.entity.entity_data.set(DATA_PEEK_ID, 0);
+                self.set_target(level, None);
+                return true;
             }
         }
         false
@@ -915,7 +913,7 @@ fn direction_rotation(direction: Direction) -> Quat {
 /// `quaternion.transform(new Vector3f(0, 0, 1))` (JOML `Quaternionf.transform(Vector3f)`).
 fn transform_forward((x, y, z, w): Quat) -> (f32, f32, f32) {
     let (w2, x2, y2, z2) = (w * w, x * x, y * y, z * z);
-    let (zw, xy, xz, yw, yz, xw) = (z * w, x * y, x * z, y * w, y * z, x * w);
+    let (_zw, _xy, xz, yw, yz, xw) = (z * w, x * y, x * z, y * w, y * z, x * w);
     let k = 1.0 / (w2 + x2 + y2 + z2);
     (
         2.0 * (xz + yw) * k,

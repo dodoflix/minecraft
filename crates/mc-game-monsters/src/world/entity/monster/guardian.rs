@@ -29,10 +29,10 @@ use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration}
 use mc_game_core::world::entity::mob::{self, MobData, MobKind};
 use mc_game_core::world::entity::monster::WithFlags;
 use mc_game_core::world::entity::{Entity, EntityId, MoverType};
+use mc_game_core::world::level::LevelReader;
 use mc_game_core::world::level::material::FluidStateExt as _;
 use mc_game_core::world::level::pathfinder::PathType;
 use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
-use mc_game_core::world::level::{BlockGetter, LevelReader};
 use mc_world::level_storage::Difficulty;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -246,16 +246,15 @@ impl Entity for Guardian {
         if !self.is_moving()
             && !source.is_tag(level, "avoids_guardian_thorns")
             && !source.is("minecraft:thorns")
-        {
-            if let Some(cause) = source.get_direct_entity().filter(|id| {
+            && let Some(cause) = source.get_direct_entity().filter(|id| {
                 level.get_entity(*id).is_some_and(|e| e.living().is_some())
                     || source.direct_info().is_some_and(|d| d.is_living)
-            }) {
-                let thorns = level.damage_sources().thorns(self);
-                level.with_entity_or_defer(cause, move |level, e| {
-                    e.hurt_server(level, &thorns, 2.0);
-                });
-            }
+            })
+        {
+            let thorns = level.damage_sources().thorns(self);
+            level.with_entity_or_defer(cause, move |level, e| {
+                e.hurt_server(level, &thorns, 2.0);
+            });
         }
         self.stroll_trigger.store(true, Ordering::Relaxed);
         mc_game_core::world::entity::living_entity::damage::hurt_server(self, level, source, damage)

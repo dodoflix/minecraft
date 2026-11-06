@@ -182,10 +182,10 @@ pub fn update_activity(level: &mut ServerLevel, body: &mut Hoglin) {
         Activity::IDLE,
     ]);
     let new_activity = body.brain().get_active_non_core_activity();
-    if old_activity != new_activity {
-        if let Some(sound) = get_sound_for_current_activity(level, body) {
-            make_sound(body, level, sound);
-        }
+    if old_activity != new_activity
+        && let Some(sound) = get_sound_for_current_activity(level, body)
+    {
+        make_sound(body, level, sound);
     }
     let attacking = body.brain().has_memory_value(ATTACK_TARGET);
     body.mob.set_aggressive(attacking);

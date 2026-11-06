@@ -26,9 +26,7 @@ use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration}
 use mc_game_core::world::entity::living_entity::util::l;
 use mc_game_core::world::entity::mob::{self, MobData, MobKind};
 use mc_game_core::world::entity::{Entity, EntityId};
-use mc_game_core::world::item::{
-    InteractionHand, InteractionResult, ItemStackExt as _, hurt_and_break,
-};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, hurt_and_break};
 use mc_game_core::world::level::explosion::ExplosionInteraction;
 use mc_nbt::CompoundTag;
 use std::sync::Arc;

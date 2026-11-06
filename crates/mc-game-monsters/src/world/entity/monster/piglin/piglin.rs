@@ -572,10 +572,10 @@ impl Entity for Piglin {
     fn play_ambient_sound(&mut self, level: &mut ServerLevel) {
         // `AbstractPiglin.playAmbientSound`: only while idle; the sound comes from `PiglinAi.getSoundForCurrentActivity`
         // (needs the level to resolve the avoid target, so it is chosen here instead of in `get_ambient_sound`)
-        if piglin_ai::is_idle(self) {
-            if let Some(sound) = piglin_ai::get_sound_for_current_activity(level, self) {
-                make_sound(self, level, sound);
-            }
+        if piglin_ai::is_idle(self)
+            && let Some(sound) = piglin_ai::get_sound_for_current_activity(level, self)
+        {
+            make_sound(self, level, sound);
         }
     }
 
@@ -623,7 +623,6 @@ fn check_piglin_spawn_rules(
     pos: BlockPos,
     _random: &mut dyn RandomSource,
 ) -> bool {
-    use mc_game_core::world::level::BlockGetter;
     level.get_block_state(pos.below()).block() != Block::NETHER_WART_BLOCK
 }
 

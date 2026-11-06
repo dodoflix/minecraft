@@ -262,19 +262,18 @@ impl Goal for GhastLookGoal {
     }
 }
 
+type ShouldBeStopped = Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>;
+
 /// `Ghast.GhastMoveControl`; `should_be_stopped` is the `BooleanSupplier` (reads the controlled mob).
 pub struct GhastMoveControl {
     base: MoveControlBase,
     float_duration: i32,
     careful: bool,
-    should_be_stopped: Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>,
+    should_be_stopped: ShouldBeStopped,
 }
 
 impl GhastMoveControl {
-    pub fn new(
-        careful: bool,
-        should_be_stopped: Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>,
-    ) -> Self {
+    pub fn new(careful: bool, should_be_stopped: ShouldBeStopped) -> Self {
         Self {
             base: MoveControlBase::default(),
             float_duration: 0,
@@ -320,7 +319,6 @@ impl GhastMoveControl {
         )
     }
 
-    #[allow(clippy::too_many_arguments)]
     fn block_traversal_possible(
         &self,
         mob: &dyn Entity,
@@ -639,7 +637,7 @@ impl Goal for RandomFloatAroundGoal {
             let yd = control.get_wanted_y() - mob.base().y();
             let zd = control.get_wanted_z() - mob.base().z();
             let dd = xd * xd + yd * yd + zd * zd;
-            dd < 1.0 || dd > 3600.0
+            !(1.0..=3600.0).contains(&dd)
         }
     }
 

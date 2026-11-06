@@ -291,31 +291,31 @@ impl Entity for ZombieHorse {
         reason: EntitySpawnReason,
         group_data: Option<Box<dyn SpawnGroupData>>,
     ) -> Option<Box<dyn SpawnGroupData>> {
-        if reason == EntitySpawnReason::Natural {
-            if let Some(mut zombie) = level.create_entity(
+        if reason == EntitySpawnReason::Natural
+            && let Some(mut zombie) = level.create_entity(
                 EntityType::ZOMBIE,
                 EntitySpawnRequest {
                     reason: EntitySpawnReason::Jockey,
                     ignore_checks: false,
                 },
-            ) {
-                let (p, y_rot) = (self.position(), self.base().y_rot());
-                zombie.snap_to(p.x, p.y, p.z, y_rot, 0.0);
-                zombie.finalize_spawn(level, difficulty.clone(), reason, None);
-                mob::equipment::set_item_slot_spawn(
-                    zombie.as_mut(),
-                    EquipmentSlot::MainHand,
-                    ItemStack::new(Item::IRON_SPEAR),
-                );
-                mc_game_core::world::entity::monster::zombie::start_riding_fresh_vehicle(
-                    zombie.as_mut(),
-                    self,
-                    false,
-                    false,
-                    level,
-                );
-                level.add_fresh_entity_with_passengers(zombie);
-            }
+            )
+        {
+            let (p, y_rot) = (self.position(), self.base().y_rot());
+            zombie.snap_to(p.x, p.y, p.z, y_rot, 0.0);
+            zombie.finalize_spawn(level, difficulty, reason, None);
+            mob::equipment::set_item_slot_spawn(
+                zombie.as_mut(),
+                EquipmentSlot::MainHand,
+                ItemStack::new(Item::IRON_SPEAR),
+            );
+            mc_game_core::world::entity::monster::zombie::start_riding_fresh_vehicle(
+                zombie.as_mut(),
+                self,
+                false,
+                false,
+                level,
+            );
+            level.add_fresh_entity_with_passengers(zombie);
         }
         let group_data = abstract_horse::finalize_spawn_prepare(self, level, group_data);
         mob::spawn::finalize_spawn(self, level, difficulty, reason, group_data)

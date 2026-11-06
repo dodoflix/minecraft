@@ -260,7 +260,6 @@ impl Entity for Hoglin {
         pos: BlockPos,
         level: &dyn mc_game_core::world::level::LevelReader,
     ) -> f32 {
-        use mc_game_core::world::level::BlockGetter;
         if hoglin_ai::is_pos_near_nearest_repellent(self, pos) {
             -1.0
         } else if level.get_block_state(pos.below()).block() == Block::CRIMSON_NYLIUM {
@@ -383,7 +382,6 @@ fn check_hoglin_spawn_rules(
     pos: BlockPos,
     _random: &mut dyn RandomSource,
 ) -> bool {
-    use mc_game_core::world::level::BlockGetter;
     level.get_block_state(pos.below()).block() != Block::NETHER_WART_BLOCK
 }
 

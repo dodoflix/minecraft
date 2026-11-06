@@ -1,6 +1,5 @@
 //! `net.minecraft.world.entity.monster.breeze`.
 
-#[allow(clippy::module_inception)]
 pub mod breeze;
 pub mod breeze_ai;
 pub mod breeze_util;

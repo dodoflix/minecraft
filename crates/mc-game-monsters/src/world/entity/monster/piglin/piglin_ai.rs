@@ -142,10 +142,6 @@ fn sample(level: &mut ServerLevel, (min, max): (i32, i32)) -> i32 {
     level.tick_state.random.next_int_between_inclusive(min, max)
 }
 
-fn piglin_ref(e: &dyn Entity) -> &Piglin {
-    e.as_any().downcast_ref::<Piglin>().expect("a piglin")
-}
-
 // ---- brain construction ------------------------------------------------------------------------------------------
 
 /// `getActivities(piglin)`.
@@ -492,10 +488,10 @@ pub fn update_activity(level: &mut ServerLevel, body: &mut Piglin) {
         Activity::IDLE,
     ]);
     let new_activity = body.brain().get_active_non_core_activity();
-    if old_activity != new_activity {
-        if let Some(sound) = get_sound_for_current_activity(level, body) {
-            make_sound(body, level, sound);
-        }
+    if old_activity != new_activity
+        && let Some(sound) = get_sound_for_current_activity(level, body)
+    {
+        make_sound(body, level, sound);
     }
     let attacking = body.brain().has_memory_value(ATTACK_TARGET);
     body.mob.set_aggressive(attacking);
@@ -714,11 +710,10 @@ fn wants_to_dance(level: &ServerLevel, _body: &dyn Entity, killed_target: &dyn E
 
 /// `wantsToPickup(body, itemStack)`.
 pub fn wants_to_pickup(level: &ServerLevel, body: &Piglin, item_stack: &ItemStack) -> bool {
-    if body.is_baby() && item_tag("ignored_by_piglin_babies", item_stack) {
-        false
-    } else if item_tag("piglin_repellents", item_stack) {
-        false
-    } else if is_admiring_disabled(body) && body.brain().has_memory_value(ATTACK_TARGET) {
+    if body.is_baby() && item_tag("ignored_by_piglin_babies", item_stack)
+        || item_tag("piglin_repellents", item_stack)
+        || is_admiring_disabled(body) && body.brain().has_memory_value(ATTACK_TARGET)
+    {
         false
     } else if is_barter_currency(item_stack) {
         is_not_holding_loved_item_in_off_hand(body)
@@ -779,18 +774,17 @@ pub fn find_nearest_valid_attack_target(
     }
     let brain = body.brain();
     let angry_at = behavior_utils::get_living_entity_from_uuid_memory(level, body, &ANGRY_AT);
-    if let Some(id) = angry_at {
-        if level
+    if let Some(id) = angry_at
+        && level
             .get_entity(id)
             .is_some_and(|t| is_entity_attackable_ignoring_line_of_sight(level, body, t))
-        {
-            return Some(id);
-        }
+    {
+        return Some(id);
     }
-    if brain.has_memory_value(UNIVERSAL_ANGER) {
-        if let Some(player) = brain.get_memory(&NEAREST_VISIBLE_ATTACKABLE_PLAYER) {
-            return Some(player.0);
-        }
+    if brain.has_memory_value(UNIVERSAL_ANGER)
+        && let Some(player) = brain.get_memory(&NEAREST_VISIBLE_ATTACKABLE_PLAYER)
+    {
+        return Some(player.0);
     }
     if let Some(nemesis) = brain.get_memory(&NEAREST_VISIBLE_NEMESIS) {
         return Some(nemesis.0);
@@ -941,9 +935,9 @@ pub fn get_sound_for_current_activity(level: &ServerLevel, body: &Piglin) -> Opt
 fn get_sound_for_activity(level: &ServerLevel, body: &Piglin, activity: Activity) -> SoundEvent {
     if activity == Activity::FIGHT {
         SoundEvent::ENTITY_PIGLIN_ANGRY
-    } else if body.is_converting(level) {
-        SoundEvent::ENTITY_PIGLIN_RETREAT
-    } else if activity == Activity::AVOID && is_near_avoid_target(level, body) {
+    } else if body.is_converting(level)
+        || activity == Activity::AVOID && is_near_avoid_target(level, body)
+    {
         SoundEvent::ENTITY_PIGLIN_RETREAT
     } else if activity == Activity::ADMIRE_ITEM {
         SoundEvent::ENTITY_PIGLIN_ADMIRING_ITEM

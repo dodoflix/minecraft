@@ -36,7 +36,6 @@ use mc_game_core::world::level::collision::{
 };
 use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_game_core::world::level::pathfinder::PathType;
-use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor as _;
 use mc_game_core::world::level::storage::loot::LootParams;
 use mc_game_core::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use mc_nbt::CompoundTag;
@@ -63,7 +62,6 @@ fn attacking_modifier() -> AttributeModifier {
 /// `Enderman`.
 pub struct Enderman {
     pub mob: MobData,
-    last_stare_sound: i32,
     target_change_time: i32,
 }
 
@@ -77,7 +75,6 @@ impl Enderman {
         });
         let mut enderman = Enderman {
             mob,
-            last_stare_sound: i32::MIN,
             target_change_time: 0,
         };
         enderman.mob.neutral = Some(NeutralData::default());
@@ -145,11 +142,6 @@ impl Enderman {
     /// `setBeingStaredAt()`.
     pub fn set_being_stared_at(&mut self) {
         self.mob.living.entity.entity_data.set(DATA_STARED_AT, true);
-    }
-
-    /// `isBeingStaredBy(player)`.
-    fn is_being_stared_by(&self, level: &ServerLevel, player: &dyn Entity) -> bool {
-        is_being_stared_by(level, self, player)
     }
 
     /// `teleport()`.
@@ -550,9 +542,7 @@ impl EndermanLeaveBlockGoal {
 
 impl Goal for EndermanLeaveBlockGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        if enderman_mut(mob).get_carried_block().is_none() {
-            false
-        } else if !level.mob_griefing() {
+        if enderman_mut(mob).get_carried_block().is_none() || !level.mob_griefing() {
             false
         } else {
             mob.base_mut()
@@ -597,9 +587,7 @@ struct EndermanTakeBlockGoal;
 
 impl Goal for EndermanTakeBlockGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        if enderman_mut(mob).get_carried_block().is_some() {
-            false
-        } else if !level.mob_griefing() {
+        if enderman_mut(mob).get_carried_block().is_some() || !level.mob_griefing() {
             false
         } else {
             mob.base_mut()

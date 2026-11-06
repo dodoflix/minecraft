@@ -177,37 +177,40 @@ impl SulfurCube {
         if self.fuse > 0 {
             self.fuse -= 1;
         }
-        if let Some(data) = self.explosion_data {
-            if self.fuse == 0 {
-                mob::leashable::drop_leash(self, level);
-                lm(self).dead = true;
-                if level.tnt_explodes() {
-                    let interaction = if level.mob_griefing() {
-                        ExplosionInteraction::Tnt
-                    } else {
-                        ExplosionInteraction::None
-                    };
-                    let calculator = (self.base().portal_cooldown > 0).then_some(&mc_game_core::world::entity::item::primed_tnt::USED_PORTAL_DAMAGE_CALCULATOR as &dyn ExplosionDamageCalculator);
-                    let y = self.base().get_y_progress(0.0625);
-                    let mut params = Explode::new(
-                        Some(self),
-                        self.base().x(),
-                        y,
-                        self.base().z(),
-                        data.power as f32,
-                        interaction,
-                    )
-                    .with_damage_source(None, calculator);
-                    params.fire = data.causes_fire;
-                    level.explode(params, &mut []);
-                }
-                mc_game_core::world::entity::living_entity::effects::trigger_on_death_mob_effects(
-                    self,
-                    level,
-                    RemovalReason::Killed,
+        if let Some(data) = self.explosion_data
+            && self.fuse == 0
+        {
+            mob::leashable::drop_leash(self, level);
+            lm(self).dead = true;
+            if level.tnt_explodes() {
+                let interaction = if level.mob_griefing() {
+                    ExplosionInteraction::Tnt
+                } else {
+                    ExplosionInteraction::None
+                };
+                let calculator = (self.base().portal_cooldown > 0).then_some(
+                    &mc_game_core::world::entity::item::primed_tnt::USED_PORTAL_DAMAGE_CALCULATOR
+                        as &dyn ExplosionDamageCalculator,
                 );
-                self.discard();
+                let y = self.base().get_y_progress(0.0625);
+                let mut params = Explode::new(
+                    Some(self),
+                    self.base().x(),
+                    y,
+                    self.base().z(),
+                    data.power as f32,
+                    interaction,
+                )
+                .with_damage_source(None, calculator);
+                params.fire = data.causes_fire;
+                level.explode(params, &mut []);
             }
+            mc_game_core::world::entity::living_entity::effects::trigger_on_death_mob_effects(
+                self,
+                level,
+                RemovalReason::Killed,
+            );
+            self.discard();
         }
     }
 
@@ -684,15 +687,15 @@ impl Bucketable for SulfurCube {
     fn save_to_bucket_tag(&self, bucket: &mut ItemStack) {
         bucketable::save_default_data_to_bucket_tag(self, bucket);
         let body = self.get_item_by_slot(EquipmentSlot::Body);
-        if !body.is_empty() {
-            if let Ok(template) = ItemStackTemplate::from_stack(&body) {
-                bucket.set(
-                    SULFUR_CUBE_CONTENT,
-                    SulfurCubeContent {
-                        absorbed_block_item_stack: template,
-                    },
-                );
-            }
+        if !body.is_empty()
+            && let Ok(template) = ItemStackTemplate::from_stack(&body)
+        {
+            bucket.set(
+                SULFUR_CUBE_CONTENT,
+                SulfurCubeContent {
+                    absorbed_block_item_stack: template,
+                },
+            );
         }
         let mut tag = bucket
             .get(&BUCKET_ENTITY_DATA)

@@ -506,10 +506,10 @@ impl Goal for VexRandomMoveGoal {
                     .expect("mob")
                     .move_control_mut()
                     .set_wanted_position(x, y, z, 0.25);
-                if mob::tick::get_target_checked(mob, level).is_none() {
-                    if let Some(m) = mob.mob_mut() {
-                        m.look_control_mut().set_look_at_full(x, y, z, 180.0, 20.0);
-                    }
+                if mob::tick::get_target_checked(mob, level).is_none()
+                    && let Some(m) = mob.mob_mut()
+                {
+                    m.look_control_mut().set_look_at_full(x, y, z, 180.0, 20.0);
                 }
                 break;
             }
