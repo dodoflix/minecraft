@@ -1,3 +1,5 @@
+#![expect(clippy::print_stdout, reason = "example program that prints a dump")]
+
 use mc_core::ident::Identifier;
 use mc_core::pos::ChunkPos;
 use mc_world::region::{RegionFileStorage, RegionStorageInfo};

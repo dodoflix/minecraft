@@ -5,6 +5,11 @@
 //! report always goes to stdout; `--report` additionally writes it to a file (JSON if the name ends in `.json`).
 //! Exit status: 0 identical, 1 differences found, 2 usage/IO error.
 
+#![expect(
+    clippy::print_stdout,
+    clippy::print_stderr,
+    reason = "command-line tool: its output is the product"
+)]
 use std::path::PathBuf;
 use std::process::ExitCode;
 

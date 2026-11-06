@@ -504,12 +504,11 @@ fn sample_cap_does_not_cap_count() {
 #[test]
 fn undecodable_section_is_reported() {
     let mut bad = stone_chunk(&[(1, 1)], 0);
-    if let Some(Tag::List(l)) = bad.get_mut("sections") {
-        if let Some(Tag::Compound(s)) = l.iter_mut().next() {
-            if let Some(Tag::Compound(b)) = s.get_mut("block_states") {
-                b.put_long_array("data", vec![0; 3]);
-            }
-        }
+    if let Some(Tag::List(l)) = bad.get_mut("sections")
+        && let Some(Tag::Compound(s)) = l.iter_mut().next()
+        && let Some(Tag::Compound(b)) = s.get_mut("block_states")
+    {
+        b.put_long_array("data", vec![0; 3]);
     }
     let d = cmp(&stone_chunk(&[(1, 1)], 0), &bad);
     assert!(d.cats[&Category::Blocks].samples[0].contains("(B): undecodable block_states"));

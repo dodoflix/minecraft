@@ -140,14 +140,13 @@ pub fn compare_dimension(a_world: &Path, b_world: &Path, dim: &str, f: &Filter) 
         for lz in 0..32 {
             for lx in 0..32 {
                 let pos = ChunkPos::new(rx * 32 + lx, rz * 32 + lz);
-                if let Some((x1, z1, x2, z2)) = f.chunks {
-                    if pos.x < x1.min(x2)
+                if let Some((x1, z1, x2, z2)) = f.chunks
+                    && (pos.x < x1.min(x2)
                         || pos.x > x1.max(x2)
                         || pos.z < z1.min(z2)
-                        || pos.z > z1.max(z2)
-                    {
-                        continue;
-                    }
+                        || pos.z > z1.max(z2))
+                {
+                    continue;
                 }
                 let (a, b) = match (ca.read(pos), cb.read(pos)) {
                     (Ok(a), Ok(b)) => (a, b),
