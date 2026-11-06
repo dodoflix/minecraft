@@ -1217,6 +1217,7 @@ dependencies = [
  "mc-light",
  "mc-nbt",
  "mc-protocol",
+ "mc-testkit",
  "mc-text",
  "mc-world",
  "mc-worldgen",
@@ -1284,6 +1285,7 @@ dependencies = [
  "mc-core",
  "mc-data",
  "mc-nbt",
+ "mc-testkit",
  "mc-world",
 ]
 
@@ -1332,11 +1334,21 @@ dependencies = [
 name = "mc-server"
 version = "0.1.0"
 dependencies = [
+ "indexmap",
  "log",
+ "mc-core",
+ "mc-data",
  "mc-game",
  "mc-nbt",
+ "mc-protocol",
+ "mc-testbot",
+ "mc-testkit",
+ "mc-text",
  "mc-world",
+ "parking_lot",
  "tempfile",
+ "tokio",
+ "uuid",
 ]
 
 [[package]]
@@ -1354,7 +1366,6 @@ dependencies = [
  "serde",
  "serde_json",
  "sha1",
- "tempfile",
  "thiserror",
  "tokio",
  "uuid",
