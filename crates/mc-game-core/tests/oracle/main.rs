@@ -5,3 +5,6 @@ mod chunk_generation;
 mod chunk_world;
 mod entity_roundtrip;
 mod saved_data_worldref;
+#[path = "../golden/scoreboard_build.rs"]
+mod scoreboard_build;
+mod scoreboard_fixture;

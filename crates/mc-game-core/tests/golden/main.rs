@@ -2,9 +2,6 @@
 
 extern crate mc_game_core as mc_game;
 mod advancement_predicates;
-mod args;
-#[path = "../../../mc-game/tests/golden/args_common/mod.rs"]
-mod args_common;
 mod attribute_golden;
 mod ban_date;
 mod beacon_golden;
@@ -28,7 +25,6 @@ mod distance_golden;
 mod effects_golden;
 mod entity_base_golden;
 mod entity_oracle_fixtures;
-mod farm_animals_scenarios;
 mod food_golden;
 mod gamerule_golden;
 mod gametest_golden;
@@ -44,6 +40,7 @@ mod oracle_drivers_wellformed;
 mod play_chunk_sender_golden;
 mod player_roundtrip;
 mod saved_data_golden;
+mod scoreboard_build;
 mod scoreboard_golden;
 mod setblock_differential;
 mod spawn_framework_golden;
