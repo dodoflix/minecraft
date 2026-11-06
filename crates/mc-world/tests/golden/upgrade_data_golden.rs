@@ -290,7 +290,8 @@ fn side_data(sides: &[Direction8]) -> UpgradeData {
 #[test]
 fn upgrade_sides_visit_vanilla_regions() {
     // chunk (2, -1): block x 32..=47, z -16..=-1; Direction8 order N, NE, E, SE, S, SW, W, NW
-    let cases: [(Direction8, (i32, i32), (i32, i32)); 8] = [
+    type Span = (i32, i32);
+    let cases: [(Direction8, Span, Span); 8] = [
         (Direction8::North, (33, 46), (-16, -16)),
         (Direction8::NorthEast, (47, 47), (-16, -16)),
         (Direction8::East, (47, 47), (-15, -2)),

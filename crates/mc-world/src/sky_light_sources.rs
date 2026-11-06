@@ -132,7 +132,6 @@ impl ChunkSkyLightSources {
         )
     }
 
-    #[allow(clippy::too_many_arguments)]
     fn update_edge(
         &mut self,
         level: &impl HeightmapChunk,

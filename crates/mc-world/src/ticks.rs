@@ -504,11 +504,10 @@ impl<T: Copy + Eq + Hash> LevelChunkTicks<T> {
     /// `unpack(currentTick)`: pending saved ticks become scheduled ticks with sub tick orders `-n, -n+1, ...`.
     pub fn unpack(&mut self, current_tick: i64) {
         if let Some(pending) = self.pending_ticks.take() {
-            let mut sub_tick_base = -(pending.len() as i64);
-            for tick in pending {
+            let first_sub_tick_order = -(pending.len() as i64);
+            for (sub_tick_base, tick) in (first_sub_tick_order..).zip(pending) {
                 self.tick_queue
                     .add(tick.unpack(current_tick, sub_tick_base));
-                sub_tick_base += 1;
             }
         }
     }

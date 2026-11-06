@@ -90,6 +90,7 @@ impl DirectoryLock {
         create_directories_safe(dir)?;
         let mut file = OpenOptions::new()
             .create(true)
+            .truncate(false)
             .write(true)
             .open(&lock_path)?;
         // `FileChannel.write(buf)` at the channel position 0; leaves any longer existing content in place.

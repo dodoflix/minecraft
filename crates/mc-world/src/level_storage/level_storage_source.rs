@@ -537,6 +537,7 @@ impl LevelStorageAccess {
             {
                 // SAFETY: `statvfs` is plain data and `path` is a valid NUL-terminated string.
                 let mut stat: libc::statvfs = unsafe { std::mem::zeroed() };
+                // SAFETY: `path` is a valid NUL-terminated string and `stat` is a valid out-pointer.
                 if unsafe { libc::statvfs(path.as_ptr(), &mut stat) } == 0 {
                     return (stat.f_bavail as u64).saturating_mul(stat.f_frsize as u64);
                 }

@@ -573,7 +573,6 @@ impl ProtoChunk {
         )
     }
 
-    #[allow(clippy::too_many_arguments)]
     pub fn with_sections(
         pos: ChunkPos,
         upgrade_data: UpgradeData,
@@ -832,7 +831,6 @@ pub struct LevelChunk {
 
 impl LevelChunk {
     /// `new LevelChunk(level, pos, upgradeData, blockTicks, fluidTicks, inhabitedTime, sections, postLoad, blendingData)`.
-    #[allow(clippy::too_many_arguments)]
     pub fn new(
         level_height: LevelHeight,
         factory: &PalettedContainerFactory,

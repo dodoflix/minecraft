@@ -92,12 +92,12 @@ pub fn normalize(tag: &CompoundTag) -> CompoundTag {
         });
         *list = ListTag::from(items);
     }
-    if let Some(Tag::Compound(structures)) = t.get_mut("structures") {
-        if let Some(Tag::Compound(refs)) = structures.get_mut("References") {
-            for (_, v) in refs.iter_mut() {
-                if let Tag::LongArray(l) = v {
-                    l.sort_unstable();
-                }
+    if let Some(Tag::Compound(structures)) = t.get_mut("structures")
+        && let Some(Tag::Compound(refs)) = structures.get_mut("References")
+    {
+        for (_, v) in refs.iter_mut() {
+            if let Tag::LongArray(l) = v {
+                l.sort_unstable();
             }
         }
     }

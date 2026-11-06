@@ -78,10 +78,10 @@ impl RegionFileStorage {
         // putAndMoveToFirst: replace and mark most recently used.
         self.region_cache.shift_remove(&key);
         self.region_cache.insert(key, entry);
-        if self.region_cache.len() > MAX_CACHE_SIZE {
-            if let Some((_, Some(evicted))) = self.region_cache.shift_remove_index(0) {
-                evicted.close()?;
-            }
+        if self.region_cache.len() > MAX_CACHE_SIZE
+            && let Some((_, Some(evicted))) = self.region_cache.shift_remove_index(0)
+        {
+            evicted.close()?;
         }
         Ok(())
     }
@@ -120,10 +120,10 @@ impl RegionFileStorage {
     pub fn close(&mut self) -> io::Result<()> {
         let mut first_error = None;
         for (_, entry) in self.region_cache.drain(..).rev() {
-            if let Some(region) = entry {
-                if let Err(e) = region.close() {
-                    first_error.get_or_insert(e);
-                }
+            if let Some(region) = entry
+                && let Err(e) = region.close()
+            {
+                first_error.get_or_insert(e);
             }
         }
         first_error.map_or(Ok(()), Err)

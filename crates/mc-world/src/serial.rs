@@ -370,7 +370,6 @@ impl SerializableChunkData {
     /// `copyOf(level, chunk)` for the shared state. `light(section_y)` yields the sky/block layers of the light
     /// engine (`None` = no data; empty layers are dropped like vanilla); sections are visited from
     /// `min_section_y - 1` to `max_section_y + 1` (the light section range).
-    #[allow(clippy::too_many_arguments)]
     fn copy_of(
         access: &ChunkAccess,
         status: ChunkStatus,
@@ -578,7 +577,6 @@ impl SerializableChunkData {
     }
 
     /// Heightmaps, structures and post-processing (`read` after the chunk object exists).
-    #[allow(clippy::too_many_arguments)]
     fn finish(
         access: &mut ChunkAccess,
         persisted_status: ChunkStatus,

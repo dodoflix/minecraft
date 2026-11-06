@@ -237,6 +237,7 @@ pub fn format_file_name_date_at(epoch_secs: i64) -> String {
         // SAFETY: `tm` is plain data; localtime_r only writes into it.
         let mut tm: libc::tm = unsafe { std::mem::zeroed() };
         let t = epoch_secs as libc::time_t;
+        // SAFETY: `t` and `tm` are valid for the call; `localtime_r` writes only into `tm`.
         if !unsafe { libc::localtime_r(&t, &mut tm) }.is_null() {
             return format_file_name_date(
                 tm.tm_year as i64 + 1900,
