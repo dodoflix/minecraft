@@ -418,6 +418,10 @@ impl Scenario {
 
     // ------------------------------------------------------------------------------------------------ commands
 
+    #[expect(
+        clippy::print_stderr,
+        reason = "test diagnostics: show the scenario context before re-raising the panic"
+    )]
     fn run(&mut self, a: &[String]) {
         let line = self.line.clone();
         let ctx = format!("scenario line {}: {}", self.line_no, line);

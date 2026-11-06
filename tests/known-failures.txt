@@ -70,6 +70,5 @@ mc-server tests/oracle/main.rs network_vanilla_diff::transcripts_equal_the_real_
 mc-server tests/oracle/main.rs ours_play::bot_plays_on_our_server
 mc-server tests/oracle/main.rs persistence::restart_and_cross_server_world_compat
 mc-server tests/oracle/main.rs playerdata_diff::playerdata_matches_vanilla
-mc-server tests/oracle/main.rs record_setblock::record_vanilla_setblock
 mc-server tests/oracle/main.rs world_commands_dual::world_commands_ours
 mc-server tests/oracle/main.rs world_commands_dual::world_commands_vanilla

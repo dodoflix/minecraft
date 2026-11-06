@@ -240,12 +240,20 @@ pub static WORLD: LazyLock<FeatureWorld> = LazyLock::new(|| {
     // Registries of types that are not ported yet fail to decode: those tests then run with empty ones.
     let mut registries_loaded = true;
     let mut features_loaded = true;
+    #[expect(
+        clippy::print_stderr,
+        reason = "test diagnostics: report which registries fell back to empty ones"
+    )]
     let registries = GenRegistries::load(source.clone(), &worldgen, &biomes).unwrap_or_else(|e| {
         eprintln!("feature registries do not decode yet ({e}): using empty ones");
         registries_loaded = false;
         features_loaded = false;
         GenRegistries::load(empty.clone(), &worldgen, &biomes).expect("empty registries")
     });
+    #[expect(
+        clippy::print_stderr,
+        reason = "test diagnostics: report which registries fell back to empty ones"
+    )]
     let structures = StructureRegistries::load(source, &worldgen, &biomes).unwrap_or_else(|e| {
         eprintln!("structure registries do not decode yet ({e}): using empty ones");
         registries_loaded = false;
