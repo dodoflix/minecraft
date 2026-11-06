@@ -204,11 +204,15 @@ impl ServerGamePacketListenerImpl {
     }
 
     /// `ackBlockChangesUpTo(packetSequenceNr)`.
-    pub fn ack_block_changes_up_to(&mut self, packet_sequence_nr: i32) {
-        // vanilla throws IllegalArgumentException for a negative sequence (a decoded VarInt can be negative):
-        // the packet processor reports it via `onPacketError`.
-        assert!(packet_sequence_nr >= 0, "Expected packet sequence nr >= 0");
+    ///
+    /// Vanilla throws `IllegalArgumentException` for a negative sequence (a client VarInt can be negative); the
+    /// caller reports the `Err` like the packet processor does via `onPacketError`.
+    pub fn ack_block_changes_up_to(&mut self, packet_sequence_nr: i32) -> Result<(), String> {
+        if packet_sequence_nr < 0 {
+            return Err("Expected packet sequence nr >= 0".to_owned());
+        }
         self.ack_block_changes_up_to = packet_sequence_nr.max(self.ack_block_changes_up_to);
+        Ok(())
     }
 
     /// `resetFlyingTicks()`.

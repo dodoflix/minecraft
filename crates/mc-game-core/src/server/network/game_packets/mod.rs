@@ -266,6 +266,17 @@ impl PlayCtx<'_> {
         ));
     }
 
+    /// `ackBlockChangesUpTo`; `false` after reporting a negative sequence as a packet error (the handler stops).
+    fn ack_block_changes(&mut self, packet_name: &str, sequence: i32) -> bool {
+        match self.lis().ack_block_changes_up_to(sequence) {
+            Ok(()) => true,
+            Err(error) => {
+                self.on_packet_error(packet_name, error);
+                false
+            }
+        }
+    }
+
     /// `packet.handle(listener)` for every serverbound play packet.
     fn dispatch(&mut self, packet: ServerboundPlayPacket, received_at_ms: i64) {
         use ServerboundPlayPacket as P;

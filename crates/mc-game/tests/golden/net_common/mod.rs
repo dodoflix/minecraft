@@ -75,6 +75,8 @@ pub struct MockHooks {
     pub online: Mutex<HashSet<Uuid>>,
     pub configuration: Mutex<Arc<ConfigurationData>>,
     pub log: Mutex<Vec<String>>,
+    /// Makes `status` panic on the connection task (a bug in the handler of some phase).
+    pub panic_in_status: std::sync::atomic::AtomicBool,
     /// Players handed to the (mock) play side.
     pub spawned: Arc<Mutex<Vec<PendingPlayer>>>,
     pub game: Arc<TestGameThread>,
@@ -135,6 +137,7 @@ impl MockHooks {
             online: Mutex::new(HashSet::new()),
             configuration: Mutex::new(Arc::new(default_configuration())),
             log: Mutex::new(Vec::new()),
+            panic_in_status: std::sync::atomic::AtomicBool::new(false),
             spawned: Arc::new(Mutex::new(Vec::new())),
             game: Arc::new(TestGameThread(Mutex::new(tx))),
             game_tasks: Mutex::new(Some(rx)),
@@ -162,6 +165,12 @@ impl NetworkHooks for MockHooks {
         self.settings.lock().clone()
     }
     fn status(&self) -> Option<Arc<ServerStatus>> {
+        assert!(
+            !self
+                .panic_in_status
+                .load(std::sync::atomic::Ordering::Relaxed),
+            "injected failure in the status hook"
+        );
         self.status.lock().clone()
     }
     fn legacy_info(&self) -> LegacyServerInfo {
@@ -305,6 +314,25 @@ pub async fn read(conn: &mut Connection<TcpStream>) -> Vec<u8> {
         .await
         .expect("read timed out")
         .expect("read")
+}
+
+/// The server still accepts connections and answers a status request (it survived what came before).
+pub async fn expect_server_answers_status(addr: SocketAddr) {
+    use mc_protocol::packets::status::{
+        ClientboundStatusPacket, ServerboundStatusPacket, ServerboundStatusRequestPacket,
+    };
+    let mut c = connect(addr).await;
+    handshake(&mut c, mc_protocol::PROTOCOL_VERSION, ClientIntent::Status).await;
+    let mut request = Vec::new();
+    ServerboundStatusPacket::StatusRequest(ServerboundStatusRequestPacket)
+        .encode_payload(&mut request)
+        .unwrap();
+    write_payload(&mut c, &request).await;
+    let response = ClientboundStatusPacket::decode_payload(&read(&mut c).await).unwrap();
+    assert!(matches!(
+        response,
+        ClientboundStatusPacket::StatusResponse(_)
+    ));
 }
 
 /// The next read must fail because the server closed the connection.

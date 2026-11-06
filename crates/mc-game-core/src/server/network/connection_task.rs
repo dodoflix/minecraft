@@ -14,6 +14,7 @@ use super::hooks::{GameThread, NetworkHooks};
 use super::legacy_query;
 use super::login_listener;
 use super::status_listener;
+use futures_util::FutureExt;
 use mc_core::math::java::java_float_to_string;
 use mc_protocol::net::NetError;
 use mc_protocol::packet::ConnectionState;
@@ -21,6 +22,7 @@ use mc_protocol::packets::common::ClientInformation;
 use mc_protocol::packets::handshake::ServerboundHandshakePacket;
 use mc_text::Component;
 use parking_lot::Mutex;
+use std::panic::AssertUnwindSafe;
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::net::TcpStream;
@@ -256,7 +258,15 @@ pub(super) async fn run_connection(
             legacy_query::Sniffed::Normal => {}
         }
     }
-    run_protocols(&mut ctx).await;
+    // A panic in any phase (handshake, status, login, configuration) closes only this connection.
+    if let Err(panic) = AssertUnwindSafe(run_protocols(&mut ctx))
+        .catch_unwind()
+        .await
+    {
+        let message = crate::crash_report::panic_message(panic.as_ref());
+        log::error!("Failed to handle a packet of connection {id}: {message}");
+        ctx.fault_cause(&message);
+    }
     ctx.wait_closed().await;
 }
 

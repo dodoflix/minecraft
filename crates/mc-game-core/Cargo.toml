@@ -37,7 +37,7 @@ flate2 = { workspace = true }
 signal-hook = { workspace = true }
 tokio-tungstenite = { workspace = true }
 tokio-rustls = { workspace = true }
-futures-util = { workspace = true, features = ["sink"] }
+futures-util = { workspace = true, features = ["std", "sink"] }
 p12-keystore = { workspace = true }
 rsa = { workspace = true }
 libc = { workspace = true }

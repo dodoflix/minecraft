@@ -218,7 +218,11 @@ impl PlayCtx<'_> {
         _packet: &ServerboundConfigurationAcknowledgedPacket,
     ) {
         if !self.lis().waiting_for_switch_to_config {
-            panic!("Client acknowledged config, but none was requested");
+            self.on_packet_error(
+                "ServerboundConfigurationAcknowledgedPacket",
+                "Client acknowledged config, but none was requested".to_owned(),
+            );
+            return;
         }
         let cookie = crate::server::network::common_listener::CommonListenerCookie {
             profile: self.player.get_profile().clone(),

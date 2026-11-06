@@ -140,6 +140,37 @@ async fn garbage_handshake_is_closed() {
     let _ = tokio::time::timeout(std::time::Duration::from_secs(10), s.read_to_end(&mut buf))
         .await
         .expect("closed");
+    expect_server_answers_status(server.addr).await;
+}
+
+#[tokio::test(flavor = "multi_thread")]
+async fn malformed_status_packet_closes_only_that_connection() {
+    let server = TestServer::start(MockHooks::new());
+    let mut c = connect(server.addr).await;
+    handshake(&mut c, PROTOCOL_VERSION, ClientIntent::Status).await;
+    // Unknown packet id 0x7f in the status state.
+    write_payload(&mut c, &[0x7f]).await;
+    expect_closed(&mut c).await;
+    expect_server_answers_status(server.addr).await;
+}
+
+/// A panic in any phase of a connection task is contained (injected through the status hook, which the handshake
+/// listener calls on the connection task): that connection is closed and the listener keeps serving.
+#[tokio::test(flavor = "multi_thread")]
+async fn a_panic_in_a_listener_phase_closes_only_that_connection() {
+    let server = TestServer::start(MockHooks::new());
+    server
+        .hooks
+        .panic_in_status
+        .store(true, std::sync::atomic::Ordering::Relaxed);
+    let mut c = connect(server.addr).await;
+    handshake(&mut c, PROTOCOL_VERSION, ClientIntent::Status).await;
+    expect_closed(&mut c).await;
+    server
+        .hooks
+        .panic_in_status
+        .store(false, std::sync::atomic::Ordering::Relaxed);
+    expect_server_answers_status(server.addr).await;
 }
 
 fn legacy_utf16(s: &str) -> Vec<u8> {

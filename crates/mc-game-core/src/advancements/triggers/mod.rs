@@ -79,7 +79,7 @@ pub mod used_totem_trigger;
 pub mod using_item_trigger;
 
 /// What the trigger modules need (`use super::prelude::*;`).
-#[allow(
+#[expect(
     unused_imports,
     reason = "shared prelude glob-imported by every trigger module; each module uses a different subset"
 )]

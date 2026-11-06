@@ -365,6 +365,48 @@ async fn wrong_answers_in_configuration_are_rejected() {
 }
 
 #[tokio::test(flavor = "multi_thread")]
+async fn malformed_login_packet_closes_only_that_connection() {
+    let server = TestServer::start(MockHooks::new());
+    let mut c = connect(server.addr).await;
+    handshake(&mut c, PROTOCOL_VERSION, ClientIntent::Login).await;
+    // `Hello` whose name claims 1000 bytes (the limit is 16 characters).
+    let mut hello = vec![0x00, 0xE8, 0x07];
+    hello.extend(std::iter::repeat_n(b'a', 1000));
+    hello.extend([0u8; 16]);
+    write_payload(&mut c, &hello).await;
+    assert!(matches!(
+        read_login(&mut c).await,
+        ClientboundLoginPacket::LoginDisconnect(_)
+    ));
+    expect_closed(&mut c).await;
+    expect_server_answers_status(server.addr).await;
+}
+
+#[tokio::test(flavor = "multi_thread")]
+async fn malformed_configuration_packet_closes_only_that_connection() {
+    let server = TestServer::start(MockHooks::new());
+    let (mut c, _) = offline_login(&server, "Steve").await;
+    write_payload(
+        &mut c,
+        &login_payload(ServerboundLoginPacket::LoginAcknowledged(
+            ServerboundLoginAcknowledgedPacket,
+        )),
+    )
+    .await;
+    for _ in 0..3 {
+        read_config(&mut c).await;
+    }
+    // Unknown packet id 0x7f in the configuration state.
+    write_payload(&mut c, &[0x7f]).await;
+    assert!(matches!(
+        read_config(&mut c).await,
+        ClientboundConfigurationPacket::Disconnect(_)
+    ));
+    expect_closed(&mut c).await;
+    expect_server_answers_status(server.addr).await;
+}
+
+#[tokio::test(flavor = "multi_thread")]
 async fn resource_pack_and_code_of_conduct_tasks() {
     use mc_game::server::network::hooks::ServerResourcePackInfo;
     let hooks = MockHooks::new();

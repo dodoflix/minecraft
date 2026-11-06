@@ -22,10 +22,6 @@ macro_rules! update_shape {
 }
 pub use update_shape;
 
-#[allow(
-    unused_imports,
-    reason = "the prelude re-exports a superset; each block file uses a subset"
-)]
 pub mod prelude {
     pub use super::update_shape;
     pub use crate::register_block;
