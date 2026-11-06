@@ -210,7 +210,10 @@ impl Sampler {
                 let mut output_index =
                     output_volume.index_unchecked(output_x, cell_output_y + y0, output_z);
 
-                #[allow(clippy::explicit_counter_loop)]
+                #[allow(
+                    clippy::explicit_counter_loop,
+                    reason = "output_index starts at a computed offset, not at the loop start"
+                )]
                 for _ in y0..=y1 {
                     out.set(output_index, value);
                     output_index += 1;

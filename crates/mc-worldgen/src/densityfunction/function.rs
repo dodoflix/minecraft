@@ -252,7 +252,6 @@ macro_rules! dispatch {
     };
 }
 
-#[allow(clippy::should_implement_trait)]
 impl DensityFunction {
     pub fn new(node: DfNode) -> DensityFunction {
         DensityFunction(Arc::new(Inner {

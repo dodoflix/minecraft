@@ -275,7 +275,10 @@ impl NoiseBasedChunkGenerator {
     }
 
     /// `applyCarvingMask(chunk, mask, randomState, materialRule, context, noiseChunk, biomeGetter, filter)`.
-    #[allow(clippy::too_many_arguments)]
+    #[allow(
+        clippy::too_many_arguments,
+        reason = "mirrors the vanilla `applyCarvingMask` parameter list"
+    )]
     fn apply_carving_mask(
         &self,
         chunk: &mut ProtoChunk,

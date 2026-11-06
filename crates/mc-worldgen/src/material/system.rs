@@ -109,7 +109,10 @@ impl MaterialSystem {
     /// `buildSurface(randomState, biomeManager, generationContext, protoChunk, noiseChunk, ruleSource, possibleBiomes)`.
     /// `volume` is `noiseChunk.volume()`, `samplers` is `noiseChunk.cachingSamplers()`; `biomes` resolves
     /// biome handles to their data (temperature checks).
-    #[allow(clippy::too_many_arguments)]
+    #[allow(
+        clippy::too_many_arguments,
+        reason = "mirrors the vanilla `buildSurface` parameter list"
+    )]
     pub fn build_surface(
         &self,
         random_state: &RandomState,
@@ -272,7 +275,10 @@ impl MaterialSystem {
     }
 
     /// `topMaterial(ruleSource, randomState, worldGenerationContext, biomeGetter, chunk, densitySamplers, pos, underFluid)`.
-    #[allow(clippy::too_many_arguments)]
+    #[allow(
+        clippy::too_many_arguments,
+        reason = "mirrors the vanilla `topMaterial` parameter list"
+    )]
     pub fn top_material(
         &self,
         rule_source: &MaterialRule,
@@ -323,7 +329,6 @@ impl MaterialSystem {
             f64::from(self.badlands_pillar_noise.get3(x * 0.2, 0.0, z * 0.2) * 15.0f32),
         );
         // NaN-aware like Java: only a NaN or positive value gets here.
-        #[allow(clippy::neg_cmp_op_on_partial_ord)]
         if !(pillar_buffer <= 0.0) {
             let pillar_floor = (f64::from(self.badlands_pillar_roof_noise.get3(
                 x * 0.75,
@@ -360,7 +365,10 @@ impl MaterialSystem {
         }
     }
 
-    #[allow(clippy::too_many_arguments)]
+    #[allow(
+        clippy::too_many_arguments,
+        reason = "mirrors the vanilla `frozenOceanExtension` parameter list"
+    )]
     fn frozen_ocean_extension(
         &self,
         min_surface_level: i32,
@@ -376,7 +384,6 @@ impl MaterialSystem {
             (f64::from(self.iceberg_surface_noise.get3(x, 0.0, z)) * 8.25).abs(),
             f64::from(self.iceberg_pillar_noise.get3(x * 1.28, 0.0, z * 1.28) * 15.0f32),
         );
-        #[allow(clippy::neg_cmp_op_on_partial_ord)]
         if !(iceberg <= 1.8) {
             let iceberg_roof =
                 (f64::from(self.iceberg_pillar_roof_noise.get3(x * 1.17, 0.0, z * 1.17)) * 1.5)
@@ -392,7 +399,6 @@ impl MaterialSystem {
                 top -= 2.0;
             }
 
-            #[allow(clippy::neg_cmp_op_on_partial_ord)]
             if !(top <= 2.0) {
                 let sea_level = f64::from(self.sea_level);
                 let extension_bottom = sea_level - top - 7.0;

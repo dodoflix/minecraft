@@ -90,7 +90,10 @@ impl ChunkGeneratorStructureState {
         )
     }
 
-    #[allow(clippy::too_many_arguments)]
+    #[allow(
+        clippy::too_many_arguments,
+        reason = "mirrors the vanilla constructor parameter list"
+    )]
     fn new(
         random_state: Arc<RandomState>,
         biome_source: Arc<dyn BiomeSource>,

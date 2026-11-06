@@ -50,7 +50,10 @@ pub trait WorldCarver: Send + Sync {
 }
 
 /// `WorldCarver.carveEllipsoid`.
-#[allow(clippy::too_many_arguments)]
+#[allow(
+    clippy::too_many_arguments,
+    reason = "mirrors the vanilla `carveEllipsoid` parameter list"
+)]
 pub fn carve_ellipsoid(
     chunk_pos: ChunkPos,
     x: f64,

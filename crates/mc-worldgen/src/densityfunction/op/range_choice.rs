@@ -201,7 +201,6 @@ impl DensitySampler for Sampler {
             .sample_volume(context, &mut when_out_of_range_buffer, volume);
         for i in 0..out.size() {
             let input = input_buffer.get(i);
-            #[allow(clippy::neg_cmp_op_on_partial_ord)] // NaN is out of range, like Java
             let out_of_range = !(input >= self.min_inclusive) || !(input < self.max_exclusive);
             if out_of_range {
                 out.set(i, when_out_of_range_buffer.get(i));

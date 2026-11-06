@@ -336,7 +336,6 @@ impl Blender {
     }
 
     /// `blendOffsetAndFactor(blockX, blockZ)` (protected in vanilla).
-    #[allow(clippy::neg_cmp_op_on_partial_ord)] // `!(d > r)` keeps NaN distances like vanilla
     pub fn blend_offset_and_factor_at(&self, block_x: i32, block_z: i32) -> BlendingOutput {
         let Some(inner) = &self.inner else {
             return BlendingOutput {
@@ -398,7 +397,6 @@ impl Blender {
     }
 
     /// `blendDensity(blockX, blockY, blockZ, noiseValue)`.
-    #[allow(clippy::neg_cmp_op_on_partial_ord)] // `!(d > r)` keeps NaN distances like vanilla
     pub fn blend_density(&self, block_x: i32, block_y: i32, block_z: i32, noise_value: f32) -> f32 {
         let Some(inner) = &self.inner else {
             return noise_value;

@@ -74,7 +74,10 @@ impl CaveWorldCarver {
         thickness
     }
 
-    #[allow(clippy::too_many_arguments)]
+    #[allow(
+        clippy::too_many_arguments,
+        reason = "mirrors the vanilla `createRoom` parameter list"
+    )]
     fn create_room(
         &self,
         chunk_pos: ChunkPos,
@@ -100,7 +103,10 @@ impl CaveWorldCarver {
         );
     }
 
-    #[allow(clippy::too_many_arguments)]
+    #[allow(
+        clippy::too_many_arguments,
+        reason = "mirrors the vanilla `createTunnel` parameter list"
+    )]
     fn create_tunnel(
         &self,
         chunk_pos: ChunkPos,

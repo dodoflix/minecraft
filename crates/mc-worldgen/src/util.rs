@@ -109,7 +109,10 @@ pub mod mth {
     pub fn lerp2(a1: f32, a2: f32, x00: f32, x10: f32, x01: f32, x11: f32) -> f32 {
         lerp(a2, lerp(a1, x00, x10), lerp(a1, x01, x11))
     }
-    #[allow(clippy::too_many_arguments)]
+    #[allow(
+        clippy::too_many_arguments,
+        reason = "mirrors the vanilla `lerp3` parameter list"
+    )]
     #[inline]
     pub fn lerp3(
         a1: f32,
@@ -208,7 +211,6 @@ impl PartialEq for Interval {
     }
 }
 
-#[allow(clippy::should_implement_trait)]
 impl Interval {
     pub const NAI: Interval = Interval {
         min: f32::NAN,

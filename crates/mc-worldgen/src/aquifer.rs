@@ -353,7 +353,6 @@ impl NoiseBasedAquifer {
                     }
                 };
                 // Negated comparisons keep Java's NaN behavior (NaN counts as inside the range).
-                #[allow(clippy::neg_cmp_op_on_partial_ord)]
                 let noise_value = if !(gradient < -2.0) && !(gradient > 2.0) {
                     let current_noise_value = *barrier_noise_value;
                     if current_noise_value.is_nan() {
