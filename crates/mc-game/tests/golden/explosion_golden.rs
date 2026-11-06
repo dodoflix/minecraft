@@ -6,7 +6,6 @@ use crate::common;
 
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource as _;
 use mc_data::block::{Block, BlockState};
 use mc_game::server::level::ServerLevel;
 use mc_game::server::level::level_explode::Explode;

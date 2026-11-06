@@ -120,7 +120,6 @@ fn aabb_of(bb: &BoundingBox) -> AABB {
 
 /// `addPieces(context, startPool, startJigsaw, maxDepth, position, doExpansionHack, projectStartToHeightmap,
 /// maxDistanceFromCenter, poolAliasLookup, dimensionPadding, liquidSettings)`.
-#[allow(clippy::too_many_arguments)]
 pub fn add_pieces<'a>(
     context: &mut GenerationContext<'_>,
     start_pool: &Holder<StructureTemplatePool>,
@@ -301,7 +300,6 @@ fn get_random_named_jigsaw(
 
 /// `addPieces(randomState, maxDepth, doExpansionHack, chunkGenerator, structureTemplateManager, heightAccessor, random,
 /// pools, centerPiece, pieces, shape, poolAliasLookup, liquidSettings)`: the `pieces` list already holds the center piece.
-#[allow(clippy::too_many_arguments)]
 fn add_pieces_inner(
     env: &GenEnv,
     max_depth: i32,
@@ -384,7 +382,6 @@ struct Placer<'a> {
 }
 
 impl Placer<'_> {
-    #[allow(clippy::too_many_arguments)]
     fn try_placing_children(
         &mut self,
         source_piece_index: usize,
@@ -604,7 +601,7 @@ impl Placer<'_> {
                             source_projection,
                         ));
                         self.pieces.push(target_piece);
-                        if depth + 1 <= self.max_depth {
+                        if depth < self.max_depth {
                             let state = PieceState {
                                 piece: self.pieces.len() - 1,
                                 free: children_free.clone(),

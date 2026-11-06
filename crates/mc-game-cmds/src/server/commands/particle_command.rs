@@ -106,7 +106,6 @@ register_command!("ParticleCommand", |ctx| {
 });
 
 /// `sendParticles`: the players of the source's level close enough to `pos` get the particle packet.
-#[allow(clippy::too_many_arguments)]
 fn send_particles(
     source: &CommandSourceStack,
     particle: ParticleOptions,

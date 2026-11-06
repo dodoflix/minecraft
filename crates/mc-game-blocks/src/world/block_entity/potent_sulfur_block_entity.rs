@@ -3,10 +3,10 @@
 //! a dedicated server.
 
 use linkme::distributed_slice;
-use mc_core::direction::{Axis, Direction};
+use mc_core::direction::Axis;
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;
-use mc_core::random::{PositionalRandomFactory, RandomSource, XoroshiroRandomSource};
+use mc_core::random::{RandomSource, XoroshiroRandomSource};
 use mc_data::block::{Block, BlockState};
 use mc_data::enums::PotentSulfurState;
 use mc_data::fluid::Fluid;
@@ -17,7 +17,6 @@ use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::block_entity::{
     BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration,
 };
-use mc_game_core::world::entity::Entity;
 use mc_game_core::world::entity::effect::MobEffectInstance;
 use mc_game_core::world::level::block::BlockStateExt;
 use mc_game_core::world::level::collision::{

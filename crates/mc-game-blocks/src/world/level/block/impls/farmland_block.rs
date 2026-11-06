@@ -59,7 +59,6 @@ impl BlockBehaviour for FarmlandBlock {
         entity: &mut dyn mc_game_core::world::entity::Entity,
         fall_distance: f64,
     ) {
-        use mc_core::random::RandomSource;
         if f64::from(LevelAccessor::random(level).next_float()) < fall_distance - 0.5
             && entity.living().is_some()
         {

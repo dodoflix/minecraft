@@ -22,7 +22,6 @@ pub struct ScatteredFeaturePieceData {
 
 impl ScatteredFeaturePieceData {
     /// `ScatteredFeaturePiece(type, west, floor, north, width, height, depth, direction)`.
-    #[allow(clippy::too_many_arguments)]
     pub fn new(
         piece_type: &'static StructurePieceType,
         west: i32,

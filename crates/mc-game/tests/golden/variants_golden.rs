@@ -95,7 +95,7 @@ impl SpawnContextLevel for StubLevel<'_> {
         _pos: BlockPos,
         matcher: &dyn Fn(&Identifier) -> bool,
     ) -> bool {
-        self.structures.iter().any(|s| matcher(s))
+        self.structures.iter().any(matcher)
     }
 }
 

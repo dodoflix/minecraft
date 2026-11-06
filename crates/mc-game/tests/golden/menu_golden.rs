@@ -6,7 +6,7 @@ use mc_game::world::container::Container;
 use mc_game::world::entity::equipment::EquipmentSlot;
 use mc_game::world::entity::player::inventory::Inventory;
 use mc_game::world::inventory::*;
-use mc_game::world::item::{ItemStack, ItemStackExt};
+use mc_game::world::item::ItemStack;
 use mc_nbt::Tag;
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -212,7 +212,7 @@ fn menu_click_golden() {
     let mut ops = 0;
     let mut history: Vec<String> = Vec::new();
 
-    let mut finish =
+    let finish =
         |op: &str, actual: &mut Vec<String>, expected: &mut Vec<&str>, history: &[String]| {
             for i in 0..actual.len().max(expected.len()) {
                 assert_eq!(
@@ -227,10 +227,10 @@ fn menu_click_golden() {
 
     for line in text.lines() {
         if let Some(out) = line.strip_prefix("OUT ") {
-            if out.starts_with("NBT ") {
+            if let Some(snbt) = out.strip_prefix("NBT ") {
                 let (p, _) = (player.as_mut().unwrap(), ());
                 let list = p.inv.save();
-                let want = mc_nbt::snbt::parse(&out[4..]).expect("snbt");
+                let want = mc_nbt::snbt::parse(snbt).expect("snbt");
                 assert_eq!(Tag::List(list), want, "inventory NBT");
                 actual.clear();
                 expected.clear();

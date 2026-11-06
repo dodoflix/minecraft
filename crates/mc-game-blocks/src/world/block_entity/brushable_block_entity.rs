@@ -18,10 +18,6 @@ use mc_game_core::world::item::ItemStack;
 use mc_game_core::world::level::LevelAccessor;
 use mc_nbt::CompoundTag;
 
-pub const BRUSH_COOLDOWN_TICKS: i64 = 10;
-pub const BRUSH_RESET_TICKS: i64 = 40;
-pub const REQUIRED_BRUSHES_TO_BREAK: i32 = 10;
-
 pub struct BrushableBlockEntity {
     base: BlockEntityData,
     pub brush_count: i32,

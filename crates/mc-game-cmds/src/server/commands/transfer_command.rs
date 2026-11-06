@@ -29,7 +29,7 @@ register_command!("TransferCommand", |ctx| {
                         }];
                         transfer(
                             c.get_source(),
-                            &StringArgumentType::get_string(c, "hostname"),
+                            StringArgumentType::get_string(c, "hostname"),
                             25565,
                             players,
                         )
@@ -44,7 +44,7 @@ register_command!("TransferCommand", |ctx| {
                                 }];
                                 transfer(
                                     c.get_source(),
-                                    &StringArgumentType::get_string(c, "hostname"),
+                                    StringArgumentType::get_string(c, "hostname"),
                                     IntegerArgumentType::get_integer(c, "port"),
                                     players,
                                 )
@@ -53,7 +53,7 @@ register_command!("TransferCommand", |ctx| {
                                 argument("players", EntityArgument::players()).executes(|c| {
                                     transfer(
                                         c.get_source(),
-                                        &StringArgumentType::get_string(c, "hostname"),
+                                        StringArgumentType::get_string(c, "hostname"),
                                         IntegerArgumentType::get_integer(c, "port"),
                                         EntityArgument::get_players(c, "players")?,
                                     )

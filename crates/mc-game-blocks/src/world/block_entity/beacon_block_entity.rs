@@ -11,7 +11,6 @@ use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::block_entity::{
     BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec,
 };
-use mc_game_core::world::entity::Entity;
 use mc_game_core::world::entity::effect::MobEffectInstance;
 use mc_game_core::world::inventory::{BEACON_EFFECTS, ContainerData, decode_effect, encode_effect};
 use mc_game_core::world::level::LevelAccessor;

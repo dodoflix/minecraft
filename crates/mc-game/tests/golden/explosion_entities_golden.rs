@@ -286,20 +286,6 @@ fn replay(name: &str) -> Vec<String> {
     r.out
 }
 
-/// Keep only the lines (and fields) the replay models.
-fn check(name: &str) {
-    let fixture = Fixture::load(name);
-    let opts = Options {
-        ignore_kinds: vec!["I", "PKT", "C", "#", "B", "EFFECT", "DIG", "T", "E"],
-        ignore_fields: vec![
-            "pos", "delta", "rot", "og", "fall", "fire", "air", "pose", "gm", "fx", "xp", "sel",
-            "main",
-        ],
-        ..Default::default()
-    };
-    fixture.assert_matches(&replay(name), &opts);
-}
-
 #[test]
 fn explosions_hurt_and_push_players_like_vanilla() {
     let fixture = Fixture::load("explosion_entities");

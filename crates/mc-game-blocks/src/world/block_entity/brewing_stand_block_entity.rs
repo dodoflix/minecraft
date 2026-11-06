@@ -19,10 +19,10 @@ use mc_game_core::world::containers::drop_item_stack;
 use mc_game_core::world::inventory::{
     AbstractContainerMenu, BrewingStandMenu, ContainerData, MenuPlayer, MenuProvider,
 };
+use mc_game_core::world::item::ItemStack;
 use mc_game_core::world::item::crafting::{
     BrewingInput, PotionIngredient, RecipeCheck, RecipePropertySet,
 };
-use mc_game_core::world::item::{ItemStack, ItemStackExt};
 use mc_game_core::world::level::storage::loot::providers::number::{
     ResolvableFloat, ResolvableInt,
 };

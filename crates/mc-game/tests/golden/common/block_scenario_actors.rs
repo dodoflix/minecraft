@@ -499,36 +499,35 @@ impl Scenario {
             );
             (p.is_creative(), p.get_destroy_progress(st) >= 1.0)
         });
-        let (mut progress, mut ticks, mut stopped) = (0f32, 0, creative);
-        if !creative && !st.is_air() && instant {
-            stopped = true;
-        }
-        while !stopped {
-            ticks += 1;
-            let st = self.level().get_block_state(pos);
-            let step = self.with_player_named(&name, |_, p| p.get_destroy_progress(st));
-            progress += step;
-            if if limit >= 0 {
-                ticks >= limit
-            } else {
-                progress >= 1.0
-            } {
-                self.with_player_named(&name, |level, p| {
-                    p.handle_block_break_action(
-                        level,
-                        pos,
-                        Action::StopDestroyBlock,
-                        Direction::Up,
-                        max_y,
-                        false,
-                    )
-                });
-                stopped = true;
+        let (mut progress, mut ticks) = (0f32, 0);
+        let stopped = creative || (!st.is_air() && instant);
+        if !stopped {
+            loop {
+                ticks += 1;
+                let st = self.level().get_block_state(pos);
+                let step = self.with_player_named(&name, |_, p| p.get_destroy_progress(st));
+                progress += step;
+                if if limit >= 0 {
+                    ticks >= limit
+                } else {
+                    progress >= 1.0
+                } {
+                    self.with_player_named(&name, |level, p| {
+                        p.handle_block_break_action(
+                            level,
+                            pos,
+                            Action::StopDestroyBlock,
+                            Direction::Up,
+                            max_y,
+                            false,
+                        )
+                    });
+                    self.tick_once();
+                    break;
+                }
                 self.tick_once();
-                break;
+                assert!(ticks < 100_000, "dig never finishes");
             }
-            self.tick_once();
-            assert!(ticks < 100_000, "dig never finishes");
         }
         let broken = self.level().get_block_state(pos).is_air();
         self.out

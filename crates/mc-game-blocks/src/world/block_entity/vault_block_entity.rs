@@ -314,7 +314,8 @@ fn resolve_items_to_eject(
     let luck = player.living().map_or(0.0, |l| {
         l.get_attribute_value(mc_data::Attribute::LUCK) as f32
     });
-    let items = {
+
+    {
         let params = LootParams::builder(level)
             .origin(Vec3::at_center_of(&pos))
             .luck(luck)
@@ -322,8 +323,7 @@ fn resolve_items_to_eject(
             .tool(inserted_stack)
             .create(&LootContextParamSets::VAULT);
         roll(&params, &table, false)
-    };
-    items
+    }
 }
 
 /// `canEjectReward(config, vaultState)`.

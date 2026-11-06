@@ -119,7 +119,6 @@ pub fn build_base_to_tip_column(
 }
 
 /// `growSpeleothem(level, startPos, tipDirection, height, mergedTip, baseBlock, pointedBlock, replaceableBlocks)`.
-#[allow(clippy::too_many_arguments)]
 pub fn grow_speleothem(
     level: &mut dyn LevelAccessor,
     start_pos: BlockPos,

@@ -364,10 +364,6 @@ impl Session {
         out.append(&mut self.packets.borrow_mut());
         out
     }
-
-    fn menu(&mut self) -> &mut Box<dyn AbstractContainerMenu> {
-        self.menu.as_mut().expect("menu open")
-    }
 }
 
 fn input(name: &str) -> ContainerInput {

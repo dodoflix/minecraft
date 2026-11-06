@@ -6,9 +6,6 @@ use mc_core::direction::Direction;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_core::random::RandomSource;
 use mc_data::block::{Block, BlockState};
-use mc_game_core::world::level::BlockGetter as _;
-use mc_game_core::world::level::LevelAccessor as _;
-use mc_game_core::world::level::LevelReader as _;
 use mc_game_core::world::level::levelgen::env::GenEnv;
 use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
 use mc_game_core::world::level::levelgen::structure::piece::{

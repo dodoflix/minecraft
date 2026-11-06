@@ -333,7 +333,6 @@ pub fn start_house_tower(
 }
 
 /// `recursiveChildren(manager, generator, genDepth, parent, offset, pieces, random)`: `parent` is an index into `pieces`.
-#[allow(clippy::too_many_arguments)]
 fn recursive_children(
     manager: &StructureTemplateManager,
     generators: &mut Generators,
@@ -382,7 +381,6 @@ fn recursive_children(
 }
 
 /// `SectionGenerator.generate(manager, genDepth, parent, offset, pieces, random)`.
-#[allow(clippy::too_many_arguments)]
 fn generate(
     manager: &StructureTemplateManager,
     generators: &mut Generators,

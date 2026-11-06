@@ -15,10 +15,12 @@ use mc_protocol::packets::play::Relatives;
 
 /// The marker byte keeps the type non-zero-sized: `PortalProcessor.isSamePortal` compares portal addresses, and distinct
 /// zero-sized statics may share one.
-pub struct NetherPortalBlock(u8);
+pub struct NetherPortalBlock {
+    _marker: u8,
+}
 
 /// The `Portal` instance entities hold in their `PortalProcessor`.
-pub static NETHER_PORTAL: NetherPortalBlock = NetherPortalBlock(0);
+pub static NETHER_PORTAL: NetherPortalBlock = NetherPortalBlock { _marker: 0 };
 
 impl BlockBehaviour for NetherPortalBlock {
     update_shape!(
@@ -62,17 +64,14 @@ impl BlockBehaviour for NetherPortalBlock {
                 &*level,
                 pos,
                 mc_data::EntityType::ZOMBIFIED_PIGLIN,
-            ) {
-                if let Some(id) = spawn_zombified_piglin(level, pos.above()) {
-                    let vehicle = level.with_entity(id, |level, entity| {
-                        entity.set_portal_cooldown(level);
-                        entity.base().vehicle
-                    });
-                    if let Some(vehicle) = vehicle.flatten() {
-                        level.with_entity(vehicle, |level, vehicle| {
-                            vehicle.set_portal_cooldown(level)
-                        });
-                    }
+            ) && let Some(id) = spawn_zombified_piglin(level, pos.above())
+            {
+                let vehicle = level.with_entity(id, |level, entity| {
+                    entity.set_portal_cooldown(level);
+                    entity.base().vehicle
+                });
+                if let Some(vehicle) = vehicle.flatten() {
+                    level.with_entity(vehicle, |level, vehicle| vehicle.set_portal_cooldown(level));
                 }
             }
         }
@@ -109,7 +108,6 @@ fn spawn_zombified_piglin(
     level: &mut ServerLevel,
     pos: BlockPos,
 ) -> Option<mc_game_core::world::entity::EntityId> {
-    use mc_core::random::RandomSource;
     use mc_game_core::world::entity::factory::{self, EntitySpawnRequest};
     let mut entity = factory::create(
         mc_data::EntityType::ZOMBIFIED_PIGLIN,
@@ -349,4 +347,6 @@ fn rotate_pillar_horizontal(state: BlockState, rotation: Rotation) -> BlockState
     }
 }
 
-register_block_class!("NetherPortalBlock", |_| Box::new(NetherPortalBlock(0)));
+register_block_class!("NetherPortalBlock", |_| Box::new(NetherPortalBlock {
+    _marker: 0
+}));

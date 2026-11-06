@@ -75,7 +75,6 @@ impl SpeleothemClusterFeature {
         }))
     }
 
-    #[allow(clippy::too_many_arguments)]
     fn place_column(
         &self,
         level: &mut dyn WorldGenLevel,

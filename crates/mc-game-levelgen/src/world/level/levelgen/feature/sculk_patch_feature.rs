@@ -13,7 +13,6 @@ use mc_game_core::world::level::levelgen::env::GenEnv;
 use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
 use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
-use mc_game_core::world::level::material::FluidStateExt;
 use std::sync::Arc;
 
 pub struct SculkPatchFeature {

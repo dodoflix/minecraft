@@ -110,17 +110,16 @@ pub(super) fn run(h: &mut Harness, a: &[String]) -> bool {
                 }
                 if let mc_game::world::item::InteractionResult::Success(s) =
                     p.interact_on(level, target, hand, loc)
+                    && s.should_swing()
                 {
-                    if s.should_swing() {
-                        let send = s.swing_source != mc_game::world::item::SwingSource::Predicted;
-                        if p.swing(
-                            level,
-                            hand,
-                            mc_game::world::entity::player::item_use::SWING_ANIMATION_DEFAULT,
-                            send,
-                        ) {
-                            p.reset_attack_strength_ticker();
-                        }
+                    let send = s.swing_source != mc_game::world::item::SwingSource::Predicted;
+                    if p.swing(
+                        level,
+                        hand,
+                        mc_game::world::entity::player::item_use::SWING_ANIMATION_DEFAULT,
+                        send,
+                    ) {
+                        p.reset_attack_strength_ticker();
                     }
                 }
             });

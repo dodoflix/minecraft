@@ -15,7 +15,6 @@ pub fn vanilla_commands() -> mc_game::commands::Commands {
 /// The build context of [`vanilla_commands`].
 pub fn vanilla_build_context() -> mc_game::commands::CommandBuildContext {
     use mc_game::commands::CommandBuildContext;
-    use mc_game::commands::HolderLookupProvider as _;
     use mc_game::commands::command_build_context::StaticRegistries;
     use std::sync::Arc;
 

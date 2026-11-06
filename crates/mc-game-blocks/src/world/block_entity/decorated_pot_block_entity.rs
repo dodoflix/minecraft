@@ -11,7 +11,6 @@ use mc_game_core::world::block_entity::{
     BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration,
 };
 use mc_game_core::world::container::Container;
-use mc_game_core::world::entity::EntityId;
 use mc_game_core::world::item::ItemStack;
 use mc_nbt::CompoundTag;
 use mc_protocol::components::{
@@ -183,10 +182,11 @@ impl BlockEntity for DecoratedPotBlockEntity {
         {
             tag.put("sherds", t);
         }
-        if !self.loot.try_save_loot_table(tag) && !self.item.is_empty() {
-            if let Ok(t) = self.item.to_tag().into_result() {
-                tag.put("item", t);
-            }
+        if !self.loot.try_save_loot_table(tag)
+            && !self.item.is_empty()
+            && let Ok(t) = self.item.to_tag().into_result()
+        {
+            tag.put("item", t);
         }
     }
 

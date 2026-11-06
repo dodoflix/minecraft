@@ -55,14 +55,14 @@ impl DimensionPadding {
             Ok(v) => return Ok(DimensionPadding::new(v, v)),
             Err(e) => e,
         };
-        let second = Fields::new(value).and_then(|f| {
+        let second = Fields::new(value).map(|f| {
             // `lenientOptionalFieldOf`: an invalid value falls back to the default
             let lenient = |name: &str| {
                 f.get(name)
                     .and_then(|v| Self::parse_non_negative(v).ok())
                     .unwrap_or(0)
             };
-            Ok(DimensionPadding::new(lenient("bottom"), lenient("top")))
+            DimensionPadding::new(lenient("bottom"), lenient("top"))
         });
         second.map_err(|second| {
             LoadError::new(format!(

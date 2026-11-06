@@ -14,7 +14,7 @@ register_command!("ListPlayersCommand", |ctx| {
 });
 
 fn list_players(source: &CommandSourceStack) -> i32 {
-    format(source, |server, p| host::player_display_name(server, p))
+    format(source, host::player_display_name)
 }
 
 fn list_players_with_uuids(source: &CommandSourceStack) -> i32 {

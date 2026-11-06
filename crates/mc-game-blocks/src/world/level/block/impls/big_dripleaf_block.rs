@@ -1,5 +1,4 @@
 //! `net.minecraft.world.level.block.BigDripleafBlock` (extends `HorizontalDirectionalBlock`).
-use mc_core::random::RandomSource;
 use mc_data::SoundEvent;
 use mc_data::enums::Tilt;
 use mc_data::fluid::{Fluid, FluidState};

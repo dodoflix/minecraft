@@ -62,7 +62,9 @@ fn execute_tree_matches_vanilla() {
             &mut converted,
         );
         let mut out = Vec::new();
-        command_tree::commands_packet(&root).encode(&mut out);
+        command_tree::commands_packet(&root)
+            .encode(&mut out)
+            .unwrap();
         let ours = ClientboundCommandsPacket::decode(&mut out.as_slice()).unwrap();
         let theirs = ClientboundCommandsPacket::decode(&mut bytes.as_slice()).unwrap();
         let mismatches: Vec<String> = ours
@@ -177,8 +179,7 @@ fn run(server: &mut MinecraftServer, commands: &Commands, command: &str) -> Vec<
         .create_command_source_stack()
         .with_source(capture.clone());
     commands.perform_prefixed_command(server, source, command);
-    let lines = capture.0.lock().unwrap().clone();
-    lines
+    capture.0.lock().unwrap().clone()
 }
 
 fn score(server: &MinecraftServer, holder: &str, objective: &str) -> Option<i32> {
@@ -275,7 +276,7 @@ fn store_into_storage_with_every_numeric_type() {
     let cases = [
         ("int", "2", Tag::Int(600)),
         ("float", "0.5", Tag::Float(150.0)),
-        ("short", "1000", Tag::Short(((300_000_i32) as i16))),
+        ("short", "1000", Tag::Short(300_000_i32 as i16)),
         ("long", "1", Tag::Long(300)),
         ("double", "0.25", Tag::Double(75.0)),
         ("byte", "1", Tag::Byte(300_i32 as i8)),

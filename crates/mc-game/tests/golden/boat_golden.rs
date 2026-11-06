@@ -6,7 +6,7 @@ use crate::common;
 use crate::common::entity_oracle::*;
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
-use mc_core::random::{LegacyRandomSource, RandomSource as _};
+use mc_core::random::LegacyRandomSource;
 use mc_data::EntityType;
 use mc_data::block::{Block, BlockState};
 use mc_game::server::level::ServerLevel;

@@ -222,31 +222,32 @@ fn run_case(r: &mut Replay, c: &Case) -> (i32, bool, Vec<(i32, String, String)>)
     );
     // `MultiPlayerGameMode.startDestroyBlock`: a survival client breaks at once when one tick of progress is >= 1
     let state = r.level.get_block_state(pos);
-    let mut stopped = !state.is_air() && r.steve.get_destroy_progress(state) >= 1.0;
+    let stopped = !state.is_air() && r.steve.get_destroy_progress(state) >= 1.0;
     let unbreakable = c.block == "bedrock";
     let mut progress = 0f32;
     let mut ticks = 0;
-    while !stopped {
-        ticks += 1;
-        progress += r.steve.get_destroy_progress(r.level.get_block_state(pos));
-        if if unbreakable {
-            ticks >= 40
-        } else {
-            progress >= 1.0
-        } {
-            r.steve.handle_block_break_action(
-                &mut r.level,
-                pos,
-                Action::StopDestroyBlock,
-                Direction::Up,
-                319,
-                false,
-            );
-            stopped = true;
+    if !stopped {
+        loop {
+            ticks += 1;
+            progress += r.steve.get_destroy_progress(r.level.get_block_state(pos));
+            if if unbreakable {
+                ticks >= 40
+            } else {
+                progress >= 1.0
+            } {
+                r.steve.handle_block_break_action(
+                    &mut r.level,
+                    pos,
+                    Action::StopDestroyBlock,
+                    Direction::Up,
+                    319,
+                    false,
+                );
+                tick_once(r, &mut case_tick, &mut got);
+                break;
+            }
             tick_once(r, &mut case_tick, &mut got);
-            break;
         }
-        tick_once(r, &mut case_tick, &mut got);
     }
     let broken = r.level.get_block_state(pos).is_air();
     r.level.set_block(pos, Block::AIR.default_state(), 3, 512);

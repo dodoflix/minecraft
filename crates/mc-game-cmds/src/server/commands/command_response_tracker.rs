@@ -103,10 +103,10 @@ impl<E: Clone> CommandResponseTracker<E> {
         on_single: impl FnOnce(&E, i32) -> Component,
         on_multiple: impl FnOnce(i32, i32) -> Component,
     ) -> Result<i32, CommandSyntaxException> {
-        if let Some(on_zero) = on_zero {
-            if self.element_count(element_type) == 0 {
-                return Err(on_zero());
-            }
+        if let Some(on_zero) = on_zero
+            && self.element_count(element_type) == 0
+        {
+            return Err(on_zero());
         }
         source.send_success(
             || self.dispatch(element_type, on_single, on_multiple),

@@ -10,6 +10,7 @@
 //! ENTITY_TICKING and the chunk map has been idle for [`SETTLE_TICKS`] ticks (vanilla: `if loaded` + `sleep 1`), so each
 //! chunk's neighbourhood is generated on the serial worldgen thread before the next one is requested. When the area is
 //! done the server is halted, which saves every level (like `save-all flush` + `stop`).
+#![allow(clippy::print_stderr, reason = "command-line example")]
 
 use mc_core::ident::Identifier;
 use mc_core::pos::ChunkPos;

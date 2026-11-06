@@ -94,7 +94,6 @@ impl BlockBehaviour for SeaPickleBlock {
         _source: BonemealSource,
     ) {
         let mut z_span = 1;
-        let mut count = 0;
         let x_start = pos.x() - 2;
         let mut z_off_set = 0;
         for x in 0..5 {
@@ -119,14 +118,13 @@ impl BlockBehaviour for SeaPickleBlock {
                     }
                 }
             }
-            if count < 2 {
+            if x < 2 {
                 z_span += 2;
                 z_off_set += 1;
             } else {
                 z_span -= 2;
                 z_off_set -= 1;
             }
-            count += 1;
         }
         level.set_block_flags(pos, state.set(props::PICKLES, 4), 2);
     }

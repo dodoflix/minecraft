@@ -50,7 +50,6 @@ fn is_falling_block(block: Block) -> bool {
 }
 
 /// `createRandomShaftPiece(builder, random, footX, footY, footZ, direction, genDepth, type)`.
-#[allow(clippy::too_many_arguments)]
 fn create_random_shaft_piece(
     builder: &StructurePiecesBuilder,
     random: &mut dyn RandomSource,
@@ -95,7 +94,6 @@ fn create_random_shaft_piece(
 
 /// `generateAndAddPiece(startPiece, builder, random, footX, footY, footZ, direction, depth)`; returns the bounding box
 /// of the new piece (the only thing its callers read of it).
-#[allow(clippy::too_many_arguments)]
 fn generate_and_add_piece(
     start_piece: &mut dyn StructurePiece,
     builder: &mut StructurePiecesBuilder,
@@ -410,7 +408,6 @@ impl MineShaftCorridor {
     }
 
     /// `placeSupport(level, chunkBB, x0, y0, z, y1, x1, random)`.
-    #[allow(clippy::too_many_arguments)]
     fn place_support(
         &self,
         level: &mut dyn WorldGenLevel,
@@ -521,7 +518,6 @@ impl MineShaftCorridor {
     }
 
     /// `maybePlaceCobWeb(level, chunkBB, random, probability, x, y, z)`.
-    #[allow(clippy::too_many_arguments)]
     fn maybe_place_cob_web(
         &self,
         level: &mut dyn WorldGenLevel,

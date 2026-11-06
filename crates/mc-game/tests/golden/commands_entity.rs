@@ -42,8 +42,7 @@ fn run(server: &mut MinecraftServer, command: &str) -> Vec<String> {
         .with_source(capture.clone());
     let commands = server.commands.clone();
     commands.perform_prefixed_command(server, source, command);
-    let lines = capture.0.lock().unwrap().clone();
-    lines
+    capture.0.lock().unwrap().clone()
 }
 
 fn overworld() -> Identifier {

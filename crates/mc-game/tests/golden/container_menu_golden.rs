@@ -6,8 +6,7 @@ use mc_game::world::container::{Container, SimpleContainer};
 use mc_game::world::entity::equipment::EquipmentSlot;
 use mc_game::world::entity::player::inventory::Inventory;
 use mc_game::world::inventory::*;
-use mc_game::world::item::{ItemStack, ItemStackExt};
-use mc_nbt::Tag;
+use mc_game::world::item::ItemStack;
 use std::cell::RefCell;
 use std::rc::Rc;
 

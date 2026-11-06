@@ -1,5 +1,4 @@
 //! `net.minecraft.world.level.block.DragonEggBlock` (extends `FallingBlock`, `getDelayAfterPlace` = 5).
-use mc_core::random::RandomSource;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::ServerPlayer;
 use mc_game_core::world::item::InteractionResult;

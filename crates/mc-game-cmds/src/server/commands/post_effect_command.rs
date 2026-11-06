@@ -1,8 +1,6 @@
 //! `PostEffectCommand`.
 use super::command_response_tracker::{CommandResponseTracker, ElementType};
-use mc_brigadier::{
-    ArgumentBuilder, CommandContext, CommandSyntaxException, SimpleCommandExceptionType,
-};
+use mc_brigadier::{ArgumentBuilder, CommandSyntaxException, SimpleCommandExceptionType};
 use mc_core::ident::Identifier;
 use mc_game_core::commands::arguments::selector::EntityRef;
 use mc_game_core::commands::arguments::{EntityArgument, IdentifierArgument};

@@ -18,7 +18,6 @@ use mc_game::world::entity::EntityDimensions;
 use mc_game::world::level::flags::{UPDATE_CLIENTS, UPDATE_KNOWN_SHAPE, UPDATE_SKIP_ON_PLACE};
 use mc_game::world::level::portal::PortalShape;
 use mc_game::world::level::{BlockGetter, LevelAccessor, LevelHeight};
-use std::collections::HashMap;
 use std::sync::Arc;
 
 const QUIET: u32 = UPDATE_CLIENTS | UPDATE_KNOWN_SHAPE | UPDATE_SKIP_ON_PLACE;
@@ -162,10 +161,10 @@ fn exec(r: &mut Replay, line: &str) -> Vec<String> {
                 "E {}",
                 s.as_ref().map_or("none".to_owned(), shape_line)
             ));
-            if t[0] == "emptyplace" {
-                if let Some(s) = s {
-                    s.create_portal_blocks(level);
-                }
+            if t[0] == "emptyplace"
+                && let Some(s) = s
+            {
+                s.create_portal_blocks(level);
             }
         }
         "digest" => {

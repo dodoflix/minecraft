@@ -1,5 +1,4 @@
 //! `net.minecraft.world.level.block.BambooStalkBlock`.
-use mc_core::random::RandomSource;
 use mc_data::enums::BambooLeaves;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::level::block::bonemeal::BonemealSource;
@@ -181,11 +180,13 @@ impl BlockBehaviour for BambooStalkBlock {
         _state: BlockState,
         _source: BonemealSource,
     ) {
-        let mut height_above = get_height_above_up_to_max(&*level, pos);
+        let first_height_above = get_height_above_up_to_max(&*level, pos);
         let height_below = get_height_below_up_to_max(&*level, pos);
-        let mut total_height = height_above + height_below + 1;
+        let first_total_height = first_height_above + height_below + 1;
         let new_bamboo = 1 + level.random().next_int_bounded(2);
-        for _ in 0..new_bamboo {
+        for i in 0..new_bamboo {
+            let height_above = first_height_above + i;
+            let total_height = first_total_height + i;
             let top_pos = pos.above_n(height_above);
             let top_state = level.get_block_state(top_pos);
             let growth_pos = top_pos.above();
@@ -197,8 +198,6 @@ impl BlockBehaviour for BambooStalkBlock {
                 return;
             }
             grow_bamboo(top_state, level, top_pos, total_height);
-            height_above += 1;
-            total_height += 1;
         }
     }
 }

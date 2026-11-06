@@ -58,7 +58,7 @@ fn default_world_loads_all_registries_and_tags() {
     }
     assert!(
         access.registry(keys::LEVEL_STEM).is_none()
-            || access.registry(keys::LEVEL_STEM).unwrap().len() == 0
+            || access.registry(keys::LEVEL_STEM).unwrap().is_empty()
     );
     let overworld = Identifier::parse("minecraft:overworld").unwrap();
     let dim = access

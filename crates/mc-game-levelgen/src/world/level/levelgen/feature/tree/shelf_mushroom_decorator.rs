@@ -50,9 +50,9 @@ fn try_place_mushroom_on_standing_tree(
     facing: Direction,
 ) -> bool {
     let mushroom_pos = mushroom_pos_for(log_pos, facing);
-    if !is_block_replaceable_with_shelf_mushroom(context, mushroom_pos) {
-        false
-    } else if has_shelf_mushroom_at(context, mushroom_pos.below()) {
+    if !is_block_replaceable_with_shelf_mushroom(context, mushroom_pos)
+        || has_shelf_mushroom_at(context, mushroom_pos.below())
+    {
         false
     } else {
         place_mushroom(context, mushroom_pos, facing);

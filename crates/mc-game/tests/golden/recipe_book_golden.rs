@@ -16,7 +16,7 @@ use mc_world::level_storage::WorldDataConfiguration;
 
 fn hex<T: Encode>(value: &T) -> String {
     let mut out = Vec::new();
-    value.encode(&mut out);
+    value.encode(&mut out).unwrap();
     out.iter().map(|b| format!("{b:02x}")).collect()
 }
 

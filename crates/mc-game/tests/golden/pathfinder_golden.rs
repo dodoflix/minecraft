@@ -21,7 +21,6 @@ use mc_game::world::entity::ai::navigation::{
 };
 use mc_game::world::level::BlockGetter;
 use mc_game::world::level::collision::CollisionContext;
-use mc_game::world::level::pathfinder::NodeEvaluator;
 use mc_game::world::level::pathfinder::pathfinding_context::PathfindingContext;
 use mc_game::world::level::pathfinder::walk_node_evaluator::get_path_type_static;
 use mc_game::world::level::pathfinder::{Path, PathEnv, PathType, PathfindingMob};

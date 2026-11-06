@@ -144,13 +144,12 @@ impl RoomGraph {
         }
         self.rooms[room].scan_index = scan_index;
         for i in 0..6 {
-            if let Some(next) = self.rooms[room].connections[i] {
-                if self.rooms[room].has_opening[i]
-                    && self.rooms[next].scan_index != scan_index
-                    && self.find_source(next, scan_index)
-                {
-                    return true;
-                }
+            if let Some(next) = self.rooms[room].connections[i]
+                && self.rooms[room].has_opening[i]
+                && self.rooms[next].scan_index != scan_index
+                && self.find_source(next, scan_index)
+            {
+                return true;
             }
         }
         false
@@ -239,7 +238,6 @@ static OMB: StructurePieceType = StructurePieceType {
 /// Helpers of `OceanMonumentPiece` shared by the building and the rooms.
 trait OceanMonumentPiece: StructurePiece {
     /// `generateWaterBox(level, chunkBB, x0, y0, z0, x1, y1, z1)`.
-    #[allow(clippy::too_many_arguments)]
     fn generate_water_box(
         &self,
         level: &mut dyn WorldGenLevel,
@@ -403,7 +401,6 @@ trait OceanMonumentPiece: StructurePiece {
     }
 
     /// `generateBoxOnFillOnly(level, chunkBB, x0, y0, z0, x1, y1, z1, targetBlock)`.
-    #[allow(clippy::too_many_arguments)]
     fn generate_box_on_fill_only(
         &self,
         level: &mut dyn WorldGenLevel,
@@ -614,7 +611,12 @@ impl StructurePiece for MonumentPiece {
     }
 }
 
-#[allow(unused_variables, unused_mut, clippy::needless_late_init)]
+#[allow(
+    unused_variables,
+    unused_mut,
+    clippy::needless_late_init,
+    reason = "1:1 port of the OceanMonumentPieces room generators keeps vanilla locals and declaration shape"
+)]
 impl MonumentPiece {
     fn post_process_core_room(
         &self,
@@ -5268,7 +5270,11 @@ impl StructurePiece for MonumentBuilding {
     }
 }
 
-#[allow(unused_variables, unused_mut)]
+#[allow(
+    unused_variables,
+    unused_mut,
+    reason = "1:1 port of OceanMonumentPieces.MonumentBuilding keeps vanilla locals and declaration shape"
+)]
 impl MonumentBuilding {
     fn generate_wing(
         &self,
@@ -5282,7 +5288,7 @@ impl MonumentBuilding {
             self.generate_box(
                 level,
                 chunk_bb,
-                xoff + 0,
+                xoff,
                 0,
                 0,
                 xoff + 24,
@@ -5292,7 +5298,7 @@ impl MonumentBuilding {
                 base_gray(),
                 false,
             );
-            self.generate_water_box(level, chunk_bb, xoff + 0, 1, 0, xoff + 24, 10, 20);
+            self.generate_water_box(level, chunk_bb, xoff, 1, 0, xoff + 24, 10, 20);
 
             for i in 0..4 {
                 self.generate_box(

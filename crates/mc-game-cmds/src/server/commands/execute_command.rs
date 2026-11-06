@@ -88,6 +88,11 @@ pub static ERROR_FUNCTION_CONDITION_INSTANTATION_FAILURE: LazyLock<
 });
 
 type Sources = Result<Vec<CommandSourceStack>, CommandSyntaxException>;
+type RegionCheck = Arc<
+    dyn Fn(&CommandContext<CommandSourceStack>) -> Result<i32, CommandSyntaxException>
+        + Send
+        + Sync,
+>;
 
 register_command!("ExecuteCommand", |ctx| {
     let execute = ctx
@@ -521,7 +526,7 @@ fn add_conditionals(
                                     execute,
                                     argument("range", IntRangeArgument::int_range()),
                                     expected,
-                                    |c| check_score_range(c),
+                                    check_score_range,
                                 ))),
                         ),
                 ),
@@ -871,11 +876,7 @@ fn add_if_blocks_conditional(
     expected: bool,
     skip_air: bool,
 ) -> LiteralArgumentBuilder<CommandSourceStack> {
-    let command: Arc<
-        dyn Fn(&CommandContext<CommandSourceStack>) -> Result<i32, CommandSyntaxException>
-            + Send
-            + Sync,
-    > = if expected {
+    let command: RegionCheck = if expected {
         Arc::new(move |c| check_if_regions(c, skip_air))
     } else {
         Arc::new(move |c| check_unless_regions(c, skip_air))
@@ -951,7 +952,6 @@ pub fn check_regions(
     destination: BlockPos,
     skip_air: bool,
 ) -> Result<Option<i32>, CommandSyntaxException> {
-    use mc_game_core::world::block_entity::BlockEntity;
     use mc_game_core::world::level::BlockGetter;
     let from = BoundingBox::from_corners(&start, &end);
     let destination_box =
@@ -1093,7 +1093,6 @@ impl CustomModifierExecutor for IfFunctionModifier {
 
 /// `ExecuteCommand.scheduleFunctionConditionsAndTest`: runs the functions once per source in an isolated frame and
 /// continues the chain with the sources whose return value passes `check`.
-#[allow(clippy::too_many_arguments)]
 pub fn schedule_function_conditions_and_test(
     original_source: &CommandSourceStack,
     current_sources: Vec<CommandSourceStack>,

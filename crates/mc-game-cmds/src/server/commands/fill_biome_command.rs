@@ -114,7 +114,7 @@ pub fn fill(
 ) -> Result<(i32, Component), CommandSyntaxException> {
     let from = quantize_pos(raw_from);
     let to = quantize_pos(raw_to);
-    let region = BoundingBox::from_corners(&*from, &*to);
+    let region = BoundingBox::from_corners(&from, &to);
     let volume =
         region.get_x_span() as i64 * region.get_y_span() as i64 * region.get_z_span() as i64;
     if volume > limit as i64 {

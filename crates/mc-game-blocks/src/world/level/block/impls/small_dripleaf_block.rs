@@ -81,6 +81,10 @@ impl BlockBehaviour for SmallDripleafBlock {
     ) -> bool {
         true
     }
+    #[expect(
+        clippy::only_used_in_recursion,
+        reason = "mirrors SmallDripleafBlock.performBonemeal, which forwards the source when growing from the upper half"
+    )]
     fn perform_bonemeal(
         &self,
         level: &mut ServerLevel,

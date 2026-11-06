@@ -55,7 +55,7 @@ fn ours_packet(commands: &mc_game::commands::Commands, level: u32) -> Clientboun
         PermissionLevel::by_id(level as i32),
     ));
     let root = command_tree::usable_root(
-        &commands.get_dispatcher().get_root(),
+        commands.get_dispatcher().get_root(),
         &CommandSourceStack::compilation_context(permissions),
     );
     let mut out = Vec::new();

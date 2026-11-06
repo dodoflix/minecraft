@@ -87,12 +87,11 @@ impl BlockEntity for BannerBlockEntity {
     block_entity_base!();
 
     fn save_additional(&self, tag: &mut CompoundTag) {
-        if self.patterns != BannerPatternLayers::default() {
-            if let Ok(patterns) =
+        if self.patterns != BannerPatternLayers::default()
+            && let Ok(patterns) =
                 mc_dfu::encode_nbt(&BannerPatternLayers::codec(), &self.patterns).into_result()
-            {
-                tag.put("patterns", patterns);
-            }
+        {
+            tag.put("patterns", patterns);
         }
         if let Some(name) = &self.name
             && let Ok(encoded) = mc_dfu::encode_nbt(&component_codec(), name).into_result()

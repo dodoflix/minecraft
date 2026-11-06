@@ -1,6 +1,5 @@
 //! `net.minecraft.world.level.block.HoneyBlock` (the entity-facing half: sliding and landing).
 use mc_core::phys::Vec3;
-use mc_core::random::RandomSource;
 use mc_game_core::register_block_class;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::Entity;
@@ -29,11 +28,10 @@ fn get_new_delta_y(delta_y: f64) -> f64 {
 
 fn is_sliding_down(pos: BlockPos, entity: &dyn Entity) -> bool {
     let b = entity.base();
-    if b.on_ground() {
-        false
-    } else if b.y() > f64::from(pos.y()) + 0.9375 - 1.0E-7 {
-        false
-    } else if get_old_delta_y(b.delta_movement().y) >= -0.08 {
+    if b.on_ground()
+        || b.y() > f64::from(pos.y()) + 0.9375 - 1.0E-7
+        || get_old_delta_y(b.delta_movement().y) >= -0.08
+    {
         false
     } else {
         let dx = (f64::from(pos.x()) + 0.5 - b.x()).abs();

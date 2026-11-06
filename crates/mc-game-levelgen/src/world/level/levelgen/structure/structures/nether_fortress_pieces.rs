@@ -109,7 +109,6 @@ fn is_ok_box(bounding_box: &BoundingBox) -> bool {
 }
 
 /// The common head of every `createPiece`: the oriented box, when it is ok and collides with no piece yet.
-#[allow(clippy::too_many_arguments)]
 fn create_box(
     builder: &StructurePiecesBuilder,
     foot: (i32, i32, i32),
@@ -125,7 +124,6 @@ fn create_box(
 }
 
 /// `findAndCreateBridgePieceFactory(piece, builder, random, footX, footY, footZ, direction, depth)`.
-#[allow(clippy::too_many_arguments)]
 fn find_and_create_bridge_piece_factory(
     kind: PieceKind,
     builder: &StructurePiecesBuilder,
@@ -210,7 +208,6 @@ fn find_and_create_bridge_piece_factory(
 }
 
 /// `BridgeEndFiller.createPiece(builder, random, footX, footY, footZ, direction, genDepth)`.
-#[allow(clippy::too_many_arguments)]
 fn create_bridge_end_filler(
     builder: &StructurePiecesBuilder,
     random: &mut dyn RandomSource,
@@ -250,7 +247,6 @@ fn update_piece_weight(current_pieces: &[PieceWeight]) -> i32 {
 
 /// `NetherBridgePiece.generatePiece(startPiece, currentPieces, builder, random, footX, footY, footZ, direction, depth)`
 /// (`currentPieces` is the start piece's castle or bridge list).
-#[allow(clippy::too_many_arguments)]
 fn generate_piece(
     start: &mut StartPiece,
     is_castle: bool,
@@ -300,7 +296,6 @@ fn generate_piece(
 }
 
 /// `NetherBridgePiece.generateAndAddPiece(startPiece, builder, random, footX, footY, footZ, direction, depth, isCastle)`.
-#[allow(clippy::too_many_arguments)]
 fn generate_and_add_piece(
     start: &mut StartPiece,
     builder: &mut StructurePiecesBuilder,

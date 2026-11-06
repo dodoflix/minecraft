@@ -9,8 +9,6 @@ use mc_core::random::{RandomSource, create_thread_local_instance};
 use mc_core::rotation::Rotation;
 use mc_data::block::Block;
 use mc_data::props;
-use mc_game_core::world::level::BlockGetter as _;
-use mc_game_core::world::level::LevelAccessor as _;
 use mc_game_core::world::level::block::BlockStateExt as _;
 use mc_game_core::world::level::levelgen::env::GenEnv;
 use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
@@ -405,7 +403,7 @@ impl StructurePiece for DesertPyramidPiece {
     ) {
         self.data.add_additional_save_data(context, tag);
         for (i, placed) in self.has_placed_chest.iter().enumerate() {
-            tag.put_boolean(&format!("hasPlacedChest{i}"), *placed);
+            tag.put_boolean(format!("hasPlacedChest{i}"), *placed);
         }
     }
 
@@ -572,7 +570,7 @@ impl StructurePiece for DesertPyramidPiece {
         put!(blue, 10, 0, 10);
 
         let mut x = 0;
-        while x <= width - 1 {
+        while x < width {
             put!(cut, x, 2, 1);
             put!(orange, x, 2, 2);
             put!(cut, x, 2, 3);

@@ -22,7 +22,6 @@ pub struct UpwardsBranchingTrunkPlacer {
 }
 
 impl UpwardsBranchingTrunkPlacer {
-    #[allow(clippy::too_many_arguments)]
     fn place_branch(
         &self,
         level: &mut dyn WorldGenLevel,

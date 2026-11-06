@@ -4,9 +4,9 @@ use crate::world::block_entity::hopper_block_entity::{add_item, get_container_at
 use mc_data::BlockEntityType;
 use mc_game_core::register_block_class;
 use mc_game_core::server::level::ServerLevel;
-use mc_game_core::world::block_entity::{BlockEntity, DispenserBlockEntity, changed_log};
+use mc_game_core::world::block_entity::{DispenserBlockEntity, changed_log};
 use mc_game_core::world::container::Container;
-use mc_game_core::world::dispenser::{BlockSource, DispenseItemBehavior, default_behavior};
+use mc_game_core::world::dispenser::{BlockSource, default_behavior};
 use mc_game_core::world::level::block::impls::prelude::*;
 use mc_game_core::world::level::redstone::Orientation;
 
@@ -113,7 +113,7 @@ fn dispense_from(level: &mut ServerLevel, state: BlockState, pos: BlockPos) {
                                 Some(direction.get_opposite()),
                             )
                         })
-                        .map_or(false, |remaining| remaining.is_empty());
+                        .is_some_and(|remaining| remaining.is_empty());
                         // `with_container` returning `None` (owner vanished) cannot happen: it was just resolved
                         let mut remaining = item_stack.copy();
                         if moved {

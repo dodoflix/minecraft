@@ -13,7 +13,6 @@ use mc_game_core::world::block_entity::{
 use mc_game_core::world::entity::item::ItemEntity;
 use mc_game_core::world::item::ItemStack;
 use mc_game_core::world::level::LevelAccessor;
-use mc_game_core::world::level::block::BlockStateExt;
 use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_nbt::CompoundTag;
 use mc_protocol::components::{Holder, JUKEBOX_PLAYABLE, JukeboxSong};

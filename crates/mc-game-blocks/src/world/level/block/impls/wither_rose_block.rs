@@ -31,7 +31,6 @@ impl BlockBehaviour for WitherRoseBlock {
         _effect_applier: &mut dyn mc_game_core::world::entity::inside_block_effects::InsideBlockEffectApplier,
         _is_precise: bool,
     ) {
-        use mc_game_core::server::level::level_data::ServerLevelData;
         if level.level_data.get_difficulty() != mc_world::level_storage::Difficulty::Peaceful
             && entity.living().is_some()
         {

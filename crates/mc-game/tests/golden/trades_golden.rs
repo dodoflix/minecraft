@@ -33,22 +33,6 @@ use mc_protocol::packets::play::ClientboundMerchantOffersPacket;
 use mc_world::level_storage::WorldDataConfiguration;
 use sha1::{Digest, Sha1};
 
-const PROFESSIONS: [&str; 13] = [
-    "armorer",
-    "butcher",
-    "cartographer",
-    "cleric",
-    "farmer",
-    "fisherman",
-    "fletcher",
-    "leatherworker",
-    "librarian",
-    "mason",
-    "shepherd",
-    "toolsmith",
-    "weaponsmith",
-];
-
 /// A merchant for the merchant predicates: position and the villager type component (`Villager.get(VILLAGER_VARIANT)`).
 struct TestMerchant {
     base: EntityData,

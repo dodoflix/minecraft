@@ -79,7 +79,7 @@ pub trait AbstractHugeMushroomFeature {
         tree_height: i32,
     ) -> bool {
         let y = origin.y();
-        if y >= level.get_min_y() + 1 && y + tree_height + 1 <= level.get_max_y() {
+        if y > level.get_min_y() && y + tree_height < level.get_max_y() {
             if !self.can_place_on().test(level, origin.below()) {
                 return false;
             }

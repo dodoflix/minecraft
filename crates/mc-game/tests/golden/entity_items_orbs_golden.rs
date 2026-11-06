@@ -17,7 +17,6 @@ use mc_core::math::java::{java_double_to_string as d, java_float_to_string as f}
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
-use mc_data::Item;
 use mc_data::block::{Block, BlockState};
 use mc_data::enums::GameType;
 use mc_game::server::level::ServerLevel;

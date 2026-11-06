@@ -75,7 +75,7 @@ pub fn load_world(
             cookie: (),
             final_dimensions: RegistryAccess::empty(),
         },
-        |rm, managers, layers, cookie| WorldStem::new(rm, managers, layers, cookie),
+        WorldStem::new,
     )
 }
 

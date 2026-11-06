@@ -108,7 +108,7 @@ register_command!("AdvancementCommands", |ctx| {
                                 &EntityArgument::get_players(c, "targets")?,
                                 action,
                                 &ResourceKeyArgument::get_advancement(c, "advancement")?,
-                                &StringArgumentType::get_string(c, "criterion"),
+                                StringArgumentType::get_string(c, "criterion"),
                             )
                         }),
                 ),

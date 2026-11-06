@@ -25,7 +25,7 @@ fn vanilla_loot_registries_decode_and_validate() {
         keys::CONTEXT_FLOAT_PROVIDER,
     ] {
         let registry = access.registry(key).unwrap();
-        assert!(registry.len() > 0 || key == keys::ITEM_MODIFIER, "{key}");
+        assert!(!registry.is_empty() || key == keys::ITEM_MODIFIER, "{key}");
         for entry in registry.entries() {
             assert!(
                 entry.value.is_some(),

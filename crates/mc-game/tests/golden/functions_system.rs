@@ -92,11 +92,10 @@ fn run(server: &mut MinecraftServer, command: &str) -> Outcome {
         }));
     let commands = server.commands.clone();
     commands.perform_prefixed_command(server, source, command);
-    let outcome = Outcome {
+    Outcome {
         messages: capture.0.lock().unwrap().clone(),
         results: results.lock().unwrap().clone(),
-    };
-    outcome
+    }
 }
 
 fn storage(server: &mut MinecraftServer, id: &str, key: &str) -> Option<Tag> {

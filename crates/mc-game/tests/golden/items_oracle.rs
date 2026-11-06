@@ -242,7 +242,6 @@ fn experience_orb_split_and_value_match_vanilla() {
 #[test]
 fn item_merge_rules_match_vanilla() {
     use mc_game::world::entity::item::{are_mergable, merge_stacks};
-    use mc_game::world::item::ItemStackExt as _;
     let make = |kind: &str, count: i32| -> ItemStack {
         let mut s = match kind {
             "diamond" | "named_diamond" => ItemStack::new(Item::DIAMOND),
@@ -285,7 +284,8 @@ fn item_merge_rules_match_vanilla() {
 fn item_merge_pickup_delay_and_despawn_match_vanilla() {
     let mut level = flat_level();
     // (name, item, count, pos, age, pickup delay)
-    let specs: [(&str, Item, i32, (f64, f64, f64), i32, i32); 9] = [
+    type Spec = (&'static str, Item, i32, (f64, f64, f64), i32, i32);
+    let specs: [Spec; 9] = [
         ("m1", Item::DIAMOND, 20, (5.5, -60.0, 2.5), 0, 0),
         ("m2", Item::DIAMOND, 30, (5.7, -60.0, 2.5), 0, 0),
         ("m3", Item::DIAMOND, 5, (5.9, -60.0, 2.5), 0, 0),

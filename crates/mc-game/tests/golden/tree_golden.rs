@@ -164,15 +164,13 @@ fn prepare(level: &mut GenLevel<'_>, seed: i64, variant: i32, cx: i32, cz: i32) 
                         );
                     }
                 }
-                4 => {
-                    if top <= 65 {
-                        if dirty && hmod(hv, 2) == 0 {
-                            put(level, x, top - 1, z, "minecraft:mud");
-                        }
-                        for y in top..=65 {
-                            if is_air(level, x, y, z) {
-                                put(level, x, y, z, "minecraft:water[level=0]");
-                            }
+                4 if top <= 65 => {
+                    if dirty && hmod(hv, 2) == 0 {
+                        put(level, x, top - 1, z, "minecraft:mud");
+                    }
+                    for y in top..=65 {
+                        if is_air(level, x, y, z) {
+                            put(level, x, y, z, "minecraft:water[level=0]");
                         }
                     }
                 }

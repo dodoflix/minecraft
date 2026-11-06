@@ -7,8 +7,6 @@ use mc_core::bounding_box::BoundingBox;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_core::random::{RandomSource, create_thread_local_instance};
 use mc_data::block::Block;
-use mc_game_core::world::level::BlockGetter as _;
-use mc_game_core::world::level::LevelAccessor as _;
 use mc_game_core::world::level::levelgen::block_entity_data::base_tag;
 use mc_game_core::world::level::levelgen::codec::TypeEntry;
 use mc_game_core::world::level::levelgen::env::GenEnv;

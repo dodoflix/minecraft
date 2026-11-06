@@ -11,7 +11,6 @@ use mc_game_core::world::block_entity::{
 };
 use mc_game_core::world::container::{Container, helper};
 use mc_game_core::world::item::ItemStack;
-use mc_game_core::world::level::block::BlockStateExt;
 use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_nbt::CompoundTag;
 use mc_protocol::components::{CONTAINER, ItemContainerContents, map::DataComponentMapBuilder};

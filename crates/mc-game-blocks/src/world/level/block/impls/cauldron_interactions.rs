@@ -219,7 +219,6 @@ fn use_potion_into_cauldron(
 }
 
 /// `CauldronInteractions.fillBucket`.
-#[allow(clippy::too_many_arguments)]
 pub fn fill_bucket(
     state: BlockState,
     level: &mut ServerLevel,

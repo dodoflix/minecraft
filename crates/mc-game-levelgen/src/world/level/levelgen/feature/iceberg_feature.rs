@@ -160,7 +160,6 @@ impl Feature for IcebergFeature {
 }
 
 impl IcebergFeature {
-    #[allow(clippy::too_many_arguments)]
     fn generate_cut_out(
         &self,
         random: &mut dyn RandomSource,
@@ -226,7 +225,6 @@ impl IcebergFeature {
         }
     }
 
-    #[allow(clippy::too_many_arguments)]
     fn carve(
         &self,
         radius: i32,
@@ -267,7 +265,10 @@ impl IcebergFeature {
         }
     }
 
-    #[allow(clippy::too_many_arguments)]
+    #[expect(
+        clippy::too_many_arguments,
+        reason = "mirrors IcebergFeature.generateIcebergBlock"
+    )]
     fn generate_iceberg_block(
         &self,
         level: &mut dyn WorldGenLevel,
@@ -320,7 +321,6 @@ impl IcebergFeature {
         }
     }
 
-    #[allow(clippy::too_many_arguments)]
     fn set_iceberg_block(
         &self,
         pos: BlockPos,

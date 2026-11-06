@@ -263,7 +263,6 @@ pub struct RuinedPortalPiece {
 impl RuinedPortalPiece {
     /// `RuinedPortalPiece(registries, manager, templatePosition, verticalPlacement, properties, templateLocation,
     /// template, rotation, mirror, pivot)`.
-    #[allow(clippy::too_many_arguments)]
     pub fn new(
         structure_template_manager: &StructureTemplateManager,
         template_position: BlockPos,

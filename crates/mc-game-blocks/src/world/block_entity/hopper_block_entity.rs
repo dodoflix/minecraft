@@ -13,7 +13,6 @@
 use mc_core::direction::Direction;
 use mc_core::phys::AABB;
 use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
 use mc_data::BlockEntityType;
 use mc_data::block::BlockState;
 use mc_data::props;

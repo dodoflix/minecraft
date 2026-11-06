@@ -4,7 +4,7 @@ use mc_core::phys::AABB;
 use mc_data::EntityType;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::block_entity::{BeeReleaseStatus, BeehiveBlockEntity};
-use mc_game_core::world::entity::{Entity, ServerPlayer};
+use mc_game_core::world::entity::ServerPlayer;
 use mc_game_core::world::item::enchantment::enchantment_tags::PREVENTS_BEE_SPAWNS_WHEN_MINING;
 use mc_game_core::world::item::{BlockPlaceContext, ItemStack};
 use mc_game_core::world::level::block::impls::prelude::*;

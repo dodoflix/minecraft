@@ -34,7 +34,7 @@ impl CountOnEveryLayerPlacement {
         let mut current_layer = 0;
         let mut current_block = context.get_block_state(BlockPos::new(x_start, y_start, z_start));
         let mut y = y_start;
-        while y >= context.get_min_y() + 1 {
+        while y > context.get_min_y() {
             let below_pos = BlockPos::new(x_start, y - 1, z_start);
             let below_block = context.get_block_state(below_pos);
             if !Self::is_empty(below_block)

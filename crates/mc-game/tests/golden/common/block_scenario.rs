@@ -523,10 +523,8 @@ impl Scenario {
             }
             "be_nbt" => {
                 self.world();
-                self.be_nbt(
-                    pos(a, 1),
-                    &self.line[self.line.find(a[4].as_str()).expect("snbt")..].to_string(),
-                );
+                let snbt = self.line[self.line.find(a[4].as_str()).expect("snbt")..].to_string();
+                self.be_nbt(pos(a, 1), &snbt);
             }
             "tick" => {
                 self.world();

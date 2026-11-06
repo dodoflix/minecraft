@@ -243,8 +243,8 @@ pub fn compare(expected: &[String], actual: &[String], opts: &Options) -> Result
         };
         if !ok {
             if shown == 0 {
-                for j in i.saturating_sub(3)..i {
-                    report.push_str(&format!("      {j:>5}: {}\n", e[j]));
+                for (j, line) in e.iter().enumerate().take(i).skip(i.saturating_sub(3)) {
+                    report.push_str(&format!("      {j:>5}: {line}\n"));
                 }
             }
             report.push_str(&format!(

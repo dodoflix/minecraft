@@ -6,13 +6,12 @@
 
 pub use mc_game_core::*;
 pub mod server {
-    pub use mc_game_cmds::server::*;
+
     pub use mc_game_core::server::*;
-    pub use mc_game_levelgen::server::*;
+
     pub mod commands {
         pub use mc_game_cmds::server::commands::*;
-        pub use mc_game_core::server::commands::*;
-        pub use mc_game_levelgen::server::commands::*;
+
         pub mod item {
             pub use mc_game_cmds::server::commands::item::*;
             pub use mc_game_core::server::commands::item::*;
@@ -20,27 +19,23 @@ pub mod server {
     }
 }
 pub mod world {
-    pub use mc_game_ai::world::*;
-    pub use mc_game_animals::world::*;
-    pub use mc_game_blocks::world::*;
+
     pub use mc_game_core::world::*;
-    pub use mc_game_levelgen::world::*;
-    pub use mc_game_monsters::world::*;
+
     pub mod block_entity {
         pub use mc_game_blocks::world::block_entity::*;
         pub use mc_game_core::world::block_entity::*;
         pub use mc_game_monsters::world::block_entity::*;
     }
     pub mod entity {
-        pub use mc_game_ai::world::entity::*;
+
         pub use mc_game_animals::world::entity::*;
         pub use mc_game_core::world::entity::*;
-        pub use mc_game_monsters::world::entity::*;
+
         pub mod ai {
-            pub use mc_game_ai::world::entity::ai::*;
-            pub use mc_game_animals::world::entity::ai::*;
+
             pub use mc_game_core::world::entity::ai::*;
-            pub use mc_game_monsters::world::entity::ai::*;
+
             pub mod behavior {
                 pub use mc_game_ai::world::entity::ai::behavior::*;
                 pub use mc_game_core::world::entity::ai::behavior::*;
@@ -59,7 +54,7 @@ pub mod world {
         pub mod animal {
             pub use mc_game_animals::world::entity::animal::*;
             pub use mc_game_core::world::entity::animal::*;
-            pub use mc_game_monsters::world::entity::animal::*;
+
             pub mod equine {
                 pub use mc_game_animals::world::entity::animal::equine::*;
                 pub use mc_game_core::world::entity::animal::equine::*;
@@ -76,14 +71,13 @@ pub mod world {
         }
     }
     pub mod level {
-        pub use mc_game_blocks::world::level::*;
+
         pub use mc_game_core::world::level::*;
-        pub use mc_game_levelgen::world::level::*;
-        pub use mc_game_monsters::world::level::*;
+
         pub mod block {
-            pub use mc_game_blocks::world::level::block::*;
+
             pub use mc_game_core::world::level::block::*;
-            pub use mc_game_monsters::world::level::block::*;
+
             pub mod impls {
                 pub use mc_game_blocks::world::level::block::impls::*;
                 pub use mc_game_core::world::level::block::impls::*;

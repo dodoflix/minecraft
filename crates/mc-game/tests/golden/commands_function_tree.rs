@@ -51,7 +51,9 @@ fn function_system_tree_matches_vanilla() {
             &mut converted,
         );
         let mut out = Vec::new();
-        command_tree::commands_packet(&root).encode(&mut out);
+        command_tree::commands_packet(&root)
+            .encode(&mut out)
+            .unwrap();
         let ours = ClientboundCommandsPacket::decode(&mut out.as_slice()).unwrap();
         let theirs = ClientboundCommandsPacket::decode(&mut bytes.as_slice()).unwrap();
         for (i, (a, b)) in ours.entries.iter().zip(&theirs.entries).enumerate() {

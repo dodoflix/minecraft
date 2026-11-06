@@ -52,7 +52,7 @@ mod nav_cmds;
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
 use mc_data::block::{Block, BlockState};
-use mc_data::enums::{GameType, Pose};
+use mc_data::enums::GameType;
 use mc_data::{Attribute, EntityType, Item, MobEffect};
 use mc_game::server::level::ServerLevel;
 use mc_game::world::container::Container as _;
@@ -66,7 +66,6 @@ use mc_game::world::entity::scenario_dump::{
 };
 use mc_game::world::entity::{Entity, EntityId, ServerPlayer};
 use mc_game::world::item::ItemStack;
-use mc_game::world::item::trading::Merchant as _;
 use mc_game::world::level::LevelAccessor;
 use mc_nbt::{CompoundTag, Tag};
 use mc_protocol::codec::GameProfile;
@@ -193,7 +192,6 @@ pub fn item_text(s: &ItemStack) -> String {
         return "empty".into();
     }
     let mut r = format!("{}*{}", s.item().name(), s.count());
-    use mc_game::world::item::ItemStackExt as _;
     if s.is_damageable_item() && s.get_damage_value() != 0 {
         r.push_str(&format!("/dmg={}", s.get_damage_value()));
     }
@@ -989,16 +987,15 @@ impl Harness {
         let slot = a[2].clone();
         let line = self.line.clone();
         self.with_entity(&a[1], |_, e| {
-            if let Some(p) = e.as_any_mut().downcast_mut::<ServerPlayer>() {
-                if let Some(i) = slot
+            if let Some(p) = e.as_any_mut().downcast_mut::<ServerPlayer>()
+                && let Some(i) = slot
                     .strip_prefix("hotbar")
                     .or_else(|| slot.strip_prefix("inv"))
-                {
-                    p.player
-                        .inventory
-                        .set_item(i.parse().expect("slot index"), stack);
-                    return;
-                }
+            {
+                p.player
+                    .inventory
+                    .set_item(i.parse().expect("slot index"), stack);
+                return;
             }
             let es = match slot.as_str() {
                 "mainhand" => EquipmentSlot::MainHand,

@@ -86,9 +86,8 @@ pub fn maybe_transfer_fluid(
     pos: BlockPos,
     random_value: f32,
 ) {
-    if random_value > WATER_TRANSFER_PROBABILITY_PER_RANDOM_TICK
-        && random_value > LAVA_TRANSFER_PROBABILITY_PER_RANDOM_TICK
-    {
+    // Vanilla spells out `> water && > lava`; lava's probability is the smaller one, so `> water` alone is equivalent.
+    if random_value > WATER_TRANSFER_PROBABILITY_PER_RANDOM_TICK {
         return;
     }
     if !is_stalactite_start_pos(state, level, pos) {
@@ -244,9 +243,7 @@ fn can_fill_cauldron(fluid_above: Fluid) -> bool {
 fn can_drip_through(level: &dyn BlockGetter, pos: BlockPos, state: BlockState) -> bool {
     if state.is_air() {
         true
-    } else if state.is_solid_render() {
-        false
-    } else if !state.get_fluid_state().is_empty() {
+    } else if state.is_solid_render() || !state.get_fluid_state().is_empty() {
         false
     } else {
         let collision_shape = state.get_collision_shape(level, pos);

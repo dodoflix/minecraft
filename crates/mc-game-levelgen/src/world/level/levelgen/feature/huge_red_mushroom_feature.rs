@@ -110,9 +110,7 @@ impl AbstractHugeMushroomFeature for HugeRedMushroomFeature {
         yo: i32,
     ) -> i32 {
         let mut radius = 0;
-        if yo < tree_height && yo >= tree_height - 3 {
-            radius = leaf_radius;
-        } else if yo == tree_height {
+        if (yo < tree_height && yo >= tree_height - 3) || yo == tree_height {
             radius = leaf_radius;
         }
         radius

@@ -21,6 +21,7 @@ use mc_core::random::RandomSource;
 use mc_core::rotation::Rotation;
 use mc_data::block::Block;
 use mc_data::props;
+use mc_game_core::world::level::BlockGetter;
 use mc_game_core::world::level::block::BlockStateExt as _;
 use mc_game_core::world::level::levelgen::block_entity_data::set_block_entity_loot_table;
 use mc_game_core::world::level::levelgen::env::GenEnv;
@@ -38,7 +39,6 @@ use mc_game_core::world::level::levelgen::structure::templatesystem::{
 };
 use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_game_core::world::level::material::FluidStateExt as _;
-use mc_game_core::world::level::{BlockGetter, LevelAccessor as _};
 use mc_nbt::CompoundTag;
 use mc_world::heightmap::HeightmapType;
 use mc_worldgen::provider::IntProvider;
@@ -246,52 +246,51 @@ fn add_cluster_ruins(
 
 /// `allPositions(random, origin)`.
 fn all_positions(random: &mut dyn RandomSource, origin: BlockPos) -> Vec<BlockPos> {
-    let mut positions = Vec::with_capacity(8);
-    positions.push(origin.offset(
-        -16 + mth::next_int(random, 1, 8),
-        0,
-        16 + mth::next_int(random, 1, 7),
-    ));
-    positions.push(origin.offset(
-        -16 + mth::next_int(random, 1, 8),
-        0,
-        mth::next_int(random, 1, 7),
-    ));
-    positions.push(origin.offset(
-        -16 + mth::next_int(random, 1, 8),
-        0,
-        -16 + mth::next_int(random, 4, 8),
-    ));
-    positions.push(origin.offset(
-        mth::next_int(random, 1, 7),
-        0,
-        16 + mth::next_int(random, 1, 7),
-    ));
-    positions.push(origin.offset(
-        mth::next_int(random, 1, 7),
-        0,
-        -16 + mth::next_int(random, 4, 6),
-    ));
-    positions.push(origin.offset(
-        16 + mth::next_int(random, 1, 7),
-        0,
-        16 + mth::next_int(random, 3, 8),
-    ));
-    positions.push(origin.offset(
-        16 + mth::next_int(random, 1, 7),
-        0,
-        mth::next_int(random, 1, 7),
-    ));
-    positions.push(origin.offset(
-        16 + mth::next_int(random, 1, 7),
-        0,
-        -16 + mth::next_int(random, 4, 8),
-    ));
-    positions
+    vec![
+        origin.offset(
+            -16 + mth::next_int(random, 1, 8),
+            0,
+            16 + mth::next_int(random, 1, 7),
+        ),
+        origin.offset(
+            -16 + mth::next_int(random, 1, 8),
+            0,
+            mth::next_int(random, 1, 7),
+        ),
+        origin.offset(
+            -16 + mth::next_int(random, 1, 8),
+            0,
+            -16 + mth::next_int(random, 4, 8),
+        ),
+        origin.offset(
+            mth::next_int(random, 1, 7),
+            0,
+            16 + mth::next_int(random, 1, 7),
+        ),
+        origin.offset(
+            mth::next_int(random, 1, 7),
+            0,
+            -16 + mth::next_int(random, 4, 6),
+        ),
+        origin.offset(
+            16 + mth::next_int(random, 1, 7),
+            0,
+            16 + mth::next_int(random, 3, 8),
+        ),
+        origin.offset(
+            16 + mth::next_int(random, 1, 7),
+            0,
+            mth::next_int(random, 1, 7),
+        ),
+        origin.offset(
+            16 + mth::next_int(random, 1, 7),
+            0,
+            -16 + mth::next_int(random, 4, 8),
+        ),
+    ]
 }
 
 /// `addPiece(manager, position, rotation, builder, random, structure, isLarge, baseIntegrity)`.
-#[allow(clippy::too_many_arguments)]
 fn add_piece(
     structure_template_manager: &StructureTemplateManager,
     position: BlockPos,

@@ -19,7 +19,6 @@ pub struct PoplarFoliagePlacer {
 }
 
 impl PoplarFoliagePlacer {
-    #[allow(clippy::too_many_arguments)]
     fn replace_leaves_with_log(
         &self,
         level: &mut dyn WorldGenLevel,
@@ -67,7 +66,6 @@ impl PoplarFoliagePlacer {
         }
     }
 
-    #[allow(clippy::too_many_arguments)]
     fn place_leaves_row_shaped(
         &self,
         level: &mut dyn WorldGenLevel,
@@ -105,7 +103,6 @@ impl PoplarFoliagePlacer {
         }
     }
 
-    #[allow(clippy::too_many_arguments)]
     fn should_skip_location_shaped(
         &self,
         random: &mut dyn RandomSource,

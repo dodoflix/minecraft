@@ -44,7 +44,7 @@ static MATCHING_BLOCK_TAG: TypeEntry<
     decode: |fields, _| {
         let offset = state_testing_codec(fields)?;
         // `TagKey.codec(Registries.BLOCK)`: a plain identifier (no leading `#`).
-        let tag = fields.required("tag", |v| parse_identifier(v))?;
+        let tag = fields.required("tag", parse_identifier)?;
         Ok(Arc::new(MatchingBlockTagPredicate {
             offset,
             tag: mc_data::tags::get::<Block>(&tag.to_string()),

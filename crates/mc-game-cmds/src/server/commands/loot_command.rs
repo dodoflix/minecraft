@@ -33,7 +33,6 @@ use mc_game_core::world::entity::item::ItemEntity;
 use mc_game_core::world::item::ItemStackExt;
 use mc_game_core::world::item::slot::SlotProvider;
 use mc_game_core::world::level::BlockGetter;
-use mc_game_core::world::level::block::BlockStateExt;
 use mc_game_core::world::level::storage::loot::LootContextParamSets;
 use mc_game_core::world::level::storage::loot::block_drops::state_get_drops;
 use mc_game_core::world::level::storage::loot::context::LootParams;
@@ -64,6 +63,12 @@ static ERROR_NO_BLOCK_LOOT_TABLE: LazyLock<DynamicCommandExceptionType<Component
     });
 
 type Tracker = CommandResponseTracker<ItemStack>;
+/// The command body built for one tool choice.
+type ToolRun = Box<
+    dyn Fn(&CommandContext<CommandSourceStack>) -> Result<i32, CommandSyntaxException>
+        + Send
+        + Sync,
+>;
 
 /// `LootCommand.DropConsumer`.
 type DropConsumer = Arc<
@@ -96,13 +101,7 @@ register_command!("LootCommand", |ctx| {
         literal("loot").requires(has_permission(LEVEL_GAMEMASTERS)),
         &|target, output| {
             let tool_nodes = |node: RequiredArgumentBuilder<CommandSourceStack>,
-                              run: &dyn Fn(
-                Tool,
-            ) -> Box<
-                dyn Fn(&CommandContext<CommandSourceStack>) -> Result<i32, CommandSyntaxException>
-                    + Send
-                    + Sync,
-            >| {
+                              run: &dyn Fn(Tool) -> ToolRun| {
                 node.then(argument("tool", ItemArgument::item(build)).executes({
                     let f = run(Tool::Item);
                     move |c| f(c)
@@ -120,11 +119,7 @@ register_command!("LootCommand", |ctx| {
             let loot_output = output.clone();
             let kill_output = output.clone();
             let mine_output = output.clone();
-            let mine_run = move |tool: Tool| -> Box<
-                dyn Fn(&CommandContext<CommandSourceStack>) -> Result<i32, CommandSyntaxException>
-                    + Send
-                    + Sync,
-            > {
+            let mine_run = move |tool: Tool| -> ToolRun {
                 let output = mine_output.clone();
                 Box::new(move |c| {
                     drop_block_loot(
@@ -135,11 +130,7 @@ register_command!("LootCommand", |ctx| {
                     )
                 })
             };
-            let fish_run = move |tool: Tool| -> Box<
-                dyn Fn(&CommandContext<CommandSourceStack>) -> Result<i32, CommandSyntaxException>
-                    + Send
-                    + Sync,
-            > {
+            let fish_run = move |tool: Tool| -> ToolRun {
                 let output = fish_output.clone();
                 Box::new(move |c| {
                     drop_fishing_loot(

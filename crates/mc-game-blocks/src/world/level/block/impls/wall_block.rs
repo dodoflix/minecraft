@@ -18,15 +18,6 @@ static TEST_SHAPES_WALL: LazyLock<HashMap<Direction, VoxelShape>> = LazyLock::ne
     ))
 });
 
-fn wall_property(direction: Direction) -> mc_data::props::EnumProperty<WallSide> {
-    match direction {
-        Direction::North => props::NORTH_WALL,
-        Direction::East => props::EAST_WALL,
-        Direction::South => props::SOUTH_WALL,
-        _ => props::WEST_WALL,
-    }
-}
-
 fn connects_to(state: BlockState, face_solid: bool, direction: Direction) -> bool {
     let connected_fence_gate = helpers::is_instance_of(state, "FenceGateBlock")
         && super::fence_gate_block::connects_to_direction(state, direction);
@@ -121,7 +112,6 @@ fn should_raise_post(
     }
 }
 
-#[allow(clippy::too_many_arguments)]
 fn update_shape_full(
     level: &dyn LevelReader,
     state: BlockState,

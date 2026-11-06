@@ -220,7 +220,6 @@ fn gen_state(start_piece: Option<&mut dyn StructurePiece>) -> &mut StrongholdGen
 }
 
 /// `findAndCreatePieceFactory(pieceClass, builder, random, footX, footY, footZ, direction, depth)`.
-#[allow(clippy::too_many_arguments)]
 fn find_and_create_piece_factory(
     piece_class: PieceClass,
     builder: &StructurePiecesBuilder,
@@ -259,7 +258,6 @@ fn find_and_create_piece_factory(
 }
 
 /// `generatePieceFromSmallDoor(startPiece, builder, random, footX, footY, footZ, direction, depth)`.
-#[allow(clippy::too_many_arguments)]
 fn generate_piece_from_small_door(
     state: &mut StrongholdGenState,
     builder: &StructurePiecesBuilder,
@@ -328,7 +326,6 @@ fn generate_piece_from_small_door(
 
 /// `generateAndAddPiece(startPiece, builder, random, footX, footY, footZ, direction, depth)`: adds the piece to the
 /// builder and the start piece's pending list; returns whether a piece was created.
-#[allow(clippy::too_many_arguments)]
 fn generate_and_add_piece(
     state: &mut StrongholdGenState,
     builder: &mut StructurePiecesBuilder,
@@ -464,7 +461,6 @@ fn is_ok_box(bounding_box: &BoundingBox) -> bool {
 /// `StrongholdPiece`: the door and child generation helpers shared by all stronghold pieces.
 trait StrongholdPiece: StructurePiece {
     /// `generateSmallDoor(level, random, chunkBB, doorType, footX, footY, footZ)` (the `random` is unused).
-    #[allow(clippy::too_many_arguments)]
     fn generate_small_door(
         &self,
         level: &mut dyn WorldGenLevel,

@@ -30,7 +30,6 @@ use mc_game_core::world::level::levelgen::registries::DecodeCtx;
 use mc_game_core::world::level::levelgen::stateproviders::BlockStateProvider;
 use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::update_shape_at_edge;
 use mc_game_core::world::level::levelgen::world_gen_level::WorldGenLevel;
-use std::collections::HashSet;
 use std::sync::Arc;
 
 block_tag_fn!(
@@ -111,10 +110,7 @@ impl TreeSetter {
     }
 
     pub fn positions(&self) -> BlockPosHashSet {
-        self.positions
-            .as_ref()
-            .map(|set| set.clone())
-            .unwrap_or_default()
+        self.positions.clone().unwrap_or_default()
     }
 
     fn is_empty(&self) -> bool {

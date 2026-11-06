@@ -62,7 +62,6 @@ pub trait FoliagePlacer: Send + Sync {
     fn base(&self) -> &FoliageBase;
 
     /// The protected abstract `createFoliage(.., offset)`.
-    #[allow(clippy::too_many_arguments)]
     fn create_foliage_with_offset(
         &self,
         level: &mut dyn WorldGenLevel,
@@ -96,7 +95,6 @@ pub trait FoliagePlacer: Send + Sync {
     ) -> bool;
 
     /// `createFoliage(level, foliageSetter, random, tree, treeHeight, attachment, foliageHeight, leafRadius)`.
-    #[allow(clippy::too_many_arguments)]
     fn create_foliage(
         &self,
         level: &mut dyn WorldGenLevel,
@@ -146,7 +144,6 @@ pub trait FoliagePlacer: Send + Sync {
     }
 
     /// `placeLeavesRow(level, foliageSetter, random, tree, origin, currentRadius, y, doubleTrunk)`.
-    #[allow(clippy::too_many_arguments)]
     fn place_leaves_row(
         &self,
         level: &mut dyn WorldGenLevel,
@@ -182,7 +179,6 @@ pub trait FoliagePlacer: Send + Sync {
     }
 
     /// `placeLeavesRowWithHangingLeavesBelow(..)`.
-    #[allow(clippy::too_many_arguments)]
     fn place_leaves_row_with_hanging_leaves_below(
         &self,
         level: &mut dyn WorldGenLevel,
@@ -263,9 +259,7 @@ fn try_place_extension(
     log_pos: BlockPos,
     pos: BlockPos,
 ) -> bool {
-    if pos.dist_manhattan(&log_pos) >= 7 {
-        false
-    } else if random.next_float() > chance {
+    if pos.dist_manhattan(&log_pos) >= 7 || random.next_float() > chance {
         false
     } else {
         try_place_leaf(level, foliage_setter, random, tree, pos)

@@ -6,7 +6,6 @@ use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
 use mc_data::block::Block;
 use mc_game::server::level::ServerLevel;
-use mc_game::server::level::level_events::encode_packet;
 use mc_game::world::container::Container;
 use mc_game::world::entity::{Entity, ServerPlayer};
 use mc_game::world::item::map_item;
@@ -241,10 +240,8 @@ fn map_update_and_packets_match_vanilla() {
             let around = |c: &str| {
                 (0..4)
                     .map(|k| {
-                        format!(
-                            "{}",
-                            &c[(ax + (ay + k - 1) * 128) * 2..(ax + (ay + k - 1) * 128) * 2 + 2]
-                        )
+                        c[(ax + (ay + k - 1) * 128) * 2..(ax + (ay + k - 1) * 128) * 2 + 2]
+                            .to_string()
                     })
                     .collect::<Vec<_>>()
                     .join(",")

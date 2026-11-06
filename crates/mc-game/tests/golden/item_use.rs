@@ -121,7 +121,7 @@ fn replaceable_block_is_replaced_and_adventure_blocks_use() {
         ItemStack::with_count(Item::DIRT, 1),
     );
     // clicking the grass itself: `replaceClicked` -> the dirt goes into the grass' position
-    let r = use_on(&mut level, &mut p, top_hit(ground.above()).clone());
+    let r = use_on(&mut level, &mut p, top_hit(ground.above()));
     assert!(r.consumes_action());
     assert_eq!(
         level.get_block_state(ground.above()),

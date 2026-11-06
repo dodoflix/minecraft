@@ -702,7 +702,7 @@ impl MansionPiecePlacer<'_> {
             FloorRoomCollection::Second,
             FloorRoomCollection::Second,
         ];
-        for floor_num in 0..3usize {
+        for (floor_num, &room_collection) in room_collections.iter().enumerate() {
             let floor_origin =
                 origin.above_n(8 * floor_num as i32 + if floor_num == 2 { 3 } else { 0 });
             let rooms = &mansion.floor_rooms[floor_num];
@@ -868,7 +868,7 @@ impl MansionPiecePlacer<'_> {
                                 room_pos,
                                 rotation,
                                 door_dir,
-                                room_collections[floor_num],
+                                room_collection,
                                 random,
                             );
                         } else if room_type == ROOM_1X2 && door_dir.is_some() {
@@ -881,7 +881,7 @@ impl MansionPiecePlacer<'_> {
                                 rotation,
                                 room_dir,
                                 door_dir.expect("checked"),
-                                room_collections[floor_num],
+                                room_collection,
                                 is_stairs_room,
                                 random,
                             );
@@ -900,7 +900,7 @@ impl MansionPiecePlacer<'_> {
                                 rotation,
                                 room_dir,
                                 door_dir,
-                                room_collections[floor_num],
+                                room_collection,
                                 random,
                             );
                         } else if room_type == ROOM_2X2 && door_dir == Some(Direction::Up) {
@@ -908,7 +908,7 @@ impl MansionPiecePlacer<'_> {
                                 pieces,
                                 room_pos,
                                 rotation,
-                                room_collections[floor_num],
+                                room_collection,
                                 random,
                             );
                         }
@@ -919,7 +919,6 @@ impl MansionPiecePlacer<'_> {
     }
 
     /// `traverseOuterWalls(pieces, data, grid, gridDirection, startX, startY, endX, endY)`.
-    #[allow(clippy::too_many_arguments)]
     fn traverse_outer_walls(
         &self,
         pieces: &mut Vec<WoodlandMansionPiece>,
@@ -1272,7 +1271,6 @@ impl MansionPiecePlacer<'_> {
     }
 
     /// `addRoom1x2(pieces, roomPos, rotation, roomDir, doorDir, rooms, isStairsRoom)`.
-    #[allow(clippy::too_many_arguments)]
     fn add_room_1x2(
         &self,
         pieces: &mut Vec<WoodlandMansionPiece>,

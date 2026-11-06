@@ -185,7 +185,7 @@ fn fixture_lines(name: &str) -> Vec<String> {
                     .unwrap();
                 format!("O experience_orb#{n} value={value}")
             } else {
-                l.replacen("E ", "E ", 1)
+                l.to_string()
             }
         })
         .collect()

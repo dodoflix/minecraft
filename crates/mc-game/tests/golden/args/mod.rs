@@ -23,7 +23,7 @@ macro_rules! args_case {
     (@emit $test:ident, $name:literal, [$($scope:ident)::+], $make:expr, $render:expr, $provider:expr) => {
         #[test]
         fn $test() {
-            #[allow(unused_imports)]
+            #[allow(unused_imports, reason = "the glob brings the scope module's names in; cases that need none leave it unused")]
             use $($scope)::+::*;
             args_common::replay_with($name, include_str!(concat!("../../fixtures/args/", $name, "_golden.txt")), $make, $render, $provider);
         }
@@ -195,7 +195,7 @@ args_case!(
     "float_range",
     arguments,
     |_| Arc::new(FloatRangeArgument::float_range()),
-    |v, src| args_common::render_doubles(
+    |v, _src| args_common::render_doubles(
         v.downcast_ref::<min_max_bounds::Doubles>()
             .expect("doubles")
     ),
@@ -267,7 +267,7 @@ args_case!(
     "int_range",
     arguments,
     |_| Arc::new(IntRangeArgument::int_range()),
-    |v, src| args_common::render_bounds(
+    |v, _src| args_common::render_bounds(
         &v.downcast_ref::<min_max_bounds::Ints>()
             .expect("ints")
             .bounds,
@@ -306,7 +306,7 @@ args_case!(
     "objective_criteria",
     arguments,
     |_| Arc::new(ObjectiveCriteriaArgument::criteria()),
-    |v, src| args_common::render_criteria(
+    |v, _src| args_common::render_criteria(
         v.downcast_ref::<scores::ObjectiveCriteria>()
             .expect("criteria")
     ),
@@ -317,7 +317,7 @@ args_case!(
     "objective",
     arguments,
     |_| Arc::new(ObjectiveArgument::objective()),
-    |v, src| v.downcast_ref::<String>().expect("name").clone(),
+    |v, _src| v.downcast_ref::<String>().expect("name").clone(),
 );
 
 args_case!(
@@ -325,7 +325,7 @@ args_case!(
     "operation",
     arguments,
     |_| Arc::new(OperationArgument::operation()),
-    |v, src| args_common::render_operation(*v.downcast_ref::<Operation>().expect("operation")),
+    |v, _src| args_common::render_operation(*v.downcast_ref::<Operation>().expect("operation")),
 );
 
 args_case!(
@@ -925,7 +925,7 @@ args_case!(
     "scoreboard_slot",
     arguments,
     |_| Arc::new(ScoreboardSlotArgument::display_slot()),
-    |v, src| v
+    |v, _src| v
         .downcast_ref::<scores::DisplaySlot>()
         .expect("slot")
         .get_serialized_name()
@@ -990,7 +990,7 @@ args_case!(
     "team",
     arguments,
     |_| Arc::new(TeamArgument::team()),
-    |v, src| v.downcast_ref::<String>().expect("name").clone(),
+    |v, _src| v.downcast_ref::<String>().expect("name").clone(),
 );
 
 args_case!(

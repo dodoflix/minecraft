@@ -28,7 +28,6 @@ struct FoliageCoords {
 }
 
 impl FancyTrunkPlacer {
-    #[allow(clippy::too_many_arguments)]
     fn make_limb(
         &self,
         level: &mut dyn WorldGenLevel,

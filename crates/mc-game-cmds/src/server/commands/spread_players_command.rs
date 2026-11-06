@@ -18,7 +18,7 @@ use mc_game_core::commands::{
 };
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::util::java_format::format_fixed;
-use mc_game_core::world::level::{BlockGetter, LevelReader};
+use mc_game_core::world::level::BlockGetter;
 use mc_game_core::{register_command, translatable};
 use mc_protocol::packets::play::Relatives;
 use std::collections::HashMap;
@@ -287,7 +287,6 @@ fn spread_players(
     Ok(positions.len() as i32)
 }
 
-#[allow(clippy::too_many_arguments)]
 fn spread_positions(
     center: Vec2,
     spread_dist: f64,

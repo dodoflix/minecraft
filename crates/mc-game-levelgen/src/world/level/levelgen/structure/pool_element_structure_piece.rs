@@ -122,7 +122,6 @@ impl PoolElementStructurePiece {
     }
 
     /// `place(level, structureManager, generator, random, chunkBB, referencePos, keepJigsaws)`.
-    #[allow(clippy::too_many_arguments)]
     pub fn place(
         &self,
         level: &mut dyn WorldGenLevel,

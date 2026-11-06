@@ -13,9 +13,9 @@ use mc_data::enums::{EntitySpawnReason, TrialSpawnerState};
 use mc_data::{EntityType, GameEvent, MobEffect, SoundEvent, props};
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::block_entity::set_changed;
+use mc_game_core::world::entity::RemovalReason;
 use mc_game_core::world::entity::effect::MobEffectInstance;
 use mc_game_core::world::entity::factory::{self, EntitySpawnRequest};
-use mc_game_core::world::entity::{Entity, RemovalReason};
 use mc_game_core::world::item::ItemStack;
 use mc_game_core::world::level::base_spawner::{
     load_entity_tree, read_or_random_spawn_pos, spawn_aabb,
@@ -251,8 +251,7 @@ impl TrialSpawner {
         }
         let range = f64::from(self.required_player_range());
         let in_line_of_sight_players = self.player_detector.detect(level, pos, range, true);
-        let became_ominous;
-        if !self.is_ominous && !in_line_of_sight_players.is_empty() {
+        let became_ominous = if !self.is_ominous && !in_line_of_sight_players.is_empty() {
             let with_effect = find_player_with_ominous_effect(level, &in_line_of_sight_players);
             if let Some((player, effect)) = with_effect {
                 if effect == MobEffect::BAD_OMEN {
@@ -265,10 +264,10 @@ impl TrialSpawner {
                 level.level_event(None, 3020, BlockPos::containing(eye.x, eye.y, eye.z), 0);
                 self.apply_ominous(level, pos);
             }
-            became_ominous = with_effect.is_some();
+            with_effect.is_some()
         } else {
-            became_ominous = false;
-        }
+            false
+        };
         if self.get_state() != TrialSpawnerState::Cooldown || became_ominous {
             let searching_for_first_player = self.data.detected_players.is_empty();
             let found = if searching_for_first_player {

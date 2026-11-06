@@ -66,9 +66,9 @@ impl Feature for BlockColumnFeature {
         let layer_count = self.layers.len();
         let mut layer_heights = vec![0i32; layer_count];
         let mut total_height = 0i32;
-        for i in 0..layer_count {
-            layer_heights[i] = self.layers[i].height.sample(random);
-            total_height = total_height.wrapping_add(layer_heights[i]);
+        for (height, layer) in layer_heights.iter_mut().zip(&self.layers) {
+            *height = layer.height.sample(random);
+            total_height = total_height.wrapping_add(*height);
         }
 
         if total_height == 0 {
@@ -84,10 +84,8 @@ impl Feature for BlockColumnFeature {
             next_pos = next_pos.relative(self.direction);
         }
 
-        for i in 0..layer_count {
-            let count = layer_heights[i];
+        for (layer, &count) in self.layers.iter().zip(&layer_heights) {
             if count != 0 {
-                let layer = &self.layers[i];
                 for _ in 0..count {
                     let state = layer.state.value().get_state(&*level, random, place_pos);
                     level.set_block_flags(place_pos, state, 2);

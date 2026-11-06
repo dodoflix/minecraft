@@ -255,7 +255,7 @@ fn place_in_world_matches_vanilla() {
             }
             expected.push(l);
         }
-        if only.map_or(id % stride != 0, |o| o != id) {
+        if only.map_or(!id.is_multiple_of(stride), |o| o != id) {
             skipped += 1;
             continue;
         }

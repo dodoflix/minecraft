@@ -55,10 +55,11 @@ impl BlockBehaviour for TestBlock {
                     be.set_powered(true);
                 }
                 test_block_entity::trigger(level, pos);
-            } else if !should_trigger && is_powered {
-                if let Some(be) = test_block_entity::get(level, pos) {
-                    be.set_powered(false);
-                }
+            } else if !should_trigger
+                && is_powered
+                && let Some(be) = test_block_entity::get(level, pos)
+            {
+                be.set_powered(false);
             }
         }
     }

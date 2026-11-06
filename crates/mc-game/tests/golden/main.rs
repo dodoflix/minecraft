@@ -1,4 +1,8 @@
 //! Golden tests (T0/T1): replays of vanilla recordings and hermetic checks; one module per topic.
+#![allow(
+    clippy::print_stderr,
+    reason = "oracle test harness reports skips and progress on stderr"
+)]
 
 mod advancement_predicates_golden;
 mod area_effect_cloud_golden;

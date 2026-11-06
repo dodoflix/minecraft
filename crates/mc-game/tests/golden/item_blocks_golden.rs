@@ -86,10 +86,10 @@ fn cases() -> Vec<Case> {
                 face: direction(&face),
                 expected: Vec::new(),
             });
-        } else if let Some(case) = cases.last_mut() {
-            if line.starts_with("B ") || line.starts_with("I ") || line.starts_with("E ") {
-                case.expected.push(line.to_owned());
-            }
+        } else if let Some(case) = cases.last_mut()
+            && (line.starts_with("B ") || line.starts_with("I ") || line.starts_with("E "))
+        {
+            case.expected.push(line.to_owned());
         }
     }
     cases

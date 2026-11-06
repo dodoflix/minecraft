@@ -394,7 +394,6 @@ fn format_double(value: f64) -> String {
     if negative { format!("-{out}") } else { out }
 }
 
-#[allow(clippy::too_many_arguments)]
 fn perform_teleport(
     source: &CommandSourceStack,
     victim: &EntityRef,

@@ -72,9 +72,7 @@ impl MangroveRootPlacer {
             } else {
                 vec![below]
             }
-        } else if width > max_root_width {
-            vec![below]
-        } else if random.next_float() < random_skew_chance {
+        } else if width > max_root_width || random.next_float() < random_skew_chance {
             vec![below]
         } else if random.next_boolean() {
             vec![next_to]

@@ -1,7 +1,6 @@
 //! `net.minecraft.world.level.block.RedStoneOreBlock` (`isRandomlyTicking` = lit, static data). Particles are client side
 //! but `spawnParticles` consumes the level random on the server too.
 use mc_core::phys::BlockHitResult;
-use mc_core::random::RandomSource;
 use mc_game_core::register_block_class;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::{Entity, ServerPlayer};

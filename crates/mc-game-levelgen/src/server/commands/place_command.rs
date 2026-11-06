@@ -29,6 +29,7 @@ use mc_game_core::server::level::ServerLevel;
 use mc_game_core::server::level::server_level_worldgen::with_worldgen_level;
 use mc_game_core::server::world_dimensions::nbt_to_json;
 use mc_game_core::world::level::BlockGetter;
+use mc_game_core::world::level::LevelReader;
 use mc_game_core::world::level::levelgen::registries::GenRegistries;
 use mc_game_core::world::level::levelgen::structure::generation::generate_structure;
 use mc_game_core::world::level::levelgen::structure::manager::StructureManager;
@@ -37,7 +38,6 @@ use mc_game_core::world::level::levelgen::structure::templatesystem::structure_p
     SharedRandom, StructurePlaceSettings,
 };
 use mc_game_core::world::level::levelgen::{GenEnv, WorldGenLevel};
-use mc_game_core::world::level::{LevelAccessor, LevelReader};
 use mc_game_core::{register_command, translatable};
 use mc_text::Component;
 use std::sync::{Arc, LazyLock};
@@ -475,7 +475,6 @@ fn create_random(seed: i64) -> Box<dyn RandomSource> {
 }
 
 /// `PlaceCommand.placeTemplate`.
-#[allow(clippy::too_many_arguments)]
 pub fn place_template(
     source: &CommandSourceStack,
     template: &Identifier,

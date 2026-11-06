@@ -2,7 +2,6 @@
 
 use linkme::distributed_slice;
 use mc_core::math::mth;
-use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::EntityType;
 use mc_data::enums::EntitySpawnReason;

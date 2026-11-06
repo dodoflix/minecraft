@@ -13,7 +13,6 @@ use mc_core::pos::BlockPos;
 use mc_core::random::{RandomSource, XoroshiroRandomSource};
 use mc_game::world::level::LevelAccessor;
 use mc_game::world::level::levelgen::GenEnv;
-use mc_game::world::level::levelgen::WorldGenLevel;
 use mc_game::world::level::levelgen::feature::{Feature, decode_direct};
 use mc_game::world::level::levelgen::registries::{Cells, DecodeCtx};
 use mc_world::status::ChunkStatus;

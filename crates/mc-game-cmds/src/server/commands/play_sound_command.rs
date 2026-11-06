@@ -1,6 +1,6 @@
 //! `PlaySoundCommand`.
 use super::command_response_tracker::{CommandResponseTracker, ElementType};
-use mc_brigadier::arguments::{FloatArgumentType, float_arg_min, float_arg_range};
+use mc_brigadier::arguments::{float_arg_min, float_arg_range};
 use mc_brigadier::{
     ArgumentBuilder, CommandContext, CommandSyntaxException, LiteralArgumentBuilder,
     SimpleCommandExceptionType,
@@ -149,7 +149,6 @@ fn calling_player(source: &CommandSourceStack) -> Vec<EntityRef> {
     })
 }
 
-#[allow(clippy::too_many_arguments)]
 fn play_sound(
     source: &CommandSourceStack,
     players: Vec<EntityRef>,

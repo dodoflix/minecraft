@@ -247,7 +247,7 @@ impl StructurePoolElement for SinglePoolElement {
 
 /// `SinglePoolElement.sortBySelectionPriority(blocks)`: highest selection priority first (stable).
 pub fn sort_by_selection_priority(blocks: &mut [JigsawBlockInfo]) {
-    blocks.sort_by(|a, b| b.selection_priority.cmp(&a.selection_priority));
+    blocks.sort_by_key(|b| std::cmp::Reverse(b.selection_priority));
 }
 
 fn decode_single(

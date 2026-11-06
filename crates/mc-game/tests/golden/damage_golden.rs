@@ -372,7 +372,7 @@ impl Replay {
             "level" => {}
             "difficulty" => self.set_difficulty(&t[1]),
             "cmd" => {
-                let c = tokens(&line[3..].trim());
+                let c = tokens(line[3..].trim());
                 assert!(
                     c.len() == 2 && c[0] == "difficulty",
                     "unsupported cmd `{line}`"
@@ -697,8 +697,7 @@ impl Replay {
             0.0,
             mc_game::server::players::teleport_transition::PostTeleportTransition::DO_NOTHING,
         );
-        let mut new =
-            create_respawned_player(old, &mut self.level, &transition, false, keep_inventory);
+        let new = create_respawned_player(old, &mut self.level, &transition, false, keep_inventory);
         new.send(
             &mc_protocol::packets::play::ClientboundSetExperiencePacket {
                 experience_progress: new.player.experience_progress,

@@ -1,6 +1,5 @@
 //! `net.minecraft.world.level.block.TrapDoorBlock` (extends `HorizontalDirectionalBlock`, `SimpleWaterloggedBlock`).
 use mc_core::phys::{BlockHitResult, Vec3};
-use mc_core::random::RandomSource;
 use mc_data::GameEvent;
 use mc_data::block::PathComputationType;
 use mc_data::enums::Half;

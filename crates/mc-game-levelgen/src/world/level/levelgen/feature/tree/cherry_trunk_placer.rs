@@ -54,7 +54,6 @@ fn parse_branch_start(value: &Value) -> LoadResult<(i32, i32)> {
 }
 
 impl CherryTrunkPlacer {
-    #[allow(clippy::too_many_arguments)]
     fn generate_branch(
         &self,
         level: &mut dyn WorldGenLevel,

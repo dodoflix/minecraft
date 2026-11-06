@@ -4,10 +4,8 @@ use mc_core::math::mth;
 use mc_core::phys::AABB;
 use mc_core::pos::BlockPos;
 use mc_core::random::{LegacyRandomSource, RandomSource, SingleThreadedRandomSource};
-use mc_data::block::{Block, BlockState};
+use mc_data::block::Block;
 use mc_data::props;
-use mc_game_core::world::level::BlockGetter;
-use mc_game_core::world::level::block::BlockStateExt;
 use mc_game_core::world::level::levelgen::GenEnv;
 use mc_game_core::world::level::levelgen::WorldGenLevel;
 use mc_game_core::world::level::levelgen::codec::{

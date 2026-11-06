@@ -211,41 +211,41 @@ impl StructurePiece for JungleTemplePiece {
         sel!(4, 9, 10, 4, 9, 10);
         sel!(7, 9, 10, 7, 9, 10);
         sel!(5, 9, 7, 6, 9, 7);
-        let eastStairs = Block::COBBLESTONE_STAIRS
+        let east_stairs = Block::COBBLESTONE_STAIRS
             .default_state()
             .set(props::HORIZONTAL_FACING, Direction::East);
-        let westStairs = Block::COBBLESTONE_STAIRS
+        let west_stairs = Block::COBBLESTONE_STAIRS
             .default_state()
             .set(props::HORIZONTAL_FACING, Direction::West);
-        let southStairs = Block::COBBLESTONE_STAIRS
+        let south_stairs = Block::COBBLESTONE_STAIRS
             .default_state()
             .set(props::HORIZONTAL_FACING, Direction::South);
-        let northStairs = Block::COBBLESTONE_STAIRS
+        let north_stairs = Block::COBBLESTONE_STAIRS
             .default_state()
             .set(props::HORIZONTAL_FACING, Direction::North);
-        put!(northStairs, 5, 9, 6);
-        put!(northStairs, 6, 9, 6);
-        put!(southStairs, 5, 9, 8);
-        put!(southStairs, 6, 9, 8);
-        put!(northStairs, 4, 0, 0);
-        put!(northStairs, 5, 0, 0);
-        put!(northStairs, 6, 0, 0);
-        put!(northStairs, 7, 0, 0);
-        put!(northStairs, 4, 1, 8);
-        put!(northStairs, 4, 2, 9);
-        put!(northStairs, 4, 3, 10);
-        put!(northStairs, 7, 1, 8);
-        put!(northStairs, 7, 2, 9);
-        put!(northStairs, 7, 3, 10);
+        put!(north_stairs, 5, 9, 6);
+        put!(north_stairs, 6, 9, 6);
+        put!(south_stairs, 5, 9, 8);
+        put!(south_stairs, 6, 9, 8);
+        put!(north_stairs, 4, 0, 0);
+        put!(north_stairs, 5, 0, 0);
+        put!(north_stairs, 6, 0, 0);
+        put!(north_stairs, 7, 0, 0);
+        put!(north_stairs, 4, 1, 8);
+        put!(north_stairs, 4, 2, 9);
+        put!(north_stairs, 4, 3, 10);
+        put!(north_stairs, 7, 1, 8);
+        put!(north_stairs, 7, 2, 9);
+        put!(north_stairs, 7, 3, 10);
         sel!(4, 1, 9, 4, 1, 9);
         sel!(7, 1, 9, 7, 1, 9);
         sel!(4, 1, 10, 7, 2, 10);
         sel!(5, 4, 5, 6, 4, 5);
-        put!(eastStairs, 4, 4, 5);
-        put!(westStairs, 7, 4, 5);
+        put!(east_stairs, 4, 4, 5);
+        put!(west_stairs, 7, 4, 5);
         for i in 0..4 {
-            put!(southStairs, 5, 0 - i, 6 + i);
-            put!(southStairs, 6, 0 - i, 6 + i);
+            put!(south_stairs, 5, 0 - i, 6 + i);
+            put!(south_stairs, 6, 0 - i, 6 + i);
             air_box!(5, 0 - i, 7 + i, 6, 0 - i, 9 + i);
         }
         air_box!(1, -3, 12, 10, -1, 13);
@@ -299,16 +299,16 @@ impl StructurePiece for JungleTemplePiece {
             -3,
             8
         );
-        let redstoneWireNS = Block::REDSTONE_WIRE
+        let redstone_wire_ns = Block::REDSTONE_WIRE
             .default_state()
             .set(props::NORTH_REDSTONE, RedstoneSide::Side)
             .set(props::SOUTH_REDSTONE, RedstoneSide::Side);
-        put!(redstoneWireNS, 5, -3, 7);
-        put!(redstoneWireNS, 5, -3, 6);
-        put!(redstoneWireNS, 5, -3, 5);
-        put!(redstoneWireNS, 5, -3, 4);
-        put!(redstoneWireNS, 5, -3, 3);
-        put!(redstoneWireNS, 5, -3, 2);
+        put!(redstone_wire_ns, 5, -3, 7);
+        put!(redstone_wire_ns, 5, -3, 6);
+        put!(redstone_wire_ns, 5, -3, 5);
+        put!(redstone_wire_ns, 5, -3, 4);
+        put!(redstone_wire_ns, 5, -3, 3);
+        put!(redstone_wire_ns, 5, -3, 2);
         put!(
             Block::REDSTONE_WIRE
                 .default_state()
@@ -422,7 +422,7 @@ impl StructurePiece for JungleTemplePiece {
             5
         );
         put!(Block::MOSSY_COBBLESTONE.default_state(), 9, -3, 4);
-        put!(redstoneWireNS, 9, -2, 4);
+        put!(redstone_wire_ns, 9, -2, 4);
         if !self.placed_trap_2 {
             self.placed_trap_2 = self.create_dispenser(
                 level,
@@ -472,8 +472,8 @@ impl StructurePiece for JungleTemplePiece {
         sel!(8, -3, 8, 8, -3, 10);
         sel!(10, -3, 8, 10, -3, 10);
         put!(Block::MOSSY_COBBLESTONE.default_state(), 10, -2, 9);
-        put!(redstoneWireNS, 8, -2, 9);
-        put!(redstoneWireNS, 8, -2, 10);
+        put!(redstone_wire_ns, 8, -2, 9);
+        put!(redstone_wire_ns, 8, -2, 10);
         put!(
             Block::REDSTONE_WIRE
                 .default_state()
