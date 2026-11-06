@@ -252,34 +252,15 @@ public class FeatureOracleBase {
             }
             return super.getRandom();
         }
+    }
 
-        /** WorldGenRegion.setBlock without the POI hook (the level is null) and with the chunk-type branch of proto chunks. */
-        @Override
-        public boolean setBlock(final BlockPos pos, final BlockState blockState, final int updateFlags, final int updateLimit) {
-            if (!this.ensureCanWrite(pos)) {
-                return false;
-            } else {
-                ChunkAccess chunk = this.getChunk(pos);
-                BlockState oldState = chunk.setBlockState(pos, blockState, updateFlags);
-                if (blockState.hasBlockEntity()) {
-                    CompoundTag tag = new CompoundTag();
-                    tag.putInt("x", pos.getX());
-                    tag.putInt("y", pos.getY());
-                    tag.putInt("z", pos.getZ());
-                    tag.putString("id", "DUMMY");
-                    chunk.setBlockEntityNbt(tag);
-                } else if (oldState != null && oldState.hasBlockEntity()) {
-                    chunk.removeBlockEntity(pos);
-                }
-                if ((updateFlags & 16) == 0) {
-                    BlockPos postProcessPos = blockState.getPostProcessPos(this, pos);
-                    if (postProcessPos != null) {
-                        this.getChunk(postProcessPos).markPosForPostProcessing(postProcessPos);
-                    }
-                }
-                return true;
-            }
-        }
+    /**
+     * The {@code level} of every {@link Region}, so that {@code WorldGenRegion.setBlock} runs as vanilla wrote it: the POI hook it
+     * calls is a no-op here (there is no POI manager or server thread). Never constructed; allocated with Unsafe.
+     */
+    static class RegionLevel extends net.minecraft.server.level.ServerLevel {
+        RegionLevel() { super(null, null, null, null, null, null, false, 0L, null, false); }
+        @Override public void updatePOIOnBlockStateChange(BlockPos pos, BlockState oldState, BlockState newState) {}
     }
 
     static net.minecraft.server.level.ServerLevel STUB_LEVEL;
@@ -294,7 +275,7 @@ public class FeatureOracleBase {
             Field uf = sun.misc.Unsafe.class.getDeclaredField("theUnsafe");
             uf.setAccessible(true);
             sun.misc.Unsafe unsafe = (sun.misc.Unsafe) uf.get(null);
-            var level = (net.minecraft.server.level.ServerLevel) unsafe.allocateInstance(net.minecraft.server.level.ServerLevel.class);
+            var level = (net.minecraft.server.level.ServerLevel) unsafe.allocateInstance(RegionLevel.class);
             Object chunkMap = unsafe.allocateInstance(net.minecraft.server.level.ChunkMap.class);
             Field entityMap = net.minecraft.server.level.ChunkMap.class.getDeclaredField("entityMap");
             entityMap.setAccessible(true);
@@ -382,6 +363,7 @@ public class FeatureOracleBase {
         setField(region, "centerChunkX", cx);
         setField(region, "centerChunkZ", cz);
         setField(region, "writeRadius", step.blockStateWriteRadius());
+        setField(region, "level", stubLevel());
         return region;
     }
 

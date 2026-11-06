@@ -50,9 +50,9 @@ public class UndergroundOracle {
     record Case(String id, String kind, JsonObject json) {}
 
     // ---- the region with a fake ServerLevel (entity creation) ----
-    public static class FakeLevel extends ServerLevel {
+    public static class FakeLevel extends FeatureOracleBase.RegionLevel {
         FakeLevel() {
-            super(null, null, null, null, null, null, false, 0L, null, false);
+            super();
         }
 
         @Override public int getNextEntityId() { return 0; }
@@ -95,6 +95,7 @@ public class UndergroundOracle {
         sun.misc.Unsafe unsafe = unsafe();
         UgRegion region = (UgRegion) unsafe.allocateInstance(UgRegion.class);
         region.fake = (FakeLevel) unsafe.allocateInstance(FakeLevel.class);
+        FeatureOracleBase.setField(region, "level", region.fake);
         region.seed = seed;
         region.chunks = new HashMap<>();
         int chunkRadius = 1;

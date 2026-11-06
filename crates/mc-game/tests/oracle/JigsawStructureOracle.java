@@ -36,7 +36,7 @@ import net.minecraft.world.level.storage.LevelStorageSource;
  * Oracle of crates/mc-game/tests/golden/jigsaw_structures_golden.rs: every vanilla {@code minecraft:jigsaw} structure (villages, pillager
  * outpost, bastion remnant, ancient city, trail ruins, trial chambers with its pool aliases, abandoned camps) generated with the
  * real {@code Structure.generate} for several seeds/chunks, then {@code placeInChunk} over the synthetic terrain.
- * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/jigsaw_structures.txt.gz crates/mc-game/tests/oracle/JigsawStructureOracle.java crates/mc-game/tests/fixtures/jigsaw_structures.txt.gz [startsPerStructure=6] [idFilter,...]
+ * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/jigsaw_structures.txt.gz crates/mc-game/tests/oracle/JigsawStructureOracle.java crates/mc-game/tests/fixtures/jigsaw_structures.txt.gz 8 [idFilter,...]   (8 = starts per structure, as committed; default 6)
  * (FeatureOracleBase.java next to this file; the wrapper gzips, the program writes plain text)
  * Output: crates/mc-game/tests/fixtures/jigsaw_structures.txt.gz
  *
@@ -129,7 +129,7 @@ public class JigsawStructureOracle {
         Object settings = unsafe.allocateInstance(net.minecraft.world.level.levelgen.WorldGenSettings.class);
         set(settings, "options", new net.minecraft.world.level.levelgen.WorldOptions(seed, false, false));
         set(server, "worldGenSettings", settings);
-        net.minecraft.server.level.ServerLevel level = (net.minecraft.server.level.ServerLevel) unsafe.allocateInstance(net.minecraft.server.level.ServerLevel.class);
+        net.minecraft.server.level.ServerLevel level = (net.minecraft.server.level.ServerLevel) unsafe.allocateInstance(FeatureOracleBase.RegionLevel.class);
         set(level, "server", server);
         return level;
     }
@@ -249,7 +249,8 @@ public class JigsawStructureOracle {
                     ChunkPos chunkPos = new ChunkPos(px, pz);
                     out.println("BEARD " + px + " " + pz + " " + beard(start, chunkPos));
                     FeatureOracleBase.Region region = FeatureOracleBase.newRegion(seed, px, pz, ChunkStatus.FEATURES, 1);
-                    set(region, "level", levelWithSeed(seed));
+                    region.serverLevel = levelWithSeed(seed);
+                    set(region, "level", region.serverLevel);
                     FeatureOracleBase.Snapshot before = FeatureOracleBase.snapshot(region);
                     WorldgenRandom random = new WorldgenRandom(new LegacyRandomSource(0L));
                     long decorationSeed = random.setDecorationSeed(seed, chunkPos.getMinBlockX(), chunkPos.getMinBlockZ());

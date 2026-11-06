@@ -73,8 +73,8 @@ public class StructureGoldenBase {
      * What {@code WorldGenRegion.getLevel()} returns for pieces that create entities ({@code EntityType.create(level, ..)}): a
      * ServerLevel allocated without running its constructor, with just the registry access and feature flags the entities read.
      */
-    static class StubLevel extends net.minecraft.server.level.ServerLevel {
-        StubLevel() { super(null, null, null, null, null, null, false, 0L, null, false); }
+    static class StubLevel extends FeatureOracleBase.RegionLevel {
+        StubLevel() { super(); }
         @Override public net.minecraft.world.flag.FeatureFlagSet enabledFeatures() { return net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS; }
         @Override public int getNextEntityId() { return 0; }
         @Override public net.minecraft.core.RegistryAccess registryAccess() { return FeatureOracleBase.ACCESS; }

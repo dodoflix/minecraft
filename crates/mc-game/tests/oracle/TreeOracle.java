@@ -116,13 +116,14 @@ public class TreeOracle {
         java.lang.reflect.Field uf = sun.misc.Unsafe.class.getDeclaredField("theUnsafe");
         uf.setAccessible(true);
         sun.misc.Unsafe unsafe = (sun.misc.Unsafe) uf.get(null);
-        var level = alloc(unsafe, net.minecraft.server.level.ServerLevel.class);
+        var level = alloc(unsafe, FeatureOracleBase.RegionLevel.class);
         var cache = alloc(unsafe, net.minecraft.server.level.ServerChunkCache.class);
         var map = alloc(unsafe, net.minecraft.server.level.ChunkMap.class);
         var context = new net.minecraft.world.level.chunk.status.WorldGenContext(null, FeatureOracleBase.generator(), null, null, null, null);
         set(net.minecraft.server.level.ChunkMap.class, map, "worldGenContext", context);
         set(net.minecraft.server.level.ServerChunkCache.class, cache, "chunkMap", map);
         set(net.minecraft.server.level.ServerLevel.class, level, "chunkSource", cache);
+        region.serverLevel = (net.minecraft.server.level.ServerLevel) level;
         set(net.minecraft.server.level.WorldGenRegion.class, region, "level", level);
     }
 
