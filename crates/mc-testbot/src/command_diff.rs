@@ -1,5 +1,10 @@
 //! `mc-command-diff`: runs a command corpus on the real vanilla server and on OUR server and diffs the normalized
 //! output. Driven by `scripts/command-diff.sh` (see its header for the corpus format and the normalization list).
+#![expect(
+    clippy::print_stdout,
+    clippy::print_stderr,
+    reason = "command-line tool: its output is the product"
+)]
 use std::path::{Path, PathBuf};
 use std::time::{Duration, Instant};
 
@@ -443,7 +448,7 @@ impl Side {
             .filter(|l| self.keep_line(l))
             .map(|l| format!("log| {l}"))
             .collect();
-        for i in 0..2 {
+        for (i, bot_name) in BOTS.iter().enumerate() {
             let Some(bot) = &self.bots[i] else { continue };
             // the marker is a broadcast chat line: once the bot has it, everything before it arrived
             let _ = bot
@@ -471,7 +476,7 @@ impl Side {
                         .unwrap_or_default();
                     let overlay = if l.overlay { " overlay" } else { "" };
                     chat.push((
-                        format!("{}| [{}{overlay}] {who}{}", BOTS[i], l.kind, l.text),
+                        format!("{bot_name}| [{}{overlay}] {who}{}", l.kind, l.text),
                         l.json.clone(),
                     ));
                 }
@@ -482,7 +487,7 @@ impl Side {
                 if self.keep_line(&t) {
                     lines.push(t);
                     if !json.is_empty() {
-                        lines.push(format!("{}|   json {}", BOTS[i], self.norm.line(&json)));
+                        lines.push(format!("{bot_name}|   json {}", self.norm.line(&json)));
                     }
                 }
             }
@@ -496,7 +501,7 @@ impl Side {
                             .iter()
                             .skip(m.pkt[i])
                             .filter(|e| e.dir == Dir::In && re.is_match(&e.name))
-                            .map(|e| format!("{}| packet {} {}", BOTS[i], e.name, e.debug))
+                            .map(|e| format!("{bot_name}| packet {} {}", e.name, e.debug))
                             .collect()
                     })
                     .unwrap_or_default();
@@ -509,8 +514,7 @@ impl Side {
             }
             if let Some(r) = bot.disconnect_reason() {
                 lines.push(format!(
-                    "{}| (disconnected: {})",
-                    BOTS[i],
+                    "{bot_name}| (disconnected: {})",
                     self.norm.line(&r)
                 ));
                 self.bots[i] = None;
@@ -693,7 +697,7 @@ async fn run_side(ours: bool, o: &Opts, tag: &str, lines: &[Line]) -> Res<SideOu
     side.sync().await?;
     let mut trees = vec![];
     for b in &side.bots {
-        trees.push(b.as_ref().and_then(|b| first_commands_packet(b)));
+        trees.push(b.as_ref().and_then(first_commands_packet));
     }
     let mut segs = Vec::new();
     let mut result = Ok(());

@@ -99,7 +99,6 @@ impl PacketLog {
         }
     }
 
-    #[allow(clippy::too_many_arguments)]
     pub fn record(
         &mut self,
         dir: Dir,

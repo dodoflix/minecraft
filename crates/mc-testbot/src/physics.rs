@@ -1,7 +1,6 @@
 //! Port of the client player physics needed to stand, walk, jump, fall, fly (creative) and swim on
 //! loaded terrain: `Entity.move/collide`, `LivingEntity.aiStep/travel`, `Player.travel`, the
 //! `LocalPlayer` movement packet logic. Collisions use mc-core `VoxelShape`s built from mc-data.
-#![allow(clippy::neg_cmp_op_on_partial_ord)] // vanilla's `!(a < b)` differs from `a >= b` for NaN
 
 use std::sync::{LazyLock, OnceLock};
 

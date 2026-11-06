@@ -7,6 +7,11 @@
 //! mc-testbot diff A.jsonl B.jsonl [--ignore NAME]... [--state play] [--dir in|out] [--all-fields] [--field NAME=FIELD,FIELD]...
 //! mc-testbot text FILE.jsonl
 //! ```
+#![expect(
+    clippy::print_stdout,
+    clippy::print_stderr,
+    reason = "command-line tool: its output is the product"
+)]
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
