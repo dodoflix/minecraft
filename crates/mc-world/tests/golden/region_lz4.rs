@@ -78,3 +78,14 @@ fn rejects_corrupt_frames() {
     bad[21 + 4] = 0xFF;
     assert!(decode(bad).is_err());
 }
+
+#[test]
+fn rejects_a_compressed_length_beyond_the_compressor_bound() {
+    let mut frame = b"LZ4Block".to_vec();
+    frame.push(0x20 | 0x0F); // LZ4 block, level 15
+    frame.extend_from_slice(&i32::MAX.to_le_bytes()); // compressed length
+    frame.extend_from_slice(&16i32.to_le_bytes()); // decompressed length
+    frame.extend_from_slice(&0i32.to_le_bytes()); // checksum
+    let err = decode(frame).unwrap_err();
+    assert_eq!(err.kind(), std::io::ErrorKind::InvalidData);
+}

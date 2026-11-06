@@ -243,6 +243,9 @@ impl Lz4BlockReader {
             || (original_len == 0 && compressed_len != 0)
             || (original_len != 0 && compressed_len == 0)
             || (method == COMPRESSION_METHOD_RAW && original_len != compressed_len)
+            // `LZ4Compressor.maxCompressedLength`: a larger header cannot come from a compressor and would
+            // otherwise size the allocation below.
+            || compressed_len as i64 > original_len as i64 + original_len as i64 / 255 + 16
         {
             return Err(corrupted());
         }
