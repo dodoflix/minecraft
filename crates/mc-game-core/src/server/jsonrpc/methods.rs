@@ -820,7 +820,7 @@ struct Method {
 
 /// The method names and parameter names exactly as `rpc.discover` reports them.
 static SCHEMA: LazyLock<JsonElement> = LazyLock::new(|| {
-    gson::parse(include_str!("json-rpc-api-schema.json"), false)
+    gson::parse(include_str!(env!("JSON_RPC_API_SCHEMA")), false)
         .expect("embedded schema parses")
         .expect("embedded schema is not empty")
 });

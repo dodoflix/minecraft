@@ -275,12 +275,9 @@ const NOTIFICATIONS: &[&str] = &[
 
 #[test]
 fn every_schema_method_is_implemented() {
-    let schema = gson::parse(
-        include_str!("../../../mc-game-core/src/server/jsonrpc/json-rpc-api-schema.json"),
-        false,
-    )
-    .unwrap()
-    .unwrap();
+    let schema = gson::parse(include_str!(env!("JSON_RPC_API_SCHEMA")), false)
+        .unwrap()
+        .unwrap();
     let methods = schema.as_object().unwrap().get("methods").unwrap();
     let JsonElement::Array(methods) = methods else {
         panic!()

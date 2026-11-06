@@ -28,10 +28,6 @@ data derived from it: the registries, block and item data and data pack
 (crates/mc-text). None of that data is committed; it is Mojang's, not relicensed
 here.
 
-One data file is committed: crates/mc-game-core/src/server/jsonrpc/json-rpc-api-schema.json,
-the schema of the management protocol as written by the vanilla data generator
-(its --reports output). It is Mojang's, not relicensed here.
-
 (c) Ports of Mojang's MIT-licensed libraries
 
 crates/mc-brigadier is a port of Brigadier (https://github.com/Mojang/brigadier).
